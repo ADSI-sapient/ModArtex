@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2016 a las 17:06:11
+-- Tiempo de generación: 14-07-2016 a las 03:30:35
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -20,6 +20,15 @@ SET time_zone = "+00:00";
 -- Base de datos: `modartex`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
+SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY id DESC$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -27,7 +36,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_colores` (
-  `Id_Color` int(11) NOT NULL,
+  `Id_Color` int(10) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
   `Codigo_Color` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,8 +48,8 @@ CREATE TABLE `tbl_colores` (
 --
 
 CREATE TABLE `tbl_colores_insumos` (
-  `Id_Existencias` int(11) NOT NULL,
-  `Id_Color` int(11) NOT NULL,
+  `Id_Detalle` int(11) NOT NULL,
+  `Id_Color` int(10) NOT NULL,
   `Id_Insumo` int(11) NOT NULL,
   `Cantidad_Insumo` int(11) DEFAULT NULL,
   `Valor_Promedio` double DEFAULT NULL,
@@ -141,8 +150,24 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 
 CREATE TABLE `tbl_modulos` (
   `id_Modulo` int(11) NOT NULL,
-  `Nombre` varchar(30) NOT NULL
+  `Nombre` varchar(45) NOT NULL,
+  `Icon` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_modulos`
+--
+
+INSERT INTO `tbl_modulos` (`id_Modulo`, `Nombre`, `Icon`) VALUES
+(1, 'Usuario', 'fa fa-user'),
+(2, 'Bodega', 'fa fa-truck'),
+(3, 'Ficha Técnica', 'fa fa-puzzle-piece'),
+(4, 'Cliente', 'fa fa-users'),
+(5, 'Cotización', 'fa fa-calculator'),
+(6, 'Pedido', 'fa fa-calendar'),
+(7, 'Producción', 'fa fa-calendar'),
+(8, 'Producto Terminado', 'fa fa-dropbox'),
+(9, 'Configuración', 'fa fa-cogs');
 
 -- --------------------------------------------------------
 
@@ -182,9 +207,32 @@ CREATE TABLE `tbl_permisos` (
   `Id_Permiso` int(11) NOT NULL,
   `id_Modulo` int(11) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
-  `Url` varchar(45) NOT NULL,
-  `Estado` varchar(45) NOT NULL
+  `Url` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_permisos`
+--
+
+INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
+(1, 1, 'Registrar Usuario', 'ctrUsuario/regUsuario'),
+(2, 1, 'Listar Usuarios', 'ctrUsuario/consUsuario'),
+(3, 2, 'Registrar Insumo', 'ctrBodega/registrarInsumo'),
+(4, 2, 'Listar insumos', 'ctrBodega/listarInsumos'),
+(5, 2, 'Existencias Insumos', 'ctrBodega/listExistencias'),
+(6, 3, 'Registrar Ficha', 'ctrUsuario/consUsuario'),
+(7, 3, 'Listar Fichas', ''),
+(8, 4, 'Registrar Cliente', ''),
+(9, 4, 'Listar Clientes', ''),
+(10, 5, 'Registrar Cotización', ''),
+(11, 5, 'Listar Cotizaciones', ''),
+(12, 6, 'Registrar Pedido', ''),
+(13, 6, 'Listar Pedidos', ''),
+(14, 7, 'Registrar Orden', ''),
+(15, 7, 'Listar Órdenes', ''),
+(16, 8, 'Existencias Producto T', ''),
+(17, 9, 'Medidas', 'ctrConfiguracion/listarMedidas'),
+(18, 9, 'Colores', 'ctrConfiguracion/listarColores');
 
 -- --------------------------------------------------------
 
@@ -240,6 +288,15 @@ CREATE TABLE `tbl_roles` (
   `Nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_roles`
+--
+
+INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`) VALUES
+(1, 'Administrador'),
+(2, 'Supervisor'),
+(3, 'Empleado');
+
 -- --------------------------------------------------------
 
 --
@@ -251,6 +308,33 @@ CREATE TABLE `tbl_rol_permisos` (
   `Id_Rol` int(11) NOT NULL,
   `Id_Permiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_rol_permisos`
+--
+
+INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12),
+(13, 1, 13),
+(14, 1, 14),
+(15, 1, 15),
+(16, 1, 16),
+(17, 1, 17),
+(18, 1, 18),
+(19, 2, 3),
+(20, 2, 4),
+(21, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -407,7 +491,7 @@ ALTER TABLE `tbl_colores`
 -- Indices de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  ADD PRIMARY KEY (`Id_Existencias`),
+  ADD PRIMARY KEY (`Id_Detalle`),
   ADD KEY `Id_Color_idx` (`Id_Color`),
   ADD KEY `Id_Insumo_idx` (`Id_Insumo`);
 
@@ -603,6 +687,16 @@ ALTER TABLE `tbl_usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `tbl_colores`
+--
+ALTER TABLE `tbl_colores`
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
+--
+ALTER TABLE `tbl_colores_insumos`
+  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
@@ -616,7 +710,7 @@ ALTER TABLE `tbl_insumos_fichastecnicas`
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
-  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
@@ -631,7 +725,7 @@ ALTER TABLE `tbl_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
@@ -641,12 +735,12 @@ ALTER TABLE `tbl_productos`
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas_productos`
 --
@@ -695,21 +789,19 @@ ALTER TABLE `tbl_usuarios`
 -- Filtros para la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  ADD CONSTRAINT `Id_Color` FOREIGN KEY (`Id_Color`) REFERENCES `tbl_colores` (`Id_Color`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Id_Color` FOREIGN KEY (`Id_Color`) REFERENCES `tbl_colores` (`Id_Color`),
   ADD CONSTRAINT `Id_Insumo` FOREIGN KEY (`Id_Insumo`) REFERENCES `tbl_insumos` (`Id_Insumo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
-  ADD CONSTRAINT `fk_Tbl_Entradas_Exitencias_Tbl_Colores_Insumos1` FOREIGN KEY (`Id_Existencias`) REFERENCES `tbl_colores_insumos` (`Id_Existencias`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Tbl_Entradas_has_Tbl_Exitencias_Tbl_Entradas1` FOREIGN KEY (`Id_Entrada`) REFERENCES `tbl_entradas` (`Id_Entrada`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tbl_existencias_salidas`
 --
 ALTER TABLE `tbl_existencias_salidas`
-  ADD CONSTRAINT `fk_Tbl_Existencias_Salidas_Tbl_Colores_Insumos1` FOREIGN KEY (`Id_Existencias`) REFERENCES `tbl_colores_insumos` (`Id_Existencias`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Tbl_ProductoT_Salida_Tbl_Salidas1` FOREIGN KEY (`Id_Salida`) REFERENCES `tbl_salidas` (`Id_Salida`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
