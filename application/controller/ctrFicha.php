@@ -1,5 +1,4 @@
 <?php 
-
 	class Ficha extends Controller
 	{
 		private $mdlModel = null;
@@ -19,7 +18,6 @@
 	    	require APP . 'view/_templates/header.php';
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
-
 	    }
 
 	    public function consAsoInsumos(){

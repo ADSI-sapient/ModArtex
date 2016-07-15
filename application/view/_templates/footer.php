@@ -30,6 +30,7 @@
     <script src="<?= URL;?>js/moment.min.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL; ?>js/sweetalert.js"></script>
+    <script src="<?= URL; ?>js/ficha-pedido.js"></script>
 
     <script type="text/javascript">
       var ur = "<?= URL; ?>";
