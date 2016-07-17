@@ -20,12 +20,12 @@
       var options = {
         valueNames: ['ref', 'color', 'stock', 'fecha_reg', 'estado']
       };
-      var userList = new List('users', options);
+      // var userList = new List('users', options);
     
    
-      <?= $msjFichaExiste ?>
+      // <?= $msjFichaExiste ?>
 
-      <?= $mensaje ?>
+      // <?= $mensaje ?>
     
       function editarFicha(referencia, fichas){
         var campos = $(fichas).parent().parent();
@@ -38,8 +38,7 @@
         $("#vlr_producto").val(campos.find("td").eq(6).text());
         $("#idModal").show();
       }
-      <?= $mensaje2 ?>
-    
+
       function storage(valor){
 
         if (sessionStorage.getItem("ValorT") == undefined) {
@@ -82,9 +81,9 @@
       }
     
 
-      function asociarIn(id_insumo, nombre, insumos, idbton, valor, cantidad){
+      function asociarIn(id_insumo, nombre, insumos, idbton, estado){
         var campos = $(insumos).parent().parent();
-        valorcm = (valor / cantidad) / 100;
+        // valorcm = (valor / cantidad) / 100;
         $("#agregarInsumo").removeAttr("hidden");
 
         var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id_insumo+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id_insumo+"' name='cantNecesaria[]' value='0' onchange='res"+id_insumo+".value=cantNec"+id_insumo+".value * "+valorcm+"; subt"+id_insumo+".value=parseFloat(res"+id_insumo+".value);' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id_insumo+"'value='0'>$<input readonly='' type='text' id='capValor"+id_insumo+"' name='res"+id_insumo+"' for='cantNec"+id_insumo+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+id_insumo+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
@@ -190,9 +189,9 @@
         });
       }
     
-      <?= $msgprueba ?>
+      // <?= $msgprueba ?>
     
-    <!-- todo lo de pedido -->
+    // todo lo de pedido
 
       function asociarFicha(ref, color, vlrprodto, fichas, idbton){
 
@@ -224,7 +223,7 @@
         $("#vlr_total").val(total);
       }
     
-      <?= $msgRegPedido ?>
+      // <?= $msgRegPedido ?>
     
 
     <!-- Asociar cliente -->
@@ -253,7 +252,7 @@
         $("#nombrecliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
-      <?= $msgModPedido ?>
+      // <?= $msgModPedido ?>
 
     
       function cancelar(){
@@ -299,7 +298,7 @@
         $("#modalEditarEstado").show();
       }
       
-      <?= $msgModEstadoPedido ?>
+      // <?= $msgModEstadoPedido ?>
     
       $(document).ready(function(){
         $('#tablaPedidos').DataTable( {
@@ -313,7 +312,7 @@
       var options = {
         valueNames: ['freg', 'ftga', 'vtal', 'nomclte']
       };
-      var userList = new List('pedidos', options);
+      // var userList = new List('pedidos', options);
     
       function cerrar(){
         swal({title: "¿Está seguro de cancelar?", 
@@ -335,7 +334,7 @@
         $.ajax({
             dataType: 'json',
             type: 'post',
-            url: uri+"ficha/cargarInsumosAsociados",
+            // url: uri+"ctrFicha/cargarInsumosAsociados",
             data: {referencia:ref}
         }).done(function(respuesta){
             if (respuesta.r != null) {
@@ -378,7 +377,7 @@
         $.ajax({
             dataType: 'json',
             type: 'post',
-            url: uri+"ficha/cargarTallasAsociadas",
+            url: uri+"ctrFicha/cargarTallasAsociadas",
             data: {referencia:ref}
         }).done(function(respuesta){
             if (respuesta.r != null) {
@@ -441,3 +440,24 @@
           boton = "#btn"+id;
           $(boton).attr('disabled', 'disabled');
       }
+
+      function cambiarEstadoFicha(ref, est){
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrFicha/cambiarEstado",
+            data: {referencia:ref, estado:est}
+        }).done(function(respuesta){
+            if (respuesta.v == "1") {
+                // swal('Ficha modificada exitosamente!', '', 'success');
+                // Lobibox.notify('info', {msg: 'El estado ha sido modificado', rounded: true, delay: false});
+                alert("Estado modificado");
+                location.href = uri+"ctrFicha/consFicha";
+            }else{
+                // Lobibox.notify('error', {msg: 'Error al cambiar el estado', rounded: true, delay: false});
+                alert("Error al modificar el estado");
+            }
+        }).fail(function() {
+
+        })
+    }

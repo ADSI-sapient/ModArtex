@@ -13,7 +13,7 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
-        <form action="<?php echo URL; ?>ficha/regFicha" method="POST" onsubmit="return enviarFormFicha();">
+        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
@@ -124,9 +124,8 @@
                     <tr class="active">
                       <th>Id</th>
                       <th>Unidad Medida</th>
+                      <th>Estado</th>
                       <th>Nombre</th>
-                      <th>Cantidad</th>
-                      <th>Valor Total</th>
                       <th>Agregar</th>
                     </tr>
                   </thead>
@@ -135,12 +134,11 @@
                     <?php foreach ($insumos as $insumo): ?>
                       <tr>
                         <td><?= $insumo["Id_Insumo"] ?></td>
-                        <td><?= $insumo["Id_Medida"]==1?"mt":"cm" ?></td>
+                        <td><?= $insumo["Id_Medida"]==1?"m":"cm" ?></td>
+                        <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
-                        <td><?= $insumo["Cantidad"] ?></td>
-                        <td><?= $insumo["Valor"] ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Valor"] ?>', '<?= $insumo["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2016 a las 03:30:35
+-- Tiempo de generación: 17-07-2016 a las 21:54:55
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -17,15 +17,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `modartex`
+-- Base de datos: `modartex1`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CambiarEstadoFicha` (IN `_referencia` INT, IN `_estado` INT)  NO SQL
+UPDATE tbl_fichas_tecnicas SET Estado = _estado WHERE Referencia = _referencia$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_referencia` INT)  NO SQL
+SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Referencia = _referencia$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteTallasAso` (IN `_referencia` INT)  NO SQL
+DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY id DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
+SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
+INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaFicha` ()  NO SQL
+SELECT MAX(Referencia) AS referencia FROM tbl_fichas_tecnicas$$
 
 DELIMITER ;
 
@@ -106,14 +124,25 @@ CREATE TABLE `tbl_existencias_salidas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tbl_fichastecnicas_tallas`
+--
+
+CREATE TABLE `tbl_fichastecnicas_tallas` (
+  `Referencia` int(11) NOT NULL,
+  `Id_Talla` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tbl_fichas_tecnicas`
 --
 
 CREATE TABLE `tbl_fichas_tecnicas` (
   `Referencia` int(11) NOT NULL,
+  `Fecha_Registro` date NOT NULL,
   `Color` varchar(45) NOT NULL,
   `Estado` varchar(45) NOT NULL,
-  `Talla` varchar(4) NOT NULL,
   `Valor_Produccion` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -130,6 +159,14 @@ CREATE TABLE `tbl_insumos` (
   `Nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_insumos`
+--
+
+INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
+(1, 2, 1, 'Tela'),
+(2, 1, 1, 'Blonda');
+
 -- --------------------------------------------------------
 
 --
@@ -139,7 +176,9 @@ CREATE TABLE `tbl_insumos` (
 CREATE TABLE `tbl_insumos_fichastecnicas` (
   `id_Insumos_Fichas` int(11) NOT NULL,
   `Id_Insumo` int(11) NOT NULL,
-  `Id_FichaTecnica` int(11) NOT NULL
+  `Id_FichaTecnica` int(11) NOT NULL,
+  `Cant_Necesaria` int(11) NOT NULL,
+  `Valor_Insumo` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -260,7 +299,7 @@ CREATE TABLE `tbl_persona` (
 CREATE TABLE `tbl_productos` (
   `Referencia` int(11) NOT NULL,
   `Cantidad` int(11) NOT NULL,
-  `StockMinimo` int(11) NOT NULL,
+  `Stock_Minimo` int(11) NOT NULL,
   `Valor_Producto` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -432,6 +471,26 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tbl_tallas`
+--
+
+CREATE TABLE `tbl_tallas` (
+  `Id_Talla` int(11) NOT NULL,
+  `Nombre` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_tallas`
+--
+
+INSERT INTO `tbl_tallas` (`Id_Talla`, `Nombre`) VALUES
+(1, 'L'),
+(2, 'M'),
+(3, 'S');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tbl_tipo`
 --
 
@@ -462,6 +521,14 @@ CREATE TABLE `tbl_unidades_medida` (
   `Abreviatura` varchar(45) NOT NULL,
   `Nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_unidades_medida`
+--
+
+INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
+(1, 'm', 'metro'),
+(2, 'cm', 'centimetro');
 
 -- --------------------------------------------------------
 
@@ -522,6 +589,13 @@ ALTER TABLE `tbl_existencias_salidas`
   ADD PRIMARY KEY (`Codigo`),
   ADD KEY `fk_Tbl_ProductoT_Salida_Tbl_Salidas1_idx` (`Id_Salida`),
   ADD KEY `fk_Tbl_Existencias_Salidas_Tbl_Colores_Insumos1_idx` (`Id_Existencias`);
+
+--
+-- Indices de la tabla `tbl_fichastecnicas_tallas`
+--
+ALTER TABLE `tbl_fichastecnicas_tallas`
+  ADD KEY `Referencia` (`Referencia`),
+  ADD KEY `Id_Talla` (`Id_Talla`);
 
 --
 -- Indices de la tabla `tbl_fichas_tecnicas`
@@ -657,6 +731,12 @@ ALTER TABLE `tbl_solicitudes_tipo`
   ADD KEY `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_Tbl_Pedidos_Cotiza_idx` (`Id_PedidosCotizaciones`);
 
 --
+-- Indices de la tabla `tbl_tallas`
+--
+ALTER TABLE `tbl_tallas`
+  ADD PRIMARY KEY (`Id_Talla`);
+
+--
 -- Indices de la tabla `tbl_tipo`
 --
 ALTER TABLE `tbl_tipo`
@@ -730,7 +810,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=925;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -803,6 +883,13 @@ ALTER TABLE `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_existencias_salidas`
   ADD CONSTRAINT `fk_Tbl_ProductoT_Salida_Tbl_Salidas1` FOREIGN KEY (`Id_Salida`) REFERENCES `tbl_salidas` (`Id_Salida`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `tbl_fichastecnicas_tallas`
+--
+ALTER TABLE `tbl_fichastecnicas_tallas`
+  ADD CONSTRAINT `fichas_fk` FOREIGN KEY (`Referencia`) REFERENCES `tbl_fichas_tecnicas` (`Referencia`),
+  ADD CONSTRAINT `tallas_fk` FOREIGN KEY (`Id_Talla`) REFERENCES `tbl_tallas` (`Id_Talla`);
 
 --
 -- Filtros para la tabla `tbl_insumos`
