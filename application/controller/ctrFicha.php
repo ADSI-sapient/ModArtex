@@ -20,7 +20,6 @@
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
 	    }
-	    // comentario dos
 	    public function consAsoInsumos(){
 	    	$mensaje = "";
 	    	$msjEditFicha = "";
