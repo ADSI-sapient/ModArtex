@@ -3,6 +3,7 @@
 	{
 		private $mdlModel = null;
 
+		//Constructor
 	    function __construct(){
 	        $this->mdlModel = $this->loadModel("mdlFicha");
 	    }
