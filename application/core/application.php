@@ -1,7 +1,8 @@
 <?php
-    if (isset($_SESSION['user']) == false && $_GET['url'] !== "ctrLogin/login" && $_GET['url'] !== "ctrLogin/recuperarPass"){
-        header('location: '.URL.'ctrLogin/login');
-    }
+    // if (isset($_SESSION['user']) == false && $_GET['url'] !== "ctrLogin/login" && $_GET['url'] !== "ctrLogin/recuperarPass"){
+    //     header('location: '.URL.'ctrLogin/login');
+    // }
+
     // if (isset($_SESSION['permisos']['Url']) == false) {
     //     header('location: '.URL.'home/index');
     // }

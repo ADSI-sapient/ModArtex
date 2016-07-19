@@ -9,6 +9,7 @@
 		private $stock_min;
 		private $valor_produccion;
 		private $valor_producto;
+		private $cantidad;
 		private $id_insumo;
 		private $cant_necesaria;
 		private $valor_insumo;
@@ -34,23 +35,40 @@
 
 	    public function regFicha()
 	    {
-	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (?, ?, ?, ?, ?)";
 
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->referencia);
 	        	$query->bindParam(2, $this->fecha_reg);
-	        	$query->bindParam(3, $this->estado);
-	        	$query->bindParam(4, $this->color);
-	        	$query->bindParam(5, $this->stock_min);
-	        	$query->bindParam(6, $this->valor_produccion);
-	        	$query->bindParam(7, $this->valor_producto);
+	        	$query->bindParam(3, $this->color);
+	        	$query->bindParam(4, $this->estado);
+	        	$query->bindParam(5, $this->valor_produccion);
 
 	        	return $query->execute();
 
 	        } catch (PDOException $e) {
 	        	
 	        }
+	    }
+
+	    public function regProducto(){
+
+	    	$sql = "INSERT INTO tbl_productos VALUES (?, ?, ?, ?)";
+
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(2, $this->cantidad);
+	        	$query->bindParam(3, $this->stock_min);
+	        	$query->bindParam(4, $this->valor_producto);
+
+	        	return $query->execute();
+
+	        } catch (PDOException $e) {
+	        	
+	        }
+
 	    }
 
 	    public function validarReferencia(){
@@ -72,19 +90,20 @@
 	    
       	public function regInsumosAso(){
 
-      		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (?,?,?,?)";
+      		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->id_insumo);
-      		$query->bindParam(2, $this->referencia);
-      		$query->bindParam(3, $this->cant_necesaria);
-      		$query->bindParam(4, $this->valor_insumo);
+      		$query->bindParam(1, null);
+      		$query->bindParam(2, $this->id_insumo);
+      		$query->bindParam(3, $this->referencia);
+      		$query->bindParam(4, $this->cant_necesaria);
+      		$query->bindParam(5, $this->valor_insumo);
       		$query->execute();
       		return $query;
       	}
 
       	public function regTallasAso(){
 
-      		$sql = "INSERT INTO tbl_fichastecnicas_tallas VALUES (?,?)";
+      		$sql = "CALL SP_RegTallasAsociadas(?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->referencia);
       		$query->bindParam(2, $this->id_talla);
@@ -94,7 +113,7 @@
 
 	    public function getFichas()
 	    {
-	        $sql = "SELECT Referencia, Fecha_Registro, Estado, Color, Stock_Minimo, Valor_Produccion, Valor_Producto FROM tbl_fichas_tecnicas ORDER BY Fecha_Registro DESC";
+	        $sql = "CALL SP_ListarFichasTecnicas";
 
 	        try {
 	        	$query = $this->db->prepare($sql);
@@ -121,7 +140,7 @@
 
 	   	public function tallasAsociadasFicha(){
 
-	    	$sql = "CALL SP_TallasAsoFicha(?)";
+	    	$sql = "CALL SP_ConsTallasAsoFicha(?)";
 
 	        try {
 	        	$query = $this->db->prepare($sql);
@@ -195,15 +214,31 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "UPDATE tbl_fichas_tecnicas SET Color = ?, Stock_Minimo = ?, Valor_Produccion = ?, Valor_Producto = ? WHERE Referencia = ?";
+	        $sql = "UPDATE tbl_fichas_tecnicas SET Color = ?, Valor_Produccion = ? WHERE Referencia = ?";
 
 	        try{
 	          $query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->color);
+	        	$query->bindParam(2, $this->valor_produccion);
+	        	$query->bindParam(3, $this->referencia);
+
+	          return $query->execute();
+
+	        }catch(PDOException $e){
+	        	
+	        }
+      	}
+
+      	public function modificarProducto(){
+	    	
+	        $sql = "UPDATE tbl_productos SET Cantidad = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Referencia = ?";
+
+	        try{
+	          $query = $this->db->prepare($sql);
+	        	$query->bindParam(1, $this->cantidad);
 	        	$query->bindParam(2, $this->stock_min);
-	        	$query->bindParam(3, $this->valor_produccion);
-	        	$query->bindParam(4, $this->valor_producto);
-	        	$query->bindParam(5, $this->referencia);
+	        	$query->bindParam(3, $this->valor_producto);
+	        	$query->bindParam(4, $this->referencia);
 
 	          return $query->execute();
 
@@ -214,7 +249,7 @@
 
       	public function cambiarEstado(){
       		
-	        $sql = "CALL SP_CambiarEstadoFicha(?, ?)";
+	        $sql = "CALL SP_CambiarEstadoFicha(?,?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
@@ -230,7 +265,7 @@
 
       	public function getAsoInsumos(){
 
-      		$sql = "SELECT Id_Insumo, Id_Medida, Nombre, Cantidad, Valor FROM tbl_insumos";
+      		$sql = "SELECT Id_Insumo, Id_Medida, Estado, Nombre FROM tbl_insumos";
 
       		$query = $this->db->prepare($sql);
       		$query->execute();

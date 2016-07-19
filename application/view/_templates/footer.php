@@ -11,6 +11,7 @@
     </footer>
 
     <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
     <script src="<?= URL;?>js/select2.full.min.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.date.extensions.js"></script>
@@ -29,12 +30,18 @@
     <script src="<?= URL;?>js/demo.js"></script>
     <script src="<?= URL;?>js/moment.min.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
-    <script src="<?= URL; ?>js/sweetalert.js"></script>
-
-    <script type="text/javascript">
-      var ur = "<?= URL; ?>";
-    </script>
+    <script src="<?= URL;?>js/sweetalert.js"></script>
+    <script src="<?= URL;?>js/ficha-pedido.js"></script>
+    <!-- <script src="<?= URL;?>js/lobibox.min.js"></script> -->
     
-    <script src="<?php echo URL; ?>js/application.js"></script>
+    <script type="text/javascript">
+      var uri = "<?= URL;?>";
+    </script>
+
+    <script src="<?= URL;?>js/application.js"></script>
+
+    <script>
+        <?= $msjEditFicha ?>
+    </script>
   </body>
 </html>
