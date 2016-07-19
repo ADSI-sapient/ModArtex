@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="<?= URL; ?>css/daterangepicker-bs3.css">
   <link rel="stylesheet" href="<?= URL; ?>css/datepicker3.css">
   <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
-  <link rel="stylesheet" href="<?= URL; ?>css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="<?= URL; ?>css/colorpicker/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/select2.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/jquery.dataTables.css">
