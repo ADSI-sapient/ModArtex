@@ -13,9 +13,9 @@ class CtrLogin extends Controller
         if(isset($_POST['btnLogin'])){
             $usuario = $this->mdlModel->consultarUsuarioLogin($_POST["txtUsuario"]);
 
-            if($usuario != false && $usuario['clave'] == sha1($_POST["txtClave"]))
+            if($usuario != false && $usuario['Clave'] == sha1($_POST["txtClave"]))
             {
-                $this->mdlModel->__SET("id_rol", $usuario['Id_rol']);
+                $this->mdlModel->__SET("id_rol", $usuario['Tbl_Roles_Id_Rol']);
                 $permisos = $this->mdlModel->obtenerPermisos();
 
 

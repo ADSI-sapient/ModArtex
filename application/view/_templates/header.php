@@ -58,14 +58,14 @@
           </li>          
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs"><?= $_SESSION['user']['Nombre']; ?></span>
+              <span class="hidden-xs"><?= $_SESSION['user']['nombreR']; ?></span>
               <i class="fa fa-angle-double-down" aria-hidden="true"></i>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image">
                 <p>
-                  <?= $_SESSION['user']['nombre']; ?> <?= $_SESSION['user']['apellido']; ?>
+                  <?= $_SESSION['user']['Nombre']; ?> <?= $_SESSION['user']['Apellido']; ?>
                   <small><?= $_SESSION['user']['Nombre']; ?></small>
                 </p>
               </li>
@@ -94,7 +94,7 @@
           <img src="<?php echo URL; ?>img/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?= $_SESSION['user']['nombre']; ?><?= substr($_SESSION['user']['apellido'], 0, 3); ?></p>
+          <p><?= $_SESSION['user']['Nombre']; ?><?= substr($_SESSION['user']['Apellido'], 0, 3); ?></p>
         </div>
       </div>
 
