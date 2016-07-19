@@ -94,7 +94,7 @@
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Ficha Técnica</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>ficha/editFicha" method="post" id="modficha">
+              <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">*Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
