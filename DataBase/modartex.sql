@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2016 a las 03:30:35
+-- Tiempo de generación: 19-07-2016 a las 07:27:21
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -26,6 +26,12 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY id DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
+SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
+SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
 
 DELIMITER ;
 
@@ -245,11 +251,19 @@ CREATE TABLE `tbl_persona` (
   `Id_Tipo` int(11) NOT NULL,
   `Tipo_Documento` varchar(3) NOT NULL,
   `Nombre` varchar(45) NOT NULL,
-  `Estado` tinyint(1) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `Estado` int(1) NOT NULL,
   `Telefono` varchar(15) DEFAULT NULL,
   `Direccion` varchar(30) DEFAULT NULL,
   `Email` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_persona`
+--
+
+INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
+('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -451,6 +465,14 @@ CREATE TABLE `tbl_tipopersona` (
   `Nombre` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_tipopersona`
+--
+
+INSERT INTO `tbl_tipopersona` (`Id_Tipo`, `Nombre`) VALUES
+(1, 'Usuario'),
+(2, 'Cliente');
+
 -- --------------------------------------------------------
 
 --
@@ -476,6 +498,13 @@ CREATE TABLE `tbl_usuarios` (
   `Usuario` varchar(15) NOT NULL,
   `Clave` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_usuarios`
+--
+
+INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
+(1, '1017223026', 1, 'pepito', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 --
 -- Índices para tablas volcadas
@@ -775,12 +804,12 @@ ALTER TABLE `tbl_solicitudes_tipo`
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --
 ALTER TABLE `tbl_tipopersona`
-  MODIFY `Id_Tipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
