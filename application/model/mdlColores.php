@@ -32,8 +32,8 @@
 		public function registrar(){
 			$sql = "CALL SP_registrarColores(?, ?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_codigo);
-			$stm->bindParam(2, $this->_nombre);
+			$stm->bindParam(1, $this->_nombre);
+			$stm->bindParam(2, $this->_codigo);
 			return $stm->execute();
 		}
 
@@ -49,8 +49,8 @@
 			$sql = "CALL SP_modificarColor(?, ?, ?)";
 			$stm =$this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_id);
-			$stm->bindParam(2, $this->_codigo);
-			$stm->bindParam(3, $this->_nombre);
+			$stm->bindParam(2, $this->_nombre);
+			$stm->bindParam(3, $this->_codigo);
 			return $stm->execute();
 		}
 	}

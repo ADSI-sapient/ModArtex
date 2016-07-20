@@ -49,6 +49,9 @@
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_idColor);
 			$stm->bindParam(2, $this->_idInsumo);
+			$stm->bindParam(3, $this->_cant);
+			$stm->bindParam(4, $this->_valPro);
+			$stm->bindParam(5, $this->_stock);
 			return $stm->execute();
 		}
 

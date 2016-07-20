@@ -66,7 +66,7 @@
                 <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image">
                 <p>
                   <?= $_SESSION['user']['Nombre']; ?> <?= $_SESSION['user']['Apellido']; ?>
-                  <small><?= $_SESSION['user']['Nombre']; ?></small>
+                  <small><?= $_SESSION['user']['nombreR']; ?></small>
                 </p>
               </li>
               <li class="user-footer">

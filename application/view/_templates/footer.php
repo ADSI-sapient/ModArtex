@@ -18,7 +18,7 @@
     <script src="<?= URL;?>js/jquery.inputmask.extensions.js"></script>
     <script src="<?= URL;?>js/daterangepicker.js"></script>
     <script src="<?= URL;?>js/bootstrap-datepicker.js"></script>
-    <script src="<?= URL;?>js/bootstrap-colorpicker.min.js"></script>
+    <script src="<?= URL;?>css/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="<?= URL;?>js/bootstrap-timepicker.min.js"></script>
     <script src="<?= URL;?>js/jquery.slimscroll.min.js"></script>
     <script src="<?= URL;?>js/icheck.min.js"></script>
@@ -38,6 +38,8 @@
       var uri = "<?= URL;?>";
     </script>
 
+    <script src="<?= URL;?>js/bodega.js"></script>
+    <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
 
     <script>

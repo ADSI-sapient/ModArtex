@@ -1,5 +1,3 @@
-
-  <div class="content-wrapper">
      <section class="content-header">
           <br>
           <ol class="breadcrumb">
@@ -14,11 +12,11 @@
        <div class="row">
           <div class="col-md-6">
             <div class="box box-primary">
-              <div class="box-header with-border" style="text-align: center;"> 
+              <div class="box-header with-border" style="text-align: center;">
                    <h4 class="control-label"><strong>REGISTRAR UNIDAD DE MEDIDA</strong></h4>
               </div>
 
-              <form action="<?= URL.'ctrlConfiguracion/registrarMedida'; ?>" method="POST">
+              <form action="<?= URL.'ctrConfiguracion/registrarMedida'; ?>" method="POST">
                 <div class="box-body">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -69,13 +67,13 @@
                   <?php foreach ($lista as $valor): ?>
                     <tr class="box box-solid collapsed-box">
                       <td><?= $cont += 1; ?></td>
-                      <td><?= $valor["nombre"]; ?></td>
-                      <td><?= $valor["abreviatura"]; ?></td>
-                      <td style="display: none; "><?= $valor["codigo"]; ?></td>
+                      <td><?= $valor["Nombre"]; ?></td>
+                      <td><?= $valor["Abreviatura"]; ?></td>
+                      <td style="display: none; "><?= $valor["Id_Medida"]; ?></td>
                       <td>
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalMedidas" onclick="editar('<?= $valor["codigo"]; ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalMedidas" onclick="editar('<?= $valor["Id_Medida"]; ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
 
-                        <button type="button" onclick="confirmacion(<?= $valor['codigo']; ?>)" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        <button type="button" onclick="confirmacion(<?= $valor['Id_Medida']; ?>)" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                       </td>
                     </tr>
                   <?php endforeach; ?>
@@ -86,11 +84,6 @@
         </div>
       </div>
     </section>
-  </div>
-
-
-
-
 
 
       <div class="modal fade" id="myModalMedidas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -100,7 +93,7 @@
                    <h4 class="control-label"><strong>MODIFICAR UNIDAD DE MEDIDA</strong></h4>
               </div>
 
-              <form action="<?= URL.'ctrlConfiguracion/modificarMedida'; ?>" method="POST">
+              <form action="<?= URL.'ctrConfiguracion/modificarMedida'; ?>" method="POST">
                 <div class="modal-body">
                   <div class="form-horizontal"> 
                       <input type="text" id="cod" name="cod" style="display: none; ">
@@ -126,29 +119,3 @@
             </div> 
           </div> 
         </div>
-      </div>
-
-  <script type="text/javascript">
-       function editar(codigo, medidas){
-          var campos = $(medidas).parent().parent();
-          $("#cod").val(campos.find("td").eq(3).text());
-          $("#nombre").val(campos.find("td").eq(1).text());
-          $("#abr").val(campos.find("td").eq(2).text());
-          $("#myModalMedidas").show();
-        }
-
-        function confirmacion($cod){
-          swal({
-            title: "¿Seguro que desea eliminar la unidad de medida?",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, borrar medida",
-            closeOnConfirm: false
-          },
-          function(){
-            location.href = '<?= URL; ?>ctrlConfiguracion/eliminarMedida?cod='+$cod+'; ?>';
-          });
-        }
-  </script>
