@@ -131,23 +131,23 @@
         $(".subtotal").val(valor);
       }
     
-      function enviarFormFicha(){
-        if ($("#tablaInsumos >tbody >tr").length == 0) {
-          swal({title: "0 Insumos Asociados", 
-            text: "Por favor asocie al menos un insumo a esta ficha.",   
-            imageUrl: uri+"img/stop.png"
-          });
-          return false;
-        }else if($("#vlr_total").val() == 0){
-          swal({title: "Valor de Produccion: 0", 
-            text: "Debe calcular un valor de producción para esta ficha.",   
-            imageUrl: uri+"img/stop.png"
-          });
-          return false;
-        }else{
-          return true;
-        }
-      }
+      // function enviarFormFicha(){
+      //   if ($("#tablaInsumos >tbody >tr").length == 0) {
+      //     swal({title: "0 Insumos Asociados", 
+      //       text: "Por favor asocie al menos un insumo a esta ficha.",   
+      //       imageUrl: uri+"img/stop.png"
+      //     });
+      //     return false;
+      //   }else if($("#vlr_total").val() == 0){
+      //     swal({title: "Valor de Produccion: 0", 
+      //       text: "Debe calcular un valor de producción para esta ficha.",   
+      //       imageUrl: uri+"img/stop.png"
+      //     });
+      //     return false;
+      //   }else{
+      //     return true;
+      //   }
+      // }
     
    
 

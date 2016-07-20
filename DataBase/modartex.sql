@@ -3,6 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
+-- Tiempo de generación: 21-07-2016 a las 00:16:30
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -16,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `modartex1`
+-- Base de datos: `modartex`
 --
 
 DELIMITER $$
@@ -35,22 +36,35 @@ DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY id DESC$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
-SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
-SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
-
---comentario--
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
 INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
+SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaFicha` ()  NO SQL
 SELECT MAX(Referencia) AS referencia FROM tbl_fichas_tecnicas$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
+SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
+
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_clientes`
+--
+
+CREATE TABLE `tbl_clientes` (
+  `Id_Cliente` varchar(30) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Telefono` varchar(30) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -90,6 +104,14 @@ CREATE TABLE `tbl_entradas` (
   `Cantidad` int(11) NOT NULL,
   `Valor` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_entradas`
+--
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `Cantidad`, `Valor`) VALUES
+(1, 2, 20000),
+(2, 3, 15000);
 
 -- --------------------------------------------------------
 
@@ -137,6 +159,13 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
+--
+
+INSERT INTO `tbl_fichastecnicas_tallas` (`Referencia`, `Id_Talla`) VALUES
+(201, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -150,6 +179,13 @@ CREATE TABLE `tbl_fichas_tecnicas` (
   `Estado` varchar(45) NOT NULL,
   `Valor_Produccion` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_fichas_tecnicas`
+--
+
+INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Fecha_Registro`, `Color`, `Estado`, `Valor_Produccion`) VALUES
+(201, '2016-07-20', 'Azu', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -264,14 +300,14 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (3, 2, 'Registrar Insumo', 'ctrBodega/registrarInsumo'),
 (4, 2, 'Listar insumos', 'ctrBodega/listarInsumos'),
 (5, 2, 'Existencias Insumos', 'ctrBodega/listExistencias'),
-(6, 3, 'Registrar Ficha', 'ctrUsuario/consUsuario'),
-(7, 3, 'Listar Fichas', ''),
+(6, 3, 'Registrar Ficha', 'ctrFicha/regFicha'),
+(7, 3, 'Listar Fichas', 'ctrFicha/consFicha'),
 (8, 4, 'Registrar Cliente', ''),
 (9, 4, 'Listar Clientes', ''),
 (10, 5, 'Registrar Cotización', ''),
 (11, 5, 'Listar Cotizaciones', ''),
-(12, 6, 'Registrar Pedido', ''),
-(13, 6, 'Listar Pedidos', ''),
+(12, 6, 'Registrar Pedido', 'ctrPedido/regPedido'),
+(13, 6, 'Listar Pedidos', 'ctrPedido/consPedido'),
 (14, 7, 'Registrar Orden', ''),
 (15, 7, 'Listar Órdenes', ''),
 (16, 8, 'Existencias Producto T', ''),
@@ -301,7 +337,8 @@ CREATE TABLE `tbl_persona` (
 --
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
-('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com');
+('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com'),
+('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '3121846987', 'Cl 54 Sur 85 ', 'japd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -315,6 +352,13 @@ CREATE TABLE `tbl_productos` (
   `Stock_Minimo` int(11) NOT NULL,
   `Valor_Producto` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_productos`
+--
+
+INSERT INTO `tbl_productos` (`Referencia`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
+(201, 456, 200, 1258);
 
 -- --------------------------------------------------------
 
@@ -512,6 +556,14 @@ CREATE TABLE `tbl_tipo` (
   `Nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_tipo`
+--
+
+INSERT INTO `tbl_tipo` (`Id_Tipo`, `Nombre`) VALUES
+(1, 'Cotizacion'),
+(2, 'Pedido');
+
 -- --------------------------------------------------------
 
 --
@@ -575,6 +627,12 @@ INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `tbl_clientes`
+--
+ALTER TABLE `tbl_clientes`
+  ADD PRIMARY KEY (`Id_Cliente`);
 
 --
 -- Indices de la tabla `tbl_colores`
@@ -838,7 +896,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=925;
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
