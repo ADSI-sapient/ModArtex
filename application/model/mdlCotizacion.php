@@ -33,7 +33,7 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT Id_PedidosCotizaciones, Num_Documento, Id_Estado, Fecha_Vencimiento, Fecha_Registro, Valor_Total, Estado_In_Ha FROM tbl_solicitudes ORDER BY Id_PedidosCotizaciones ";
+			$sql = "SELECT Id_PedidosCotizaciones, Num_Documento, Id_Estado, Fecha_Vencimiento, Valor_Total, FROM tbl_solicitudes ORDER BY Id_PedidosCotizaciones ";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll(2);

@@ -12,9 +12,8 @@
           <div class="box-header with-border">
             <div class="box-header with-border" style="text-align: center;">
               <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
-            </div>
-
-            <br>
+          </div>
+      <br>
 
             <form action="<?php echo URL; ?>Cotizacion/regCotizacion" method="POST" id="form">
             <br>
