@@ -42,7 +42,6 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
-
     <script>
         <?= $msjEditFicha ?>
     </script>
