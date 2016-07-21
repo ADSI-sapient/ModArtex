@@ -3,9 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-07-2016 a las 00:16:30
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 21-07-2016 a las 13:27:30
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.6.15
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,6 +39,9 @@ DELETE FROM tbl_colores WHERE Id_Color = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarRoles` ()  NO SQL
+SELECT Id_Rol, Nombre FROM tbl_roles$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
@@ -72,6 +76,12 @@ INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
 INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` INT)  NO SQL
+INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegUsuario` (IN `_Tbl_Roles_Id_Rol` INT, IN `_usuario` VARCHAR(15), IN `_clave` VARCHAR(45), IN `_num_documento` INT)  NO SQL
+INSERT INTO tbl_usuarios(Num_Documento, Tbl_Roles_Id_Rol, Usuario, Clave) VALUES(_num_documento,_Tbl_Roles_Id_Rol, _usuario, _clave )$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
 SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
 
@@ -80,6 +90,12 @@ SELECT MAX(Referencia) AS referencia FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
 SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarD` (IN `_documento` VARCHAR(20))  NO SQL
+SELECT Num_Documento from tbl_persona where Num_Documento = _documento$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarE` (IN `_email` VARCHAR(45))  NO SQL
+SELECT Email from tbl_persona where Email = _email$$
 
 DELIMITER ;
 
