@@ -30,22 +30,22 @@
 			$sql = "CALL SP_regInsumo(?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_codMedida);
-			$stm->bindParam(2, $this->_nombre);
-			$stm->bindParam(3, $this->_estado);
+			$stm->bindParam(2, $this->_estado);
+			$stm->bindParam(3, $this->_nombre);
 			$stm->execute();
 
 			return $this->obtenerId();
 		}
 
 		public function obtenerId(){
-			$sql = "CALL SP_obtenerId";
+			$sql = "CALL SP_obtenerIdInsumo()";
 			$stm = $this->_db->prepare($sql);
 			$stm->execute();
 			return $stm->fetch();
 		}
 
 		public function regColorInsumo(){
-			$sql = "CALL SP_regColorInsumo(?, ?)";
+			$sql = "CALL SP_regColorInsumo(?, ?, ?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_idColor);
 			$stm->bindParam(2, $this->_idInsumo);
