@@ -33,8 +33,8 @@
 		public function registrarMedida(){
 			$sql = "CALL SP_registrarMedidas(?, ?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_nombre);
-			$stm->bindParam(2, $this->_abreviatura);
+			$stm->bindParam(1, $this->_abreviatura);
+			$stm->bindParam(2, $this->_nombre);
 			return $stm->execute();
 		}
 
@@ -49,8 +49,8 @@
 			$sql = "CALL SP_modificarMedida(?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_codigo);
-			$stm->bindParam(2, $this->_nombre);
-			$stm->bindParam(3, $this->_abreviatura);
+			$stm->bindParam(2, $this->_abreviatura);
+			$stm->bindParam(3, $this->_nombre);
 			return $stm->execute();
 		}
 	}

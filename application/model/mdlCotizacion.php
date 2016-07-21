@@ -9,7 +9,7 @@
 		private $Valor_Total;
 		private $Num_Documento;
 		private $Estado_In_Ha;
-		private $Num_Documento;
+		// private $Num_Documento;
 		private $Nombre;
 		private $Email;
 		private $db;

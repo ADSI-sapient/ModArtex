@@ -1,4 +1,3 @@
-  <div class="content-wrapper">
     <section class="content-header">
       <br>  
       <ol class="breadcrumb">
@@ -16,7 +15,7 @@
         <div class="col-xs-6">
 
           <div class="box box-primary">
-            <form action="<?= URL.'ctrlConfiguracion/registrarColor'?>" method="POST">
+            <form action="<?= URL.'ctrConfiguracion/registrarColor'?>" method="POST">
               <div class="box-header with-border" style="text-align: center;"> 
                      <h4 class="control-label"><strong>REGISTRAR COLOR</strong></h4>
               </div>
@@ -69,14 +68,14 @@
                       <?php foreach ($lista as $valor): ?>
                         <tr class="box box-solid collapsed-box">
                           <td><?= $cont += 1; ?></td>
-                          <td><?= $valor["codigo"]; ?></td>
-                          <td> <i class="fa fa-square" style="color:<?= $valor["codigo"]; ?>; font-size: 200%;"></i></td>
-                          <td><?= $valor["nombre"]; ?></td>
-                          <td style="display: none; "><?= $valor["id"]; ?></td>
+                          <td><?= $valor["Codigo_Color"]; ?></td>
+                          <td> <i class="fa fa-square" style="color:<?= $valor["Codigo_Color"]; ?>; font-size: 200%;"></i></td>
+                          <td><?= $valor["Nombre"]; ?></td>
+                          <td style="display: none; "><?= $valor["Id_Color"]; ?></td>
                           <td>
-                             <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditColor" onclick="editar('<?= $valor["codigo"]; ?>', this)"><i class="fa fa-pencil-square-o"></i></button> 
+                             <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditColor" onclick="editarColor('<?= $valor["Codigo_Color"]; ?>', this)"><i class="fa fa-pencil-square-o"></i></button> 
 
-                            <button type="button" onclick="confirmacion(<?= $valor['id']; ?>)" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            <button type="button" onclick="confirmacionColor(<?= $valor['Id_Color']; ?>)" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                           </td>
                         </tr>
                       <?php endforeach; ?>
@@ -88,7 +87,7 @@
         </div>
       </div>
     </section>
-  </div>
+
 
 
 
@@ -100,7 +99,7 @@
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>MODIFICAR COLOR</strong></h4>
               </div>
-              <form action="<?= URL.'ctrlConfiguracion/modificarColor'; ?>" method="POST">
+              <form action="<?= URL.'ctrConfiguracion/modificarColor'; ?>" method="POST">
                 <div class="modal-body">
 
                   <div class="form-horizontal"> 
@@ -133,29 +132,6 @@
         </div>
     </div>
 
-     <script type="text/javascript">
-        function editar(codigo, colores){
-          var campos = $(colores).parent().parent();
-          $("#codigo").val(campos.find("td").eq(1).text());
-          $("#i").css("background-color", campos.find("td").eq(1).text());
-          $("#inputNom").val(campos.find("td").eq(3).text());
-          $("#id").val(campos.find("td").eq(4).text());
-          $("#modalEditColor").show();
-        }
 
-        function confirmacion($id){
-          swal({
-            title: "¿Seguro que desea eliminar el color?",
-            text: "",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, borrar color",
-            closeOnConfirm: false
-          },
-          function(){
-            location.href = '<?= URL; ?>ctrlConfiguracion/eliminarColor?id='+$id+'; ?>';
-          });
-        }
-      </script>
+
 

@@ -28,7 +28,7 @@
 				$id = $this->_modelInsumo->registrarInsumo()[0];
 				$this->_modelInsumo->__SET("_idInsumo", $id);
 
-				$this->_modelInsumo->crearExistencias();
+				// $this->_modelInsumo->crearExistencias();
 
 				$col = explode(',', $_POST['arreglo'][0]);
 

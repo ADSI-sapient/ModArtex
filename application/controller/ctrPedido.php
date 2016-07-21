@@ -1,6 +1,6 @@
 <?php  
 
-	class Pedido extends Controller
+	class ctrPedido extends Controller
 	{
 		private $mdlModel = null;
 

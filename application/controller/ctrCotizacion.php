@@ -1,6 +1,6 @@
 <?php 
 
-	class Cotizacion extends Controller{
+	class ctrCotizacion extends Controller{
 
 		private $modelo = null;
 

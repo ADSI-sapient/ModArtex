@@ -60,6 +60,9 @@
               <label for="Email" class="">*Email:</label>
               <input type="text" class="form-control" id="email" placeholder="" name="email" required="">
             </div>
+            <input type="hidden" name="direccion">
+            <input type="hidden" name="telefono">
+    
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label for="roles" class="">*Rol:</label>
               <select class="form-control" name="rol" required="" id="rol">
