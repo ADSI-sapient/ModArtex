@@ -13,7 +13,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
-        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();">
+        <!-- <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();"> -->
+        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-07-2016 a las 20:42:21
+-- Tiempo de generación: 21-07-2016 a las 00:16:30
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -36,12 +36,15 @@ DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarColor` (IN `_id` INT(10))  NO SQL
 DELETE FROM tbl_colores WHERE Id_Color = _id$$
 
+<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
+=======
+>>>>>>> Juan
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
 
@@ -139,6 +142,14 @@ CREATE TABLE `tbl_entradas` (
   `Valor` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_entradas`
+--
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `Cantidad`, `Valor`) VALUES
+(1, 2, 20000),
+(2, 3, 15000);
+
 -- --------------------------------------------------------
 
 --
@@ -185,6 +196,13 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
+--
+
+INSERT INTO `tbl_fichastecnicas_tallas` (`Referencia`, `Id_Talla`) VALUES
+(201, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -198,6 +216,13 @@ CREATE TABLE `tbl_fichas_tecnicas` (
   `Estado` varchar(45) NOT NULL,
   `Valor_Produccion` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_fichas_tecnicas`
+--
+
+INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Fecha_Registro`, `Color`, `Estado`, `Valor_Produccion`) VALUES
+(201, '2016-07-20', 'Azu', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -312,14 +337,14 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (3, 2, 'Registrar Insumo', 'ctrBodega/registrarInsumo'),
 (4, 2, 'Listar insumos', 'ctrBodega/listarInsumos'),
 (5, 2, 'Existencias Insumos', 'ctrBodega/listExistencias'),
-(6, 3, 'Registrar Ficha', 'ctrUsuario/consUsuario'),
-(7, 3, 'Listar Fichas', ''),
+(6, 3, 'Registrar Ficha', 'ctrFicha/regFicha'),
+(7, 3, 'Listar Fichas', 'ctrFicha/consFicha'),
 (8, 4, 'Registrar Cliente', ''),
 (9, 4, 'Listar Clientes', ''),
 (10, 5, 'Registrar Cotización', ''),
 (11, 5, 'Listar Cotizaciones', ''),
-(12, 6, 'Registrar Pedido', ''),
-(13, 6, 'Listar Pedidos', ''),
+(12, 6, 'Registrar Pedido', 'ctrPedido/regPedido'),
+(13, 6, 'Listar Pedidos', 'ctrPedido/consPedido'),
 (14, 7, 'Registrar Orden', ''),
 (15, 7, 'Listar Órdenes', ''),
 (16, 8, 'Existencias Producto T', ''),
@@ -349,7 +374,8 @@ CREATE TABLE `tbl_persona` (
 --
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
-('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com');
+('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com'),
+('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '3121846987', 'Cl 54 Sur 85 ', 'japd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -363,6 +389,13 @@ CREATE TABLE `tbl_productos` (
   `Stock_Minimo` int(11) NOT NULL,
   `Valor_Producto` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_productos`
+--
+
+INSERT INTO `tbl_productos` (`Referencia`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
+(201, 456, 200, 1258);
 
 -- --------------------------------------------------------
 
@@ -559,6 +592,14 @@ CREATE TABLE `tbl_tipo` (
   `Id_Tipo` int(11) NOT NULL,
   `Nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_tipo`
+--
+
+INSERT INTO `tbl_tipo` (`Id_Tipo`, `Nombre`) VALUES
+(1, 'Cotizacion'),
+(2, 'Pedido');
 
 -- --------------------------------------------------------
 
@@ -892,7 +933,11 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
+<<<<<<< HEAD
   MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT;
+=======
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+>>>>>>> Juan
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
