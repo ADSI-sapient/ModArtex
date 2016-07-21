@@ -3,10 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-07-2016 a las 13:27:30
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
-
+-- Tiempo de generación: 21-07-2016 a las 14:25:49
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,6 +30,9 @@ UPDATE tbl_fichas_tecnicas SET Estado = _estado WHERE Referencia = _referencia$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_referencia` INT)  NO SQL
 SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Referencia = _referencia$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarRoles` ()  NO SQL
+SELECT Id_Rol, Nombre FROM tbl_roles$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteTallasAso` (IN `_referencia` INT)  NO SQL
 DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 
@@ -39,9 +41,6 @@ DELETE FROM tbl_colores WHERE Id_Color = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarRoles` ()  NO SQL
-SELECT Id_Rol, Nombre FROM tbl_roles$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
@@ -73,11 +72,11 @@ INSERT INTO tbl_colores VALUES(null, _nom, _cod)$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarMedidas` (IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
-INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` INT)  NO SQL
 INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
+INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegUsuario` (IN `_Tbl_Roles_Id_Rol` INT, IN `_usuario` VARCHAR(15), IN `_clave` VARCHAR(45), IN `_num_documento` INT)  NO SQL
 INSERT INTO tbl_usuarios(Num_Documento, Tbl_Roles_Id_Rol, Usuario, Clave) VALUES(_num_documento,_Tbl_Roles_Id_Rol, _usuario, _clave )$$
@@ -214,7 +213,10 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 --
 
 INSERT INTO `tbl_fichastecnicas_tallas` (`Referencia`, `Id_Talla`) VALUES
-(201, 1);
+(201, 1),
+(202, 1),
+(202, 2),
+(202, 3);
 
 -- --------------------------------------------------------
 
@@ -235,7 +237,8 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 
 INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Fecha_Registro`, `Color`, `Estado`, `Valor_Produccion`) VALUES
-(201, '2016-07-20', 'Azu', '0', 0);
+(201, '2016-07-20', 'Azu', '0', 0),
+(202, '2016-07-21', 'Azul', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -352,15 +355,15 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (5, 2, 'Existencias Insumos', 'ctrBodega/listExistencias'),
 (6, 3, 'Registrar Ficha', 'ctrFicha/regFicha'),
 (7, 3, 'Listar Fichas', 'ctrFicha/consFicha'),
-(8, 4, 'Registrar Cliente', ''),
-(9, 4, 'Listar Clientes', ''),
-(10, 5, 'Registrar Cotización', ''),
-(11, 5, 'Listar Cotizaciones', ''),
+(8, 4, 'Registrar Cliente', 'ctrCliente/regCliente'),
+(9, 4, 'Listar Clientes', 'ctrCliente/consCliente'),
+(10, 5, 'Registrar Cotización', 'ctrCotizacion/regCotizacion'),
+(11, 5, 'Listar Cotizaciones', 'ctrCotizacion/consCotizacion'),
 (12, 6, 'Registrar Pedido', 'ctrPedido/regPedido'),
 (13, 6, 'Listar Pedidos', 'ctrPedido/consPedido'),
-(14, 7, 'Registrar Orden', ''),
-(15, 7, 'Listar Órdenes', ''),
-(16, 8, 'Existencias Producto T', ''),
+(14, 7, 'Registrar Orden', 'ctrOrden/regOrden'),
+(15, 7, 'Listar Órdenes', 'ctrOrden/consOrden'),
+(16, 8, 'Existencias Producto T', 'ctrProductoT/existenciasProductoT'),
 (17, 9, 'Medidas', 'ctrConfiguracion/listarMedidas'),
 (18, 9, 'Colores', 'ctrConfiguracion/listarColores');
 
@@ -408,7 +411,8 @@ CREATE TABLE `tbl_productos` (
 --
 
 INSERT INTO `tbl_productos` (`Referencia`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
-(201, 456, 200, 1258);
+(201, 456, 200, 1258),
+(202, 123, 500, 3500);
 
 -- --------------------------------------------------------
 
@@ -946,7 +950,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -996,7 +1000,7 @@ ALTER TABLE `tbl_tipopersona`
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
