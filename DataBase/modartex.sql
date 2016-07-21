@@ -36,15 +36,12 @@ DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarColor` (IN `_id` INT(10))  NO SQL
 DELETE FROM tbl_colores WHERE Id_Color = _id$$
 
-<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
-=======
->>>>>>> Juan
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
 
@@ -933,11 +930,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-<<<<<<< HEAD
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT;
-=======
   MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
->>>>>>> Juan
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
