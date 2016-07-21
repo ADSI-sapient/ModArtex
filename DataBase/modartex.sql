@@ -56,19 +56,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tbl_clientes`
---
-
-CREATE TABLE `tbl_clientes` (
-  `Id_Cliente` varchar(30) NOT NULL,
-  `Nombre` varchar(45) NOT NULL,
-  `Telefono` varchar(30) NOT NULL,
-  `Email` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tbl_colores`
 --
 
@@ -627,12 +614,6 @@ INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `tbl_clientes`
---
-ALTER TABLE `tbl_clientes`
-  ADD PRIMARY KEY (`Id_Cliente`);
 
 --
 -- Indices de la tabla `tbl_colores`
