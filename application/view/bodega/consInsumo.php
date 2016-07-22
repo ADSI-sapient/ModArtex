@@ -1,4 +1,3 @@
-  <div class="content-wrapper">
     <section class="content-header"  >
     <br>
       <ol class="breadcrumb">
@@ -39,19 +38,19 @@
                 <tr>
                   <input type="hidden" value="<?= $valor["Id"]?>" name="int">
                   <td><?= $cont += 1;?></td>
-                  <td><?= $valor["Id"]?></td>
+                  <td><?= $valor["Id_Insumo"]?></td>
                   <td><?= $valor["Nombre"]?></td>
-                  <td><option value="<?= $valor['codigo']?>"><?= $valor["nombre"]?></option></td>
-                  <td><?= $valor["stockMinimo"]?></td>
+                  <td><option value="<?= $valor['Id_Medida']?>"><?= $valor["NombreMed"]?></option></td>
+                  <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
                    <td>    
-                    <button type="button" id="btnEditar" onclick="editar(<?= $valor["Id"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
+                    <button type="button" id="btnEditar" onclick="editar(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
 
                     <?php if ($valor["Estado"] == 1): ?>
-                         <button type="button" onclick="camEst(<?= $valor["Id"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
+                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
                     <?php endif ?>
                     <?php if ($valor["Estado"] == 0): ?>
-                         <button type="button" onclick="camEst(<?= $valor["Id"]?>, 1)" class="btn btn-box-tool"><i class="fa fa-check"></i></button> 
+                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i class="fa fa-check"></i></button> 
                     <?php endif ?>
                   </td>
                 </tr>
@@ -66,7 +65,7 @@
      </form>  
     </div> 
   </section>
-</div>
+
 
 
 
@@ -102,7 +101,7 @@
                     <select class="form-control" style="width: 100%;" required="" name="select">
                      <option id="2" selected=""></option>
                       <?php foreach ($listaM as $valor): ?>
-                        <option value="<?= $valor["codigo"]; ?>"><?= $valor["nombre"]; ?></option>  
+                        <option value="<?= $valor["Id_Medida"]; ?>"><?= $valor["Nombre"]; ?></option>  
                       <?php endforeach ?>
                     </select>
                 </div>
@@ -193,12 +192,12 @@
                 <?php $cont = 0; ?>
                 <?php foreach ($lista as $value): ?>
                 <tr class="box box-solid collapsed-box tr">
-                 <td value="<?= $value["codigo"]; ?>"><?= $cont += 1; ?></td>
-                  <td><?= $value["codigo"]; ?></td>
-                  <td><i class="fa fa-square" style="color: <?= $value['codigo']; ?>; font-size: 200%;"></i> </td>
-                  <td><?= $value["nombre"]; ?></td>
-                  <td style="display: none;"><?= $value["id"]; ?></td>
-                  <td><input type="checkbox" name="check" class="chk<?=$value["id"];?>"></td> 
+                 <td value="<?= $value["Codigo_Color"]; ?>"><?= $cont += 1; ?></td>
+                  <td><?= $value["Codigo_Color"]; ?></td>
+                  <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
+                  <td><?= $value["Nombre"]; ?></td>
+                  <td style="display: none;"><?= $value["Id_Color"]; ?></td>
+                  <td><input type="checkbox" name="check" class="chk<?=$value["Id_Color"];?>"></td> 
                 </tr>
                 <?php endforeach ?>
               </tbody>
@@ -214,14 +213,15 @@
 
     <script type="text/javascript">
           function camEst(cod, est){
+              alert(cod, est);
               $.ajax({
                   dataType: 'json',
                   type: 'POST',
-                  url: "<?= URL; ?>ctrlBodega/cambiarEstado", 
+                  url: "<?= URL; ?>ctrBodega/cambiarEstado", 
                   data:{id: cod, estado: est},
               }).done(function(respuesta){
                 if (respuesta.v == 1) {
-                  location.href = "<?= URL; ?>ctrlBodega/listarInsumos"; 
+                  location.href = "<?= URL; ?>ctrBodega/listarInsumos"; 
                 }
               }).fail(function(){
               });
@@ -233,7 +233,7 @@
           $.ajax({
                   dataType: 'json',
                   type: 'POST',
-                  url: "<?= URL; ?>ctrlBodega/lisColInsu", 
+                  url: "<?= URL; ?>ctrBodega/lisColInsu", 
                   data:{id: id},
               }).done(function(respuesta){
                 if (respuesta) {
@@ -253,7 +253,7 @@
           $("#Modeleditar").show();
         }
  </script>
- <script type="text/javascript">
+<!--  <script type="text/javascript">
         function seleccion(){
          
           $("#tabla1").removeAttr("style");
@@ -275,8 +275,8 @@
           }
           });
         }
-</script>
-<script type="text/javascript">
+</script> -->
+<!-- <script type="text/javascript">
   function colores(){
           var vec = [];
           $("#tabla1 tr").find('td:eq(4)').each(function(){
@@ -284,7 +284,7 @@
           });
           $("#vector").val(vec);
   }
-</script>
+</script> -->
 
 
 
