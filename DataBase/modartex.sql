@@ -3,15 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
-<<<<<<< HEAD
--- Tiempo de generación: 22-07-2016 a las 14:56:39
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
-=======
--- Tiempo de generación: 22-07-2016 a las 13:30:05
+-- Tiempo de generación: 22-07-2016 a las 16:00:41
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
->>>>>>> 414c7f61b264dc0d9a221f8641d3087c35f93eb5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -172,6 +166,7 @@ INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Canti
 (3, 7, 1, 0, 0, 20),
 (4, 6, 2, 0, 0, 50),
 (5, 7, 2, 0, 0, 50);
+
 -- --------------------------------------------------------
 
 --
@@ -293,6 +288,7 @@ CREATE TABLE `tbl_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_insumos`
 --
+
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
 (1, 3, 1, 'hilo'),
 (2, 2, 1, 'Tela');
@@ -576,14 +572,6 @@ CREATE TABLE `tbl_solicitudes` (
   `Fecha_Vencimiento` date NOT NULL,
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_solicitudes`
---
-
-INSERT INTO `tbl_solicitudes` (`Id_PedidosCotizaciones`, `Num_Documento`, `Id_Estado`, `Fecha_Vencimiento`, `Valor_Total`) VALUES
-(1, '1017223026', 1, '2016-07-10', 12345),
-(2, '1037590137', 1, '2016-07-30', 12344);
 
 -- --------------------------------------------------------
 
@@ -965,17 +953,12 @@ ALTER TABLE `tbl_colores`
 --
 ALTER TABLE `tbl_colores_insumos`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `tbl_insumos`
---
-ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
