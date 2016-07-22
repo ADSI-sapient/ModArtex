@@ -80,12 +80,7 @@
       </div> 
     </div>
   </div>
-<<<<<<< HEAD
   <input type="hidden" name="arreglo[]" id="vecto">
-=======
-
-  <input type="hidden" name="arreglo[]" id="vector">
->>>>>>> kevin
   <div class="box-footer">
     <button type="reset" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
     <button type="submit" onclick="colores()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
@@ -128,11 +123,7 @@
              <td><?= $value["Codigo_Color"]; ?></td>
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
-<<<<<<< HEAD
              <td style="display: none;"><?= $value["Id_Color"]; ?></td>
-=======
-             <td style="display: none;"><?= $value["id"]; ?></td>
->>>>>>> kevin
              <td><input type="checkbox" name="check" class="chk<?= $cont; ?>"></td> 
            </tr>
          <?php endforeach ?>

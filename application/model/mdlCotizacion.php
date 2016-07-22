@@ -9,11 +9,8 @@
 		private $Valor_Total;
 		// private $Estado_In_Ha;
 		private $Num_Documento;
-<<<<<<< HEAD
 		private $Estado_In_Ha;
 		private $Num_Documento;
-=======
->>>>>>> kevin
 		private $Id_tipo;
 		private $Tipo_Documento;
 		private $Nombre;

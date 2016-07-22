@@ -45,7 +45,6 @@ DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
-<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColorInsumo` (IN `_idIns` INT(11))  NO SQL
 SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color id FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color = ci.Id_Color WHERE ci.Id_Insumo = _idIns$$
 
@@ -55,11 +54,9 @@ SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valo
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarInsumos` ()  NO SQL
 SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed,  ci.Stock_Minimo FROM tbl_insumos i JOIN tbl_unidades_medida m ON i.Id_Medida = m.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Insumo = i.Id_Insumo$$
 
-=======
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
 
->>>>>>> kevin
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT 	Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
 
@@ -69,11 +66,7 @@ UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE 	Id_Color = _id$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarMedida` (IN `_id` INT(11), IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 UPDATE tbl_unidades_medida SET Abreviatura = _abr, Nombre = _nom WHERE 	Id_Medida = _id$$
 
-<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
-=======
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerId` ()  NO SQL
->>>>>>> kevin
 SELECT max(Id_Insumo) FROM tbl_insumos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regColorInsumo` (IN `_col` INT(10), IN `_ins` INT(11), IN `_cant` INT(11), IN `_val_pro` DOUBLE, IN `_stock` INT(11))  NO SQL
@@ -159,16 +152,11 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 
 INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-<<<<<<< HEAD
 (1, 5, 1, 0, 0, 20),
 (2, 6, 1, 0, 0, 20),
 (3, 7, 1, 0, 0, 20),
 (4, 6, 2, 0, 0, 50),
 (5, 7, 2, 0, 0, 50);
-=======
-(1, 1, 8, 0, 0, 11);
-
->>>>>>> kevin
 -- --------------------------------------------------------
 
 --
@@ -290,15 +278,9 @@ CREATE TABLE `tbl_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_insumos`
 --
-
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-<<<<<<< HEAD
 (1, 3, 1, 'hilo'),
 (2, 2, 1, 'Tela');
-=======
-(8, 1, 1, 'Hilo'),
-(9, 2, 0, '1');
->>>>>>> kevin
 
 -- --------------------------------------------------------
 
@@ -957,24 +939,18 @@ ALTER TABLE `tbl_colores`
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-<<<<<<< HEAD
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-=======
-  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
->>>>>>> kevin
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
   MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-=======
->>>>>>> kevin
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
