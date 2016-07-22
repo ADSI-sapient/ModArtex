@@ -7,8 +7,6 @@
 -- Tiempo de generación: 22-07-2016 a las 14:56:39
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 5.6.15
-
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -56,7 +54,10 @@ SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valo
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarInsumos` ()  NO SQL
 SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed,  ci.Stock_Minimo FROM tbl_insumos i JOIN tbl_unidades_medida m ON i.Id_Medida = m.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Insumo = i.Id_Insumo$$
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae9bb00278df6dd9d95e595cda3f6af4d52e0a0c
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT 	Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
 
@@ -169,6 +170,7 @@ INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Canti
 (3, 7, 1, 0, 0, 20),
 (4, 6, 2, 0, 0, 50),
 (5, 7, 2, 0, 0, 50);
+
 -- --------------------------------------------------------
 
 --
@@ -290,6 +292,7 @@ CREATE TABLE `tbl_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_insumos`
 --
+
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
 (1, 3, 1, 'hilo'),
 (2, 2, 1, 'Tela');
@@ -573,14 +576,6 @@ CREATE TABLE `tbl_solicitudes` (
   `Fecha_Vencimiento` date NOT NULL,
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_solicitudes`
---
-
-INSERT INTO `tbl_solicitudes` (`Id_PedidosCotizaciones`, `Num_Documento`, `Id_Estado`, `Fecha_Vencimiento`, `Valor_Total`) VALUES
-(1, '1017223026', 1, '2016-07-10', 12345),
-(2, '1037590137', 1, '2016-07-30', 12344);
 
 -- --------------------------------------------------------
 
@@ -962,17 +957,12 @@ ALTER TABLE `tbl_colores`
 --
 ALTER TABLE `tbl_colores_insumos`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `tbl_insumos`
---
-ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
