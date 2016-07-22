@@ -29,11 +29,12 @@
 
 			if (isset($_POST["btnRegistrar"])) {
 
-	            $this->modelo->__SET("fechaRegistro", $_POST["fecha_R"]);
-	            $this->modelo->__SET("estado", $_POST["estado"]);
-	            $this->modelo->__SET("fechaVencimiento", $_POST["fecha_V"]);
-	            $this->modelo->__SET("valorTotal", $_POST["vlr_total"]);
-	            $this->modelo->__SET("cliente", $_POST["cliente"]);
+	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
+	            // $this->modelo->__SET("Id_Estado", $_POST["estado"]);
+	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
+	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
+
 
 	         if($this->modelo->regCotizacion()){
 			        $mensaje = "swal('Cotizacion Registrada Exitosamente','','success')";

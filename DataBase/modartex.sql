@@ -45,6 +45,15 @@ DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColorInsumo` (IN `_idIns` INT(11))  NO SQL
+SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color id FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color = ci.Id_Color WHERE ci.Id_Insumo = _idIns$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
+SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarInsumos` ()  NO SQL
+SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed,  ci.Stock_Minimo FROM tbl_insumos i JOIN tbl_unidades_medida m ON i.Id_Medida = m.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Insumo = i.Id_Insumo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasTecnicas` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia ORDER BY f.Fecha_Registro DESC$$
 
@@ -66,7 +75,7 @@ UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE 	Id_Color = _id$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarMedida` (IN `_id` INT(11), IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 UPDATE tbl_unidades_medida SET Abreviatura = _abr, Nombre = _nom WHERE 	Id_Medida = _id$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerId` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) FROM tbl_insumos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regColorInsumo` (IN `_col` INT(10), IN `_ins` INT(11), IN `_cant` INT(11), IN `_val_pro` DOUBLE, IN `_stock` INT(11))  NO SQL
@@ -83,6 +92,9 @@ INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
 INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regSolicitud` (IN `Num` VARCHAR(20), IN `Estado` INT(11), IN `Fecha` DATE, IN `Total` INT(11))  NO SQL
+INSERT INTO tbl_solicitudes VALUES (NULL, Num,Estado,Fecha,Total)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
 INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
@@ -152,8 +164,11 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 
 INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 1, 8, 0, 0, 11);
-
+(1, 5, 1, 0, 0, 20),
+(2, 6, 1, 0, 0, 20),
+(3, 7, 1, 0, 0, 20),
+(4, 6, 2, 0, 0, 50),
+(5, 7, 2, 0, 0, 50);
 -- --------------------------------------------------------
 
 --
@@ -196,6 +211,13 @@ CREATE TABLE `tbl_estado` (
   `Id_Estado` int(11) NOT NULL,
   `Nombre` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_estado`
+--
+
+INSERT INTO `tbl_estado` (`Id_Estado`, `Nombre`) VALUES
+(1, 'No entregado');
 
 -- --------------------------------------------------------
 
@@ -268,10 +290,9 @@ CREATE TABLE `tbl_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_insumos`
 --
-
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(8, 1, 1, 'Hilo'),
-(9, 2, 0, '1');
+(1, 3, 1, 'hilo'),
+(2, 2, 1, 'Tela');
 
 -- --------------------------------------------------------
 
@@ -552,6 +573,14 @@ CREATE TABLE `tbl_solicitudes` (
   `Fecha_Vencimiento` date NOT NULL,
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_solicitudes`
+--
+
+INSERT INTO `tbl_solicitudes` (`Id_PedidosCotizaciones`, `Num_Documento`, `Id_Estado`, `Fecha_Vencimiento`, `Valor_Total`) VALUES
+(1, '1017223026', 1, '2016-07-10', 12345),
+(2, '1037590137', 1, '2016-07-30', 12344);
 
 -- --------------------------------------------------------
 
@@ -932,12 +961,22 @@ ALTER TABLE `tbl_colores`
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tbl_insumos`
+--
+ALTER TABLE `tbl_insumos`
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+-- AUTO_INCREMENT de la tabla `tbl_estado`
+--
+ALTER TABLE `tbl_estado`
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
@@ -997,7 +1036,7 @@ ALTER TABLE `tbl_salida_producto`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_PedidosCotizaciones` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_PedidosCotizaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1114,7 +1153,7 @@ ALTER TABLE `tbl_salida_producto`
 --
 ALTER TABLE `tbl_solicitudes`
   ADD CONSTRAINT `fk_Tbl_PedidosCotizaciones_Tbl_Persona1` FOREIGN KEY (`Num_Documento`) REFERENCES `tbl_persona` (`Num_Documento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Tbl_Pedidos_Cotizaciones_Tbl_Estado1` FOREIGN KEY (`Id_Estado`) REFERENCES `tbl_estado` (`Id_Estado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `tbl_solicitudes_ibfk_1` FOREIGN KEY (`Id_Estado`) REFERENCES `tbl_estado` (`Id_Estado`);
 
 --
 -- Filtros para la tabla `tbl_solicitudes_ordenesproduccion`

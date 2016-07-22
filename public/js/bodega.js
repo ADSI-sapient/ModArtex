@@ -22,5 +22,5 @@
     $("#tabla1 tr").find('td:eq(4)').each(function(){
       vec.unshift([$(this).html()]);
     });
-    $("#vector").val(vec);
+    $("#vecto").val(vec);
   }

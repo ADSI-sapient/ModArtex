@@ -12,19 +12,13 @@
           <div class="box-header with-border">
             <div class="box-header with-border" style="text-align: center;">
               <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
-            </div>
+          </div>
+      <br>
 
-            <br>
-
-            <form action="<?php echo URL; ?>Cotizacion/regCotizacion" method="POST" id="form">
+            <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
             <br>
             <div class="row col-lg-12">
-
-              <!--   <div class="form-group col-lg-1">
-                  <label for="id_pedido" class="">Código</label>
-                  <input type="text" class="form-control" id="id_pedido" placeholder="" value="3" disabled="disabled">
-                </div> -->
-
+            
                 <div class="form-group col-lg-push-1 col-lg-4">
                   <label class="">Fecha Registro</label>
                   <div class="">
@@ -264,7 +258,13 @@
                   <thead>
                     <tr class="info">
                       <th>Documento</th>
+                      <th>Tipo</th>
+                      <th>Tipo de Documento</th>
                       <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Estado</th>
+                      <th>Telefono</th>
+                      <th>Direccion</th>
                       <th>Email</th>
                       <th>Opcion</th>
                     </tr>
@@ -273,11 +273,17 @@
                  <tbody> 
                  <?php foreach ($clientes as $cliente):?>
                   <tr>
-                    <td><?php echo $cliente["documento"] ?></td>
-                    <td><?php echo $cliente["nombre"] ?></td>
-                    <td><?php echo $cliente["email"] ?></td>
+                    <td><?php echo $cliente["Num_Documento"] ?></td>
+                    <td><?php echo $cliente["Id_tipo"] ?></td>
+                    <td><?php echo $cliente["Tipo_Documento"] ?></td>
+                    <td><?php echo $cliente["Nombre"] ?></td>
+                    <td><?php echo $cliente["Apellido"] ?></td>
+                    <td><?php echo $cliente["Estado"] ?></td>
+                    <td><?php echo $cliente["Telefono"] ?></td>
+                    <td><?php echo $cliente["Direccion"] ?></td>
+                    <td><?php echo $cliente["Email"] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['documento'] ?>')">
+                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['Num_Documento'] ?>')">
                         Agregar
                       </button>
                     </td>
@@ -296,20 +302,10 @@
         </div> 
       </div>
 
+
          <!--Fin de asociar cliente -->
 
         </form>
       </div>
     </div>
 </section>
-
-<script type="text/javascript">
-  function agregarCliente(documento){
-    var docu = $("#cliente");
-    var moda = $("#mymodal");
-    docu.val(documento);
-    moda.modal("hide");
-    return false;
-  }
-
-</script>
