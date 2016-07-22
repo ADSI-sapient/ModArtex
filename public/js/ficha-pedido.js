@@ -226,15 +226,12 @@
       // <?= $msgRegPedido ?>
     
 
-    <!-- Asociar cliente -->
-      function asociarCliente(idcliente, clientes, idbotonc){
-
-        // boton = "#btnAgregar"+idbotonc;
+    // Asociar cliente
+      function asociarCliente(nombre, id_cliente, clientes, idbotonc){
 
         var campos = $(clientes).parent().parent();
-        
-        $("#cliente").val(idcliente);
-        // $(boton).attr('disabled', 'disabled');
+        $("#nombre").val(nombre);
+        $("#id_cliente").val(id_cliente);
 
       }
 
