@@ -154,7 +154,6 @@ INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Canti
 (3, 7, 1, 0, 0, 20),
 (4, 6, 2, 0, 0, 50),
 (5, 7, 2, 0, 0, 50);
-
 -- --------------------------------------------------------
 
 --
@@ -278,7 +277,6 @@ CREATE TABLE `tbl_insumos` (
 --
 
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-<<<<<<< HEAD
 (1, 3, 1, 'hilo'),
 (2, 2, 1, 'Tela');
 
@@ -940,7 +938,6 @@ ALTER TABLE `tbl_colores`
 --
 ALTER TABLE `tbl_colores_insumos`
   MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
@@ -955,6 +952,11 @@ ALTER TABLE `tbl_insumos`
 --
 ALTER TABLE `tbl_estado`
   MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `tbl_insumos`
+--
+ALTER TABLE `tbl_insumos`
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --

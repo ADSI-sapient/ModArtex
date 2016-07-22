@@ -80,7 +80,6 @@
       </div> 
     </div>
   </div>
-
   <input type="hidden" name="arreglo[]" id="vecto">
   <div class="box-footer">
     <button type="reset" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
