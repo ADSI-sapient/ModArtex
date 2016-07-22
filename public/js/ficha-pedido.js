@@ -419,7 +419,12 @@
       function asociarInsumoFicha(id, nombre, ref, insumos, valor, cantidad){
         
           var campos = $(insumos).parent().parent();
+<<<<<<< HEAD
           valorcm = (valor / cantidad) / 100;
+=======
+            valorcm = (valor / cantidad) / 100;
+
+>>>>>>> kevin
           var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onchange='res"+id+".value=cantNec"+id+".value * "+valorcm+"; subt"+id+".value=parseFloat(res"+id+".value);' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id+"></tr>";
 
           $("#tbl-insumos-aso").append(tr);
