@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col-lg-offset-3 col-lg-3">
               <label for="Estado" class="">*Estado:</label>
-              <select class="form-control" name="estado" required="">
+              <select class="form-control" name="estado" required="" disabled="">
                 <option value="Habilitado" >Habilitado</option>
                 <option value="Inhabilitado">Inhabilitado</option>
               </select>
@@ -67,7 +67,7 @@
               <label for="roles" class="">*Rol:</label>
               <select class="form-control" name="rol" required="" id="rol">
               <?php foreach ($rol as $value): ?>
-                <option value="<?= $value['Id']?>"><?= $value['Nombre'] ?></option>
+                <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre'] ?></option>
               <?php endforeach ?>
               </select>
             </div>

@@ -57,27 +57,27 @@
                 <tbody class="list">
                   <?php foreach ($usuarios as $usuario): ?>
                     <tr >
-                      <td><?= $usuario["codigo"] ?></td>
-                      <td class="tipo_documento"><?= $usuario["tipo_documento"] ?></td>
-                      <td class="documento"><?= $usuario["documento"] ?></td>
-                      <td class="estado"><?= $usuario["estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td class="nombre"><?= $usuario["nombre"] ?></td>
-                      <td class="apellido"><?= $usuario["apellido"] ?></td>
-                      <td class="nombre_usuario"><?= $usuario["nombre_usuario"] ?></td>
-                      <!-- <td class="clave"><?= $usuario["clave" ] ?></td> -->
-                      <td class="email"><?= $usuario["email"] ?></td>
+                      <td><?= $usuario["Id_Usuario"] ?></td>
+                      <td class="tipo_documento"><?= $usuario["Tipo_Documento"] ?></td>
+                      <td class="documento"><?= $usuario["Num_Documento"] ?></td>
+                      <td class="estado"><?= $usuario["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                      <td class="nombre"><?= $usuario["Nombre"] ?></td>
+                      <td class="apellido"><?= $usuario["Apellido"] ?></td>
+                      <td class="nombre_usuario"><?= $usuario["Usuario"] ?></td>
+                      <!-- <td class="clave"><?= $usuario["Clave" ] ?></td> -->
+                      <td class="email"><?= $usuario["Email"] ?></td>
                       <td class="rol" value=""><?= $usuario["Nombre"] ?></td>
                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td>
 
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editar('<?= $usuario["codigo"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editar('<?= $usuario["Id_Usuario"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
 
-                        <?php if ($usuario["estado"] == 1){ ?>
+                        <?php if ($usuario["Estado"] == 1){ ?>
                           
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['codigo'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Id_Usuario'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
                           
                           <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['codigo'] ?>, 1)"><i class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Id_Usuario'] ?>, 1)"><i class="fa fa-check"></i></button>
 
                             <?php } ?>
                           </td>

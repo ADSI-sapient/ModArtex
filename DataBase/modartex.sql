@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-07-2016 a las 14:25:49
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 22-07-2016 a las 14:56:39
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,7 +30,7 @@ UPDATE tbl_fichas_tecnicas SET Estado = _estado WHERE Referencia = _referencia$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_referencia` INT)  NO SQL
 SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Referencia = _referencia$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarRoles` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarRoles` ()  NO SQL
 SELECT Id_Rol, Nombre FROM tbl_roles$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteTallasAso` (IN `_referencia` INT)  NO SQL
@@ -50,6 +50,15 @@ SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valo
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT 	Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarUsuarios` ()  NO SQL
+SELECT p.Tipo_Documento, p.Num_Documento, p.Estado, p.Nombre, p.Apellido, p.Email, u.Id_Usuario, u.Usuario, r.Nombre
+FROM tbl_persona p
+JOIN tbl_usuarios u 
+ON p.Num_Documento= u.Num_Documento
+JOIN tbl_roles r
+ON 	u.Tbl_Roles_Id_Rol = r.Id_Rol
+ORDER BY Id_Usuario DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarColor` (IN `_id` INT(10), IN `_nom` VARCHAR(45), IN `_cod` VARCHAR(7))  NO SQL
 UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE 	Id_Color = _id$$
@@ -72,14 +81,17 @@ INSERT INTO tbl_colores VALUES(null, _nom, _cod)$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarMedidas` (IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
 INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegTallasAsociadas` (IN `_referencia` INT, IN `_id_talla` INT)  NO SQL
 INSERT INTO tbl_fichastecnicas_tallas VALUES (_referencia, _id_talla)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegUsuario` (IN `_Tbl_Roles_Id_Rol` INT, IN `_usuario` VARCHAR(15), IN `_clave` VARCHAR(45), IN `_num_documento` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegUsuario` (IN `_Tbl_Roles_Id_Rol` INT, IN `_usuario` VARCHAR(15), IN `_clave` VARCHAR(45), IN `_num_documento` VARCHAR(20))  NO SQL
 INSERT INTO tbl_usuarios(Num_Documento, Tbl_Roles_Id_Rol, Usuario, Clave) VALUES(_num_documento,_Tbl_Roles_Id_Rol, _usuario, _clave )$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Reg_Id` (IN `_id_tipo` INT)  NO SQL
+INSERT INTO tbl_tipopersona (Id_Tipo) VALUES (_id_tipo)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
 SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
@@ -391,7 +403,12 @@ CREATE TABLE `tbl_persona` (
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
 ('1017223026', 1, 'CC', 'Pepito', 'Perez', 1, '3116440736', 'Call 71c #30-215', 'jaac219@gmail.com'),
-('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '3121846987', 'Cl 54 Sur 85 ', 'japd@gmail.com');
+('1152', 1, 'C.C', 'Manuela', 'Durango', 1, '', '', 'd@fasd'),
+('1234567', 1, 'C.C', 'Manuela', 'Urrego', 1, '', '', 'amurrego6@gmail.com'),
+('123456789', 1, 'C.C', 'Angie Manuela', 'Urrego', 1, '', '', '234567'),
+('2345678', 1, 'C.C', 'Angie', 'Urrego', 1, '', '', 'asdsada'),
+('971118', 1, 'C.C', 'Alejo', 'sfsfas', 1, '', '', 'alejo@'),
+('98765432', 1, 'C.C', 'Juan David', 'Ramirez', 1, '', '', 'jd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -677,7 +694,12 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
-(1, '1017223026', 1, 'pepito', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+(1, '1017223026', 1, 'pepito', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(6, '1234567', 1, 'Manuelaa', '12345'),
+(7, '2345678', 1, 'Angie', 'sdadas'),
+(9, '98765432', 1, 'JuanDa', '12345'),
+(10, '1152', 1, 'Durango', '12344'),
+(11, '971118', 3, 'Alejo', 'asdsadaa');
 
 --
 -- Índices para tablas volcadas
@@ -1000,12 +1022,12 @@ ALTER TABLE `tbl_tipopersona`
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Restricciones para tablas volcadas
 --
