@@ -50,7 +50,7 @@
 
 	    public function getClientes(){
 
-	    	$sql = "SELECT Id_Cliente, Nombre, Telefono, Email FROM tbl_clientes";
+	    	$sql = "SELECT Num_Documento, Nombre, Telefono, Email FROM tbl_persona WHERE Id_Tipo = 2";
 	        $query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
