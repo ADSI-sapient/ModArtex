@@ -13,6 +13,7 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
+        <br>
         <!-- <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();"> -->
         <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST">
           <div class="row col-lg-12">
@@ -84,12 +85,12 @@
             <div class="form-group col-lg-4">
               <label for="vlr_produccion" class="">Valor Producción:</label>
               <div class="">
-                <div class="input-group">
+                <!-- <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
-                  </div>
+                  </div> -->
                   <input type="number" min="1" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
-                </div>
+                <!-- </div> -->
               </div>
             </div>
 
@@ -104,7 +105,7 @@
           <div class="row"> 
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha" onclick="limpiarValoresTabla()"><b>Limpiar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
           </div>
         </form>
@@ -115,7 +116,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Insumos</b></h4>
+              <h4 class="modal-title"><b>Insumos Para Asociar</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -123,23 +124,27 @@
                   <table class="table table-hover" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
-                      <th>Id</th>
-                      <th>Unidad Medida</th>
-                      <th>Estado</th>
+                      <th>Id Insumo</th>
                       <th>Nombre</th>
+                      <th>Unidad Medida</th>
+                      <th>Color</th>
+                      <th>Estado</th>
+                      <th>Valor Promedio</th>
                       <th>Agregar</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($insumos as $insumo): ?>
+                    <?php foreach ($insumosHabAsociar as $insumo): ?>
                       <tr>
                         <td><?= $insumo["Id_Insumo"] ?></td>
-                        <td><?= $insumo["Id_Medida"]==1?"m":"cm" ?></td>
-                        <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
+                        <td><?= $insumo["Abreviatura"] ?></td>
+                        <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                        <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                        <td><?= $insumo["Valor_Promedio"] ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

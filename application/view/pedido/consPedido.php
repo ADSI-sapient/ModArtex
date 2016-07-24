@@ -51,17 +51,17 @@
                     <tbody class="list">
                     <?php foreach ($pedidos as $pedido): ?>
                       <tr>
-                        <td><?= $pedido["Id_Pedido"] ?></td>
+                        <td><?= $pedido["Id_Solicitud"] ?></td>
                         <td class="freg"><?= $pedido["Fecha_Registro"] ?></td>
                         <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
                         <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Pedido"] ?>', this);" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this);" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         </td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Pedido"] ?>', this);"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Solicitud"] ?>', this);"></i></button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -83,7 +83,7 @@
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Pedido</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>pedido/editarPedido" method="post" id="modpedido">
+              <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido">
                 <div class="form-group col-sm-4">
                   <label for="id_pedido" class="">Id Pedido:</label>
                   <input class="form-control" type="text" name="id_pedido" id="id_pedido" readonly="" style="border-radius:5px;">
@@ -139,15 +139,15 @@
               <h4 class="modal-title" id="myModalLabel"><b>Cambiar Estado Pedido</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>pedido/cambiarEstadoPedido" method="post" id="modalEditarEstado">
+              <form role="form" action="<?= URL ?>ctrPedido/cambiarEstadoPedido" method="post" id="modalEditarEstado">
                 <input class="form-control" type="hidden" name="id_pedidoMod" id="id_pedidoMod">
                 <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado Actual:</label>
                   <select class="form-control" name="estadoMod" id="estadoMod" style="border-radius:5px;">
-                    <option value="1">Pendiente</option>
-                    <option value="2">En Proceso</option>
-                    <option value="3">Terminado</option>
-                    <option value="4">Cancelado</option>
+                    <option value="2">Pendiente</option>
+                    <option value="3">En Proceso</option>
+                    <option value="4">Terminado</option>
+                    <option value="5">Cancelado</option>
                   </select>
                 </div>
             </div>

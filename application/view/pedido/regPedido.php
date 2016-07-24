@@ -12,7 +12,9 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
-        <form action="<?php echo URL; ?>pedido/regPedido" method="POST"  onsubmit="return enviarFormPedido();">
+        <br>
+        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST"  onsubmit="return enviarFormPedido();">
+        <!-- <input type="hidden" name="id_tipo" value="2" id="id_tipo"> -->
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -43,11 +45,11 @@
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
-              <label for="aso_cliente" class="">Asociar Cliente:</label>
+              <label for="aso_cliente" class="">*Asociar Cliente:</label>
               <div class="">
                 <div class="input-group">
-                  <input type="text" name="cliente" class="form-control" id="nombre" readonly="" required="" style="border-radius:5px;">
-                  <input type="hidden" name="cliente" class="form-control" id="id_cliente" readonly="" required="" style="border-radius:5px;">
+                  <input type="text" name="nombre" class="form-control" id="nombre" readonly="" required="" style="border-radius:5px;">
+                  <input type="hidden" name="id_cliente"  id="id_cliente" required="">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asociarClientes"><i class="fa fa-search"></i>
                     </button>
@@ -83,14 +85,14 @@
           </div>
           <div class="row col-lg-12">
      			  <div class="form-group col-lg-offset-8 col-lg-4">
-              <label for="vlr_total" class="">Valor Total:</label>
+              <label for="vlr_total" class="">*Valor Total:</label>
               <div class="">
-                <div class="input-group">
+                <!-- <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
-                  </div>
+                  </div> -->
                   <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
-                </div>
+                <!-- </div> -->
               </div>
             </div>
           </div>
@@ -99,7 +101,7 @@
             <!-- <div class="form-group"> -->
               <div class="form-group col-lg-12">
                 <button type="submit" class="btn btn-primary  col-lg-offset-9" style="margin-top: 15px;" name="btnRegPedido"><b>Registrar</b></button>
-                <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;"><b>Limpiar</b></button>
+                <button type="reset" class="btn btn-danger" onclick="limpiarFormRegPedido()" style="margin-left: 15px; margin-top: 15px;"><b>Limpiar</b></button>
               </div>
             <!-- </div> -->
           </div>
