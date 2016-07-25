@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Formulario de ingreso</title>
+  <title>Ingreso a Modartex</title>
 
   <link rel="stylesheet" href="<?= URL; ?>css/Style-login.css">
   <link rel="stylesheet" href="<?php echo URL; ?>fonts/font-awesome-4.6.1/css/font-awesome.css">
@@ -16,9 +16,9 @@
   </section>
   <section class="container">
     <div class="login">
-      <h1>Ingreso a ModArtex</h1>
+      <h1>Iniciar Sesión</h1>
       <form method="post" action="">
-        <p><input type="text" name="txtUsuario" value="" placeholder="Usuario"></p>
+        <p><input type="text" name="txtUsuario" value="" placeholder="Usuario" autofocus=""></p>
         <p><input type="password" name="txtClave" value="" placeholder="Contraseña"></p>
         <p class="remember_me">
           <label>
@@ -26,7 +26,7 @@
             Recortar contraseña 
           </label>
         </p>
-        <p class="submit"><input type="submit" name="btnLogin" value="Login"></p>
+        <p class="submit"><input type="submit" name="btnLogin" value="Login" style="cursor:pointer;"></p>
       </form>
     </div>
 

@@ -90,13 +90,12 @@
 	    
       	public function regInsumosAso(){
 
-      		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (?,?,?,?,?)";
+      		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (NULL,?,?,?,?)";
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, null);
-      		$query->bindParam(2, $this->id_insumo);
-      		$query->bindParam(3, $this->referencia);
-      		$query->bindParam(4, $this->cant_necesaria);
-      		$query->bindParam(5, $this->valor_insumo);
+      		$query->bindParam(1, $this->id_insumo);
+      		$query->bindParam(2, $this->referencia);
+      		$query->bindParam(3, $this->cant_necesaria);
+      		$query->bindParam(4, $this->valor_insumo);
       		$query->execute();
       		return $query;
       	}
@@ -266,10 +265,17 @@
       	public function getAsoInsumos(){
 
       		$sql = "SELECT Id_Insumo, Id_Medida, Estado, Nombre FROM tbl_insumos";
-
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
+      	}
+
+      	public function consInsumosRegFicha(){
+
+      		$sql = "CALL SP_consInsumosRegFicha";
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			return $query->fetchAll();
       	}
 
       	public function getAsoTallas(){
