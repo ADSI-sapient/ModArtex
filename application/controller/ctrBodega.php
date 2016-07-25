@@ -3,11 +3,13 @@
 		private $_modelInsumo;
 		private $_modelColor;
 		private $_modelMedida;
+		private $_modelExistencias;
 
 		function __construct(){
 			$this->_modelInsumo = $this->loadModel('mdlBodega');
 			$this->_modelColor = $this->loadModel('mdlColores');
 			$this->_modelMedida = $this->loadModel('mdlMedidas');
+			$this->_modelExistencias = $this->loadModel('mdlExistencias');
 		}
 
 		public function index(){
@@ -25,16 +27,13 @@
 				$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
 
 					
-				$id = $this->_modelInsumo->registrarInsumo()[0];
-				$this->_modelInsumo->__SET("_idInsumo", $id);
-
-				// $this->_modelInsumo->crearExistencias();
+				$id = $this->_modelInsumo->registrarInsumo();
+				$this->_modelInsumo->__SET("_idInsumo", $id["Id"]);
 
 				$col = explode(',', $_POST['arreglo'][0]);
 
 				foreach ($col as $value2) {
 					$this->_modelInsumo->__SET("_idColor", $value2);
-
 					$this->_modelInsumo->regColorInsumo();
 				}
 			}
@@ -80,20 +79,42 @@
 			$this->_modelInsumo->__SET("_codMedida", $_POST["select"]);
 			$this->_modelInsumo->__SET("_nombre", $_POST["nombre"]);
 
-			$this->_modelInsumo->modiInsumo();
-			$this->_modelInsumo->deleteColor();
+			$this->_modelInsumo->modInsumo();
+			$lis = $this->_modelInsumo->listarColorInsumo();
 
-			$col = explode(',', $_POST['arreglo'][0]);
-				
+			$col = explode(',', $_POST['arregloCol'][0]);
+
 				foreach ($col as $value2) {
-					$this->_modelInsumo->__SET("_idColor", $value2);
-					$this->_modelInsumo->regColorInsumo();
+					$band = true;
+					foreach ($lis as $val) {
+						if ($value2 == $val["id"]) {
+							$band = false;
+						}
+					}
+					if ($band) {
+						$this->_modelInsumo->__SET("_idColor", $value2);
+						$this->_modelInsumo->regColorInsumo();
+					}
 				}
 
-			$this->listarInsumos();
+			header ("location: ".URL."ctrBodega/listarInsumos");
+		}
+
+		public function cantidadColIns(){
+			$this->_modelInsumo->__SET("_idColor", $_POST["idCol"]);
+			$this->_modelInsumo->__SET("_idInsumo", $_POST["idIns"]);
+			$cant = $this->_modelInsumo->cantidadColIns();
+			echo json_encode($cant);
+		}
+
+		public function deleteColor(){
+			$this->_modelInsumo->__SET("_idColor", $_POST["idCol"]);
+			$this->_modelInsumo->__SET("_idInsumo", $_POST["idIns"]);
+			echo json_encode($this->_modelInsumo->deleteColor());
 		}
 
 		public function listExistencias(){
+			$listEx = $this->_modelExistencias->listarExistencias();
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/bodega/existencias.php';
 			include APP . 'view/_templates/footer.php';
