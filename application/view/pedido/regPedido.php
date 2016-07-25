@@ -46,8 +46,12 @@
               <label for="aso_cliente" class="">Asociar Cliente:</label>
               <div class="">
                 <div class="input-group">
+
                   <input type="text" name="cliente" class="form-control" id="nombre" readonly="" required="" style="border-radius:5px;">
-                  <input type="hidden" name="cliente" class="form-control" id="id_cliente" readonly="" required="" style="border-radius:5px;">
+
+                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" readonly="" required="" style="border-radius:5px;">
+
+
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asociarClientes"><i class="fa fa-search"></i>
                     </button>

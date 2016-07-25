@@ -36,7 +36,7 @@
 	        	$this->mdlModel->__SET("fecha_registro", $_POST["fecha_reg"]);
 	      		$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));
 	        	$this->mdlModel->__SET("vlr_total", $_POST["vlr_total"]);
-	        	$this->mdlModel->__SET("id_cliente", $_POST["cliente"]);
+	        	$this->mdlModel->__SET("id_cliente", $_POST["id_cliente"]);
 
 	            if ($this->mdlModel->regPedido()) {
 
@@ -59,7 +59,7 @@
 				}
 	        }
 
-	        $fichas = $this->mdlModelF->getFichas();
+	        $fichas = $this->mdlModel->getFichasHabilitadas();
 
 	        $clientes = $this->mdlModel->getClientes();
 

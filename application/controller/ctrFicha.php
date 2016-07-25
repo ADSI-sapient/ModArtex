@@ -56,15 +56,16 @@
 						$this->mdlModel->regProducto();
 
 						$ultima = $this->mdlModel->ultimaFicha()["referencia"];
-					 	//Registro de insumos asociados
-						// for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
+					 	
+						for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
 						        		
-						// 	$this->mdlModel->__SET("referencia", $ultima);
-						//   	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
-						//   	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
-						//   	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
-						//   	$this->mdlModel->regInsumosAso();
-						// }
+							$this->mdlModel->__SET("referencia", $ultima);
+						  	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
+						  	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
+						  	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+			
+						  	$this->mdlModel->regInsumosAso();
+						}
 
 						//Registro de tallas asociadas
 						

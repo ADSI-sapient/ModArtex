@@ -25,7 +25,7 @@
    
       // <?= $msjFichaExiste ?>
 
-      // <?= $mensaje ?>
+      $mensaje
     
       function editarFicha(referencia, fichas){
         var campos = $(fichas).parent().parent();
@@ -235,9 +235,6 @@
 
       }
 
-      
-
-    
       function editarPedido(id, pedidos){
 
         var campos = $(pedidos).parent().parent();
