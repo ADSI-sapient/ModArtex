@@ -146,3 +146,49 @@ function seleccionCol(){
           });
         }
 
+        function existen(id, ins){
+          var campos = $(ins).parent().parent();
+          $("#idExs").val(id);    
+          $("#codIns").val(campos.find("td").eq(0).text());    
+          $("#nomIns").val(campos.find("td").eq(1).text());
+          $("#coloIns").val(campos.find("td").eq(2).text());
+          $("#medIns").val(campos.find("td").eq(3).text());
+          $("#cantActual").val(campos.find("td").eq(4).text());
+          $("#valPromedio").val(campos.find("td").eq(5).text());
+          $("#ModelEntrada").show();
+        }
+
+
+
+
+        $("#valUnit").on("keyup change", function(){
+          if ($("#cant").val() <= 0) {
+            $("#valTot").val("");
+          }else{
+            $("#valTot").val($("#cant").val() * $("#valUnit").val()); 
+          }
+        });
+
+        $("#valTot").on("keyup change", function(){
+          if ($("#cant").val() <= 0) {
+            $("#valUnit").val("");
+          }else{
+            $("#valUnit").val($("#valTot").val() / $("#cant").val());
+          }
+        }).change(function(){
+        });  
+
+        $("#cant").on("keyup change", function(){
+          $("#valTot").val("");
+          $("#valUnit").val("");
+        }).focusout(function(){
+          if ($("#cant").val() <= 0 && $("#cant").val() != "") {
+            alert("La cantidad debe ser mayor a cero");
+            $("#cant").val("");
+          }
+        });
+
+
+
+
+        

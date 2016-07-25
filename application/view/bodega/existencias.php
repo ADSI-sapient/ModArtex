@@ -44,7 +44,7 @@
                   <td><?= $valExt["Valor_Promedio"]?></td>
                   <td><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
                  <td>
-                  <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i class="fa fa-arrow-left"></i></button>
+                  <button type="button" onclick="existen(<?= $valExt["Id_Detalle"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i class="fa fa-arrow-left"></i></button>
                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelSalida"><i class="fa fa-arrow-right"></i></button>
                 </td>
               </tr>
@@ -71,19 +71,24 @@
       <div class="modal-header">
         <h4 class="control-label" style="text-align: center;"><strong>ENTRADA INSUMO</strong></h4>
       </div>
+    
+  <form action="<?= URL; ?>ctrBodega/regEntrada" method="POST">
       <div class="modal-body">
 
         <div class="form-horizontal"> 
-          <div class="form-group">
+<!--           <div class="form-group">
            <h4 class="col-md-3">Código: </h4>
            <div class="col-md-9">
-            <input type="text" value="001" class="form-control" disabled="true"> 
+            <input type="text" id="codIns" class="form-control" disabled="true"> 
           </div> 
-        </div>
+        </div> -->
+        <input type="hidden" name="idExs" id="idExs">
+        <input type="hidden" name="cantActual" id="cantActual">
+        <input type="hidden" name="valPromedio" id="valPromedio">
         <div class="form-group">
          <h4 class="col-md-3">Nombre: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Hilo" disabled="true">
+           <input type="text" class="form-control" id="nomIns" disabled="true">
          </div>
        </div>
 
@@ -91,38 +96,43 @@
        <div class="form-group">
          <h4 class="col-md-3">Color: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Rojo" disabled="true">
+           <input type="text" class="form-control" id="coloIns" disabled="true">
          </div>
        </div>
 
        <div class="form-group">
          <h4 class="col-md-3">Medida: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Decenas" disabled="true">
+           <input type="text" class="form-control" id="medIns" disabled="true">
          </div>
        </div>
-
 
        <div class="form-group">
          <h4 class="col-md-3">Cantidad: </h4>
          <div class="col-md-9">
-          <input type="number" class="form-control"  min="0"> 
+          <input required="" type="number" id="cant" name="cant" class="form-control"  min="1"> 
         </div> 
       </div>
       <div class="form-group">
-       <h4 class="col-md-3">Valor: </h4>
+       <h4 class="col-md-3">Valor unitario: </h4>
        <div class="col-md-9">
-         <input type="money" class="form-control">
+         <input required="" type="number" id="valUnit" name="valorUni" class="form-control" min="0">
+       </div>
+     </div>
+     <div class="form-group">
+       <h4 class="col-md-3">Valor total: </h4>
+       <div class="col-md-9">
+         <input  required="" type="number" id="valTot" name="valorTot" class="form-control" min="0">
        </div>
      </div>
 
    </div>
  </div>
  <div class="modal-footer">
-  <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-  <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
-
+  <button type="reset" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
+  <button type="submit" class="btn btn-primary pull-right">Registrar</button>
 </div> 
+</form>
 </div> 
 </div>
 </div>
@@ -139,12 +149,12 @@
       <div class="modal-body">
 
         <div class="form-horizontal"> 
-          <div class="form-group">
+<!--           <div class="form-group">
            <h4 class="col-md-3">Código: </h4>
            <div class="col-md-9">
             <input type="text" value="001" class="form-control" disabled="true"> 
           </div> 
-        </div>
+        </div> -->
         <div class="form-group">
          <h4 class="col-md-3">Nombre: </h4>
          <div class="col-md-9">
@@ -189,8 +199,8 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-  <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
+  <button type="submit" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
+  <button type="submit" class="btn btn-primary pull-right">Registrar</button>
 
 </div> 
 </div> 

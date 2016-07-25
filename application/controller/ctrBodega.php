@@ -115,8 +115,34 @@
 
 		public function listExistencias(){
 			$listEx = $this->_modelExistencias->listarExistencias();
+			
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/bodega/existencias.php';
 			include APP . 'view/_templates/footer.php';
+		}
+
+		public function regEntrada(){
+			$this->_modelExistencias->__SET("_cant", $_POST["cant"]);
+			$this->_modelExistencias->__SET("_valorUni", $_POST["valorUni"]);
+			$this->_modelExistencias->__SET("_valorTot", $_POST["valorTot"]);
+
+			$idEnt = $this->_modelExistencias->regEntrada();
+
+			$this->_modelExistencias->__SET("_idEnt", $idEnt["idEnt"]);
+			$this->_modelExistencias->__SET("_idExis", $_POST["idExs"]);
+
+
+			//Ponderación//
+
+			$cantTot = $_POST["cant"] + $_POST["cantActual"];
+			$valTot = ($_POST["cantActual"] * $_POST["valPromedio"]) + $_POST["valorTot"];
+			$promedio = $valTot/$cantTot;
+
+			$this->_modelExistencias->__SET("_cantInsumo", $cantTot);
+			$this->_modelExistencias->__SET("_valorPro", $promedio);
+
+
+			$this->_modelExistencias->regEntradaExis();
+			header("location: ".URL."ctrBodega/listExistencias");
 		}
 	}
