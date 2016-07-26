@@ -130,6 +130,14 @@
       		$query->execute();
       		return $query;
       	}
+
+      	public function getFichasHabilitadas(){
+
+      		$sql = "SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$query = $this->db->prepare($sql);
+	        $query->execute();
+	        return $query->fetchAll();
+      	}
 	}
 
 ?>

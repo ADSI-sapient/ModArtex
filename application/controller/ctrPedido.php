@@ -70,6 +70,7 @@
 	        }
 
 	        $fichas = $this->mdlModel->getFichasHabilitadas();
+
 	        $clientes = $this->mdlModel->getClientes();
 
 	        require APP . 'view/_templates/header.php';

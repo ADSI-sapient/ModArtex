@@ -284,9 +284,6 @@
         $("#id_cliente").val(id_cliente);
       }
 
-      
-
-    
       function editarPedido(id, pedidos){
 
         var campos = $(pedidos).parent().parent();
