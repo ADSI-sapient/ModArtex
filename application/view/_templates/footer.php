@@ -42,9 +42,6 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
-    <script>
-        <?= $msjEditFicha ?>
-    </script>
     <script type="text/javascript">
 
        function editar(codigo, usuarios){
@@ -78,5 +75,5 @@
           };
 
           var userList = new List('users', options);
-          </script>
+    </script>
  

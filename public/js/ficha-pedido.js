@@ -25,8 +25,24 @@
    
       // <?= $msjFichaExiste ?>
 
+      // function fichaRepetida(){
+
+      //   Lobibox.alert('error', {msg: 'La ficha que intenta registrar ya existe'});
+
+      // }
+
+      // var variable = '<?php echo $msjFichaExiste; ?>';
+
+      // if (variable == 1) {
+      //   alert("ficha registrada");
+      //   // swal({title: "Error", 
+      //   //     text: "Ficha ya esta reagistrada",   
+      //   //     imageUrl: uri+"img/stop.png"
+      //   //   })
+      // }
+      
       // <?= $mensaje ?>
-    
+
       function editarFicha(referencia, fichas){
         var campos = $(fichas).parent().parent();
         $("#referencia").val(campos.find("td").eq(0).text());
@@ -146,26 +162,21 @@
       //   $("#vlr_produccion").val(total);
       // }
 
-      // function enviarFormFicha(){
-      //   if ($("#tablaInsumos >tbody >tr").length == 0) {
-      //     swal({title: "0 Insumos Asociados", 
-      //       text: "Por favor asocie al menos un insumo a esta ficha.",   
-      //       imageUrl: uri+"img/stop.png"
-      //     });
-      //     return false;
-      //   }else if($("#vlr_total").val() == 0){
-      //     swal({title: "Valor de Produccion: 0", 
-      //       text: "Debe calcular un valor de producción para esta ficha.",   
-      //       imageUrl: uri+"img/stop.png"
-      //     });
-      //     return false;
-      //   }else{
-      //     return true;
-      //   }
-      // }
-    
-   
+      //valida que se asocie al menos un insumo al momento de registrar una ficha
+      function enviarFormFicha(){
 
+        if ($("#tablaInsumos >tbody >tr").length == 0) {
+          swal({title: "0 Insumos Asociados", 
+            text: "Por favor asocie al menos un insumo a esta ficha.",   
+            imageUrl: uri+"img/stop.png"
+          });
+          return false;
+        }else{
+          return true;
+        }
+      }
+      
+      //valida que se asocie al menos una ficha al momento de registrar un pedido.
       function enviarFormPedido(){
 
         if ($("#tablaFicha >tbody >tr").length == 0) {
@@ -176,6 +187,7 @@
           return false;
         }
 
+        //valida que se asocie un cliente a la ficha.
         if($("#nombre").val().length < 1){
           swal({title: "No ha asociado cliente", 
             text: "Por favor asocie un cliente al pedido.",   
