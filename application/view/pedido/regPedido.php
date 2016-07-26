@@ -15,7 +15,9 @@
         <br>
         <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST"  onsubmit="return enviarFormPedido();">
         <!-- <input type="hidden" name="id_tipo" value="2" id="id_tipo"> -->
+
           <div class="row col-lg-12">
+
             <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
@@ -27,6 +29,7 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group col-lg-4">
               <label class="">*Fecha Entrega:</label>
               <div class="">
@@ -38,12 +41,16 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group col-lg-4">
               <label for="estado" class="">*Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" required="" readonly="" style="border-radius:5px;">
             </div>
+
           </div>
+
           <div class="row col-lg-12">
+
             <div class="form-group col-lg-4">
               <label for="aso_cliente" class="">*Asociar Cliente:</label>
               <div class="">
@@ -57,7 +64,9 @@
                 </div>
               </div>
             </div>
+
           </div>
+
           <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -78,11 +87,13 @@
               </div>
             </div>
           </div>
+
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
               <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Fichas</b></button>
             </div>
           </div>
+
           <div class="row col-lg-12">
      			  <div class="form-group col-lg-offset-8 col-lg-4">
               <label for="vlr_total" class="">*Valor Total:</label>
@@ -97,6 +108,7 @@
             </div>
           </div>
           <br>
+          
           <div class="row">
             <!-- <div class="form-group"> -->
               <div class="form-group col-lg-12">

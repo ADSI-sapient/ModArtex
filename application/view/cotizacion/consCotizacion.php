@@ -1,9 +1,9 @@
-  <section class="content-header">
-    <ol class="breadcrumb">
+<section class="content-header">
+  <ol class="breadcrumb">
       <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Cotizacion</a></li>
       <li class="active">Listar Cotizaciones</li>
-    </ol>
+  </ol>
     <br>
   </section>
 
@@ -15,16 +15,16 @@
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
       </div>
 
-      <div id="users">
+    <div id="users">
       <div class="row box-header">
         <div class="col-md-8"></div>
            <div class="col-md-4">
-              <div class="form-group">
+            <div class="form-group">
               <div class="box-tools pull-right"></div>
-              </div>
             </div>
+          </div>
       </div>
-      </div>
+    </div>
       <form class="form-horizontal">
       <div>
         <div class="col-md-12">
@@ -35,7 +35,6 @@
                 <thead>
                   <tr class="info">
                     <th style="width: 10px">Código</th>
-                    <th>Fecha Registro</th>
                     <th>Estado</th>
                     <th>Fecha Vencimiento</th>
                     <th>Valor Total</th>
@@ -46,30 +45,29 @@
 
             <tbody class="list">
 
-                <?php foreach ($tbl_solicitudes as $cotizacion):?>
+                <?php foreach ($cotizaciones as $cotizacion):?>
 
                  <tr>
-                    <td class="Id_PedidosCotizaciones"><?= $cotizacion["Id_PedidosCotizaciones"] ?></td>
-                    <td class="Fecha_Registro"><?= $cotizacion["Fecha_Registro"] ?></td>
+                    <td class="Id_PedidosCotizaciones"><?= $cotizacion["Id_PedidosCotizaciones"] ?></td>                 
                     <td class="Id_Estado"><?= $cotizacion["Id_Estado"] ?></td>
-                    <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Vencimiento"] ?></td>
+                    <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Registro"] ?></td>/
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>
                     <td class="Num_Documento"><?= $cotizacion["Num_Documento"] ?></td>
-                    <!--<td class="tado"><?= $cotizacion["Estado_In_Ha"]==1?"Habilitado":"Inhabilitado"?></td>-->
+                    <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
 
                 <td class="text-center">
                     <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_PedidosCotizaciones'] ?>", this)'><i class="fa fa-pencil-square-o"></i></button>
                     
-                    <?php if ($cotizacion["Estado_In_Ha"] == 1){ ?>
+                    <?php if ($cotizacion["Id_Estado"] == 1){ ?>
                     
-                    <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion['Id_PedidosCotizaciones'] ?>", 0)'><i class="fa fa-check"></i></a>
+                    <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion['Id_PedidosCotizaciones'] ?>", 2)'><i class="fa fa-check"></i></a>
                         
-                    <?php }else{ ?>
+                    <?php }else if($cotizacion["Id_Estado"] == 2){ ?>
 
                     <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion["Id_PedidosCotizaciones"] ?>", 1)'><i class="fa fa-minus-circle"></i></a>
                         
                     <?php } ?>
-                  </td>
+                </td>
                 </tr>
 
                 <?php endforeach; ?> 
@@ -99,9 +97,10 @@
   </div>
 
  <!-Modal De Modificar -->
+
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 10px;">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -111,19 +110,19 @@
           <div>
               <form  id="myModal3" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
                   
-                  <div class="form-group col-sm-push-1 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Codigo</label>
-                    <input type="text" class="form-control" name="codigo" id="Codigo" readonly="">
+                    <input type="text" class="form-control" name="codigo" id="Codigo" readonly="" style="border-radius: 5px;">
                   </div>
 
                   <div class="form-group col-sm-push-2 col-sm-5">
                     <label class="">Fecha de Registro</label>
-                    <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="FechaRegistro" readonly="">
+                    <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-push-1 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Estado</label>
-                    <select class="form-control" name="estado" id="Estado">
+                    <select class="form-control" name="estado" id="Estado" style="border-radius: 5px;">
                       <option value="No Entregada">No Entregada</option>
                       <option value="Entregada" selected>Entregada</option>
                       <option value="Vencida">Vencida</option>
@@ -133,19 +132,19 @@
 
                   <div class="form-group col-sm-push-2 col-sm-5">
                     <label class="">Fecha de Vencimineto</label>
-                    <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento">
+                    <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-push-1 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Cliente</label>
-                    <input type="text" class="form-control" name="cliente" id="Cliente">
+                    <input type="text" class="form-control" name="cliente" id="Cliente" style="border-radius: 5px;">
                   </div>
 
                   <div class="form-group col-sm-push-2 col-sm-5">
                      <label class="">Valor Total</label>
-                     <input type="text" class="form-control" name="valorTotal" id="ValorTotal" readonly="">
+                     <input type="text" class="form-control" name="valorTotal" id="ValorTotal" readonly="" style="border-radius: 5px;">
                   </div>
-            
+
            <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="btnModificar">Guardar modificacion</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -156,4 +155,5 @@
   </div>
 </div>
     <!-- fin modal modificar cotizacion-->
-  </section>
+    </div>
+</section>
