@@ -13,6 +13,7 @@
 	    	$msjEditFicha = "";
 
 	        $insumos = $this->mdlModel->getAsoInsumos();
+	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        $tallas = $this->mdlModel->getAsoTallas();
 	    	$fichas = $this->mdlModel->getFichas();
 	    	
@@ -20,15 +21,15 @@
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
 	    }
-	    public function consAsoInsumos(){
-	    	$mensaje = "";
-	    	$msjEditFicha = "";
+	    // public function consAsoInsumos(){
+	    // 	$mensaje = "";
+	    // 	$msjEditFicha = "";
 
-	    	$insumos = $this->mdlModel->getAsoInsumos();
-	        require APP . 'view/_templates/header.php';
-	        require APP . 'view/ficha/regFicha.php';
-	        require APP . 'view/_templates/footer.php';
-	    }
+	    // 	$insumos = $this->mdlModel->getAsoInsumos();
+	    //     require APP . 'view/_templates/header.php';
+	    //     require APP . 'view/ficha/regFicha.php';
+	    //     require APP . 'view/_templates/footer.php';
+	    // }
 
 	   	public function regFicha(){
 	        $mensaje = "";
@@ -38,9 +39,9 @@
 
 	        	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
 
-	        	// $validarRef = $this->mdlModel->validarReferencia();
+	        	$validarRef = $this->mdlModel->validarReferencia();
 
-	        	// if ($validarRef == null) {
+	        	if ($validarRef == null) {
 
 	        		$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
 			    	$this->mdlModel->__SET("color", $_POST["color"]);
@@ -50,24 +51,24 @@
 					if($this->mdlModel->regFicha()){
 
 						//Registro en tabla producto
-						$this->mdlModel->__SET("cantidad", 123);
+						$this->mdlModel->__SET("cantidad", 0);
 						$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
 						$this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 						$this->mdlModel->regProducto();
 
 						$ultima = $this->mdlModel->ultimaFicha()["referencia"];
-					 	//Registro de insumos asociados
-						// for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
+
+					 	//Registro de insumos asociados a la ficha va a tbl insumos_fichas
+						for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
 						        		
-						// 	$this->mdlModel->__SET("referencia", $ultima);
-						//   	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
-						//   	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
-						//   	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
-						//   	$this->mdlModel->regInsumosAso();
-						// }
+						  	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
+							$this->mdlModel->__SET("referencia", $ultima);
+						  	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
+						  	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+						  	$this->mdlModel->regInsumosAso();
+						}
 
 						//Registro de tallas asociadas
-						
 						for ($t=0; $t < count($_POST['tallas']); $t++) {
 							
 						  	$this->mdlModel->__SET("referencia", $ultima);
@@ -82,16 +83,16 @@
 						$mensaje = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
 					}
 	        		
-	        	// }else{
+	        	}else{
 
-	        	// 	// $msjFichaExiste = "Lobibox.notify('error', {msg: 'La ficha ya existe', rounded: true, delay: 3000,});";
-	        	// 	$msjFichaExiste = "Lobibox.alert('error', {msg: 'La ficha que intenta registrar ya existe'});";
-	        	// }
+	        		// $msjFichaExiste = "Lobibox.notify('error', {msg: 'La ficha ya existe', rounded: true, delay: 3000,});";
+	        		// $msjFichaExiste = "Lobibox.alert('error', {msg: 'La ficha que intenta registrar ya existe'});";
+	        	}
 	      	}
 	       
-	        $insumos = $this->mdlModel->getAsoInsumos();
+	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
+	        // $insumos = $this->mdlModel->consInsumosRegFicha();
 	        
-
 	        require APP . 'view/_templates/header.php';
         	require APP . 'view/ficha/regFicha.php';
         	require APP . 'view/_templates/footer.php';

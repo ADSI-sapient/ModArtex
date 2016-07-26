@@ -21,26 +21,27 @@ class CtrUsuario extends Controller{
 
 				$validar = $this->mdlModel->ValidarExistenciaD();
 		        // $validarU= $this->mdlModel->ValidarExistenciaU();
-				$validarE= $this->mdlModel->validarExistenciaE();
-				
+				$validarE= $this->mdlModel->validarExistenciaE();		
 		        //Validar que no se repita el documento
 				if ($validar == null){
+					// var_dump($_POST["rol"]);
+					// exit();
 					//Validar que no se repita el nombre de usuario
 					// if ($validarU == null) {
 						//Validar que no se repita el correo
+			
 						if ($validarE == null) {
 							$this->mdlModel->__SET("Tipo_Documento", $_POST["tipo_documento"]);
 					        $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
 					        $this->mdlModel->__SET("Apellido", $_POST["apellido"]);
-					       	$this->mdlModel->__SET("Estado", $_POST["estado"]);
 					       	$this->mdlModel->__SET("Telefono", $_POST["telefono"]);
-					       	$this->mdlModel->__SET("Direccion", $_POST["direccion"]);
-					       	$this->mdlModel->__SET("Id_Tipo", 1);
 					       	$this->mdlModel->__SET("Direccion", $_POST["direccion"]);
 					       	$this->mdlModel->__SET("Clave", $_POST["clave"]);
 					       	$this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
+
+					       
 					        //Registrar usuario
-							if($this->mdlModel->regUsuario()){
+							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
 								$mensaje = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!'});"; 
 							}else{
 								$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
@@ -49,15 +50,15 @@ class CtrUsuario extends Controller{
 							$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
-					// }else{
-					// 	$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
-					// }
+					}else{
+						$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
+					}
 					//Final de la validación del nombre de usuario
-				}else{
-				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; ;
+				// }else{
+				//     $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
 				}
 				//Final de la validación del documento
-			}
+			
 	     	require APP . 'view/_templates/header.php';
         	require APP . 'view/usuario/regUsuario.php';
         	require APP . 'view/_templates/footer.php';
@@ -66,6 +67,8 @@ class CtrUsuario extends Controller{
 	        	header('location: '.URL.'home/index');
 	        }
 	    }
+
+	
 	    //FInal del registro de usuario
 
 	    public function consUsuario()

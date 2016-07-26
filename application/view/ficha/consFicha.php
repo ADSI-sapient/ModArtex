@@ -120,9 +120,9 @@
                   <label for="stock_min" class="">*Stock Mínimo:</label>
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
                 </div>
-                <label for="tbl-insumos-aso" style="margin-left:15px;">*Insumos Asociados:</label>
                 <div class="table">
-                  <div class="col-sm-12 table-responsive">
+                  <div class="form-group col-sm-12 table-responsive">
+                    <label>*Insumos asociados:</label>
                     <table class="table table-hover" id="tbl-insumos-aso">
                       <thead>
                         <tr class="active">
@@ -141,9 +141,9 @@
                     </table>
                   </div>
                 </div>
-                <label for="tbl-tallas-aso" style="margin-left:15px; margin-top:15px;">*Tallas Asociadas:</label>
                 <div class="table">
-                  <div class="col-sm-12 table-responsive">
+                  <div class="form-group col-sm-12 table-responsive">
+                  <label>*Tallas Asociadas:</label>
                     <table class="table table-hover" id="tbl-tallas-aso">
                       <thead>
                         <tr class="active">
@@ -161,22 +161,24 @@
               </div>
               <div class="form-group col-sm-6">
                 <label for="vlr_produccion" class="">Valor Producción:</label>
-                <div class="">
-                  <div class="input-group">
+                <!-- <div class=""> -->
+                  <!-- <div class="input-group">
                     <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                       <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
-                    </div>
-                    <input type="text" min="1" name="vlr_produccion" class="form-control" id="vlr_produccion" style="border-radius:5px;">
-                  </div>
-                </div>
+                    </div> -->
+                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
+                  <!-- </div> -->
+                <!-- </div> -->
               </div>
               <div class="form-group col-sm-6"> 
                 <label for="vlr_producto" class="">*Valor Producto:</label>
                 <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
               </div>
-            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
-              <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
+              <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+                <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
+                <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
+              </div>
               </form>
             </div>
           </div>
@@ -197,26 +199,30 @@
                   <table class="table table-hover" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
-                      <th>Id</th>
-                      <th>Unidad Medida</th>
+                      <th>Id Insumo</th>
                       <th>Nombre</th>
-                      <th>Cantidad</th>
-                      <th>Valor Total</th>
+                      <th>Unidad Medida</th>
+                      <th>Color</th>
+                      <th>Estado</th>
+                      <th>Valor Promedio</th>
                       <th>Agregar</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($insumos as $insumo): ?>
+                    <?php $i = 1; ?>
+                    <?php foreach ($insumosHabAsociar as $insumo): ?>
                       <tr>
                         <td><?= $insumo["Id_Insumo"] ?></td>
-                        <td><?= $insumo["Id_Medida"]==1?"mt":"cm" ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
-                        <td><?= $insumo["Cantidad"] ?></td>
-                        <td><?= $insumo["Valor"] ?></td>
+                        <td><?= $insumo["Abreviatura"] ?></td>
+                        <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                        <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                        <td><?= $insumo["Valor_Promedio"] ?></td>
                         <td>
-                          <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor"] ?>', '<?= $insumo["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
+                      <?php $i++; ?>
                     <?php endforeach; ?>
                   </tbody>
                   </table>
@@ -249,14 +255,16 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php $i = 1; ?>
                     <?php foreach ($tallas as $talla): ?>
                       <tr>
                         <td><?= $talla["Id_Talla"] ?></td>
                         <td><?= $talla["Nombre"] ?></td>
                         <td>
-                          <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this)"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
+                      <?php $i++; ?>
                     <?php endforeach; ?>
                   </tbody>
                   </table>

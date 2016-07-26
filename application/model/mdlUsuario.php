@@ -1,17 +1,21 @@
 <?php 
 	class mdlUsuario
 	{
-		private $tipo_documento;
-		private $documento;
-		private $estado;
-		private $nombre;
-		private $apellido;
-		private $nombre_usuario;
-		private $clave;
-		private $email;
-		private $rol;
-		private $codigo;
+		private $Tipo_Documento;
+		private $Num_Documento;
+		private $Estado = 1;
+		private $Nombre;
+		private $Epellido;
+		private $Usuario;
+		private $Clave;
+		private $Email;
+		private $Rol;
 		private $db;
+		private $Id_Tipo = 1;
+		private $Telefono;
+		private $Direccion;
+		private $Tbl_Roles_Id_Rol;
+
 
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
@@ -32,39 +36,40 @@
 
 	    public function regUsuario()
 	    {
-	        $sql = "CALL SP_RegPersona( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	
-	        	$query->bindParam(1, $this->Num_Documento);
-	        	$query->bindParam(2, $this->Id_Tipo);
-	        	$query->bindParam(3, $this->Tipo_Documento);
-	        	$query->bindParam(4, $this->Nombre);
-	        	$query->bindParam(5, $this->Apellido);
-	        	$query->bindParam(6, $this->Estado);
-	        	$query->bindParam(7, $this->Telefono);
-	        	$query->bindParam(8, $this->Direccion);
-	        	$query->bindParam(9, $this->Email);
 	        
+	        	$query->bindParam(1, $this->Id_Tipo);
+	        	$query->bindParam(2, $this->Tipo_Documento);
+	        	$query->bindParam(3, $this->Nombre);
+	        	$query->bindParam(4, $this->Apellido);
+	        	$query->bindParam(5, $this->Estado);
+	        	$query->bindParam(6, $this->Telefono);
+	        	$query->bindParam(7, $this->Direccion);
+	        	$query->bindParam(8, $this->Email);
+	        	$query->bindParam(9, $this->Num_Documento);
 	    
 	        	return $query->execute();
-	        } catch (PDOException $e) {
-	        	
+	        } catch (PDOException $e) {    	
 	        }
+	    }
 
-	       $sql= "SP_RegUsuario (?, ?, ?, ?)";
+	    public function registroUsuario(){
+
+	       $sql= "CALL SP_RegUsuario (?, ?, ?, ?)";
+
 	       try{
 	       	$query= $this->db->prepare($sql);
-	       	$query->bindParam(1, $this->Num_Documento);
-	       	$query->bindParam(2, $this->Tbl_Roles_Id_Rol);
-	       	$query->bindParam(3, $this->Usuario);
-	       	$query->bindParam(4, $this->Clave);
+	       	$query->bindParam(4, $this->Num_Documento);
+	       	$query->bindParam(1, $this->Tbl_Roles_Id_Rol);
+	       	$query->bindParam(2, $this->Usuario);
+	       	$query->bindParam(3, $this->Clave);
 	       	return $query->execute();
 	       }catch (PDOException $e){
-
 	       }
-	    }
 	    	//Validar existencia del documento
+	    }
 	public function ValidarExistenciaD(){
 		$sql= "CALL SP_ValidarD(?)";
 		try{
@@ -76,12 +81,12 @@
 		}
 	}
 
-	//Validar existencia del nombre de usuario
+	// //Validar existencia del nombre de usuario
 	// public function validarExistenciaU(){
 	// 	$sql= "CALL SP_ValidarU(?)";
 	// 	try {
 	// 		$query= $this->db->prepare($sql);
-	// 		$query->bindParam(1, $this->nombre_usuario);
+	// 		$query->bindParam(1, $this->Usuario);
 	// 		$query->execute();
 	// 			return $query->fetchAll();
 	// 	} catch (Exception $e) {
@@ -102,8 +107,7 @@
 	        
 	    public function getUsuario()
 	    {
-	        $sql = 'CALL SP_Listar';
-
+	        $sql = 'CALL SP_ListarUsuarios';
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->execute();
@@ -138,7 +142,7 @@
       	}
 
       	public function consultarRol(){
-      		$sql= "CALL SP_consultarRoles";
+      		$sql= "CALL SP_ConsultarRoles";
 
       		try{
       			$query = $this->db->prepare($sql);

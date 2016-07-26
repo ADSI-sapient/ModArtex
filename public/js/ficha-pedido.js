@@ -25,8 +25,24 @@
    
       // <?= $msjFichaExiste ?>
 
+      // function fichaRepetida(){
+
+      //   Lobibox.alert('error', {msg: 'La ficha que intenta registrar ya existe'});
+
+      // }
+
+      // var variable = '<?php echo $msjFichaExiste; ?>';
+
+      // if (variable == 1) {
+      //   alert("ficha registrada");
+      //   // swal({title: "Error", 
+      //   //     text: "Ficha ya esta reagistrada",   
+      //   //     imageUrl: uri+"img/stop.png"
+      //   //   })
+      // }
+      
       // <?= $mensaje ?>
-    
+
       function editarFicha(referencia, fichas){
         var campos = $(fichas).parent().parent();
         $("#referencia").val(campos.find("td").eq(0).text());
@@ -39,84 +55,46 @@
         $("#idModal").show();
       }
 
-      function storage(valor){
+      // function storage(valor){
 
-        if (sessionStorage.getItem("ValorT") == undefined) {
+      //   if (sessionStorage.getItem("ValorT") == undefined) {
 
-          var subtotales = [];
-          subtotales.push(valor);
-          sessionStorage.setItem("ValorT", JSON.stringify(subtotales));
-          subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
-          $("#vlr_total").val(subtotal);
-          // valortotal = '#res"+id+".value';
-          // valortotal = subtotal;
-        }
+      //     var subtotales = [];
+      //     subtotales.push(valor);
+      //     sessionStorage.setItem("ValorT", JSON.stringify(subtotales));
+      //     subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
+      //     $("#vlr_total").val(subtotal);
+      //     // valortotal = '#res"+id+".value';
+      //     // valortotal = subtotal;
+      //   }
 
-        else
-        {
-          var subtotales = JSON.parse(sessionStorage.getItem("ValorT"));
-        }
+      //   else
+      //   {
+      //     var subtotales = JSON.parse(sessionStorage.getItem("ValorT"));
+      //   }
 
-        console.log(subtotales);
-
-
-        if (subtotales.length == 0)
-        {
-          subtotales.push(valor);
-          sessionStorage.setItem("ValorT", JSON.stringify(subtotales));
-          subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
-          $("#vlr_produccion").val(subtotal);
-
-        }else {
-
-          suma = 0;
-          for (var i = 0; i < subtotales.length; i++) {
-            suma = subtotales[i] + subtotales[i + 1];
-          }
-          sessionStorage.setItem("ValorT", JSON.stringify(suma));
-          subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
-          $("#vlr_total").val(subtotal);
-        }
-
-      }
-    
-
-      function asociarIn(id_insumo, nombre, insumos, idbton, estado){
-        var campos = $(insumos).parent().parent();
-        // valorcm = (valor / cantidad) / 100;
-        $("#agregarInsumo").removeAttr("hidden");
-
-        var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id_insumo+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id_insumo+"' name='cantNecesaria[]' value='0' onchange='res"+id_insumo+".value=cantNec"+id_insumo+".value * "+valorcm+"; subt"+id_insumo+".value=parseFloat(res"+id_insumo+".value);' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id_insumo+"'value='0'>$<input readonly='' type='text' id='capValor"+id_insumo+"' name='res"+id_insumo+"' for='cantNec"+id_insumo+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+id_insumo+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
-
-        // var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id_insumo+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id_insumo+"' name='cantNecesaria[]' value='0' onchange='storage(res"+id_insumo+".value=cantNec"+id_insumo+".value * "+valorcm+")' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id_insumo+"'value='0'>$<input readonly='' type='text' id='capValor"+id_insumo+"' name='res"+id_insumo+"' for='cantNec"+id_insumo+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+id_insumo+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
+      //   console.log(subtotales);
 
 
-        $("#tablaInsumos").append(tr);
+      //   if (subtotales.length == 0)
+      //   {
+      //     subtotales.push(valor);
+      //     sessionStorage.setItem("ValorT", JSON.stringify(subtotales));
+      //     subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
+      //     $("#vlr_produccion").val(subtotal);
 
-        boton = "#btn"+idbton;
-        $(boton).attr('disabled', 'disabled');
-      }
+      //   }else {
+      //     suma = 0;
+      //     for (var i = 0; i < subtotales.length; i++) {
+      //       suma = subtotales[i] + subtotales[i + 1];
+      //     }
+      //     sessionStorage.setItem("ValorT", JSON.stringify(suma));
+      //     subtotal = JSON.parse(sessionStorage.getItem("ValorT"));
+      //     $("#vlr_total").val(subtotal);
+      //   }
+      // }
 
-      function quitarInsumo(btn, elemento, subtotal){
-
-        var e = $(elemento).parent().parent();
-        $(e).remove();
-        boton = "#btn"+btn;
-        $(boton).attr('disabled', false);
-
-        valortotal = $("#vlr_produccion").val();
-
-        valortotal = valortotal - subtotal;
-
-        $("#vlr_total").val(valortotal);
-
-        subtotal = 0;
-        fsubtotal = "#subt"+btn;
-        $(fsubtotal).val(subtotal);
-
-      }
-
-      function calcularVlrProd(){
+      function valorProduccion(){
         var total=0;
         $(".subtotal").each(function(){
           total=total+parseFloat($(this).val());
@@ -124,37 +102,72 @@
         $("#vlr_produccion").val(total);
       }
 
-    
-      
-      function limpiarValoresTabla(){
-        valor = 0;
-        $(".subtotal").val(valor);
+      function quitarInsumo(btn, elemento, subtotal){
+        var e = $(elemento).parent().parent();
+        $(e).remove();
+        boton = "#btn"+btn;
+        $(boton).attr('disabled', false);
+        valortotal = $("#vlr_produccion").val();
+        desc = valortotal - subtotal;
+        $("#vlr_produccion").val(desc);
       }
-    
-      // function enviarFormFicha(){
-      //   if ($("#tablaInsumos >tbody >tr").length == 0) {
-      //     swal({title: "0 Insumos Asociados", 
-      //       text: "Por favor asocie al menos un insumo a esta ficha.",   
-      //       imageUrl: uri+"img/stop.png"
-      //     });
-      //     return false;
-      //   }else if($("#vlr_total").val() == 0){
-      //     swal({title: "Valor de Produccion: 0", 
-      //       text: "Debe calcular un valor de producción para esta ficha.",   
-      //       imageUrl: uri+"img/stop.png"
-      //     });
-      //     return false;
-      //   }else{
-      //     return true;
-      //   }
-      // }
-    
-   
 
-      function enviarFormPedido(){
-        if ($("#tablaFicha >tbody >tr").length == 0) {
-          swal({title: "0 Fichas Asociadas", 
-            text: "Por favor asocie al menos una ficha al pedido.",   
+      //funcion que asocia insumos al momento de registrar una ficha
+      function asociarIn(id_insumo, nombre, insumos, idbton, estado, valorPromedio){
+
+        var campos = $(insumos).parent().parent();
+
+        valorcm = valorPromedio / 100;
+        $("#agregarInsumo").removeAttr("hidden");
+
+        var tr = "<tr class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+idbton+"' name='cantNecesaria[]' value='0' onchange='res"+idbton+".value=cantNec"+idbton+".value * "+valorcm+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
+
+        $("#tablaInsumos").append(tr);
+        boton = "#btn"+idbton;
+        $(boton).attr('disabled', 'disabled');
+      }
+
+      function limpiarFormRegFicha(){
+        valor = 0;
+        $(".subtotal").each(function(){
+          $(this).val(valor);
+        });
+        $("#vlr_produccion").val(valor);
+      }
+
+      // function quitarInsumo(btn, elemento, subtotal){
+
+      //   var e = $(elemento).parent().parent();
+      //   $(e).remove();
+      //   boton = "#btn"+btn;
+      //   $(boton).attr('disabled', false);
+
+      //   valortotal = $("#vlr_produccion").val();
+
+      //   valortotal = valortotal - subtotal;
+
+      //   $("#vlr_total").val(valortotal);
+
+      //   subtotal = 0;
+      //   fsubtotal = "#subt"+btn;
+      //   $(fsubtotal).val(subtotal);
+
+      // }
+
+      // function calcularVlrProd(){
+      //   var total=0;
+      //   $(".subtotal").each(function(){
+      //     total=total+parseFloat($(this).val());
+      //   });
+      //   $("#vlr_produccion").val(total);
+      // }
+
+      //valida que se asocie al menos un insumo al momento de registrar una ficha
+      function enviarFormFicha(){
+
+        if ($("#tablaInsumos >tbody >tr").length == 0) {
+          swal({title: "0 Insumos Asociados", 
+            text: "Por favor asocie al menos un insumo a esta ficha.",   
             imageUrl: uri+"img/stop.png"
           });
           return false;
@@ -162,8 +175,29 @@
           return true;
         }
       }
+      
+      //valida que se asocie al menos una ficha al momento de registrar un pedido.
+      function enviarFormPedido(){
 
-    
+        if ($("#tablaFicha >tbody >tr").length == 0) {
+          swal({title: "0 Fichas Asociadas", 
+            text: "Por favor asocie al menos una ficha al pedido.",   
+            imageUrl: uri+"img/stop.png"
+          });
+          return false;
+        }
+
+        //valida que se asocie un cliente a la ficha.
+        if($("#nombre").val().length < 1){
+          swal({title: "No ha asociado cliente", 
+            text: "Por favor asocie un cliente al pedido.",   
+            imageUrl: uri+"img/stop.png"
+          });
+          return false;
+        }
+        return true;
+      }
+      
       $(document).ready(function(){
         $('#tablaFichas').DataTable( {
           // "lengthChange": false,
@@ -192,55 +226,64 @@
       // <?= $msgprueba ?>
     
     // todo lo de pedido
+    function valorTotalPedido(){
+      var total=0;
+      $(".subtl").each(function(){
+        total=total+parseFloat($(this).val());
+      });
+      $("#vlr_total").val(total);
+    }
 
-      function asociarFicha(ref, color, vlrprodto, fichas, idbton){
-
-        var campos = $(fichas).parent().parent();
-        
-        $("#agregarFicha").removeAttr("hidden");
-
-        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value);' style='border-radius:5px;'></td><td><input class='subtl' type='hidden' name='subt"+idbton+"' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
-
-        $("#tablaFicha").append(tr);
-
-        boton = "#btn"+idbton;
-        $(boton).attr('disabled', 'disabled');
-
-      }
-
-      function quitarFicha(btn, elemento){
+     function quitarFicha(btn, elemento, subtotal){
         var e = $(elemento).parent().parent();
         $(e).remove();
         boton = "#btn"+btn;
         $(boton).attr('disabled', false);
+        valortotal = $("#vlr_total").val();
+        desc = valortotal - subtotal;
+        $("#vlr_total").val(desc);
       }
 
-      function calcularValorTotal(){
-        var total=0;
-        $(".subtl").each(function(){
-          total=total+parseFloat($(this).val());
-        });
-        $("#vlr_total").val(total);
+      function asociarFicha(ref, color, vlrprodto, fichas, idbton){
+        var campos = $(fichas).parent().parent();
+        $("#agregarFicha").removeAttr("hidden");
+        // var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value);' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        $("#tablaFicha").append(tr);
+
+        boton = "#btn"+idbton;
+        $(boton).attr('disabled', 'disabled');
       }
+
+      function limpiarFormRegPedido(){
+        valor = 0;
+        $(".subtl").each(function(){
+          $(this).val(valor);
+        });
+        $("#vlr_total").val(valor);
+      }
+
+     
+
+      // function calcularValorTotal(){
+      //   var total=0;
+      //   $(".subtl").each(function(){
+      //     total=total+parseFloat($(this).val());
+      //   });
+      //   $("#vlr_total").val(total);
+      // }
     
       // <?= $msgRegPedido ?>
     
 
-    <!-- Asociar cliente -->
-      function asociarCliente(idcliente, clientes, idbotonc){
-
-        // boton = "#btnAgregar"+idbotonc;
+    // Asociar cliente
+      function asociarCliente(nombre, id_cliente, clientes, idbotonc){
 
         var campos = $(clientes).parent().parent();
-        
-        $("#cliente").val(idcliente);
-        // $(boton).attr('disabled', 'disabled');
-
+        $("#nombre").val(nombre);
+        $("#id_cliente").val(id_cliente);
       }
 
-      
-
-    
       function editarPedido(id, pedidos){
 
         var campos = $(pedidos).parent().parent();
@@ -334,7 +377,7 @@
         $.ajax({
             dataType: 'json',
             type: 'post',
-            // url: uri+"ctrFicha/cargarInsumosAsociados",
+            url: uri+"ctrFicha/cargarInsumosAsociados",
             data: {referencia:ref}
         }).done(function(respuesta){
             if (respuesta.r != null) {
@@ -388,7 +431,7 @@
                 idTalla = arrayTallas[i]['Id_Talla'];
                 nombre = arrayTallas[i]['Nombre'];
 
-                var tr = "<tr class='box box-solid collapsed-box'><input type=hidden name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td></tr>";
+                var tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td></tr>";
 
                  $('#tbl-tallas-aso').append(tr);
               }
@@ -416,29 +459,49 @@
 
         })
       }
-      function asociarInsumoFicha(id, nombre, ref, insumos, valor, cantidad){
+
+      //funcion que asocia insumos al momento de editar ficha
+      function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, idbt){
         
           var campos = $(insumos).parent().parent();
-          valorcm = (valor / cantidad) / 100;
+          valorcm = valorProm / 100;
 
-          var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onchange='res"+id+".value=cantNec"+id+".value * "+valorcm+"; subt"+id+".value=parseFloat(res"+id+".value);' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id+"></tr>";
+          var tr = "<tr class='box box-solid collapsed-box'><td>"+id+"</td><td>"+nombre+"</td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onchange='res"+id+".value=cantNec"+id+".value * "+valorcm+"; subt"+id+".value=parseFloat(res"+id+".value);' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id+"></tr>";
 
           $("#tbl-insumos-aso").append(tr);
 
-          boton = "#btn"+id;
+          boton = "#btn"+idbt;
           $(boton).attr('disabled', 'disabled');
       }
 
-      function asociarTallaFicha(id, nombre, ref, tallas){
-        
+      //función que agrega nuevas tallas al momento de modificar una ficha.
+      function asociarTallaFicha(id, nombre, ref, tallas, idbton){
           var campos = $(tallas).parent().parent();
+          
+          //esta es la talla que quiero agregar
+          idNuevaTalla = id;
+          
+          //Compararla con las que ya estan agregadas
+          talla = "#tallas"+id;
+          valor = $(talla).val()
 
-          var tr = "<tr class='box box-solid collapsed-box'><td id='codigo_insumo'>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' name='tallas[]' value="+id+"></tr>";
+          //si la talla ya existe no la agrega
+          if (idNuevaTalla == $(talla).val()) {
 
-          $("#tbl-tallas-aso").append(tr);
+            //bloquea el boton o muestra una alerta
+            botonn = "#btn"+idbton;
+            $(botonn).attr('disabled', 'disabled');
+            alert("La talla ya se encuentra agregada");
 
-          boton = "#btn"+id;
-          $(boton).attr('disabled', 'disabled');
+          //si no existe la talla acá la agrega
+          }else{
+
+            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"></tr>";
+           
+             $("#tbl-tallas-aso").append(tr);
+            // botonn = "#btn"+idbton;
+            // $(botonn).attr('disabled', 'disabled');
+          }
       }
 
       function cambiarEstadoFicha(ref, est){
