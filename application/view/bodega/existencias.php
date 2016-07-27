@@ -1,5 +1,3 @@
-  <!-- Contenedor pricipal  -->
-  <div class="content-wrapper">
     <section class="content-header">
       <br>
       <ol class="breadcrumb">
@@ -176,86 +174,73 @@
 </div>
 </div>
 
-       <div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document" style="border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
-              <div class="modal-header">
-                <h4 class="control-label" style="text-align: center;"><strong>ENTRADA INSUMO</strong></h4>
-              </div>
-              <div class="modal-body">
+<div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="border-radius: 25px;">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h4 class="control-label" style="text-align: center;"><strong>ENTRADA INSUMO</strong></h4>
+      </div>
+      <div class="modal-body">
 
-                <div class="form-horizontal"> 
-                    <div class="form-group">
-                     <h4 class="col-md-3">Código: </h4>
-                       <div class="col-md-9">
-                          <input type="text" value="001" class="form-control" disabled="true"> 
-                       </div> 
-                    </div>
-                    <div class="form-group">
-                       <h4 class="col-md-3">Nombre: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="Hilo" disabled="true">
-                    </div>
-                   </div>
-
-
-                    <div class="form-group">
-                       <h4 class="col-md-3">Color: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="Rojo" disabled="true">
-                    </div>
-                   </div>
-
-                   <div class="form-group">
-                       <h4 class="col-md-3">Medida: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="Decenas" disabled="true">
-                    </div>
-                   </div>
-
-
-                    <div class="form-group">
-                     <h4 class="col-md-3">Cantidad: </h4>
-                       <div class="col-md-9">
-                          <input type="number" class="form-control"  min="0"> 
-                       </div> 
-                    </div>
-                    <div class="form-group">
-                       <h4 class="col-md-3">Valor: </h4>
-                       <div class="col-md-9">
-                       <input type="money" class="form-control">
-                    </div>
-                   </div>
-
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-                <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
-                
-            </div> 
-            </div> 
+        <div class="form-horizontal"> 
+          <div class="form-group">
+           <h4 class="col-md-3">Código: </h4>
+           <div class="col-md-9">
+            <input type="text" value="001" class="form-control" disabled="true"> 
+          </div> 
+        </div>
+        <div class="form-group">
+         <h4 class="col-md-3">Nombre: </h4>
+         <div class="col-md-9">
+           <input type="text" class="form-control" value="Hilo" disabled="true">
          </div>
        </div>
 
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="submit" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-  <button type="submit" class="btn btn-primary pull-right">Registrar</button>
+
+       <div class="form-group">
+         <h4 class="col-md-3">Color: </h4>
+         <div class="col-md-9">
+           <input type="text" class="form-control" value="Rojo" disabled="true">
+         </div>
+       </div>
+
+       <div class="form-group">
+         <h4 class="col-md-3">Medida: </h4>
+         <div class="col-md-9">
+           <input type="text" class="form-control" value="Decenas" disabled="true">
+         </div>
+       </div>
+
+
+       <div class="form-group">
+         <h4 class="col-md-3">Cantidad: </h4>
+         <div class="col-md-9">
+          <input type="number" class="form-control"  min="0"> 
+        </div> 
+      </div>
+      <div class="form-group">
+       <h4 class="col-md-3">Valor: </h4>
+       <div class="col-md-9">
+         <input type="money" class="form-control">
+       </div>
+     </div>
+
+   </div>
+ </div>
+ <div class="modal-footer">
+  <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
+  <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
 
 </div> 
 </div> 
 </div>
 </div>
 
-
-
-
-
-
-
-
+<!-- </div>
+</div>
+</div> 
+</div>
+</div> -->
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalEntradaMayor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width: 60%;">
