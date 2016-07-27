@@ -44,7 +44,7 @@
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
                    <td>    
-                    <button type="button" id="btnEditar" onclick="editar(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
+                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
 
                     <?php if ($valor["Estado"] == 1): ?>
                          <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
@@ -75,7 +75,7 @@
 
 
           
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Modeleditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 

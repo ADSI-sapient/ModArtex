@@ -53,13 +53,13 @@
 	        return $query->execute();
 	    }
 
-	    public function getFichasHabilitadas(){
+	    // public function getFichasHabilitadas(){
 
-	    	$sql = "CALL SP_ListarFichasParaAsociar";
-	    	$query = $this->db->prepare($sql);
-	        $query->execute();
-	        return $query->fetchAll();
-	    }
+	    // 	$sql = "CALL SP_ListarFichasParaAsociar";
+	    // 	$query = $this->db->prepare($sql);
+	    //     $query->execute();
+	    //     return $query->fetchAll();
+	    // }
 
 	    public function getClientes(){
 
