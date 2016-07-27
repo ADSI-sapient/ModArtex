@@ -3,10 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 13:22:37
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
-
+-- Tiempo de generación: 27-07-2016 a las 14:10:38
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -123,6 +122,9 @@ UPDATE tbl_unidades_medida SET Abreviatura = _abr, Nombre = _nom WHERE  Id_Medid
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarRoles` (IN `_rol` INT(11))  NO SQL
 DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarEstadoCoti` (IN `idSol` INT(11), IN `est` INT(11))  NO SQL
+UPDATE tbl_solicitudes SET  Id_Estado = est WHERE Id_PedidosCotizaciones = idSol$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) Id FROM tbl_insumos$$
 
@@ -221,7 +223,11 @@ INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
 (5, 'amarillo', '#fff500'),
 (6, 'Naranjado', '#f26d0c'),
 (7, 'negro', '#20211b'),
-(8, 'Azul', '#0000ff');
+(8, 'azul', '#0000ff'),
+(9, 'verde', '#14ff00'),
+(10, 'amarillo', '#ffc700'),
+(11, 'cafe', '#87551a'),
+(12, 'cafe oscuro', '#70461e');
 
 -- --------------------------------------------------------
 
@@ -1208,6 +1214,7 @@ ALTER TABLE `tbl_salida_producto`
 --
 ALTER TABLE `tbl_solicitudes`
   MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
