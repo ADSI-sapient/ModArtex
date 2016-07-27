@@ -1,13 +1,13 @@
 
 function editarCotizacion(codigo, cotizaciones){
-  var campo = $(cotizaciones).parent().parent();
+  var campos = $(cotizaciones).parent().parent();
 
-  $("#Codigo").val(campo.find("td").eq(0).text());
-  $("#Fecha_Registro").val(campo.find("td").eq(1).text());
-  $("#Estado").val(campo.find("td").eq(2).text());
-  $("#FechaVencimiento").val(campo.find("td").eq(3).text());
-  $("#Cliente").val(campo.find("td").eq(5).text());
-  $("#ValorTotal").val(campo.find("td").eq(4).text());
+  $("#Codigo").val(campos.find("td").eq(0).text());
+  $("#FechaRegistro").val(campos.find("td").eq(1).text());
+  $("#Estado").val(campos.find("td").eq(2).text());
+  $("#FechaVencimiento").val(campos.find("td").eq(3).text());
+  $("#Cliente").val(campos.find("td").eq(5).text());
+  $("#ValorTotal").val(campos.find("td").eq(4).text());
   $("#myModal3").modal();
 }
 
@@ -53,25 +53,9 @@ $(document).ready(function(){
 });
 
 function agregarCliente(documento){
-  var docu = $("#cliente");
-  var moda = $("#mymodal");
-  docu.val(documento);
-  moda.modal("hide");
-  return false;
-}
-
-function asociarFicha(referen, color, vlrproducto, fichas, idboton){
-  var campo = $(fichas).parent().parent();
-  $("#agregarFicha").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td>"+color+"</td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+referen+"></tr>";
-  $("#Ficha").append(tr);
-  boton = "#btn"+idboton;
-  $(boton).attr('disabled', 'disabled');  
-}
-
- function Elificha(btn, elemento){
-  var e = $(elemento).parent().parent();
-  $(e).remove();
-  boton = "#btn"+btn;
-  $(boton).attr('disabled', false);
-}
+    var docu = $("#cliente");
+    var moda = $("#mymodal");
+    docu.val(documento);
+    moda.modal("hide");
+    return false;
+  }

@@ -44,6 +44,17 @@
 			return $stm->fetch();
 		}
 
+		public function regColorInsumo(){
+			$sql = "CALL SP_regColorInsumo(?, ?, ?, ?, ?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idColor);
+			$stm->bindParam(2, $this->_idInsumo);
+			$stm->bindParam(3, $this->_cant);
+			$stm->bindParam(4, $this->_valPro);
+			$stm->bindParam(5, $this->_stock);
+			return $stm->execute();
+		}
+
 		public function crearExistencias(){
 			$sql = "CALL SP_crearExistencias(?, ?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
@@ -77,40 +88,29 @@
 			return $stm->execute();
 		}
 
-		public function regColorInsumo(){
-			$sql = "CALL SP_regColorInsumo(?, ?, ?, ?, ?)";
-			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idColor);
-			$stm->bindParam(2, $this->_idInsumo);
-			$stm->bindParam(3, $this->_cant);
-			$stm->bindParam(4, $this->_valPro);
-			$stm->bindParam(5, $this->_stock);
-			return $stm->execute();
-		}
-
-		public function modInsumo(){
-			$sql = "CALL SP_ModificarInsumo(?, ?, ?)";
+		public function modiInsumo(){
+			$sql = "CALL SP_modificarInsumo(?, ?, ?)";
 			$stm = $this->_db->prepare($sql); 
 			$stm->bindParam(1, $this->_idInsumo);
 			$stm->bindParam(2, $this->_codMedida);
 			$stm->bindParam(3, $this->_nombre);
+			$stm->execute();
+
+			$this->modiExistencia();
+		}
+
+		public function modiExistencia(){
+			$sql = "CALL SP_modificarExistencia(?, ?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idInsumo);
+			$stm->bindParam(2, $this->_stock);
 			return $stm->execute();
 		}
 
-		public function cantidadColIns(){
-			$sql = "CALL SP_CantidadColIns(?, ?)";
-			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idColor);
-			$stm->bindParam(2, $this->_idInsumo);
-			$stm->execute();
-			return $stm->fetch();
-		}
-
 		public function deleteColor(){
-			$sql = "CALL SP_BorrarColIns(?, ?)";
+			$sql = "CALL SP_borrarColores(?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idColor);
-			$stm->bindParam(2, $this->_idInsumo);
+			$stm->bindParam(1, $this->_idInsumo);
 			return $stm->execute();
 		}
 	}
