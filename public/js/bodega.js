@@ -146,20 +146,21 @@ function seleccionCol(){
           });
         }
 
+
+        //Existencias de insumos
+
+
         function existen(id, ins){
           var campos = $(ins).parent().parent();
           $("#idExs").val(id);    
-          $("#codIns").val(campos.find("td").eq(0).text());    
-          $("#nomIns").val(campos.find("td").eq(1).text());
-          $("#coloIns").val(campos.find("td").eq(2).text());
-          $("#medIns").val(campos.find("td").eq(3).text());
-          $("#cantActual").val(campos.find("td").eq(4).text());
-          $("#valPromedio").val(campos.find("td").eq(5).text());
+          $("#codIns").val(campos.find("td").eq(2).text());    
+          $("#nomIns").val(campos.find("td").eq(3).text());
+          $("#coloIns").val(campos.find("td").eq(4).text());
+          $("#medIns").val(campos.find("td").eq(5).text());
+          $("#cantActual").val(campos.find("td").eq(6).text());
+          $("#valPromedio").val(campos.find("td").eq(7).text());
           $("#ModelEntrada").show();
         }
-
-
-
 
         $("#valUnit").on("keyup change", function(){
           if ($("#cant").val() <= 0) {
@@ -178,10 +179,10 @@ function seleccionCol(){
         }).change(function(){
         });  
 
-        $("#cant").on("keyup change", function(){
+        $("#cant").keyup(function(){
           $("#valTot").val("");
           $("#valUnit").val("");
-        }).focusout(function(){
+        }).change(function(){
           if ($("#cant").val() <= 0 && $("#cant").val() != "") {
             alert("La cantidad debe ser mayor a cero");
             $("#cant").val("");
@@ -190,5 +191,90 @@ function seleccionCol(){
 
 
 
+        //muchas entradas
 
-        
+
+        function tableEntMay(){
+          $("#tbodyEnt").empty();
+          $("#tblExistencias tbody tr").each(function(){
+            var valor = $(this).find("td").eq(0).html();
+
+            if ($("#chkExi"+valor).prop("checked")) {
+              var fila = "<tr><td style='display: none;'>"+valor+"</td><td>"+$(this).find("td").eq(3).html()+"</td><td>"
+              +$(this).find("td").eq(4).html()+"</td><td>"
+              +$(this).find("td").eq(5).html()+"</td><td><input id='extCant"
+              +valor+"' type='number'></td><td><input onclick='div()' id='extValUni"
+              +valor+"' type='number'></td><td><input id='extValTot"
+              +valor+"' type='number'></td></tr>";
+              $("#tbodyEnt").append(fila);
+            }
+
+
+            $("#extValUni"+valor).on("keyup change", function(){
+              if ($("#extCant"+valor).val() <= 0) {
+                $("#extValTot"+valor).val("");
+              }else{
+                $("#extValTot"+valor).val($("#extCant"+valor).val() * $("#extValUni"+valor).val()); 
+              }
+            });
+
+
+            $("#extValTot"+valor).on("keyup change paste", function(){
+              var vl = 0;
+              $("#tbodyEnt tr").each(function(){
+                  par = $("#extValTot"+$(this).find("td").eq(0).html()).val();
+                  if (par != "") {
+                      vl += (parseInt(par));
+                  }  
+              });
+
+              $("#valEnt").val(vl);
+              if ($("#extCant"+valor).val() <= 0) {
+                $("#extValUni"+valor).val("");
+              }else{
+                $("#extValUni"+valor).val($("#extValTot"+valor).val() / $("#extCant"+valor).val());
+              }
+            });  
+
+            $("#extCant"+valor).keyup(function(){
+              $("#extValTot"+valor).val("");
+              $("#extValUni"+valor).val("");
+            }).change(function(){
+              if ($("#extCant"+valor).val() <= 0 && $("#extCant"+valor).val() != "") {
+                alert("La cantidad debe ser mayor a cero");
+                $("#extCant"+valor).val("");
+              }
+            });
+          });
+        } 
+
+        $("#regMuchos").click(function(){
+          var vec = [];
+          var vec1 = [];
+          var i;
+          $("#tbodyEnt tr").each(function(){
+            i += 1;
+            num = $(this).find("td").eq(0).html();
+            vec["numero"] = num;
+            vec["cantidad"] = $("#extCant"+num).val();
+            vec["valorU"] = $("#extValUni"+num).val();
+            vec["valorT"] = $("#extValTot"+num).val(); 
+
+            vec1.push(vec);
+          });
+          $("#vec").val(vec1);
+                // $.ajax({
+                //     dataType: "json",
+                //     url: uri+"ctrBodega/regEntrada",
+                //     type: 'POST',
+                //     data: {vec1: vec1},
+                //     success: function(res){
+                //       if (res) {
+                //         alert(res);
+                //       }
+                //     }
+                //   });
+        });
+
+
+
