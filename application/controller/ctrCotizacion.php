@@ -15,7 +15,7 @@
 			$mensaje2 = "";
 
 			$cotizaciones = $this->modelo->getCotizacion();
-   
+
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -29,13 +29,15 @@
 
 			if (isset($_POST["btnRegistrar"])) {
 
-	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
-	            $this->modelo->__SET("Id_Estado", 1);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
+	            // $this->modelo->__SET("Id_Estado", $_POST["estado"]);
+	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
 
 
 	         if($this->modelo->regCotizacion()){
+
 	            $ultimaSolicitud_reg = $this->modelo->ultimaSolicitud();
 	            $this->modelo->__SET("Id_Solicitud", $ultimaSolicitud_reg["Id_Solicitud"]);
 	            $this->modelo->__SET("Id_tipoSolicitud", 1);
@@ -62,7 +64,7 @@
 
             $fichas = $this->modelo->getFichas();         
             $clientes = $this->modelo->getCliente();
-
+            
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -99,13 +101,13 @@
 
 		public function cambiarEstado(){
 
-			$this->modelo->__SET("Id_PedidosCotizaciones", $_POST["cod"]);
-	        $this->modelo->__SET("Id_Estado", $_POST["est"]);
+			$this->modelo->__SET("codigo", $_POST["codigo"]);
+	        $this->modelo->__SET("tado", $_POST["tado"]);
 		    $cotizaciones = $this->modelo->cambiarEstado();
 		    if ($cotizaciones) {
 		    	echo json_encode(["v"=>1]);
 		    }else{
-		    	echo json_encode(["v"=>2]);
+		    	echo json_encode(["v"=>0]);
 		    }
 		}
 	}

@@ -83,3 +83,4 @@ function asociarFicha(referen, color, vlrproducto, fichas, idboton){
   });
   $("#vlr_total").val(total);
 }
+

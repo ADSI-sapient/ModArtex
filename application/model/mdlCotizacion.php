@@ -4,7 +4,7 @@
 
 		private $Id_PedidosCotizaciones;
 		private $Fecha_Registro;
-		private $Id_Estado;
+		private $Id_Estado  = 1;
 		private $Fecha_Vencimiento;
 		private $Valor_Total;
 		private $Num_Documento;
@@ -17,13 +17,6 @@
 		private $Telefono;
 		private $Direccion;
 		private $Email;
-		private $Id_tipoSolicitud;
-		private $Id_Solicitud;
-		private $referencia;
-		private $Cantidad_Producir;
-		private $subtotal;
-		private $Estado_;
-		private $Cantidad_existencias;
 		private $db;
 
 		public function __SET($atributo, $valor){
@@ -45,7 +38,7 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT Id_PedidosCotizaciones, Num_Documento, Id_Estado,Fecha_Registro, Valor_Total FROM tbl_solicitudes ORDER BY Id_PedidosCotizaciones ";
+			$sql = "SELECT Id_PedidosCotizaciones, Num_Documento, Id_Estado, Fecha_Vencimiento, Valor_Total FROM tbl_solicitudes ORDER BY Id_PedidosCotizaciones ";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll(2);
@@ -109,9 +102,8 @@
 			$query->bindParam(6, $this->subtotal);
 			return $query->execute();
 		}
-
 		public function getCliente(){
-			$sql = "SELECT Num_Documento, Id_tipo, Tipo_Documento, Nombre, Apellido, Estado, Telefono, Direccion, Email FROM tbl_persona";
+			$sql = "SELECT Num_Documento,Id_tipo,Tipo_Documento,Nombre,Apellido,Estado,Telefono,Direccion,Email FROM tbl_persona";
 			try {
 				$query = $this->db->prepare($sql);
 				$query->execute();
@@ -155,11 +147,10 @@
 
 			try {
 				$query = $this->db->prepare($sql);
-				$query->bindParam(1, $this->Id_PedidosCotizaciones);
-				$query->bindParam(2, $this->Id_Estado);
+				$query->bindParam(1, $this->codigo);
+				$query->bindParam(2, $this->tado);
 				$query->execute();
 				return $query;
-
 			}catch (PDOException $e) {
 				
 			}
