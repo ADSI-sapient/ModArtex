@@ -48,7 +48,7 @@ function camEst(cod, est){
 } 
 
 
-function editarIns(id, insumos){
+function editInsumos(id, insumos){
   var campos = $(insumos).parent().parent();
   $.ajax({
     dataType: 'json',
@@ -65,12 +65,12 @@ function editarIns(id, insumos){
     }
   }).fail(function(){
   });
-  $("#mSel").val(campos.find("td").eq(1).text());    
+  $("#mSel").val(campos.find("td").eq(1).text());   
   $("#nomIns").val(campos.find("td").eq(2).text());
   $("#medIns").val(campos.find("td").eq(3).find("option").val());
   $("#medIns").text(campos.find("td").eq(3).find("option").text());
   $("#stockIns").val(campos.find("td").eq(4).text());
-  $("#Modeleditar").show();
+  $("#mEdit").show();
 }
 
 function seleccionCol(){

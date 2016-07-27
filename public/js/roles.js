@@ -113,15 +113,6 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
         });
       });
 
-      // $(document).ready(function(){
-      //   $('#tablaR').DataTable( {
-      //     // "lengthChange": false,
-      //     //"searching": false,
-      //     // "info": false,
-      //     "ordering": false
-      //   });
-      // });
-
 
 
 
