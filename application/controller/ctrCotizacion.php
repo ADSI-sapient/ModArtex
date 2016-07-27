@@ -54,13 +54,15 @@
 
 	            $this->modelo->regProducto_Aso();
 	            }
-			        // $mensaje = "swal('Cotizacion Registrada Exitosamente','','success')";
+			        $mensaje = "swal('Cotizacion Registrada Exitosamente','','success')";
 			    }else{
 			    	$mensaje = "swal('Cotizacion No Registrada','','success')";
 			    }
 	        }
+
             $fichas = $this->modelo->getFichas();         
             $clientes = $this->modelo->getCliente();
+
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -72,12 +74,12 @@
 
 			if (isset($_POST["btnModificar"])){
 
-	            $this->modelo->__SET("codigo", $_POST["codigo"]);
-	            $this->modelo->__SET("fechaRegistro", $_POST["fechaRegistro"]);
-	            $this->modelo->__SET("estado", $_POST["estado"]);
-	            $this->modelo->__SET("fechaVencimiento", $_POST["fechaVencimiento"]);
-	            $this->modelo->__SET("valorTotal", $_POST["valorTotal"]);
-	            $this->modelo->__SET("cliente", $_POST["cliente"]);
+	            $this->modelo->__SET("Id_PedidosCotizaciones", $_POST["codigo"]);
+	            // $this->modelo->__SET("Fecha_Registro", $_POST["fechaRegistro"]);
+	            // $this->modelo->__SET("Estado", $_POST["estado"]);
+	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fechaVencimiento"]);
+	            $this->modelo->__SET("Valor_Total", $_POST["valorTotal"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
 	            
 
 				if ($this->modelo->modiCotizacion()){

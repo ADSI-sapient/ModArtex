@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-07-2016 a las 13:38:38
+-- Tiempo de generación: 27-07-2016 a las 14:10:38
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -43,7 +43,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
-SELECT 	Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
+SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColorInsumo` (IN `_idIns` INT(11))  NO SQL
 SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color id FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color = ci.Id_Color WHERE ci.Id_Insumo = _idIns$$
@@ -55,16 +55,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarInsumos` ()  NO SQL
 SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed,  ci.Stock_Minimo FROM tbl_insumos i JOIN tbl_unidades_medida m ON i.Id_Medida = m.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Insumo = i.Id_Insumo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
-SELECT 	Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
+SELECT  Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarColor` (IN `_id` INT(10), IN `_nom` VARCHAR(45), IN `_cod` VARCHAR(7))  NO SQL
-UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE 	Id_Color = _id$$
+UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE   Id_Color = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarEstadoCoti` (IN `idSol` INT(11), IN `est` INT(11))  NO SQL
-UPDATE tbl_solicitudes SET	Id_Estado = est WHERE Id_PedidosCotizaciones = idSol$$
+UPDATE tbl_solicitudes SET  Id_Estado = est WHERE Id_PedidosCotizaciones = idSol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarMedida` (IN `_id` INT(11), IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
-UPDATE tbl_unidades_medida SET Abreviatura = _abr, Nombre = _nom WHERE 	Id_Medida = _id$$
+UPDATE tbl_unidades_medida SET Abreviatura = _abr, Nombre = _nom WHERE  Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) FROM tbl_insumos$$
@@ -130,7 +130,12 @@ INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
 (1, 'rojo', '#ff0000'),
 (5, 'amarillo', '#fff500'),
 (6, 'Naranjado', '#f26d0c'),
-(7, 'negro', '#20211b');
+(7, 'negro', '#20211b'),
+(8, 'azul', '#0000ff'),
+(9, 'verde', '#14ff00'),
+(10, 'amarillo', '#ffc700'),
+(11, 'cafe', '#87551a'),
+(12, 'cafe oscuro', '#70461e');
 
 -- --------------------------------------------------------
 
@@ -582,7 +587,8 @@ INSERT INTO `tbl_solicitudes` (`Id_PedidosCotizaciones`, `Num_Documento`, `Id_Es
 (15, '1037590137', 1, '2016-07-25', 77000),
 (16, '1017223026', 1, '2016-07-25', 29532),
 (17, '1017223026', 1, '2016-07-25', 56000),
-(18, '1037590137', 1, '2016-07-25', 33306);
+(18, '1037590137', 1, '2016-07-25', 33306),
+(19, '1037590137', 1, '2016-07-27', 19032);
 
 -- --------------------------------------------------------
 
@@ -622,7 +628,9 @@ INSERT INTO `tbl_solicitudes_producto` (`Id_PedidosCotizaciones_Producto`, `Id_P
 (1, 3, 202, 0, 'k', 16, 56000),
 (2, 4, 203, 0, 'k', 10, 0),
 (3, 4, 202, 0, 'k', 7, 24500),
-(4, 4, 201, 0, 'k', 7, 8806);
+(4, 4, 201, 0, 'k', 7, 8806),
+(5, 5, 202, 0, 'k', 4, 14000),
+(6, 5, 201, 0, 'k', 4, 5032);
 
 -- --------------------------------------------------------
 
@@ -646,7 +654,8 @@ INSERT INTO `tbl_solicitudes_tipo` (`Id_PedidosCotizaciones_Tipo`, `Id_PedidosCo
 (1, 15, 1, NULL, '2016-07-30'),
 (2, 16, 1, NULL, '2016-07-30'),
 (3, 17, 1, NULL, '2016-07-31'),
-(4, 18, 1, NULL, '2016-08-02');
+(4, 18, 1, NULL, '2016-08-02'),
+(5, 19, 1, NULL, '2016-08-06');
 
 -- --------------------------------------------------------
 
@@ -974,7 +983,7 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_colores`
 --
 ALTER TABLE `tbl_colores`
-  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
@@ -1049,7 +1058,7 @@ ALTER TABLE `tbl_salida_producto`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_PedidosCotizaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id_PedidosCotizaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1059,12 +1068,12 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_PedidosCotizaciones_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_PedidosCotizaciones_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_PedidosCotizaciones_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_PedidosCotizaciones_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --

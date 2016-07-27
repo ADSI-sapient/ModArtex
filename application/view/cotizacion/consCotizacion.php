@@ -50,7 +50,7 @@
                  <tr>
                     <td class="Id_PedidosCotizaciones"><?= $cotizacion["Id_PedidosCotizaciones"] ?></td>                 
                     <td class="Id_Estado"><?= $cotizacion["Id_Estado"] ?></td>
-                    <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Registro"] ?></td>/
+                    <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Registro"] ?></td>
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>
                     <td class="Num_Documento"><?= $cotizacion["Num_Documento"] ?></td>
                     <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
@@ -108,7 +108,7 @@
           </div>
 
           <div>
-              <form  id="myModal3" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
+              <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form">
                   
                   <div class="form-group col-sm-5">
                     <label class="">Codigo</label>
@@ -116,11 +116,6 @@
                   </div>
 
                   <div class="form-group col-sm-push-2 col-sm-5">
-                    <label class="">Fecha de Registro</label>
-                    <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
-                  </div>
-
-                  <div class="form-group col-sm-5">
                     <label class="">Estado</label>
                     <select class="form-control" name="estado" id="Estado" style="border-radius: 5px;">
                       <option value="No Entregada">No Entregada</option>
@@ -130,30 +125,39 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-sm-push-2 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Fecha de Vencimineto</label>
                     <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-5">
+                  <div class="form-group col-sm-push-2 col-sm-5">
                     <label class="">Cliente</label>
                     <input type="text" class="form-control" name="cliente" id="Cliente" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-push-2 col-sm-5">
+                  <div class="form-group col-sm-5">
                      <label class="">Valor Total</label>
                      <input type="text" class="form-control" name="valorTotal" id="ValorTotal" readonly="" style="border-radius: 5px;">
                   </div>
 
+                  <!-- <div class="form-group col-sm-5">
+                    <label class="">Fecha de Registro</label>
+                    <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
+                  </div> -->
+
+                  <br />
+
            <div class="modal-footer">
+           <div  class="col-sm-push-4 col-sm-8">
             <button type="submit" class="btn btn-primary" name="btnModificar">Guardar modificacion</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
           </div>
+
           </form> 
       </div>            
    </div>
   </div>
 </div>
-    <!-- fin modal modificar cotizacion-->
     </div>
 </section>

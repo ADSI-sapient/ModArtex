@@ -3,11 +3,11 @@ function editarCotizacion(codigo, cotizaciones){
   var campo = $(cotizaciones).parent().parent();
 
   $("#Codigo").val(campo.find("td").eq(0).text());
-  $("#Fecha_Registro").val(campo.find("td").eq(1).text());
-  $("#Estado").val(campo.find("td").eq(2).text());
-  $("#FechaVencimiento").val(campo.find("td").eq(3).text());
-  $("#Cliente").val(campo.find("td").eq(5).text());
-  $("#ValorTotal").val(campo.find("td").eq(4).text());
+  $("#FechaVencimiento").val(campo.find("td").eq(2).text());
+  $("#Estado").val(campo.find("td").eq(1).text());
+  $("#ValorTotal").val(campo.find("td").eq(3).text());
+  $("#Fecha_Registro").val(campo.find("td").eq(5).text());
+  $("#Cliente").val(campo.find("td").eq(4).text());
   $("#myModal3").modal();
 }
 
@@ -74,4 +74,12 @@ function asociarFicha(referen, color, vlrproducto, fichas, idboton){
   $(e).remove();
   boton = "#btn"+btn;
   $(boton).attr('disabled', false);
+}
+
+ function calcularValorTotal(){
+  var total = 0;
+  $(".subtl").each(function(){
+    total = total + parseFloat($(this).val());
+  });
+  $("#vlr_total").val(total);
 }

@@ -111,7 +111,7 @@
                 </table>
               </div>
             </div>
-          </div>
+        </div>
 
         <div class="row col-lg-12">
             <div class="form-group col-lg-3">
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-<div class="row col-lg-12">
+          <div class="row col-lg-12">
             <div class="form-group col-lg-offset-8 col-lg-4">
               <label for="vlr_total" class="">Valor Total:</label>
               <div class="">
