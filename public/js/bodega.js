@@ -60,7 +60,7 @@ function editInsumos(id, insumos){
       var cont = 0;
       $.each(respuesta, function(i){
         var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+'</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+'; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+'</td><td id="'+respuesta[i]["id"]+'" style="display: none; ">'+respuesta[i]["id"]+'</td><td><button type="button" class="btn btn-box-tool" onclick="quitarCol('+respuesta[i]["id"]+', '+id+')"><i class="fa fa-times"></i></button></td></tr>';
-        $("#tbodyCol").append(fila);  
+        $("#tbodyColIns").append(fila);  
       });
     }
   }).fail(function(){
@@ -70,7 +70,7 @@ function editInsumos(id, insumos){
   $("#medIns").val(campos.find("td").eq(3).find("option").val());
   $("#medIns").text(campos.find("td").eq(3).find("option").text());
   $("#stockIns").val(campos.find("td").eq(4).text());
-  $("#mEdit").show();
+  $("#ModEditIns").show(); 
 }
 
 function seleccionCol(){
@@ -88,7 +88,7 @@ function seleccionCol(){
               });
               if (rg == false) {
                 var fila = '<tr class="box box-solid collapsed-box"><td>'+$(this).find("td").eq(0).html()+'</td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-                $("#tbodyCol").append(fila);
+                $("#tbodyColIns").append(fila);
               }
               $(".chk"+$(this).find("td").eq(4).text()).prop("checked", "");
             }

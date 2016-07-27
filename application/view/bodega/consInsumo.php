@@ -44,7 +44,7 @@
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
                    <td>    
-                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
+                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModEditIns"><i class="fa fa-pencil-square-o"></i></button>
 
                     <?php if ($valor["Estado"] == 1): ?>
                          <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
@@ -75,7 +75,7 @@
 
 
           
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 
@@ -91,7 +91,7 @@
                 <div class="form-group">
                    <input type="hidden" name="id" id="mSel">
                    <label class="control-label" length="80px">*Stock mínimo:</label>
-                  <input id="3" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
+                  <input id="stockIns" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
                 </div>
               </div>    
 
@@ -99,7 +99,7 @@
                 <div class="form-group">
                   <label class="control-label">*Unidad de medida:</label>
                     <select class="form-control" style="width: 100%;" required="" name="select">
-                     <option id="2" selected=""></option>
+                     <option id="medIns" selected=""></option>
                       <?php foreach ($listaM as $valor): ?>
                         <option value="<?= $valor["Id_Medida"]; ?>"><?= $valor["Nombre"]; ?></option>  
                       <?php endforeach ?>
@@ -111,7 +111,7 @@
               <div class="col-md-12">
               <div class="form-group">
                  <label class="control-label">*Nombre:</label>
-                 <input id="1" type="text" class="form-control" required="" name="nombre">
+                 <input id="nomIns" type="text" class="form-control" required="" name="nombre">
               </div>
 
               <div class="form-group" style="margin-top: 9%; "> 
@@ -138,7 +138,7 @@
                     <th style="width: 40px">Quitar</th>
                   </tr>
                 </thead>
-                <tbody id="tbody">
+                <tbody id="tbodyColIns">
                 </tbody>      
               </table>
              </div>
@@ -151,7 +151,7 @@
             <button data-dismiss="modal" onclick="reload()" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
             <script type="text/javascript">
               function reload(){
-              $('#tbody').empty();
+              $('#tbodyColIns').empty();
               }
             </script>
             <input type="hidden" name="arreglo[]" id="vector">
@@ -210,81 +210,6 @@
             </div> 
          </div>
 </div>
-
-    <script type="text/javascript">
-          function camEst(cod, est){
-              alert(cod, est);
-              $.ajax({
-                  dataType: 'json',
-                  type: 'POST',
-                  url: "<?= URL; ?>ctrBodega/cambiarEstado", 
-                  data:{id: cod, estado: est},
-              }).done(function(respuesta){
-                if (respuesta.v == 1) {
-                  location.href = "<?= URL; ?>ctrBodega/listarInsumos"; 
-                }
-              }).fail(function(){
-              });
-          } 
-    </script>
- <script type="text/javascript">
-     function editar(id, insumos){
-          var campos = $(insumos).parent().parent();
-          $.ajax({
-                  dataType: 'json',
-                  type: 'POST',
-                  url: "<?= URL; ?>ctrBodega/lisColInsu", 
-                  data:{id: id},
-              }).done(function(respuesta){
-                if (respuesta) {
-                  var cont = 0;
-                  $.each(respuesta, function(i){
-                  var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+'</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+'; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+'</td><td style="display: none; ">'+respuesta[i]["id"]+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-                  $("#tbody").append(fila);  
-                  });
-                }
-              }).fail(function(){
-              });
-          $("#mSel").val(campos.find("td").eq(1).text());    
-          $("#1").val(campos.find("td").eq(2).text());
-          $("#2").val(campos.find("td").eq(3).find("option").val());
-          $("#2").text(campos.find("td").eq(3).find("option").text());
-          $("#3").val(campos.find("td").eq(4).text());
-          $("#Modeleditar").show();
-        }
- </script>
-<!--  <script type="text/javascript">
-        function seleccion(){
-         
-          $("#tabla1").removeAttr("style");
-          $(".tr").each( function(){
-            var rg = false;
-            // console.log($(".chk"+$(this).find("td").eq(4).html()));
-            if ($(".chk"+$(this).find("td").eq(4).html()).is(':checked')) {
-              var cod = $(this).find("td").eq(4).html();
-              $("#tabla1 tr").find('td:eq(4)').each(function(){
-                  if (cod == $(this).html()) {
-                    rg = true;
-                  }
-              });
-            if (rg == false) {
-              var fila = '<tr class="box box-solid collapsed-box"><td>'+$(this).find("td").eq(0).html()+'</td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-            $("#tbody").append(fila);
-            }
-            $(".chk"+$(this).find("td").eq(4).text()).prop("checked", "");
-          }
-          });
-        }
-</script> -->
-<!-- <script type="text/javascript">
-  function colores(){
-          var vec = [];
-          $("#tabla1 tr").find('td:eq(4)').each(function(){
-            vec.unshift([$(this).html()]);
-          });
-          $("#vector").val(vec);
-  }
-</script> -->
 
 
 
