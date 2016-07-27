@@ -82,77 +82,42 @@
                   </div>
                 
 
-                  <!-- </form> -->
-                <!-- <div class="form-group">
-                  <br>
-                  <br>
+        <div hidden="" class="form-group" id="agregarFicha">
+            <div class="table">
+              <div class="col-lg-12 table-responsive">
+                <table class="table table-hover" style="margin-top: 2%;" id="Ficha">
+                  <thead>
+                    <tr class="active">
+                      <th>Referencia</th>
+                      <th>Color</th>
+                      <th>Valor Producto</th>
+                      <th>Cantidad a Producr</th>
+                      <th>Subtotal</th>
+                      <th>Quitar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
 
-                  <div class="table row">
-                      <div class="col-lg-12 table-responsive">
-                        <table class="table table-hover" style="margin-top: 2%;">
-                          <thead>
-                            <tr class="info">
-                              <th>Código</th>
-                              <th>Referencia</th>
-                              <th>Color</th>
-                              <th>Talla</th>
-                              <th>Cantidad</th>
-                              <th>Valor</th>
-                              <th>Opción</th>
-                              <th><button type="button" class="btn btn-default btn-xs" type="button"><b>+</b></button></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>201</td>
-                              <td>Rojo</td>
-                              <td>
-                                <select class="form-control" disabled>
-                                  <option value="talla1">L</option>
-                                  <option value="talla2">M</option>
-                                  <option value="talla3" selected>S</option>
-                                </select>
-                              </td>
-                              <td>60</td>
-                              <td>$350000</td>
-                              <td><button type="button" class="btn btn-box-tool" data-widget=""><i class="fa fa-times"></i></button></td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>202</td>
-                              <td>Verde</td>
-                              <td>
-                                <select class="form-control" disabled>
-                                  <option value="talla1">L</option>
-                                  <option value="talla2" selected>M</option>
-                                  <option value="talla3">S</option>
-                                </select>
-                              </td>
-                              <td>150</td>
-                              <td>$590000</td>
-                              <td><button type="button" class="btn btn-box-tool" data-widget=""><i class="fa fa-times"></i></button></td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>203</td>
-                              <td>Azul-Violeta</td>
-                              <td>
-                                <select class="form-control" disabled>
-                                  <option value="talla1">L</option>
-                                  <option value="talla2" selected>M</option>
-                                  <option value="talla3">S</option>
-                                </select>
-                              </td>
-                              <td>200</td>
-                              <td>$602500</td>
-                              <td><button type="button" class="btn btn-box-tool" data-widget=""><i class="fa fa-times"></i></button></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+        <div class="row col-lg-12">
+            <div class="form-group col-lg-3">
+              <button type="button" class="btn btn-info btn-md" id="myModal-btn" data-toggle="modal" data-target="#ModelProducto"><b>Asociar Fichas</b></button>
+            </div>
+        </div>
+
+          <div class="row col-lg-12">
+            <div class="form-group col-lg-offset-8 col-lg-4">
+              <label for="vlr_total" class="">Valor Total:</label>
+              <div class="">
+                <div class="input-group">
+                  <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
+                    <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
                   </div>
-                </div> -->
+                </div>
 
             <div class="row col-lg-12">
               <div class="form-group col-lg-push-7 col-lg-3">

@@ -107,6 +107,7 @@
           </div>
         </form>
       </div>
+      
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
         <div class="modal-dialog">

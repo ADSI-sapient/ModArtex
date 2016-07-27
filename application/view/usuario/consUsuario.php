@@ -66,18 +66,18 @@
                       <td class="nombre_usuario"><?= $usuario["Usuario"] ?></td>
                       <!-- <td class="clave"><?= $usuario["Clave" ] ?></td> -->
                       <td class="email"><?= $usuario["Email"] ?></td>
-                      <td class="rol" value=""><?= $usuario["Nombre"] ?></td>
+                      <td class="rol" value=""><?= $usuario["rol"] ?></td>
                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td>
 
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editar('<?= $usuario["Id_Usuario"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
 
                         <?php if ($usuario["Estado"] == 1){ ?>
                           
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Id_Usuario'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
                           
                           <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Id_Usuario'] ?>, 1)"><i class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i class="fa fa-check"></i></button>
 
                             <?php } ?>
                           </td>
@@ -165,35 +165,4 @@
 <script type="text/javascript">
   <?= $mensaje2 ?>
 
-  function editar(codigo, usuarios){
-    var campos = $(usuarios).parent().parent();
-    $("#codigo").val(campos.find("td").eq(0).text());
-    $("#tipo_documento").val(campos.find("td").eq(1).text());
-    $("#documento").val(campos.find("td").eq(2).text());
-    $("#estado").val(campos.find("td").eq(3).text());
-    $("#nombre").val(campos.find("td").eq(4).text());
-    $("#apellido").val(campos.find("td").eq(5).text());
-    $("#nombre_usuario").val(campos.find("td").eq(6).text());
-              // $("#clave").val(campos.find("td").eq(7).text());
-              $("#email").val(campos.find("td").eq(7).text());   
-              $("#rol").val(campos.find("td").eq(9).text());
-              $("#myModal3").show();
-            }
-
-            $(document).ready(function() {
-              $('.table').DataTable();
-            });
-
-            $('.table').DataTable( {
-              searching:false,
-              lengthChange: false,
-              searching: false,
-              info: false,
-              ordering: false
-
-            });
-            var options = {
-              valueNames: ['documento', 'tipo_Documento', 'nombre', 'apellido', 'rol']
-            };
-            var userList = new List('users', options);
           </script>

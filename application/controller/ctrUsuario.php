@@ -20,14 +20,13 @@ class CtrUsuario extends Controller{
 				$this->mdlModel->__SET("Email", $_POST["email"]);
 
 				$validar = $this->mdlModel->ValidarExistenciaD();
-		        // $validarU= $this->mdlModel->ValidarExistenciaU();
+		        $validarU= $this->mdlModel->ValidarExistenciaU();
 				$validarE= $this->mdlModel->validarExistenciaE();		
 		        //Validar que no se repita el documento
 				if ($validar == null){
-					// var_dump($_POST["rol"]);
-					// exit();
+
 					//Validar que no se repita el nombre de usuario
-					// if ($validarU == null) {
+					if ($validarU == null) {
 						//Validar que no se repita el correo
 			
 						if ($validarE == null) {
@@ -36,7 +35,7 @@ class CtrUsuario extends Controller{
 					        $this->mdlModel->__SET("Apellido", $_POST["apellido"]);
 					       	$this->mdlModel->__SET("Telefono", $_POST["telefono"]);
 					       	$this->mdlModel->__SET("Direccion", $_POST["direccion"]);
-					       	$this->mdlModel->__SET("Clave", $_POST["clave"]);
+					       	$this->mdlModel->__SET("Clave", sha1($_POST["clave"]));
 					       	$this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
 
 					       
@@ -54,11 +53,10 @@ class CtrUsuario extends Controller{
 						$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
 					}
 					//Final de la validación del nombre de usuario
-				// }else{
-				//     $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
+				 }else{
+				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
 				}
-				//Final de la validación del documento
-			
+			}	//Final de la validación del documento
 	     	require APP . 'view/_templates/header.php';
         	require APP . 'view/usuario/regUsuario.php';
         	require APP . 'view/_templates/footer.php';
@@ -66,8 +64,7 @@ class CtrUsuario extends Controller{
 	        }else{
 	        	header('location: '.URL.'home/index');
 	        }
-	    }
-
+	}
 	
 	    //FInal del registro de usuario
 
@@ -121,8 +118,8 @@ class CtrUsuario extends Controller{
 
 
 	public function cambiarEstado(){
-		$this->mdlModel->__SET("codigo", $_POST["codigo"]);
-	    $this->mdlModel->__SET("estado", $_POST["estado"]);
+		$this->mdlModel->__SET("Num_Documento", $_POST["Num_Documento"]);
+	    $this->mdlModel->__SET("Estado", $_POST["Estado"]);
 
 		$usuarios = $this->mdlModel->cambiarEstado();
 
