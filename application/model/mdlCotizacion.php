@@ -124,7 +124,7 @@
 
 		public function modiCotizacion(){
 
-			$sql = "UPDATE tbl_solicitudes SET Id_Estado = ?, Fecha_Registro = ?, Valor_Total = ?, Num_Documento = ? WHERE Id_PedidosCotizaciones = ?";
+			$sql = "UPDATE tbl_solicitudes SET Fecha_Registro = ?, Valor_Total = ?, Num_Documento = ? WHERE Id_PedidosCotizaciones = ?";
 			
 			try{
 
