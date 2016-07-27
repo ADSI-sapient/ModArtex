@@ -15,6 +15,7 @@
 		private $Telefono;
 		private $Direccion;
 		private $Tbl_Roles_Id_Rol;
+		private $Id_Usuario;
 
 
 		public function __SET($atributo, $valor){
@@ -81,17 +82,17 @@
 		}
 	}
 
-	// //Validar existencia del nombre de usuario
-	// public function validarExistenciaU(){
-	// 	$sql= "CALL SP_ValidarU(?)";
-	// 	try {
-	// 		$query= $this->db->prepare($sql);
-	// 		$query->bindParam(1, $this->Usuario);
-	// 		$query->execute();
-	// 			return $query->fetchAll();
-	// 	} catch (Exception $e) {
-	// 	}
-	// }
+	//Validar existencia del nombre de usuario
+	public function validarExistenciaU(){
+		$sql= "CALL SP_ValidarU(?)";
+		try {
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Usuario);
+			$query->execute();
+				return $query->fetchAll();
+		} catch (Exception $e) {
+		}
+	}
 
 	//Validar existencia del email
 	public function validarExistenciaE(){
@@ -155,12 +156,13 @@
 
 
           	public function cambiarEstado(){
-	        $sql = "CALL SP_CambiarEstadoU(?, ?)";
+	        $sql = "CALL SP_CambiarEstadoP(?, ?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
-	          $query->bindParam(1, $this->codigo);
-	          $query->bindParam(2, $this->estado);
+	          $query->bindParam(1, $this->Estado);
+	          $query->bindParam(2, $this->Num_Documento);
+	         
 	        
 	          return $query->execute();
 

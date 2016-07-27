@@ -42,41 +42,22 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
+    <script src="<?= URL;?>js/roles.js"></script>
     <script>
         <?= $msjEditFicha ?>
     </script>
-    <script type="text/javascript">
+    <script>
+         <?= $mensaje ?> 
 
-       function editar(codigo, usuarios){
-              var campos = $(usuarios).parent().parent();
-              $("#codigo").val(campos.find("td").eq(0).text());
-              $("#tipo_documento").val(campos.find("td").eq(1).text());
-              $("#documento").val(campos.find("td").eq(2).text());
-              $("#estado").val(campos.find("td").eq(3).text());
-              $("#nombre").val(campos.find("td").eq(4).text());
-              $("#apellido").val(campos.find("td").eq(5).text());
-              $("#nombre_usuario").val(campos.find("td").eq(6).text());
-              // $("#clave").val(campos.find("td").eq(7).text());
-              $("#email").val(campos.find("td").eq(7).text());   
-              $("#rol").val(campos.find("td").eq(9).text());
-              $("#myModal3").show();
-          } 
+          //Función de validación de documento;
+        function validarSiNumero(documento){
+          if (!/^([0-9])*$/.test(documento))
+          Lobibox.notify('warning', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El documento ingresado contiene caracteres no válidos'});
+        }
+    </script>
 
-          $(document).ready(function() {
-          $('.TablaU').DataTable();
-          });
 
-          $('.TablaU').DataTable( {
-              
-              info: false,
-              ordering: false
+   
 
-          });
 
-           var options = {
-            valueNames: ['documento', 'tipo_Documento', 'nombre', 'apellido', 'rol']
-          };
-
-          var userList = new List('users', options);
-          </script>
  
