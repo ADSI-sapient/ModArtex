@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 02:46:55
+-- Tiempo de generación: 27-07-2016 a las 23:51:45
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `modartex`
+-- Base de datos: `modartex1`
 --
 
 DELIMITER $$
@@ -211,7 +211,7 @@ CREATE TABLE `tbl_colores_insumos` (
 
 INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
 (2, 6, 1, 3392, 58.516804245283, 20),
-(3, 7, 1, 20, 1500, 20),
+(3, 7, 1, 50, 1500, 20),
 (5, 7, 2, 35, 228.57142857143, 50),
 (13, 6, 8, 0, 0, 200),
 (15, 1, 8, 0, 0, 200),
@@ -308,7 +308,8 @@ INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
 (69, '2016-07-26', 9758),
 (70, '2016-07-26', 1710807),
 (71, '2016-07-26', 23645),
-(72, '2016-07-27', 7500);
+(72, '2016-07-27', 7500),
+(73, '2016-07-27', 45000);
 
 -- --------------------------------------------------------
 
@@ -340,7 +341,8 @@ INSERT INTO `tbl_entradas_exitencias` (`Id_Detalle`, `Id_Entrada`, `Id_Existenci
 (8, 65, 2, 3333, 33, 109989),
 (9, 66, 3, 10, 1500, 15000),
 (10, 67, 3, 5, 1500, 7500),
-(11, 72, 3, 5, 1500, 7500);
+(11, 72, 3, 5, 1500, 7500),
+(12, 73, 3, 30, 1500, 45000);
 
 -- --------------------------------------------------------
 
@@ -1082,12 +1084,12 @@ ALTER TABLE `tbl_colores_insumos`
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
 ALTER TABLE `tbl_entradas`
-  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
-  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_Detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --

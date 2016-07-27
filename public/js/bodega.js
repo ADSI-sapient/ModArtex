@@ -193,10 +193,9 @@ function seleccionCol(){
 
 
         //muchas entradas
-
-
         function tableEntMay(){
           $("#tbodyEnt").empty();
+          $("#valEnt").val("");
           $("#tblExistencias tbody tr").each(function(){
             var valor = $(this).find("td").eq(0).html();
 
@@ -215,20 +214,26 @@ function seleccionCol(){
               if ($("#extCant"+valor).val() <= 0) {
                 $("#extValTot"+valor).val("");
               }else{
-                $("#extValTot"+valor).val($("#extCant"+valor).val() * $("#extValUni"+valor).val()); 
+                $("#extValTot"+valor).val($("#extCant"+valor).val() * $("#extValUni"+valor).val());
+                var vl = 0;
+                $("#tbodyEnt tr").each(function(){
+                  par = $("#extValTot"+$(this).find("td").eq(0).html()).val();
+                  if (par != "") {
+                    vl += (parseInt(par));
+                  }  
+                });
+                $("#valEnt").val(vl); 
               }
             });
 
-
-            $("#extValTot"+valor).on("keyup change paste", function(){
+            $("#extValTot"+valor).on("keyup change", function(){
               var vl = 0;
               $("#tbodyEnt tr").each(function(){
-                  par = $("#extValTot"+$(this).find("td").eq(0).html()).val();
-                  if (par != "") {
-                      vl += (parseInt(par));
-                  }  
+                par = $("#extValTot"+$(this).find("td").eq(0).html()).val();
+                if (par != "") {
+                  vl += (parseInt(par));
+                }  
               });
-
               $("#valEnt").val(vl);
               if ($("#extCant"+valor).val() <= 0) {
                 $("#extValUni"+valor).val("");
@@ -275,7 +280,7 @@ function seleccionCol(){
                 //       }
                 //     }
                 //   });
-        });
+              });
 
 
 
