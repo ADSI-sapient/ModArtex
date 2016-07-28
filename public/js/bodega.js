@@ -105,12 +105,12 @@ function seleccionCol(){
         var vec = [];
         function quitarCol(idCol, idIns){
           $.ajax({
+            dataType: "json",
             url: uri+"ctrBodega/cantidadColIns",
             type: 'POST',
             data: {idCol: idCol, idIns: idIns},
             success: function(data) {
-              var obj = JSON.parse(data);
-              if ((obj.cantidad) > 0) {
+              if (data.cantidad > 0) {
                 // Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, position: 'center bottom', msg: 'Datos incorrectos!'});
                 swal("Hay cantidades asociadas a este registro", "no se puede eliminar")
                 // alert("Hay cantidades asociadas a este registro, no se puede eliminar");
