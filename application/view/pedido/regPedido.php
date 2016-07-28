@@ -140,7 +140,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

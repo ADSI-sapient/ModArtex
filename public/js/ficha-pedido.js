@@ -244,7 +244,7 @@
         $("#vlr_total").val(desc);
       }
 
-      function asociarFicha(ref, color, vlrprodto, fichas, idbton){
+      function asociarProductos(ref, color, vlrprodto, fichas, idbton){
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
         // var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value);' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";

@@ -25,7 +25,7 @@
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
                 <input type="text" class="form-control" name="nombre" >
               </div> 
-              <div class="form-grouf">
+              <div class="form-group">
                 <label for="nombre" class="col-lg-2  col-lg-offset-1 control-label">Permisos</label>
                 <button type="button" class="btn btn-primary  col-lg-offset-1 col-lg-4 "  data-toggle="modal" data-target="#permisos">Asignar permisos</button>
                 <br>
@@ -51,15 +51,14 @@
               </div>
             </div>
           </div>
-              <div class="box-footer">
-              <div class="row col-lg-12"> 
-                <div class="form-group"> 
-                  <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#rolReg" style="margin-top: 15px;">Cancelar</button>
+            <div class="box-footer">
+              <div class="row"> 
+                <div class="form-group col-lg-12"> 
                     <button type="submit" class="btn btn-primary col-lg-offset-8" style="margin-top: 15px;"  name="btnRegistrarR">Registrar</button>
+                  <button type="button" class="btn btn-danger col-lg-offset-1" data-toggle="modal" data-target="#rolReg" style="margin-top: 15px;">Cancelar</button>
                 </div>
               </div>
-
-              </div>
+            </div>
         </div>
       </div>
 

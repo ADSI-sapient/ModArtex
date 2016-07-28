@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 20:19:23
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
+-- Tiempo de generación: 28-07-2016 a las 17:18:42
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -295,6 +295,20 @@ CREATE TABLE `tbl_estado` (
   `Nombre_Estado` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_estado`
+--
+
+INSERT INTO `tbl_estado` (`Id_Estado`, `Nombre_Estado`) VALUES
+(1, 'Entregada'),
+(2, 'No Entregada'),
+(3, 'Vencida'),
+(4, 'Cancelada'),
+(5, 'Pendiente'),
+(6, 'En Proceso'),
+(7, 'Terminado'),
+(8, 'Cancelado');
+
 -- --------------------------------------------------------
 
 --
@@ -346,7 +360,7 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 
 INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Fecha_Registro`, `Color`, `Estado`, `Valor_Produccion`) VALUES
 (201, '2016-07-27', 'Azul', '1', 780),
-(202, '2016-07-27', 'Rojo', '0', 1300);
+(202, '2016-07-27', 'Rojo', '1', 1300);
 
 -- --------------------------------------------------------
 
@@ -658,6 +672,16 @@ CREATE TABLE `tbl_solicitudes` (
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_solicitudes`
+--
+
+INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Id_Estado`, `Fecha_Registro`, `Valor_Total`) VALUES
+(3, '1037590137', 2, '2016-07-28', 230000),
+(4, '1037590137', 5, '2016-07-28', 20700),
+(5, '1037590137', 5, '2016-07-28', 736000),
+(6, '1037590137', 5, '2016-07-28', 695000);
+
 -- --------------------------------------------------------
 
 --
@@ -688,6 +712,15 @@ CREATE TABLE `tbl_solicitudes_producto` (
   `Subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_solicitudes_producto`
+--
+
+INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Id_Producto`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`) VALUES
+(1, 1, 201, 123, 'nose', 320, 736000),
+(2, 2, 201, 123, 'nose', 250, 575000),
+(3, 2, 202, 123, 'nose', 50, 120000);
+
 -- --------------------------------------------------------
 
 --
@@ -698,8 +731,17 @@ CREATE TABLE `tbl_solicitudes_tipo` (
   `Id_Solicitudes_Tipo` int(11) NOT NULL,
   `Id_Solicitud` int(11) NOT NULL,
   `Id_Tipo` int(11) NOT NULL,
-  `Fecha_Entrega` date DEFAULT NULL
+  `Fecha_Entrega` date DEFAULT NULL,
+  `Fecha_Vencimiento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_solicitudes_tipo`
+--
+
+INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`) VALUES
+(1, 5, 2, '2016-08-06', NULL),
+(2, 6, 2, '2016-09-30', NULL);
 
 -- --------------------------------------------------------
 
@@ -1050,7 +1092,7 @@ ALTER TABLE `tbl_entradas_exitencias`
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
-  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
@@ -1115,7 +1157,7 @@ ALTER TABLE `tbl_salida_producto`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1125,12 +1167,12 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --

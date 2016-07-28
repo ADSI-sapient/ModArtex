@@ -79,7 +79,7 @@
 
 	    public function regTipoSolicitud(){
 
-	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?, ?, ?)";
+	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?, ?, ?, NULL)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->id_pedido);
 	    	$query->bindParam(2, $this->id_tipoSolicitud);
