@@ -62,7 +62,8 @@
 		        	}
 
 		        	//alerta confirmación registro
-	            	$msgRegPedido = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', rounded: true, delay: 3000});";
+	            	// $msgRegPedido = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', rounded: true, delay: 3000});";
+
 				}else{
 
 					$msgRegPedido = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', rounded: true, delay: 2500,});";

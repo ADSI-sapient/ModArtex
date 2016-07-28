@@ -116,19 +116,21 @@
 	            $this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 	            $this->mdlModel->modificarProducto();
 
-		      	// $this->mdlModel->eliminarInsumoAsoFicha();
-		      	$this->mdlModel->eliminarTallaAsoFicha();
-
-				// //Registro de insumos asociados
-				// for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
+	            //Elimina todos los insumos asociados a la ficha
+		      	$this->mdlModel->eliminarInsumoAsoFicha();
+		      	
+				//Registro de insumos asociados
+				for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
 						        		
-				// 	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
-				// 	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
-				// 	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
-				// 	$this->mdlModel->regInsumosAso();
-				// }
+					$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
+					$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
+					$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+					$this->mdlModel->regInsumosAso();
+				}
 
-				//Registro de tallas asociadas
+				//Elimina todas las tallas asociadas a la ficha
+				$this->mdlModel->eliminarTallaAsoFicha();
+				//Registra nuevas tallas
 				for ($t=0; $t < count($_POST['tallas']); $t++) { 
 
 					$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
