@@ -33,7 +33,7 @@
 
 	        	//registro de nueva solicitud tipo pedido
 	        	$this->mdlModel->__SET("id_cliente", $_POST["id_cliente"]);
-	        	$this->mdlModel->__SET("id_estado", 2);
+	        	$this->mdlModel->__SET("id_estado", 5);
 	        	$this->mdlModel->__SET("fecha_registro", $_POST["fecha_reg"]);
 	        	$this->mdlModel->__SET("vlr_total", $_POST["vlr_total"]);
 
@@ -62,7 +62,8 @@
 		        	}
 
 		        	//alerta confirmación registro
-	            	$msgRegPedido = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', rounded: true, delay: 3000});";
+	            	// $msgRegPedido = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', rounded: true, delay: 3000});";
+
 				}else{
 
 					$msgRegPedido = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', rounded: true, delay: 2500,});";

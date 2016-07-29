@@ -87,7 +87,7 @@
       </div>
       <!-- inicio modal modificar ficha-->
       <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close"><span aria-hidden="true" onclick="cancel()">&times;</span></button>
@@ -112,37 +112,16 @@
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                   <label for="color" class="">*Color:</label>
                   <input class="form-control" type="text" name="color" id="color" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-offset-4 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
                 </div>
                 <div class="table">
-                  <div class="form-group col-sm-12 table-responsive">
-                    <label>*Insumos asociados:</label>
-                    <table class="table table-hover" id="tbl-insumos-aso">
-                      <thead>
-                        <tr class="active">
-                          <th>Id</th>
-                          <th>Nombre</th>
-                          <th>Unidad Medida</th>
-                          <th>Valor*cm</th>
-                          <th>Cantidad Necesaria</th>
-                          <th>Valor Insumo</th>
-                          <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="table">
-                  <div class="form-group col-sm-12 table-responsive">
+                  <div class="form-group col-sm-4 table-responsive">
                   <label>*Tallas Asociadas:</label>
                     <table class="table table-hover" id="tbl-tallas-aso">
                       <thead>
@@ -158,27 +137,43 @@
                     </table>
                   </div>
                 </div>
+                <div class="table">
+                  <div class="form-group col-sm-8 table-responsive">
+                    <label>*Insumos asociados:</label>
+                    <table class="table table-hover" id="tbl-insumos-aso">
+                      <thead>
+                        <tr class="active">
+                          <th>Id</th>
+                          <th>Nombre</th>
+                          <th>Medida</th>
+                          <th>Valor*cm</th>
+                          <th>Cantidad Necesaria</th>
+                          <th>Valor Insumo</th>
+                          <th>Quitar</th>
+                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-sm-6">
-                <label for="vlr_produccion" class="">Valor Producción:</label>
-                <!-- <div class=""> -->
-                  <!-- <div class="input-group">
-                    <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                      <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
-                    </div> -->
-                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
-                  <!-- </div> -->
-                <!-- </div> -->
-              </div>
-              <div class="form-group col-sm-6"> 
-                <label for="vlr_producto" class="">*Valor Producto:</label>
-                <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
+              <div class="form-group col-sm-12">
+                <div class="form-group col-sm-4">
+                  <label for="vlr_produccion" class="">Valor Producción:</label>
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
+                </div>
+                <div class="form-group col-sm-offset-4 col-sm-4"> 
+                  <label for="vlr_producto" class="">*Valor Producto:</label>
+                  <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
+                </div>
               </div>
               <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
                 <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
-                <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
-              </div>
+                  <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
+                  <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
+                </div>
               </form>
             </div>
           </div>

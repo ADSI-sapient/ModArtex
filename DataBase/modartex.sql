@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2016 a las 20:19:23
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
+-- Tiempo de generación: 29-07-2016 a las 01:32:39
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -62,6 +62,9 @@ SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarRoles` ()  NO SQL
 SELECT Id_Rol, Nombre FROM tbl_roles$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteInsumosAso` (IN `_referencia` INT)  NO SQL
+DELETE FROM tbl_insumos_fichastecnicas WHERE Id_FichaTecnica = _referencia$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteTallasAso` (IN `_referencia` INT)  NO SQL
 DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 
@@ -72,7 +75,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_referencia` INT)  NO SQL
-SELECT i.Id_Insumo, i.Nombre FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i ON ift.Id_Insumo = i.Id_Insumo WHERE ift.Id_FichaTecnica = _referencia$$
+SELECT i.Id_Insumo, i.Nombre, cin.Valor_Promedio, ift.Cant_Necesaria, ift.Valor_Insumo FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i ON ift.Id_Insumo = i.Id_Insumo JOIN tbl_colores_insumos cin ON cin.Id_Insumo = i.Id_Insumo WHERE ift.Id_FichaTecnica = _referencia$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
@@ -219,7 +222,8 @@ CREATE TABLE `tbl_colores` (
 --
 
 INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
-(13, 'Beige', '#c2ac5c');
+(13, 'Beige', '#c2ac5c'),
+(14, 'Purpura', '#8f8fe6');
 
 -- --------------------------------------------------------
 
@@ -239,6 +243,10 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
+INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
+(33, 13, 10, 20, 6500, 200),
+(34, 14, 11, 210, 500, 200);
+
 -- --------------------------------------------------------
 
 --
@@ -254,8 +262,11 @@ CREATE TABLE `tbl_entradas` (
 --
 -- Volcado de datos para la tabla `tbl_entradas`
 --
-
--- --------------------------------------------------------
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
+(73, '2016-07-27', 130000),
+(74, '2016-07-28', 70000),
+(75, '2016-07-28', 35000);
+--------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `tbl_entradas_exitencias`
@@ -274,6 +285,11 @@ CREATE TABLE `tbl_entradas_exitencias` (
 -- Volcado de datos para la tabla `tbl_entradas_exitencias`
 --
 
+INSERT INTO `tbl_entradas_exitencias` (`Id_Detalle`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
+(12, 73, 33, 20, 6500, 130000),
+(13, 74, 34, 200, 350, 70000),
+(14, 75, 34, 10, 3500, 35000);
+
 -- --------------------------------------------------------
 
 --
@@ -284,6 +300,20 @@ CREATE TABLE `tbl_estado` (
   `Id_Estado` int(11) NOT NULL,
   `Nombre_Estado` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_estado`
+--
+
+INSERT INTO `tbl_estado` (`Id_Estado`, `Nombre_Estado`) VALUES
+(1, 'Entregada'),
+(2, 'No Entregada'),
+(3, 'Vencida'),
+(4, 'Cancelada'),
+(5, 'Pendiente'),
+(6, 'En Proceso'),
+(7, 'Terminado'),
+(8, 'Cancelado');
 
 -- --------------------------------------------------------
 
@@ -315,6 +345,7 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 
 INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Referencia`, `Id_Talla`) VALUES
 (1, 202, 2);
+
 
 -- --------------------------------------------------------
 
@@ -379,6 +410,7 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Insumo`, `Id_FichaTecnica`, `Cant_Necesaria`, `Valor_Insumo`) VALUES
 (1, 10, 201, 12, 780),
 (2, 10, 202, 20, 1300);
+
 
 -- --------------------------------------------------------
 
@@ -648,6 +680,24 @@ CREATE TABLE `tbl_solicitudes` (
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_solicitudes`
+--
+
+INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Id_Estado`, `Fecha_Registro`, `Valor_Total`) VALUES
+(3, '1037590137', 2, '2016-07-28', 230000),
+(4, '1037590137', 5, '2016-07-28', 20700),
+(5, '1037590137', 5, '2016-07-28', 736000),
+(6, '1037590137', 5, '2016-07-28', 695000),
+(7, '1037590137', 5, '2016-07-28', 54100),
+(8, '1037590137', 5, '2016-07-28', 14400),
+(9, '1037590137', 5, '2016-07-28', 7200),
+(10, '1037590137', 5, '2016-07-28', 180000),
+(11, '1037590137', 5, '2016-07-29', 230000),
+(12, '1037590137', 5, '2016-07-29', 14400),
+(13, '1037590137', 5, '2016-07-29', 2400),
+(14, '1037590137', 5, '2016-07-29', 46000);
+
 -- --------------------------------------------------------
 
 --
@@ -678,6 +728,24 @@ CREATE TABLE `tbl_solicitudes_producto` (
   `Subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_solicitudes_producto`
+--
+
+INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Id_Producto`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`) VALUES
+(1, 1, 201, 123, 'nose', 320, 736000),
+(2, 2, 201, 123, 'nose', 250, 575000),
+(3, 2, 202, 123, 'nose', 50, 120000),
+(4, 3, 201, 123, 'nose', 11, 25300),
+(5, 3, 202, 123, 'nose', 12, 28800),
+(6, 4, 203, 123, 'nose', 8, 14400),
+(7, 5, 203, 123, 'nose', 4, 7200),
+(8, 6, 203, 123, 'nose', 100, 180000),
+(9, 7, 201, 123, 'nose', 100, 230000),
+(10, 8, 202, 123, 'nose', 6, 14400),
+(11, 9, 202, 123, 'nose', 1, 2400),
+(12, 10, 201, 123, 'nose', 20, 46000);
+
 -- --------------------------------------------------------
 
 --
@@ -688,8 +756,25 @@ CREATE TABLE `tbl_solicitudes_tipo` (
   `Id_Solicitudes_Tipo` int(11) NOT NULL,
   `Id_Solicitud` int(11) NOT NULL,
   `Id_Tipo` int(11) NOT NULL,
-  `Fecha_Entrega` date DEFAULT NULL
+  `Fecha_Entrega` date DEFAULT NULL,
+  `Fecha_Vencimiento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_solicitudes_tipo`
+--
+
+INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`) VALUES
+(1, 5, 2, '2016-08-06', NULL),
+(2, 6, 2, '2016-09-30', NULL),
+(3, 7, 2, '2016-08-31', NULL),
+(4, 8, 2, '2016-08-31', NULL),
+(5, 9, 2, '2016-08-25', NULL),
+(6, 10, 2, '2016-08-31', NULL),
+(7, 11, 2, '2016-09-02', NULL),
+(8, 12, 2, '2016-08-06', NULL),
+(9, 13, 2, '2016-08-05', NULL),
+(10, 14, 2, '2016-09-10', NULL);
 
 -- --------------------------------------------------------
 
@@ -1040,7 +1125,12 @@ ALTER TABLE `tbl_entradas_exitencias`
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
-  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
+--
+ALTER TABLE `tbl_fichastecnicas_tallas`
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
@@ -1051,6 +1141,7 @@ ALTER TABLE `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_insumos`
   MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
@@ -1105,7 +1196,7 @@ ALTER TABLE `tbl_salida_producto`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1115,12 +1206,12 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --
