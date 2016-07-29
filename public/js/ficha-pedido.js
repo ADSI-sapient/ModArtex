@@ -75,18 +75,18 @@
             text: "Por favor asocie al menos un insumo a esta ficha.",   
             imageUrl: uri+"img/stop.png"
           });
-          return false;
-        }else if (true) {
-          var vlrproduccion = $("#vlr_produccion").val();
-          var vlrproducto = $("#vlr_producto").val();
-          if (vlr_produccion >= vlr_producto) {
-            swal({title: "Valores incorrectos", 
-            text: "El valor del producto debe ser mayor al valor de producción.",   
-            imageUrl: uri+"img/stop.png"
-            });
-          }
-          return false;
-        }
+          return false;}
+        // }else if (true) {
+        //   var vlrproduccion = $("#vlr_produccion").val();
+        //   var vlrproducto = $("#vlr_producto").val();
+        //   if (vlr_produccion >= vlr_producto) {
+        //     swal({title: "Valores incorrectos", 
+        //     text: "El valor del producto debe ser mayor al valor de producción.",   
+        //     imageUrl: uri+"img/stop.png"
+        //     });
+        //   }
+        //   return false;
+        // }
         else{
           return true;
         }
@@ -323,6 +323,7 @@
             if (respuesta.r != null) {
               $("#tbl-tallas-aso > tbody tr").empty();
               arrayTallas = respuesta.r;
+              console.log(arrayTallas);
               for (var i = 0; i <= arrayTallas.length - 1; i++) {
 
                 idTalla = arrayTallas[i]['Id_Talla'];
@@ -343,7 +344,7 @@
             dataType: 'json',
             type: 'post',
             url: uri+"ficha/eliminarInsumoAsociado",
-            data: {id_insumo:id, referencia:ref}
+            data: {id_insumo:id, referencia:ref}  
         }).done(function(resp){
           if (resp.r == "1") {
             alert("Asociación eliminada correctamente");
@@ -360,6 +361,7 @@
       //funcion que asocia insumos al momento de editar ficha
       function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, idbt){
         
+        console.log(id, nombre, ref, insumos, valorProm, idbt);
           var campos = $(insumos).parent().parent();
           valorcm = valorProm / 100;
 

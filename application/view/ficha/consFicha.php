@@ -56,7 +56,7 @@
                       <td class="ref"><?= $ficha["Referencia"] ?></td>
                       <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                       <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td class="color"><?= $ficha["Color"] ?></td>
+                      <td class="color"><?= $ficha["Nombre"] ?></td>
                       <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
