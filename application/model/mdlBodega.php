@@ -3,7 +3,7 @@
 		private $_db;
 
 		private $_cant = 0;
-		private $_valPro = 0;
+		private $_valPro;
 
 		private $_stock;
 
@@ -88,8 +88,8 @@
 			return $stm->execute();
 		}
 
-		public function modiInsumo(){
-			$sql = "CALL SP_modificarInsumo(?, ?, ?)";
+		public function modInsumo(){
+			$sql = "CALL SP_ModificarInsumo(?, ?, ?)";
 			$stm = $this->_db->prepare($sql); 
 			$stm->bindParam(1, $this->_idInsumo);
 			$stm->bindParam(2, $this->_codMedida);
@@ -100,10 +100,11 @@
 		}
 
 		public function modiExistencia(){
-			$sql = "CALL SP_modificarExistencia(?, ?)";
+			$sql = "CALL SP_ModExisIns(?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_idInsumo);
 			$stm->bindParam(2, $this->_stock);
+			$stm->bindParam(3, $this->_valPro);
 			return $stm->execute();
 		}
 

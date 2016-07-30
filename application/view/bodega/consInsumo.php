@@ -77,7 +77,7 @@
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 
-        <form action="<?= URL;?>ctrlBodega/modificarInsumo" method="POST">
+        <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
           <div class="modal-header" style="text-align: center;">
             <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
           </div>
@@ -107,17 +107,24 @@
           </div>
             <div class="col-md-6">
               <div class="col-md-12">
-              <div class="form-group">
-                 <label class="control-label">*Nombre:</label>
-                 <input id="nomIns" type="text" class="form-control" required="" name="nombre">
+                <div class="form-group">
+                   <label class="control-label">*Nombre:</label>
+                   <input id="nomIns" type="text" class="form-control" required="" name="nombre">
+                </div>
               </div>
 
-              <div class="form-group" style="margin-top: 9%; "> 
-                <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModelProducto">Seleccionar color</button>
-              </div>
-     
-             </div>
+            <div class="col-md-6">
+                  <div class="form-group">
+                   <label class="control-label" length="80px">*Valor: </label>
+                   <input type="number" class="form-control" min="0" required="" name="valor">
+                 </div>
             </div>
+
+            <div class="col-md-6">
+                  <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar color</button>
+            </div>
+             </div>
+
        </div>
             
         </div>
@@ -125,7 +132,7 @@
            <div class="box">
             <div class="box-body no-padding">
              <div class="table-responsive"> 
-              <table class="table" id="tabla1" >
+              <table class="table" id="tablaCol" >
                 <thead>
                   <tr class="active">
                     <th style="width: 10px"></th>
@@ -142,8 +149,7 @@
              </div>
            </div> 
           </div>
-         </div>
-         <input type="hidden" name="arreglo[]" id="vector">             
+         </div>             
          <div class="modal-footer">
 
             <button data-dismiss="modal" onclick="reload()" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
@@ -152,8 +158,8 @@
               $('#tbodyColIns').empty();
               }
             </script>
-            <input type="hidden" name="arreglo[]" id="vector">
-            <button type="submit" onclick="colores()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
+            <input type="hidden" name="arregloCol[]" id="vectorCol">
+            <button type="submit" onclick="coloresVec()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
          </div> 
          </form>
         </div> 
@@ -203,7 +209,7 @@
             </div>
               
             <div class="modal-footer">
-                <button type="button" onclick="seleccion()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
+                <button type="button" onclick="seleccionCol()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
             </div> 
             </div> 
          </div>
