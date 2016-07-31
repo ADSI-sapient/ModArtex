@@ -24,6 +24,10 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
+UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Detalle = id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
 FROM tbl_permisos a JOIN tbl_modulos b
@@ -78,6 +82,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_referencia` INT)  NO SQL
+
 SELECT ift.Id_Existencias_InsCol Id_Insumo, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i JOIN tbl_unidades_medida um ON um.Id_Medida = i.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Existencias_InsCol=ift.Id_Existencias_InsCol WHERE ift.Id_FichaTecnica = _referencia$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
@@ -115,6 +120,7 @@ ON p.Num_Documento= u.Num_Documento
 JOIN tbl_roles r
 ON  u.Tbl_Roles_Id_Rol = r.Id_Rol
 ORDER BY Id_Usuario DESC$$
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns` (IN `id` INT(11), IN `stock` INT(11), IN `valPro` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Stock_Minimo = stock, Valor_Promedio = valPro WHERE Id_Insumo = id$$
@@ -241,6 +247,7 @@ INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
 (15, 'Naranja', '#ff8a00'),
 (16, 'Azul', '#0000ff');
 
+
 -- --------------------------------------------------------
 
 --
@@ -264,6 +271,7 @@ INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insu
 (39, 18, 14, 0, 3500, 200),
 (40, 19, 14, 0, 5400, 200);
 
+
 -- --------------------------------------------------------
 
 --
@@ -275,6 +283,13 @@ CREATE TABLE `tbl_entradas` (
   `FechaReg` date NOT NULL,
   `ValorEnt` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_entradas`
+--
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
+(73, '2016-07-27', 130000);
 
 -- --------------------------------------------------------
 
@@ -290,6 +305,13 @@ CREATE TABLE `tbl_entradas_exitencias` (
   `Valor_Unitario` double NOT NULL,
   `Valor_Total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_entradas_exitencias`
+--
+
+INSERT INTO `tbl_entradas_exitencias` (`Id_Detalle`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
+(12, 73, 33, 20, 6500, 130000);
 
 -- --------------------------------------------------------
 
@@ -334,6 +356,7 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Referencia`, `Id_Talla`) VALUES
 (25, 201, 2);
 
+
 -- --------------------------------------------------------
 
 --
@@ -374,6 +397,7 @@ CREATE TABLE `tbl_insumos` (
 
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
 (14, 1, 1, 'Tela');
+
 
 -- --------------------------------------------------------
 

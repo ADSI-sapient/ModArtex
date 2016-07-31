@@ -12,7 +12,7 @@
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
-    
+  
       <form class="form-horizontal">
          <div class="col-md-12">
            <div class="box">
@@ -77,7 +77,6 @@
 
 
 
-
  <div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
     <div class="modal-content" style="border-radius: 20px;">
@@ -104,6 +103,8 @@
            <input type="text" class="form-control" id="nomIns" disabled="true">
          </div>
        </div>
+
+
 
 
        <div class="form-group">
@@ -161,7 +162,7 @@
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
     <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
-        <h4 class="control-label" style="text-align: center;"><strong>SALIDA INSUMO</strong></h4>
+        <h4 class="control-label" style="text-align: center;"><strong>ENTRADA INSUMO</strong></h4>
       </div>
 
       <form action="<?= URL; ?>ctrBodega/regSalida" method="POST">
@@ -212,6 +213,7 @@
    </div>
  </div>
  <div class="modal-footer">
+
   <button type="button" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
   <button type="submit" name="regUnaSal" class="btn btn-primary pull-right">Registrar</button>
 </div> 
@@ -220,8 +222,10 @@
 </div>
 </div>
 
-
-
+</div> 
+</div> 
+</div>
+</div>
 
 
 

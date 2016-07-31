@@ -73,11 +73,22 @@
 
 
 
+
     <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 
-        <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
+
+
+
+
+
+          
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document" style="width: 60%;">
+        <div class="modal-content" style="border-radius: 20px;">
+
+        <form action="<?= URL;?>ctrlBodega/modificarInsumo" method="POST">
           <div class="modal-header" style="text-align: center;">
             <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
           </div>
@@ -124,6 +135,7 @@
                   <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar color</button>
             </div>
              </div>
+
 
        </div>
             
@@ -215,7 +227,80 @@
          </div>
 </div>
 
-
+    <script type="text/javascript">
+          function camEst(cod, est){
+              alert(cod, est);
+              $.ajax({
+                  dataType: 'json',
+                  type: 'POST',
+                  url: "<?= URL; ?>ctrBodega/cambiarEstado", 
+                  data:{id: cod, estado: est},
+              }).done(function(respuesta){
+                if (respuesta.v == 1) {
+                  location.href = "<?= URL; ?>ctrBodega/listarInsumos"; 
+                }
+              }).fail(function(){
+              });
+          } 
+    </script>
+ <script type="text/javascript">
+     function editar(id, insumos){
+          var campos = $(insumos).parent().parent();
+          $.ajax({
+                  dataType: 'json',
+                  type: 'POST',
+                  url: "<?= URL; ?>ctrBodega/lisColInsu", 
+                  data:{id: id},
+              }).done(function(respuesta){
+                if (respuesta) {
+                  var cont = 0;
+                  $.each(respuesta, function(i){
+                  var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+'</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+'; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+'</td><td style="display: none; ">'+respuesta[i]["id"]+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
+                  $("#tbody").append(fila);  
+                  });
+                }
+              }).fail(function(){
+              });
+          $("#mSel").val(campos.find("td").eq(1).text());    
+          $("#1").val(campos.find("td").eq(2).text());
+          $("#2").val(campos.find("td").eq(3).find("option").val());
+          $("#2").text(campos.find("td").eq(3).find("option").text());
+          $("#3").val(campos.find("td").eq(4).text());
+          $("#Modeleditar").show();
+        }
+ </script>
+<!--  <script type="text/javascript">
+        function seleccion(){
+         
+          $("#tabla1").removeAttr("style");
+          $(".tr").each( function(){
+            var rg = false;
+            // console.log($(".chk"+$(this).find("td").eq(4).html()));
+            if ($(".chk"+$(this).find("td").eq(4).html()).is(':checked')) {
+              var cod = $(this).find("td").eq(4).html();
+              $("#tabla1 tr").find('td:eq(4)').each(function(){
+                  if (cod == $(this).html()) {
+                    rg = true;
+                  }
+              });
+            if (rg == false) {
+              var fila = '<tr class="box box-solid collapsed-box"><td>'+$(this).find("td").eq(0).html()+'</td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
+            $("#tbody").append(fila);
+            }
+            $(".chk"+$(this).find("td").eq(4).text()).prop("checked", "");
+          }
+          });
+        }
+</script> -->
+<!-- <script type="text/javascript">
+  function colores(){
+          var vec = [];
+          $("#tabla1 tr").find('td:eq(4)').each(function(){
+            vec.unshift([$(this).html()]);
+          });
+          $("#vector").val(vec);
+  }
+</script> -->
 
 
 

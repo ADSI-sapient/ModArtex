@@ -195,8 +195,6 @@ class ctrBodega extends Controller{
 				$this->_modelExistencias->regSalExis();
 			}
 		}
-
-
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 }
