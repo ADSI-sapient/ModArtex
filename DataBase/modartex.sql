@@ -242,11 +242,6 @@ CREATE TABLE `tbl_colores` (
 -- Volcado de datos para la tabla `tbl_colores`
 --
 
-INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
-(13, 'Beige', '#c2ac5c'),
-(15, 'Naranja', '#ff8a00'),
-(16, 'Azul', '#0000ff');
-
 
 -- --------------------------------------------------------
 
@@ -267,10 +262,6 @@ CREATE TABLE `tbl_colores_insumos` (
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
 
-INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(39, 18, 14, 0, 3500, 200),
-(40, 19, 14, 0, 5400, 200);
-
 
 -- --------------------------------------------------------
 
@@ -287,9 +278,6 @@ CREATE TABLE `tbl_entradas` (
 --
 -- Volcado de datos para la tabla `tbl_entradas`
 --
-
-INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
-(73, '2016-07-27', 130000);
 
 -- --------------------------------------------------------
 
@@ -309,9 +297,6 @@ CREATE TABLE `tbl_entradas_exitencias` (
 --
 -- Volcado de datos para la tabla `tbl_entradas_exitencias`
 --
-
-INSERT INTO `tbl_entradas_exitencias` (`Id_Detalle`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
-(12, 73, 33, 20, 6500, 130000);
 
 -- --------------------------------------------------------
 
@@ -353,8 +338,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 -- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
 --
 
-INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Referencia`, `Id_Talla`) VALUES
-(25, 201, 2);
 
 
 -- --------------------------------------------------------
@@ -375,8 +358,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 -- Volcado de datos para la tabla `tbl_fichas_tecnicas`
 --
 
-INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`) VALUES
-(201, 18, '2016-07-29', '1', 1430);
 
 -- --------------------------------------------------------
 
@@ -395,8 +376,6 @@ CREATE TABLE `tbl_insumos` (
 -- Volcado de datos para la tabla `tbl_insumos`
 --
 
-INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(14, 1, 1, 'Tela');
 
 
 -- --------------------------------------------------------
@@ -417,9 +396,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
 
-INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Id_FichaTecnica`, `Cant_Necesaria`, `Valor_Insumo`) VALUES
-(14, 39, 201, 10, 350),
-(15, 40, 201, 20, 1080);
 
 -- --------------------------------------------------------
 
@@ -557,9 +533,6 @@ CREATE TABLE `tbl_productos` (
 --
 -- Volcado de datos para la tabla `tbl_productos`
 --
-
-INSERT INTO `tbl_productos` (`Referencia`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
-(201, 0, 200, 2000);
 
 -- --------------------------------------------------------
 
@@ -804,12 +777,6 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 -- Volcado de datos para la tabla `tbl_unidades_medida`
 --
-
-INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
-(1, 'cm', 'Centimetros'),
-(2, 'mt', 'Metros'),
-(3, 'Ud', 'Unidades'),
-(4, 'mm', 'milimetros');
 
 -- --------------------------------------------------------
 
@@ -1211,7 +1178,7 @@ ALTER TABLE `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_existencias_salidas`
   ADD CONSTRAINT `tbl_existencias_salidas_ibfk_1` FOREIGN KEY (`Id_Salida`) REFERENCES `tbl_salidas` (`Id_Salida`),
-  ADD CONSTRAINT `tbl_existencias_salidas_ibfk_2` FOREIGN KEY (`Id_Existencia`) REFERENCES `tbl_colores_insumos` (`Id_Detalle`);
+  ADD CONSTRAINT `tbl_existencias_salidas_ibfk_2` FOREIGN KEY (`Id_Existencia`) REFERENCES `tbl_colores_insumos` (`Id_Existencias_InsCol`);
 
 --
 -- Filtros para la tabla `tbl_fichastecnicas_tallas`
