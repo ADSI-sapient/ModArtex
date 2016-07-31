@@ -37,7 +37,6 @@
         $("#vlr_produccion").val(total);
       }
 
-
       function quitarInsumo(btn, elemento, subtotal){
         var e = $(elemento).parent().parent();
         $(e).remove();
@@ -69,25 +68,31 @@
       }
 
       //valida que se asocie al menos un insumo al momento de registrar una ficha
-      function enviarFormFicha(){
-        if ($("#tablaInsumos >tbody >tr").length == 0) {
+      function enviarFormFicha()
+      {
+        var vlrproduccion = $("#vlr_produccion").val();
+        var vlrproducto = $("#vlr_producto").val();
+
+        if ($("#tablaInsumos >tbody >tr").length == 0)
+        {
           swal({title: "0 Insumos Asociados", 
             text: "Por favor asocie al menos un insumo a esta ficha.",   
             imageUrl: uri+"img/stop.png"
           });
-          return false;}
-        // }else if (true) {
-        //   var vlrproduccion = $("#vlr_produccion").val();
-        //   var vlrproducto = $("#vlr_producto").val();
-        //   if (vlr_produccion >= vlr_producto) {
-        //     swal({title: "Valores incorrectos", 
-        //     text: "El valor del producto debe ser mayor al valor de producción.",   
-        //     imageUrl: uri+"img/stop.png"
-        //     });
-        //   }
+          return false;
+        }
+
+        // if (vlrproduccion >= vlrproducto)
+        // {
+        //   swal({title: "Valores incorrectos", 
+        //   text: "El valor del producto debe ser mayor al valor de producción.",   
+        //   imageUrl: uri+"img/stop.png"
+        //   });
         //   return false;
         // }
-        else{
+
+        else
+        {
           return true;
         }
       }
@@ -295,8 +300,8 @@
                 //valor del insumo asociado
                 valorIns = arrayInsumos[i]['Valor_Insumo'];
                 cantNec = arrayInsumos[i]['Cant_Necesaria'];
-
-                var tr = "<tr class='box box-solid collapsed-box'><td>"+idIns+"</td><td>"+nombreIns+"</td><td>cm</td><td>$ "+valorcmt+"</td><td><input type='number' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onchange='res"+idIns+".value=cantNec"+idIns+".value * "+valorcmt+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''></tr>";
+                color = arrayInsumos[i]['Codigo_Color'];
+                var tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>cm</td><td>$ "+valorcmt+"</td><td><input type='number' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onchange='res"+idIns+".value=cantNec"+idIns+".value * "+valorcmt+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''></tr>";
 
                  $('#tbl-insumos-aso').append(tr);
               }
@@ -306,10 +311,11 @@
         })
     }
 
-    function quitarAso(elemento){
-
+    function quitarTallaAso(btn, elemento){
         var e = $(elemento).parent().parent();
         $(e).remove();
+        boton = "#btn"+btn;
+        $(boton).attr('disabled', false);
     }
 
     
@@ -323,13 +329,12 @@
             if (respuesta.r != null) {
               $("#tbl-tallas-aso > tbody tr").empty();
               arrayTallas = respuesta.r;
-              console.log(arrayTallas);
               for (var i = 0; i <= arrayTallas.length - 1; i++) {
 
                 idTalla = arrayTallas[i]['Id_Talla'];
                 nombre = arrayTallas[i]['Nombre'];
 
-                var tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td></tr>";
+                var tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i class='fa fa-remove'></i></button></td></tr>";
 
                  $('#tbl-tallas-aso').append(tr);
               }
@@ -339,38 +344,50 @@
         })
     }
 
-      function eliminarInsumoAsoFicha(id, ref, insumo){
-        $.ajax({
-            dataType: 'json',
-            type: 'post',
-            url: uri+"ficha/eliminarInsumoAsociado",
-            data: {id_insumo:id, referencia:ref}  
-        }).done(function(resp){
-          if (resp.r == "1") {
-            alert("Asociación eliminada correctamente");
-            var i = $(insumo).parent().parent();
-            $(i).remove();
-          }else{
-            alert('Error al eliminar la asociación');
-          }
-        }).fail(function() {
+      // function eliminarInsumoAsoFicha(id, ref, insumo){
+      //   $.ajax({
+      //       dataType: 'json',
+      //       type: 'post',
+      //       url: uri+"ficha/eliminarInsumoAsociado",
+      //       data: {id_insumo:id, referencia:ref}  
+      //   }).done(function(resp){
+      //     if (resp.r == "1") {
+      //       alert("Asociación eliminada correctamente");
+      //       var i = $(insumo).parent().parent();
+      //       $(i).remove();
+      //     }else{
+      //       alert('Error al eliminar la asociación');
+      //     }
+      //   }).fail(function() {
 
-        })
-      }
+      //   })
+      // }
 
       //funcion que asocia insumos al momento de editar ficha
-      function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, idbt){
-        
-        console.log(id, nombre, ref, insumos, valorProm, idbt);
+      function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, color, idbt){
           var campos = $(insumos).parent().parent();
           valorcm = valorProm / 100;
 
-          var tr = "<tr class='box box-solid collapsed-box'><td>"+id+"</td><td>"+nombre+"</td><td><p>ctm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onchange='res"+id+".value=cantNec"+id+".value * "+valorcm+"; subt"+id+".value=parseFloat(res"+id+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+id+", this, subt"+id+".value)'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id+"></tr>";
+          //insumo que se quiere agregar
+          idNuevoInsumo = id;
 
-          $("#tbl-insumos-aso").append(tr);
+          //Comparar con los que ya estan agregados
+          insumo = "#idInsu"+id;
+          valor = $(insumo).val()
 
-          boton = "#btn"+idbt;
-          $(boton).attr('disabled', 'disabled');
+          if (idNuevoInsumo == $(insumo).val()) 
+          {
+            boton = "#btn"+id;
+            $(boton).attr('disabled', 'disabled');
+            alert("Este insumo ya se encuentra agregado a la ficha");
+          }
+          else
+          {
+            var tr = "<tr class='box box-solid collapsed-box'><td>"+nombre+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onchange='res"+id+".value=cantNec"+id+".value * "+valorcm+"; subt"+id+".value=parseFloat(res"+id+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+id+", this, subt"+id+".value)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idInsu"+id+"' name='idInsumo[]' value="+id+"></tr>";
+            $("#tbl-insumos-aso").append(tr);
+            boton = "#btn"+id;
+            $(boton).attr('disabled', 'disabled');
+          }
       }
 
       //función que agrega nuevas tallas al momento de modificar una ficha.
@@ -388,18 +405,18 @@
           if (idNuevaTalla == $(talla).val()) {
 
             //bloquea el boton o muestra una alerta
-            botonn = "#btn"+idbton;
+            botonn = "#btn"+id;
             $(botonn).attr('disabled', 'disabled');
             alert("La talla ya se encuentra agregada");
 
           //si no existe la talla acá la agrega
           }else{
 
-            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarAso(this)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"></tr>";
+            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"></tr>";
            
-             $("#tbl-tallas-aso").append(tr);
-            // botonn = "#btn"+idbton;
-            // $(botonn).attr('disabled', 'disabled');
+            $("#tbl-tallas-aso").append(tr);
+            botonn = "#btn"+id;
+            $(botonn).attr('disabled', 'disabled');
           }
       }
 

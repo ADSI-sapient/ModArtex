@@ -21,15 +21,6 @@
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
 	    }
-	    // public function consAsoInsumos(){
-	    // 	$mensaje = "";
-	    // 	$msjEditFicha = "";
-
-	    // 	$insumos = $this->mdlModel->getAsoInsumos();
-	    //     require APP . 'view/_templates/header.php';
-	    //     require APP . 'view/ficha/regFicha.php';
-	    //     require APP . 'view/_templates/footer.php';
-	    // }
 
 	   	public function regFicha(){
 	        $mensaje = "";
@@ -106,7 +97,7 @@
 		    if(isset($_POST["btn-modificar-ficha"])){
 
 		      	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
-	            $this->mdlModel->__SET("color", $_POST["color"]);
+	            $this->mdlModel->__SET("color", 19);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 
 		      if($this->mdlModel->modificarFicha()){
