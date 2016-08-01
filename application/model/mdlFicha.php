@@ -40,8 +40,8 @@
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->referencia);
-	        	$query->bindParam(2, $this->fecha_reg);
-	        	$query->bindParam(3, $this->color);
+	        	$query->bindParam(2, $this->color);
+	        	$query->bindParam(3, $this->fecha_reg);
 	        	$query->bindParam(4, $this->estado);
 	        	$query->bindParam(5, $this->valor_produccion);
 
@@ -213,7 +213,7 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "UPDATE tbl_fichas_tecnicas SET Color = ?, Valor_Produccion = ? WHERE Referencia = ?";
+	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ? WHERE Referencia = ?";
 
 	        try{
 	          $query = $this->db->prepare($sql);

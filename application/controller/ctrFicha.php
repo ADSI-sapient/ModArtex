@@ -44,7 +44,7 @@
 	        	if ($validarRef == null) {
 
 	        		$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
-			    	$this->mdlModel->__SET("color", $_POST["color"]);
+			    	$this->mdlModel->__SET("color", 18);
 			 		$this->mdlModel->__SET("estado", 1);
 			    	$this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 
