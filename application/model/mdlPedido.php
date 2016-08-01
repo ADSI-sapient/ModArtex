@@ -63,7 +63,7 @@
 
 	    public function getClientes(){
 
-	    	$sql = "SELECT Num_Documento, Nombre, Telefono, Email FROM tbl_persona WHERE Id_Tipo = 2";
+	    	$sql = "SELECT Num_Documento, Nombre, Telefono, Email FROM tbl_persona WHERE Id_Tipo = 2 and Estado = 1";
 	        $query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -112,7 +112,7 @@
 
       	public function editPedidos(){
 
-      		$sql = "UPDATE tbl_pedidos SET Fecha_Entrega = ? , Valor_Total = ? WHERE Id_Pedido = ?";
+      		$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ? WHERE st.Id_Solicitud = ?";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
@@ -133,8 +133,16 @@
 
       	public function getFichasHabilitadas(){
 
-      		$sql = "SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		$query = $this->db->prepare($sql);
+	        $query->execute();
+	        return $query->fetchAll();
+      	}
+
+      	public function cargarProductosAsoPed(){
+      		$sql = "SELECT sp.Id_Producto, c.Codigo_Color, p.Valor_Producto, sp.Cantidad_Producir, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_productos p ON sp.Id_Producto=p.Referencia JOIN tbl_fichas_tecnicas ft ON p.Referencia=ft.Referencia JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE s.Id_Solicitud = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_cliente);
 	        $query->execute();
 	        return $query->fetchAll();
       	}

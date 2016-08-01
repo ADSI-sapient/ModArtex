@@ -164,10 +164,11 @@
       }
 
       function asociarProductos(ref, color, vlrprodto, fichas, idbton){
+        console.log(ref, color, vlrprodto, fichas, idbton);
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
         // var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value);' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
-        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         $("#tablaFicha").append(tr);
 
         boton = "#btn"+idbton;
@@ -188,6 +189,10 @@
         var campos = $(clientes).parent().parent();
         $("#nombre").val(nombre);
         $("#id_cliente").val(id_cliente);
+        // boton = "#btnAgregar"+idbotonc;
+        // $(boton).attr('disabled', 'disabled');
+        // clienteAgregado = $("#id_cliente").val();
+        // if (id_cliente != clienteAgregado) {}
       }
 
       function editarPedido(id, pedidos){
@@ -197,7 +202,7 @@
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
         $("#estado").val(campos.find("td").eq(4).text());
-        $("#nombrecliente").val(campos.find("td").eq(5).text());
+        $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
 
@@ -438,3 +443,34 @@
             }
         }).fail(function(){})
       }
+
+      //carga productos asociados al pedido
+      function cargarProductosAsoPed(id_cliente){
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          url: uri+"ctrPedido/cargarProAsoPedido",
+          data:{idCli: id_cliente}
+        }).done(function(respuesta){
+          if (respuesta.r != null) {
+              $("#tbl-prod-aso-ped > tbody tr").empty();
+              arrayProductos = respuesta.r;
+              for (var i = 0; i <= arrayProductos.length - 1; i++) {
+                idProducto = arrayProductos[i]['Id_Producto'];
+                color = arrayProductos[i]['Codigo_Color'];
+                vlrProducto = arrayProductos[i]['Valor_Producto'];
+                cantProducir = arrayProductos[i]['Cantidad_Producir'];
+                subtotal = arrayProductos[i]['Subtotal'];
+                // var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idProducto+"' name='tallas[]' value='"+idProducto+"'><td>"+idProducto+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i class='fa fa-remove'></i></button></td></tr>";
+                var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrProducto+"</td><td>"+cantProducir+"</td><td>"+subtotal+"</td><td><button type='button' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+                $('#tbl-prod-aso-ped').append(tr);
+              }
+            }
+        }).fail(function(){
+
+        })
+      }
+
+
+            
+        

@@ -15,9 +15,9 @@
 			$msgModPedido = "";
 			$msgRegPedido = "";
 			$msgModEstadoPedido ="";
-			
 			$pedidos = $this->mdlModel->getPedidos();
-
+			$clientes = $this->mdlModel->getClientes();
+			
 	        require APP . 'view/_templates/header.php';
 	        require APP . 'view/pedido/consPedido.php';
 	        require APP . 'view/_templates/footer.php';
@@ -81,7 +81,6 @@
 
 	    public function editarPedido(){
 
-	    	
 	    	$msgModPedido = "";
 			$msgRegPedido = "";
 			$msgModEstadoPedido ="";
@@ -92,9 +91,11 @@
 	    		$this->mdlModel->__SET("vlr_total", $_POST["valor_total"]);
 
 	    		if ($this->mdlModel->editPedidos()) {
-	    			$msgModPedido = "alert('Pedido modificado'); location.href=uri+'pedido/consPedido'";
+	    			//acá editamos las asociaciones
+
+	    			// $msgModPedido = "alert('Pedido modificado'); location.href=uri+'pedido/consPedido'";
 	    		}else{
-	    			$msgModPedido = "alert('Error al modificar el pedido')";
+	    			// $msgModPedido = "alert('Error al modificar el pedido')";
 	    		}
 	    	}
 
@@ -133,6 +134,19 @@
 	        require APP . 'view/pedido/consPedido.php';
 	        require APP . 'view/_templates/footer.php';
 
+	    }
+
+	    //carga los productos asociados al pedido
+	    public function cargarProAsoPedido(){
+
+	    	$this->mdlModel->__SET("id_cliente", $_POST["idCli"]);
+	    	$productosAsoPed = $this->mdlModel->cargarProductosAsoPed();
+
+	    	if ($productosAsoPed) {
+		    	echo json_encode(["r"=>$productosAsoPed]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
+		    }
 	    }
 	}
 ?>

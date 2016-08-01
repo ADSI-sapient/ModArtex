@@ -45,7 +45,8 @@
                         <th>Estado</th>
                         <th>Cliente</th>
                         <th style="width: 7%">Editar</th>
-                        <th style="width: 7%">Cambiar Estado</th>
+                        <th style="width: 7%">CE</th>
+                        <th style="width: 7%">Cancelar</th>
                       </tr>
                     </thead>
                     <tbody class="list">
@@ -58,10 +59,13 @@
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this);" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         </td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Solicitud"] ?>', this);"></i></button>
+                          <!-- <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Solicitud"] ?>', this);"></i></button> -->
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-box-tool"><i class="fa fa-ban"></i></button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -84,11 +88,12 @@
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido">
-                <div class="form-group col-sm-4">
+                <!-- <div class="form-group col-sm-4">
                   <label for="id_pedido" class="">Id Pedido:</label>
                   <input class="form-control" type="text" name="id_pedido" id="id_pedido" readonly="" style="border-radius:5px;">
-                </div>
-                <div class="form-group col-sm-4">
+                </div> -->
+                <input type="hidden" name="id_pedido" id="id_pedido">
+                <div class="form-group col-sm-6">
                   <label class="">Fecha Registro:</label>
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
@@ -97,11 +102,11 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-6">
                   <label class="">*Fecha Entrega:</label>
                   <div class="">
                     <div class="input-group date">
@@ -112,18 +117,49 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-sm-4">
-                  <label for="nombrecliente" class="">*Cliente:</label>
-                  <input class="form-control" type="text" name="nombrecliente" readonly="" id="nombrecliente" style="border-radius:5px;">
+                <div class="form-group col-sm-6">
+                  <label for="nombrecliente" class="">*Asociar Cliente:</label>
+                  <div class="">
+                    <div class="input-group">
+                      <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" readonly="" required="" style="border-radius:5px;">
+                      <input type="hidden" name="doc_cliente"  id="doc_cliente" required="">
+                      <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
+                        <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asoClientesHab"><i class="fa fa-search"></i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group col-sm-4"> 
-                  <label for="valor_total" class="">*Valor Total:</label>
-                  <input class="form-control" type="text" name="valor_total" id="valor_total" style="border-radius:5px;">
+                <label for="valor_total" class="">*Productos Asociados:</label>
+                <div class="table">
+                <div class="form-group col-sm-12">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tbl-prod-aso-ped">
+                    <thead>
+                      <tr class="active">
+                        <th>Referencia</th>
+                        <th>Color</th>
+                        <th>Valor Producto</th>
+                        <th>Cantidad a Producir</th>
+                        <th>Subtotal</th>
+                        <th>Quitar</th>
+                        <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
                 </div>
             </div>
+            <div class="form-group col-sm-6">
+              <label for="valor_total" class="">*Valor Total:</label>
+              <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+            </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="submit" class="btn btn-primary" name="btnModificarPed" onclick="confirmarCambioEstado()">Guardar cambios</button>
-              <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cancelar()">Cancelar</button>
+              <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-primary" name="btnModificarPed" onclick="confirmarCambioEstado()">Guardar cambios</button>
+                <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cancelar()">Cancelar</button>
+              </div>
               </form>
             </div>
           </div>
@@ -160,5 +196,53 @@
         </div>
       </div>
       <!-- fin modal cambiar estado pedido-->
+      <!-- inicio modal asociar cliente-->
+      <div class="modal fade" id="asoClientesHab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>Clientes para asociar</b></h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+              <div class="table">
+                <div class="col-sm-12 table-responsive">
+                <table class="table table-responsive" id="tblClientesAsoHab">
+                <thead>
+                  <tr class="active">
+                    <th>Documento</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Agregar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php $a = 1; ?>
+                <?php foreach ($clientes as $cliente): ?>
+                  <tr>
+                    <td><?= $cliente["Num_Documento"] ?></td>
+                    <td><?= $cliente["Nombre"] ?></td>
+                    <td><?= $cliente["Telefono"] ?></td>
+                    <td><?= $cliente["Email"] ?></td>
+                    <td>
+                    <button>+</button>
+                      <!-- <button id="btnAgregar<?= $c; ?>" type="button" class="btn btn-box-tool" onclick="asociarCliente('<?= $cliente["Nombre"] ?>', <?= $cliente["Num_Documento"] ?>, this, '<?= $c; ?>')"><i class="fa fa-plus"></i></button> -->
+                    </td>
+                  </tr>
+                  <?php $a++; ?>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+              </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fin modal asociar cliente-->
     </section>
 
