@@ -35,7 +35,7 @@
 	        	if ($validarRef == null) {
 
 	        		$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
-			    	$this->mdlModel->__SET("color", 18);
+			    	$this->mdlModel->__SET("color", 1);
 			 		$this->mdlModel->__SET("estado", 1);
 			    	$this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 
@@ -97,7 +97,7 @@
 		    if(isset($_POST["btn-modificar-ficha"])){
 
 		      	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
-	            $this->mdlModel->__SET("color", 19);
+	            $this->mdlModel->__SET("color", 1);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 
 		      if($this->mdlModel->modificarFicha()){
@@ -128,10 +128,12 @@
 					$retornoTallas = $this->mdlModel->regTallasAso();
 				}
 
-		    	$msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
+		    	// $msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
 		    	// $msjEditFicha = 'alert("Ficha modificada exitosamente"); location.href = uri+"ctrFicha/consFicha";';
 		    	// $mensaje2 = 'Lobibox.notify("success", {msg: "Ficha Modificada Exitosamente!", rounded: true, delay: 5000}); location.href = uri+"ficha/consFicha";';
 		    	 // $mensaje2 = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ficha/consFicha";';
+
+		    	header("location: " .URL. 'ctrFicha/consFicha');
 
 		      }else{
 		      	$msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha',
