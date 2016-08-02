@@ -37,6 +37,15 @@
         $("#vlr_produccion").val(total);
       }
 
+      //calcula el valor total del pedido cuando se modifica la asociación de los productos(fichas)
+      function calcularVlrTotalPed(){
+        var total=0;
+        $(".subtotal").each(function(){
+          total=total+parseFloat($(this).val());
+        });
+        $("#valor_total").val(total);
+      }
+
       function quitarInsumo(btn, elemento, subtotal){
         var e = $(elemento).parent().parent();
         $(e).remove();
@@ -163,16 +172,46 @@
         $("#vlr_total").val(desc);
       }
 
+      //remueve de la tabla los productos asociados al pedido al momento de modificar
+      function removerProducto(btn, elemento, subtotal){
+        var e = $(elemento).parent().parent();
+        $(e).remove();
+        boton = "#btn"+btn;
+        $(boton).attr('disabled', false);
+        valortotal = $("#valor_total").val();
+        desc = valortotal - subtotal;
+        $("#valor_total").val(desc);
+      }
+
       function asociarProductos(ref, color, vlrprodto, fichas, idbton){
-        console.log(ref, color, vlrprodto, fichas, idbton);
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
-        // var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td>"+color+"</td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value);' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         $("#tablaFicha").append(tr);
-
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
+      }
+
+      function asociarProductosModiPedido(referencia, color, vlrproducto, productos, idbton){
+
+        //producto que se quiere agregar
+        idProducNuevo = referencia;
+        //comparar con los que estan agregados
+        producto = "#idProducto"+referencia;
+        valor = $(producto).val();
+        if (idProducNuevo == $(producto).val()) {
+
+          boton = "#btn"+referencia;
+          $(boton).attr('disabled', 'disabled');
+          alert("Este producto ya se encuentra agregado al pedido");
+        }
+        else
+        {
+          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;' name='cantProducir[]'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subTotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProducto("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='referencia[]' value="+referencia+"></tr>";
+          $("#tbl-prod-aso-ped").append(tr);
+          boton = "#btn"+referencia;
+          $(boton).attr('disabled', 'disabled');
+        }
       }
 
       function limpiarFormRegPedido(){
@@ -193,6 +232,12 @@
         // $(boton).attr('disabled', 'disabled');
         // clienteAgregado = $("#id_cliente").val();
         // if (id_cliente != clienteAgregado) {}
+      }
+
+
+      function asoClienteModifPedido(nombrecliente, idCliente, clientes){
+        $("#nombreCliente").val(nombrecliente);
+        $("#doc_cliente").val(idCliente);
       }
 
       function editarPedido(id, pedidos){
@@ -461,8 +506,8 @@
                 vlrProducto = arrayProductos[i]['Valor_Producto'];
                 cantProducir = arrayProductos[i]['Cantidad_Producir'];
                 subtotal = arrayProductos[i]['Subtotal'];
-                // var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idProducto+"' name='tallas[]' value='"+idProducto+"'><td>"+idProducto+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i class='fa fa-remove'></i></button></td></tr>";
-                var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrProducto+"</td><td>"+cantProducir+"</td><td>"+subtotal+"</td><td><button type='button' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+                var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onchange='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); calcularVlrTotalPed();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProducto("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+idProducto+"'></tr>";
+
                 $('#tbl-prod-aso-ped').append(tr);
               }
             }
@@ -471,6 +516,24 @@
         })
       }
 
+      function cancelarPedido(idpedido){
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          url: uri+"ctrPedido/cancelarPedido",
+          data:{id_Pedido: idpedido}
+        }).done(function(respuesta){
+          if (respuesta.r == 1) {
+            alert("Pedido cancelado");
+            location.href = uri+"ctrPedido/consPedido";
+            //$("#btn-cancel-ped").attr('disabled', 'disabled');
+          }else{
+            alert("Error al cancelar el pedido");
+          }
+        }).fail(function(){
+
+        })
+      }
 
             
         

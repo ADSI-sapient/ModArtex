@@ -113,9 +113,13 @@
       	public function editPedidos(){
 
       		$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ? WHERE st.Id_Solicitud = ?";
+
+      		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ? WHERE st.Id_Solicitud = ?";
+
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
+      		// $query->bindParam(3, $this->id_cliente);
       		$query->bindParam(3, $this->id_pedido);
       		$query->execute();
       		return $query;
@@ -134,6 +138,7 @@
       	public function getFichasHabilitadas(){
 
       		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		
       		$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -145,6 +150,38 @@
       		$query->bindParam(1, $this->id_cliente);
 	        $query->execute();
 	        return $query->fetchAll();
+      	}
+
+      	//eliminar las asociaciones de productos de un pedido.
+      	public function eliminarAsoFichasPedido(){
+
+      		$sql = "DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_solicitudes_tipo);
+      		$query->execute();
+      		return $query;
+      	}
+
+      	public function traerIdSolTipo(){
+
+      		$sql = "SELECT Id_Solicitudes_Tipo FROM tbl_solicitudes_tipo WHERE Id_Solicitud = ?";
+      		
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_pedido);
+	        $query->execute();
+	        return $query->fetch();
+      	}
+
+      	public function cancelPedido(){
+
+      		$sql = "UPDATE tbl_solicitudes SET Id_Estado = ? WHERE Id_Solicitud = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_estado);
+      		$query->bindParam(2, $this->id_pedido);
+      		$query->execute();
+      		return $query;
+
+
       	}
 	}
 

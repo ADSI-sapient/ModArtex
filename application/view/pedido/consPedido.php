@@ -45,7 +45,6 @@
                         <th>Estado</th>
                         <th>Cliente</th>
                         <th style="width: 7%">Editar</th>
-                        <th style="width: 7%">CE</th>
                         <th style="width: 7%">Cancelar</th>
                       </tr>
                     </thead>
@@ -62,11 +61,11 @@
                           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         </td>
                         <td>
+                          <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban"></i></button>
+                        </td>
+                        <!-- <td> -->
                           <!-- <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Solicitud"] ?>', this);"></i></button> -->
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-box-tool"><i class="fa fa-ban"></i></button>
-                        </td>
+                        <!-- </td> -->
                       </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -132,14 +131,14 @@
                 </div>
                 <label for="valor_total" class="">*Productos Asociados:</label>
                 <div class="table">
-                <div class="form-group col-sm-12">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tbl-prod-aso-ped">
+                <div class="form-group col-sm-12 table-responsive">
+                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="tbl-prod-aso-ped">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
                         <th>Color</th>
-                        <th>Valor Producto</th>
                         <th>Cantidad a Producir</th>
+                        <th>Valor Producto</th>
                         <th>Subtotal</th>
                         <th>Quitar</th>
                         <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
@@ -226,8 +225,7 @@
                     <td><?= $cliente["Telefono"] ?></td>
                     <td><?= $cliente["Email"] ?></td>
                     <td>
-                    <button>+</button>
-                      <!-- <button id="btnAgregar<?= $c; ?>" type="button" class="btn btn-box-tool" onclick="asociarCliente('<?= $cliente["Nombre"] ?>', <?= $cliente["Num_Documento"] ?>, this, '<?= $c; ?>')"><i class="fa fa-plus"></i></button> -->
+                      <button id="btnAgregar<?= $a; ?>" type="button" class="btn btn-box-tool" onclick="asoClienteModifPedido('<?= $cliente["Nombre"] ?>', <?= $cliente["Num_Documento"] ?>, this, '<?= $a; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $a++; ?>
@@ -244,5 +242,52 @@
         </div>
       </div>
       <!-- fin modal asociar cliente-->
+      <!-- Inicio modal asociar productos(fichas) -->
+      <div class="modal fade" id="asoProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>Productos para asociar</b></h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+              <div class="table">
+                <div class="col-sm-12 table-responsive">
+                <table class="table table-responsive" id="">
+                <thead>
+                  <tr class="active">
+                    <th>Ref</th>
+                    <th>Color</th>
+                    <th>Valor Producción</th>
+                    <th>Valor Producto</th>
+                    <th>Agregar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php $p = 1; ?>
+                <?php foreach ($productosHab as $producto): ?>
+                  <tr>
+                    <td><?= $producto["Referencia"] ?></td>
+                    <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 150%;"></i></td>
+                    <td><?= $producto["Valor_Produccion"] ?></td>
+                    <td><?= $producto["Valor_Producto"] ?></td>
+                    <td>
+                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                    </td>
+                  </tr>
+                  <?php $p++; ?>
+                <?php endforeach; ?>
+                </tbody>
+              </table>
+              </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fin modal asociar productos(fichas) -->
     </section>
 
