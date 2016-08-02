@@ -55,6 +55,16 @@
                     </div>
                 </div>
 
+          <div class="form-group col-lg-4">
+            <label for="estado" class="">Estado</label>
+            <select class="form-control" name="estado" id="estado" required="" readonly="" style="border-radius:5px;">
+              <option value="No Entregada">No Entregada</option>
+              <option value="Entregada" selected>Entregada</option>
+              <option value="Vencida">Vencida</option>
+              <option value="Canceladas">Cancelado</option>
+            </select>
+          </div>
+      </div>
                <!--  <div class="form-group col-lg-push-3 col-lg-4">
                   <label for="aso_cliente" class="">Asociar Cliente</label>
                   <form action="#" method="get" class="form-horizontal">
@@ -66,20 +76,23 @@
                                   </span>
                             </div>
                     </form>
-                </div> -->
 
-                 <div class="form-group col-lg-push-3 col-lg-7">
-                  <label for="aso_cliente" class="">Asociar Cliente</label>
-                  <!-- <form action="#" method="post" class="form-horizontal"> -->
-                       <div class="input-group col-lg-5">
-                          <input type="text" name="cliente" class="form-control" id="cliente" required="">
-                         <span class="input-group-btn">
-                            <button type="button" id="search-btn" class="btn btn-flat"><i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
-                            </button>
-                          </span>
-                      </div>
-                  </div>
-                  </div>
+                  </div> -->
+
+     <div class="row col-lg-12">
+        <div class="form-group col-lg-4">
+          <label for="aso_cliente" class="">Asociar Cliente</label>
+            <div class="input-group">
+             <input type="hidden" name="documento_cli" value="" id="documento_cli">
+              <input type="text" name="cliente" class="form-control" id="cliente" readonly="" value="" style="border-radius:5px;">
+              <span class="input-group-btn">
+                <button type="button" id="search-btn" class="btn btn-flat">
+                <i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
+                </button>
+              </span>
+          </div>
+        </div>
+     </div> 
                 
 
         <div hidden="" class="form-group" id="agregarFicha">
@@ -115,7 +128,7 @@
               <div class="">
                 <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                    <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
+                    <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
                   </div>
                 </div>
 
@@ -163,8 +176,8 @@
 
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
 
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Agregar Cotizacion</h4>
@@ -196,13 +209,49 @@
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div> 
 
-            </form>
-          </div>
-         </div> 
-        </div> 
-      </div>
-         <!--Fin del modal valor total-->     
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+      </div> 
+    </form>
+     </div>
+   </div> 
+  </div> 
+</div>
+              <!--Fin del modal valor total-->     
 
+              <!--Modal de asociar cliente -->
+
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" id="mdal">
+        <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Asociar Cliente</h4>
+          </div>
+          <div class="modal-body">
+         <div class="table">
+        <div class="col-sm-12 table-responsive">
+           
+        <style type="text/css">
+        #mdal{
+           width: 70% !important;
+        }
+        </style>      
+              <table class="table table-hover">
+                <thead>
+                  <tr class="info">
+                    <th>Documento</th>
+                    <th>Tipo</th>
+                    <th>Tipo de Documento</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Estado</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
+                    <th>Opcion</th>
+                  </tr>
+                </thead>
 
 
          <!--Modal de asociar cliente -->
@@ -248,9 +297,7 @@
                     <td><?php echo $cliente["Direccion"] ?></td>
                     <td><?php echo $cliente["Email"] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['Num_Documento'] ?>')">
-                        Agregar
-                      </button>
+                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['Nombre']?>','<?= $cliente['Num_Documento'] ?>')">Agregar</button>
                     </td>
                   </tr>
                 <?php endforeach ?>

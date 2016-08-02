@@ -12,28 +12,7 @@
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
-
-
-<!--         <div class="row box-header">
-          <div class="col-md-8"></div>
-             <div class="col-md-4">
-                <div class="form-group">
-                        <div class="box-tools pull-right">   
-                          <form action="#" method="get" class="form-horizontal">
-                            <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Buscar">
-                                  <span class="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                    </button>
-                                  </span>
-                            </div>
-                          </form> 
-                       </div>
-                </div>
-              </div>
-        </div> -->
-    
-
+  
       <form class="form-horizontal">
          <div class="col-md-12">
            <div class="box">
@@ -59,8 +38,8 @@
                     <?php $cont = 0;?>
                     <?php foreach($listEx as $valExt): ?>
                      <tr>
-                      <td style="display: none;"><?= $valExt["Id_Detalle"]?></td>
-                      <td><input type="checkbox" id="chkExi<?= $valExt["Id_Detalle"]?>"></td>
+                      <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
+                      <td><input type="checkbox" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
                       <td style="padding-left: 0;"><?= $cont += 1;?></td>
                       <td><?= $valExt["NomIns"]?></td>
                       <td><?= $valExt["Nombre"]?></td>
@@ -69,8 +48,8 @@
                       <td><?= $valExt["Valor_Promedio"]?></td>
                       <td><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
                       <td>
-                        <button type="button" onclick="existen(<?= $valExt["Id_Detalle"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-left"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelSalida"><i style="color: red;" class="fa fa-arrow-right"></i></button>
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-down"></i></button>
+                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red;" class="fa fa-arrow-up"></i></button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -85,13 +64,17 @@
            <button class="btn btn-primary">Generar reporte</button>
          </div> 
          <div class="col-md-8" style="text-align: right;">
-           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalEntradaMayor"><i style="color: green; font-size: 200%;" class="fa fa-arrow-left"></i></button>
-           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelSalida"><i style="color: red; font-size: 200%;" class="fa fa-arrow-right"></i></button>
+           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalEntradaMayor"><i style="color: green; font-size: 200%;" class="fa fa-arrow-down"></i></button>
+           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#SalidaMuchos" onclick="salidaIns()"><i style="color: red; font-size: 200%;" class="fa fa-arrow-up"></i></button>
          </div>
        </div>
      </form>  
    </div> 
  </section> 
+
+
+
+
 
 
  <div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -104,13 +87,7 @@
       <form action="<?= URL; ?>ctrBodega/regEntrada" method="POST">
         <div class="modal-body">
 
-          <div class="form-horizontal"> 
-<!--           <div class="form-group">
-           <h4 class="col-md-3">Código: </h4>
-           <div class="col-md-9">
-            <input type="text" id="codIns" class="form-control" disabled="true"> 
-          </div> 
-        </div> -->
+        <div class="form-horizontal"> 
         <input type="hidden" name="idExs" id="idExs">
         <input type="hidden" name="cantActual" id="cantActual">
         <input type="hidden" name="valPromedio" id="valPromedio">
@@ -166,7 +143,7 @@
    </div>
  </div>
  <div class="modal-footer">
-  <button type="reset" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
+  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
   <button type="submit" name="regUno" class="btn btn-primary pull-right">Registrar</button>
 </div> 
 </form>
@@ -174,73 +151,85 @@
 </div>
 </div>
 
-<div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+
+
+
+<!-- SALIDA DE INSUMOS DE A UNO -->
+
+
+ <div class="modal fade" id="ModalSalida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
     <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
         <h4 class="control-label" style="text-align: center;"><strong>ENTRADA INSUMO</strong></h4>
       </div>
-      <div class="modal-body">
+
+      <form action="<?= URL; ?>ctrBodega/regSalida" method="POST">
+        <div class="modal-body">
 
         <div class="form-horizontal"> 
-          <div class="form-group">
-           <h4 class="col-md-3">Código: </h4>
-           <div class="col-md-9">
-            <input type="text" value="001" class="form-control" disabled="true"> 
-          </div> 
-        </div>
+        <input type="hidden" name="idExs" id="idExiSal">
+        <input type="hidden" name="cant" id="cantAct">
         <div class="form-group">
-         <h4 class="col-md-3">Nombre: </h4>
+         <h4 class="col-md-3">Fecha: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Hilo" disabled="true">
+           <input type="text" class="form-control" name="fechaSal" value="<?= date("Y/m/d")?>" readonly="">
          </div>
        </div>
-
-
+       <div class="form-group">
+         <h4 class="col-md-3">Nombre: </h4>
+         <div class="col-md-9">
+           <input type="text" class="form-control" id="nomInsSal" disabled="true">
+         </div>
+       </div>
        <div class="form-group">
          <h4 class="col-md-3">Color: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Rojo" disabled="true">
+           <input type="text" class="form-control" id="coloInsSal" disabled="true">
          </div>
        </div>
 
        <div class="form-group">
          <h4 class="col-md-3">Medida: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" value="Decenas" disabled="true">
+           <input type="text" class="form-control" id="medInsSal" disabled="true">
          </div>
        </div>
-
 
        <div class="form-group">
          <h4 class="col-md-3">Cantidad: </h4>
          <div class="col-md-9">
-          <input type="number" class="form-control"  min="0"> 
+          <input required="" type="number" id="cantSal" name="cantSal" class="form-control"  min="1"> 
         </div> 
       </div>
-      <div class="form-group">
-       <h4 class="col-md-3">Valor: </h4>
+     <div class="form-group">
+       <h4 class="col-md-3">Descripcion: </h4>
        <div class="col-md-9">
-         <input type="money" class="form-control">
+         <textarea required="" type="text" id="descripcionSal" name="descripcion" class="form-control"> </textarea>
        </div>
      </div>
 
    </div>
  </div>
  <div class="modal-footer">
-  <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-  <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
 
+  <button type="button" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
+  <button type="submit" name="regUnaSal" class="btn btn-primary pull-right">Registrar</button>
 </div> 
+</form>
 </div> 
 </div>
 </div>
 
-<!-- </div>
-</div>
-</div> 
-</div>
-</div> -->
+
+
+
+
+
+
+
+
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalEntradaMayor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width: 60%;">
@@ -263,6 +252,8 @@
                   <th>Nombre</th>
                   <th>Color</th>
                   <th>Medida</th>
+                  <th style="display: none;"></th>
+                  <th style="display: none;"></th>
                   <th>Cantidad</th>
                   <th>Valor Unitario</th>
                   <th>Valor Total</th>
@@ -299,10 +290,82 @@
  </div>
 </div>
 
-<input type="hidden" id="vec" name="vec[]">
+<input type="hidden" id="vec" name="vec">
 <div class="modal-footer">
   <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
-  <button type="button" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos">Registrar</button>
+  <button type="submit" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos">Registrar</button>
+</div> 
+</form>
+</div> 
+</div>
+</div>
+
+
+
+
+<!-- SALIDA DE VARIOS INSUMOS -->
+
+
+
+ <div class="modal fade" data-backdrop="static" data-keyboard="false" id="SalidaMuchos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 60%;">
+    <div class="modal-content" style="border-radius: 20px;">
+
+      <form action="<?= URL;?>ctrBodega/regSalida" method="POST">
+        <div class="modal-header" style="text-align: center;">
+          <h3 class="box-title"><strong>SALIDA DE INSUMOS</strong></h3>
+        </div>
+
+        <div class="modal-body">
+        <div class="col-md-12">
+         <div class="box">
+          <div class="box-body no-padding">
+           <div class="table-responsive"> 
+            <table class="table" id="tableSalIns" >
+              <thead>
+                <tr class="active">
+                  <th style="display: none;"></th>
+                  <th>Nombre</th>
+                  <th>Color</th>
+                  <th>Medida</th>
+                  <th style="display: none;"></th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody id="tbodySalIns">
+              </tbody>      
+            </table>
+          </div>
+        </div> 
+      </div>
+    </div>
+
+
+     <div class="row">
+      <div class="col-md-6">
+
+        <div class="col-md-12">
+          <div class="form-group">
+           <label class="control-label" length="80px">Fecha: </label>
+           <input type="text" class="form-control" readonly="" name="fechaSal" value="<?= date("Y/m/d"); ?>">
+         </div>
+       </div>    
+     </div>
+     <div class="col-md-6">
+      <div class="col-md-12">
+        <div class="form-group">
+         <label class="control-label">Descripción: </label>
+         <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+
+<input type="hidden" id="arraySalIns" name="arraySalIns">
+<div class="modal-footer">
+  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
+  <button type="submit" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" id="salIns" name="salIns">Registrar</button>
 </div> 
 </form>
 </div> 

@@ -26,6 +26,7 @@
                 <input type="text" class="form-control" name="nombre" >
               </div> 
               <div class="form-group">
+
                 <label for="nombre" class="col-lg-2  col-lg-offset-1 control-label">Permisos</label>
                 <button type="button" class="btn btn-primary  col-lg-offset-1 col-lg-4 "  data-toggle="modal" data-target="#permisos">Asignar permisos</button>
                 <br>

@@ -80,7 +80,7 @@
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Fichas</b></button>
+              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Productos</b></button>
             </div>
           </div>
           <div class="row col-lg-12">
@@ -136,11 +136,11 @@
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><?= $ficha["Color"] ?></td>
+                      <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 150%;'></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

@@ -56,7 +56,7 @@
                       <td class="ref"><?= $ficha["Referencia"] ?></td>
                       <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                       <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td class="color"><?= $ficha["Color"] ?></td>
+                      <td class="color"><?= $ficha["Nombre"] ?></td>
                       <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
@@ -129,7 +129,7 @@
                           <th>Id</th>
                           <th>Nombre</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Agregar</b></button></th>
+                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -143,8 +143,8 @@
                     <table class="table table-hover" id="tbl-insumos-aso">
                       <thead>
                         <tr class="active">
-                          <th>Id</th>
                           <th>Nombre</th>
+                          <th>Color</th>
                           <th>Medida</th>
                           <th>Valor*cm</th>
                           <th>Cantidad Necesaria</th>
@@ -194,7 +194,6 @@
                   <table class="table table-hover" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
-                      <th>Id Insumo</th>
                       <th>Nombre</th>
                       <th>Unidad Medida</th>
                       <th>Color</th>
@@ -207,14 +206,13 @@
                     <?php $i = 1; ?>
                     <?php foreach ($insumosHabAsociar as $insumo): ?>
                       <tr>
-                        <td><?= $insumo["Id_Insumo"] ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= $insumo["Valor_Promedio"] ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>
@@ -256,7 +254,7 @@
                         <td><?= $talla["Id_Talla"] ?></td>
                         <td><?= $talla["Nombre"] ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

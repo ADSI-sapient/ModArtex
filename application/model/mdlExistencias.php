@@ -2,7 +2,7 @@
 
 	class mdlExistencias{
 		private $_db;
-		private $_fechaReg;
+		private $_fecha;
 		private $_valorEnt;
 
 
@@ -15,6 +15,9 @@
 
 		private $_cantInsumo;
 		private $_valorPro;
+
+		private $_descripcion;
+		private $_idSal;
 
 		function __construct($db){
 			$this->_db = $db;
@@ -62,11 +65,40 @@
 		}
 
 		public function aumentarCant(){
-			$sql = "CALL SP_ActualizarExis(?, ?, ?)";
+			$sql = "CALL SP_AumentarExisIns(?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
 			$stm->bindParam(1, $this->_idExis);
 			$stm->bindParam(2, $this->_cantInsumo);
 			$stm->bindParam(3, $this->_valorPro);
 			$stm->execute();
+		}
+
+		public function regSalida(){
+			$sql = "CALL SP_RegSalidaIns(?, ?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_fecha);
+			$stm->bindParam(2, $this->_descripcion);
+			$stm->execute();
+
+			$sql2 = "CALL SP_UltimaSalidaIns()";
+			$stm2 = $this->_db->prepare($sql2);
+			$stm2->execute();
+
+			$this->_idSal = $stm2->fetch()["idSalida"];
+		}
+
+		public function regSalExis(){
+			$sql = "CALL SP_RegSalExsIns(?, ?, ?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idSal);
+			$stm->bindParam(2, $this->_idExis);
+			$stm->bindParam(3, $this->_cant);
+			$stm->execute();
+
+			$sql2 = "CALL SP_DisminuirExsIns(?, ?)";
+			$stm2 = $this->_db->prepare($sql2);
+			$stm2->bindParam(1, $this->_idExis);
+			$stm2->bindParam(2, $this->_cantInsumo);
+			$stm2->execute();
 		}
 	}

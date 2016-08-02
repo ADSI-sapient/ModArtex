@@ -47,10 +47,17 @@
                  <label class="control-label">*Nombre:</label>
                  <input type="text" class="form-control" required="" name="nombre">
                </div>
-               
-               <div class="form-group" style="margin-top: 9%; "> 
-                <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModelProducto">Seleccionar color</button>
-              </div>
+            </div>
+
+            <div class="col-md-6">
+                  <div class="form-group">
+                   <label class="control-label" length="80px">*Valor: </label>
+                   <input type="number" class="form-control" min="0" required="" name="valor">
+                 </div>
+            </div>
+
+            <div class="col-md-6">
+                  <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#SeleColorReg">Seleccionar color</button>
             </div>
           </div>
           
@@ -62,7 +69,7 @@
         <!-- /.box-header -->
         <div class="box-body no-padding">
          <div class="table-responsive"> 
-          <table class="table" id="tabla1" style="display: none;">
+          <table class="table" id="tblRegIns" style="display: none;">
             <thead>
               <tr class="active">
                 <th style="width: 10px"></th>
@@ -95,7 +102,7 @@
 
 
 
-<div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="SeleColorReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
     <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header" style="padding: 1%;">
@@ -124,7 +131,7 @@
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
              <td style="display: none;"><?= $value["Id_Color"]; ?></td>
-             <td><input type="checkbox" name="check" class="chk<?= $cont; ?>"></td> 
+             <td><input type="checkbox" name="check" class="chkReg<?= $value["Id_Color"]; ?>"></td> 
            </tr>
          <?php endforeach ?>
        </tbody>
