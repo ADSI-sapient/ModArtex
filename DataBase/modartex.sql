@@ -3,13 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-07-2016 a las 14:02:34
+-- Tiempo de generación: 02-08-2016 a las 13:46:13
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -63,7 +62,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consInsumosRegFicha` ()  NO SQL
 SELECT ci.Id_Existencias_InsCol Id_Insumo, um.Abreviatura, i.Estado, i.Nombre, ci.Valor_Promedio, c.Codigo_Color FROM tbl_insumos i JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida JOIN tbl_colores_insumos ci ON i.Id_Insumo = ci.Id_Insumo JOIN tbl_colores c ON c.Id_Color = ci.Id_Color$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsPedidos` ()  NO SQL
-SELECT s.Id_Solicitud, s.Fecha_Registro, st.Fecha_Entrega, s.Valor_Total, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE st.Id_Tipo = 2 ORDER BY s.Id_Solicitud DESC$$
+SELECT s.Id_Solicitud, s.Fecha_Registro, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE st.Id_Tipo = 2 ORDER BY s.Id_Solicitud DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_referencia` INT)  NO SQL
 SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Referencia = _referencia$$
@@ -85,7 +84,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_referencia` INT)  NO SQL
-SELECT ift.Id_Existencias_InsCol Id_Insumo, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i JOIN tbl_unidades_medida um ON um.Id_Medida = i.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Existencias_InsCol=ift.Id_Existencias_InsCol WHERE ift.Id_FichaTecnica = _referencia$$
+SELECT ift.Id_Existencias_InsCol Id_Insumo, c.Codigo_Color, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i JOIN tbl_unidades_medida um ON um.Id_Medida = i.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Existencias_InsCol=ift.Id_Existencias_InsCol JOIN tbl_colores c ON c.Id_Color=ci.Id_Color WHERE ift.Id_FichaTecnica = _referencia$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
@@ -248,11 +247,6 @@ CREATE TABLE `tbl_colores` (
   `Codigo_Color` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_colores`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -267,11 +261,6 @@ CREATE TABLE `tbl_colores_insumos` (
   `Valor_Promedio` double DEFAULT NULL,
   `Stock_Minimo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_colores_insumos`
---
-
 
 -- --------------------------------------------------------
 
@@ -344,12 +333,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
---
-
-
-
 -- --------------------------------------------------------
 
 --
@@ -364,11 +347,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
   `Valor_Produccion` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_fichas_tecnicas`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -381,12 +359,6 @@ CREATE TABLE `tbl_insumos` (
   `Estado` int(1) NOT NULL,
   `Nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_insumos`
---
-
-
 
 -- --------------------------------------------------------
 
@@ -401,11 +373,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
   `Cant_Necesaria` int(11) NOT NULL,
   `Valor_Insumo` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
---
-
 
 -- --------------------------------------------------------
 
@@ -525,6 +492,7 @@ CREATE TABLE `tbl_persona` (
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
 ('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 0, '', '', 'amurrego6@gmail.com'),
 ('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co'),
+('11854556', 2, 'CC', 'Pablo', 'Mora', 1, '5484855', 'Cl 47 56d', 'apabl@gmail.com'),
 ('1234567', 1, 'C.C', 'kevin', 'del bosque', 1, '', '', 'knino@gmail.com');
 
 -- --------------------------------------------------------
@@ -539,10 +507,6 @@ CREATE TABLE `tbl_productos` (
   `Stock_Minimo` int(11) NOT NULL,
   `Valor_Producto` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_productos`
---
 
 -- --------------------------------------------------------
 
@@ -787,6 +751,10 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 -- Volcado de datos para la tabla `tbl_unidades_medida`
 --
+INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
+(1, 'cm', 'Centimetros'),
+(2, 'mt', 'Metros'),
+(3, 'Ud', 'Unidades');
 
 -- --------------------------------------------------------
 
@@ -1038,17 +1006,17 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_colores`
 --
 ALTER TABLE `tbl_colores`
-  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
 ALTER TABLE `tbl_entradas`
-  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
@@ -1068,18 +1036,17 @@ ALTER TABLE `tbl_existencias_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_fichastecnicas_tallas`
-  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
@@ -1104,7 +1071,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --

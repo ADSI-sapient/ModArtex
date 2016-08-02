@@ -41,9 +41,9 @@
               <label class="">*Color:</label>
               <div class="">
                 <div class="input-group my-colorpicker2 colorpicker-element">
-                  <input type="text" name="codigo-color" class="form-control" id="codigo-color" readonly="" value="#60c2e0" style="border-radius:5px;">
-                  <div class="input-group-addon" style="border-radius:5px;">
-                    <i type="input" style="padding:10px;"></i>
+                  <input type="hidden" name="codigo-color" class="form-control" id="codigo-color" readonly="" value="#60c2e0" style="border-radius:5px;">
+                  <div class="input-group-addon" style="border-radius:5px; padding:16px;">
+                    <div></div>
                   </div>
                 </div>
               </div>
