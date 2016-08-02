@@ -109,14 +109,11 @@
                 <div class="box-body">
                   <div class="form-group col-sm-5">
                     <label for="tipo_Documento" class="">Tipo de documento</label>
-                    <select class="form-control" name="tipo_documento" id="tipo_documento"  disabled="">
-                      <option value="C.C" >C.C</option>
-                      <option value="C.E">C.E</option>
-                    </select>
+                   <input type="text" name="Tipo_Documento" id="tipo_documento" disabled="" class="form-control">
                   </div>
                   <div class="form-group col-sm-offset-1 col-sm-5">
                     <label for="documento" class="">Documento</label>
-                    <input type="text" class="form-control" id="documento" placeholder="" name="documento"  disabled=""  >
+                    <input type="text" class="form-control" id="documento" placeholder="" name="Documento"  disabled=""  >
                   </div>
                   <div class="form-group col-sm-5">
                     <label for="nombre" class="">Nombre</label>
@@ -133,7 +130,6 @@
 
                   <div class="form-group col-sm-offset-1 col-sm-5">
                     <label for="rol" class="">Rol</label>
-
                     <select class="form-control" name="rol" id="rol">
                       <?php foreach ($rol as $value): ?>
                         <option value="<?= $value['Id']?>"><?= $value['Nombre']?></option>

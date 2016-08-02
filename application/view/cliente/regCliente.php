@@ -19,7 +19,7 @@
         <form action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Estado:</label>
-              <select class="form-control" name="estado" required="">
+              <select class="form-control" name="estado" required="" disabled="">
                 <option value="Habilitado" >Habilitado</option>
                 <option value="Inhabilitado">Inhabilitado</option>
               </select>
@@ -51,6 +51,10 @@
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Teléfono:</label>
               <input type="text" class="form-control" id="telefono" placeholder="" name="telefono">
+            </div>
+            <div class="form-group col-lg-offset-1 col-lg-4">
+              <label class="">Dirección</label>
+              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
             </div>
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;"               name="btnRegistrarC">Registrar</button>

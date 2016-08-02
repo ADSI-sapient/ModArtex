@@ -131,8 +131,6 @@ class ctrConfiguracion extends Controller{
 			$this->_modelRoles->__SET("Id_Rol",$ultimoRol);
 			$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 			$this->_modelRoles->regPermisosAsociados();
-
-			
 			}
 				
 			    }else{
@@ -145,10 +143,10 @@ class ctrConfiguracion extends Controller{
 	        
 	      	if (isset($_POST["btnModificarRol"])) {
 
-	      		$this->_modelRoles->__SET("Id_Rol", 4);
-				 $this->_modelRoles->BorrarPermisos();
-				// echo json_encode($listas);	
+	      		$this->_modelRoles->__SET("Id_Rol", $_POST["idRol"] );
+				$this->_modelRoles->BorrarPermisos();
 
+				// echo json_encode($listas);
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
 				$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 				$this->_modelRoles->regPermisosAsociados();

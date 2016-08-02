@@ -24,9 +24,12 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $(boton).attr('disabled', 'disabled');
 }
 
-    function editarRoles(Id_Rol, Nombre){
-          
+    function editarRoles(Id_Rol, Nombre, roles){
+          var campos = $(roles).parent().parent();
+          $("#idRol").val(campos.find("td").eq(0).text());
+          $("#nombre_rol").val(campos.find("td").eq(1).text());
            $("#fila").empty();
+           // $("#nombre_rol").val(Nombre);
 
     $.ajax({
 
@@ -44,13 +47,11 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             error: function(){
             }
         });
-    // var campos = $(roles).parent().parent();
-    //        $("#Nombre").val(campos.find("td").eq(1).text());
   
     }
 
 
-  function editarUsuarios(codigo, usuarios){
+  function editarUsuarios(Num_Documento, usuarios){
     var campos = $(usuarios).parent().parent();
     $("#codigo").val(campos.find("td").eq(0).text());
     $("#tipo_documento").val(campos.find("td").eq(1).text());
@@ -65,9 +66,19 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
               $("#myModal3").show();
             }
 
+ function editarClientes(Num_Documento, clientes){
+    var campos = $(clientes).parent().parent();
+    $("#Tipo_Documento").val(campos.find("td").eq(0).text());
+    $("#Num_Documento").val(campos.find("td").eq(1).text());
+    $("#Nombre").val(campos.find("td").eq(2).text());
+    $("#Apellido").val(campos.find("td").eq(3).text());
+    $("#Telefono").val(campos.find("td").eq(4).text());
+    $("#Direccion").val(campos.find("td").eq(5).text());   
+    $("#Email").val(campos.find("td").eq(6).text());
+    $("#myModalC").show();
+    }
       
-
-        function cambiarEstado(documento, est){
+  function cambiarEstado(documento, est){
         $.ajax({
             dataType: 'json',
             type: 'post',
@@ -75,8 +86,28 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             data: {Num_Documento:documento, Estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-                Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+                // Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+                alert("Estado Modificado");
                 location.href = uri +"ctrUsuario/consUsuario";
+            }else{
+                  Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
+            }
+        }).fail(function() {
+
+        });
+    }
+
+     function cambiarEstadoC(documento, est){
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrCliente/CambiarEstado",
+            data: {Num_Documento:documento, Estado:est}
+        }).done(function(respuesta){
+            if (respuesta.v == "1") {
+                // Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+                alert("Estado Modificado");
+                location.href = uri +"ctrCliente/consCliente";
             }else{
                   Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
             }
@@ -106,6 +137,15 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 
      $(document).ready(function(){
         $('#tablaListar').DataTable( {
+          // "lengthChange": false,
+          //"searching": false,
+          // "info": false,
+          "ordering": false
+        });
+      });
+
+        $(document).ready(function(){
+        $('#TablaClientes').DataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
