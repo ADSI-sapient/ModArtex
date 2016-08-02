@@ -38,8 +38,8 @@
                     <?php $cont = 0;?>
                     <?php foreach($listEx as $valExt): ?>
                      <tr>
-                      <td style="display: none;"><?= $valExt["Id_Detalle"]?></td>
-                      <td><input type="checkbox" id="chkExi<?= $valExt["Id_Detalle"]?>"></td>
+                      <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
+                      <td><input type="checkbox" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
                       <td style="padding-left: 0;"><?= $cont += 1;?></td>
                       <td><?= $valExt["NomIns"]?></td>
                       <td><?= $valExt["Nombre"]?></td>
@@ -48,7 +48,7 @@
                       <td><?= $valExt["Valor_Promedio"]?></td>
                       <td><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
                       <td>
-                        <button type="button" onclick="existen(<?= $valExt["Id_Detalle"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-down"></i></button>
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-down"></i></button>
                         <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red;" class="fa fa-arrow-up"></i></button>
                       </td>
                     </tr>
@@ -218,11 +218,6 @@
   <button type="submit" name="regUnaSal" class="btn btn-primary pull-right">Registrar</button>
 </div> 
 </form>
-</div> 
-</div>
-</div>
-
-</div> 
 </div> 
 </div>
 </div>

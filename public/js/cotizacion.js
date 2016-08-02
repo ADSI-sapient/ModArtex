@@ -83,10 +83,10 @@ function asociarFicha(referen, color, vlrproducto, fichas, idboton){
 var pdf = factura.php;
 window.open(pdf);
 
-function factura(pdf){
-  window.open(pdf);
-  return true;
-}
+// function factura(pdf){
+//   window.open(pdf);
+//   return true;
+// }
 
 
 // $("#buttonID").click(function() {

@@ -109,9 +109,10 @@
 		}
 
 		public function deleteColor(){
-			$sql = "CALL SP_borrarColores(?)";
+			$sql = "CALL SP_BorrarColIns(?, ?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idInsumo);
+			$stm->bindParam(1, $this->_idColor);
+			$stm->bindParam(2, $this->_idInsumo);
 			return $stm->execute();
 		}
 

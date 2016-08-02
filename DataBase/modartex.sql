@@ -26,17 +26,17 @@ DELIMITER $$
 --
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
-UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Detalle = id$$
+UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
 FROM tbl_permisos a JOIN tbl_modulos b
 ON a.id_Modulo= b.id_Modulo$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AumentarExisIns` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
-UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Detalle = id$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AumentarExisIns`(IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE) NO SQL
+UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BorrarColIns` (IN `_col` INT(10), IN `_ins` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BorrarColIns`(IN `_col` INT(10), IN `_ins` INT(11)) NO SQL
 DELETE FROM tbl_colores_insumos WHERE Id_Color = _col && Id_Insumo = _ins$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CambiarEstadoFicha` (IN `_referencia` INT, IN `_estado` INT)  NO SQL
@@ -51,10 +51,12 @@ UPDATE tbl_persona SET Estado = _estado WHERE Num_Documento = _documento$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CambiarEstadoR` (IN `_estado` INT, IN `_id_rol` INT)  NO SQL
 UPDATE tbl_roles SET Estado = _estado WHERE Id_Rol = _id_rol$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CantidadColIns` (IN `_IdCol` INT(10), IN `_IdIns` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CantidadColIns`(IN `_IdCol` INT(10), IN `_IdIns` INT(11))
+    NO SQL
 SELECT Cantidad_Insumo cantidad FROM tbl_colores_insumos WHERE Id_Color = _IdCol && Id_Insumo = _IdIns$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsCantExis` (IN `idExt` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsCantExis`(IN `idExt` INT(11))
+    NO SQL
 SELECT Cantidad_Insumo Cantidad, Valor_Promedio Valor FROM tbl_colores_insumos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consInsumosRegFicha` ()  NO SQL
@@ -72,8 +74,9 @@ SELECT Id_Rol, Nombre FROM tbl_roles$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteTallasAso` (IN `_referencia` INT)  NO SQL
 DELETE FROM tbl_fichastecnicas_tallas WHERE Referencia = _referencia$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DisminuirExsIns` (IN `idExt` INT(11), IN `cant` INT(11))  NO SQL
-UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant WHERE Id_Detalle = idExt$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DisminuirExsIns`(IN `idExt` INT(11), IN `cant` INT(11))
+    NO SQL
+UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant WHERE Id_Existencias_InsCol = idExt$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarColor` (IN `_id` INT(10))  NO SQL
 DELETE FROM tbl_colores WHERE Id_Color = _id$$
@@ -82,17 +85,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_referencia` INT)  NO SQL
-
 SELECT ift.Id_Existencias_InsCol Id_Insumo, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i JOIN tbl_unidades_medida um ON um.Id_Medida = i.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Existencias_InsCol=ift.Id_Existencias_InsCol WHERE ift.Id_FichaTecnica = _referencia$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColorInsumo` (IN `_idIns` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColorInsumo`(IN `_idIns` INT(11))
+    NO SQL
 SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color id FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color = ci.Id_Color WHERE ci.Id_Insumo = _idIns$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarExistencias` ()  NO SQL
-SELECT ci.Id_Detalle, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarExistencias`()
+    NO SQL
+SELECT ci.Id_Existencias_InsCol, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasParaAsociar` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
@@ -122,7 +126,8 @@ ON  u.Tbl_Roles_Id_Rol = r.Id_Rol
 ORDER BY Id_Usuario DESC$$
 
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns` (IN `id` INT(11), IN `stock` INT(11), IN `valPro` DOUBLE)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns`(IN `id` INT(11), IN `stock` INT(11), IN `valPro` DOUBLE)
+    NO SQL
 UPDATE tbl_colores_insumos SET Stock_Minimo = stock, Valor_Promedio = valPro WHERE Id_Insumo = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarColor` (IN `_id` INT(10), IN `_nom` VARCHAR(45), IN `_cod` VARCHAR(7))  NO SQL
@@ -146,10 +151,12 @@ SELECT max(Id_Insumo) Id FROM tbl_insumos$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ObtIdEntrada` ()  NO SQL
 SELECT max(Id_Entrada) idEnt FROM tbl_entradas$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regColorInsumo` (IN `_col` INT(10), IN `_ins` INT(11), IN `_cant` INT(11), IN `_val_pro` DOUBLE, IN `_stock` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regColorInsumo`(IN `_col` INT(10), IN `_ins` INT(11), IN `_cant` INT(11), IN `_val_pro` DOUBLE, IN `_stock` INT(11))
+    NO SQL
 INSERT INTO tbl_colores_insumos VALUES(null, _col, _ins, _cant, _val_pro, _stock)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegEntExis` (IN `ent` INT(11), IN `exis` INT(11), IN `cant` INT(11), IN `valU` DOUBLE, IN `valT` DOUBLE)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegEntExis`(IN `ent` INT(11), IN `exis` INT(11), IN `cant` INT(11), IN `valU` DOUBLE, IN `valT` DOUBLE)
+    NO SQL
 INSERT INTO tbl_entradas_exitencias VALUES(Null, ent, exis, cant, valU, valT)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegEntrada` (IN `fecha` DATE, IN `valEnt` DOUBLE)  NO SQL
@@ -173,10 +180,12 @@ INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegRoles` (IN `_nombre` VARCHAR(45), IN `_estado` INT)  NO SQL
 INSERT INTO tbl_roles (Nombre, Estado) VALUES (_nombre, _estado)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegSalExsIns` (IN `idSal` INT(11), IN `idExs` INT(11), IN `cant` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegSalExsIns`(IN `idSal` INT(11), IN `idExs` INT(11), IN `cant` INT(11))
+    NO SQL
 INSERT INTO tbl_existencias_salidas VALUES(NULL, idSal, idExs, cant)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegSalidaIns` (IN `fecha` DATE, IN `descr` VARCHAR(100))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegSalidaIns`(IN `fecha` DATE, IN `descr` VARCHAR(100))
+    NO SQL
 INSERT INTO tbl_salidas VALUES (NULL, fecha, descr)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regSolicitud` (IN `Num` VARCHAR(20), IN `Estado` INT(11), IN `Fecha` DATE, IN `Total` INT(11))  NO SQL
@@ -197,7 +206,8 @@ SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaFicha` ()  NO SQL
 SELECT MAX(Referencia) AS referencia FROM tbl_fichas_tecnicas$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaSalidaIns` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaSalidaIns`()
+    NO SQL
 SELECT max(Id_Salida) idSalida FROM tbl_salidas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoIdTipoSolicitud` ()  NO SQL

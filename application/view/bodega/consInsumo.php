@@ -78,17 +78,7 @@
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 
-
-
-
-
-
-          
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document" style="width: 60%;">
-        <div class="modal-content" style="border-radius: 20px;">
-
-        <form action="<?= URL;?>ctrlBodega/modificarInsumo" method="POST">
+        <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
           <div class="modal-header" style="text-align: center;">
             <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
           </div>
