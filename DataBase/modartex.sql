@@ -289,10 +289,6 @@ CREATE TABLE `tbl_entradas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
-(73, '2016-07-27', 130000),
-(74, '2016-07-28', 70000),
-(75, '2016-07-28', 35000);
 
 -- --------------------------------------------------------
 
@@ -350,10 +346,6 @@ CREATE TABLE `tbl_existencias_salidas` (
 --
 -- Volcado de datos para la tabla `tbl_existencias_salidas`
 --
-
-INSERT INTO `tbl_existencias_salidas` (`Codigo`, `Id_Salida`, `Id_Existencia`, `Cantidad`) VALUES
-(6, 14, 1, 1),
-(7, 14, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -720,9 +712,6 @@ CREATE TABLE `tbl_solicitudes` (
 -- Volcado de datos para la tabla `tbl_solicitudes`
 --
 
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Id_Estado`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '1037590137', 5, '2016-08-02', 1254000),
-(2, '11854556', 5, '2016-08-02', 625000);
 
 -- --------------------------------------------------------
 
