@@ -86,6 +86,9 @@ DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_referencia` INT)  NO SQL
 SELECT ift.Id_Existencias_InsCol Id_Insumo, c.Codigo_Color, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_insumos i JOIN tbl_unidades_medida um ON um.Id_Medida = i.Id_Medida JOIN tbl_colores_insumos ci ON ci.Id_Existencias_InsCol=ift.Id_Existencias_InsCol JOIN tbl_colores c ON c.Id_Color=ci.Id_Color WHERE ift.Id_FichaTecnica = _referencia$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarClientes` ()  NO SQL
+SELECT Tipo_Documento, Num_Documento, Nombre, Apellido, Telefono, Direccion, Email, Estado FROM tbl_persona WHERE Id_Tipo= 2$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
@@ -122,8 +125,12 @@ JOIN tbl_roles r
 ON  u.Tbl_Roles_Id_Rol = r.Id_Rol
 ORDER BY Id_Usuario DESC$$
 
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns` (IN `id` INT(11), IN `stock` INT(11), IN `valPro` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Stock_Minimo = stock, Valor_Promedio = valPro WHERE Id_Insumo = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarClientes` (IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
+UPDATE tbl_persona SET Nombre= _nombre, Apellido= _apellido, Telefono= _telefono, Direccion= _direccion, Email= _email WHERE Num_Documento= _documento$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarColor` (IN `_id` INT(10), IN `_nom` VARCHAR(45), IN `_cod` VARCHAR(7))  NO SQL
 UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE   Id_Color = _id$$
@@ -281,6 +288,12 @@ CREATE TABLE `tbl_entradas` (
   `ValorEnt` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
+(73, '2016-07-27', 130000),
+(74, '2016-07-28', 70000),
+(75, '2016-07-28', 35000);
+
 -- --------------------------------------------------------
 
 --
@@ -429,6 +442,7 @@ INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_I
 (7, 3, 201, 50, 1600),
 (8, 3, 202, 30, 960);
 
+
 -- --------------------------------------------------------
 
 --
@@ -545,10 +559,10 @@ CREATE TABLE `tbl_persona` (
 --
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
-('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 0, '', '', 'amurrego6@gmail.com'),
-('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co'),
-('11854556', 2, 'CC', 'Pablo', 'Mora', 1, '5484855', 'Cl 47 56d', 'apabl@gmail.com'),
-('1234567', 1, 'C.C', 'kevin', 'del bosque', 1, '', '', 'knino@gmail.com');
+('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 1, '', '', 'amurrego6@gmail.com'),
+('1037590137', 2, 'CC', 'Juan Pablo', 'Morales', 1, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co'),
+('1234567', 1, 'C.C', 'kevin', 'del bosque', 0, '', '', 'knino@gmail.com'),
+('43838824', 2, 'CC', 'Angie Manuela', 'Urrego Durango', 0, '4649392', 'La 39 norte', 'manu.199713@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -641,12 +655,9 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (17, 1, 17),
 (18, 1, 18),
 (19, 1, 19),
-(63, 7, 1),
-(64, 7, 2),
-(65, 7, 3),
-(66, 8, 4),
-(67, 8, 8),
-(68, 8, 11);
+(69, 7, 1),
+(70, 7, 2),
+(71, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -1102,11 +1113,13 @@ ALTER TABLE `tbl_usuarios`
 --
 ALTER TABLE `tbl_colores`
   MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
   MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
@@ -1166,7 +1179,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1176,7 +1189,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --

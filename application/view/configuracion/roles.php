@@ -100,7 +100,7 @@
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>',this)"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
 
                         <?php if ($rol["Estado"] == 1){ ?>
                           
@@ -138,7 +138,8 @@
               <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
-                <input type="text" class="form-control" name="Nombre" >
+                <input type="hidden" id="idRol" name="idRol">
+                <input type="text" class="form-control" name="Nombre" id="nombre_rol" >
               </div> 
               <div class="form-grouf">
                 <label for="nombre" class="col-lg-4  col-lg-offset-1 control-label">Agregar Permisos</label>
