@@ -129,15 +129,15 @@ JOIN tbl_roles r
 ON  u.Tbl_Roles_Id_Rol = r.Id_Rol
 ORDER BY Id_Usuario DESC$$
 
-<<<<<<< HEAD
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarClientes` (IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
 UPDATE tbl_persona SET Nombre= _nombre, Apellido= _apellido, Telefono= _telefono, Direccion= _direccion, Email= _email WHERE Num_Documento= _documento$$
-=======
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns`(IN `id` INT(11), IN `stock` INT(11), IN `valPro` DOUBLE)
     NO SQL
 UPDATE tbl_colores_insumos SET Stock_Minimo = stock, Valor_Promedio = valPro WHERE Id_Insumo = id$$
->>>>>>> origin/copia-master
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_modificarColor` (IN `_id` INT(10), IN `_nom` VARCHAR(45), IN `_cod` VARCHAR(7))  NO SQL
 UPDATE tbl_colores SET Nombre = _nom, Codigo_Color = _cod WHERE   Id_Color = _id$$
@@ -277,7 +277,7 @@ CREATE TABLE `tbl_colores_insumos` (
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
 
-INSERT INTO `tbl_colores_insumos` (`Id_Detalle`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
+INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
 (33, 13, 10, 20, 6500, 200),
 (34, 14, 11, 210, 500, 200);
 
@@ -396,12 +396,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_fichas_tecnicas`
 --
-
-INSERT INTO `tbl_fichas_tecnicas` (`Referencia`, `Fecha_Registro`, `Color`, `Estado`, `Valor_Produccion`) VALUES
-(201, '2016-07-27', 'Azul', '1', 1125),
-(202, '2016-07-27', 'Rojo', '1', 1300),
-(203, '2016-07-28', 'Azul', '1', 1235),
-(204, '2016-07-28', 'Verde', '0', 815);
 
 
 -- --------------------------------------------------------
