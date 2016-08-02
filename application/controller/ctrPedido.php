@@ -19,6 +19,7 @@
 			$clientes = $this->mdlModel->getClientes();
 			$productosHab = $this->mdlModel->getFichasHabilitadas();
 			
+			
 	        require APP . 'view/_templates/header.php';
 	        require APP . 'view/pedido/consPedido.php';
 	        require APP . 'view/_templates/footer.php';
@@ -86,12 +87,11 @@
 			$msgRegPedido = "";
 			$msgModEstadoPedido ="";
 	    	if (isset($_POST["btnModificarPed"])) {
-
 	    		// $this->mdlModel->__SET("id_cliente", $_POST["doc_cliente"]);
-	    	
 	    		$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
 	    		$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));
 	    		$this->mdlModel->__SET("vlr_total", $_POST["valor_total"]);
+	    		$this->mdlModel->__SET("id_estado", $_POST["estado"]);
 	    		
 	    		if ($this->mdlModel->editPedidos()) {
 
@@ -115,6 +115,7 @@
 		        		$this->mdlModel->regFichasAsociadas();
 		        	}
 	    			//$msgModPedido = "alert('Pedido modificado'); location.href=uri+'pedido/consPedido'";
+	    			header("location: " .URL. 'ctrPedido/consPedido');
 	    		}
 
 	    		else{

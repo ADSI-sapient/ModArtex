@@ -58,7 +58,7 @@
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Id_Estado"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         </td>
                         <td>
                           <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban"></i></button>
@@ -101,9 +101,17 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <!-- <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
+                </div> -->
+                <div class="form-group col-sm-6">
+                  <label for="estado" class="">Estado</label>
+                  <select class="form-control" name="estado" id="estado" required="" style="border-radius:5px;">
+                    <option value="5">Pendiente</option>
+                    <option value="6">En Proceso</option>
+                    <option value="7">Terminado</option>
+                  </select>
                 </div>
                 <div class="form-group col-sm-6">
                   <label class="">*Fecha Entrega:</label>

@@ -112,7 +112,7 @@
 
       	public function editPedidos(){
 
-      		$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ? WHERE st.Id_Solicitud = ?";
+      		$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
 
       		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ? WHERE st.Id_Solicitud = ?";
 
@@ -120,7 +120,8 @@
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
       		// $query->bindParam(3, $this->id_cliente);
-      		$query->bindParam(3, $this->id_pedido);
+      		$query->bindParam(3, $this->id_estado);
+      		$query->bindParam(4, $this->id_pedido);
       		$query->execute();
       		return $query;
       	}    
