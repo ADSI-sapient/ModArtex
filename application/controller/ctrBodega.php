@@ -163,7 +163,7 @@ class ctrBodega extends Controller{
 				$this->_modelExistencias->regEntradaExis();
 			}
 		}
-
+		//Comentario
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 
