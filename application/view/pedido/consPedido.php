@@ -61,7 +61,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Id_Estado"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Id_Estado"] ?>, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
@@ -137,7 +137,7 @@
                   <div class="">
                     <div class="input-group">
                       <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" readonly="" required="" style="border-radius:5px;">
-                      <input type="hidden" name="doc_cliente"  id="doc_cliente" required="">
+                      <input type="hidden" name="doc_cliente"  id="doc_cliente" required="" value="">
                       <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                         <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asoClientesHab"><i class="fa fa-search"></i>
                           </button>

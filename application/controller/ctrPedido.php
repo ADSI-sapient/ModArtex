@@ -87,6 +87,7 @@
 			$msgRegPedido = "";
 			$msgModEstadoPedido ="";
 	    	if (isset($_POST["btnModificarPed"])) {
+	    		
 	    		$this->mdlModel->__SET("id_cliente", $_POST["doc_cliente"]);
 	    		$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
 	    		$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));

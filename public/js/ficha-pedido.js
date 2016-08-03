@@ -240,13 +240,14 @@
         $("#doc_cliente").val(idCliente);
       }
 
-      function editarPedido(id, pedidos, estado){
+      function editarPedido(id, pedidos, estado, numDocumento){
         var campos = $(pedidos).parent().parent();
         $("#id_pedido").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
         $("#estado").val(estado);
+        $("#doc_cliente").val(numDocumento);
         $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
