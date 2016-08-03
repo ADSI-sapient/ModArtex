@@ -207,7 +207,7 @@
         }
         else
         {
-          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;' name='cantProducir[]'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subTotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProducto("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='referencia[]' value="+referencia+"></tr>";
+          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProducto("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+referencia+"></tr>";
           $("#tbl-prod-aso-ped").append(tr);
           boton = "#btn"+referencia;
           $(boton).attr('disabled', 'disabled');
@@ -442,6 +442,7 @@
 
       //función que agrega nuevas tallas al momento de modificar una ficha.
       function asociarTallaFicha(id, nombre, ref, tallas, idbton){
+
           var campos = $(tallas).parent().parent();
           
           //esta es la talla que quiero agregar
@@ -449,7 +450,7 @@
           
           //Compararla con las que ya estan agregadas
           talla = "#tallas"+id;
-          valor = $(talla).val()
+          valor = $(talla).val();
 
           //si la talla ya existe no la agrega
           if (idNuevaTalla == $(talla).val()) {
@@ -517,23 +518,43 @@
       }
 
       function cancelarPedido(idpedido){
-        $.ajax({
-          type: 'post',
-          dataType: 'json',
-          url: uri+"ctrPedido/cancelarPedido",
-          data:{id_Pedido: idpedido}
-        }).done(function(respuesta){
-          if (respuesta.r == 1) {
-            alert("Pedido cancelado");
-            location.href = uri+"ctrPedido/consPedido";
-            //$("#btn-cancel-ped").attr('disabled', 'disabled');
-          }else{
-            alert("Error al cancelar el pedido");
-          }
-        }).fail(function(){
 
-        })
-      }
+        swal({
+          title: "Está seguro?",   
+          text: "El pedido quedará en estado cancelado!",  
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Sí, cancelar pedido",
+          cancelButtonText: "No, terminar",
+          closeOnConfirm: false,
+          closeOnCancel: false },
+          function(isConfirm){
+            if (isConfirm)
+            { 
+              $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: uri+"ctrPedido/cancelarPedido",
+            data:{id_Pedido: idpedido}
+            }).done(function(respuesta){
+              if (respuesta.r == 1) {
+                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                // location.href = uri+"ctrPedido/consPedido";
+              }else{
+                alert("Error al cancelar el pedido");
+              }
+            }).fail(function(){
+            })  
+              swal("Cancelado", "El Pedido ha sido cancelado", "success");
+              location.href = uri+"ctrPedido/consPedido";
+            }
+            else
+            {
+              swal("Acción interrumpida", "No se completo la acción.", "error");
+            }
+          });
+        }
 
             
         
