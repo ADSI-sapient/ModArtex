@@ -118,10 +118,10 @@
       		$sql ="CALL SP_editarPedido(?,?,?,?,?)";
 
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->vlr_total);
-      		$query->bindParam(2, $this->id_estado);
-      		$query->bindParam(3, $this->id_cliente);
-      		$query->bindParam(4, $this->fecha_entrega);
+      		$query->bindParam(1, $this->fecha_entrega);
+      		$query->bindParam(2, $this->vlr_total);
+      		$query->bindParam(3, $this->id_estado);
+      		$query->bindParam(4, $this->id_cliente);
       		$query->bindParam(5, $this->id_pedido);
       		$query->execute();
       		return $query;

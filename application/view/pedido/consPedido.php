@@ -68,7 +68,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban" style="color:red" ></i></button>
                           <?php endif ?>
                         </td>
                         <!-- <td> -->
