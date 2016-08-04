@@ -167,7 +167,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 
         //validar que si ingrese datos correctos
   function validarSiDocumento(documento){
-    if (!/^([0-9])*$/.test(documento))
+    if (!/^([0-9]) ,*$/.test(documento))
       Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El documento ingresado contiene caracteres incorrectos'}); 
   }
  
@@ -184,7 +184,7 @@ function validarTelefono(telefono){
       Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El numero de telefono ingresado contiene caracteres incorrectos'}); 
   }
 
-$mensaje
+
 
 
 

@@ -45,5 +45,10 @@
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
     <script src="<?= URL;?>js/persona.js"></script>
-    <script type="text/javascript">
- 
+
+      <script type="text/javascript">
+      $(function(){ 
+        <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+        <?php $_SESSION["mensaje"] = null; ?>
+      })
+      </script>

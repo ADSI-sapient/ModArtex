@@ -12,7 +12,7 @@ class CtrCliente extends Controller{
 		//Validar permisos y consultar rol
 	    if($this->validarURL("ctrUsuario/regUsuario")){
 			$rol = $this->mdlModelU->consultarRol();
-	    	$mensaje = "";
+	    	$mensajec = "";
 
 		    if (isset($_POST["btnRegistrarC"])) {
 
@@ -34,22 +34,24 @@ class CtrCliente extends Controller{
 					       
 					    	//Registrar usuario
 							if($this->mdlModel->regCliente()){
-								$mensaje = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Cliente registrado exitosamente!'});"; 
+								$mensajec = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Cliente registrado exitosamente!'});"; 
 							}else{
-								$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el cliente'});"; 
+								$mensajec = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el cliente'});"; 
 							}
 						}else{
-							$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajec = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 				 }else{
-				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Ya existe un cliente con este documento'});"; 
+				    $mensajec= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Ya existe un cliente con este documento'});"; 
 				}
+				$_SESSION["mensaje"] = $mensajec;
 			}	//Final de la validación del documento
 	     	require APP . 'view/_templates/header.php';
         	require APP . 'view/cliente/regCliente.php';
         	require APP . 'view/_templates/footer.php';
 
+        	
 	        }else{
 	        	header('location: '.URL.'home/index');
 	        }
