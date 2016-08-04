@@ -106,7 +106,7 @@
                   </div>
                   <div class="form-group col-sm-offset-1 col-sm-5">
                     <label for="documento" class="">Documento</label>
-                    <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento">
+                    <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento" readonly="">
                   </div>
                   <div class="form-group col-sm-5">
                     <label for="nombre" class="">Nombre</label>
@@ -118,7 +118,7 @@
                   </div>
                   <div class="form-group  col-sm-5">
                     <label for="telefono">Telefono </label>
-                    <input type="text" class="form-control" id="Telefono" name="Telefono">
+                    <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);">
                   </div>
                  <div class="form-group col-sm-offset-1 col-sm-5">
                  <label for="direccion ">Direccion </label>
@@ -126,7 +126,7 @@
                  </div>
                   <div class="form-group col-sm-5">
                     <label for="email" class="">Email</label>
-                    <input type="text" class="form-control" id="Email" placeholder="" name="Email">
+                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);">
                   </div>
                 </div>
                 <div class="modal-footer">

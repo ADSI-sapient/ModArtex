@@ -45,10 +45,10 @@ class ctrConfiguracion extends Controller{
 			}
 		}
 
-		public function registrarColor(){
-			$this->_modelColor->__SET("_codigo", $_POST["codigo"]);
-			$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
-			$this->_modelColor->registrar();
+	public function registrarColor(){
+		$this->_modelColor->__SET("_codigo", $_POST["codigo"]);
+		$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
+		$this->_modelColor->registrar();
 
 			header ("location: ".URL."ctrConfiguracion/listarColores?mes=2");
 		}
@@ -120,52 +120,50 @@ class ctrConfiguracion extends Controller{
 		}
 
 	public function RegistrarRoles(){
+
 		if (isset($_POST["btnRegistrarR"])) {
-
 			$this->_modelRoles->__SET("Nombre", $_POST["nombre"]);
-				
 			if($this->_modelRoles->regRoles()){
-			$ultimoRol = $this->_modelRoles->ultimoRol()["rol"];
-			for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
-
-			$this->_modelRoles->__SET("Id_Rol",$ultimoRol);
-			$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
-			$this->_modelRoles->regPermisosAsociados();
-			}
-				
-			    }else{
-			    	alert("Error al registrar");
-			 	}
-	        }
-
-	        $permisos = $this->_modelRoles->getAsoPermisos();
-	        $roles = $this->_modelRoles->getRoles();
-	        
-	      	if (isset($_POST["btnModificarRol"])) {
-
-	      		$this->_modelRoles->__SET("Id_Rol", $_POST["idRol"] );
-				$this->_modelRoles->BorrarPermisos();
-
-				// echo json_encode($listas);
+				$ultimoRol = $this->_modelRoles->ultimoRol()["rol"];
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
+
+				$this->_modelRoles->__SET("Id_Rol",$ultimoRol);
 				$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 				$this->_modelRoles->regPermisosAsociados();
 				}
 			}else{
-			    	// alert("Error al registrar");
+			    // alert("Error al registrar");
 			 	}
+	        }
 
-			include APP . 'view/_templates/header.php';
-			include APP . 'view/configuracion/roles.php';
-			include APP . 'view/_templates/footer.php';	
+	    $permisos = $this->_modelRoles->getAsoPermisos();
+	    $roles = $this->_modelRoles->getRoles();
+	        
+	    if (isset($_POST["btnModificarRol"])) {
+	      	if ($_POST["idRol"] != 1) {
+				$this->_modelRoles->__SET("Id_Rol", $_POST["idRol"] );
+				$this->_modelRoles->__SET("Nombre", $_POST["Nombre"] );
+	      		$this->_modelRoles->BorrarPermisos() && $this->_modelRoles->ModificarNombre();
+
+				// echo json_encode($listas);
+				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
+					$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
+					$this->_modelRoles->regPermisosAsociados();
+				}
+	      	}
 		}
+
+		include APP . 'view/_templates/header.php';
+		include APP . 'view/configuracion/roles.php';
+		include APP . 'view/_templates/footer.php';	
+	}
 
 	public function listarR(){
 		
 		$this->_modelRoles->__SET("Id_Rol", $_POST["rol"]);
 		$listas = $this->_modelRoles->ListarPermisos();
 		echo json_encode($listas);	
-		}
+	}
 
 	public function cambiarEstadoRol(){
 		$this->_modelRoles->__SET("Id_Rol", $_POST["Id_Rol"]);

@@ -34,16 +34,16 @@ class CtrCliente extends Controller{
 					       
 					    	//Registrar usuario
 							if($this->mdlModel->regCliente()){
-								$mensaje = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!'});"; 
+								$mensaje = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Cliente registrado exitosamente!'});"; 
 							}else{
-								$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
+								$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el cliente'});"; 
 							}
 						}else{
 							$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 				 }else{
-				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
+				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Ya existe un cliente con este documento'});"; 
 				}
 			}	//Final de la validación del documento
 	     	require APP . 'view/_templates/header.php';
