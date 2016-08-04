@@ -48,8 +48,8 @@
                       <td><?= $valExt["Valor_Promedio"]?></td>
                       <td><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
                       <td>
-                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-down"></i></button>
-                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red;" class="fa fa-arrow-up"></i></button>
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-up"></i></button>
+                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red;" class="fa fa-arrow-down"></i></button>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -64,18 +64,13 @@
            <button class="btn btn-primary">Generar reporte</button>
          </div> 
          <div class="col-md-8" style="text-align: right;">
-           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalEntradaMayor"><i style="color: green; font-size: 200%;" class="fa fa-arrow-down"></i></button>
-           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#SalidaMuchos" onclick="salidaIns()"><i style="color: red; font-size: 200%;" class="fa fa-arrow-up"></i></button>
+           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalEntradaMayor"><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>
+           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#SalidaMuchos" onclick="salidaIns()"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button>
          </div>
        </div>
      </form>  
    </div> 
  </section> 
-
-
-
-
-
 
  <div class="modal fade" id="ModelEntrada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
