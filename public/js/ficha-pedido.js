@@ -332,6 +332,7 @@
       }
     
       function cargarInsumos(ref){
+        console.log(ref);
         $.ajax({
             dataType: 'json',
             type: 'post',
@@ -341,7 +342,6 @@
             if (respuesta.r != null) {
               // $("#tablaPrueba tr").remove();
               $("#tbl-insumos-aso > tbody tr").empty();
-
               arrayInsumos = respuesta.r;
               for (var i = 0; i <= arrayInsumos.length - 1; i++) {
                 //valor del insumo de la tabla insumos
