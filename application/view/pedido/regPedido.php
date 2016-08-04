@@ -58,6 +58,16 @@
               </div>
             </div>
           </div>
+        <!-- <div class="row col-lg-12">
+          <div class="form-group col-lg-4">
+            <label for="" class="" >*Asociar Cliente:</label>
+            <select class="form-control js-example-diacritics" multiple="" style="border-radius:5px;">
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+            </div>
+          </div> -->
           <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -140,7 +150,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus" style="color:#3B81FA"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

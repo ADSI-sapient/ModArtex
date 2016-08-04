@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="row col-lg-12">
-            <div class="form-group col-lg-2">
+            <div class="form-group col-lg-1">
               <label class="">*Color:</label>
               <div class="">
                 <div class="input-group my-colorpicker2 colorpicker-element">
@@ -48,7 +48,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-offset-2 col-lg-4">
             <label for="tallas" class="" >*Tallas:</label>
             <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
               <option value="1">L</option>

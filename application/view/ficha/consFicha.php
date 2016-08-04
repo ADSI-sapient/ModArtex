@@ -129,7 +129,7 @@
                           <th>Id</th>
                           <th>Nombre</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
+                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>

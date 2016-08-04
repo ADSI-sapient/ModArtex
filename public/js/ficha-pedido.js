@@ -11,7 +11,11 @@
         $("#selectTallas").select2({
         // placeholder: "Seleccione tallas"
         });
+        
+        $(".js-example-diacritics").select2();
       });
+
+
     
       var options = {
         valueNames: ['ref', 'color', 'stock', 'fecha_reg', 'estado']
@@ -61,7 +65,7 @@
         var campos = $(insumos).parent().parent();
         valorcm = valorPromedio / 100;
         $("#agregarInsumo").removeAttr("hidden");
-        var tr = "<tr class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+idbton+"' name='cantNecesaria[]' value='0' onchange='res"+idbton+".value=cantNec"+idbton+".value * "+valorcm+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
+        var tr = "<tr class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+idbton+"' name='cantNecesaria[]' value='0' onchange='res"+idbton+".value=cantNec"+idbton+".value * "+valorcm+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
         $("#tablaInsumos").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
@@ -186,7 +190,7 @@
       function asociarProductos(ref, color, vlrprodto, fichas, idbton){
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
-        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         $("#tablaFicha").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
@@ -203,11 +207,11 @@
 
           boton = "#btn"+referencia;
           $(boton).attr('disabled', 'disabled');
-          alert("Este producto ya se encuentra agregado al pedido");
+          // alert("Este producto ya se encuentra agregado al pedido");
         }
         else
         {
-          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;' name='cantProducir[]'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subTotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProducto("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='referencia[]' value="+referencia+"></tr>";
+          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProducto("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+referencia+"></tr>";
           $("#tbl-prod-aso-ped").append(tr);
           boton = "#btn"+referencia;
           $(boton).attr('disabled', 'disabled');
@@ -240,13 +244,14 @@
         $("#doc_cliente").val(idCliente);
       }
 
-      function editarPedido(id, pedidos, estado){
+      function editarPedido(id, pedidos, estado, numDocumento){
         var campos = $(pedidos).parent().parent();
         $("#id_pedido").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
         $("#estado").val(estado);
+        $("#doc_cliente").val(numDocumento);
         $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
@@ -442,6 +447,7 @@
 
       //función que agrega nuevas tallas al momento de modificar una ficha.
       function asociarTallaFicha(id, nombre, ref, tallas, idbton){
+
           var campos = $(tallas).parent().parent();
           
           //esta es la talla que quiero agregar
@@ -449,7 +455,7 @@
           
           //Compararla con las que ya estan agregadas
           talla = "#tallas"+id;
-          valor = $(talla).val()
+          valor = $(talla).val();
 
           //si la talla ya existe no la agrega
           if (idNuevaTalla == $(talla).val()) {
@@ -517,23 +523,43 @@
       }
 
       function cancelarPedido(idpedido){
-        $.ajax({
-          type: 'post',
-          dataType: 'json',
-          url: uri+"ctrPedido/cancelarPedido",
-          data:{id_Pedido: idpedido}
-        }).done(function(respuesta){
-          if (respuesta.r == 1) {
-            alert("Pedido cancelado");
-            location.href = uri+"ctrPedido/consPedido";
-            //$("#btn-cancel-ped").attr('disabled', 'disabled');
-          }else{
-            alert("Error al cancelar el pedido");
-          }
-        }).fail(function(){
 
-        })
-      }
+        swal({
+          title: "¿Está seguro?",   
+          text: "El pedido quedará en estado cancelado!",  
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Sí, cancelar pedido",
+          cancelButtonText: "No, terminar",
+          closeOnConfirm: false,
+          closeOnCancel: false },
+          function(isConfirm){
+            if (isConfirm)
+            { 
+              $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: uri+"ctrPedido/cancelarPedido",
+            data:{id_Pedido: idpedido}
+            }).done(function(respuesta){
+              if (respuesta.r == 1) {
+                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                // location.href = uri+"ctrPedido/consPedido";
+              }else{
+                alert("Error al cancelar el pedido");
+              }
+            }).fail(function(){
+            })  
+              swal("Cancelado", "El Pedido ha sido cancelado", "success");
+              location.href = uri+"ctrPedido/consPedido";
+            }
+            else
+            {
+              swal("Acción interrumpida", "No se completo la acción.", "error");
+            }
+          });
+        }
 
             
         

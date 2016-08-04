@@ -111,17 +111,18 @@
       	}
 
       	public function editPedidos(){
-
-      		$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
-
-      		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ? WHERE st.Id_Solicitud = ?";
+      		//funcional
+      		//$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
+      		
+      		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
+      		$sql ="CALL SP_editarPedido(?,?,?,?,?)";
 
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
-      		// $query->bindParam(3, $this->id_cliente);
       		$query->bindParam(3, $this->id_estado);
-      		$query->bindParam(4, $this->id_pedido);
+      		$query->bindParam(4, $this->id_cliente);
+      		$query->bindParam(5, $this->id_pedido);
       		$query->execute();
       		return $query;
       	}    
@@ -147,6 +148,7 @@
 
       	public function cargarProductosAsoPed(){
       		$sql = "SELECT sp.Id_Producto, c.Codigo_Color, p.Valor_Producto, sp.Cantidad_Producir, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_productos p ON sp.Id_Producto=p.Referencia JOIN tbl_fichas_tecnicas ft ON p.Referencia=ft.Referencia JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE s.Id_Solicitud = ?";
+
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_cliente);
 	        $query->execute();
@@ -166,7 +168,6 @@
       	public function traerIdSolTipo(){
 
       		$sql = "SELECT Id_Solicitudes_Tipo FROM tbl_solicitudes_tipo WHERE Id_Solicitud = ?";
-      		
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_pedido);
 	        $query->execute();
@@ -181,8 +182,6 @@
       		$query->bindParam(2, $this->id_pedido);
       		$query->execute();
       		return $query;
-
-
       	}
 	}
 
