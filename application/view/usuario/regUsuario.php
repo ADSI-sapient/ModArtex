@@ -27,14 +27,15 @@
             </div>
             <div class="form-group col-lg-offset-2 col-lg-2">
               <label for="documento" class="" >*Documento:</label>
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" required="">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" required="" onChange="validarSiDocumento(this.value);">
             </div>
             <div class="form-group col-lg-offset-3 col-lg-3">
-              <label for="Estado" class="">*Estado:</label>
-              <select class="form-control" name="estado" required="" disabled="">
+              <label for="Estado" class="">*Estado:</label> 
+              <input type="text" class="form-control" name="estado"  value="Habilitado" disabled="">
+              <!-- <select class="form-control" name="estado" required="" disabled="">
                 <option value="Habilitado" >Habilitado</option>
                 <option value="Inhabilitado">Inhabilitado</option>
-              </select>
+              </select> -->
             </div>
           </div>
           <div class="row col-lg-12">
@@ -58,7 +59,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="Email" class="">*Email:</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email" required="">
+              <input type="text" class="form-control" id="email" placeholder="" name="email" required="" onChange="validarEmail(this.value);">
             </div>
             <input type="hidden" name="direccion">
             <input type="hidden" name="telefono">

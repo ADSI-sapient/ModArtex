@@ -23,7 +23,7 @@
             <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" >
+                <input type="text" class="form-control" name="nombre" required="">
               </div> 
               <div class="form-group">
 
@@ -55,7 +55,7 @@
             <div class="box-footer">
               <div class="row"> 
                 <div class="form-group col-lg-12"> 
-                    <button type="submit" class="btn btn-primary col-lg-offset-8" style="margin-top: 15px;"  name="btnRegistrarR">Registrar</button>
+                    <button type="submit" class="btn btn-primary col-lg-offset-7" style="margin-top: 15px;"  name="btnRegistrarR">Registrar</button>
                   <button type="button" class="btn btn-danger col-lg-offset-1" data-toggle="modal" data-target="#rolReg" style="margin-top: 15px;">Cancelar</button>
                 </div>
               </div>

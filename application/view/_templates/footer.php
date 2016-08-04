@@ -31,8 +31,10 @@
     <script src="<?= URL;?>js/moment.min.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
+    <script src="<?= URL;?>js/lobibox.min.js"></script>
+
     
-    <!-- <script src="<?= URL;?>js/lobibox.min.js"></script> -->
+
     <script type="text/javascript">
       var uri = "<?= URL;?>";
     </script>
@@ -42,6 +44,11 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
-    <script src="<?= URL;?>js/roles.js"></script>
-    <script type="text/javascript">
- 
+    <script src="<?= URL;?>js/persona.js"></script>
+
+      <script type="text/javascript">
+      $(function(){ 
+        <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+        <?php $_SESSION["mensaje"] = null; ?>
+      })
+      </script>

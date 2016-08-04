@@ -19,10 +19,11 @@
         <form action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Estado:</label>
-              <select class="form-control" name="estado" required="" disabled="">
+              <input type="text" name="Estado" class="form-control" value="Habilitado" disabled="">
+              <!-- <select class="form-control" name="estado" required="" disabled="">
                 <option value="Habilitado" >Habilitado</option>
                 <option value="Inhabilitado">Inhabilitado</option>
-              </select>
+              </select> -->
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Tipo de Documento:</label>
@@ -34,7 +35,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Nombre:</label>
@@ -46,11 +47,11 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Email:</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email">
+              <input type="text" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Teléfono:</label>
-              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono">
+              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Dirección</label>
@@ -64,3 +65,4 @@
       </div>
     </div>
   </section>
+

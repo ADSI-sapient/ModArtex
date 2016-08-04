@@ -9,38 +9,21 @@
 </section>
 
 <section class="content">
-  <div class="box box-info">
+  <div class="box box-primary">
     <div class="box-header with-border"  style="text-align: center;">
       <h3 class="box-title"><strong>LISTAR USUARIOS</strong></h3>
     </div>
     <div id="users">
-      <div class="row box-header">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <div class="box-tools pull-right">   
-              <form action="#" method="get" class="form-horizontal">
-                <div class="input-group">
-                  <input type="text" class="form-control search" placeholder="Buscar">
-                  <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="sort btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                  </span>
-                </div>
-              </form> 
-            </div>
-          </div>
-        </div>
-      </div>
       <form class="form-horizontal">
         <div class="col-md-12">
           <div class="box">
+          <br>
             <!-- /Tabla que treae los datos -->
             <div class="box-body no-padding">
              <div class="table-responsive"> 
-              <table class="table">
+              <table class="table table-hover"  id="TablaUsuarios">
                 <thead>
-                  <tr class="active">
+                  <tr class="info">
                     <th>Codigo</th>
                     <th>tipo_documento</th>
                     <th>Documento</th>
@@ -51,6 +34,7 @@
                     <!--        <th>Clave</th> -->
                     <th>email</th>
                     <th>Rol</th>
+                    <th style="display: none;"></th>
                     <th style="width: 7%">Opcion</th>
                   </tr>
                 </thead>
@@ -66,8 +50,9 @@
                       <td class="nombre_usuario"><?= $usuario["Usuario"] ?></td>
                       <!-- <td class="clave"><?= $usuario["Clave" ] ?></td> -->
                       <td class="email"><?= $usuario["Email"] ?></td>
-                      <td class="rol" value=""><?= $usuario["rol"] ?></td>
-                      <td class="r" style="display: none;"><?= $usuario["Id"] ?></td>
+                      <td class="rol" ><?= $usuario["rol"] ?></td>
+                      <td style="display: none;"><?= $usuario["idRol"] ?></td>
+<!--                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td> -->
 
                       <td>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
@@ -113,7 +98,7 @@
                   </div>
                   <div class="form-group col-sm-offset-1 col-sm-5">
                     <label for="documento" class="">Documento</label>
-                    <input type="text" class="form-control" id="documento" placeholder="" name="Documento"  disabled=""  >
+                    <input type="text" class="form-control" id="documento" placeholder="" name="documento"  readonly=""  >
                   </div>
                   <div class="form-group col-sm-5">
                     <label for="nombre" class="">Nombre</label>
@@ -132,7 +117,7 @@
                     <label for="rol" class="">Rol</label>
                     <select class="form-control" name="rol" id="rol">
                       <?php foreach ($rol as $value): ?>
-                        <option value="<?= $value['Id']?>"><?= $value['Nombre']?></option>
+                        <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre']?></option>
                       <?php endforeach ?> 
                     </select>
                   </div>

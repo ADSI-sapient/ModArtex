@@ -85,36 +85,27 @@ class CtrUsuario extends Controller{
 	    }
 
 	public function edit(){
-		$mensaje2 = "";
-		// if(isset($_POST["btnModificar"])){
+		if (isset($_POST["btnModificar"])) {
+	# code...
 
-		    	
-		// $this->mdlModel->__SET("tipo_documento", $_POST["tipo_documento"]);
-	    // $this->mdlModel->__SET("documento", $_POST["documento"]);
-	    $this->mdlModel->__SET("nombre", $_POST["nombre"]);
-        $this->mdlModel->__SET("apellido", $_POST["apellido"]);
-        $this->mdlModel->__SET("nombre_usuario", $_POST["nombre_usuario"]);
-	    $this->mdlModel->__SET("email", $_POST["email"]);
-	    $this->mdlModel->__SET("rol", $_POST["rol"]);
-	    $this->mdlModel->__SET("codigo", $_POST["codigo"]);
-	  	$this->mdlModel->modificarUsuario();
+	    $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
+     	$this->mdlModel->__SET("Apellido", $_POST["apellido"]);     
+	    $this->mdlModel->__SET("Email", $_POST["email"]);
+	    $this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
+	    $this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
+	    $this->mdlModel->__SET("Usuario", $_POST["nombre_usuario"]);
+	  	$this->mdlModel->modificarUsuario() &&  $this->mdlModel->modificarPersona();
+	
 
-		if($this->mdlModel->modificarUsuario()){
-			//$mensaje2 = 'alert("Modificó"); $("#myModal3").hide();';
-			$mensaje2 = 'alert("Modificó correctamente");';
-			header('location: '.URL.'ctrUsuario/consUsuario');
-		}else{
-		  	$mensaje2 = "alert('Error al modificar')";
-		      }
-
-		      //header("location: ".URL."usuario/consUsuario")
+		    header("location: ".URL."ctrUsuario/consUsuario");
 
 		    $usuarios = $this->mdlModel->getUsuario();
 
 		    require APP . 'view/_templates/header.php';
 	        require APP . 'view/usuario/consUsuario.php';
 	        require APP . 'view/_templates/footer.php';
-		}
+	    }
+	}
 
 
 	public function cambiarEstado(){

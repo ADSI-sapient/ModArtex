@@ -40,7 +40,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             success: function(data){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'</td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
+              idperm=data[i]["Id_Permiso"];
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
               $("#fila").append(fila);
                           } 
             }, 
@@ -62,7 +63,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $("#nombre_usuario").val(campos.find("td").eq(6).text());
               // $("#clave").val(campos.find("td").eq(7).text());
               $("#email").val(campos.find("td").eq(7).text());   
-              $("#rol").val(campos.find("td").eq(9).text());
+              $("#rol").val(campos.find("td").eq(9).html());
+              console.log(campos.find("td").eq(9).text());
               $("#myModal3").show();
             }
 
@@ -86,8 +88,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             data: {Num_Documento:documento, Estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-                // Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
-                alert("Estado Modificado");
+               Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+            
                 location.href = uri +"ctrUsuario/consUsuario";
             }else{
                   Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
@@ -103,10 +105,11 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             type: 'post',
             url: uri+"ctrCliente/CambiarEstado",
             data: {Num_Documento:documento, Estado:est}
+
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-                // Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
-                alert("Estado Modificado");
+              Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+               
                 location.href = uri +"ctrCliente/consCliente";
             }else{
                   Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
@@ -124,8 +127,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             data: {Id_Rol:Id_Rol, Estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-                // Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
-                alert("Estado modificado");
+                 Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+                // alert("Estado modificado");
                 location.href = uri +"ctrConfiguracion/RegistrarRoles";
             }else{
                   Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
@@ -152,6 +155,36 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
           "ordering": false
         });
       });
+
+         $(document).ready(function(){
+        $('#TablaUsuarios').DataTable( {
+          // "lengthChange": false,
+          //"searching": false,
+          // "info": false,
+          "ordering": false
+        });
+      });
+
+        //validar que si ingrese datos correctos
+  function validarSiDocumento(documento){
+    if (!/^([0-9]) ,*$/.test(documento))
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El documento ingresado contiene caracteres incorrectos'}); 
+  }
+ 
+
+//Validar email
+function validarEmail( email ) {
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if ( !expr.test(email) )
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El email ingresado contiene caracteres incorrectos'}); 
+}
+
+function validarTelefono(telefono){
+    if (!/^([0-9])*$/.test(telefono))
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El numero de telefono ingresado contiene caracteres incorrectos'}); 
+  }
+
+
 
 
 
