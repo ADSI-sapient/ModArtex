@@ -63,8 +63,6 @@ class CtrCliente extends Controller{
 	    {
 	    	$rol = $this->mdlModelU->consultarRol();
 	    	if($this->validarURL("ctrUsuario/regUsuario")){
-		    	$mensaje = "";
-		    	$mensaje2 = "";
 		    	$clientes = $this->mdlModel->getCliente();
 
 		        require APP . 'view/_templates/header.php';
@@ -86,12 +84,15 @@ class CtrCliente extends Controller{
 	  	$this->mdlModel->modificarCliente();
 
 		if($this->mdlModel->modificarCliente()){
-			//$mensaje2 = 'alert("Modificó"); $("#myModal3").hide();';
-			// $mensaje2 = 'alert("Modificó correctamente");';
+			 $mensajecm= "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Cliente modificado exitosamente'});";
+
 			header('location: '.URL.'ctrCliente/consCliente');
 		}else{
-		  	$mensaje2 = "alert('Error al modificar')";
+		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Erros al modificar'});";
 		      }
+
+
+
 
 		      //header("location: ".URL."usuario/consUsuario")
 
@@ -100,6 +101,7 @@ class CtrCliente extends Controller{
 		    require APP . 'view/_templates/header.php';
 	        require APP . 'view/cliente/consCliente.php';
 	        require APP . 'view/_templates/footer.php';
+	         $_SESSION["mensaje"] = $mensajecm;
 		}
 
 
@@ -114,6 +116,9 @@ class CtrCliente extends Controller{
 		}else{
 		    echo json_encode(["v"=>0]);
 		}
+		}
+
+		     
 	}
-}
-?>
+
+

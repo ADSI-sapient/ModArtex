@@ -61,11 +61,11 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $("#nombre").val(campos.find("td").eq(4).text());
     $("#apellido").val(campos.find("td").eq(5).text());
     $("#nombre_usuario").val(campos.find("td").eq(6).text());
-              // $("#clave").val(campos.find("td").eq(7).text());
-              $("#email").val(campos.find("td").eq(7).text());   
-              $("#rol").val(campos.find("td").eq(9).html());
-              console.log(campos.find("td").eq(9).text());
-              $("#myModal3").show();
+     // $("#clave").val(campos.find("td").eq(7).text());
+    $("#email").val(campos.find("td").eq(7).text());   
+    $("#rol").val(campos.find("td").eq(9).html());
+    console.log(campos.find("td").eq(9).text());
+    $("#myModal3").show();
             }
 
  function editarClientes(Num_Documento, clientes){
@@ -156,7 +156,16 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
         });
       });
 
-         $(document).ready(function(){
+      //    $(document).ready(function(){
+      //   $('#tablaR').DataTable( {
+      //     // "lengthChange": false,
+      //     //"searching": false,
+      //     // "info": false,
+      //     "ordering": false
+      //   });
+      // });
+
+           $(document).ready(function(){
         $('#TablaUsuarios').DataTable( {
           // "lengthChange": false,
           //"searching": false,
@@ -167,7 +176,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 
         //validar que si ingrese datos correctos
   function validarSiDocumento(documento){
-    if (!/^([0-9]) ,*$/.test(documento))
+    if (!/^([0-9])*$/.test(documento))
       Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El documento ingresado contiene caracteres incorrectos'}); 
   }
  

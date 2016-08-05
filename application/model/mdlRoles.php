@@ -134,5 +134,18 @@
 	        }
 	    }
 
+	    public function ValidarExistenciaN(){
+		$sql= "CALL SP_ValidarR(?)";
+		try{
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Nombre);
+			$query->execute();
+				return $query->fetchAll();
+		}catch (PDOException $e){
+		}
+	}
+
+	    
+
 	}
 ?>
