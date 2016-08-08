@@ -361,7 +361,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -688,6 +687,7 @@ CREATE TABLE `tbl_solicitudes` (
 -- Volcado de datos para la tabla `tbl_solicitudes`
 --
 
+
 -- --------------------------------------------------------
 
 --
@@ -721,6 +721,8 @@ CREATE TABLE `tbl_solicitudes_producto` (
 --
 -- Volcado de datos para la tabla `tbl_solicitudes_producto`
 --
+
+
 -- --------------------------------------------------------
 
 --
@@ -737,6 +739,7 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 --
 -- Volcado de datos para la tabla `tbl_solicitudes_tipo`
 --
+
 -- --------------------------------------------------------
 
 --
@@ -1241,7 +1244,7 @@ ALTER TABLE `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
   ADD CONSTRAINT `fk_Tbl_Insumos_has_Tbl_Fichas_Tecnicas_Tbl_Fichas_Tecnicas1` FOREIGN KEY (`Id_FichaTecnica`) REFERENCES `tbl_fichas_tecnicas` (`Referencia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  -- ADD CONSTRAINT `fk_insumosFichas_insumos` FOREIGN KEY (`Id_Existencias_InsCol`) REFERENCES `tbl_colores_insumos` (`Id_Existencias_InsCol`);
+  ADD CONSTRAINT `fk_insumosFichas_insumos` FOREIGN KEY (`Id_Existencias_InsCol`) REFERENCES `tbl_colores_insumos` (`Id_Existencias_InsCol`);
 
 --
 -- Filtros para la tabla `tbl_permisos`
