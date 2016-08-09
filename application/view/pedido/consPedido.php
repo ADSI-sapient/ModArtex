@@ -109,10 +109,6 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <!-- <div class="form-group col-sm-6">
-                  <label for="estado" class="">Estado:</label>
-                  <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
-                </div> -->
                 <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado</label>
                   <select class="form-control" name="estado" id="estado" required="" style="border-radius:5px;">
@@ -145,9 +141,9 @@
                     </div>
                   </div>
                 </div> -->
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                   <label for="nombrecliente" class="">*Asociar Cliente:</label>
-                  <select class="form-control js-example-diacritics" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                  <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
                     <?php foreach ($clientes as $cliente): ?>
                       <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
                     <?php endforeach ?>
