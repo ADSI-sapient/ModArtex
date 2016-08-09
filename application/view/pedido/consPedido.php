@@ -132,7 +132,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <!-- <div class="form-group col-sm-6">
                   <label for="nombrecliente" class="">*Asociar Cliente:</label>
                   <div class="">
                     <div class="input-group">
@@ -144,6 +144,14 @@
                       </div>
                     </div>
                   </div>
+                </div> -->
+                <div class="form-group col-sm-6">
+                  <label for="nombrecliente" class="">*Asociar Cliente:</label>
+                  <select class="form-control js-example-diacritics" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                    <?php foreach ($clientes as $cliente): ?>
+                      <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
                 <label for="valor_total" class="">*Productos Asociados:</label>
                 <div class="table">

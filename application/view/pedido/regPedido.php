@@ -43,7 +43,7 @@
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" required="" readonly="" style="border-radius:5px;">
             </div>
           </div>
-          <div class="row col-lg-12">
+          <!-- <div class="row col-lg-12">
             <div class="form-group col-lg-4">
               <label for="aso_cliente" class="">*Asociar Cliente:</label>
               <div class="">
@@ -57,17 +57,17 @@
                 </div>
               </div>
             </div>
-          </div>
-        <!-- <div class="row col-lg-12">
+          </div> -->
+        <div class="row col-lg-12">
           <div class="form-group col-lg-4">
-            <label for="" class="" >*Asociar Cliente:</label>
-            <select class="form-control js-example-diacritics" multiple="" style="border-radius:5px;">
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
+            <label for="id_cliente" class="" >*Asociar Cliente:</label>
+            <select class="form-control js-example-diacritics" style="border-radius:5px;" name="id_cliente" required="">
+              <?php foreach ($clientes as $cliente): ?>
+                <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"]?></option>
+              <?php endforeach ?>
             </select>
             </div>
-          </div> -->
+          </div>
           <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">

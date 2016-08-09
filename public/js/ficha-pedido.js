@@ -251,7 +251,7 @@
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
         $("#estado").val(estado);
-        $("#doc_cliente").val(numDocumento);
+        $("#doc_cliente").html(numDocumento);
         $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
