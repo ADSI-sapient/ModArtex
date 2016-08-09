@@ -1,59 +1,47 @@
 <section class="content-header">
   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
-        <li><a href="#">Cliente</a></li>
-        <li class="active">Registrar Cotización</li>
-      </ol>
+    <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+    <li><a href="#">Cliente</a></li>
+    <li class="active">Registrar Cotización</li>
+  </ol>
 </section>
- 
-    <section class="content">
+
+<section class="content">
+  <br>
+  <div class="box box-info" style="padding-right: 15px;">
+    <div class="box-header with-border">
+      <div class="box-header with-border" style="text-align: center;">
+        <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
+      </div>
       <br>
-      <div class="box box-info" style="padding-right: 15px;">
-          <div class="box-header with-border">
-            <div class="box-header with-border" style="text-align: center;">
-              <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
-          </div>
-      <br>
 
-            <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
-            <br>
-            <div class="row col-lg-12">
-            
-                <div class="form-group col-lg-push-1 col-lg-4">
-                  <label class="">Fecha Registro</label>
-                  <div class="">
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control pull-right" value="<?php echo date ("Y/m/d"); ?>" name="fecha_R" readonly="">
-                    </div>
-                  </div>
+      <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
+
+        <div class="row col-lg-12">
+
+          <div class="form-group col-lg-4">
+            <label class="">Fecha Registro</label>
+            <div class="">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
-
-                <div class="form-group col-lg-push-3 col-lg-3">
-                  <label for="estado" class="">Estado</label>
-                  <select class="form-control" name="estado" id="estado" required="">
-                    <option value="No Entregada" selected>No Entregada</option>
-                    <option value="Entregada">Entregada</option>
-                    <option value="Vencida">Vencida</option>
-                    <option value="Canceladas">Cancelado</option>
-                  </select>
-                </div>
-
+                <input type="text" class="form-control pull-right" value="<?php echo date ("Y/m/d"); ?>" name="fecha_R" readonly="" style="border-radius:5px;">
               </div>
-              <div class="row col-lg-12">
-                <div class="form-group col-lg-push-1 col-lg-4">
-                  <label class="">Fecha Vencimiento</label>
-                    <div class="">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1">
-                      </div>
-                    </div>
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <label class="">Fecha Vencimiento</label>
+            <div class="">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;">
+              </div>
+            </div>
+          </div>
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
@@ -116,60 +104,30 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
                   </div>
-                </div>
-
-            <div class="row col-lg-12">
-              <div class="form-group col-lg-push-7 col-lg-3">
-                <label for="vlr_total" class="">Valor Total</label>
-                  <!-- <form action="#" method="post" class="form-horizontal"> -->
-                    <div class="input-group col-lg-12">
-                      <input type="text" class="form-control" name="vlr_total" placeholder="" required="">
-                        <span class="input-group-btn">
-                          <button type="button" id="myModal-btn" class="btn btn-flat"><i class="fa fa-plus" data-toggle="modal" data-target="#ModelProducto"></i></button>
-                        </span>
-                    </div>
+                  <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
                 </div>
               </div>
-             <br>
+            </div>
+          </div>
 
-              <div class="row">
-                <div class="form-group">
-                  <div class="form-group col-lg-12">
-                  <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" style="margin-top: 15px;" data-toggle="modal" data-target="#modpedidoregist">Registrar</button>
-                  <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
-                  </div>
-                </div>
-             </div>
-
-              <!-- Modal -->
-
-        <!--<div class="modal fade" id="modpedidoregist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Mensaje</h4>
-                    </div>
-                    <div class="modal-body">Cotización Registrada Exitosamente!</div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-         <!--Modal de valor tota-->
+        <div class="row">
+          <div class="form-group">
+            <div class="form-group col-lg-12">
+              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" style="margin-top: 15px;" data-toggle="modal" data-target="#modpedidoregist">Registrar</button>
+              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
+            </div>
+          </div>
+        </div>
 
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Agregar Cotizacion</h4>
+              <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>
             </div>
-
             <div>
+
               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
            <div class="table">
                 <div class="col-lg-12 table-responsive">
@@ -198,21 +156,13 @@
                       <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
-                  </thead>
-
-                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
+                    <?php $i++; ?>
+                    <?php endforeach; ?>
                   </tbody>
-                </table> 
 
-             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" data-dismiss="modal">Agregar Cotizacion</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </div> 
+                  </table>
+                </div>
+              </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -257,6 +207,7 @@
                     <th>Opcion</th>
                   </tr>
                 </thead>
+
                 <tbody> 
                 <?php $i= 1; ?>
                  <?php foreach ($clientes as $cliente):?>
@@ -280,8 +231,17 @@
             </table> 
           </div>
           </div>
-         </div> 
+         </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div> 
       </div>
     </div> 
+  </div> 
+</div>
+          <!--Fin de asociar cliente -->
+          <script type="text/javascript">
+          
+          </script>
+
 </section>
