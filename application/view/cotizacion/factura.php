@@ -11,6 +11,7 @@ $html = '<!DOCTYPE html>
             font-family:Arial;
             font-size:10pt;
             color:#000;
+
         }
         body
         {
@@ -19,6 +20,7 @@ $html = '<!DOCTYPE html>
             font-size:10pt;
             margin:0;
             padding:0;
+            background-image: url("modartex.jpg");
         }
          
         p
@@ -91,6 +93,7 @@ $html = '<!DOCTYPE html>
         {   
             width:100%;
         }
+
         #invoice_body table , #invoice_total table
         {
             width:100%;
@@ -145,13 +148,31 @@ $html = '<!DOCTYPE html>
             border-right: 1px solid #ccc;
             border-bottom: 1px solid #ccc;
         }
+
+        #destacada 
+        {
+            width: 120px;
+            height: 250px;
+
+        }
+
+        #fatu
+        {
+            font-family: "Brush Script MT";
+            font-size: 24px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 500;
+            line-height: 50.6px;
+        }
+
     </style>
 
 </head>
 <body>
 <div id="wrapper">
      
-    <p style="text-align:center; font-weight:bold; padding-top:5mm;">INVOICE</p>
+    <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:25px;">Factura</h1>
     <br />
     <table class="heading" style="width:100%;">
         <tr>
@@ -167,7 +188,7 @@ $html = '<!DOCTYPE html>
                 <table>
                     <tr><td>Numero de Cotizacion : </td><td>'.$factura[0]["Id_Solicitud"] .'</td></tr>
                     <tr><td>Fecha Registro : </td><td>'.$factura[0]["Fecha_Registro"] .'</td></tr>
-                    <tr><td>Currency : </td><td></td></tr>
+                    <tr><td>Currency : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
                 </table>
             </td>
         </tr>
@@ -182,16 +203,16 @@ $html = '<!DOCTYPE html>
         </tr>
     </table>
          
-         
+        
+
     <div id="content">
          
         <div id="invoice_body">
             <table>    
             <tr style="background:#eee;">
-                <td style="width:8%;"><b>Sl. No.</b></td>
-                <td style="width:15%;"><b>Product</b></td>
-                <td style="width:15%;"><b>Quantity</b></td>
-                <td style="width:15%;"><b>Rate</b></td>
+                <td style="width:15%;"><b>Producto</b></td>
+                <td style="width:15%;"><b>Cantidad</b></td>
+                
                 <td style="width:15%;"><b>Total</b></td>
             </tr>
             </table>
@@ -199,18 +220,15 @@ $html = '<!DOCTYPE html>
             <table>';
             
             foreach ($factura as $value):
-             foreach ($facturaF as $factura_F):
-                 
+             
             $html .=' <tr>
 
-            <td style="width:8%;">'.$value["Id_Solicitud"] .'</td>
-            <td class="mono" style="width:15%;">'.$factura_F["Referencia"] .'</td><td style="width:15%;" class="mono">'.$factura_F["Valor_Produccion"] .'</td>
+            <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Valor_Produccion"] .'</td>
             <td style="width:15%;" class="mono">'.$value["Valor_Total"].'</td>
-            <td style="width:15%;" class="mono">
-            <td style="width:15%;" class="mono">
-
+            
             </tr>';
-             endforeach;
+             
             endforeach; 
       
             '<tr>
@@ -292,6 +310,6 @@ $dompdf->loadHtml($html);
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream();
+$dompdf->stream("informe.pdf", ["Attachment"=>0]);
 
 ?>

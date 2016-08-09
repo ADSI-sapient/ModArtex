@@ -45,33 +45,21 @@
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
-            <select class="form-control" name="estado" id="estado" required="" readonly="" style="border-radius:5px;">
-              <option value="No Entregada">No Entregada</option>
+            <select class="form-control" name="estado" id="estado" disabled style="border-radius:5px;">
               <option value="Entregada" selected>Entregada</option>
+              <option value="No Entregada">No Entregada</option>
               <option value="Vencida">Vencida</option>
               <option value="Canceladas">Cancelado</option>
             </select>
           </div>
       </div>
-               <!--  <div class="form-group col-lg-push-3 col-lg-4">
-                  <label for="aso_cliente" class="">Asociar Cliente</label>
-                  <form action="#" method="get" class="form-horizontal">
-                            <div class="input-group">
-                              <input type="text" name="q" class="form-control">
-                                  <span class="input-group-btn">
-                                    <button type="button" id="search-btn" class="btn btn-flat"><i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
-                                    </button>
-                                  </span>
-                            </div>
-                    </form>
-                  </div> -->
 
      <div class="row col-lg-12">
         <div class="form-group col-lg-4">
           <label for="aso_cliente" class="">Asociar Cliente</label>
             <div class="input-group">
              <input type="hidden" name="documento_cli" value="" id="documento_cli">
-              <input type="text" name="cliente" class="form-control" id="cliente" readonly="" value="" style="border-radius:5px;">
+              <input type="text" name="cliente" class="form-control" value="" id="clienteReg" readonly="" value="" style="border-radius:5px;">
               <span class="input-group-btn">
                 <button type="button" id="search-btn" class="btn btn-flat">
                 <i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
@@ -81,18 +69,6 @@
         </div>
      </div> 
                 
-        <!-- <div class="row col-lg-12">
-          <div class="form-group col-lg-push-7 col-lg-3">
-            <label for="vlr_total" class="">Valor Total</label>
-            <div class="input-group col-lg-12">
-              <input type="text" class="form-control" name="vlr_total" placeholder="" required="">
-              <span class="input-group-btn">
-                <button type="button" id="myModal-btn" class="btn btn-flat"><i class="fa fa-plus" data-toggle="modal" data-target="#ModelProducto"></i></button>
-              </span>
-            </div>
-          </div>
-        </div> -->
-
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -152,8 +128,8 @@
             </div>
             <div>
 
-<!--               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
- -->           <div class="table">
+              <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
+           <div class="table">
                 <div class="col-lg-12 table-responsive">
                   <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
                     <thead>
@@ -219,12 +195,12 @@
               <table class="table table-hover">
                 <thead>
                   <tr class="info">
-                    <th>Documento</th>
                     <th>Tipo</th>
+                    <th>Estado</th>
                     <th>Tipo de Documento</th>
+                    <th>Documento</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Estado</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Email</th>
@@ -233,22 +209,24 @@
                 </thead>
 
                 <tbody> 
+                <?php $i= 1; ?>
                  <?php foreach ($clientes as $cliente):?>
                   <tr>
-                    <td><?php echo $cliente["Num_Documento"] ?></td>
-                    <td><?php echo $cliente["Id_tipo"] ?></td>
+                    <td><?php echo $cliente["Id_tipo"] ?></td>  
+                    <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Tipo_Documento"] ?></td>
+                    <td><?php echo $cliente["Num_Documento"] ?></td>
                     <td><?php echo $cliente["Nombre"] ?></td>
                     <td><?php echo $cliente["Apellido"] ?></td>
-                    <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Telefono"] ?></td>
                     <td><?php echo $cliente["Direccion"] ?></td>
                     <td><?php echo $cliente["Email"] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['Nombre']?>','<?= $cliente['Num_Documento'] ?>')">Agregar</button>
+                      <button id="bt<?= $i; ?>" class="btn btn-box-tool" onclick="agregar('<?= $cliente['Num_Documento'] ?>','<?= $cliente['Nombre']; ?>','<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
-                <?php endforeach ?>
+                  <?php $i++ ?>
+                <?php endforeach; ?>
               </tbody>
             </table> 
           </div>
@@ -261,5 +239,9 @@
     </div> 
   </div> 
 </div>
-            <!--Fin de asociar cliente -->
+          <!--Fin de asociar cliente -->
+          <script type="text/javascript">
+          
+          </script>
+
 </section>
