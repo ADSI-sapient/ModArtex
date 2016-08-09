@@ -15,7 +15,8 @@
 			$mensaje2 = "";
 
 			$cotizaciones = $this->modelo->getCotizacion();
-
+			$clientes = $this->modelo->getCliente();
+			
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -57,15 +58,20 @@
 
 	            $this->modelo->regProducto_Aso();
 	            }
-			        $mensaje = "swal('Cotizacion Registrada Exitosamente','','success')";
+			        $mensajeCo = "swal('Cotizacion Registrada Exitosamente','','success')";
+			         
 			    }else{
-			    	$mensaje = "swal('Cotizacion No Registrada','','success')";
+			    	$mensajeCo = "swal('Cotizacion No Registrada','','success')";
 			    }
+
+            
 	        }
+
+         
 
             $fichas = $this->modelo->getFichas();         
             $clientes = $this->modelo->getCliente();
-            
+ 
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -78,11 +84,9 @@
 			if (isset($_POST["btnModificar"])){
 
 	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
-	            $this->modelo->__SET("Id_Estado", $_POST["estado"]);
+	            $this->modelo->__SET("Id_Estado", $_POST["estad"]);	
 	            $this->modelo->__SET("Id_Solicitud", $_POST["codigo"]);
-	            // $this->modelo->__SET("Fecha_Registro", $_POST["fechaRegistro"]);
-	            // $this->modelo->__SET("Fecha_Vencimiento", $_POST["FechaVencimiento"]);
-	            // $this->modelo->__SET("Valor_Total", $_POST["ValorTotal"]);
+	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fechaVencimiento"]);
 	            
 				if ($this->modelo->modiCotizacion()){
 
@@ -90,6 +94,8 @@
 				}else {
 				$mensaje2 = "swal('Modifacada Fracasada','','success')";
 				}
+
+				header ("location: ".URL."ctrCotizacion/consCotizacion");
 			}
 
 				$cotizaciones = $this->modelo->getCotizacion();
@@ -99,31 +105,27 @@
 				require APP.'view/_templates/footer.php';
 		}
 
-		public function ediCotizacion(){
+		// public function cambiarEstado(){
 
-			if (isset($_POST["btnModificar"])) {
-				$this->modelo->__SET("Fecha_Vencimiento", $_POST["FechaVencimiento"]);
+		// 	$this->modelo->__SET("codigo", $_POST["codigo"]);
+	    //  $this->modelo->__SET("tado", $_POST["tado"]);
+		//     $cotizaciones = $this->modelo->cambiarEstado();
+		//     if ($cotizaciones) {
+		//     	echo json_encode(["v"=>1]);
+		//     }else{
+		//     	echo json_encode(["v"=>0]);
+		//     }
+		// }
 
-				$cotizacion = $this->modelo->modCotizacion();
-			}
-		}
-
-		public function cambiarEstado(){
-
-			$this->modelo->__SET("codigo", $_POST["codigo"]);
-	        $this->modelo->__SET("tado", $_POST["tado"]);
-		    $cotizaciones = $this->modelo->cambiarEstado();
-		    if ($cotizaciones) {
-		    	echo json_encode(["v"=>1]);
-		    }else{
-		    	echo json_encode(["v"=>0]);
-		    }
-		}
-
-		public function factura(){
+		public function factura($cod){
+			$this->modelo->__SET("Id_Solicitud", $cod);
 			$factura = $this->modelo->facturaVenta();
-			$facturaF = $this->modelo->facturaFicha();
-			require APP.'view/cotizacion/factura.php';
+
+			if($factura != false){
+				require APP.'view/cotizacion/factura.php';
+			}else{
+				require APP.'view/cotizacion/consCotizacion.php';	
+			}
+			
 		}
 	}
-?>

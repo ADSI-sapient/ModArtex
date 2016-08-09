@@ -42,7 +42,7 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Vencimiento FROM tbl_solicitudes_tipo t JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud WHERE s.Id_Estado = 1";
+			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -54,7 +54,7 @@
 			try{
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->Num_Documento);
-				$query->bindParam(2, $this->Id_Estado);
+	 			$query->bindParam(2, $this->Id_Estado);
 				$query->bindParam(3, $this->Fecha_Registro);
 				$query->bindParam(4, $this->Valor_Total);
 				return $query->execute();
@@ -108,7 +108,7 @@
 		}
 		
 		public function getCliente(){
-			$sql = "SELECT Num_Documento,Id_tipo, Tipo_Documento, Nombre, Apellido, Estado, Telefono, Direccion,Email FROM tbl_persona WHERE Id_tipo = 2";
+			$sql = "SELECT Num_Documento, Id_tipo, Tipo_Documento, Nombre, Apellido, Estado, Telefono, Direccion, Email FROM tbl_persona WHERE Id_tipo = 2";
 			try {
 				$query = $this->db->prepare($sql);
 				$query->execute();
@@ -121,11 +121,13 @@
 
 		public function modiCotizacion(){
 
-			$sql = "UPDATE tbl_solicitudes SET Num_Documento = ?, Id_Estado = ? WHERE Id_Solicitud = ?";
+			$sql = "UPDATE tbl_solicitudes s INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_estado e ON s.Id_Estado = e.Id_Estado SET s.Num_Documento = ?, s.Id_Estado = ?, t.Fecha_Vencimiento = ? WHERE s.Id_Solicitud = ? AND e.Id_Estado <= 4";
 			try{
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->Num_Documento);
 				$query->bindParam(2, $this->Id_Estado);
+				$query->bindParam(3, $this->Fecha_Vencimiento);
+				$query->bindParam(4, $this->Id_Solicitud);
 				return $query->execute();
 
 			}catch (PDOException $e){
@@ -133,16 +135,8 @@
 			}
 		}
 
-		public function modCotizacion(){
-			$sql = "UPDATE tbl_solicitudes_tipo SET Fecha_Vencimiento = ? WHERE Id_Solicitudes_Tipo = ?";
-			$query = $this->db->prepare($sql);
-			$query->bindParam(1, $this->Fecha_Vencimiento);
-			return $query->execute();
-		}
-
 		public function cambiarEstado(){
 			$sql = "CALL SP_ModificarEstadoCoti(?,?)";
-
 			try {
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->codigo);
@@ -166,12 +160,13 @@
 		}
 
 		public function facturaVenta(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud ";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Produccion, f.Estado FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_productos pr ON sp.Id_Producto = pr.Referencia INNER JOIN tbl_fichas_tecnicas f ON pr.Referencia = f.Referencia WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
-			$query->bindParam(1, $cod);
+			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
 			return $query->fetchAll();                      
 		}
+
 
 		public function facturaFicha(){
 			$sql = "SELECT Referencia, Valor_Produccion,Estado FROM tbl_fichas_tecnicas WHERE Estado = 1";
@@ -179,4 +174,5 @@
 			$query->execute();
 			return $query->fetchAll();
 		}
-}  	
+	}  	
+

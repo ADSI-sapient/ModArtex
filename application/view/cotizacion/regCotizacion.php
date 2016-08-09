@@ -57,34 +57,21 @@
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
-            <select class="form-control" name="estado" id="estado" required="" readonly="" style="border-radius:5px;">
-              <option value="No Entregada">No Entregada</option>
+            <select class="form-control" name="estado" id="estado" disabled style="border-radius:5px;">
               <option value="Entregada" selected>Entregada</option>
+              <option value="No Entregada">No Entregada</option>
               <option value="Vencida">Vencida</option>
               <option value="Canceladas">Cancelado</option>
             </select>
           </div>
       </div>
-               <!--  <div class="form-group col-lg-push-3 col-lg-4">
-                  <label for="aso_cliente" class="">Asociar Cliente</label>
-                  <form action="#" method="get" class="form-horizontal">
-                            <div class="input-group">
-                              <input type="text" name="q" class="form-control">
-                                  <span class="input-group-btn">
-                                    <button type="button" id="search-btn" class="btn btn-flat"><i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
-                                    </button>
-                                  </span>
-                            </div>
-                    </form>
-
-                  </div> -->
 
      <div class="row col-lg-12">
         <div class="form-group col-lg-4">
           <label for="aso_cliente" class="">Asociar Cliente</label>
             <div class="input-group">
              <input type="hidden" name="documento_cli" value="" id="documento_cli">
-              <input type="text" name="cliente" class="form-control" id="cliente" readonly="" value="" style="border-radius:5px;">
+              <input type="text" name="cliente" class="form-control" value="" id="clienteReg" readonly="" value="" style="border-radius:5px;">
               <span class="input-group-btn">
                 <button type="button" id="search-btn" class="btn btn-flat">
                 <i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
@@ -94,7 +81,6 @@
         </div>
      </div> 
                 
-
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -184,14 +170,33 @@
             </div>
 
             <div>
-                <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
+              <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
+           <div class="table">
+                <div class="col-lg-12 table-responsive">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
+                    <thead>
+                      <tr class="active">
+                        <th>Referencia</th>
+                        <th>Estado</th>
+                        <th>Color</th>
+                        <th>Valor Produccion</th>
+                        <th>Valor Producto</th>
+                        <th>Agregar</th>
+                      </tr>
+                    </thead>
 
-                <table class="table">
-                  <thead>
-                    <tr class="info">
-                      <th>Codigo</th>
-                      <th>Valor</th>
-                      <th>Eliminar</th>
+                    <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($fichas as $ficha): ?>
+                    <tr>
+                      <td><?= $ficha["Referencia"] ?></td>
+                      <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                      <td><?= $ficha["Color"] ?></td>
+                      <td><?= $ficha["Valor_Produccion"] ?></td>
+                      <td><?= $ficha["Valor_Producto"] ?></td>
+                      <td>
+                      <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                      </td>
                     </tr>
                   </thead>
 
@@ -240,84 +245,43 @@
               <table class="table table-hover">
                 <thead>
                   <tr class="info">
-                    <th>Documento</th>
                     <th>Tipo</th>
+                    <th>Estado</th>
                     <th>Tipo de Documento</th>
+                    <th>Documento</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Estado</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Email</th>
                     <th>Opcion</th>
                   </tr>
                 </thead>
-
-
-         <!--Modal de asociar cliente -->
-
-          <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Asociar Cliente</h4>
-            </div>
-
-            <div>
-                <form  id="mymodal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
-
-                <table class="table">
-                  <thead>
-                    <tr class="info">
-                      <th>Documento</th>
-                      <th>Tipo</th>
-                      <th>Tipo de Documento</th>
-                      <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Estado</th>
-                      <th>Telefono</th>
-                      <th>Direccion</th>
-                      <th>Email</th>
-                      <th>Opcion</th>
-                    </tr>
-                  </thead>
-
-                 <tbody> 
+                <tbody> 
+                <?php $i= 1; ?>
                  <?php foreach ($clientes as $cliente):?>
                   <tr>
-                    <td><?php echo $cliente["Num_Documento"] ?></td>
-                    <td><?php echo $cliente["Id_tipo"] ?></td>
+                    <td><?php echo $cliente["Id_tipo"] ?></td>  
+                    <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Tipo_Documento"] ?></td>
+                    <td><?php echo $cliente["Num_Documento"] ?></td>
                     <td><?php echo $cliente["Nombre"] ?></td>
                     <td><?php echo $cliente["Apellido"] ?></td>
-                    <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Telefono"] ?></td>
                     <td><?php echo $cliente["Direccion"] ?></td>
                     <td><?php echo $cliente["Email"] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="return agregarCliente('<?= $cliente['Nombre']?>','<?= $cliente['Num_Documento'] ?>')">Agregar</button>
+                      <button id="bt<?= $i; ?>" class="btn btn-box-tool" onclick="agregar('<?= $cliente['Num_Documento'] ?>','<?= $cliente['Nombre']; ?>','<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
-                <?php endforeach ?>
-                 </tbody>
-               </table> 
-
-             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </div> 
-
-            </form>
+                  <?php $i++ ?>
+                <?php endforeach; ?>
+              </tbody>
+            </table> 
+          </div>
           </div>
          </div> 
         </div> 
       </div>
-
-
-         <!--Fin de asociar cliente -->
-
-        </form>
-      </div>
-    </div>
+    </div> 
 </section>

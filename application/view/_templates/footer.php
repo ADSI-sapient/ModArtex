@@ -52,3 +52,5 @@
         <?php $_SESSION["mensaje"] = null; ?>
       })
       </script>
+
+    <script src="<?= URL;?>js/roles.js"></script>
