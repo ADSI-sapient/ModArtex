@@ -27,5 +27,5 @@ require APP . 'core/controller.php';
 
 // start the application
 // require APP . 'libs/dompdf/autoload.inc.php';
-// $app = new Application();
+$app = new Application();
 
