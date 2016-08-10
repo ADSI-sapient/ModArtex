@@ -109,10 +109,6 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <!-- <div class="form-group col-sm-6">
-                  <label for="estado" class="">Estado:</label>
-                  <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
-                </div> -->
                 <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado</label>
                   <select class="form-control" name="estado" id="estado" required="" style="border-radius:5px;">
@@ -128,11 +124,11 @@
                       <div class="input-group-addon" style="border-radius:5px;">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
+                      <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <!-- <div class="form-group col-sm-6">
                   <label for="nombrecliente" class="">*Asociar Cliente:</label>
                   <div class="">
                     <div class="input-group">
@@ -144,6 +140,14 @@
                       </div>
                     </div>
                   </div>
+                </div> -->
+                <div class="form-group col-sm-4">
+                  <label for="nombrecliente" class="">*Asociar Cliente:</label>
+                  <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                    <?php foreach ($clientes as $cliente): ?>
+                      <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
                 <label for="valor_total" class="">*Productos Asociados:</label>
                 <div class="table">

@@ -58,7 +58,6 @@
             </div>
           </div>
         </div>
-
         <div class="box-footer">
           <div class="col-md-4">
            <button class="btn btn-primary">Generar reporte</button>

@@ -35,7 +35,7 @@
 	        	if ($validarRef == null) {
 
 	        		$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
-			    	$this->mdlModel->__SET("color", 1);
+			    	$this->mdlModel->__SET("color", 2);
 			 		$this->mdlModel->__SET("estado", 1);
 			    	$this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 
@@ -67,11 +67,11 @@
 						  	$retornoTallas = $this->mdlModel->regTallasAso();
 						}
 
-						$mensaje = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
+						// $mensaje = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
 
 					}else{
 
-						$mensaje = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
+						// $mensaje = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
 					}
 	        		
 	        	}else{
@@ -173,7 +173,6 @@
 		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
 
 		    $insumosAsociados = $this->mdlModel->insumosAsociadosFicha();
-
 		    if ($insumosAsociados) {
 		    	// echo json_encode(["r"=>1]);
 		    	echo json_encode(["r"=>$insumosAsociados]);

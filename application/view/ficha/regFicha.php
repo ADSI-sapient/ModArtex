@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="form-group col-lg-offset-2 col-lg-4">
-            <label for="tallas" class="" >*Tallas:</label>
+            <label for="tallas" >*Tallas:</label>
             <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
               <option value="1">L</option>
               <option value="2">M</option>
@@ -149,7 +149,7 @@
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= $insumo["Valor_Promedio"] ?></td>
+                        <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
                           <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
