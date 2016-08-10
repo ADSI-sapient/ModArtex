@@ -98,24 +98,34 @@ class ctrConfiguracion extends Controller{
 
 		if (isset($_POST["btnRegistrarR"])) {
 			$this->_modelRoles->__SET("Nombre", $_POST["nombre"]);
-			if($this->_modelRoles->regRoles()){
+			$validar = $this->_modelRoles->ValidarExistenciaN();
+
+			if ($validar==null) {
+				
+				if($this->_modelRoles->regRoles()){
 				$ultimoRol = $this->_modelRoles->ultimoRol()["rol"];
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
 
-					$this->_modelRoles->__SET("Id_Rol",$ultimoRol);
-					$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
-					$this->_modelRoles->regPermisosAsociados();
+				$this->_modelRoles->__SET("Id_Rol",$ultimoRol);
+				$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
+				$this->_modelRoles->regPermisosAsociados();
+
+				$mensajeR = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Rol registrado exitosamente'});"; 
 				}
 			}else{
 			    // alert("Error al registrar");
+			 	}
+			}else{
+				$mensajeR = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Este nombre de usuario ya se encuentra en la base de datos'});"; 
 			}
-		}
+			$_SESSION["mensaje"] = $mensajeR;
+	        }
 
-		$permisos = $this->_modelRoles->getAsoPermisos();
-		$roles = $this->_modelRoles->getRoles();
-
-		if (isset($_POST["btnModificarRol"])) {
-			if ($_POST["idRol"] != 1) {
+	    $permisos = $this->_modelRoles->getAsoPermisos();
+	    $roles = $this->_modelRoles->getRoles();
+	        
+	    if (isset($_POST["btnModificarRol"])) {
+	      	if ($_POST["idRol"] != 1) {
 				$this->_modelRoles->__SET("Id_Rol", $_POST["idRol"] );
 				$this->_modelRoles->__SET("Nombre", $_POST["Nombre"] );
 				$this->_modelRoles->BorrarPermisos() && $this->_modelRoles->ModificarNombre();
@@ -124,8 +134,13 @@ class ctrConfiguracion extends Controller{
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
 					$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 					$this->_modelRoles->regPermisosAsociados();
+
+					$mensajeR = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Rol modificado exitosamente'});";
 				}
-			}
+	      	}else{
+	      		$mensajeR = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El rol administrador no se puede modificar'});";
+	      	}
+	      	$_SESSION["mensaje"] = $mensajeR;
 		}
 
 		include APP . 'view/_templates/header.php';

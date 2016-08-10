@@ -7,7 +7,6 @@
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -158,7 +157,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarRoles` (IN `_rol` INT(1
 DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarUsuario` (IN `_usuario` VARCHAR(15), IN `_id_rol` INT, IN `_documento` VARCHAR(20))  NO SQL
-UPDATE tbl_usuarios SET Usuario= _usuario, Tbl_Roles_Id_Rol= id_rol, Num_Documento= _documento$$
+UPDATE tbl_usuarios SET Usuario = _usuario, Tbl_Roles_Id_Rol = _id_rol WHERE Num_Documento = _documento$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) Id FROM tbl_insumos$$
@@ -237,6 +236,9 @@ SELECT Num_Documento from tbl_persona where Num_Documento = _documento$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarE` (IN `_email` VARCHAR(45))  NO SQL
 SELECT Email from tbl_persona where Email = _email$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarR` (IN `_nombre` VARCHAR(45))  NO SQL
+SELECT Nombre from tbl_roles where Nombre= _nombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_validarReferencia` (IN `_referencia` INT)  NO SQL
 SELECT Referencia FROM tbl_fichas_tecnicas WHERE Referencia = _referencia$$
@@ -614,22 +616,8 @@ CREATE TABLE `tbl_roles` (
 --
 
 INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`, `Estado`) VALUES
-(1, 'Administrador', 0),
-(7, 'DioOtra', 1),
-(8, 'nuevorol', 0),
-(9, 'Manu', 1),
-(10, 'Angie', 1),
-(11, 'ManuelaUrrego', 1),
-(12, 'nuevo', 1),
-(13, 'Estessi', 1),
-(14, 'deberia', 1),
-(15, 'Bueno ', 1),
-(16, 'Malo', 1),
-(17, 'Sandra', 1),
-(18, 'Sandra', 1),
-(19, 'Sandra', 1),
-(20, 'Sandra', 1),
-(21, 'toco', 1);
+(1, 'Administrador', 1),
+(2, 'Supervisor', 1);
 
 -- --------------------------------------------------------
 
@@ -674,7 +662,29 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (112, 8, 1),
 (113, 8, 2),
 (135, 7, 2),
-(136, 7, 3);
+(136, 7, 3),
+(137, 1, 1),
+(138, 1, 2),
+(139, 1, 3),
+(140, 1, 4),
+(141, 1, 5),
+(142, 1, 6),
+(143, 1, 7),
+(144, 1, 8),
+(145, 1, 9),
+(146, 1, 10),
+(147, 1, 11),
+(148, 1, 12),
+(149, 1, 13),
+(150, 1, 14),
+(151, 1, 15),
+(152, 1, 16),
+(153, 1, 17),
+(154, 1, 18),
+(155, 1, 19),
+(158, 2, 15),
+(159, 2, 4),
+(160, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -894,7 +904,8 @@ CREATE TABLE `tbl_usuarios` (
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
 (1, '1017223026', 1, 'Manu', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(2, '1234567', 8, 'knino', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+(2, '1234567', 8, 'knino', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(3, '1234567', 2, 'juan', 'd2f75e8204fedf2eacd261e2461b2964e3bfd5be');
 
 --
 -- Índices para tablas volcadas
@@ -1194,12 +1205,12 @@ ALTER TABLE `tbl_productos`
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
@@ -1249,7 +1260,7 @@ ALTER TABLE `tbl_unidades_medida`
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
