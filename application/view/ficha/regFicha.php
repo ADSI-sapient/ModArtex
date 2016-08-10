@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="form-group col-lg-offset-2 col-lg-4">
-            <label for="tallas" class="" >*Tallas:</label>
+            <label for="tallas" >*Tallas:</label>
             <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
               <option value="1">L</option>
               <option value="2">M</option>

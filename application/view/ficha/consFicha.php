@@ -58,7 +58,7 @@
                       <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td class="color"><?= $ficha["Nombre"] ?></td>
                       <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
-                      <td><?= $ficha["Valor_Produccion"] ?></td>
+                      <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Referencia"] ?>', this); cargarInsumos('<?= $ficha["Referencia"] ?>'); cargarTallas('<?= $ficha["Referencia"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
@@ -112,11 +112,22 @@
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-4">
+                <!-- <div class="form-group col-sm-4">
                   <label for="color" class="">*Color:</label>
                   <input class="form-control" type="text" name="color" id="color" style="border-radius:5px;">
+                </div> -->
+                <div class="form-group col-sm-1">
+                  <label for="color" class="">*Color:</label>
+                  <div class="">
+                    <div class="input-group my-colorpicker2 colorpicker-element">
+                      <input type="hidden" name="color" class="form-control" id="color" readonly="" value="#60c2e0" style="border-radius:5px;">
+                      <div class="input-group-addon" style="border-radius:5px; padding:16px;">
+                        <div></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group col-sm-offset-4 col-sm-4">
+                <div class="form-group col-sm-offset-7 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
                 </div>
@@ -210,7 +221,7 @@
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= $insumo["Valor_Promedio"] ?></td>
+                        <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                         <td>
                           <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>

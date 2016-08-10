@@ -29,6 +29,7 @@
     <script src="<?= URL;?>js/app.js"></script>
     <script src="<?= URL;?>js/demo.js"></script>
     <script src="<?= URL;?>js/moment.min.js"></script>
+    <script src="<?= URL;?>js/moment-with-locales.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
     

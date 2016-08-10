@@ -124,7 +124,7 @@
                       <div class="input-group-addon" style="border-radius:5px;">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
+                      <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
                     </div>
                   </div>
                 </div>
