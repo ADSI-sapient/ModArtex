@@ -175,7 +175,7 @@
            
 <style type="text/css">
         #al{
-           width: 67% !important;
+           width: 68% !important;
         }
  </style>
 
@@ -211,7 +211,7 @@
                  <?php foreach ($clientes as $cliente):?>
 
                   <tr>
-                    <td><?php echo $cliente["Id_tipo"] ?></td>
+                    <td><?php echo $cliente["Tipo_Nombre"] ?></td>
                     <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Tipo_Documento"] ?></td>
                     <td><?php echo $cliente["Num_Documento"] ?></td>
