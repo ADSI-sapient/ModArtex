@@ -1,5 +1,5 @@
 <?php 
-
+   //cambio
 	class ctrCotizacion extends Controller{
 
 		private $modelo = null;
