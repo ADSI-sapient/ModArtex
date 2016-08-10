@@ -4,6 +4,7 @@ $html = '<!DOCTYPE html>
 <head>
     <title>Print Invoice</title>
     <style>
+
         *
         {
             margin:0;
@@ -13,6 +14,7 @@ $html = '<!DOCTYPE html>
             color:#000;
 
         }
+
         body
         {
             width:100%;
@@ -20,7 +22,6 @@ $html = '<!DOCTYPE html>
             font-size:10pt;
             margin:0;
             padding:0;
-            background-image: url("modartex.jpg");
         }
          
         p
@@ -48,8 +49,7 @@ $html = '<!DOCTYPE html>
             border-top: 1px solid #ccc;
              
             border-spacing:0;
-            border-collapse: collapse; 
-             
+            border-collapse: collapse;
         }
          
         table td 
@@ -99,11 +99,12 @@ $html = '<!DOCTYPE html>
             width:100%;
             border-left: 1px solid #ccc;
             border-top: 1px solid #ccc;
-     
+            
             border-spacing:0;
             border-collapse: collapse; 
              
             margin-top:5mm;
+
         }
          
         #invoice_body table td , #invoice_total table td
@@ -153,7 +154,6 @@ $html = '<!DOCTYPE html>
         {
             width: 120px;
             height: 250px;
-
         }
 
         #fatu
@@ -172,7 +172,7 @@ $html = '<!DOCTYPE html>
 <body>
 <div id="wrapper">
      
-    <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:25px;">Factura</h1>
+    <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:45px;">Cotizacion</h1>
     <br />
     <table class="heading" style="width:100%;">
         <tr>
@@ -188,7 +188,7 @@ $html = '<!DOCTYPE html>
                 <table>
                     <tr><td>Numero de Cotizacion : </td><td>'.$factura[0]["Id_Solicitud"] .'</td></tr>
                     <tr><td>Fecha Registro : </td><td>'.$factura[0]["Fecha_Registro"] .'</td></tr>
-                    <tr><td>Currency : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
+                    <tr><td>Fecha Vensimiento : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
                 </table>
             </td>
         </tr>
@@ -212,7 +212,6 @@ $html = '<!DOCTYPE html>
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Producto</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
-                
                 <td style="width:15%;"><b>Total</b></td>
             </tr>
             </table>
@@ -304,7 +303,7 @@ $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 
 // // (Optional) Setup the paper size and orientation
-// $dompdf->setPaper('A4', 'landscape');
+// $dompdf->setPaper('-a1', 'landscape');
 
 // Render the HTML as PDF
 $dompdf->render();

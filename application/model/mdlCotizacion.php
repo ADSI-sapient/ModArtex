@@ -108,7 +108,7 @@
 		}
 		
 		public function getCliente(){
-			$sql = "SELECT Num_Documento, Id_tipo, Tipo_Documento, Nombre, Apellido, Estado, Telefono, Direccion, Email FROM tbl_persona WHERE Id_tipo = 2";
+			$sql = "SELECT p.Num_Documento, t.Tipo_Nombre, p.Tipo_Documento, p.Nombre, p.Apellido, p.Estado, p.Telefono, p.Direccion, p.Email FROM tbl_persona p INNER JOIN tbl_tipopersona t ON t.Id_tipo = p.Id_tipo WHERE t.Id_tipo = 2";
 			try {
 				$query = $this->db->prepare($sql);
 				$query->execute();

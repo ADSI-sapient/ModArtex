@@ -212,7 +212,7 @@
                 <?php $i= 1; ?>
                  <?php foreach ($clientes as $cliente):?>
                   <tr>
-                    <td><?php echo $cliente["Id_tipo"] ?></td>  
+                    <td><?php echo $cliente["Tipo_Nombre"] ?></td>  
                     <td><?php echo $cliente["Estado"] ?></td>
                     <td><?php echo $cliente["Tipo_Documento"] ?></td>
                     <td><?php echo $cliente["Num_Documento"] ?></td>
