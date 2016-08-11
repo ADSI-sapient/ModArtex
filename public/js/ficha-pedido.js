@@ -198,7 +198,11 @@
       function asociarProductos(ref, color, vlrprodto, fichas, idbton){
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
-        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        //onkeyup
+        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' value='0' onkeyup='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        //onchange
+        //var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        
         $("#tablaFicha").append(tr);
         boton = "#btn"+idbton;
         cantProd = "#cantProducir"+idbton;
@@ -206,15 +210,26 @@
 
         $(boton).attr('disabled', 'disabled');
 
-        $(cantProd).on("keyup", function(){
-          // if ($("#cant").val() <= 0) {
-          //   $("#valTot").val("");
-          // }else{
-            $(subt).val($(cantProd).val() * vlrprodto);
-            $("#vlr_total").val($(cantProd).val() * vlrprodto);
-          // }
-            valorTotalPedido();
-        });
+        // $(cantProd).on("keyup", function(){
+        //   // if ($("#cant").val() <= 0) {
+        //   //   $("#valTot").val("");
+        //   // }else{
+        //     var total = $(subt).val($(cantProd).val() * vlrprodto);
+        //     $("#vlr_total").val(total);
+        //   // }
+        //     valorTotalPedido();
+        // });
+
+        // $(cantProd).on("change", function(){
+        //   // if ($("#cant").val() <= 0) {
+        //   //   $("#valTot").val("");
+        //   // }else{
+        //     var total = $(subt).val($(cantProd).val() * vlrprodto);
+        //     $("#vlr_total").val(total);
+        //   // }
+        //     valorTotalPedido();
+        // });
+
       }
 
     //   function valorTotalPedido(){
