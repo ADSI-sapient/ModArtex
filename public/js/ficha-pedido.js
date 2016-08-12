@@ -198,8 +198,10 @@
       function asociarProductos(ref, color, vlrprodto, fichas, idbton){
         var campos = $(fichas).parent().parent();
         $("#agregarFicha").removeAttr("hidden");
+        
         //onkeyup
         var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' value='0' onkeyup='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        
         //onchange
         //var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='number' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input class='subtl' type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         
@@ -210,17 +212,7 @@
 
         $(boton).attr('disabled', 'disabled');
 
-        // $(cantProd).on("keyup", function(){
-        //   // if ($("#cant").val() <= 0) {
-        //   //   $("#valTot").val("");
-        //   // }else{
-        //     var total = $(subt).val($(cantProd).val() * vlrprodto);
-        //     $("#vlr_total").val(total);
-        //   // }
-        //     valorTotalPedido();
-        // });
-
-        // $(cantProd).on("change", function(){
+        // $(cantProd).on("keyup change", function(){
         //   // if ($("#cant").val() <= 0) {
         //   //   $("#valTot").val("");
         //   // }else{
@@ -231,15 +223,6 @@
         // });
 
       }
-
-    //   function valorTotalPedido(){
-    //   var total=0;
-    //   $(".subtl").each(function(){
-    //     total=total+parseFloat($(this).val());
-    //   });
-    //   $("#vlr_total").val(total);
-    // }
-
 
       function asociarProductosModiPedido(referencia, color, vlrproducto, productos, idbton){
 
@@ -426,16 +409,14 @@
             url: uri+"ctrFicha/cargarTallasAsociadas",
             data: {referencia:ref}
         }).done(function(respuesta){
+          console.log(respuesta);
             if (respuesta.r != null) {
               $("#tbl-tallas-aso > tbody tr").empty();
               arrayTallas = respuesta.r;
               for (var i = 0; i <= arrayTallas.length - 1; i++) {
-
                 idTalla = arrayTallas[i]['Id_Talla'];
                 nombre = arrayTallas[i]['Nombre'];
-
                 var tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i class='fa fa-remove'></i></button></td></tr>";
-
                  $('#tbl-tallas-aso').append(tr);
               }
             }

@@ -139,7 +139,7 @@
 
       	public function getFichasHabilitadas(){
 
-      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		
       		$query = $this->db->prepare($sql);
 	        $query->execute();
