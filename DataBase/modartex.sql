@@ -437,12 +437,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
-
-INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Id_FichaTecnica`, `Cant_Necesaria`, `Valor_Insumo`) VALUES
-(3, 1, 201, 35, 525),
-(4, 3, 201, 100, 1800),
-(7, 2, 202, 50, 1250),
-(8, 3, 202, 10, 180);
 -- --------------------------------------------------------
 
 --
@@ -633,37 +627,7 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (87, 1, 16),
 (88, 1, 17),
 (89, 1, 18),
-(90, 1, 19),
-(106, 15, 1),
-(107, 15, 2),
-(110, 21, 7),
-(111, 8, 8),
-(112, 8, 1),
-(113, 8, 2),
-(135, 7, 2),
-(136, 7, 3),
-(137, 1, 1),
-(138, 1, 2),
-(139, 1, 3),
-(140, 1, 4),
-(141, 1, 5),
-(142, 1, 6),
-(143, 1, 7),
-(144, 1, 8),
-(145, 1, 9),
-(146, 1, 10),
-(147, 1, 11),
-(148, 1, 12),
-(149, 1, 13),
-(150, 1, 14),
-(151, 1, 15),
-(152, 1, 16),
-(153, 1, 17),
-(154, 1, 18),
-(155, 1, 19),
-(158, 2, 15),
-(159, 2, 4),
-(160, 2, 5);
+(90, 1, 19);
 
 -- --------------------------------------------------------
 
@@ -1079,7 +1043,7 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_colores`
 --
 ALTER TABLE `tbl_colores`
-  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
@@ -1099,7 +1063,7 @@ ALTER TABLE `tbl_entradas_exitencias`
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
-  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_existencias_salidas`
 --
@@ -1109,27 +1073,27 @@ ALTER TABLE `tbl_existencias_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_fichastecnicas_tallas`
-  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichas_tecnicas`
 --
 ALTER TABLE `tbl_fichas_tecnicas`
-  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
-  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
@@ -1144,17 +1108,17 @@ ALTER TABLE `tbl_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
@@ -1194,17 +1158,17 @@ ALTER TABLE `tbl_solicitudes_tipo`
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --
 ALTER TABLE `tbl_tallas`
-  MODIFY `Id_Talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Talla` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --
 ALTER TABLE `tbl_tipopersona`
-  MODIFY `Id_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Tipo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
