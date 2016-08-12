@@ -37,7 +37,7 @@
         $("#stock_min").val(campos.find("td").eq(4).text());
         $("#vlr_produccion").val(campos.find("td").eq(5).text());
         $("#vlr_producto").val(campos.find("td").eq(6).text());
-        $("#idModal").show();
+        $("#mdEditFicha").show();
       }
 
       function valorProduccion(){

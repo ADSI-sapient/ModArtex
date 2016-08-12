@@ -16,7 +16,7 @@
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        $tallas = $this->mdlModel->getAsoTallas();
 	    	$fichas = $this->mdlModel->getFichas();
-	    	
+	
 	    	require APP . 'view/_templates/header.php';
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';

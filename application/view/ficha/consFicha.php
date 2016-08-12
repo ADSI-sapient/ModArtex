@@ -61,7 +61,7 @@
                       <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Referencia"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Referencia"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         
                         <?php if ($ficha["Estado"] == 1){ ?>
                       
@@ -86,7 +86,7 @@
         </div>
       </div>
       <!-- inicio modal modificar ficha-->
-      <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="mdEditFicha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
