@@ -133,7 +133,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query->fetchAll();
 	        } catch (PDOException $e) {

@@ -166,7 +166,7 @@
 	    	$mensaje = "";
 		    $msjEditFicha = "";
 
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 
 		    $insumosAsociados = $this->mdlModel->insumosAsociadosFicha();
 		    

@@ -359,7 +359,6 @@
       }
     
       function cargarInsumos(ref){
-        console.log(ref);
         $.ajax({
             dataType: 'json',
             type: 'post',
