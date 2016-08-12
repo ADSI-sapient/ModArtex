@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-08-2016 a las 02:46:41
+-- Tiempo de generación: 11-08-2016 a las 13:36:29
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 5.6.15
 
@@ -492,8 +492,9 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 ('1037590137', 2, 'CC', 'Juan  ', 'Morales', 0, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co'),
 ('1098765', 2, 'CC', 'juan', 'mora', 0, '456743', 'cl 334 Sur 45', 'asdf@mdi.com'),
 ('1152694464', 2, 'CC', 'Juan  David', 'Ramirez', 1, '12345678', 'Robledo ', 'jd@gmail.cm'),
-('11854556', 2, 'CC', 'Pablo', 'Mora', 0, '5484855', 'Cl 47 56d', 'apabl@gmail.com'),
-('1234567', 1, 'C.C', 'juanP', 'Morales', 1, '', '', 'jp@gmail.com');
+('11854556', 2, 'CC', 'Pablo', 'Mora', 1, '5484855', 'Cl 47 56d', 'apabl@gmail.com'),
+('1234567', 1, 'C.C', 'juanP', 'Morales', 1, '', '', 'jp@gmail.com'),
+('123456789', 2, 'CC', 'Juan', 'David R', 1, '1234567', 'asda', 'jdeyby@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -539,7 +540,8 @@ CREATE TABLE `tbl_roles` (
 
 INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`, `Estado`) VALUES
 (1, 'Administrador', 1),
-(2, 'Supervisor', 1);
+(2, 'Supervisor', 1),
+(3, 'Juan ', 1);
 
 -- --------------------------------------------------------
 
@@ -577,36 +579,17 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (88, 1, 17),
 (89, 1, 18),
 (90, 1, 19),
-(106, 15, 1),
-(107, 15, 2),
 (110, 21, 7),
 (111, 8, 8),
 (112, 8, 1),
 (113, 8, 2),
 (135, 7, 2),
 (136, 7, 3),
-(137, 1, 1),
-(138, 1, 2),
-(139, 1, 3),
-(140, 1, 4),
-(141, 1, 5),
-(142, 1, 6),
-(143, 1, 7),
-(144, 1, 8),
-(145, 1, 9),
-(146, 1, 10),
-(147, 1, 11),
-(148, 1, 12),
-(149, 1, 13),
-(150, 1, 14),
-(151, 1, 15),
-(152, 1, 16),
-(153, 1, 17),
-(154, 1, 18),
-(155, 1, 19),
-(158, 2, 15),
-(159, 2, 4),
-(160, 2, 5);
+(161, 2, 15),
+(162, 2, 4),
+(166, 3, 2),
+(167, 3, 3),
+(168, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -1101,12 +1084,12 @@ ALTER TABLE `tbl_productos`
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
