@@ -838,8 +838,8 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
-(1, '1017223026', 1, 'Manu', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(2, '1234567', 8, 'knino', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+(1, '1017223026', 1, 'Admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+(2, '1234567', 8, 'Admin2', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 --
 -- Índices para tablas volcadas
