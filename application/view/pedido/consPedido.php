@@ -61,7 +61,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Id_Estado"] ?>, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
@@ -87,7 +87,7 @@
       </div>
       <!-- Incio modal modificar pedido -->
       <div class="modal fade" id="modalEditPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" onclick="cancelar()"><span aria-hidden="true">&times;</span></button>
@@ -100,7 +100,7 @@
                   <input class="form-control" type="text" name="id_pedido" id="id_pedido" readonly="" style="border-radius:5px;">
                 </div> -->
                 <input type="hidden" name="id_pedido" id="id_pedido">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-5">
                   <label class="">Fecha Registro:</label>
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
@@ -109,15 +109,19 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <!-- <div class="form-group col-sm-6">
                   <label for="estado" class="">Estado</label>
                   <select class="form-control" name="estado" id="estado" required="" style="border-radius:5px;">
                     <option value="5">Pendiente</option>
                     <option value="6">En Proceso</option>
                     <option value="7">Terminado</option>
                   </select>
+                </div> -->
+                <div class="form-group col-sm-offset-2 col-sm-5">
+                  <label for="estado" class="">Estado</label>
+                  <input type="text" name="estado" id="estado" class="form-control" value="Pendiente" required="" readonly="" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-5">
                   <label class="">*Fecha Entrega:</label>
                   <div class="">
                     <div class="input-group date">
@@ -141,17 +145,17 @@
                     </div>
                   </div>
                 </div> -->
-                <div class="form-group col-sm-4">
-                  <label for="nombrecliente" class="">*Asociar Cliente:</label>
+                <div class="form-group col-sm-offset-2 col-sm-5">
+                  <label for="doc_cliente" class="">*Asociar Cliente:</label>
                   <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
                     <?php foreach ($clientes as $cliente): ?>
                       <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
                     <?php endforeach ?>
                   </select>
                 </div>
-                <label for="valor_total" class="">*Productos Asociados:</label>
                 <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
+                <label for="valor_total" class="">*Productos Asociados:</label>
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="tbl-prod-aso-ped">
                     <thead>
                       <tr class="active">
@@ -170,7 +174,7 @@
                 </div>
                 </div>
             </div>
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-5">
               <label for="valor_total" class="">*Valor Total:</label>
               <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
             </div>
@@ -292,7 +296,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>

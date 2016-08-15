@@ -16,7 +16,7 @@
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        $tallas = $this->mdlModel->getAsoTallas();
 	    	$fichas = $this->mdlModel->getFichas();
-	    	
+
 	    	require APP . 'view/_templates/header.php';
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
@@ -92,16 +92,15 @@
 
 		    if(isset($_POST["btn-modificar-ficha"])){
 
-		      	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		      	$this->mdlModel->__SET("id_fichaT", $_POST["idFicha_Tec"]);
 	            $this->mdlModel->__SET("color", 1);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
-
-		      if($this->mdlModel->modificarFicha()){
-
-				$this->mdlModel->__SET("cantidad", 456);
+	            $this->mdlModel->__SET("cantidad", 456);
 		      	$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
 	            $this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
-	            $this->mdlModel->modificarProducto();
+
+		      if($this->mdlModel->modificarFicha()){
+	            //$this->mdlModel->modificarProducto();
 
 	            //Elimina todos los insumos asociados a la ficha
 		      	$this->mdlModel->eliminarInsumoAsoFicha();
@@ -112,6 +111,7 @@
 					$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
 					$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
 					$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+					$this->mdlModel->__SET("id_fichaT", $_POST["idFicha_Tec"]);
 					$this->mdlModel->regInsumosAso();
 				}
 
@@ -121,7 +121,7 @@
 				for ($t=0; $t < count($_POST['tallas']); $t++) { 
 
 					$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
-					$retornoTallas = $this->mdlModel->regTallasAso();
+				 	$this->mdlModel->regTallasAso();
 				}
 
 		    	// $msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
@@ -145,14 +145,14 @@
 	        require APP . 'view/_templates/footer.php';
 		}
 
-		public function cambiarEstado(){
+		public function cambiarEstadoFicha(){
 
 	    	$mensaje = "";
 		    $msjEditFicha = "";
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 	        $this->mdlModel->__SET("estado", $_POST["estado"]);
 
-		    $fichas = $this->mdlModel->cambiarEstado();
+		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
 		    	echo json_encode(["v"=>1]);
@@ -166,7 +166,7 @@
 	    	$mensaje = "";
 		    $msjEditFicha = "";
 
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 
 		    $insumosAsociados = $this->mdlModel->insumosAsociadosFicha();
 		    
