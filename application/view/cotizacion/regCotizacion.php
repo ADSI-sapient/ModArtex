@@ -78,7 +78,7 @@
                       <th>Referencia</th>
                       <th>Color</th>
                       <th>Valor Producto</th>
-                      <th>Cantidad a Producr</th>
+                      <th>Cantidad a Producir</th>
                       <th>Subtotal</th>
                       <th>Quitar</th>
                     </tr>
@@ -113,7 +113,7 @@
         <div class="row">
           <div class="form-group">
             <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" style="margin-top: 15px;" data-toggle="modal" data-target="#modpedidoregist">Registrar</button>
+              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" onclick="" style="margin-top: 15px;" data-toggle="modal" data-target="#modpedidoregist">Registrar</button>
               <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
             </div>
           </div>
@@ -134,6 +134,7 @@
                   <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
                     <thead>
                       <tr class="active">
+                        <th style="display: none;"></th>
                         <th>Referencia</th>
                         <th>Estado</th>
                         <th>Color</th>
@@ -146,14 +147,16 @@
                     <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($fichas as $ficha): ?>
+
                     <tr>
+                      <td style="display: none;"><?= $ficha["Id_Ficha_Tecnica"] ?></td>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><?= $ficha["Color"] ?></td>
+                      <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 150%;"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
@@ -165,7 +168,7 @@
               </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
       </div> 
     </form>
      </div>
@@ -239,9 +242,5 @@
     </div> 
   </div> 
 </div>
-          <!--Fin de asociar cliente -->
-          <script type="text/javascript">
-          
-          </script>
 
 </section>

@@ -1,8 +1,9 @@
-<?php 
+<?php
+
 $html = '<!DOCTYPE html>
 <html>
 <head>
-    <title>Print Invoice</title>
+    <title>Informe Cotizacion</title>
     <style>
 
         *
@@ -174,7 +175,7 @@ $html = '<!DOCTYPE html>
      
     <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:45px;">Cotizacion</h1>
     <br />
-    <table class="heading" style="width:100%;">
+    <table style="width:100%;">
         <tr>
             <td style="width:80mm;">
                 <h1 class="heading">'.$factura[0]["Nombre"].' '.$factura[0]["Apellido"].'</h1>
@@ -184,75 +185,45 @@ $html = '<!DOCTYPE html>
                 <h2 class="heading">Direccion : '. $factura[0]["Direccion"] .'</h2>
                 <h2 class="heading">Email : '. $factura[0]["Email"] .'</h2>
             </td>
-            <td rowspan="2" valign="top" align="right" style="padding:3mm;">
-                <table>
+            <td valign="top">
+                <table class="" style="width:100%;">
                     <tr><td>Numero de Cotizacion : </td><td>'.$factura[0]["Id_Solicitud"] .'</td></tr>
                     <tr><td>Fecha Registro : </td><td>'.$factura[0]["Fecha_Registro"] .'</td></tr>
                     <tr><td>Fecha Vensimiento : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
                 </table>
             </td>
         </tr>
-        <tr>
-            <td>
-                <b>Buyer</b> :<br />
-                Client Name<br />
-                Client Address
-                <br />
-                City - Pincode , Country<br />
-            </td>
-        </tr>
+       
     </table>
          
         
 
     <div id="content">
-         
         <div id="invoice_body">
-            <table>    
+            <table class="table">    
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Producto</b></td>
+                <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
                 <td style="width:15%;"><b>Total</b></td>
-            </tr>
-            </table>
-             
-            <table>';
-            
+            </tr>';         
+                
             foreach ($factura as $value):
-             
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
             <td style="width:15%;" class="mono">'.$value["Valor_Produccion"] .'</td>
+            <td class="mono" style="width:15%;">'.$value["Cantidad"] .'</td>
             <td style="width:15%;" class="mono">'.$value["Valor_Total"].'</td>
             
             </tr>';
              
             endforeach; 
-      
-            '<tr>
-                <td colspan="3"></td>
-                <td></td>
-                <td></td>
-            </tr>
-             
-            <tr>
-                <td colspan="3"></td>
-                <td>Total :</td>
-                <td class="mono">157.00</td>
-            </tr>
-        </table>
+            '</table>
+
+
         </div>
-        <div id="invoice_total">
-            Total Amount :
-            <table>
-                <tr>
-                    <td style="text-align:left; padding-left:10px;">One  Hundred And Fifty Seven  only</td>
-                    <td style="width:15%;">USD</td>
-                    <td style="width:15%;" class="mono">157.00</td>
-                </tr>
-            </table>
-        </div>
+        
         <br />
         <hr />
         <br />
@@ -302,13 +273,35 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 
-// // (Optional) Setup the paper size and orientation
-// $dompdf->setPaper('-a1', 'landscape');
+// (Optional) Setup the paper size and orientation
+// $dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream("informe.pdf", ["Attachment"=>0]);
+$dompdf->stream("Informe De La Cotizacion ".$factura[0]["Id_Solicitud"] , ["Attachment"=>0]);
+
+//Imagen de PDF
+require_once('imageworkshop.php');
+ 
+$norwayLayer = new ImageWorkshop(array(
+    "imageFromPath" => "",
+));
+ $rutaImagen = RAIZ . '/public/img/android.jpg';
+$watermarkLayer = new ImageWorkshop(array(
+    "imageFromPath" => $rutaImagen,
+));
+
+
+
+$watermarkLayer->opacity(40);
+
+$norwayLayer->addLayer(1, $watermarkLayer, 12, 12, "LB");
+ 
+$image = $norwayLayer->getResult();
+header('Content-type: image/jpeg');
+ 
+imagejpeg($image, null, 95); 
 
 ?>

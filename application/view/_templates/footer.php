@@ -35,6 +35,10 @@
     <!-- <script src="<?= URL;?>js/lobibox.min.js"></script> -->
     <script type="text/javascript">
       var uri = "<?= URL;?>";
+      <?php if(isset($_SESSION['alert']) && $_SESSION['alert'] !== null ){
+        echo $_SESSION['alert'];    
+        $_SESSION['alert'] = null;
+      } ?>
     </script>
 
     <script src="<?= URL;?>js/ficha-pedido.js"></script>

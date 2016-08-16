@@ -52,7 +52,9 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  */
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'modartex');
+define('DB_NAME', 'modar');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8');
+# ruta base del proyecto
+define('RAIZ', realpath( __DIR__ . '/../../'));
