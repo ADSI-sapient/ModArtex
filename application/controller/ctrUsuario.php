@@ -11,7 +11,6 @@ class CtrUsuario extends Controller{
 		//Validar permisos y consultar rol
 	    if($this->validarURL("ctrUsuario/regUsuario")){
 			$rol = $this->mdlModel->consultarRol();
-	    	$mensaje = "";
 
 		    if (isset($_POST["btnRegistrar"])) {
 
@@ -41,21 +40,22 @@ class CtrUsuario extends Controller{
 					       
 					        //Registrar usuario
 							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
-								$mensaje = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!'});"; 
+								$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!'});"; 
 							}else{
-								$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
+								$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
 							}
 						}else{
-							$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 					}else{
-						$mensaje = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
+						$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
 					}
 					//Final de la validación del nombre de usuario
 				 }else{
-				    $mensaje= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
+				    $mensajeu= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
 				}
+				$_SESSION["mensaje"] = $mensajeu;
 			}	//Final de la validación del documento
 	     	require APP . 'view/_templates/header.php';
         	require APP . 'view/usuario/regUsuario.php';
@@ -72,8 +72,6 @@ class CtrUsuario extends Controller{
 	    {
 	    	$rol = $this->mdlModel->consultarRol();
 	    	if($this->validarURL("ctrUsuario/regUsuario")){
-		    	$mensaje = "";
-		    	$mensaje2 = "";
 		    	$usuarios = $this->mdlModel->getUsuario();
 
 		        require APP . 'view/_templates/header.php';
@@ -85,19 +83,26 @@ class CtrUsuario extends Controller{
 	    }
 
 	public function edit(){
-		if (isset($_POST["btnModificar"])) {
+
+		 if (isset($_POST["btonModificar"])) {
 	# code...
-
-	    $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
-     	$this->mdlModel->__SET("Apellido", $_POST["apellido"]);     
-	    $this->mdlModel->__SET("Email", $_POST["email"]);
-	    $this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
-	    $this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
+	      $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
+      	$this->mdlModel->__SET("Apellido", $_POST["apellido"]);     
+	     $this->mdlModel->__SET("Email", $_POST["email"]);
 	    $this->mdlModel->__SET("Usuario", $_POST["nombre_usuario"]);
-	  	$this->mdlModel->modificarUsuario() &&  $this->mdlModel->modificarPersona();
-	
+	    $this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
+	     $this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
+		if ($this->mdlModel->modificarPersona()) {		
 
-		    header("location: ".URL."ctrUsuario/consUsuario");
+	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario modificado exitosamente'});";
+	  		header("location: ".URL."ctrUsuario/consUsuario");
+			}else{
+
+				$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error! No se pudo modificar el usuario'});";
+				header("location: ".URL."ctrUsuario/consUsuario");
+				
+			}
+		  $_SESSION["mensaje"] = $mensajeu;
 
 		    $usuarios = $this->mdlModel->getUsuario();
 

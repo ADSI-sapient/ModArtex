@@ -79,7 +79,7 @@
 
 	    public function regTipoSolicitud(){
 
-	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?, ?, ?)";
+	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL,?,?,?,NULL)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->id_pedido);
 	    	$query->bindParam(2, $this->id_tipoSolicitud);
@@ -101,11 +101,11 @@
       		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_solicitudes_tipo);
-      		$query->bindParam(2, $this->id_ficha);
-      		$query->bindParam(3, $this->cant_existencias);
-      		$query->bindParam(4, $this->estado);
-      		$query->bindParam(5, $this->cant_producir);
-      		$query->bindParam(6, $this->subtotal);
+      		$query->bindParam(2, $this->cant_existencias);
+      		$query->bindParam(3, $this->estado);
+      		$query->bindParam(4, $this->cant_producir);
+      		$query->bindParam(5, $this->subtotal);
+      		$query->bindParam(6, $this->id_ficha);
       		$query->execute();
       		return $query;
       	}
@@ -139,7 +139,7 @@
 
       	public function getFichasHabilitadas(){
 
-      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		
       		$query = $this->db->prepare($sql);
 	        $query->execute();

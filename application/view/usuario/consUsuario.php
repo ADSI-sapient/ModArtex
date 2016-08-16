@@ -128,7 +128,7 @@
                 </div>
                 <input type="hidden" id="codigo" name="codigo"></input>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" name="btnModificar">Guardar</button>
+                  <button type="submit" class="btn btn-primary" name="btonModificar">Guardar</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </form>

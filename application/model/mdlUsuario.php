@@ -120,7 +120,7 @@
 
 
 	    public function modificarPersona(){
-	        $sql = "CALL SP_ModificarP";	      
+	        $sql = "CALL SP_ModificarP(?, ?, ?, ?)";	      
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->Nombre);
@@ -135,7 +135,7 @@
       	}
 
       	public function modificarUsuario(){
-      		$sql= "";
+      		$sql= "CALL SP_ModificarUsuario(?, ?, ?)";
       		try {
       			$query= $this->db->prepare($sql);
       			$query->bindParam(1, $this->Usuario);

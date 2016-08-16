@@ -1,11 +1,12 @@
 function editarCotizacion(codigo, cotizaciones){
   var campo = $(cotizaciones).parent().parent();
   $("#Codigo").val(campo.find("td").eq(0).text());
-  $("#Estado").val(campo.find("td").eq(1).text());
-  $("#Fecha_Registro").val(campo.find("td").eq(2).text());
-  $("#FechaVencimiento").val(campo.find("td").eq(3).text());
-  $("#ValorTotal").val(campo.find("td").eq(4).text());
-  $("#Cliente").val(campo.find("td").eq(5).text());
+  $("#Cliente").val(campo.find("td").eq(1).text());
+  $("#Estado").val(campo.find("td").eq(2).text());
+  $("#Fecha_Registro").val(campo.find("td").eq(3).text());
+  $("#FechaVencimiento").val(campo.find("td").eq(4).text());
+  $("#ValorTotal").val(campo.find("td").eq(5).text());
+  $("#ced_cliente").val(campo.find("td").eq(6).text());
   $("#myModal3").modal();
 }
 
@@ -48,11 +49,19 @@ $(document).ready(function(){
 });
 });
 
-function agregarCliente(cliente, documento_cli, clientes, idbotonc){
-  var campos = $(clientes);
+function agregar(documento_cli, cliente,boto){
   var moda = $("#mymodal");
-  $("#cliente").val(cliente);
+  $("#clienteReg").val(cliente);
   $("#documento_cli").val(documento_cli);
+  moda.modal("hide");
+  boto = "#bt"+boto;
+  $(boto).attr('disabled','disabled');
+  }
+
+function agregarCliente(documento_cli, cliente){
+  var moda = $("#mymodal");
+  $("#Cliente").val(cliente);
+  $("#ced_cliente").val(documento_cli);
   moda.modal("hide");
 }
 
@@ -79,17 +88,3 @@ function asociarFicha(referen, color, vlrproducto, fichas, idboton){
   });
   $("#vlr_total").val(total);
 }
-
-var pdf = factura.php;
-window.open(pdf);
-
-// function factura(pdf){
-//   window.open(pdf);
-//   return true;
-// }
-
-
-// $("#buttonID").click(function() {
-//       window.open("view/cotizacion/factura.php", "windowName", windowOptions);
-// });
-
