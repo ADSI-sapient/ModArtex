@@ -101,11 +101,11 @@
       		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_solicitudes_tipo);
-      		$query->bindParam(2, $this->id_ficha);
-      		$query->bindParam(3, $this->cant_existencias);
-      		$query->bindParam(4, $this->estado);
-      		$query->bindParam(5, $this->cant_producir);
-      		$query->bindParam(6, $this->subtotal);
+      		$query->bindParam(2, $this->cant_existencias);
+      		$query->bindParam(3, $this->estado);
+      		$query->bindParam(4, $this->cant_producir);
+      		$query->bindParam(5, $this->subtotal);
+      		$query->bindParam(6, $this->id_ficha);
       		$query->execute();
       		return $query;
       	}
