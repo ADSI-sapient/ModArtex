@@ -56,19 +56,19 @@
                       <td class="ref"><?= $ficha["Referencia"] ?></td>
                       <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                       <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td class="color"><?= $ficha["Nombre"] ?></td>
+                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                       <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                       <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         
                         <?php if ($ficha["Estado"] == 1){ ?>
                       
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha['Referencia'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
                           
                           <?php }else{ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha['Referencia'] ?>, 1)"><i class="fa fa-check"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
 
                           <?php } ?>
                            <!-- <button type="button" onclick="cargarInsumosAs('<?= $ficha["Referencia"] ?>');" data-toggle="modal" data-target="#idModal">aso</button> -->
@@ -95,6 +95,7 @@
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
+              <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">*Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">

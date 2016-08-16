@@ -18,8 +18,7 @@
 			$pedidos = $this->mdlModel->getPedidos();
 			$clientes = $this->mdlModel->getClientes();
 			$productosHab = $this->mdlModel->getFichasHabilitadas();
-			
-			
+
 	        require APP . 'view/_templates/header.php';
 	        require APP . 'view/pedido/consPedido.php';
 	        require APP . 'view/_templates/footer.php';
@@ -55,11 +54,11 @@
 		        	for ($f=0; $f < count($_POST['idFicha']); $f++) { 
 		        		
 		        		$this->mdlModel->__SET("id_solicitudes_tipo", $ultimoIdTipoSolicitud);
-		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
 		        		$this->mdlModel->__SET("cant_existencias", 123);
 		        		$this->mdlModel->__SET("estado", "nose");
 		        		$this->mdlModel->__SET("cant_producir", $_POST['cantProducir'][$f]);
 						$this->mdlModel->__SET("subtotal", $_POST['subTotal'][$f]);
+		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
 		        		$this->mdlModel->regFichasAsociadas();
 		        	}
 
@@ -92,11 +91,11 @@
 	    		$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
 	    		$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));
 	    		$this->mdlModel->__SET("vlr_total", $_POST["valor_total"]);
-	    		$this->mdlModel->__SET("id_estado", $_POST["estado"]);
+	    		// $this->mdlModel->__SET("id_estado", $_POST["estado"]);
 	    		
 	    		if ($this->mdlModel->editPedidos()) {
 
-	    			$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
+	    			// $this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
 	    			$IdSolitudesTipo = $this->mdlModel->traerIdSolTipo();
 
 		        	$this->mdlModel->__SET("id_solicitudes_tipo", implode('', $IdSolitudesTipo));
@@ -164,7 +163,7 @@
 	    //carga los productos asociados al pedido
 	    public function cargarProAsoPedido(){
 
-	    	$this->mdlModel->__SET("id_cliente", $_POST["idCli"]);
+	    	$this->mdlModel->__SET("id_pedido", $_POST["idPed"]);
 	    	$productosAsoPed = $this->mdlModel->cargarProductosAsoPed();
 
 	    	if ($productosAsoPed) {
@@ -184,7 +183,6 @@
 		    }else{
 		    	echo json_encode(["r"=>0]);
 		    }
-
 	    }
 	}
 ?>

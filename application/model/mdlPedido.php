@@ -79,7 +79,8 @@
 
 	    public function regTipoSolicitud(){
 
-	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL,?,?,?,NULL)";
+
+	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?, ?, ?, NULL)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->id_pedido);
 	    	$query->bindParam(2, $this->id_tipoSolicitud);
@@ -115,14 +116,15 @@
       		//$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
       		
       		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
-      		$sql ="CALL SP_editarPedido(?,?,?,?,?)";
+      		// $sql ="CALL SP_editarPedido(?,?,?,?,?)";
+      		$sql ="CALL SP_EditarPedido(?,?,?,?)";
 
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
-      		$query->bindParam(3, $this->id_estado);
-      		$query->bindParam(4, $this->id_cliente);
-      		$query->bindParam(5, $this->id_pedido);
+      		// $query->bindParam(3, $this->id_estado);
+      		$query->bindParam(3, $this->id_cliente);
+      		$query->bindParam(4, $this->id_pedido);
       		$query->execute();
       		return $query;
       	}    
@@ -139,7 +141,7 @@
 
       	public function getFichasHabilitadas(){
 
-      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		
       		$query = $this->db->prepare($sql);
 	        $query->execute();
@@ -147,10 +149,11 @@
       	}
 
       	public function cargarProductosAsoPed(){
-      		$sql = "SELECT sp.Id_Producto, c.Codigo_Color, p.Valor_Producto, sp.Cantidad_Producir, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_productos p ON sp.Id_Producto=p.Referencia JOIN tbl_fichas_tecnicas ft ON p.Referencia=ft.Referencia JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE s.Id_Solicitud = ?";
+      		
+      		$sql = "CALL SP_CargarProduAsoPed(?)";
 
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->id_cliente);
+      		$query->bindParam(1, $this->id_pedido);
 	        $query->execute();
 	        return $query->fetchAll();
       	}

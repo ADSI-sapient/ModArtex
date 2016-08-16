@@ -193,7 +193,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query;
 	        } catch (PDOException $e) {
@@ -207,7 +207,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query;
 	        } catch (PDOException $e) {
@@ -217,13 +217,15 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ? WHERE Referencia = ?";
+	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Id_Ficha_Tecnica = ?";
 
 	        try{
 	          $query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->color);
 	        	$query->bindParam(2, $this->valor_produccion);
-	        	$query->bindParam(3, $this->referencia);
+	        	$query->bindParam(3, $this->stock_min);
+	        	$query->bindParam(4, $this->valor_producto);
+	        	$query->bindParam(5, $this->id_fichaT);
 
 	          return $query->execute();
 
@@ -232,31 +234,31 @@
 	        }
       	}
 
-      	public function modificarProducto(){
+      	// public function modificarProducto(){
 	    	
-	        $sql = "UPDATE tbl_productos SET Cantidad = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Referencia = ?";
+	      //   $sql = "UPDATE tbl_productos SET Cantidad = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Referencia = ?";
 
-	        try{
-	          $query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->cantidad);
-	        	$query->bindParam(2, $this->stock_min);
-	        	$query->bindParam(3, $this->valor_producto);
-	        	$query->bindParam(4, $this->referencia);
+	      //   try{
+	      //     $query = $this->db->prepare($sql);
+	      //   	$query->bindParam(1, $this->cantidad);
+	      //   	$query->bindParam(2, $this->stock_min);
+	      //   	$query->bindParam(3, $this->valor_producto);
+	      //   	$query->bindParam(4, $this->referencia);
 
-	          return $query->execute();
+	      //     return $query->execute();
 
-	        }catch(PDOException $e){
+	      //   }catch(PDOException $e){
 	        	
-	        }
-      	}
+	      //   }
+      	// }
 
-      	public function cambiarEstado(){
+      	public function cambiarEstadoFicha(){
       		
 	        $sql = "CALL SP_CambiarEstadoFicha(?,?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
-	          $query->bindParam(1, $this->referencia);
+	          $query->bindParam(1, $this->id_fichaT);
 	          $query->bindParam(2, $this->estado);
 	        
 	          return $query->execute();
