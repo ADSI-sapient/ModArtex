@@ -148,7 +148,7 @@
         });
       });
     
-      function cancel(){
+      function cerrarModalFicha(){
         swal({title: "¿Está seguro de cancelar?", 
           text: "Los cambios realizados no se guardaran!", 
           type: "warning", 
@@ -160,7 +160,7 @@
           function(){
             // location.href = uri+"ficha/consFicha";
             swal.close();
-            $('#idModal').modal('toggle');
+            $('#mdEditFicha').modal('toggle');
         });
       }
     
