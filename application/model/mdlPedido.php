@@ -17,6 +17,8 @@
 		private $estado;
 		private $db;
 
+		private $cantidadPT;
+
 		function __construct($db)
 	    {
 	        try {
@@ -108,6 +110,13 @@
       		$query->bindParam(5, $this->subtotal);
       		$query->bindParam(6, $this->id_ficha);
       		$query->execute();
+
+      		$sql2 = "UPDATE tbl_fichas_tecnicas SET Cantidad = ? WHERE Id_Ficha_Tecnica = ?";
+      		$query2 = $this->db->prepare($sql2);
+      		$query2->bindParam(1, $this->cantidadPT);
+      		$query2->bindParam(2, $this->id_ficha);
+      		$query2->execute();
+
       		return $query;
       	}
 
@@ -141,7 +150,7 @@
 
       	public function getFichasHabilitadas(){
 
-      		$sql = "SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto, f.Cantidad FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		
       		$query = $this->db->prepare($sql);
 	        $query->execute();
