@@ -22,6 +22,7 @@
 		private $Referencia;
 		private $Valor_Produccion;
 		private $cod;
+
 		private $Fecha_Entrega;
 		private $Codigo_Color;
 		private $Valor_Producto;
@@ -50,7 +51,6 @@
 		}
 
 		public function getCotizacion(){
-
 
 			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento";
 			$query = $this->db->prepare($sql);
@@ -204,3 +204,4 @@
 	        return $query->fetchAll();
       	}
 }  	
+

@@ -15,7 +15,6 @@
 			$mensaje2 = "";
 
 			$cotizaciones = $this->modelo->getCotizacion();
-
 			$clientes = $this->modelo->getCliente();
 			$fichas = $this->modelo->getFichas();         
 			$productosHab = $this->modelo->getFichasHabilitadas();
@@ -35,7 +34,6 @@
 
 	            $this->modelo->__SET("Num_Documento", $_POST["documento_cli"]);
 	            $this->modelo->__SET("Id_Estado", 1);
-
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            // $this->modelo->__SET("Id_Estado", $_POST["estado"]);
 	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
@@ -107,6 +105,7 @@
 				require APP.'view/_templates/footer.php';
 		}
 
+
 		public function converCotiAPe(){
 			if (isset($_POST["gurdarPedi"])) {
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
@@ -153,4 +152,3 @@
 			}
 		}
 	}
-?>

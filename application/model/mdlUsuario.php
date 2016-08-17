@@ -119,27 +119,32 @@
 	    }
 
 
-	    public function modificarUsuario(){
-	        $sql = "UPDATE usuario SET  nombre = ?, apellido = ?, nombre_Usuario = ?, email = ?, Id_rol = ? WHERE codigo = ?";
-
-	      
+	    public function modificarPersona(){
+	        $sql = "CALL SP_ModificarP(?, ?, ?, ?)";	      
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	// $query->bindParam(1, $this->tipo_documento);
-	        	// $query->bindParam(2, $this->documento);
-	        	$query->bindParam(1, $this->nombre);
-	        	$query->bindParam(2, $this->apellido);
-	        	$query->bindParam(3, $this->nombre_usuario);
-	        	$query->bindParam(4, $this->email);
-	        	$query->bindParam(5, $this->rol);
-	        	$query->bindParam(6, $this->codigo);
-
-	    
+	        	$query->bindParam(1, $this->Nombre);
+	        	$query->bindParam(2, $this->Apellido);
+	        	$query->bindParam(3, $this->Email);
+	        	$query->bindParam(4, $this->Num_Documento);
 	        	return $query->execute();
 
 	        } catch (PDOException $e) {
 	        	
 	        }
+      	}
+
+      	public function modificarUsuario(){
+      		$sql= "CALL SP_ModificarUsuario(?, ?, ?)";
+      		try {
+      			$query= $this->db->prepare($sql);
+      			$query->bindParam(1, $this->Usuario);
+      			$query->bindParam(2, $this->Tbl_Roles_Id_Rol);
+      			$query->bindParam(2, $this->Num_Documento);
+
+      		} catch (Exception $e) {
+      			
+      		}
       	}
 
       	public function consultarRol(){

@@ -56,19 +56,19 @@
                       <td class="ref"><?= $ficha["Referencia"] ?></td>
                       <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                       <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td class="color"><?= $ficha["Color"] ?></td>
+                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                       <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
-                      <td><?= $ficha["Valor_Produccion"] ?></td>
+                      <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Referencia"] ?>', this); cargarInsumos('<?= $ficha["Referencia"] ?>'); cargarTallas('<?= $ficha["Referencia"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                         
                         <?php if ($ficha["Estado"] == 1){ ?>
                       
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha['Referencia'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
                           
                           <?php }else{ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha['Referencia'] ?>, 1)"><i class="fa fa-check"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
 
                           <?php } ?>
                            <!-- <button type="button" onclick="cargarInsumosAs('<?= $ficha["Referencia"] ?>');" data-toggle="modal" data-target="#idModal">aso</button> -->
@@ -86,8 +86,8 @@
         </div>
       </div>
       <!-- inicio modal modificar ficha-->
-      <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+      <div class="modal fade" id="mdEditFicha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close"><span aria-hidden="true" onclick="cancel()">&times;</span></button>
@@ -95,6 +95,7 @@
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
+              <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">*Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
@@ -112,37 +113,27 @@
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-6">
+                <!-- <div class="form-group col-sm-4">
                   <label for="color" class="">*Color:</label>
                   <input class="form-control" type="text" name="color" id="color" style="border-radius:5px;">
+                </div> -->
+                <div class="form-group col-sm-1">
+                  <label for="color" class="">*Color:</label>
+                  <div class="">
+                    <div class="input-group my-colorpicker2 colorpicker-element">
+                      <input type="hidden" name="color" class="form-control" id="color" readonly="" value="#60c2e0" style="border-radius:5px;">
+                      <div class="input-group-addon" style="border-radius:5px; padding:16px;">
+                        <div></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-offset-7 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
                 </div>
                 <div class="table">
-                  <div class="form-group col-sm-12 table-responsive">
-                    <label>*Insumos asociados:</label>
-                    <table class="table table-hover" id="tbl-insumos-aso">
-                      <thead>
-                        <tr class="active">
-                          <th>Id</th>
-                          <th>Nombre</th>
-                          <th>Unidad Medida</th>
-                          <th>Valor*cm</th>
-                          <th>Cantidad Necesaria</th>
-                          <th>Valor Insumo</th>
-                          <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="table">
-                  <div class="form-group col-sm-12 table-responsive">
+                  <div class="form-group col-sm-4 table-responsive">
                   <label>*Tallas Asociadas:</label>
                     <table class="table table-hover" id="tbl-tallas-aso">
                       <thead>
@@ -158,27 +149,43 @@
                     </table>
                   </div>
                 </div>
+                <div class="table">
+                  <div class="form-group col-sm-8 table-responsive">
+                    <label>*Insumos asociados:</label>
+                    <table class="table table-hover" id="tbl-insumos-aso">
+                      <thead>
+                        <tr class="active">
+                          <th>Nombre</th>
+                          <th>Color</th>
+                          <th>Medida</th>
+                          <th>Valor*cm</th>
+                          <th>Cantidad Necesaria</th>
+                          <th>Valor Insumo</th>
+                          <th>Quitar</th>
+                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-sm-6">
-                <label for="vlr_produccion" class="">Valor Producción:</label>
-                <!-- <div class=""> -->
-                  <!-- <div class="input-group">
-                    <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                      <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
-                    </div> -->
-                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
-                  <!-- </div> -->
-                <!-- </div> -->
-              </div>
-              <div class="form-group col-sm-6"> 
-                <label for="vlr_producto" class="">*Valor Producto:</label>
-                <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
+              <div class="form-group col-sm-12">
+                <div class="form-group col-sm-4">
+                  <label for="vlr_produccion" class="">Valor Producción:</label>
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
+                </div>
+                <div class="form-group col-sm-offset-4 col-sm-4"> 
+                  <label for="vlr_producto" class="">*Valor Producto:</label>
+                  <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
+                </div>
               </div>
               <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
                 <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
-                <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
-              </div>
+                  <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
+                  <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
+                </div>
               </form>
             </div>
           </div>
@@ -199,7 +206,6 @@
                   <table class="table table-hover" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
-                      <th>Id Insumo</th>
                       <th>Nombre</th>
                       <th>Unidad Medida</th>
                       <th>Color</th>
@@ -212,14 +218,13 @@
                     <?php $i = 1; ?>
                     <?php foreach ($insumosHabAsociar as $insumo): ?>
                       <tr>
-                        <td><?= $insumo["Id_Insumo"] ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= $insumo["Valor_Promedio"] ?></td>
+                        <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>
@@ -261,7 +266,7 @@
                         <td><?= $talla["Id_Talla"] ?></td>
                         <td><?= $talla["Nombre"] ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

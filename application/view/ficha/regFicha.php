@@ -37,12 +37,19 @@
             </div>
           </div>
           <div class="row col-lg-12">
-            <div class="form-group col-lg-2">
-              <label for="color" class="">*Color:</label>
-              <input type="text" name="color" class="form-control" id="color" required="" style="border-radius:5px;">
+            <div class="form-group col-lg-1">
+              <label class="">*Color:</label>
+              <div class="">
+                <div class="input-group my-colorpicker2 colorpicker-element">
+                  <input type="hidden" name="codigo-color" class="form-control" id="codigo-color" readonly="" value="#60c2e0" style="border-radius:5px;">
+                  <div class="input-group-addon" style="border-radius:5px; padding:16px;">
+                    <div></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
-            <label for="tallas" class="" >*Tallas:</label>
+            <div class="form-group col-lg-offset-2 col-lg-4">
+            <label for="tallas" >*Tallas:</label>
             <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
               <option value="1">L</option>
               <option value="2">M</option>
@@ -67,6 +74,7 @@
                     <tr class="active">
                       <th>Id Insumo</th>
                       <th>Nombre</th>
+                      <th>Color</th>
                       <th>Unidad Medida</th>
                       <th>Valor*cm</th>
                       <th>Cantidad Necesaria</th>
@@ -141,9 +149,9 @@
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= $insumo["Valor_Promedio"] ?></td>
+                        <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

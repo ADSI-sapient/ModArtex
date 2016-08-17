@@ -1,15 +1,17 @@
 <?php 
 class mdlCliente
 {
-	private $estado;
-	private $tipo_documento;
-	private $documento;
-	private $nombre;
-	private $apellido;
-	private $telefono;
-	private $email;
-	private $codigo;
-	private $db;
+		private $Tipo_Documento;
+		private $Num_Documento;
+		private $Estado = 1;
+		private $Nombre;
+		private $Epellido;
+		private $Email;
+		private $Rol;
+		private $db;
+		private $Id_Tipo = 2;
+		private $Telefono;
+		private $Direccion;
 
 	public function __SET($atributo, $valor){
 		$this->$atributo = $valor;
@@ -28,29 +30,30 @@ class mdlCliente
 	    }
 	}
 
-	public function regCliente()
-	{
-	    $consulta = "INSERT INTO cliente VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-	    try {
-	       	$query = $this->db->prepare($sql);
-	       	$query->bindParam(1, $this->estado);
-	        $query->bindParam(2, $this->tipo_documento);
-	        $query->bindParam(3, $this->documento);
-	        $query->bindParam(4, $this->nombre);
-	        $query->bindParam(5, $this->apellido);
-	        $query->bindParam(7, $this->email);
-	        $query->bindParam(6, $this->telefono);
-	        $query->bindParam(8, $this->codigo);
-	       	return $query->execute();
-
-	    } catch (PDOException $e) {
+	    public function regCliente()
+	    {
+	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        
+	        	$query->bindParam(1, $this->Id_Tipo);
+	        	$query->bindParam(2, $this->Tipo_Documento);
+	        	$query->bindParam(3, $this->Nombre);
+	        	$query->bindParam(4, $this->Apellido);
+	        	$query->bindParam(5, $this->Estado);
+	        	$query->bindParam(6, $this->Telefono);
+	        	$query->bindParam(7, $this->Direccion);
+	        	$query->bindParam(8, $this->Email);
+	        	$query->bindParam(9, $this->Num_Documento);
+	    
+	        	return $query->execute();
+	        } catch (PDOException $e) {    	
+	        }
 	    }
-	}
 	        
 	    public function getCliente()
 	    {
-	        	$sql= "CALL SP_clientes";
+	        	$sql= "CALL SP_ListarClientes";
 
       		try{
       			$query = $this->db->prepare($sql);
@@ -59,5 +62,61 @@ class mdlCliente
       		} catch (PDOException $e){
       		}
 	    }
+	
+	    public function ValidarExistenciaD(){
+		$sql= "CALL SP_ValidarD(?)";
+		try{
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Num_Documento);
+			$query->execute();
+				return $query->fetchAll();
+		}catch (PDOException $e){
+		}
 	}
-?>
+
+		public function validarExistenciaE(){
+		$sql= "CALL SP_ValidarE(?)";
+		try {
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Email);
+			$query->execute();
+				return $query->fetchAll();
+		} catch (Exception $e) {
+		}
+	}
+
+	        public function cambiarEstado(){
+	        $sql = "CALL SP_CambiarEstadoP(?, ?)";
+
+	        try{
+	          $query = $this->db->prepare($sql);
+	          $query->bindParam(1, $this->Estado);
+	          $query->bindParam(2, $this->Num_Documento);
+	         
+	        
+	          return $query->execute();
+
+	        }catch(PDOException $e){
+	        	
+	        }
+      	}
+
+      	  public function modificarCliente(){
+	        $sql = "CALL SP_ModificarClientes(?, ?, ?,?, ?, ?)";
+	      
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->bindParam(6, $this->Num_Documento);
+	        	$query->bindParam(1, $this->Nombre);
+	        	$query->bindParam(2, $this->Apellido);
+	        	$query->bindParam(3, $this->Telefono);
+	        	$query->bindParam(4, $this->Direccion);
+	        	$query->bindParam(5, $this->Email);	        	    
+	        	return $query->execute();
+
+	        } catch (PDOException $e) {
+	        	
+	        }
+      	}
+
+}

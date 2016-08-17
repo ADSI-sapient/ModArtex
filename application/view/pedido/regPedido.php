@@ -34,7 +34,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="datepicker2" required=""  style="border-radius:5px;">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" required="" readonly="" style="border-radius:5px;">
             </div>
           </div>
-          <div class="row col-lg-12">
+          <!-- <div class="row col-lg-12">
             <div class="form-group col-lg-4">
               <label for="aso_cliente" class="">*Asociar Cliente:</label>
               <div class="">
@@ -56,6 +56,17 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div> -->
+        <div class="row col-lg-12">
+          <div class="form-group col-lg-4">
+            <label for="id_cliente" class="" >*Asociar Cliente:</label>
+            <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
+            <option value=""></option>
+              <?php foreach ($clientes as $cliente): ?>
+                <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"]?></option>
+              <?php endforeach ?>
+            </select>
             </div>
           </div>
           <div hidden="" class="form-group" id="agregarFicha">
@@ -80,7 +91,7 @@
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Fichas</b></button>
+              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Productos</b></button>
             </div>
           </div>
           <div class="row col-lg-12">
@@ -136,11 +147,11 @@
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><?= $ficha["Color"] ?></td>
+                      <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 150%;'></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

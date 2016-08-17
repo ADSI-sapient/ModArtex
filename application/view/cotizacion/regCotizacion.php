@@ -1,59 +1,47 @@
 <section class="content-header">
   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
-        <li><a href="#">Cliente</a></li>
-        <li class="active">Registrar Cotización</li>
-      </ol>
+    <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+    <li><a href="#">Cliente</a></li>
+    <li class="active">Registrar Cotización</li>
+  </ol>
 </section>
- 
-    <section class="content">
+
+<section class="content">
+  <br>
+  <div class="box box-info" style="padding-right: 15px;">
+    <div class="box-header with-border">
+      <div class="box-header with-border" style="text-align: center;">
+        <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
+      </div>
       <br>
-      <div class="box box-info" style="padding-right: 15px;">
-          <div class="box-header with-border">
-            <div class="box-header with-border" style="text-align: center;">
-              <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
-          </div>
-      <br>
 
-            <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
-            <br>
-            <div class="row col-lg-12">
-            
-                <div class="form-group col-lg-push-1 col-lg-4">
-                  <label class="">Fecha Registro</label>
-                  <div class="">
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control pull-right" value="<?php echo date ("Y/m/d"); ?>" name="fecha_R" readonly="">
-                    </div>
-                  </div>
+      <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
+
+        <div class="row col-lg-12">
+
+          <div class="form-group col-lg-4">
+            <label class="">Fecha Registro</label>
+            <div class="">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
-
-                <div class="form-group col-lg-push-3 col-lg-3">
-                  <label for="estado" class="">Estado</label>
-                  <select class="form-control" name="estado" id="estado" required="">
-                    <option value="No Entregada" selected>No Entregada</option>
-                    <option value="Entregada">Entregada</option>
-                    <option value="Vencida">Vencida</option>
-                    <option value="Canceladas">Cancelado</option>
-                  </select>
-                </div>
-
+                <input type="text" class="form-control pull-right" value="<?php echo date ("Y/m/d"); ?>" name="fecha_R" readonly="" style="border-radius:5px;">
               </div>
-              <div class="row col-lg-12">
-                <div class="form-group col-lg-push-1 col-lg-4">
-                  <label class="">Fecha Vencimiento</label>
-                    <div class="">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1">
-                      </div>
-                    </div>
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <label class="">Fecha Vencimiento</label>
+            <div class="">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;">
+              </div>
+            </div>
+          </div>
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
@@ -116,18 +104,7 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
                   </div>
-                </div>
-
-            <div class="row col-lg-12">
-              <div class="form-group col-lg-push-7 col-lg-3">
-                <label for="vlr_total" class="">Valor Total</label>
-                  <!-- <form action="#" method="post" class="form-horizontal"> -->
-                    <div class="input-group col-lg-12">
-                      <input type="text" class="form-control" name="vlr_total" placeholder="" required="">
-                        <span class="input-group-btn">
-                          <button type="button" id="myModal-btn" class="btn btn-flat"><i class="fa fa-plus" data-toggle="modal" data-target="#ModelProducto"></i></button>
-                        </span>
-                    </div>
+                  <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
                 </div>
               </div>
              <br>
@@ -145,9 +122,8 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Agregar Cotizacion</h4>
+              <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>
             </div>
-
             <div>
               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
            <div class="table">
@@ -180,14 +156,8 @@
                       <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
-                  </thead>
-
-                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
+                    <?php $i++; ?>
+                    <?php endforeach; ?>
                   </tbody>
                 </table> 
 
@@ -253,7 +223,6 @@
                     <td><?php echo $cliente["Direccion"] ?></td>
                     <td><?php echo $cliente["Email"] ?></td>
                     <td>
-
                       <button id="bt<?= $i; ?>" class="btn btn-box-tool" onclick="agregar('<?= $cliente['Num_Documento'] ?>','<?= $cliente['Nombre']; ?>','<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
@@ -263,10 +232,16 @@
             </table> 
           </div>
           </div>
-         </div> 
+         </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div> 
       </div>
     </div> 
   </div> 
 </div>
+          <!--Fin de asociar cliente -->
+          <script type="text/javascript">
+          
+          </script>
 </section>

@@ -29,10 +29,13 @@
     <script src="<?= URL;?>js/app.js"></script>
     <script src="<?= URL;?>js/demo.js"></script>
     <script src="<?= URL;?>js/moment.min.js"></script>
+    <script src="<?= URL;?>js/moment-with-locales.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
+    <script src="<?= URL;?>js/lobibox.min.js"></script>
+
     
-    <!-- <script src="<?= URL;?>js/lobibox.min.js"></script> -->
+
     <script type="text/javascript">
       var uri = "<?= URL;?>";
       <?php if(isset($_SESSION['alert']) && $_SESSION['alert'] !== null ){
@@ -46,10 +49,14 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
+    <script src="<?= URL;?>js/persona.js"></script>
+
+      <script type="text/javascript">
+      $(function(){ 
+        <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+        <?php $_SESSION["mensaje"] = null; ?>
+      })
+      </script>
+
     <script src="<?= URL;?>js/roles.js"></script>
-<<<<<<< HEAD
-    <script type="text/javascript">
- 
-=======
-    <script type="text/javascript">
->>>>>>> kevin
+
