@@ -3,7 +3,7 @@ function convertirPedido(codigo, cotizaciones, Id_estado){
   var campo = $(cotizaciones).parent().parent();
   $("#Codig").val(campo.find("td").eq(0).text());
   $("#Client").val(campo.find("td").eq(1).text());
-  $("#Estad").val(Id_estado);
+  // $("#Estad").val(Id_estado);
   $("#Fecha_Registr").val(campo.find("td").eq(3).text());
   $("#ValorTota").val(campo.find("td").eq(5).text());
   $("#ced_client").val(campo.find("td").eq(6).text());

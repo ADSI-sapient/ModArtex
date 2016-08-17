@@ -90,7 +90,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
-              <button type="button" class="close"><span aria-hidden="true" onclick="cancel()">&times;</span></button>
+              <button type="button" class="close"><span aria-hidden="true" onclick="cerrarModalFicha()">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Ficha Técnica</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
@@ -184,7 +184,7 @@
               <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
                 <div class="form-group col-sm-12">
                   <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
-                  <button type="button" class="btn btn-danger" onclick="cancel()">Cancelar</button>
+                  <button type="button" class="btn btn-danger" onclick="cerrarModalFicha()">Cancelar</button>
                 </div>
               </form>
             </div>
