@@ -10,12 +10,12 @@
     <!-- Main content -->
     <section class="content">
 
-    <!-- Inicio de listar -->
-    <div class="box box-primary">
-      <div class="box-header with-border"  style="text-align: center;">
-        <h3 class="box-title"><strong>LISTAR FICHAS TÉCNICAS</strong></h3>
-      </div>
-      <div id="users">
+      <!-- Inicio de listar -->
+      <div class="box box-primary">
+        <div class="box-header with-border"  style="text-align: center;">
+          <h3 class="box-title"><strong>LISTAR FICHAS TÉCNICAS</strong></h3>
+        </div>
+        <div id="users">
   <!-- <div class="col-md-offset-8 col-md-4">
          <div class="row box-header">
             <div class="form-group">
@@ -31,55 +31,55 @@
               </div>
           </div>
         </div>
-        </div> -->
-        <form class="form-horizontal">
-          <div class="col-md-12">
-            <!-- <div class="box"> -->
-            <br>
-              <div class="table table-responsive">
-                <table class="table table-hover" id="tablaFichas">
-                  <thead>
-                    <tr class="info">
-                      <th>Referencia</th>
-                      <th>Fecha Registro</th>
-                      <th>Estado</th>
-                      <th>Color</th>
-                      <th>Stock Mínimo</th>
-                      <th>Valor Producción</th>
-                      <th>Valor Producto</th>
-                      <th style="width: 7%">Opción</th>
-                    </tr>
-                  </thead>
-                  <tbody class="list">
-                  <?php foreach ($fichas as $ficha): ?>
-                    <tr>
-                      <td class="ref"><?= $ficha["Referencia"] ?></td>
-                      <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
-                      <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;"></i></td>
-                      <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
-                      <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
-                      <td><?= $ficha["Valor_Producto"] ?></td>
-                      <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#idModal" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
-                        
-                        <?php if ($ficha["Estado"] == 1){ ?>
+      </div> -->
+      <form class="form-horizontal">
+        <div class="col-md-12">
+          <!-- <div class="box"> -->
+          <br>
+          <div class="table table-responsive">
+            <table class="table table-hover" id="tablaFichas">
+              <thead>
+                <tr class="info">
+                  <th>Referencia</th>
+                  <th>Fecha Registro</th>
+                  <th>Estado</th>
+                  <th>Color</th>
+                  <th>Stock Mínimo</th>
+                  <th>Valor Producción</th>
+                  <th>Valor Producto</th>
+                  <th style="width: 7%">Opción</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <?php foreach ($fichas as $ficha): ?>
+                  <tr>
+                    <td class="ref"><?= $ficha["Referencia"] ?></td>
+                    <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
+                    <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                    <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                    <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
+                    <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
+                    <td><?= $ficha["Valor_Producto"] ?></td>
+                    <td>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                       
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
-                          
-                          <?php }else{ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
+                      <?php if ($ficha["Estado"] == 1){ ?>
+                        
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                        
+                        <?php }else{ ?>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
 
                           <?php } ?>
-                           <!-- <button type="button" onclick="cargarInsumosAs('<?= $ficha["Referencia"] ?>');" data-toggle="modal" data-target="#idModal">aso</button> -->
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
+                          <!-- <button type="button" onclick="cargarInsumosAs('<?= $ficha["Referencia"] ?>');" data-toggle="modal" data-target="#idModal">aso</button> -->
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
-            <!-- </div> -->
-          </div>
+              <!-- </div> -->
+            </div>
           </form>
         </div>
         <div class="box-footer">
@@ -95,7 +95,7 @@
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
-              <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
+                <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">*Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
@@ -134,7 +134,7 @@
                 </div>
                 <div class="table">
                   <div class="form-group col-sm-4 table-responsive">
-                  <label>*Tallas Asociadas:</label>
+                    <label>*Tallas Asociadas:</label>
                     <table class="table table-hover" id="tbl-tallas-aso">
                       <thead>
                         <tr class="active">
@@ -204,32 +204,32 @@
               <div class="table">
                 <div class="col-sm-12 table-responsive">
                   <table class="table table-hover" style="margin-top: 2%;">
-                  <thead>
-                    <tr class="active">
-                      <th>Nombre</th>
-                      <th>Unidad Medida</th>
-                      <th>Color</th>
-                      <th>Estado</th>
-                      <th>Valor Promedio</th>
-                      <th>Agregar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($insumosHabAsociar as $insumo): ?>
-                      <tr>
-                        <td><?= $insumo["Nombre"] ?></td>
-                        <td><?= $insumo["Abreviatura"] ?></td>
-                        <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
-                        <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= round($insumo["Valor_Promedio"],2) ?></td>
-                        <td>
-                          <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
-                        </td>
+                    <thead>
+                      <tr class="active">
+                        <th>Nombre</th>
+                        <th>Unidad Medida</th>
+                        <th>Color</th>
+                        <th>Estado</th>
+                        <th>Valor Promedio</th>
+                        <th>Agregar</th>
                       </tr>
-                      <?php $i++; ?>
-                    <?php endforeach; ?>
-                  </tbody>
+                    </thead>
+                    <tbody>
+                      <?php $i = 1; ?>
+                      <?php foreach ($insumosHabAsociar as $insumo): ?>
+                        <tr>
+                          <td><?= $insumo["Nombre"] ?></td>
+                          <td><?= $insumo["Abreviatura"] ?></td>
+                          <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                          <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                          <td><?= round($insumo["Valor_Promedio"],2) ?></td>
+                          <td>
+                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          </td>
+                        </tr>
+                        <?php $i++; ?>
+                      <?php endforeach; ?>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -252,26 +252,26 @@
               <div class="table">
                 <div class="col-sm-12 table-responsive">
                   <table class="table table-hover" style="margin-top: 2%;">
-                  <thead>
-                    <tr class="active">
-                      <th>Id</th>
-                      <th>Nombre</th>
-                      <th>Agregar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php $i = 1; ?>
-                    <?php foreach ($tallas as $talla): ?>
-                      <tr>
-                        <td><?= $talla["Id_Talla"] ?></td>
-                        <td><?= $talla["Nombre"] ?></td>
-                        <td>
-                          <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
-                        </td>
+                    <thead>
+                      <tr class="active">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Agregar</th>
                       </tr>
-                      <?php $i++; ?>
-                    <?php endforeach; ?>
-                  </tbody>
+                    </thead>
+                    <tbody>
+                      <?php $i = 1; ?>
+                      <?php foreach ($tallas as $talla): ?>
+                        <tr>
+                          <td><?= $talla["Id_Talla"] ?></td>
+                          <td><?= $talla["Nombre"] ?></td>
+                          <td>
+                            <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                          </td>
+                        </tr>
+                        <?php $i++; ?>
+                      <?php endforeach; ?>
+                    </tbody>
                   </table>
                 </div>
               </div>

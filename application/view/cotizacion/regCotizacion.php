@@ -107,7 +107,9 @@
                   <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
                 </div>
               </div>
-             <br>
+            </div>
+          </div>
+
         <div class="row">
           <div class="form-group">
             <div class="form-group col-lg-12">
@@ -125,6 +127,7 @@
               <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>
             </div>
             <div>
+
               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
            <div class="table">
                 <div class="col-lg-12 table-responsive">
@@ -149,22 +152,21 @@
                       <td style="display: none;"><?= $ficha["Id_Ficha_Tecnica"] ?></td>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 150%;"></i></td>
+                      <td><i class="fa fa-square" style="color:<?= $ficha["Codigo_Color"] ?>; font-size: 150%;"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>
                   </tbody>
-                </table> 
 
-             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" data-dismiss="modal">Agregar Cotizacion</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            </div> 
+                  </table>
+                </div>
+              </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
       </div> 
@@ -240,8 +242,5 @@
     </div> 
   </div> 
 </div>
-          <!--Fin de asociar cliente -->
-          <script type="text/javascript">
-          
-          </script>
+
 </section>

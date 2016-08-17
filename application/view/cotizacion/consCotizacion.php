@@ -162,7 +162,7 @@
                 <label for="valor_total" class="form-group col-sm-5">Fichas Asociadas</label>
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Aso-pedido">
+                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -215,14 +215,14 @@
                 </thead>
                 <tbody>
                 <?php $p = 1; ?>
-                <?php foreach ($productosHab as $producto): ?>
+                <?php foreach ($productos as $producto): ?>
                   <tr>
                     <td><?= $producto["Referencia"] ?></td>
                     <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 150%;"></i></td>
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -366,8 +366,8 @@
       <div class="modal-footer">
       <div class="row col-sm-push-8 col-sm-5">
        <br />
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary" name="gurdarPedi" onclick="enviarPedido('<?= $pedido["Id_Solicitud"] ?>')">Enviar Pedido</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div><!-- /.modal-content -->

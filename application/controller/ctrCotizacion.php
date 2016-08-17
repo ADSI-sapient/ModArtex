@@ -17,7 +17,7 @@
 			$cotizaciones = $this->modelo->getCotizacion();
 			$clientes = $this->modelo->getCliente();
 			$fichas = $this->modelo->getFichas();         
-			$productosHab = $this->modelo->getFichasHabilitadas();
+			$productos = $this->modelo->fichasHabilitadas();
 
 			
 			require APP.'view/_templates/header.php';
@@ -35,9 +35,7 @@
 	            $this->modelo->__SET("Num_Documento", $_POST["documento_cli"]);
 	            $this->modelo->__SET("Id_Estado", 1);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
-	            // $this->modelo->__SET("Id_Estado", $_POST["estado"]);
-	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
-	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]); 	
+	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
 	          
 	         if($this->modelo->regCotizacion()){	         		
 	            $ultimaSolicitud_reg = $this->modelo->ultimaSolicitud();
@@ -67,9 +65,10 @@
 			    }
 	        }
 
-            $fichas = $this->modelo->getFichas();   
+            $fichas = $this->modelo->getFichas();
+ 
             $clientes = $this->modelo->getCliente();
-
+ 
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -89,9 +88,10 @@
 	            
 				if ($this->modelo->modiCotizacion()){
 
-				$mensaje2 = "swal('Cotizacion Modifacada Exitosamente','','success')";
-
-				}else {
+				$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
+				  header ("location: ".URL."ctrCotizacion/consCotizacion");
+				}
+				else {
 				$mensaje2 = "swal('Modifacada Fracasada','','success')";
 				}
 
@@ -105,15 +105,14 @@
 				require APP.'view/_templates/footer.php';
 		}
 
-
 		public function converCotiAPe(){
 			if (isset($_POST["gurdarPedi"])) {
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud",2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
-				// $this->modelo->converPedido();
+				
 				if ($this->modelo->converPedido()) {
-
+				$_SESSION['alert'] = "swal('Cotizacion Enviada Para Pedido','','success')";
                 header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 			}
@@ -150,5 +149,7 @@
 			}else{
 				require APP.'view/cotizacion/consCotizacion.php';	
 			}
+			
 		}
 	}
+?>

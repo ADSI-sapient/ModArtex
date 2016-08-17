@@ -97,9 +97,6 @@ ci.Id_Insumo=i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida=um.Id_Medida
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarClientes` ()  NO SQL
 SELECT Tipo_Documento, Num_Documento, Nombre, Apellido, Telefono, Direccion, Email, Estado FROM tbl_persona WHERE Id_Tipo= 2$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarClientes` ()  NO SQL
-SELECT Tipo_Documento, Num_Documento, Nombre, Apellido, Telefono, Direccion, Email, Estado FROM tbl_persona WHERE Id_Tipo= 2$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarColores` ()  NO SQL
 SELECT  Id_Color, Codigo_Color, Nombre FROM tbl_colores ORDER BY Id_Color DESC$$
 
@@ -235,15 +232,6 @@ SELECT MAX(s.Id_Solicitud) AS id_solicitud FROM tbl_solicitudes s$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoRol` ()  NO SQL
 SELECT MAX(Id_Rol) AS rol FROM tbl_roles$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoIdTipoSolicitud` ()  NO SQL
-SELECT MAX(Id_Solicitudes_Tipo) AS ult_id_soltipo FROM tbl_solicitudes_tipo$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoPedidoRegistrado` ()  NO SQL
-SELECT MAX(s.Id_Solicitud) AS id_solicitud FROM tbl_solicitudes s$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoRol` ()  NO SQL
-SELECT MAX(Id_Rol) AS rol FROM tbl_roles$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
 SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
 
@@ -303,12 +291,6 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
-
-INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 2, 1, 30, 6500, 100),
-(2, 3, 1, 32, 6500, 100),
-(3, 1, 2, 18, 4200, 200);
-
 -- --------------------------------------------------------
 
 --
@@ -324,9 +306,6 @@ CREATE TABLE `tbl_entradas` (
 --
 -- Volcado de datos para la tabla `tbl_entradas`
 --
-
-INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
-(73, '2016-07-27', 130000);
 
 -- --------------------------------------------------------
 
@@ -397,16 +376,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 -- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
 --
 
-INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`) VALUES
-(8, 2, 3),
-(13, 2, 2),
-(14, 3, 2),
-(15, 1, 2),
-(16, 2, 4),
-(17, 3, 4),
-(18, 1, 1),
-(19, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -429,12 +398,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 -- Volcado de datos para la tabla `tbl_fichas_tecnicas`
 --
 
-INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
-(1, 201, 1, '2016-08-12', '0', 1616, 0, 200, 1800),
-(2, 202, 1, '2016-08-12', '1', 2985, 0, 500, 3500),
-(3, 203, 2, '2016-08-12', '1', 2560, 0, 120, 3400),
-(4, 201, 2, '2016-08-13', '1', 1300, 0, 311, 2500);
-
 
 -- --------------------------------------------------------
 
@@ -453,10 +416,6 @@ CREATE TABLE `tbl_insumos` (
 -- Volcado de datos para la tabla `tbl_insumos`
 --
 
-INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(1, 1, 1, 'Tela'),
-(2, 1, 1, 'Blonda');
-
 -- --------------------------------------------------------
 
 --
@@ -474,12 +433,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
-
-INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(1, 1, 20, 1300, 2),
-(2, 2, 13, 845, 2),
-(3, 2, 20, 1300, 3),
-(4, 3, 30, 1260, 3);
 
 
 -- --------------------------------------------------------
@@ -603,18 +556,6 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `tbl_productos`
---
-
-CREATE TABLE `tbl_productos` (
-  `Referencia` int(11) NOT NULL,
-  `Cantidad` int(11) NOT NULL,
-  `Stock_Minimo` int(11) NOT NULL,
-  `Valor_Producto` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> manuela
-
 -- --------------------------------------------------------
 
 --
@@ -666,24 +607,25 @@ CREATE TABLE `tbl_rol_permisos` (
 --
 
 INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUES
-(72, 1, 1),
-(73, 1, 2),
-(74, 1, 3),
-(75, 1, 4),
-(76, 1, 5),
-(77, 1, 6),
-(78, 1, 7),
-(79, 1, 8),
-(80, 1, 9),
-(81, 1, 10),
-(82, 1, 11),
-(83, 1, 12),
-(84, 1, 13),
-(85, 1, 14),
-(86, 1, 15),
-(87, 1, 16),
-(88, 1, 17),
-(89, 1, 18),
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12),
+(13, 1, 13),
+(14, 1, 14),
+(15, 1, 15),
+(16, 1, 16),
+(17, 1, 17),
+(18, 1, 18),
+(19, 1, 19);
 
 
 -- --------------------------------------------------------
@@ -738,22 +680,9 @@ CREATE TABLE `tbl_solicitudes` (
 --
 -- Volcado de datos para la tabla `tbl_solicitudes`
 --
-
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Id_Estado`, `Fecha_Registro`, `Valor_Total`) VALUES
-(19, '11854556', 4, '2016-08-16', 9000),
-(20, '11854556', 1, '2016-08-16', 9000),
-(21, '11854556', 1, '2016-08-16', 6000),
-(22, '11854556', 1, '2016-08-16', 6000),
-(23, '11854556', 1, '2016-08-16', 6000),
-(24, '11854556', 1, '2016-08-16', 9000);
-
 --
 -- Volcado de datos para la tabla `tbl_solicitudes`
 --
-
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Id_Estado`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '1234567', 5, '2016-08-13', 1470500),
-(2, '1037590137', 5, '2016-08-13', 1055000);
 
 -- --------------------------------------------------------
 
@@ -881,10 +810,6 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 -- Volcado de datos para la tabla `tbl_unidades_medida`
 --
-
-INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
-(1, 'm', 'Metros'),
-(2, 'cm', 'Centimetros');
 
 -- --------------------------------------------------------
 
@@ -1130,12 +1055,12 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_colores`
 --
 ALTER TABLE `tbl_colores`
-  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
@@ -1150,7 +1075,7 @@ ALTER TABLE `tbl_entradas_exitencias`
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
-  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_existencias_salidas`
 --
@@ -1165,12 +1090,12 @@ ALTER TABLE `tbl_fichastecnicas_tallas`
 -- AUTO_INCREMENT de la tabla `tbl_fichas_tecnicas`
 --
 ALTER TABLE `tbl_fichas_tecnicas`
-  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
@@ -1199,9 +1124,6 @@ ALTER TABLE `tbl_permisos`
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
-ALTER TABLE `tbl_productos`
-  MODIFY `Referencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
-
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1250,7 +1172,7 @@ ALTER TABLE `tbl_solicitudes_producto`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --
@@ -1269,7 +1191,7 @@ ALTER TABLE `tbl_tipopersona`
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --

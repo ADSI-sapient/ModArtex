@@ -10,7 +10,7 @@
       <strong>Copyright &copy; 2016 <a href="#">ModArtex</a>.</strong> Todos los derechos reservados.
     </footer>
 
-    <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
     <script src="<?= URL;?>js/select2.full.min.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.js"></script>
@@ -58,5 +58,5 @@
       })
       </script>
 
-    <script src="<?= URL;?>js/roles.js"></script>
+<!--     <script src="<?= URL;?>js/roles.js"></script> -->
 

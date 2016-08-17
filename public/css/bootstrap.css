@@ -308,7 +308,6 @@ th {
 }
 .glyphicon-search:before {
   content: "\e003";
-  color: #431EE8;
 }
 .glyphicon-heart:before {
   content: "\e005";
@@ -564,7 +563,6 @@ th {
 }
 .glyphicon-ban-circle:before {
   content: "\e090";
-    color: #BA2020;
 }
 .glyphicon-arrow-left:before {
   content: "\e091";

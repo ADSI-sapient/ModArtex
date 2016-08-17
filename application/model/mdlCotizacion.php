@@ -16,13 +16,11 @@
 		private $Telefono;
 		private $Direccion;
 		private $Email;
-
 		private $Id_Solicitud;
 		private $Id_tipoSolicitud;
 		private $Referencia;
 		private $Valor_Produccion;
 		private $cod;
-
 		private $Fecha_Entrega;
 		private $Codigo_Color;
 		private $Valor_Producto;
@@ -30,7 +28,6 @@
 		private $Id_Cliente;
 		private $Stock_Minimo;
 		private $Id_Color;
-
 		private $db;
 
 		public function __SET($atributo, $valor){
@@ -116,7 +113,6 @@
 			$query->bindParam(6, $this->referencia);
 			return $query->execute();
 		}
-
 		
 		public function getCliente(){
 			$sql = "SELECT p.Num_Documento, t.Nombre AS Tipo_Nombre, p.Tipo_Documento, p.Nombre, p.Apellido, p.Estado, p.Telefono, p.Direccion, p.Email FROM tbl_persona p INNER JOIN tbl_tipopersona t ON t.Id_tipo = p.Id_tipo WHERE t.Id_tipo = 2";
@@ -196,7 +192,7 @@
             return $query; 
 		}
 
-		public function getFichasHabilitadas(){
+		public function fichasHabilitadas(){
 
       		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		$query = $this->db->prepare($sql);
@@ -204,4 +200,3 @@
 	        return $query->fetchAll();
       	}
 }  	
-

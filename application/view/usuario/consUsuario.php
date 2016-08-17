@@ -136,14 +136,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </section>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   <?= $mensaje ?>
 </script>
 
 <script type="text/javascript">
   <?= $mensaje2 ?>
-
-          </script>
+</script> -->
