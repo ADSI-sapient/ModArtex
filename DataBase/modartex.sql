@@ -7,6 +7,7 @@
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -603,6 +604,20 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tbl_productos`
+--
+
+CREATE TABLE `tbl_productos` (
+  `Referencia` int(11) NOT NULL,
+  `Cantidad` int(11) NOT NULL,
+  `Stock_Minimo` int(11) NOT NULL,
+  `Valor_Producto` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+>>>>>>> manuela
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tbl_productos_objetivos`
 --
 
@@ -631,7 +646,8 @@ CREATE TABLE `tbl_roles` (
 
 INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`, `Estado`) VALUES
 (1, 'Administrador', 1),
-(2, 'Supervisor', 1);
+(2, 'Supervisor', 1),
+(3, 'Juan ', 1);
 
 -- --------------------------------------------------------
 
@@ -668,7 +684,7 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (87, 1, 16),
 (88, 1, 17),
 (89, 1, 18),
-(90, 1, 19);
+
 
 -- --------------------------------------------------------
 
@@ -1190,18 +1206,15 @@ ALTER TABLE `tbl_productos`
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
-ALTER TABLE `tbl_salidas`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
