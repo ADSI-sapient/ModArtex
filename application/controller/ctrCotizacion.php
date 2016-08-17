@@ -37,7 +37,7 @@
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            // $this->modelo->__SET("Id_Estado", $_POST["estado"]);
 	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
-	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
+	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]); 	
 	          
 	         if($this->modelo->regCotizacion()){	         		
 	            $ultimaSolicitud_reg = $this->modelo->ultimaSolicitud();
