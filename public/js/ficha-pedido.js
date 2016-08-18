@@ -93,23 +93,51 @@
       function enviarFormFicha()
       {
         // var vlrproduccion = $("#vlr_produccion").val();
-        // var vlrproducto = $("#vlr_producto").val();
+        var referencia = $("#referencia").val();
+        var colFichaT = $("#colorFicha").val();
+        var tallas = $("#selectTallas").val();
+        var stockmini = $("#stock_minimo").val();
+        var vlrproducto = $("#vlr_producto").val();
 
+        if (referencia === '') {
+          // alert("Valor Producto no debe estar vacio");
+          Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una referencia'});
+          return false;
+        }
+        if (colFichaT === '') {
+          Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un color'});
+          return false;
+        }
+        if (tallas === '') {
+          Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar al menos una talla'});
+          return false;
+        }
+        if (stockmini === '') {
+          Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un stock mínimo'});
+          return false;
+        }
+        if (vlrproducto === '') {
+          Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un valor del procducto'});
+          return false;
+        }
+        // if (vlrproduccion === '') {
+        //   alert("Valor Producción no debe estar vacio");
+        //   return false;
+        // }
+
+        //valida insumos asociados
         if ($("#tablaInsumos >tbody >tr").length == 0)
         {
           swal({title: "0 Insumos Asociados", 
             text: "Por favor asocie al menos un insumo a esta ficha.",   
             imageUrl: uri+"img/stop.png"
           });
+          //retornar false no permite que se envie el formulario
           return false;
         }
-
-        if ( $("#vlr_producto").val() === '') {
-          alert("Los campos marcados con * se deben llenar");
-        }
-
         else
         {
+          //Este retorno permite enviar el formulario
           return true;
         }
       }

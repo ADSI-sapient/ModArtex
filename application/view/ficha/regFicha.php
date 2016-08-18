@@ -18,7 +18,7 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" required="" style="border-radius:5px;">
+              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -27,13 +27,13 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" required="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="estado" class="">*Estado:</label>
-              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" required="" readonly="" style="border-radius:5px;">
+              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12">
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="tallas" >*Tallas:</label>
-              <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
                 <option value="1">L</option>
                 <option value="2">M</option>
                 <option value="3">S</option>
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" required="" style="border-radius:5px;">
+              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12">
