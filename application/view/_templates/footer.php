@@ -58,5 +58,10 @@
       })
       </script>
 
+    <script type="text/javascript">
+      <?= isset($_SESSION['msjFicha'])?$_SESSION['msjFicha']:""; ?>
+      <?php $_SESSION["msjFicha"] = null; ?>
+    </script>
+
 <!--     <script src="<?= URL;?>js/roles.js"></script> -->
 

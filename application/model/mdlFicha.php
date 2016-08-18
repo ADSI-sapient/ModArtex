@@ -36,7 +36,6 @@
 
 	    public function regFicha()
 	    {
-	        // $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (?, ?, ?, ?, ?)";
 	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (NULL,?,?,?,?,?,?,?,?)";
 
 	        try {
@@ -56,25 +55,6 @@
 	        	
 	        }
 	    }
-
-	    // public function regProducto(){
-
-	    // 	$sql = "INSERT INTO tbl_productos VALUES (?, ?, ?, ?)";
-
-	    //     try {
-	    //     	$query = $this->db->prepare($sql);
-	    //     	$query->bindParam(1, $this->referencia);
-	    //     	$query->bindParam(2, $this->cantidad);
-	    //     	$query->bindParam(3, $this->stock_min);
-	    //     	$query->bindParam(4, $this->valor_producto);
-
-	    //     	return $query->execute();
-
-	    //     } catch (PDOException $e) {
-	        	
-	    //     }
-
-	    // }
 
 	    public function validarReferencia(){
 
@@ -172,9 +152,7 @@
 	    }
 
 	    // public function insertarTallaAsoFicha(){
-
 	    // 	$sql = "CALL SP_InsertarTallaAso(?, ?)";
-
 	    //     try {
 	    //     	$query = $this->db->prepare($sql);
 	    //     	$query->bindParam(1, $this->id_talla);
@@ -182,9 +160,7 @@
 	    //     	$query->execute();
 	    //     	return $query;
 	    //     } catch (PDOException $e) {
-	   
 	    //     }
-
 	    // }
 
 	    public function eliminarInsumoAsoFicha(){
@@ -234,24 +210,6 @@
 	        }
       	}
 
-      	// public function modificarProducto(){
-	    	
-	      //   $sql = "UPDATE tbl_productos SET Cantidad = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Referencia = ?";
-
-	      //   try{
-	      //     $query = $this->db->prepare($sql);
-	      //   	$query->bindParam(1, $this->cantidad);
-	      //   	$query->bindParam(2, $this->stock_min);
-	      //   	$query->bindParam(3, $this->valor_producto);
-	      //   	$query->bindParam(4, $this->referencia);
-
-	      //     return $query->execute();
-
-	      //   }catch(PDOException $e){
-	        	
-	      //   }
-      	// }
-
       	public function cambiarEstadoFicha(){
       		
 	        $sql = "CALL SP_CambiarEstadoFicha(?,?)";
@@ -293,5 +251,12 @@
       		return $query->fetchAll();
       	}
 
+      	public function consColoresFicha(){
+
+      		$sql = "SELECT * FROM tbl_colores";
+      		$query = $this->db->prepare($sql);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
 	}
 ?>

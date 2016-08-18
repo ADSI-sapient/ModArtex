@@ -61,7 +61,7 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                       
                       <?php if ($ficha["Estado"] == 1){ ?>
                         
@@ -117,7 +117,7 @@
                   <label for="color" class="">*Color:</label>
                   <input class="form-control" type="text" name="color" id="color" style="border-radius:5px;">
                 </div> -->
-                <div class="form-group col-sm-1">
+                <!-- <div class="form-group col-sm-1">
                   <label for="color" class="">*Color:</label>
                   <div class="">
                     <div class="input-group my-colorpicker2 colorpicker-element">
@@ -127,8 +127,16 @@
                       </div>
                     </div>
                   </div>
+                </div> -->
+                <div class="form-group col-sm-3">
+                  <label for="color" class="">*Color:</label>
+                  <select name="colorModFicha" id="colorModFicha" class="form-control">
+                    <?php foreach ($colores as $color): ?>
+                      <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
-                <div class="form-group col-sm-offset-7 col-sm-4">
+                <div class="form-group col-sm-offset-5 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
                 </div>

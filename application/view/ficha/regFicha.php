@@ -37,24 +37,22 @@
             </div>
           </div>
           <div class="row col-lg-12">
-            <div class="form-group col-lg-1">
-              <label class="">*Color:</label>
-              <div class="">
-                <div class="input-group my-colorpicker2 colorpicker-element">
-                  <input type="hidden" name="codigo-color" class="form-control" id="codigo-color" readonly="" value="#60c2e0" style="border-radius:5px;">
-                  <div class="input-group-addon" style="border-radius:5px; padding:16px;">
-                    <div></div>
-                  </div>
-                </div>
-              </div>
+            <div class="form-group col-lg-2">
+              <label for="colorFicha">*Color:</label>
+              <select class="form-control" name="colorFicha" id="colorFicha">
+                <?php foreach ($colores as $color): ?>
+                  <!-- <option style="background-color:'<?= $color["Codigo_Color"] ?>'" value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option> -->
+                  <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
-            <div class="form-group col-lg-offset-2 col-lg-4">
-            <label for="tallas" >*Tallas:</label>
-            <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
-              <option value="1">L</option>
-              <option value="2">M</option>
-              <option value="3">S</option>
-            </select>
+            <div class="form-group col-lg-offset-1 col-lg-4">
+              <label for="tallas" >*Tallas:</label>
+              <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
+                <option value="1">L</option>
+                <option value="2">M</option>
+                <option value="3">S</option>
+              </select>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
@@ -103,7 +101,7 @@
 
             <div class="form-group col-lg-offset-4 col-lg-4">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" placeholder="" value="" required="" style="border-radius:5px;">
+              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">

@@ -19,6 +19,8 @@
           placeholder: 'Seleccionar'
         });
 
+        $("#colorFicha").select2({});
+        // $("#colorModFicha").select2({});
         // $("#doc_cliente").select2();
 
       var options = {
@@ -26,13 +28,13 @@
       };
 
       //edita la información de una ficha técnica
-      function editarFicha(referencia, fichas){
+      function editarFicha(referencia, fichas, idColor){
         var campos = $(fichas).parent().parent();
         $("#idFicha_Tec").val(referencia);
         $("#referencia").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#estado").val(campos.find("td").eq(2).text());
-        $("#color").val(campos.find("td").eq(3).text());
+        $("#colorModFicha").val(idColor);
         $("#stock_min").val(campos.find("td").eq(4).text());
         $("#vlr_produccion").val(campos.find("td").eq(5).text());
         $("#vlr_producto").val(campos.find("td").eq(6).text());
@@ -90,8 +92,8 @@
       //valida que se asocie al menos un insumo al momento de registrar una ficha
       function enviarFormFicha()
       {
-        var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+        // var vlrproduccion = $("#vlr_produccion").val();
+        // var vlrproducto = $("#vlr_producto").val();
 
         if ($("#tablaInsumos >tbody >tr").length == 0)
         {
@@ -102,14 +104,9 @@
           return false;
         }
 
-        // if (vlrproduccion >= vlrproducto)
-        // {
-        //   swal({title: "Valores incorrectos", 
-        //   text: "El valor del producto debe ser mayor al valor de producción.",   
-        //   imageUrl: uri+"img/stop.png"
-        //   });
-        //   return false;
-        // }
+        if ( $("#vlr_producto").val() === '') {
+          alert("Los campos marcados con * se deben llenar");
+        }
 
         else
         {
