@@ -40,6 +40,7 @@
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
               <select class="form-control" name="colorFicha" id="colorFicha">
+              <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
                   <!-- <option style="background-color:'<?= $color["Codigo_Color"] ?>'" value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option> -->
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>

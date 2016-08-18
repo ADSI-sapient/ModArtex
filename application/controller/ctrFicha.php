@@ -3,13 +3,15 @@
 	{
 		private $mdlModel = null;
 
-		//Constructor
+		/*Constructor donde asignamos el modelo a la variable mdlModel por medio del método
+		loadModel, al cual le mandamos el modelo respectivo por parámetro.*/
 	    function __construct(){
 	        $this->mdlModel = $this->loadModel("mdlFicha");
 	    }
 
-	    public function consFicha(){
-
+	    //método para listar todas las fichas técnicas
+	    public function consFicha()
+	    {
 	        $insumos = $this->mdlModel->getAsoInsumos();
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        $tallas = $this->mdlModel->getAsoTallas();
@@ -21,9 +23,9 @@
 	        require APP . 'view/_templates/footer.php';
 	    }
 
+	    //método que permite registrar fichas técnicas
 	   	public function regFicha()
 	   	{
-
 	        if (isset($_POST["btnRegFicha"])) {
 
 	        	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
@@ -57,11 +59,11 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					$_SESSION["msjFicha"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
 
 				}else{
 
-					$_SESSION["msjFicha"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
+					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
 				}
 	      	}
 	       
@@ -191,24 +193,5 @@
 		    	echo json_encode(["r"=>0]);
 		    }
 		}
-
-		// public function insertarInsumoAsociado(){
-
-		//     $this->mdlModel->__SET("id_insumo", $_POST["id_insumo"]);
-		//     $this->mdlModel->__SET("referencia", $_POST["referencia"]);
-
-		//     for ($i=0; $i < count($_POST["id_insumo"]); $i++) { 
-						        		
-		// 		$this->mdlModel->__SET("referencia", $_POST["referencia"]);
-		// 		$this->mdlModel->__SET("id_insumo", $_POST["id_insumo"][$i]);
-		// 		$insumoAgregado = $this->mdlModel->insertarInsumoAsoFicha();
-		// 	}
-
-		//     if ($insumoAgregado) {
-		//     	echo json_encode(["r"=>1]);
-		//     }else{
-		//     	echo json_encode(["r"=>0]);
-		//     }
-		// }
 	}
 ?>

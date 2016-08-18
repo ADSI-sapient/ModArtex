@@ -32,9 +32,10 @@
     <script src="<?= URL;?>js/moment-with-locales.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
+    <!-- Lobibox -->
     <script src="<?= URL;?>js/lobibox.min.js"></script>
-
-    
+    <script src="<?= URL;?>js/messageboxes.min.js"></script>
+    <script src="<?= URL;?>js/notifications.min.js"></script>
 
     <script type="text/javascript">
       var uri = "<?= URL;?>";
@@ -58,10 +59,5 @@
       })
       </script>
 
-    <script type="text/javascript">
-      <?= isset($_SESSION['msjFicha'])?$_SESSION['msjFicha']:""; ?>
-      <?php $_SESSION["msjFicha"] = null; ?>
-    </script>
-
-<!--     <script src="<?= URL;?>js/roles.js"></script> -->
+<!-- <script src="<?= URL;?>js/roles.js"></script> -->
 

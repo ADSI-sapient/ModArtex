@@ -15,6 +15,8 @@
 		private $subtotal;
 		private $cant_existencias;
 		private $estado;
+		private $cant_descontar;
+		private $id_existcolinsu;
 		private $db;
 
 		function __construct($db)
@@ -36,7 +38,7 @@
 
 	    public function getPedidos()
 	    {
-	        $sql = " CALL SP_ConsPedidos";
+	        $sql = " CALL SP_ConsPedidos()";
 	        $query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -44,7 +46,7 @@
 
 	    public function regPedido()
 	    {
-	        $sql = "INSERT INTO tbl_solicitudes VALUES (NULL, ?, ?, ?, ?)";
+	        $sql = "CALL SP_registrarPedido(?,?,?,?)";
 	        $query = $this->db->prepare($sql);
 	        $query->bindParam(1, $this->id_cliente);
 	        $query->bindParam(2, $this->id_estado);
@@ -53,17 +55,9 @@
 	        return $query->execute();
 	    }
 
-	    // public function getFichasHabilitadas(){
-
-	    // 	$sql = "CALL SP_ListarFichasParaAsociar";
-	    // 	$query = $this->db->prepare($sql);
-	    //     $query->execute();
-	    //     return $query->fetchAll();
-	    // }
-
 	    public function getClientes(){
 
-	    	$sql = "SELECT Num_Documento, Nombre, Telefono, Email FROM tbl_persona WHERE Id_Tipo = 2 and Estado = 1";
+	    	$sql = "CALL SP_consClientesHab()";
 	        $query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -71,7 +65,7 @@
 
 	   	public function ultimoPedido(){
 
-	    	$sql = "CALL SP_UltimoPedidoRegistrado";
+	    	$sql = "CALL SP_UltimoPedidoRegistrado()";
 	    	$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetch();
@@ -79,8 +73,7 @@
 
 	    public function regTipoSolicitud(){
 
-
-	    	$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?, ?, ?, NULL)";
+	    	$sql = "CALL SP_registrarTipoSolicitud(?,?,?)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->id_pedido);
 	    	$query->bindParam(2, $this->id_tipoSolicitud);
@@ -91,15 +84,15 @@
 
 	    public function ultimoIdTipoSolicitud(){
 
-	    	$sql = "CALL SP_UltimoIdTipoSolicitud";
+	    	$sql = "CALL SP_UltimoIdTipoSolicitud()";
 	    	$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetch();
 	    }
 
-	    public function regFichasAsociadas(){
-
-      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?)";
+	    public function regFichasAsociadas()
+	    {
+      		$sql = "CALL SP_registrarFichasAsoPed(?,?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_solicitudes_tipo);
       		$query->bindParam(2, $this->cant_existencias);
@@ -111,38 +104,42 @@
       		return $query;
       	}
 
-      	public function editPedidos(){
-      		//funcional
-      		//$sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
-      		
-      		// $sql = "UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = ?, s.Valor_Total = ?, s.Num_Documento = ?, s.Id_Estado = ? WHERE st.Id_Solicitud = ?";
-      		// $sql ="CALL SP_editarPedido(?,?,?,?,?)";
-      		$sql ="CALL SP_EditarPedido(?,?,?,?)";
+      	public function descExistInsumos()
+      	{
+      		$sql = "CALL SP_descExistenciasInsumos(?,?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_ficha);
+      		$query->bindParam(2, $this->id_existcolinsu);
+      		$query->bindParam(3, $this->cant_descontar);
+      		$query->execute();
+      		return $query;
+      	}
 
+      	public function editPedidos()
+      	{
+      		$sql ="CALL SP_EditarPedido(?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->fecha_entrega);
       		$query->bindParam(2, $this->vlr_total);
-      		// $query->bindParam(3, $this->id_estado);
       		$query->bindParam(3, $this->id_cliente);
       		$query->bindParam(4, $this->id_pedido);
       		$query->execute();
       		return $query;
       	}    
 
-      	public function modificarEstadoPedido(){
+      	// public function modificarEstadoPedido()
+      	// {
+      	// 	$sql = "UPDATE tbl_pedidos SET Id_Estado = ? WHERE Id_Pedido = ?";
+      	// 	$query = $this->db->prepare($sql);
+      	// 	$query->bindParam(1, $this->id_estado);
+      	// 	$query->bindParam(2, $this->id_pedido);
+      	// 	$query->execute();
+      	// 	return $query;
+      	// }
 
-      		$sql = "UPDATE tbl_pedidos SET Id_Estado = ? WHERE Id_Pedido = ?";
-      		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->id_estado);
-      		$query->bindParam(2, $this->id_pedido);
-      		$query->execute();
-      		return $query;
-      	}
-
-      	public function getFichasHabilitadas(){
-
-      		$sql = "SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
-      		
+      	public function getFichasHabilitadas()
+      	{
+      		$sql = "CALL SP_consProductosHab()";
       		$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -158,10 +155,10 @@
 	        return $query->fetchAll();
       	}
 
-      	//eliminar las asociaciones de productos de un pedido.
-      	public function eliminarAsoFichasPedido(){
-
-      		$sql = "DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = ?";
+      	//eliminar las asociaciones de productos que tiene un pedido.
+      	public function eliminarAsoFichasPedido()
+      	{
+      		$sql = "CALL SP_eliminarFichasAsoPed(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_solicitudes_tipo);
       		$query->execute();
@@ -170,7 +167,7 @@
 
       	public function traerIdSolTipo(){
 
-      		$sql = "SELECT Id_Solicitudes_Tipo FROM tbl_solicitudes_tipo WHERE Id_Solicitud = ?";
+      		$sql = "CALL SP_ultimoIdSolicitudTipo(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_pedido);
 	        $query->execute();
@@ -179,12 +176,21 @@
 
       	public function cancelPedido(){
 
-      		$sql = "UPDATE tbl_solicitudes SET Id_Estado = ? WHERE Id_Solicitud = ?";
+      		$sql = "CALL SP_cancelarPedido(?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_estado);
       		$query->bindParam(2, $this->id_pedido);
       		$query->execute();
       		return $query;
+      	}
+
+      	public function validarExisteIns(){
+
+      		$sql = "CALL SP_validarExistenciasInsu(?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_ficha);
+      		$query->execute();
+      		return $query->fetchAll();
       	}
 	}
 
