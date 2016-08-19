@@ -389,10 +389,6 @@ CREATE TABLE `tbl_existencias_salidas` (
 -- Volcado de datos para la tabla `tbl_existencias_salidas`
 --
 
-INSERT INTO `tbl_existencias_salidas` (`Codigo`, `Id_Salida`, `Id_Existencia`, `Cantidad`) VALUES
-(1, 1, 4, 18000),
-(2, 2, 1, 18000);
-
 -- --------------------------------------------------------
 
 --
@@ -656,10 +652,6 @@ CREATE TABLE `tbl_salidas` (
 -- Volcado de datos para la tabla `tbl_salidas`
 --
 
-INSERT INTO `tbl_salidas` (`Id_Salida`, `FechaSal`, `Descripcion`) VALUES
-(1, '2016-08-18', ' '),
-(2, '2016-08-18', ' ');
-
 -- --------------------------------------------------------
 
 --
@@ -815,9 +807,6 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 -- Volcado de datos para la tabla `tbl_unidades_medida`
 --
-
-INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
-(1, 'cm', 'Centimetro');
 
 -- --------------------------------------------------------
 

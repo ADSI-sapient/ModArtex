@@ -50,24 +50,12 @@
               <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
-                  <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"]?></option>
+                  <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
               </div>
             </div>
 
-          </div> 
-        <div class="row col-lg-12">
-          <div class="form-group col-lg-4">
-            <label for="id_cliente" class="" >*Asociar Cliente:</label>
-            <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
-            <option value=""></option>
-              <?php foreach ($clientes as $cliente): ?>
-                <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"]?></option>
-              <?php endforeach ?>
-            </select>
-            </div>
-          </div>
           <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -90,6 +78,7 @@
                   </tbody>
                 </table>
               </div>
+            </div>
             </div>
             <div class="row col-lg-12">
               <div class="form-group col-lg-3">
