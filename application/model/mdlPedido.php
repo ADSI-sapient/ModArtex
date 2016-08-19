@@ -19,6 +19,8 @@
 		private $id_existcolinsu;
 		private $db;
 
+		private $cantidadPT;
+
 		function __construct($db)
 	    {
 	        try {
@@ -67,8 +69,8 @@
 
 	    	$sql = "CALL SP_UltimoPedidoRegistrado()";
 	    	$query = $this->db->prepare($sql);
-	        $query->execute();
-	        return $query->fetch();
+	      $query->execute();
+	      return $query->fetch();
 	    }
 
 	    public function regTipoSolicitud(){
@@ -86,8 +88,8 @@
 
 	    	$sql = "CALL SP_UltimoIdTipoSolicitud()";
 	    	$query = $this->db->prepare($sql);
-	        $query->execute();
-	        return $query->fetch();
+	      $query->execute();
+	      return $query->fetch();
 	    }
 
 	    public function regFichasAsociadas()
@@ -101,6 +103,13 @@
       		$query->bindParam(5, $this->subtotal);
       		$query->bindParam(6, $this->id_ficha);
       		$query->execute();
+
+      		$sql2 = "UPDATE tbl_fichas_tecnicas SET Cantidad = ? WHERE Id_Ficha_Tecnica = ?";
+      		$query2 = $this->db->prepare($sql2);
+      		$query2->bindParam(1, $this->cantidadPT);
+      		$query2->bindParam(2, $this->id_ficha);
+      		$query2->execute();
+
       		return $query;
       	}
 
@@ -140,9 +149,10 @@
       	public function getFichasHabilitadas()
       	{
       		$sql = "CALL SP_consProductosHab()";
+
       		$query = $this->db->prepare($sql);
-	        $query->execute();
-	        return $query->fetchAll();
+	            $query->execute();
+	            return $query->fetchAll();
       	}
 
       	public function cargarProductosAsoPed(){
@@ -170,8 +180,8 @@
       		$sql = "CALL SP_ultimoIdSolicitudTipo(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_pedido);
-	        $query->execute();
-	        return $query->fetch();
+      	      $query->execute();
+      	      return $query->fetch();
       	}
 
       	public function cancelPedido(){

@@ -55,24 +55,40 @@
               </select>
               </div>
             </div>
-            <div hidden="" class="form-group" id="agregarFicha">
-              <div class="table">
-                <div class="col-lg-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
-                    <thead>
-                      <tr class="active">
-                        <th>Referencia</th>
-                        <th>Color</th>
-                        <th>Valor Producto</th>
-                        <th>Cantidad a Producir</th>
-                        <th>Subtotal</th>
-                        <th>Quitar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
+
+          </div> 
+        <div class="row col-lg-12">
+          <div class="form-group col-lg-4">
+            <label for="id_cliente" class="" >*Asociar Cliente:</label>
+            <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
+            <option value=""></option>
+              <?php foreach ($clientes as $cliente): ?>
+                <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"]?></option>
+              <?php endforeach ?>
+            </select>
+            </div>
+          </div>
+          <div hidden="" class="form-group" id="agregarFicha">
+            <div class="table">
+              <div class="col-lg-12 table-responsive">
+                <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
+                  <thead>
+                    <tr class="active">
+                      <th>Referencia</th>
+                      <th>Color</th>
+                      <th>Valor Producto</th>
+                      <th>Cantidad a Producir</th>
+                      <th>Subtotal</th>
+                      <th>Usar</th>
+                      <th>Producto T</th>
+                      <th style="display: none;"></th>
+                      <th style="display: none;"></th>
+                      <th>Quitar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="row col-lg-12">
@@ -137,7 +153,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

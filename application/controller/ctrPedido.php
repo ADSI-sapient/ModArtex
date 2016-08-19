@@ -54,6 +54,9 @@
 		        		$this->mdlModel->__SET("cant_producir", $_POST['cantProducir'][$f]);
 						$this->mdlModel->__SET("subtotal", $_POST['subTotal'][$f]);
 		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
+
+		        		$this->mdlModel->__SET("cantidadPT", $_POST['cantProductT'][$f]);
+
 		        		$this->mdlModel->regFichasAsociadas();
 
 		        		for ($i=0; $i < count($_POST['idExistColr']); $i++) {
