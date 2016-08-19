@@ -83,6 +83,7 @@
                       <th>Usar</th>
                       <th>Producto T</th>
                       <th style="display: none;"></th>
+                      <th style="display: none;"></th>
                       <th>Quitar</th>
                     </tr>
                   </thead>
