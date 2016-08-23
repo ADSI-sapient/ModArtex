@@ -152,31 +152,30 @@
       
       //valida que se asocie al menos una ficha al momento de registrar un pedido.
       function enviarFormPedido(){
-
+        var res = true;
 
         if ($("#tablaFicha >tbody >tr").length != 0) {
-
           idfichas = 0;
           cantidadaproducir = 0;
           $("#tablaFicha tbody tr").each(function(){
             idfichas = $(this).find("td").eq(8).html();
             idbton = $(this).find("td").eq(8).html();
             cantidadaproducir = $("#cantProducir"+idbton).val();
-            bol = validarExistenciasIn(idfichas, cantidadaproducir);
-            // if (bol == false) {
-             
-            // }
-          });
 
+            bol = validarExistenciasIn(idfichas, cantidadaproducir, 0);
+            if (bol == false) {
+                res = false;
+            }
+          });
         }else{
           swal({title: "0 Fichas Asociadas", 
             text: "Por favor asocie al menos una ficha al pedido.",   
             imageUrl: uri+"img/stop.png"
           });
-          return false;
+          res = false;
         }
 
-        return true;
+        return res;      
       }
 
       $(document).ready(function(){
@@ -275,7 +274,7 @@
             $("#subt"+idbton).val(subtot);
 
             valorTotalPedido();
-            validarExistenciasIn(idf, $("#cantProducir"+idbton).val());
+            validarExistenciasIn(idf, $("#cantProducir"+idbton).val(), 1);
           });
 
           $("#spanCant"+idbton).on("click", function(){
@@ -299,7 +298,7 @@
       }
 
       //función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
-      function validarExistenciasIn(idfi, cantProdu){
+      function validarExistenciasIn(idfi, cantProdu, alerta){
         var res = true;
         $.ajax({
             dataType: 'json',
@@ -320,7 +319,11 @@
               var cantNecPedido = cantNecIns * cantProdu;
               if (cantNecPedido > cantExistIns) {
                 //alert("No hay suficiente "+nombreIns+" de color "+nombreColor);
-                Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});
+                if (alerta == 1) {
+                  Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});
+                }else if(alerta == 0){
+                  Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay'});
+                }
                 res = false;
               }
             }

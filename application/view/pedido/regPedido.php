@@ -13,7 +13,7 @@
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
         <br>
-        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST"  onsubmit="return enviarFormPedido();">
+        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();">
         <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
         <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12">
