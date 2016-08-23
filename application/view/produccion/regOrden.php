@@ -14,6 +14,7 @@
     <div class="box-header with-border" style="text-align: center;">
       <h1 class="box-title"><strong>REGISTRAR ORDEN</strong></h1>
     </div>
+    <div style="padding:20px 20px">
     <form class="" role="form">
       <div class="form-group col-lg-1">
         <label for="Numero_de_orden" class="">Código </label>
@@ -144,6 +145,7 @@
     </div>
   </div>
 </form>
+</div>
 <div class="modal fade" id="regiOrden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
