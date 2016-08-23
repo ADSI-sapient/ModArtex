@@ -153,19 +153,20 @@
       //valida que se asocie al menos una ficha al momento de registrar un pedido.
       function enviarFormPedido(){
 
+
         if ($("#tablaFicha >tbody >tr").length != 0) {
 
           idfichas = 0;
           cantidadaproducir = 0;
           $("#tablaFicha tbody tr").each(function(){
-              idfichas = $(this).find("td").eq(8).html();
-              idbton = $(this).find("td").eq(8).html();
-              cantidadaproducir = $("#cantProducir"+idbton).val();
-              // $("#vlr_total").val(total);
-              validarExistenciasIn(idfichas, cantidadaproducir);
+            idfichas = $(this).find("td").eq(8).html();
+            idbton = $(this).find("td").eq(8).html();
+            cantidadaproducir = $("#cantProducir"+idbton).val();
+            bol = validarExistenciasIn(idfichas, cantidadaproducir);
+            // if (bol == false) {
+             
+            // }
           });
-
-          return false;
 
         }else{
           swal({title: "0 Fichas Asociadas", 
@@ -174,6 +175,8 @@
           });
           return false;
         }
+
+        return true;
       }
 
       $(document).ready(function(){
@@ -233,7 +236,6 @@
         $("#valor_total").val(desc);
       }
 
-
         function valorTotalPedido(){
            var total = 0;
            $("#tablaFicha tbody tr").each(function(){
@@ -276,8 +278,6 @@
             validarExistenciasIn(idf, $("#cantProducir"+idbton).val());
           });
 
-
-
           $("#spanCant"+idbton).on("click", function(){
               $("#spanCant"+idbton).html(cantidad);
               $("#usarProductoT"+idbton).val(0);
@@ -300,11 +300,13 @@
 
       //función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
       function validarExistenciasIn(idfi, cantProdu){
+        var res = true;
         $.ajax({
             dataType: 'json',
             type: 'post',
             url: uri+"ctrPedido/validaExistInsumos",
-            data: {id_fichat:idfi}
+            data: {id_fichat:idfi},
+            async: false
         }).done(function(resp){
           if (resp.r != null){
             var arrayCantInsumos = resp.r;
@@ -317,14 +319,16 @@
               var cantExistIns = arrayCantInsumos[i]['Cantidad_Insumo'];
               var cantNecPedido = cantNecIns * cantProdu;
               if (cantNecPedido > cantExistIns) {
-                // alert("No hay suficiente "+nombreIns+" de color "+nombreColor);
+                //alert("No hay suficiente "+nombreIns+" de color "+nombreColor);
                 Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});
+                res = false;
               }
             }
             $("#cantDesc").val(cantNecPedido);
             $("#idExistColr").val(idExInscol);
           }
         }).fail(function(){});
+          return res;
       }
 
       function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton){
@@ -691,7 +695,7 @@
             }
             else
             {
-              swal("Acción interrumpida", "No se completo la acción.", "error");
+              swal("Acción interrumpida", "No se completó la acción.", "error");
             }
           });
         }
