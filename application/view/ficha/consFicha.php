@@ -48,6 +48,7 @@
                   <th>Valor Producción</th>
                   <th>Valor Producto</th>
                   <th style="width: 7%">Opción</th>
+                  <th style="width: 7%">Insumos Asociados</th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -61,7 +62,7 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>'); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>')" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1)" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                       
                       <?php if ($ficha["Estado"] == 1){ ?>
                         
@@ -71,7 +72,9 @@
                           <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
 
                           <?php } ?>
-                          <!-- <button type="button" onclick="cargarInsumosAs('<?= $ficha["Referencia"] ?>');" data-toggle="modal" data-target="#idModal">aso</button> -->
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye"></i></button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -285,6 +288,56 @@
               </div>
             </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <!-- Inicio Modal Detalle de insumos y tallas asociadas a ficha técnica -->
+      <div class="modal fade" id="dtllInsuTallAso" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Tallas e Insumos Asociados</b></h4>
+            </div>
+            <div class="modal-body">
+            <div class="row col-sm-12">
+              <div class="table" style="margin-bottom:0px;">
+                <div class="form-group col-sm-4 table-responsive">
+                  <table class="table table-hover" id="dtll-tallas-aso">
+                    <thead>
+                        <tr class="active">
+                          <th>Id</th>
+                          <th>Nombre</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="table">
+                  <div class="form-group col-sm-8 table-responsive">
+                    <table class="table table-hover" id="dtll-insumos-aso">
+                      <thead>
+                        <tr class="active">
+                          <th>Nombre</th>
+                          <th>Color</th>
+                          <th>Medida</th>
+                          <th>Valor*cm</th>
+                          <th>Cantidad Necesaria</th>
+                          <th>Valor Insumo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
               <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div><!-- /.modal-content -->

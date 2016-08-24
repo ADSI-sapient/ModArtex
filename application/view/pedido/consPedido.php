@@ -46,6 +46,7 @@
                         <th>Cliente</th>
                         <th style="width: 7%">Editar</th>
                         <th style="width: 7%">Cancelar</th>
+                        <th style="width: 7%">Productos Asociados</th>
                       </tr>
                     </thead>
                     <tbody class="list">
@@ -61,7 +62,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 1)"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
@@ -71,9 +72,13 @@
                             <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban" style="color:red" ></i></button>
                           <?php endif ?>
                         </td>
-                        <!-- <td> -->
-                          <!-- <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditarEstado"><i class="fa fa-refresh" name="btncargarEstado" onclick="editarEstadoPedido('<?= $pedido["Id_Solicitud"] ?>', this);"></i></button> -->
-                        <!-- </td> -->
+                        <td>
+                          <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye"></i></button>
+                          <?php else: ?>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye"></i></button>
+                          <?php endif ?>
+                        </td>
                       </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -190,30 +195,34 @@
       </div>
       <!-- fin modal modificar pedido-->
        <!-- Incio modal cambiar estado pedido -->
-      <div class="modal fade" id="modalEditarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="dllProductosAso" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
-              <button type="button" class="close" onclick="cerrar()"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Cambiar Estado Pedido</b></h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>Productos Asociados</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>ctrPedido/cambiarEstadoPedido" method="post" id="modalEditarEstado">
-                <input class="form-control" type="hidden" name="id_pedidoMod" id="id_pedidoMod">
-                <div class="form-group col-sm-6">
-                  <label for="estado" class="">Estado Actual:</label>
-                  <select class="form-control" name="estadoMod" id="estadoMod" style="border-radius:5px;">
-                    <option value="2">Pendiente</option>
-                    <option value="3">En Proceso</option>
-                    <option value="4">Terminado</option>
-                    <option value="5">Cancelado</option>
-                  </select>
+              <div class="table">
+                <div class="form-group col-sm-12 table-responsive">
+                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="dll-prod-asoped">
+                    <thead>
+                      <tr class="active">
+                        <th>Referencia</th>
+                        <th>Color</th>
+                        <th>Cantidad a Producir</th>
+                        <th>Valor Producto</th>
+                        <th>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="submit" class="btn btn-primary" name="btnCambiarEstadoPed">Cambiar Estado</button>
-              <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cerrar()">Cancelar</button>
-              </form>
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div>
         </div>

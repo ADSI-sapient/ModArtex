@@ -59,11 +59,11 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
 
 				}else{
 
-					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
+					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', rounded: true, delay: 2500});";
 				}
 	      	}
 	       

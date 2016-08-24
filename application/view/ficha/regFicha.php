@@ -95,7 +95,7 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="number" min="1" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
                 <!-- </div> -->
               </div>
             </div>

@@ -55,22 +55,46 @@
 						$this->mdlModel->__SET("subtotal", $_POST['subTotal'][$f]);
 		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
 
-		        		$this->mdlModel->__SET("cantidadPT", $_POST['cantProductT'][$f]);
+		        		//$this->mdlModel->__SET("cantidadPT", $_POST['cantProductT'][$f]);
 
 		        		$this->mdlModel->regFichasAsociadas();
 
-		        		for ($i=0; $i < count($_POST['idExistColr']); $i++) {
+		        		// for ($i=0; $i < count($_POST['idExistColr']); $i++) {
 		        			
-		        			$this->mdlModel->__SET("cant_descontar", $_POST['cantDesc'][$i]);
-		        			$this->mdlModel->__SET("id_existcolinsu", $_POST['idExistColr'][$i]);
-		        			$this->mdlModel->descExistInsumos();
+		        		// 	$this->mdlModel->__SET("cant_descontar", $_POST['cantDesc'][$i]);
+		        		// 	$this->mdlModel->__SET("id_existcolinsu", $_POST['idExistColr'][$i]);
+		        		// 	$this->mdlModel->descExistInsumos();
+		        		// }
+
+		        		//validación de existencias de insumos
+		        		//le enviamos la(s) fichas que se asocian al pedido (idFicha)
+		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
+
+		    			//recibimos un array asociat con los insumos asociados a la(s) ficha(s)
+		        		$cantidInsumos = $this->mdlModel->validarExisteIns();
+
+		        		//valida que devuelva un array con los datos necesarios
+		        		// if ($cantidInsumos != null) {
+		        		if (!empty($cantidInsumos)) {
+		        		
+			        		//capturamos cantidad a producir (es la misma para todos los insumos de una ficha)
+			        		$cantProdu = $_POST['cantProducir'][$f];
+
+			        		//recorremos el array cantidInsumos
+			        		foreach ($cantidInsumos as $valor) {
+
+			        			$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
+				        		$this->mdlModel->__SET("cant_descontar", $cantNecPed);
+				        		$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
+				        		$this->mdlModel->descExistInsumos();
+			        		}
 		        		}
 		        	}
 		        	//alerta confirmación registro
-	            	$_SESSION['mensaje'] = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', rounded: true, delay: 3000});";
+	            	$_SESSION['mensaje'] = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
 				}else{
 
-					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', rounded: true, delay: 2500,});";
+					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', size: 'mini', rounded: true, delay: 2500,});";
 				}
 	        }
 

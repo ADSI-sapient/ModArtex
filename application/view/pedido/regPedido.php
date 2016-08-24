@@ -102,6 +102,7 @@
           <div class="row">
             <!-- <div class="form-group"> -->
               <div class="form-group col-lg-12">
+                <!-- <button type="button" onclick="prueba()">pruebame</button> -->
                 <button type="submit" class="btn btn-primary  col-lg-offset-9" style="margin-top: 15px;" name="btnRegPedido"><b>Registrar</b></button>
                 <button type="reset" class="btn btn-danger" onclick="limpiarFormRegPedido()" style="margin-left: 15px; margin-top: 15px;"><b>Limpiar</b></button>
               </div>
