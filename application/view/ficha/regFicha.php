@@ -39,6 +39,7 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
+              <div class="input-group">
               <select class="form-control" name="colorFicha" id="colorFicha">
               <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
@@ -46,6 +47,8 @@
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                 <?php endforeach; ?>
               </select>
+              <span class="input-group-addon"><i class="fa fa-square" style="color:green; font-size:150%" id="colorbd"></i></span>
+              </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="tallas" >*Tallas:</label>
