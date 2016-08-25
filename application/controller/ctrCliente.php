@@ -51,7 +51,6 @@ class CtrCliente extends Controller{
         	require APP . 'view/cliente/regCliente.php';
         	require APP . 'view/_templates/footer.php';
 
-        	
 	        }else{
 	        	header('location: '.URL.'home/index');
 	        }

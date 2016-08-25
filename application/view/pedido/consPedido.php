@@ -126,39 +126,27 @@
                   <label for="estado" class="">Estado</label>
                   <input type="text" name="estado" id="estado" class="form-control" value="Pendiente" readonly="" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-5">
-                  <label class="">*Fecha Entrega:</label>
-                  <div class="">
-                    <div class="input-group date">
-                      <div class="input-group-addon" style="border-radius:5px;">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="form-group col-sm-6">
-                  <label for="nombrecliente" class="">*Asociar Cliente:</label>
-                  <div class="">
-                    <div class="input-group">
-                      <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" readonly="" required="" style="border-radius:5px;">
-                      <input type="hidden" name="doc_cliente"  id="doc_cliente" required="" value="">
-                      <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                        <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asoClientesHab"><i class="fa fa-search"></i>
-                          </button>
+                  <div class="form-group col-sm-5">
+                    <label class="">*Fecha Entrega:</label>
+                    <div class="">
+                      <div class="input-group date">
+                        <div class="input-group-addon" style="border-radius:5px;">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
                       </div>
                     </div>
                   </div>
-                </div> -->
-                <div class="form-group col-sm-offset-2 col-sm-5">
-                  <label for="doc_cliente" class="">*Asociar Cliente:</label>
-                  <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
-                    <!-- <option value=""></option> -->
-                    <?php foreach ($clientes as $cliente): ?>
-                      <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
+                  <div class="form-group col-sm-offset-2 col-sm-5">
+                    <label for="doc_cliente" class="">*Asociar Cliente:</label>
+                    <br>
+                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                        <!-- <option value=""></option> -->
+                      <?php foreach ($clientes as $cliente): ?>
+                        <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
                 <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
                 <label for="valor_total" class="">*Productos Asociados:</label>
@@ -184,7 +172,7 @@
               <label for="valor_total" class="">*Valor Total:</label>
               <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
             </div>
-            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+            <div class="modal-footer" style="border-top:none;">
               <div class="form-group col-sm-12">
                 <button type="submit" class="btn btn-primary" name="btnModificarPed">Guardar cambios</button>
                 <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cancelar()">Cancelar</button>

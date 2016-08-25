@@ -1,4 +1,18 @@
-	//calcula el valor total del pedido cuando se modifica la asociación de los productos(fichas)
+	$('#fecha_entrega').datepicker({
+          format: "yyyy-mm-dd",
+          language: 'es',
+          autoclose: true
+          // todayBtn: true
+        }).on(
+          'show', function() {      
+          // Obtener valores actuales z-index de cada elemento
+          var zIndexModal = $('#modalEditPedido').css('z-index');
+          var zIndexFecha = $('.datepicker').css('z-index');
+          // Re asignamos el valor z-index para mostrar sobre la ventana modal
+          $('.datepicker').css('z-index',zIndexModal+1);
+        });
+
+  //calcula el valor total del pedido cuando se modifica la asociación de los productos(fichas)
     function calcularVlrTotalPed(){
     	var total=0;
         $(".subtotal").each(function(){
@@ -10,6 +24,12 @@
     //permite seleccionar y asociar un cliente al pedido
     $("#id_cliente").select2({
         placeholder: 'Seleccionar'
+    });
+
+    //permite seleccionar y asociar un cliente al pedido al momento de modificar
+    $(document).ready(function(){
+
+    $("#doc_cliente").select2({});
     });
 
     //valida que se asocie al menos una ficha al momento de registrar un pedido.
@@ -93,15 +113,15 @@
         $("#valor_total").val(desc);
       }
 
-      	//calcula el valor total del pedido
-        function valorTotalPedido(){
-           var total = 0;
-           $("#tablaFicha tbody tr").each(function(){
-              var idbton = $(this).find("td").eq(8).html();
-              total += parseFloat($("#capValor"+idbton).val());
-              $("#vlr_total").val(total);
-            });
-        }
+      //calcula el valor total del pedido
+      function valorTotalPedido(){
+        var total = 0;
+        $("#tablaFicha tbody tr").each(function(){
+        var idbton = $(this).find("td").eq(8).html();
+        total += parseFloat($("#capValor"+idbton).val());
+        $("#vlr_total").val(total);
+        });
+      }
 
     //asocia productos al pedido
     function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad){
@@ -195,17 +215,17 @@
       }
 
       function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton){
-
+        
         //producto que se quiere agregar
-        idProducNuevo = referencia;
+        idProducNuevo = idfichat;
+
         //comparar con los que estan agregados
         producto = "#idProducto"+referencia;
         valor = $(producto).val();
-        if (idProducNuevo == $(producto).val()) {
 
+        if (idProducNuevo == $(producto).val()) {
           boton = "#btn"+referencia;
           $(boton).attr('disabled', 'disabled');
-          // alert("Este producto ya se encuentra agregado al pedido");
         }
         else
         {
@@ -242,14 +262,13 @@
       }
 
       function editarPedido(id, pedidos, numDocumento, nombrecliente){
-        
         var campos = $(pedidos).parent().parent();
         $("#id_pedido").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
         // $("#estado").val(estado);
-        $("#doc_cliente").val(numDocumento);
+        $("#doc_cliente").val(numDocumento).trigger("change");
         // $("#doc_cliente").select2('data');
         // console.log(data.text);
         $("#nombreCliente").val(campos.find("td").eq(5).text());

@@ -19,7 +19,8 @@
     <script src="<?= URL;?>js/jquery.inputmask.date.extensions.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.extensions.js"></script>
     <script src="<?= URL;?>js/daterangepicker.js"></script>
-    <script src="<?= URL;?>js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="<?= URL;?>js/bootstrap-datepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="<?= URL;?>js/bootstrap-datepicker.es.js" charset="UTF-8"></script>
     <script src="<?= URL;?>css/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="<?= URL;?>js/bootstrap-timepicker.min.js"></script>
     <script src="<?= URL;?>js/jquery.slimscroll.min.js"></script>
@@ -56,12 +57,11 @@
     <script src="<?= URL;?>js/persona.js"></script>
 
       <script type="text/javascript">
-      $(function(){ 
-        <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
-        <?php $_SESSION["mensaje"] = null; ?>
-      })
+        $(function(){ 
+          <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+          <?php $_SESSION["mensaje"] = null; ?>
+        })
       </script>
-
 <!--     <script src="<?= URL;?>js/roles.js"></script> -->
   </body>
 </html>

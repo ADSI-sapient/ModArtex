@@ -1,24 +1,9 @@
-        $('#fecha_entrega').datepicker({
-          format: "yyyy-mm-dd",
-          language: "es",
-          autoclose: true
-          // todayBtn: true
-        }).on(
-          'show', function() {      
-          // Obtener valores actuales z-index de cada elemento
-          var zIndexModal = $('#modalEditPedido').css('z-index');
-          var zIndexFecha = $('.datepicker').css('z-index');
-          // Re asignamos el valor z-index para mostrar sobre la ventana modal
-          $('.datepicker').css('z-index',zIndexModal+1);
-        });
 
 
         //permite seleccionar y asociar tallas al registrar ficha técnica
-        $(document).ready(function(){
-          $("#selectTallas").select2({
-          });
-        });
+        $("#selectTallas").select2({});
         
+        //permite seleccionar y asociar un color a la ficha técnica
         $("#colorFicha").select2({});
         // $("#colorModFicha").select2({});
 
@@ -34,7 +19,7 @@
         valueNames: ['ref', 'color', 'stock', 'fecha_reg', 'estado']
       };
 
-      //pinta el div de color correspondiente a la opción del select color de ficha
+      //pinta el div con el color correspondiente a la opción seleccionada en el select color de ficha
       function coloresFichas(){
         $.ajax({
             dataType: 'json',
@@ -77,7 +62,6 @@
         $("#vlr_produccion").val(total);
       }
 
-      
       function quitarInsumo(btn, elemento, subtotal){
         var e = $(elemento).parent().parent();
         $(e).remove();
@@ -128,6 +112,10 @@
           Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un color'});
           return false;
         }
+        if (document.forms['frmRegFicha']['tallas[]'].selectedIndex == -1){
+          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar una talla'});
+          return false;
+        }
         if (tallas === '') {
           Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar al menos una talla'});
           return false;
@@ -137,7 +125,7 @@
           return false;
         }
         if (vlrproducto === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un valor del procducto'});
+          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un valor del producto'});
           return false;
         }
         if (vlrproducto <= vlrproduccion) {
@@ -158,9 +146,8 @@
         //valida insumos asociados
         if ($("#tablaInsumos >tbody >tr").length == 0)
         {
-          // swal({title: "0 Insumos Asociados", text: "Por favor asocie al menos un insumo a esta ficha.",   imageUrl: uri+"img/stop.png"});
           Lobibox.notify('error', {size: 'mini', imageUrl: uri+"img/android.jpg", rounded: true, delayIndicator: false, msg: 'Debe asociar al menos un insumo'});
-          //retornar false no permite que se envie el formulario
+          //retorna false y no permite que se envie el formulario.
           return false;
         }
         else

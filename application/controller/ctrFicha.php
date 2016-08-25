@@ -118,7 +118,8 @@
 		    	 // $mensaje2 = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ficha/consFicha";';
 
 		    	// header("location: " .URL. 'ctrFicha/consFicha');
-		    	$_SESSION["mensaje"] = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ctrFicha/consFicha";';
+		    	$_SESSION["mensaje"] = 'swal("Ficha Modificada Exitosamente", "", "success");';
+		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
 		      	// $msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha', rounded: true, delay: 2500});";

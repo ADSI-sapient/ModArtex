@@ -14,7 +14,7 @@
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
         <br>
-        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();">
+        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="row col-lg-12">
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3">
               <label for="vlr_produccion" class="">Valor Producción:</label>
               <div class="">
                 <!-- <div class="input-group">
@@ -102,7 +102,7 @@
               </div>
             </div>
 
-            <div class="form-group col-lg-offset-4 col-lg-4">  
+            <div class="form-group col-lg-offset-5 col-lg-4">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;">
             </div>
