@@ -24,7 +24,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" required="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
@@ -35,19 +35,19 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega"  style="border-radius:5px;">
                 </div>
               </div>
             </div>
             <div class="form-group col-lg-4">
               <label for="estado" class="">*Estado:</label>
-              <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" required="" readonly="" style="border-radius:5px;">
+              <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
               <label for="id_cliente" class="" >*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
+              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
@@ -93,7 +93,7 @@
                     <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                       <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
                     </div> -->
-                    <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
+                    <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
                   <!-- </div> -->
                 </div>
               </div>

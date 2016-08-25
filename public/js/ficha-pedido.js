@@ -21,7 +21,14 @@
 
         $("#colorFicha").select2({});
         // $("#colorModFicha").select2({});
-        // $("#doc_cliente").select2();
+
+        // $("#doc_cliente").select2().on('show', function(){
+        //   // Obtener valores actuales z-index de cada elemento
+        //   var zIndexModal = $('#modalEditPedido').css('z-index');
+        //   var zIndexFecha = $('.select2').css('z-index');
+        //   // Re asignamos el valor z-index para mostrar sobre la ventana modal
+        //   $('.select2').css('z-index',zIndexModal+1);
+        // });
 
       var options = {
         valueNames: ['ref', 'color', 'stock', 'fecha_reg', 'estado']
@@ -69,12 +76,12 @@
       }
 
       //funcion que asocia insumos al momento de registrar una ficha
-      function asociarInsumosHab(id_insumo, nombre, color, insumos, idbton, estado, valorPromedio){
+      function asociarInsumosHab(id_insumo, nombre, color, insumos, idbton, estado, valorPromedio, unidadMed){
         var campos = $(insumos).parent().parent();
         valorcm = valorPromedio / 100;
         valorcm = Math.round(valorcm);
         $("#agregarInsumo").removeAttr("hidden");
-        var tr = "<tr class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><p>cm</p></td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+idbton+"' name='cantNecesaria[]' value='0' onchange='res"+idbton+".value=cantNec"+idbton+".value * "+valorcm+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
+        var tr = "<tr class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+unidadMed+"</td><td><p>$ "+valorcm+"</p></td><td><input type='number' min='1' id='cantNec"+idbton+"' name='cantNecesaria[]' value='0' onchange='res"+idbton+".value=cantNec"+idbton+".value * "+valorcm+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' style='border-radius:5px;'>cm</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"></tr>";
         $("#tablaInsumos").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
@@ -152,14 +159,53 @@
       
       //valida que se asocie al menos una ficha al momento de registrar un pedido.
       function enviarFormPedido(){
-        var res = true;
 
-        if ($("#tablaFicha >tbody >tr").length != 0) {
+        // var vlrproduccion = $("#vlr_produccion").val();
+        var fecha_entrega = $("#fecha_entrega").val();
+        var cliente = $("#id_cliente").val().trim();
+
+        var res = true;
+        
           idfichas = 0;
           cantidadaproducir = 0;
           $("#tablaFicha tbody tr").each(function(){
             idfichas = $(this).find("td").eq(8).html();
             idbton = $(this).find("td").eq(8).html();
+            cantidadaproducir = $("#cantProducir"+idbton).val();
+
+            bol = validarExistenciasIn(idfichas, cantidadaproducir, 0);
+            if (bol == false) {
+                res = false;
+            }
+          });
+
+        if (fecha_entrega === '') {
+          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha de entrega'});
+          return false;
+        }
+        if (cliente === '') {
+          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un cliente'});
+          return false;
+        }
+      
+        if ($("#tablaFicha >tbody >tr").length == 0)
+        {
+          // swal({title: "0 Insumos Asociados", text: "Por favor asocie al menos un insumo a esta ficha.",   imageUrl: uri+"img/stop.png"});
+          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe asociar al menos una ficha al pedido'});
+          //retornar false no permite que se envie el formulario
+          return false;
+        }
+        return res;
+      }
+
+      function enviarFormPedidoModi(){
+        var res = true;
+        if ($("#tbl-prod-aso-ped >tbody >tr").length != 0) {
+          idfichas = 0;
+          cantidadaproducir = 0;
+          $("#tbl-prod-aso-ped tbody tr").each(function(){
+            idfichas = $(this).find("td").eq(6).html();
+            idbton = $(this).find("td").eq(0).html();
             cantidadaproducir = $("#cantProducir"+idbton).val();
 
             bol = validarExistenciasIn(idfichas, cantidadaproducir, 0);
@@ -349,7 +395,7 @@
         }
         else
         {
-          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProductoAsoPedi("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idfichat+"></tr>";
+          var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onkeyup='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); calcularVlrTotalPed(); validarExistenciasIn("+idfichat+", cantProducir"+referencia+".value, 1);' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='removerProductoAsoPedi("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idfichat+"><td style='display: none;'>"+idfichat+"</td></tr>";
           $("#tbl-prod-aso-ped").append(tr);
           boton = "#btn"+referencia;
           $(boton).attr('disabled', 'disabled');
@@ -381,7 +427,8 @@
         $("#doc_cliente").val(idCliente);
       }
 
-      function editarPedido(id, pedidos, numDocumento){
+      function editarPedido(id, pedidos, numDocumento, nombrecliente){
+        
         var campos = $(pedidos).parent().parent();
         $("#id_pedido").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
@@ -389,6 +436,8 @@
         $("#valor_total").val(campos.find("td").eq(3).text());
         // $("#estado").val(estado);
         $("#doc_cliente").val(numDocumento);
+        // $("#doc_cliente").select2('data');
+        // console.log(data.text);
         $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
@@ -476,9 +525,7 @@
                  }
               }
             }
-        }).fail(function() {
-
-        })
+        }).fail(function(){})
     }
 
     function quitarTallaAso(btn, elemento){
@@ -619,7 +666,7 @@
                 if (modalPa == 1) {
 
                   //anterior
-                  tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onchange='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); calcularVlrTotalPed();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+id_fichat+"'></tr>";
+                  tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); calcularVlrTotalPed(); validarExistenciasIn("+id_fichat+", cantProducir"+idProducto+".value, 1);' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+id_fichat+"'><td style='display: none;'>"+id_fichat+"</td></tr>";
                   $('#tbl-prod-aso-ped').append(tr);
 
                   //nueva
@@ -655,19 +702,18 @@
       }
 
       function calcularVlrTotalPed2(idbton){
-        console.log(idbton);
         var total = 0;
-           $("#tbl-prod-aso-ped tbody tr").each(function(){
-              // var idbton = $(this).find("td").eq(4).html();
-              total += parseFloat($("#capValor"+idbton).val());
-              $("#valor_total").val(total);
-            });
+        $("#tbl-prod-aso-ped tbody tr").each(function(){
+          // var idbton = $(this).find("td").eq(4).html();
+          total += parseFloat($("#capValor"+idbton).val());
+          $("#valor_total").val(total);
+        });
       }
 
       function cancelarPedido(idpedido){
 
         swal({
-          title: "¿Está seguro?",   
+          title: "¿Está seguro de cancelar este pedido?",   
           text: "El pedido quedará en estado cancelado!",  
           type: "warning",
           showCancelButton: true,

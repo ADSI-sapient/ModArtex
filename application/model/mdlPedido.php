@@ -40,7 +40,7 @@
 
 	    public function getPedidos()
 	    {
-	        $sql = " CALL SP_ConsPedidos()";
+	        $sql = "CALL SP_ConsPedidos()";
 	        $query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();

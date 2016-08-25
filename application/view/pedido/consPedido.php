@@ -62,21 +62,21 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, <?= $pedido["Num_Documento"] ?>); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 1)"><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 1)"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban" style="color:red" ></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red" ></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:green"></i></button>
                           <?php endif ?>
                         </td>
                       </tr>
@@ -99,7 +99,7 @@
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Pedido</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido">
+              <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()">
                 <!-- <div class="form-group col-sm-4">
                   <label for="id_pedido" class="">Id Pedido:</label>
                   <input class="form-control" type="text" name="id_pedido" id="id_pedido" readonly="" style="border-radius:5px;">
@@ -124,7 +124,7 @@
                 </div> -->
                 <div class="form-group col-sm-offset-2 col-sm-5">
                   <label for="estado" class="">Estado</label>
-                  <input type="text" name="estado" id="estado" class="form-control" value="Pendiente" required="" readonly="" style="border-radius:5px;">
+                  <input type="text" name="estado" id="estado" class="form-control" value="Pendiente" readonly="" style="border-radius:5px;">
                 </div>
                 <div class="form-group col-sm-5">
                   <label class="">*Fecha Entrega:</label>
@@ -133,7 +133,7 @@
                       <div class="input-group-addon" style="border-radius:5px;">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
+                      <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
                     </div>
                   </div>
                 </div>
@@ -153,6 +153,7 @@
                 <div class="form-group col-sm-offset-2 col-sm-5">
                   <label for="doc_cliente" class="">*Asociar Cliente:</label>
                   <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                    <!-- <option value=""></option> -->
                     <?php foreach ($clientes as $cliente): ?>
                       <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
                     <?php endforeach ?>
@@ -185,7 +186,7 @@
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary" name="btnModificarPed" onclick="confirmarCambioEstado()">Guardar cambios</button>
+                <button type="submit" class="btn btn-primary" name="btnModificarPed">Guardar cambios</button>
                 <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cancelar()">Cancelar</button>
               </div>
               </form>

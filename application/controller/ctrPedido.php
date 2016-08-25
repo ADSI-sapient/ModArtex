@@ -86,7 +86,7 @@
 			        			$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
 				        		$this->mdlModel->__SET("cant_descontar", $cantNecPed);
 				        		$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
-				        		$this->mdlModel->descExistInsumos();
+				        		// $this->mdlModel->descExistInsumos();
 			        		}
 		        		}
 		        	}
