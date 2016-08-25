@@ -59,7 +59,9 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
+					// $_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
+
+					$_SESSION["mensaje"] = 'swal("Ficha Registrada Exitosamente", "", "success");';
 
 				}else{
 
@@ -116,7 +118,7 @@
 		    	 // $mensaje2 = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ficha/consFicha";';
 
 		    	// header("location: " .URL. 'ctrFicha/consFicha');
-		    	$_SESSION["msjFicha"] = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ctrFicha/consFicha";';
+		    	$_SESSION["mensaje"] = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ctrFicha/consFicha";';
 
 		      }else{
 		      	// $msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha', rounded: true, delay: 2500});";
@@ -192,6 +194,18 @@
 		    }else{
 		    	echo json_encode(["r"=>0]);
 		    }
+		}
+
+		public function mostrarColores(){
+
+			$colores = $this->mdlModel->consColoresFicha();
+			
+			if ($colores) {
+		    	echo json_encode(["r"=>$colores]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
+		    }
+
 		}
 	}
 ?>

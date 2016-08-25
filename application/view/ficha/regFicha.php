@@ -40,14 +40,13 @@
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
               <div class="input-group">
-              <select class="form-control" name="colorFicha" id="colorFicha">
-              <option value="" selected=""></option>
+              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha">
+                <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
-                  <!-- <option style="background-color:'<?= $color["Codigo_Color"] ?>'" value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option> -->
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                 <?php endforeach; ?>
               </select>
-              <span class="input-group-addon"><i class="fa fa-square" style="color:green; font-size:150%" id="colorbd"></i></span>
+              <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
@@ -78,7 +77,7 @@
                       <th>Nombre</th>
                       <th>Color</th>
                       <th>Unidad Medida</th>
-                      <th>Valor*cm</th>
+                      <th>Valor</th>
                       <th>Cantidad Necesaria</th>
                       <th>Valor Insumo</th>
                       <th>Quitar</th>
@@ -163,7 +162,7 @@
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="border-top:0px">
               <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div><!-- /.modal-content -->

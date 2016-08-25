@@ -47,7 +47,8 @@
       } ?>
     </script>
 
-    <script src="<?= URL;?>js/ficha-pedido.js"></script>
+    <script src="<?= URL;?>js/ficha.js"></script>
+    <script src="<?= URL;?>js/pedido.js"></script>
     <script src="<?= URL;?>js/bodega.js"></script>
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
