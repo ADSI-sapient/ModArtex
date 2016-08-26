@@ -93,7 +93,7 @@
 					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}else {
-					$_SESSION['alert'] = "swal('Modifacada Fracasada','','success')";
+					$_SESSION['alert'] = "swal('Error al modificar la cotización','','success')";
 				}
 
 				header ("location: ".URL."ctrCotizacion/consCotizacion");
