@@ -49,7 +49,7 @@
         $("#referencia").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#estado").val(campos.find("td").eq(2).text());
-        $("#colorModFicha").val(idColor);
+        $("#colorModFicha").val(idColor).trigger("change");
         $("#stock_min").val(campos.find("td").eq(4).text());
         $("#vlr_produccion").val(campos.find("td").eq(5).text());
         $("#vlr_producto").val(campos.find("td").eq(6).text());
