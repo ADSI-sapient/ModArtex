@@ -1,4 +1,4 @@
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header)) -->
     <section class="content-header">
       <br>
       <ol class="breadcrumb">
