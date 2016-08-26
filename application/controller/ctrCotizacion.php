@@ -21,7 +21,7 @@
 
 			if (isset($_POST["btnRegistrar"])) {
 
-	            $this->modelo->__SET("Num_Documento", $_POST["documento_cli"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["id_cliente"]);
 	            $this->modelo->__SET("Id_Estado", 2);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
@@ -75,23 +75,20 @@
 	            
 				if ($this->modelo->modiCotizacion()){
 
-					// $this->modelo->__SET("Id_Solicitud", $_POST["codigo"]);
-					// $this->modelo->deleteFichasAso();
+	            	$idSolTipo = $this->modelo->traerUltimoIdSTipo();
+					$this->modelo->deleteFichasAso();
 
 					for ($i=0; $i < count($_POST["idProducto"]); $i++) { 
 
-					$this->modelo->__SET("Id_tipoSolicitud", $_POST["Id_Tipo_Solicitud"]);
-		            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
-
+					$this->modelo->__SET("Id_tipoSolicitud", $idSolTipo);
 		            $this->modelo->__SET("Cantidad_existencias", 0);
 		            $this->modelo->__SET("Estado_", "k");
 		            $this->modelo->__SET("Cantidad_Producir", $_POST["cantProducir"][$i]);
 		            $this->modelo->__SET("subtotal", $_POST["subtotal"][$i]);
+		            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
 
 		            $this->modelo->regFichasAso();
 					}
-
-
 
 					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");

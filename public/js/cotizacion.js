@@ -63,7 +63,7 @@ $('#Fechaentre').datepicker({
 $(document).ready(function(){
   var miboton = $("#myModal-btn");
   miboton.click(function(){
-    $("#myModal").modal();
+    $("#ModelProducto").modal();
   });
           // miboton.text("kevin");
           // miboton.css("color","red");
@@ -74,7 +74,7 @@ $(document).ready(function(){
 $(document).ready(function(){
  var boton = $("#search-btn");
  boton.click(function(){
-  $("#mymodal").modal();
+  $("#ModelProducto").modal();
 });
 });
 

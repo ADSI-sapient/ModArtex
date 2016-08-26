@@ -212,9 +212,9 @@
       	}
 
       	public function deleteFichasAso(){
-      		$sql ="DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitud = ?";
+      		$sql ="DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = ?";
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->Id_Solicitud);
+      		$query->bindParam(1, $this->Id_Solicitudes_Tipo);
       		$query->execute();
       	}
 
@@ -228,5 +228,14 @@
       		$query->bindParam(5, $this->subtotal);
       		$query->bindParam(6, $this->Id_Ficha_Tecnica);
       		return $query->execute();
+      	}
+
+      	public function traerUltimoIdSTipo(){
+
+      		$sql = "SELECT Id_Solicitudes_Tipo FROM tbl_solicitudes_tipo WHERE Id_Solicitud = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Solicitud);
+      		$query->execute();
+      		return $query->fetch();
       	}
 }  	

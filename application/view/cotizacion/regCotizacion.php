@@ -45,21 +45,15 @@
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
-            <select class="form-control" name="estado" id="estado" disabled="" style="border-radius:5px;">
-              <option value="1">Entregada</option>
-              <option value="2" selected="">No Entregada</option>
-              <option value="3">Vencida</option>
-              <option value="4">Cancelada</option>
-            </select>
+            <input type="text" name="estado" class="form-control" id="estado" readonly="" value="No Entregada">
           </div>
       </div>
-
-     <div class="row col-lg-12">
+     <!-- <div class="row col-lg-12">
         <div class="form-group col-lg-4">
           <label for="aso_cliente" class="">Asociar Cliente</label>
             <div class="input-group">
              <input type="hidden" name="documento_cli" value="" id="documento_cli">
-              <input type="text" name="cliente" class="form-control" value="" id="clienteReg" readonly="" value="" style="border-radius:5px;">
+              <input type="text" name="cliente" class="form-control" id="clienteReg" readonly="" value="" style="border-radius:5px;">
               <span class="input-group-btn">
                 <button type="button" id="search-btn" class="btn btn-flat">
                 <i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
@@ -67,7 +61,18 @@
               </span>
           </div>
         </div>
-     </div> 
+     </div>  -->
+     <div class="row col-lg-12">
+            <div class="form-group col-lg-4">
+              <label for="id_cliente" class="" >*Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente">
+              <option value=""></option>
+                <?php foreach ($clientes as $cliente): ?>
+                  <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                <?php endforeach ?>
+              </select>
+              </div>
+            </div>
                 
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
@@ -92,7 +97,7 @@
 
         <div class="row col-lg-12">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" id="myModal-btn" data-toggle="modal" data-target="#ModelProducto"><b>Asociar Fichas</b></button>
+              <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto"><b>Asociar Fichas</b></button>
             </div>
         </div>
 
@@ -119,7 +124,7 @@
           </div>
         </div>
 
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -156,7 +161,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
@@ -167,7 +172,7 @@
                 </div>
               </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer" style="border-top:0px;">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
       </div> 
     </form>
