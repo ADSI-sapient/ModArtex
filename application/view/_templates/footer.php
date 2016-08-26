@@ -1,16 +1,18 @@
     </div>
-    <aside class="control-sidebar control-sidebar-dark">
-      <div class="tab-content">
-      </div>
-    </aside>
     <footer class="main-footer">
       <div class="pull-right hidden-xs">
         Anything you want
       </div>
       <strong>Copyright &copy; 2016 <a href="#">ModArtex</a>.</strong> Todos los derechos reservados.
     </footer>
+    <aside class="control-sidebar control-sidebar-dark">
+      <div class="tab-content">
+      </div>
+    </aside>
+    <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
+    </div>
 
-    <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
     <script src="<?= URL;?>js/select2.full.min.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.js"></script>
@@ -29,10 +31,14 @@
     <script src="<?= URL;?>js/app.js"></script>
     <script src="<?= URL;?>js/demo.js"></script>
     <script src="<?= URL;?>js/moment.min.js"></script>
+    <script src="<?= URL;?>js/moment-with-locales.js"></script>
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
-    
-    <!-- <script src="<?= URL;?>js/lobibox.min.js"></script> -->
+    <!-- Lobibox -->
+    <script src="<?= URL;?>js/lobibox.min.js"></script>
+    <script src="<?= URL;?>js/messageboxes.min.js"></script>
+    <script src="<?= URL;?>js/notifications.min.js"></script>
+
     <script type="text/javascript">
       var uri = "<?= URL;?>";
       <?php if(isset($_SESSION['alert']) && $_SESSION['alert'] !== null ){
@@ -46,4 +52,15 @@
     <script src="<?= URL;?>js/configuracion.js"></script>
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
-    <script src="<?= URL;?>js/roles.js"></script>
+    <script src="<?= URL;?>js/persona.js"></script>
+      <script type="text/javascript">
+      $(function(){ 
+        <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+        <?php $_SESSION["mensaje"] = null; ?>
+      })
+      </script>
+
+<!--     <script src="<?= URL;?>js/roles.js"></script> -->
+  </body>
+</html>
+

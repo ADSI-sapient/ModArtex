@@ -1,5 +1,4 @@
 <!-- Contenedor pricipal  -->
-<div class="content-wrapper">
     <section class="content-header">
       <br>
       <ol class="breadcrumb">
@@ -164,7 +163,7 @@
      </form>  
     </div> 
     </section> 
-</div>
+
 
 
 

@@ -120,6 +120,32 @@
 	        }
 	    }
 
+	    public function ModificarNombre(){
+	    $sql = "CALL SP_ModificarNombreR(?, ?)";
+
+	        try{
+	          $query = $this->db->prepare($sql);
+	          $query->bindParam(1, $this->Nombre);
+	          $query->bindParam(2, $this->Id_Rol);  
+	          return $query->execute();
+
+	        }catch(PDOException $e){
+	        	
+	        }
+	    }
+
+	    public function ValidarExistenciaN(){
+		$sql= "CALL SP_ValidarR(?)";
+		try{
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Nombre);
+			$query->execute();
+				return $query->fetchAll();
+		}catch (PDOException $e){
+		}
+	}
+
+	    
 
 	}
 ?>

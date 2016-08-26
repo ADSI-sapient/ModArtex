@@ -50,7 +50,7 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento";
+			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Tipo = 1";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -185,6 +185,13 @@
 			$query->bindParam(2, $this->Id_tipoSolicitud);
 			$query->bindParam(3, $this->Fecha_Entrega);
 			$query->execute();
+			
+
+			$sql2 = "UPDATE tbl_solicitudes SET Id_Estado = 5 WHERE Id_Solicitud = ?";
+			$query2 = $this->db->prepare($sql2);
+			$query2->bindParam(1, $this->Id_Solicitud);
+			$query2->execute();
+
 			return $query;
 		}
 
@@ -195,6 +202,7 @@
             $query->execute();
             return $query->fetchAll(); 
 		}
+
 
 		public function Ficha_habi(){
       		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";

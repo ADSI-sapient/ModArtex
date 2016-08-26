@@ -127,7 +127,7 @@
                       <option value="1">Entregada</option>
                       <option value="2">No Entregado</option>
                       <option value="3">Vencida</option>
-                      <option value="4">Cancelar</option>
+                      <option value="4">Cancelada</option>
                     </select>
                   </div>
 
@@ -169,6 +169,7 @@
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
                 <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
+
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
@@ -338,12 +339,7 @@
                     
                   <div class="form-group col-sm-push-2 col-sm-5">
                     <label class="">Estado</label>
-                    <select class="form-control" name="estad" id="Estad" disabled style="border-radius: 5px;">
-                      <option value="1" selected>Entregada</option>
-                      <option value="2">No Entregado</option>
-                      <option value="3">Vencida</option>
-                      <option value="4">Cancelar</option>
-                    </select>
+                    <input type="text" value="Pendiente" readonly="" class="form-control">
                   </div>
 
                   <div class="form-group col-sm-5">

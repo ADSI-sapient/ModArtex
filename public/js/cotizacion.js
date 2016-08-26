@@ -3,7 +3,7 @@ function convertirPedido(codigo, cotizaciones, Id_estado){
   var campo = $(cotizaciones).parent().parent();
   $("#Codig").val(campo.find("td").eq(0).text());
   $("#Client").val(campo.find("td").eq(1).text());
-  $("#Estad").val(Id_estado);
+  // $("#Estad").val(Id_estado);
   $("#Fecha_Registr").val(campo.find("td").eq(3).text());
   $("#ValorTota").val(campo.find("td").eq(5).text());
   $("#ced_client").val(campo.find("td").eq(6).text());
@@ -93,7 +93,8 @@ function agregarCliente(documento_cli, cliente){
   moda.modal("hide");
 }
 
-function asociarFicha(referen, color, vlrproducto, fichas, idboton, idFicha){
+function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha){
+  console.log(referen, color, vlrproducto, fichas, idboton, idFicha);
   var campo = $(fichas).parent().parent();
   $("#agregarFicha").removeAttr("hidden");
   var tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
@@ -192,5 +193,5 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   }
 }  
 
-// $("#ced_cliente").select2({
-// });
+
+

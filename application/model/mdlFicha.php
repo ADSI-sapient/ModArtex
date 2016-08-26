@@ -14,6 +14,7 @@
 		private $cant_necesaria;
 		private $valor_insumo;
 		private $nombreInsumo;
+		private $id_fichaT;
 		private $db;
 
 		public function __SET($atributo, $valor){
@@ -35,40 +36,24 @@
 
 	    public function regFicha()
 	    {
-	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (?, ?, ?, ?, ?)";
+	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (NULL,?,?,?,?,?,?,?,?)";
 
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->referencia);
-	        	$query->bindParam(2, $this->fecha_reg);
-	        	$query->bindParam(3, $this->color);
+	        	$query->bindParam(2, $this->color);
+	        	$query->bindParam(3, $this->fecha_reg);
 	        	$query->bindParam(4, $this->estado);
 	        	$query->bindParam(5, $this->valor_produccion);
+	        	$query->bindParam(6, $this->cantidad);
+	        	$query->bindParam(7, $this->stock_min);
+	        	$query->bindParam(8, $this->valor_producto);
 
 	        	return $query->execute();
 
 	        } catch (PDOException $e) {
 	        	
 	        }
-	    }
-
-	    public function regProducto(){
-
-	    	$sql = "INSERT INTO tbl_productos VALUES (?, ?, ?, ?)";
-
-	        try {
-	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
-	        	$query->bindParam(2, $this->cantidad);
-	        	$query->bindParam(3, $this->stock_min);
-	        	$query->bindParam(4, $this->valor_producto);
-
-	        	return $query->execute();
-
-	        } catch (PDOException $e) {
-	        	
-	        }
-
 	    }
 
 	    public function validarReferencia(){
@@ -93,19 +78,18 @@
       		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (NULL,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_insumo);
-      		$query->bindParam(2, $this->referencia);
-      		$query->bindParam(3, $this->cant_necesaria);
-      		$query->bindParam(4, $this->valor_insumo);
+      		$query->bindParam(2, $this->cant_necesaria);
+      		$query->bindParam(3, $this->valor_insumo);
+      		$query->bindParam(4, $this->id_fichaT);
       		$query->execute();
       		return $query;
       	}
 
       	public function regTallasAso(){
-
       		$sql = "CALL SP_RegTallasAsociadas(?,?)";
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->referencia);
-      		$query->bindParam(2, $this->id_talla);
+      		$query->bindParam(1, $this->id_talla);
+      		$query->bindParam(2, $this->id_fichaT);
       		$query->execute();
       		return $query;
       	}
@@ -129,7 +113,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query->fetchAll();
 	        } catch (PDOException $e) {
@@ -143,7 +127,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query->fetchAll();
 	        } catch (PDOException $e) {
@@ -168,9 +152,7 @@
 	    }
 
 	    // public function insertarTallaAsoFicha(){
-
 	    // 	$sql = "CALL SP_InsertarTallaAso(?, ?)";
-
 	    //     try {
 	    //     	$query = $this->db->prepare($sql);
 	    //     	$query->bindParam(1, $this->id_talla);
@@ -178,9 +160,7 @@
 	    //     	$query->execute();
 	    //     	return $query;
 	    //     } catch (PDOException $e) {
-	   
 	    //     }
-
 	    // }
 
 	    public function eliminarInsumoAsoFicha(){
@@ -189,7 +169,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query;
 	        } catch (PDOException $e) {
@@ -203,7 +183,7 @@
 
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->referencia);
+	        	$query->bindParam(1, $this->id_fichaT);
 	        	$query->execute();
 	        	return $query;
 	        } catch (PDOException $e) {
@@ -213,13 +193,15 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "UPDATE tbl_fichas_tecnicas SET Color = ?, Valor_Produccion = ? WHERE Referencia = ?";
+	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Id_Ficha_Tecnica = ?";
 
 	        try{
 	          $query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->color);
 	        	$query->bindParam(2, $this->valor_produccion);
-	        	$query->bindParam(3, $this->referencia);
+	        	$query->bindParam(3, $this->stock_min);
+	        	$query->bindParam(4, $this->valor_producto);
+	        	$query->bindParam(5, $this->id_fichaT);
 
 	          return $query->execute();
 
@@ -228,31 +210,13 @@
 	        }
       	}
 
-      	public function modificarProducto(){
-	    	
-	        $sql = "UPDATE tbl_productos SET Cantidad = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Referencia = ?";
-
-	        try{
-	          $query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->cantidad);
-	        	$query->bindParam(2, $this->stock_min);
-	        	$query->bindParam(3, $this->valor_producto);
-	        	$query->bindParam(4, $this->referencia);
-
-	          return $query->execute();
-
-	        }catch(PDOException $e){
-	        	
-	        }
-      	}
-
-      	public function cambiarEstado(){
+      	public function cambiarEstadoFicha(){
       		
 	        $sql = "CALL SP_CambiarEstadoFicha(?,?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
-	          $query->bindParam(1, $this->referencia);
+	          $query->bindParam(1, $this->id_fichaT);
 	          $query->bindParam(2, $this->estado);
 	        
 	          return $query->execute();
@@ -287,5 +251,12 @@
       		return $query->fetchAll();
       	}
 
+      	public function consColoresFicha(){
+
+      		$sql = "SELECT * FROM tbl_colores";
+      		$query = $this->db->prepare($sql);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
 	}
 ?>

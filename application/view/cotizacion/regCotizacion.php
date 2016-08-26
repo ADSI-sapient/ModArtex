@@ -45,11 +45,11 @@
 
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado</label>
-            <select class="form-control" name="estado" id="estado" disabled style="border-radius:5px;">
-              <option value="Entregada" selected>Entregada</option>
-              <option value="No Entregada">No Entregada</option>
-              <option value="Vencida">Vencida</option>
-              <option value="Canceladas">Cancelado</option>
+            <select class="form-control" name="estado" id="estado" disabled="" style="border-radius:5px;">
+              <option value="1">Entregada</option>
+              <option value="2" selected="">No Entregada</option>
+              <option value="3">Vencida</option>
+              <option value="4">Cancelada</option>
             </select>
           </div>
       </div>

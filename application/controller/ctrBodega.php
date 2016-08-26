@@ -25,6 +25,7 @@ class ctrBodega extends Controller{
 			$this->_modelInsumo->__SET("_codMedida", $_POST["select"]);
 			$this->_modelInsumo->__SET("_nombre", $_POST["nombre"]);
 			$this->_modelInsumo->__SET("_estado", 1);
+			$this->_modelInsumo->__SET("_valPro", $_POST["valor"]);
 			$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
 
 
@@ -77,6 +78,7 @@ class ctrBodega extends Controller{
 	public function modificarInsumo(){
 		$this->_modelInsumo->__SET("_idInsumo", $_POST["id"]);
 		$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
+		$this->_modelInsumo->__SET("_valPro", $_POST["valor"]);
 		$this->_modelInsumo->__SET("_codMedida", $_POST["select"]);
 		$this->_modelInsumo->__SET("_nombre", $_POST["nombre"]);
 
@@ -122,14 +124,15 @@ class ctrBodega extends Controller{
 		include APP . 'view/_templates/footer.php';
 	}
 
+
 	public function regEntrada(){
-		$this->_modelExistencias->__SET("_fechaReg", $_POST["fechaEnt"]);
+		$this->_modelExistencias->__SET("_fecha", $_POST["fechaEnt"]);
 		$this->_modelExistencias->__SET("_valorEnt", $_POST["valorTot"]);
 
 		$idEnt = $this->_modelExistencias->regEntrada();
+		$this->_modelExistencias->__SET("_idEnt", $idEnt["idEnt"]);
 
 		if (isset($_POST["regUno"])){
-			$this->_modelExistencias->__SET("_idEnt", $idEnt["idEnt"]);
 			$this->_modelExistencias->__SET("_idExis", $_POST["idExs"]);
 			$this->_modelExistencias->__SET("_cant", $_POST["cant"]);
 			$this->_modelExistencias->__SET("_valUni", $_POST["valorUni"]);
@@ -144,12 +147,54 @@ class ctrBodega extends Controller{
 
 			$this->_modelExistencias->regEntradaExis();
 		}elseif (isset($_POST["regMuchos"])) {
-			var_dump($_POST["vec"]);
-			exit();
+			foreach (json_decode($_POST["vec"]) as $val) {
+				$this->_modelExistencias->__SET("_idExis", $val[0]->numEx);
+				$this->_modelExistencias->__SET("_cant", $val[1]->cantidad);
+				$this->_modelExistencias->__SET("_valUni", $val[2]->valorU);
+				$this->_modelExistencias->__SET("_valTot", $val[3]->valorT);
 
+				$cantTot = $val[1]->cantidad + $val[4]->cantActual;
+				$valTot = ($val[4]->cantActual * $val[5]->valorPromedio) + $val[3]->valorT;
+				$promedio = $valTot/$cantTot;
+
+				$this->_modelExistencias->__SET("_cantInsumo", $cantTot);
+				$this->_modelExistencias->__SET("_valorPro", $promedio);
+
+				$this->_modelExistencias->regEntradaExis();
+			}
 		}
+		//Comentario
+		header("location: ".URL."ctrBodega/listExistencias");
+	}
 
-			//Ponderación//
+	public function regSalida(){
+		$this->_modelExistencias->__SET("_fecha", $_POST["fechaSal"]);
+		$this->_modelExistencias->__SET("_descripcion", $_POST["descripcion"]);
+		$this->_modelExistencias->regSalida();
+
+		if (isset($_POST["regUnaSal"])) {
+			$this->_modelExistencias->__SET("_idExis", $_POST["idExs"]);
+			$this->_modelExistencias->__SET("_cant", $_POST["cantSal"]);
+
+			$cantIns = $_POST["cant"] - $_POST["cantSal"];
+
+			$this->_modelExistencias->__SET("_cantInsumo", $cantIns);
+
+			$this->_modelExistencias->regSalExis();
+		}
+		if (isset($_POST["salIns"])) {
+			$array = json_decode($_POST["arraySalIns"]);
+			foreach ($array as $valor) {
+				$this->_modelExistencias->__SET("_idExis", $valor[0]->idExs);
+				$this->_modelExistencias->__SET("_cant", $valor[1]->cantSal);
+
+				$cantIns = $valor[2]->cant - $valor[1]->cantSal;
+
+				$this->_modelExistencias->__SET("_cantInsumo", $cantIns);
+				
+				$this->_modelExistencias->regSalExis();
+			}
+		}
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 }

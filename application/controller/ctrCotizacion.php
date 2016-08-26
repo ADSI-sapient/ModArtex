@@ -22,7 +22,7 @@
 			if (isset($_POST["btnRegistrar"])) {
 
 	            $this->modelo->__SET("Num_Documento", $_POST["documento_cli"]);
-	            $this->modelo->__SET("Id_Estado", 1);
+	            $this->modelo->__SET("Id_Estado", 2);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
 	          
@@ -54,7 +54,8 @@
 			    }
 	        }
 
-            $fichas = $this->modelo->getFichas();   
+            $fichas = $this->modelo->getFichas();
+ 
             $clientes = $this->modelo->getCliente();
  
 			require APP.'view/_templates/header.php';
@@ -110,7 +111,7 @@
 		public function converCotiAPe(){
 			if (isset($_POST["gurdarPedi"])) {
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
-				$this->modelo->__SET("Id_tipoSolicitud",2);
+				$this->modelo->__SET("Id_tipoSolicitud", 2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
 				
 				if ($this->modelo->converPedido()) {

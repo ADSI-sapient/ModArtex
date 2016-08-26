@@ -3,96 +3,73 @@
 	{
 		private $mdlModel = null;
 
-		//Constructor
+		/*Constructor donde asignamos el modelo a la variable mdlModel por medio del método
+		loadModel, al cual le mandamos el modelo respectivo por parámetro.*/
 	    function __construct(){
 	        $this->mdlModel = $this->loadModel("mdlFicha");
 	    }
 
-	    public function consFicha(){
-	    	$mensaje = "";
-	    	$msjEditFicha = "";
-
+	    //método para listar todas las fichas técnicas
+	    public function consFicha()
+	    {
 	        $insumos = $this->mdlModel->getAsoInsumos();
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        $tallas = $this->mdlModel->getAsoTallas();
 	    	$fichas = $this->mdlModel->getFichas();
-	    	
+	        $colores = $this->mdlModel->consColoresFicha();
+
 	    	require APP . 'view/_templates/header.php';
 	        require APP . 'view/ficha/consFicha.php';
 	        require APP . 'view/_templates/footer.php';
 	    }
-	    // public function consAsoInsumos(){
-	    // 	$mensaje = "";
-	    // 	$msjEditFicha = "";
 
-	    // 	$insumos = $this->mdlModel->getAsoInsumos();
-	    //     require APP . 'view/_templates/header.php';
-	    //     require APP . 'view/ficha/regFicha.php';
-	    //     require APP . 'view/_templates/footer.php';
-	    // }
-
-	   	public function regFicha(){
-	        $mensaje = "";
-	    	$msjEditFicha = "";
-	    	$msjFichaExiste = "";
+	    //método que permite registrar fichas técnicas
+	   	public function regFicha()
+	   	{
 	        if (isset($_POST["btnRegFicha"])) {
 
 	        	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
+	        	$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
+			    $this->mdlModel->__SET("color", $_POST["colorFicha"]);
+			 	$this->mdlModel->__SET("estado", 1);
+			    $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
+			    $this->mdlModel->__SET("cantidad", 0);
+				$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
+				$this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 
-	        	$validarRef = $this->mdlModel->validarReferencia();
+				if($this->mdlModel->regFicha()){
 
-	        	if ($validarRef == null) {
+					$ultima = $this->mdlModel->ultimaFicha()["id_ficha"];
 
-	        		$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
-			    	$this->mdlModel->__SET("color", $_POST["color"]);
-			 		$this->mdlModel->__SET("estado", 1);
-			    	$this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
-
-					if($this->mdlModel->regFicha()){
-
-						//Registro en tabla producto
-						$this->mdlModel->__SET("cantidad", 0);
-						$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
-						$this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
-						$this->mdlModel->regProducto();
-
-						$ultima = $this->mdlModel->ultimaFicha()["referencia"];
-
-					 	//Registro de insumos asociados a la ficha va a tbl insumos_fichas
-						for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
+					//Registro de insumos asociados a la ficha
+					for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
 						        		
-						  	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
-							$this->mdlModel->__SET("referencia", $ultima);
-						  	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
-						  	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
-						  	$this->mdlModel->regInsumosAso();
-						}
-
-						//Registro de tallas asociadas
-						for ($t=0; $t < count($_POST['tallas']); $t++) {
-							
-						  	$this->mdlModel->__SET("referencia", $ultima);
-						  	$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
-						  	$retornoTallas = $this->mdlModel->regTallasAso();
-						}
-
-						$mensaje = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
-
-					}else{
-
-						$mensaje = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
+						$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
+						$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
+						$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+						$this->mdlModel->__SET("id_fichaT", $ultima);
+						$this->mdlModel->regInsumosAso();
 					}
-	        		
-	        	}else{
 
-	        		// $msjFichaExiste = "Lobibox.notify('error', {msg: 'La ficha ya existe', rounded: true, delay: 3000,});";
-	        		// $msjFichaExiste = "Lobibox.alert('error', {msg: 'La ficha que intenta registrar ya existe'});";
-	        	}
+					//Registro de tallas asociadas a la ficha
+					for ($t=0; $t < count($_POST['tallas']); $t++) {
+							
+						$this->mdlModel->__SET("id_fichaT", $ultima);
+						$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
+						$retornoTallas = $this->mdlModel->regTallasAso();
+					}
+
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', rounded: true, delay: 3000});";
+
+				}else{
+
+					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', rounded: true, delay: 2500});";
+				}
 	      	}
 	       
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
-	        // $insumos = $this->mdlModel->consInsumosRegFicha();
-	        
+	        $colores = $this->mdlModel->consColoresFicha();
+	  
 	        require APP . 'view/_templates/header.php';
         	require APP . 'view/ficha/regFicha.php';
         	require APP . 'view/_templates/footer.php';
@@ -100,49 +77,49 @@
 
 	    public function editFicha(){
 
-	    	$mensaje = "";
-		    $msjEditFicha = "";
-
 		    if(isset($_POST["btn-modificar-ficha"])){
 
-		      	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
-	            $this->mdlModel->__SET("color", $_POST["color"]);
+		      	$this->mdlModel->__SET("id_fichaT", $_POST["idFicha_Tec"]);
+	            $this->mdlModel->__SET("color", $_POST["colorModFicha"]);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
+	            $this->mdlModel->__SET("cantidad", 456);
+		      	$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
+	            $this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 
 		      if($this->mdlModel->modificarFicha()){
 
-				$this->mdlModel->__SET("cantidad", 456);
-		      	$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
-	            $this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
-	            $this->mdlModel->modificarProducto();
-
-		      	// $this->mdlModel->eliminarInsumoAsoFicha();
-		      	$this->mdlModel->eliminarTallaAsoFicha();
-
-				// //Registro de insumos asociados
-				// for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
+	            //Elimina todos los insumos asociados a la ficha
+		      	$this->mdlModel->eliminarInsumoAsoFicha();
+		      	
+				//Registro de insumos asociados
+				for ($i=0; $i < count($_POST['idInsumo']); $i++) { 
 						        		
-				// 	$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
-				// 	$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
-				// 	$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
-				// 	$this->mdlModel->regInsumosAso();
-				// }
+					$this->mdlModel->__SET("id_insumo", $_POST['idInsumo'][$i]);
+					$this->mdlModel->__SET("cant_necesaria", $_POST['cantNecesaria'][$i]);
+					$this->mdlModel->__SET("valor_insumo", $_POST['valorInsumo'][$i]);
+					$this->mdlModel->__SET("id_fichaT", $_POST["idFicha_Tec"]);
+					$this->mdlModel->regInsumosAso();
+				}
 
-				//Registro de tallas asociadas
+				//Elimina todas las tallas asociadas a la ficha
+				$this->mdlModel->eliminarTallaAsoFicha();
+				//Registra nuevas tallas
 				for ($t=0; $t < count($_POST['tallas']); $t++) { 
 
 					$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
-					$retornoTallas = $this->mdlModel->regTallasAso();
+				 	$this->mdlModel->regTallasAso();
 				}
 
-		    	$msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
+		    	// $msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
 		    	// $msjEditFicha = 'alert("Ficha modificada exitosamente"); location.href = uri+"ctrFicha/consFicha";';
 		    	// $mensaje2 = 'Lobibox.notify("success", {msg: "Ficha Modificada Exitosamente!", rounded: true, delay: 5000}); location.href = uri+"ficha/consFicha";';
 		    	 // $mensaje2 = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ficha/consFicha";';
 
+		    	// header("location: " .URL. 'ctrFicha/consFicha');
+		    	$_SESSION["msjFicha"] = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ctrFicha/consFicha";';
+
 		      }else{
-		      	$msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha',
-			       rounded: true, delay: 2500});";
+		      	// $msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha', rounded: true, delay: 2500});";
 		      }
 	
 		    }
@@ -154,14 +131,14 @@
 	        require APP . 'view/_templates/footer.php';
 		}
 
-		public function cambiarEstado(){
+		public function cambiarEstadoFicha(){
 
 	    	$mensaje = "";
 		    $msjEditFicha = "";
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 	        $this->mdlModel->__SET("estado", $_POST["estado"]);
 
-		    $fichas = $this->mdlModel->cambiarEstado();
+		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
 		    	echo json_encode(["v"=>1]);
@@ -175,10 +152,10 @@
 	    	$mensaje = "";
 		    $msjEditFicha = "";
 
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 
 		    $insumosAsociados = $this->mdlModel->insumosAsociadosFicha();
-
+		    
 		    if ($insumosAsociados) {
 		    	// echo json_encode(["r"=>1]);
 		    	echo json_encode(["r"=>$insumosAsociados]);
@@ -192,7 +169,7 @@
 	    	$mensaje = "";
 		    $msjEditFicha = "";
 
-		    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+		    $this->mdlModel->__SET("id_fichaT", $_POST["referencia"]);
 
 		    $tallasAsociadas = $this->mdlModel->tallasAsociadasFicha();
 
@@ -216,24 +193,5 @@
 		    	echo json_encode(["r"=>0]);
 		    }
 		}
-
-		// public function insertarInsumoAsociado(){
-
-		//     $this->mdlModel->__SET("id_insumo", $_POST["id_insumo"]);
-		//     $this->mdlModel->__SET("referencia", $_POST["referencia"]);
-
-		//     for ($i=0; $i < count($_POST["id_insumo"]); $i++) { 
-						        		
-		// 		$this->mdlModel->__SET("referencia", $_POST["referencia"]);
-		// 		$this->mdlModel->__SET("id_insumo", $_POST["id_insumo"][$i]);
-		// 		$insumoAgregado = $this->mdlModel->insertarInsumoAsoFicha();
-		// 	}
-
-		//     if ($insumoAgregado) {
-		//     	echo json_encode(["r"=>1]);
-		//     }else{
-		//     	echo json_encode(["r"=>0]);
-		//     }
-		// }
 	}
 ?>

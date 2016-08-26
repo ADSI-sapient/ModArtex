@@ -23,9 +23,10 @@
             <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" >
+                <input type="text" class="form-control" name="nombre" required="">
               </div> 
-              <div class="form-grouf">
+              <div class="form-group">
+
                 <label for="nombre" class="col-lg-2  col-lg-offset-1 control-label">Permisos</label>
                 <button type="button" class="btn btn-primary  col-lg-offset-1 col-lg-4 "  data-toggle="modal" data-target="#permisos">Asignar permisos</button>
                 <br>
@@ -51,15 +52,14 @@
               </div>
             </div>
           </div>
-              <div class="box-footer">
-              <div class="row col-lg-12"> 
-                <div class="form-group"> 
-                  <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#rolReg" style="margin-top: 15px;">Cancelar</button>
-                    <button type="submit" class="btn btn-primary col-lg-offset-8" style="margin-top: 15px;"  name="btnRegistrarR">Registrar</button>
+            <div class="box-footer">
+              <div class="row"> 
+                <div class="form-group col-lg-12"> 
+                    <button type="submit" class="btn btn-primary col-lg-offset-7" style="margin-top: 15px;"  name="btnRegistrarR">Registrar</button>
+                  <button type="button" class="btn btn-danger col-lg-offset-1" data-toggle="modal" data-target="#rolReg" style="margin-top: 15px;">Cancelar</button>
                 </div>
               </div>
-
-              </div>
+            </div>
         </div>
       </div>
 
@@ -100,7 +100,7 @@
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                       <td>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>',this)"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
 
                         <?php if ($rol["Estado"] == 1){ ?>
                           
@@ -138,7 +138,8 @@
               <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
-                <input type="text" class="form-control" name="Nombre" >
+                <input type="hidden" id="idRol" name="idRol">
+                <input type="text" class="form-control" name="Nombre" id="nombre_rol" >
               </div> 
               <div class="form-grouf">
                 <label for="nombre" class="col-lg-4  col-lg-offset-1 control-label">Agregar Permisos</label>

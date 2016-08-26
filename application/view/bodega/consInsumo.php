@@ -44,8 +44,7 @@
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
                    <td>    
-                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#Modeleditar"><i class="fa fa-pencil-square-o"></i></button>
-
+                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModEditIns"><i class="fa fa-pencil-square-o"></i></button>
                     <?php if ($valor["Estado"] == 1): ?>
                          <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
                     <?php endif ?>
@@ -74,12 +73,12 @@
 
 
 
-          
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" style="width: 60%;">
         <div class="modal-content" style="border-radius: 20px;">
 
-        <form action="<?= URL;?>ctrlBodega/modificarInsumo" method="POST">
+        <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
           <div class="modal-header" style="text-align: center;">
             <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
           </div>
@@ -91,7 +90,7 @@
                 <div class="form-group">
                    <input type="hidden" name="id" id="mSel">
                    <label class="control-label" length="80px">*Stock mínimo:</label>
-                  <input id="3" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
+                  <input id="stockIns" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
                 </div>
               </div>    
 
@@ -99,7 +98,7 @@
                 <div class="form-group">
                   <label class="control-label">*Unidad de medida:</label>
                     <select class="form-control" style="width: 100%;" required="" name="select">
-                     <option id="2" selected=""></option>
+                     <option id="medIns" selected=""></option>
                       <?php foreach ($listaM as $valor): ?>
                         <option value="<?= $valor["Id_Medida"]; ?>"><?= $valor["Nombre"]; ?></option>  
                       <?php endforeach ?>
@@ -109,17 +108,25 @@
           </div>
             <div class="col-md-6">
               <div class="col-md-12">
-              <div class="form-group">
-                 <label class="control-label">*Nombre:</label>
-                 <input id="1" type="text" class="form-control" required="" name="nombre">
+                <div class="form-group">
+                   <label class="control-label">*Nombre:</label>
+                   <input id="nomIns" type="text" class="form-control" required="" name="nombre">
+                </div>
               </div>
 
-              <div class="form-group" style="margin-top: 9%; "> 
-                <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#ModelProducto">Seleccionar color</button>
-              </div>
-     
-             </div>
+            <div class="col-md-6">
+                  <div class="form-group">
+                   <label class="control-label" length="80px">*Valor: </label>
+                   <input type="number" class="form-control" min="0" required="" name="valor">
+                 </div>
             </div>
+
+            <div class="col-md-6">
+                  <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar color</button>
+            </div>
+             </div>
+
+
        </div>
             
         </div>
@@ -127,7 +134,7 @@
            <div class="box">
             <div class="box-body no-padding">
              <div class="table-responsive"> 
-              <table class="table" id="tabla1" >
+              <table class="table" id="tablaCol" >
                 <thead>
                   <tr class="active">
                     <th style="width: 10px"></th>
@@ -138,24 +145,23 @@
                     <th style="width: 40px">Quitar</th>
                   </tr>
                 </thead>
-                <tbody id="tbody">
+                <tbody id="tbodyColIns">
                 </tbody>      
               </table>
              </div>
            </div> 
           </div>
-         </div>
-         <input type="hidden" name="arreglo[]" id="vector">             
+         </div>             
          <div class="modal-footer">
 
             <button data-dismiss="modal" onclick="reload()" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
             <script type="text/javascript">
               function reload(){
-              $('#tbody').empty();
+              $('#tbodyColIns').empty();
               }
             </script>
-            <input type="hidden" name="arreglo[]" id="vector">
-            <button type="submit" onclick="colores()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
+            <input type="hidden" name="arregloCol[]" id="vectorCol">
+            <button type="submit" onclick="coloresVec()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
          </div> 
          </form>
         </div> 
@@ -205,7 +211,7 @@
             </div>
               
             <div class="modal-footer">
-                <button type="button" onclick="seleccion()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
+                <button type="button" onclick="seleccionCol()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
             </div> 
             </div> 
          </div>
@@ -285,8 +291,6 @@
           $("#vector").val(vec);
   }
 </script> -->
-
-
 
 
 

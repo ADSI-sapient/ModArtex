@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="<?= URL; ?>css/sweetalert.css">
   <link rel="stylesheet" href="<?= URL; ?>css/skin-blue.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/_all-skins.min.css">
-
+  <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
+      <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
   <!--  <script src="<?= URL;?>css/jQuery-2.2.0.min.js"></script> -->
 </head>
 
@@ -124,4 +125,4 @@
         </ul>
       </section>
     </aside>
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="min-height: 916px;">

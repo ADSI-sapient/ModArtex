@@ -14,7 +14,8 @@
         </div>
         <br>
         <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST"  onsubmit="return enviarFormPedido();">
-        <!-- <input type="hidden" name="id_tipo" value="2" id="id_tipo"> -->
+        <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
+        <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -34,7 +35,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="datepicker2" required=""  style="border-radius:5px;">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" required=""  style="border-radius:5px;">
                 </div>
               </div>
             </div>
@@ -45,19 +46,16 @@
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
-              <label for="aso_cliente" class="">*Asociar Cliente:</label>
-              <div class="">
-                <div class="input-group">
-                  <input type="text" name="nombre" class="form-control" id="nombre" readonly="" required="" style="border-radius:5px;">
-                  <input type="hidden" name="id_cliente"  id="id_cliente" required="">
-                  <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                    <button type="button" style="border-radius:5px;" id="buscarCliente" class="btn btn-flat" data-toggle="modal" data-target="#asociarClientes"><i class="fa fa-search"></i>
-                    </button>
-                  </div>
-                </div>
+              <label for="id_cliente" class="" >*Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" required="">
+              <option value=""></option>
+                <?php foreach ($clientes as $cliente): ?>
+                  <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                <?php endforeach ?>
+              </select>
               </div>
             </div>
-          </div>
+
           <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -69,6 +67,10 @@
                       <th>Valor Producto</th>
                       <th>Cantidad a Producir</th>
                       <th>Subtotal</th>
+                      <th>Usar</th>
+                      <th>Producto T</th>
+                      <th style="display: none;"></th>
+                      <th style="display: none;"></th>
                       <th>Quitar</th>
                     </tr>
                   </thead>
@@ -77,25 +79,25 @@
                 </table>
               </div>
             </div>
-          </div>
-          <div class="row col-lg-12">
-            <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Fichas</b></button>
             </div>
-          </div>
-          <div class="row col-lg-12">
-     			  <div class="form-group col-lg-offset-8 col-lg-4">
-              <label for="vlr_total" class="">*Valor Total:</label>
-              <div class="">
-                <!-- <div class="input-group">
-                  <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                    <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
-                  </div> -->
-                  <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
-                <!-- </div> -->
+            <div class="row col-lg-12">
+              <div class="form-group col-lg-3">
+                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Productos</b></button>
               </div>
             </div>
-          </div>
+            <div class="row col-lg-12">
+       			  <div class="form-group col-lg-offset-8 col-lg-4">
+                <label for="vlr_total" class="">*Valor Total:</label>
+                <div class="">
+                  <!-- <div class="input-group">
+                    <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
+                      <button type='button' id="confir" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
+                    </div> -->
+                    <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
           <br>
           <div class="row">
             <!-- <div class="form-group"> -->
@@ -136,11 +138,11 @@
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><?= $ficha["Color"] ?></td>
+                      <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 150%;'></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFicha('<?= $ficha["Referencia"] ?>', '<?= $ficha["Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

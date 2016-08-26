@@ -18,7 +18,7 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" required="" style="border-radius:5px;">
+              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -27,31 +27,37 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" required="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="estado" class="">*Estado:</label>
-              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" required="" readonly="" style="border-radius:5px;">
+              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
-              <label for="color" class="">*Color:</label>
-              <input type="text" name="color" class="form-control" id="color" required="" style="border-radius:5px;">
+              <label for="colorFicha">*Color:</label>
+              <select class="form-control" name="colorFicha" id="colorFicha">
+              <option value="" selected=""></option>
+                <?php foreach ($colores as $color): ?>
+                  <!-- <option style="background-color:'<?= $color["Codigo_Color"] ?>'" value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option> -->
+                  <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
-            <label for="tallas" class="" >*Tallas:</label>
-            <select class="form-control" required="" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
-              <option value="1">L</option>
-              <option value="2">M</option>
-              <option value="3">S</option>
-            </select>
+              <label for="tallas" >*Tallas:</label>
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
+                <option value="1">L</option>
+                <option value="2">M</option>
+                <option value="3">S</option>
+              </select>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" required="" style="border-radius:5px;">
+              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12">
@@ -67,6 +73,7 @@
                     <tr class="active">
                       <th>Id Insumo</th>
                       <th>Nombre</th>
+                      <th>Color</th>
                       <th>Unidad Medida</th>
                       <th>Valor*cm</th>
                       <th>Cantidad Necesaria</th>
@@ -95,7 +102,7 @@
 
             <div class="form-group col-lg-offset-4 col-lg-4">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" placeholder="" value="" required="" style="border-radius:5px;">
+              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
@@ -141,9 +148,9 @@
                         <td><?= $insumo["Abreviatura"] ?></td>
                         <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                        <td><?= $insumo["Valor_Promedio"] ?></td>
+                        <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarIn('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>
