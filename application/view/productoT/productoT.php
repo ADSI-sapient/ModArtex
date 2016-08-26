@@ -1,248 +1,186 @@
-<!-- Contenedor pricipal  -->
+    <!-- Content Header (Page header) -->
     <section class="content-header">
       <br>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
-        <li><a href="#">Existencias producto T</a></li>
+        <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#">Exitencias ProductoT</a></li>
       </ol>
     </section>
-
+    <!-- Main content -->
     <section class="content">
-      <div class="box box-info">
+
+      <!-- Inicio de listar -->
+      <div class="box box-primary">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS PRODUCTO TERMINADO</strong></h3>
         </div>
-
-
-        <div class="row box-header">
-          <div class="col-md-8"></div>
-             <div class="col-md-4">
-                <div class="form-group">
-                        <div class="box-tools pull-right">   
-                          <form action="#" method="get" class="form-horizontal">
-                            <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Buscar">
-                                  <span class="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                    </button>
-                                  </span>
-                            </div>
-                          </form> 
-                       </div>
-                </div>
+        <div id="users">
+  <!-- <div class="col-md-offset-8 col-md-4">
+         <div class="row box-header">
+            <div class="form-group">
+              <div class="box-tools pull-right">
+                <form action="#" method="get" class="form-horizontal">
+                  <div class="input-group">
+                    <input type="text" class="form-control search" placeholder="Buscar">
+                    <span class="input-group-btn">
+                      <button type="submit" name="search" id="search-btn" class="sort btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                  </div>
+                </form> 
               </div>
-        </div>
-
-      <form class="form-horizontal">
-         
-      
-         <div class="col-md-12">
-           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"><strong>Existencias</strong></h3>
-
-            </div>
-            <!-- /.box-header -->
-          
-            <div class="box-body no-padding">
-              <div class="table-responsive">
-              <table class="table">
-                <tbody>
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Referencia</th>
-                  <th>Nombre</th>
-                  <th>Color</th>
-                  <th>Talla</th>
-                  <th>Cantidad</th>
-                  <th>Valor producción</th>
-                  <th style="width: 10%">Stock mínimo</th>
-                  <th style="width: 5%">Salida</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td> 
-                    201
-                  </td>
-                  <td> 
-                    Brasilera
-                  </td>
-                  <td>
-                    Verde-rojo
-                  </td>
-                  <td>
-                      S
-                  </td>
-                  <td>
-                      25
-                  </td>
-                  <td>
-                      5400
-                  </td>
-                  <td>
-                      <span class="badge bg-red"> 10 </span>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-box-tool"><i class="fa fa-arrow-right" data-toggle="modal" data-target="#ModelSalida"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td> 
-                    202
-                  </td>
-                  <td> 
-                     Panty niña
-                  </td>
-                  <td>
-                    Verde-negro
-                  </td>
-                  <td>
-                      S
-                  </td>
-                  <td>
-                      40
-                  </td>
-                  <td>
-                      3500
-                  </td>
-                  <td>
-                      <span class="badge bg-red"> 15 </span>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-box-tool"><i class="fa fa-arrow-right" data-toggle="modal" data-target="#ModelSalida"></i></button>
-                  </td>
-
-                </tr>
-                 <tr>
-                  <td>3.</td>
-                  <td> 
-                    202
-                  </td>
-                  <td> 
-                     Panty
-                  </td>
-                  <td>
-                    Verde-negro
-                  </td>
-                  <td>
-                      L
-                  </td>
-                  <td>
-                      20
-                  </td>
-                  <td>
-                      3500
-                  </td>
-                  <td>
-                      <span class="badge bg-red"> 15 </span>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-box-tool"><i class="fa fa-arrow-right" data-toggle="modal" data-target="#ModelSalida"></i></button>
-                  </td>
-                </tr>
-              </tbody></table>
-            </div>
-            </div>
-            <!-- /.box-body -->
           </div>
         </div>
-      <!--Termina tabla colores seleccionados-->
-       
-      <div class="box-footer">
-            <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li class="disabled"><a href="#">«</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">»</a></li>
-                </ul>
+      </div> -->
+      <form class="form-horizontal">
+        <div class="col-md-12">
+          <!-- <div class="box"> -->
+          <br>
+          <div class="table table-responsive">
+            <table class="table table-hover" id="tablaProducto">
+              <thead>
+                <tr class="info">
+                <th></th>
+                 <th>Referencia</th>
+                  <th>Color</th>
+                  <th style="display: none">Id_Ficha</th> 
+                  <th>Cantidad</th>
+                  <th>Valor producción</th>
+                  <th>Stock mínimo</th>
+                  <th>Salida</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                  <?php foreach ($productos as $producto): ?>
+                    <tr>
+                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>"></th> 
+                      <td class="Referencia"><?= $producto["Referencia"] ?></td>
+                      <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;"></i></td> 
+                       <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td> 
+                       <td class="Cantidad"><?= $producto["Cantidad"] ?></td>
+                       <td class="Valor_Produccion"><?= $producto["Valor_Produccion"] ?></td>
+                       <td><span class="badge bg-red"><?= $producto["Stock_Minimo"] ?></td>
+                         <td>
+
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red;" class="fa fa-arrow-down"></i></button> 
+
+                  </td>
+                    </tr>
+                  <?php endforeach ?>
+                  </tbody>
+                </table>
               </div>
+              <div class="col-md-12" style="text-align: right;">
+             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this)"  data-target="#ModalSalidas"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+             </div>
+            </div>
+          </form>
+        </div>
+        <div class="box-footer">
+        </div>
+         </section>
       </div>
-     </form>  
-    </div> 
-    </section> 
 
 
 
 
-
-
-
-
-<div class="modal fade" id="ModelSalida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document" style="width: 30%; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
+<!--Inicio del modal de registro de salida individual-->
+<div class="modal fade" id="ModelSalida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border-radius: 30px;">
               <div class="modal-header">
                 <h4 class="control-label" style="text-align: center;"><strong>SALIDA PRODUCTO TERMINADO</strong></h4>
               </div>
+
               <div class="modal-body">
-
-                <div class="form-horizontal"> 
-                    <div class="form-group">
-                     <h4 class="col-md-3">Referencia: </h4>
-                       <div class="col-md-9">
-                          <input type="text" value="201" class="form-control" disabled="true"> 
-                       </div> 
-                    </div>
-                    <div class="form-group">
-                       <h4 class="col-md-3">Nombre: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="Brasilera" disabled="true">
-                    </div>
-                   </div>
-
-
-                    <div class="form-group">
-                       <h4 class="col-md-3">Color: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="Verde-rojo" disabled="true">
-                    </div>
-                   </div>
-
-                   <div class="form-group">
-                       <h4 class="col-md-3">Talla: </h4>
-                       <div class="col-md-9">
-                       <input type="text" class="form-control" value="S" disabled="true">
-                    </div>
-                   </div>
-
-
-                    <div class="form-group">
-                     <h4 class="col-md-3">Cantidad: </h4>
-                       <div class="col-md-9">
-                          <input type="text" class="form-control" value="25" disabled="true">
-                       </div> 
+              <form role="form" id="ModelSalida" method="post" action="<?= URL ?>ctrProductoT/salida">
+                <div class="box-body""> 
+                  <div class="form-group col-sm-6">
+                      <label for="referencia" class="">Referencia</label>
+                      <input type="text" class="form-control" name="Referencia" id="Referencia"> 
                     </div>
 
-
-
-                    <div class="form-group">
-                     <h4 class="col-md-3">Salida: </h4>
-                       <div class="col-md-9">
-                           <input type="number" class="form-control"  min="0" max="15"> 
-                       </div> 
+                     <div class="form-group col-sm-offset-1 col-sm-5">
+                      <label for="color" class="">Color</label>
+                      <div class="input-group my-colorpicker2 colorpicker-element">
+                        <i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 300%;" ></i>
+                      </div>
                     </div>
 
+                     <div class="form-group col-sm-6">
+                    <label for="referencia" class="">Cantidad</label>
+                    <input type="text" class="form-control"  name="Cantidad" id="Cantidad">
+                  </div>
+
+                   <div class="form-group col-sm-offset-1 col-sm-5">
+                    <label for="color" class="">Salida</label>
+                     <input type="number" class="form-control"  min="0" id="salida"     name="salida">  
+                  </div>
 
 
-                    <div class="form-group">
-                     <h4 class="col-md-3">Descripción: </h4>
-                       <div class="col-md-9">
-                          <textarea rows="4" cols="50" class="form-control">
+                     <div class="form-group col-sm-12">
+                     <label class="col-sm-offset-5">Descripción</label>
+                          <textarea rows="4" cols="50" class="form-control" name="descripcion" id="descripcion">
                          </textarea> 
-                       </div> 
                     </div>
-               
-
+                      <input type="Hidden" class="form-control"  name="idf" id="idf"> 
+                  </div> 
                 </div>
-              </div>
+
+
               <div class="modal-footer">
-                <button type="submit" onclick="botonCancelar()" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-                <button type="submit" onclick="botonRegistrar()" class="btn btn-primary pull-right">Registrar</button>
-                
+                  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 15px; margin-top: 2px;">Cancelar</button>
+                <button type="submit"  class="btn btn-primary pull-right" name="btndescontarP">Registrar</button>                
             </div> 
-            </div> 
-         </div>
-       </div>
+            </form>
+          </div>
+</div>
+</div>
+<!--Final del modal-->
+
+
+<!--Inicio del modal re registro de varias salidas -->
+
+  
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalSalidas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 60%;">
+    <div class="modal-content" style="border-radius: 20px;">
+
+      <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST">
+        <div class="modal-header" style="text-align: center;">
+          <h3 class="box-title"><strong>SALIDA PRODUCTO TERMINADO</strong></h3>
+        </div>
+
+        <div class="modal-body">
+        <div class="col-md-12">
+         <div class="box">
+          <div class="box-body no-padding">
+           <div class="table-responsive"> 
+            <table class="table" id="tableSal" >
+              <thead>
+                <tr class="active">
+                  <th>Referencia</th>
+                  <th>Color</th> 
+                  <th>Cantidad</th>
+                  <th style="display: none">Id_Ficha</th>
+                  <th>Salida</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody id="tbodySal">
+              </tbody>      
+            </table>
+          </div>
+        </div> 
+      </div>
+    </div>
+</div>
+
+<input type="hidden" id="vec" name="vec">
+<div class="modal-footer">
+  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
+  <button type="submit" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos">Registrar</button>
+</div> 
+</form>
+</div> 
+</div>
+</div> 
