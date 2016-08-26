@@ -47,4 +47,3 @@
     <script src="<?= URL;?>js/application.js"></script>
     <script src="<?= URL;?>js/cotizacion.js"></script>
     <script src="<?= URL;?>js/roles.js"></script>
-

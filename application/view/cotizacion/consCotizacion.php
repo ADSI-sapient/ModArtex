@@ -100,7 +100,7 @@
 
  <style type="text/css">
         #dl{
-           width: 50% !important;
+           width: 53% !important;
         }
  </style>
 
@@ -146,6 +146,11 @@
                       <div class="input-group">
                         <input type="hidden" name="cliente" id="ced_cliente"></input>
                         <input type="text" class="form-control"  id="Cliente" readonly="" style="border-radius: 5px;">
+                        <!-- <section class="from-control col-sm-12" name="cliente" id="ced_cliente">
+                          <?php foreach ($clientes as $cliente):?>
+                            <option value="<?=$cliente["Num_Documento"]?>"><?=$cliente["Nombre"]?></option>
+                          <?php endforeach ?>
+                        </section> -->
                         <span class="input-group-btn">
                           <button type="button" id="search-btn" class="btn btn-flat">
                           <i class="fa fa-search" data-toggle="modal" data-target="#mymoda"></i>
@@ -153,16 +158,18 @@
                         </span>
                     </div>
                   </div>
-   
-                  <div class="form-group col-sm-push-2 col-sm-5">
+
+                  <!-- <div class="form-group col-sm-push-2 col-sm-5">
                      <label class="">Valor Total</label>
                      <input type="text" class="form-control" name="valorTotal" id="ValorTotal" readonly="" style="border-radius: 5px;">
-                  </div>                  
+                  </div> -->                  
 
-                <label for="valor_total" class="form-group col-sm-5">Fichas Asociadas</label>
+
+
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Aso-pedido">
+                <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
+                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -179,8 +186,12 @@
                   </table>
                 </div>
               </div>
+              <div class="form-group col-sm-5">
+              <label for="valor_total" class="">Valor Total:</label>
+              <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+            </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer" style="border-top:0px;">
            <div  class="col-sm-push-4 col-sm-8">
             <button type="submit" class="btn btn-primary" name="btnModificar">Guardar modificacion</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -198,12 +209,12 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Productos para asociar</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>Fichas Para Asociar</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive" id="">
+                <table class="table table-responsive">
                 <thead>
                   <tr class="active">
                     <th>Referencia</th>
@@ -215,14 +226,14 @@
                 </thead>
                 <tbody>
                 <?php $p = 1; ?>
-                <?php foreach ($productosHab as $producto): ?>
+                <?php foreach ($productos as $producto): ?>
                   <tr>
                     <td><?= $producto["Referencia"] ?></td>
                     <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 150%;"></i></td>
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -363,11 +374,12 @@
                   <button type="button" class="btn btn-primary btn-md" id="myModal-btn" data-toggle="modal" data-target="#ModelProducto"><b>Modificar Fichas</b></button>
                   </div>
                 </div> -->
+
       <div class="modal-footer">
       <div class="row col-sm-push-8 col-sm-5">
        <br />
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary" name="gurdarPedi" onclick="enviarPedido('<?= $pedido["Id_Solicitud"] ?>')">Enviar Pedido</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div><!-- /.modal-content -->

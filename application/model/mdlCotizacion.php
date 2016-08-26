@@ -28,6 +28,7 @@
 		private $Id_Cliente;
 		private $Stock_Minimo;
 		private $Id_Color;
+		private $Id_Ficha_Tecnica;
 		private $db;
 
 		public function __SET($atributo, $valor){
@@ -128,13 +129,16 @@
 
 		public function modiCotizacion(){
 
-			$sql = "UPDATE tbl_solicitudes s INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_estado e ON s.Id_Estado = e.Id_Estado SET s.Num_Documento = ?, s.Id_Estado = ?, t.Fecha_Vencimiento = ? WHERE s.Id_Solicitud = ? AND e.Id_Estado <= 4";
+			$sql = "UPDATE tbl_solicitudes s INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_estado e ON s.Id_Estado = e.Id_Estado INNER JOIN tbl_solicitudes_producto sp ON sp.Id_Solicitudes_Tipo = t.Id_Solicitudes_Tipo SET s.Num_Documento = ?, s.Id_Estado = ?, t.Fecha_Vencimiento = ?, sp.Cantidad_Producir = ?, sp.Subtotal = ?, s.Valor_Total = ? WHERE s.Id_Solicitud = ? AND e.Id_Estado <= 4";
 			try{
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->Num_Documento);
 				$query->bindParam(2, $this->Id_Estado);
 				$query->bindParam(3, $this->Fecha_Vencimiento);
-				$query->bindParam(4, $this->Id_Solicitud);
+				$query->bindParam(4, $this->Cantidad_Producir);
+				$query->bindParam(5, $this->Subtotal);
+				$query->bindParam(6, $this->Valor_Total);
+				$query->bindParam(7, $this->Id_Solicitud);
 				return $query->execute();
 
 			}catch (PDOException $e){
@@ -187,16 +191,34 @@
 		public function PedidoAsociado(){
 			$sql = "SELECT f.Referencia, c.Codigo_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
             $query = $this->db->prepare($sql);
-            $query->bindParam(1, $this->Cliente);
+            $query->bindParam(1, $this->Id_Solicitud);
             $query->execute();
-            return $query; 
+            return $query->fetchAll(); 
 		}
 
-		public function getFichasHabilitadas(){
-
+		public function Ficha_habi(){
       		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
+      	}
+
+      	public function deleteFichasAso(){
+      		$sql ="DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitud = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Solicitud);
+      		$query->execute();
+      	}
+
+      	public function regFichasAso(){
+      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (?,?,?,?,?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_tipoSolicitud);
+      		$query->bindParam(2, $this->Cantidad_existencias);
+      		$query->bindParam(3, $this->Estado_);
+      		$query->bindParam(4, $this->Cantidad_Producir);
+      		$query->bindParam(5, $this->subtotal);
+      		$query->bindParam(6, $this->Id_Ficha_Tecnica);
+      		return $query->execute();
       	}
 }  	

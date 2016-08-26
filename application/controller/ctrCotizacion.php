@@ -1,34 +1,23 @@
 <?php 
-   //cambio
 	class ctrCotizacion extends Controller{
-
 		private $modelo = null;
-
 		function __construct(){
-
 			$this->modelo = $this->loadModel("mdlCotizacion"); 
 		}
 
 		public function consCotizacion(){
 
-			$mensaje = "";
-			$mensaje2 = "";
-
 			$cotizaciones = $this->modelo->getCotizacion();
 			$clientes = $this->modelo->getCliente();
 			$fichas = $this->modelo->getFichas();         
-			$productosHab = $this->modelo->getFichasHabilitadas();
+			$productos = $this->modelo->Ficha_habi();
 
-			
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
 			require APP.'view/_templates/footer.php';
 		}	
 
 		public function regCotizacion(){
-			
-			$mensaje = "";
-			$mensaje2 = "";
 
 			if (isset($_POST["btnRegistrar"])) {
 
@@ -75,27 +64,42 @@
 
 		public function modiCotizacion(){
 			
-			$mensaje = "";
-			$mensaje2 = "";
-
 			if (isset($_POST["btnModificar"])){
 
 	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
 	            $this->modelo->__SET("Id_Estado", $_POST["estad"]);	
 	            $this->modelo->__SET("Id_Solicitud", $_POST["codigo"]);
 	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fechaVencimiento"]);
+	            $this->modelo->__SET("Valor_Total", $_POST["valor_total"]);
 	            
 				if ($this->modelo->modiCotizacion()){
 
-				$mensaje2 = "swal('Cotizacion Modifacada Exitosamente','','success')";
+					// $this->modelo->__SET("Id_Solicitud", $_POST["codigo"]);
+					// $this->modelo->deleteFichasAso();
 
+					for ($i=0; $i < count($_POST["idProducto"]); $i++) { 
+
+					$this->modelo->__SET("Id_tipoSolicitud", $_POST["Id_Tipo_Solicitud"]);
+		            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
+
+		            $this->modelo->__SET("Cantidad_existencias", 0);
+		            $this->modelo->__SET("Estado_", "k");
+		            $this->modelo->__SET("Cantidad_Producir", $_POST["cantProducir"][$i]);
+		            $this->modelo->__SET("subtotal", $_POST["subtotal"][$i]);
+
+		            $this->modelo->regFichasAso();
+					}
+
+
+
+					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
+				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}else {
-				$mensaje2 = "swal('Modifacada Fracasada','','success')";
+					$_SESSION['alert'] = "swal('Modifacada Fracasada','','success')";
 				}
 
 				header ("location: ".URL."ctrCotizacion/consCotizacion");
 			}
-
 				$cotizaciones = $this->modelo->getCotizacion();
 				
 				require APP.'view/_templates/header.php';
@@ -108,22 +112,18 @@
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud",2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
-				// $this->modelo->converPedido();
+				
 				if ($this->modelo->converPedido()) {
-
+				$_SESSION['alert'] = "swal('Cotizacion Enviada Para Pedido','','success')";
                 header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 			}
 		}
 
 		public function fichaAsociada(){
-			$thsi->modelo->__SET("clienteReg", $_POST["fichaAsociada"]);
-			$pedidoAsociado = $this->modelo->PedidoAsociado();
-			if ($pedidoAsociado) {
-				echo json_encode(["r"=>$pedidoAsociado]);
-			}else{
-				echo json_encode(["r"=>null]);
-			}
+			$this->modelo->__SET("Id_Solicitud", $_POST["idCot"]);
+			$fichaAsoc = $this->modelo->PedidoAsociado();
+			echo json_encode($fichaAsoc);
 
 		}
 		// public function cambiarEstado(){
@@ -147,7 +147,6 @@
 			}else{
 				require APP.'view/cotizacion/consCotizacion.php';	
 			}
-			
 		}
 	}
 ?>
