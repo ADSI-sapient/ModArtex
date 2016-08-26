@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="<?= URL; ?>css/font-awesome-4.6.1/css/font-awesome.css">
   <link rel="stylesheet" href="<?= URL; ?>css/daterangepicker-bs3.css">
   <link rel="stylesheet" href="<?= URL; ?>css/datepicker3.css">
+  <link rel="stylesheet" href="<?= URL; ?>css/datepicker.css">
   <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="<?= URL; ?>css/colorpicker/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/bootstrap-timepicker.min.css">
@@ -98,10 +99,9 @@
           <p><?= $_SESSION['user']['Nombre']; ?><?= substr($_SESSION['user']['Apellido'], 0, 3); ?></p>
         </div>
       </div>
-
       <ul class="sidebar-menu">
         <li class="header">MÓDULOS</li>
-        <li class="active"><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
+        <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
         <?php $nom = ''; ?>
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>
@@ -112,7 +112,7 @@
                 <?php foreach ($_SESSION["permisos"] as $valor2) {
                   if ($valor2["NombreM"] == $valor["NombreM"]){
                     ?>
-                    <li><a href="<?= URL.$valor2['Url']; ?>"><i class="fa fa-circle-o"></i>
+                    <li class=""><a href="<?= URL.$valor2['Url']; ?>"><i class="fa fa-circle-o"></i>
                       <?= $valor2["Nombre"]; ?></a></li>
                       <?php       
                     }

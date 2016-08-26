@@ -245,7 +245,6 @@
       	public function getAsoTallas(){
 
       		$sql = "SELECT Id_Talla, Nombre FROM tbl_tallas";
-
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();

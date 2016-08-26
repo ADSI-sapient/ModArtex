@@ -14,7 +14,7 @@
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
         <br>
-        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();">
+        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
@@ -39,13 +39,15 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
-              <select class="form-control" name="colorFicha" id="colorFicha">
-              <option value="" selected=""></option>
+              <div class="input-group">
+              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha">
+                <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
-                  <!-- <option style="background-color:'<?= $color["Codigo_Color"] ?>'" value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option> -->
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                 <?php endforeach; ?>
               </select>
+              <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
+              </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="tallas" >*Tallas:</label>
@@ -75,7 +77,7 @@
                       <th>Nombre</th>
                       <th>Color</th>
                       <th>Unidad Medida</th>
-                      <th>Valor*cm</th>
+                      <th>Valor</th>
                       <th>Cantidad Necesaria</th>
                       <th>Valor Insumo</th>
                       <th>Quitar</th>
@@ -88,19 +90,19 @@
             </div>
           </div>
           <div class="row col-lg-12">
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-3">
               <label for="vlr_produccion" class="">Valor Producción:</label>
               <div class="">
                 <!-- <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="number" min="1" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
                 <!-- </div> -->
               </div>
             </div>
 
-            <div class="form-group col-lg-offset-4 col-lg-4">  
+            <div class="form-group col-lg-offset-5 col-lg-4">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;">
             </div>
@@ -150,7 +152,7 @@
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>
@@ -160,7 +162,7 @@
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="border-top:0px">
               <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div><!-- /.modal-content -->

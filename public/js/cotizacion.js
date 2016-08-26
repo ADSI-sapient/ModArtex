@@ -27,7 +27,8 @@ $('#myTable').DataTable();
 $(function(){
   $('#fecha1').datepicker({
     format: "yyyy-mm-dd",
-    auntoclose: true
+    autoclose: true,
+    language: 'es'
   });
 });
 
@@ -35,7 +36,7 @@ $(function(){
 
 $('#FechaVencimiento').datepicker({
   format: "yyyy-mm-dd",
-  language: "es",
+  language: 'es',
   autoclose: true,
 }).on(
 'show', function() {      
@@ -49,7 +50,7 @@ $('#FechaVencimiento').datepicker({
 
 $('#Fechaentre').datepicker({
   format: "yyyy-mm-dd",
-  language: "es",
+  language: 'es',
   autoclose: true,
 }).on(
 'show', function() {      
