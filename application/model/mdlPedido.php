@@ -136,16 +136,6 @@
       		return $query;
       	}    
 
-      	// public function modificarEstadoPedido()
-      	// {
-      	// 	$sql = "UPDATE tbl_pedidos SET Id_Estado = ? WHERE Id_Pedido = ?";
-      	// 	$query = $this->db->prepare($sql);
-      	// 	$query->bindParam(1, $this->id_estado);
-      	// 	$query->bindParam(2, $this->id_pedido);
-      	// 	$query->execute();
-      	// 	return $query;
-      	// }
-
       	public function getFichasHabilitadas()
       	{
       		$sql = "CALL SP_consProductosHab()";
@@ -161,8 +151,8 @@
 
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_pedido);
-	        $query->execute();
-	        return $query->fetchAll();
+	           $query->execute();
+	           return $query->fetchAll();
       	}
 
       	//eliminar las asociaciones de productos que tiene un pedido.

@@ -62,7 +62,6 @@
 					// $_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
 
 					$_SESSION["mensaje"] = 'swal("Ficha Registrada Exitosamente", "", "success");';
-
 				}else{
 
 					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', rounded: true, delay: 2500});";
@@ -111,18 +110,13 @@
 					$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
 				 	$this->mdlModel->regTallasAso();
 				}
-
-		    	// $msjEditFicha = 'location.href = uri+"ctrFicha/consFicha";';
-		    	// $msjEditFicha = 'alert("Ficha modificada exitosamente"); location.href = uri+"ctrFicha/consFicha";';
-		    	// $mensaje2 = 'Lobibox.notify("success", {msg: "Ficha Modificada Exitosamente!", rounded: true, delay: 5000}); location.href = uri+"ficha/consFicha";';
-		    	 // $mensaje2 = 'swal("Ficha Modificada Exitosamente", "", "success"); location.href = uri+"ficha/consFicha";';
-
-		    	// header("location: " .URL. 'ctrFicha/consFicha');
+				
 		    	$_SESSION["mensaje"] = 'swal("Ficha Modificada Exitosamente", "", "success");';
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
-		      	// $msjEditFicha = "Lobibox.notify('error', {msg: 'No se pudo modificar la ficha', rounded: true, delay: 2500});";
+		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar la ficha', rounded: true, delay: 2500});";
+		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
 	
 		    }

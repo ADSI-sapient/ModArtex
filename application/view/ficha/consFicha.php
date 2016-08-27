@@ -62,19 +62,19 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1)" ><i class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1)" ><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
                       
                       <?php if ($ficha["Estado"] == 1){ ?>
                         
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
                         
                         <?php }else{ ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
 
                           <?php } ?>
                         </td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -82,14 +82,14 @@
                 </table>
               </div>
               <!-- </div> -->
-            </div>
+            </div> 
           </form>
         </div>
         <div class="box-footer">
         </div>
       </div>
       <!-- inicio modal modificar ficha-->
-      <div class="modal fade" id="mdEditFicha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="mdEditFicha" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -100,7 +100,7 @@
               <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
                 <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
                 <div class="form-group col-sm-4">
-                  <label for="referencia" class="">*Referencia:</label>
+                  <label for="referencia" class="">Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
                 </div>
                 <div class="form-group col-sm-4">
@@ -133,11 +133,15 @@
                 </div> -->
                 <div class="form-group col-sm-3">
                   <label for="color" class="">*Color:</label>
+                  <div class="row"></div>
+                  <!-- <div class="input-group"> -->
                   <select name="colorModFicha" id="colorModFicha" class="form-control">
                     <?php foreach ($colores as $color): ?>
                       <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                     <?php endforeach ?>
                   </select>
+                  <!-- <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span> -->
+                  <!-- </div> -->
                 </div>
                 <div class="form-group col-sm-offset-5 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
@@ -180,7 +184,7 @@
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </div>                
               </div>
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">

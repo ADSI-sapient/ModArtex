@@ -3,9 +3,11 @@
         //permite seleccionar y asociar tallas al registrar ficha técnica
         $("#selectTallas").select2({});
         
-        //permite seleccionar y asociar un color a la ficha técnica
+        //permite seleccionar y asociar un color a la ficha técnica al registrarla
         $("#colorFicha").select2({});
-        // $("#colorModFicha").select2({});
+
+        //permite seleccionar y asociar un color a la ficha técnica al modificar
+        $("#colorModFicha").select2({});
 
         // $("#doc_cliente").select2().on('show', function(){
         //   // Obtener valores actuales z-index de cada elemento
@@ -304,7 +306,6 @@
           {
             boton = "#btn"+id;
             $(boton).attr('disabled', 'disabled');
-            alert("Este insumo ya se encuentra agregado a la ficha");
           }
           else
           {

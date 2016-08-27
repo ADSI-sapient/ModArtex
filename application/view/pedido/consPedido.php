@@ -76,7 +76,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:#61B3EE"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                           <?php endif ?>
                         </td>
                       </tr>
@@ -91,7 +91,7 @@
         <div class="box-footer"></div> 
       </div>
       <!-- Incio modal modificar pedido -->
-      <div class="modal fade" id="modalEditPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="modalEditPedido" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -140,7 +140,7 @@
                   <div class="form-group col-sm-offset-2 col-sm-5">
                     <label for="doc_cliente" class="">*Asociar Cliente:</label>
                     <br>
-                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="border-radius:5px;">
+                    <select class="form-control" name="doc_cliente" id="doc_cliente">
                         <!-- <option value=""></option> -->
                       <?php foreach ($clientes as $cliente): ?>
                         <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>

@@ -85,12 +85,12 @@
 			        			$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
 				        		$this->mdlModel->__SET("cant_descontar", $cantNecPed);
 				        		$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
-				        		// $this->mdlModel->descExistInsumos();
+				        		$this->mdlModel->descExistInsumos();
 			        		}
 		        		}
 		        	}
 		        	//alerta confirmación registro
-	            	$_SESSION['mensaje'] = "Lobibox.notify('success', {msg: 'Pedido Registrado Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
+	            	$_SESSION["mensaje"] = 'swal("Pedido Registrado Exitosamente!", "", "success");';
 				}else{
 
 					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', size: 'mini', rounded: true, delay: 2500,});";
@@ -134,17 +134,15 @@
 	    				$this->mdlModel->__SET("subtotal", $_POST["subtotal"][$f]);
 		        		$this->mdlModel->regFichasAsociadas();
 		        	}
-	    			//$msgModPedido = "alert('Pedido modificado'); location.href=uri+'pedido/consPedido'";
-	    			header("location: " .URL. 'ctrPedido/consPedido');
-	    		}
-
-	    		else{
-	    			// $msgModPedido = "alert('Error al modificar el pedido')";
+	    			$_SESSION["mensaje"] = 'swal("Pedido Modificado Exitosamente!", "", "success");';
+		    		header("location: " .URL. 'ctrPedido/consPedido');
+	    		}else{
+	    			$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar el pedido', rounded: true, delay: 2500});";
+		      		header("location: " .URL. 'ctrPedido/consPedido');
 	    		}	
 	    	}
 
 	    	$pedidos = $this->mdlModel->getPedidos();
-
 	        require APP . 'view/_templates/header.php';
 	        require APP . 'view/pedido/consPedido.php';
 	        require APP . 'view/_templates/footer.php';
