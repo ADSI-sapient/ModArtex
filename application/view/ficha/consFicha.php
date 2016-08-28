@@ -47,8 +47,9 @@
                   <th>Stock Mínimo</th>
                   <th>Valor Producción</th>
                   <th>Valor Producto</th>
-                  <th style="width: 7%">Opción</th>
-                  <th style="width: 7%">Insumos Asociados</th>
+                  <th style="width: 7%">Editar</th>
+                  <th style="width: 7%">Cambiar Estado</th>
+                  <th style="width: 15%">Insumos Asociados</th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -63,20 +64,18 @@
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1)" ><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
-                      
+                    </td>
+                    <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
-                        
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
-                        
-                        <?php }else{ ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
-
-                          <?php } ?>
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
-                        </td>
-                      </tr>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                      <?php }else{ ?>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                      <?php } ?>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                    </td>
+                    </tr>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
@@ -173,7 +172,7 @@
                           <th>Nombre</th>
                           <th>Color</th>
                           <th>Medida</th>
-                          <th>Valor*cm</th>
+                          <th>Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
                           <th>Quitar</th>
@@ -239,7 +238,7 @@
                           <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                           <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                           <td>
-                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>', '<?= $insumo["Abreviatura"] ?>')"><i class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>
@@ -329,7 +328,7 @@
                           <th>Nombre</th>
                           <th>Color</th>
                           <th>Medida</th>
-                          <th>Valor*cm</th>
+                          <th>Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
                         </tr>

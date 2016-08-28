@@ -144,7 +144,7 @@
         $(boton).attr('disabled', 'disabled');
 
         $("#tablaFicha tbody tr").each(function(){
-          $("#cantProducir"+idbton).on("keyup change", function(){
+          $("#cantProducir"+idbton).on("keyup", function(){
 
             //
             $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
@@ -162,7 +162,7 @@
               $("#usarProductoT"+idbton).val(0);
             });
 
-          $("#usarProductoT"+idbton).on("keyup change", function(){
+          $("#usarProductoT"+idbton).on("keyup", function(){
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
@@ -214,6 +214,7 @@
           return res;
       }
 
+      //asociar productos al modificar el pedido
       function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton){
         
         //producto que se quiere agregar
