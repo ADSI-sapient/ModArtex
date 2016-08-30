@@ -107,13 +107,18 @@
               <div class="">
                 <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                    <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
+                  <!--   <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button> -->
                   </div>
-                  <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" required="" style="border-radius:5px;">
+                  <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- <div class="form-group col-sm-5">
+              
+              
+            </div> -->
 
         <div class="row">
           <div class="form-group">

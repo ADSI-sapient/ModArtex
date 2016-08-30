@@ -43,7 +43,7 @@
 	            $this->modelo->__SET("Cantidad_existencias", 0);
 	            $this->modelo->__SET("Estado_", "k");
 	            $this->modelo->__SET("Cantidad_Producir", $_POST["cantiProdu"][$i]);
-	            $this->modelo->__SET("subtotal", $_POST["subtot"][$i]);
+	            $this->modelo->__SET("Subtotal", $_POST["subtot"][$i]);
 
 	            $this->modelo->regProducto_Aso();
 	            }
@@ -76,27 +76,27 @@
 				if ($this->modelo->modiCotizacion()){
 
 	            	$idSolTipo = $this->modelo->traerUltimoIdSTipo();
+					$this->modelo->__SET("Id_tipoSolicitud", implode("", $idSolTipo));
+	            	
 					$this->modelo->deleteFichasAso();
 
 					for ($i=0; $i < count($_POST["idProducto"]); $i++) { 
 
-					$this->modelo->__SET("Id_tipoSolicitud", $idSolTipo);
-		            $this->modelo->__SET("Cantidad_existencias", 0);
-		            $this->modelo->__SET("Estado_", "k");
-		            $this->modelo->__SET("Cantidad_Producir", $_POST["cantProducir"][$i]);
-		            $this->modelo->__SET("subtotal", $_POST["subtotal"][$i]);
-		            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
-
-		            $this->modelo->regFichasAso();
+			            $this->modelo->__SET("Cantidad_existencias", 0);
+			            $this->modelo->__SET("Estado_", "k");
+			            $this->modelo->__SET("Cantidad_Producir", $_POST["cantProducir"][$i]);
+			            $this->modelo->__SET("Subtotal", $_POST["subtotal"][$i]);
+			            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
+			            $this->modelo->regFichasAso();
 					}
 
 					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}else {
 					$_SESSION['alert'] = "swal('Error al modificar la cotización','','success')";
+				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 
-				header ("location: ".URL."ctrCotizacion/consCotizacion");
 			}
 				$cotizaciones = $this->modelo->getCotizacion();
 				
@@ -136,7 +136,7 @@
 		//     }
 		// }
 
-		public function factura($cod){
+		public function cotizacion($cod){
 			$this->modelo->__SET("Id_Solicitud", $cod);
 			$factura = $this->modelo->facturaVenta();
 

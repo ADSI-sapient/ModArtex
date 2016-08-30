@@ -12,7 +12,7 @@
 		private $Tipo_Documento;
 		private $Nombre;
 		private $Apellido;
-		private $Estado;
+		private $Estado_;
 		private $Telefono;
 		private $Direccion;
 		private $Email;
@@ -29,6 +29,8 @@
 		private $Stock_Minimo;
 		private $Id_Color;
 		private $Id_Ficha_Tecnica;
+		private $Cantidad_Producir;
+		private $Cantidad_existencias;
 		private $db;
 
 		public function __SET($atributo, $valor){
@@ -50,7 +52,7 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Solicitudes_Tipo = 1";
+			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Tipo = 1";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -110,7 +112,7 @@
 			$query->bindParam(2, $this->Cantidad_existencias);
 			$query->bindParam(3, $this->Estado_);
 			$query->bindParam(4, $this->Cantidad_Producir);
-			$query->bindParam(5, $this->subtotal);
+			$query->bindParam(5, $this->Subtotal);
 			$query->bindParam(6, $this->referencia);
 			return $query->execute();
 		}
@@ -171,7 +173,7 @@
 		}
 
 		public function facturaVenta(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Produccion, f.Estado, f.Cantidad FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
@@ -196,7 +198,7 @@
 		}
 
 		public function PedidoAsociado(){
-			$sql = "SELECT f.Referencia, c.Codigo_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
+			$sql = "SELECT sp.Id_Ficha_Tecnica, f.Referencia, c.Codigo_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
             $query = $this->db->prepare($sql);
             $query->bindParam(1, $this->Id_Solicitud);
             $query->execute();
@@ -205,7 +207,7 @@
 
 
 		public function Ficha_habi(){
-      		$sql = "SELECT f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
+      		$sql = "SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC";
       		$query = $this->db->prepare($sql);
 	        $query->execute();
 	        return $query->fetchAll();
@@ -214,18 +216,18 @@
       	public function deleteFichasAso(){
       		$sql ="DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = ?";
       		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->Id_Solicitudes_Tipo);
-      		$query->execute();
+      		$query->bindParam(1, $this->Id_tipoSolicitud);
+      		return $query->execute();
       	}
 
       	public function regFichasAso(){
-      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (?,?,?,?,?,?)";
+      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->Id_tipoSolicitud);
       		$query->bindParam(2, $this->Cantidad_existencias);
       		$query->bindParam(3, $this->Estado_);
       		$query->bindParam(4, $this->Cantidad_Producir);
-      		$query->bindParam(5, $this->subtotal);
+      		$query->bindParam(5, $this->Subtotal);
       		$query->bindParam(6, $this->Id_Ficha_Tecnica);
       		return $query->execute();
       	}
