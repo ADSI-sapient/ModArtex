@@ -51,6 +51,33 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
   
     }
 
+    function editarRolesN(Id_Rol, Nombre, roles){
+          var campos = $(roles).parent().parent();
+          $("#idRol").val(campos.find("td").eq(0).text());
+          $("#nombre_rol").val(campos.find("td").eq(1).text());
+           $("#fila").empty();
+           // $("#nombre_rol").val(Nombre);
+
+    $.ajax({
+
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrConfiguracion/listarR",
+            data: {rol: Id_Rol },
+            success: function(data){
+               // $("#Nombre").val(campos.find("td").eq(1).text());
+            for (var i = 0; i < data.length; i++) {
+              idperm=data[i]["Id_Permiso"];
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
+              $("#fila").append(fila);
+                          } 
+            }, 
+            error: function(){
+            }
+        });
+  
+    }
+
 
   function editarUsuarios(Num_Documento, usuarios){
     var campos = $(usuarios).parent().parent();
@@ -194,7 +221,7 @@ function validarTelefono(telefono){
   }
 
 
-
+ 
 
 
 
