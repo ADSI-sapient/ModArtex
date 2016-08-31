@@ -22,7 +22,7 @@
               <div class="table-responsive">
               <table class="table" id="example1">
               <thead>
-                <tr class="active">
+                <tr class="active" style="color: ">
                   <th style="width: 10px"></th>
                   <th>Código</th>
                   <th>Nombre</th>

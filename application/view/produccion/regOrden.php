@@ -10,17 +10,14 @@
 <section class="content">
  <br>
  <div>
-  <div class="box box-info">
+  <div  class="box box-info">
     <div class="box-header with-border" style="text-align: center;">
       <h1 class="box-title"><strong>REGISTRAR ORDEN</strong></h1>
     </div>
-    <div style="padding:20px 20px">
+    <div style="padding-left: 8%;">
     <form class="" role="form">
-      <div class="form-group col-lg-1">
-        <label for="Numero_de_orden" class="">Código </label>
-        <input type="text" class="form-control" id="Numero_de_orden" placeholder="" value="3" disabled>
-      </div>
-      <div class="form-group col-lg-offset-2 col-lg-4">
+      <div class="row">
+      <div class="form-group col-lg-4">
         <label class="">Fecha Registro</label>
         <div class="">
           <div class="input-group date">
@@ -42,20 +39,14 @@
           </div>
         </div>
       </div>
-      <div class="form-group  col-lg-2">
-        <label for="aso_cotizacion">Asociar Pedido
-        </label>
-        <form action="#" method="get" class="form-horizontal">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" disabled="" />
-            <span class="input-group-btn">
-              <button type="button" id="search-btn" class="btn btn-flat"><i class="fa fa-search" data-toggle="modal" data-target="#myModalhbjn"></i>
-              </button>
-            </span>
-          </div>
-        </form>
+      <div class="form-group  col-lg-3">
+      <div style="">
+        <button style="margin-top: 10%;" class="btn btn-info btn-md">Asociar Pedido</button>
       </div>
-      <div class="form-group col-lg-offset-1 col-lg-4">
+      </div>
+      </div>
+      <div class="row">
+      <div class="form-group col-lg-4">
         <label for="estado" class="">Estado</label>
         <select class="form-control ">
           <option value="opcion1" selected>Producción</option>
@@ -63,29 +54,14 @@
           <option value="opcion3">Terminado </option>
         </select>
       </div>
-      
-      <div class="form-group  col-lg-offset-1 col-lg-4">
-        <label for="aso_cotizacion">
-          <input type="checkbox" value="">
-          Producto terminado
-        </label>
-        <form action="#" method="get" class="form-horizontal">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" disabled="true"/>
-            <span class="input-group-btn">
-             <button type="button" id="search-btn" class="btn btn-flat"><i class="fa fa-search" data-toggle="modal" data-target="#myModaln"></i>
-             </button>
-           </span>
-         </div>
-       </form>
-     </div>
-     <div class="form-group  col-lg-2">
+     <div class="form-group col-lg-offset-1 col-lg-3">
       <label for="lugar" class="">Lugar</label>
       <select class="form-control ">
         <option value="opcion1" selected>Fábrica</option>
         <option value="opcion2">Satélite</option>
       </select>
 
+    </div>
     </div>
     <div class="table table-responsive">
      <h4>Producto Terminado Seleccionado</h4>
