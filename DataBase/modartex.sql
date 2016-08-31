@@ -339,11 +339,6 @@ CREATE TABLE `tbl_colores_insumos` (
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
 
-INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 1, 1, 0, 3100, 201),
-(2, 2, 1, 0, 3100, 201),
-(3, 3, 1, 0, 3100, 201);
-
 -- --------------------------------------------------------
 
 --
@@ -425,14 +420,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 -- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
 --
 
-INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 2, 3),
-(4, 1, 4),
-(5, 2, 1),
-(6, 2, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -455,10 +442,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 -- Volcado de datos para la tabla `tbl_fichas_tecnicas`
 --
 
-INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
-(1, 123, 1, '2016-08-26', '1', 310, 20, 30, 4000),
-(2, 43, 2, '2016-08-26', '1', 155, 19, 60, 6000);
-
 -- --------------------------------------------------------
 
 --
@@ -475,9 +458,6 @@ CREATE TABLE `tbl_insumos` (
 --
 -- Volcado de datos para la tabla `tbl_insumos`
 --
-
-INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(1, 3, 1, 'Hilo');
 
 -- --------------------------------------------------------
 
@@ -496,17 +476,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
-
-INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(1, 1, 23, 713, 1),
-(2, 2, 34, 1054, 1),
-(3, 3, 51, 1581, 1),
-(4, 2, 20, 620, 2),
-(5, 1, 2, 62, 3),
-(6, 2, 30, 930, 4),
-(7, 2, 5, 155, 1),
-(8, 3, 5, 155, 1),
-(9, 3, 5, 155, 2);
 
 -- --------------------------------------------------------
 
@@ -759,12 +728,6 @@ CREATE TABLE `tbl_salida_ficha` (
 --
 -- Volcado de datos para la tabla `tbl_salida_ficha`
 --
-
-INSERT INTO `tbl_salida_ficha` (`Codigo`, `Id_Salida`, `Id_Ficha_Tecnica`, `Cantidad`) VALUES
-(1, 1, 1, 2),
-(2, 3, 1, 1),
-(7, 12, 1, 23),
-(8, 12, 2, 23);
 
 -- --------------------------------------------------------
 
