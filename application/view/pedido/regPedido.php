@@ -148,7 +148,7 @@
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="border-top:0px;">
               <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div><!-- /.modal-content -->

@@ -168,11 +168,10 @@ $html = '<!DOCTYPE html>
         }
 
     </style>
-
 </head>
 <body>
+
 <div id="wrapper">
-     
     <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:45px;">Cotizacion</h1>
     <br />
     <table style="width:100%;">
@@ -181,6 +180,7 @@ $html = '<!DOCTYPE html>
                 <h1 class="heading">'.$factura[0]["Nombre"].' '.$factura[0]["Apellido"].'</h1>
                 <br>
                 <h2 class="heading">Documento : '.$factura[0]["Num_Documento"] .'</h2>
+                <h2 class="heading">Tipo De Documento : '.$factura[0]["Tipo_Documento"] .'</h2>
                 <h2 class="heading">Telefono : '. $factura[0]["Telefono"] .'</h2>
                 <h2 class="heading">Direccion : '. $factura[0]["Direccion"] .'</h2>
                 <h2 class="heading">Email : '. $factura[0]["Email"] .'</h2>
@@ -193,40 +193,39 @@ $html = '<!DOCTYPE html>
                 </table>
             </td>
         </tr>
-       
     </table>
          
-        
-
     <div id="content">
         <div id="invoice_body">
             <table class="table">    
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Producto</b></td>
-                <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
-                <td style="width:15%;"><b>Total</b></td>
+                <td style="width:15%;"><b>Valor Del Producto</b></td>
+                <td style="width:15%;"><b>Subtotal</b></td>
             </tr>';         
                 
             foreach ($factura as $value):
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Valor_Produccion"] .'</td>
-            <td class="mono" style="width:15%;">'.$value["Cantidad"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Valor_Total"].'</td>
-            
+            <td class="mono" style="width:15%;">'.$value["Cantidad_Producir"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Valor_Producto"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Subtotal"] .'</td>
             </tr>';
-             
+
             endforeach; 
-            '</table>
-
-
+            
+            $html .='<tr>
+                <td style="border:none;"></td>
+                <td style="border:none;"></td>
+                <td><b>Total</b></td>
+                <td style="width:15%;"class="mono">'.$factura[0]["Valor_Total"].'</td>
+            </tr>
+            </table>
         </div>
-        
-        <br />
-        <hr />
-        <br />
+    </div>
+</div> 
 </body>
 </html>';
          
@@ -292,8 +291,6 @@ $norwayLayer = new ImageWorkshop(array(
 $watermarkLayer = new ImageWorkshop(array(
     "imageFromPath" => $rutaImagen,
 ));
-
-
 
 $watermarkLayer->opacity(40);
 

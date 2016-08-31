@@ -64,10 +64,10 @@
                     <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
 
                    <td>
-                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); PedidoAsociado("<?= $cotizacion['Id_Solicitud'] ?>")'><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>")'><i class="fa fa-pencil-square-o fa-lg"></i></button>
                    </td>
 
-                   <td><a href='<?= URL ?>/ctrCotizacion/factura/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o fa-md" aria-hidden="true"></i></a> </td>
+                   <td><a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o fa-md" aria-hidden="true"></i></a> </td>
 
                    <td><button type="button" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share fa-lg" style="color:#5A69F2;" aria-hidden="true"></i></button></td>
                   
@@ -187,7 +187,7 @@
                   </table>
                 </div>
               </div>
-              <div class="form-group col-sm-5">
+            <div class="form-group col-sm-5">
               <label for="valor_total" class="">Valor Total:</label>
               <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
             </div>
@@ -234,7 +234,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
