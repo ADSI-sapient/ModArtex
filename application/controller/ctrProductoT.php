@@ -29,6 +29,7 @@
 
 				
 					 $this->mdlModel->__SET("descripcion", $_POST["descripcion"]);
+					 $this->mdlModel->__SET("Fecha_Salida", $_POST["FechaActual"]);
 					 if ($this->mdlModel->registrarS()) {
 					 		
 					 	$ultimaSalida = $this->mdlModel->ultimaSalida();
@@ -51,31 +52,31 @@
 		public function VariasSalidas(){
 
 			if ($_POST["Cantidad"] >= 1) {
+
 					$this->mdlModel->__SET("Cantidad", implode('', $_POST["Cantidad"]));
 					$this->mdlModel->__SET("Id_Ficha_Tecnica", implode('', $_POST["idf"]));
-					$this->mdlModel->__SET("salida", implode('', $_POST["salida"]));
+					$this->mdlModel->__SET("salida",implode('', $_POST["salida"]));
 
 					if ($this->mdlModel->descontar()){
 
-					 $this->mdlModel->__SET("descripcion", implode('', $_POST["descripcion"]));
-
+				
+					 $this->mdlModel->__SET("descripcion", $_POST["descripcion"]);
+					 $this->mdlModel->__SET("Fecha_Salida",$_POST["FechaActual"]);
 					 if ($this->mdlModel->registrarS()) {
-		
+					 		
 					 	$ultimaSalida = $this->mdlModel->ultimaSalida();
 
-				for ($i=0; $i < count($_POST["idf"]); $i++) { 
+					for ($i=0; $i < count($_POST["idf"]); $i++) { 
 
-				$this->mdlModel->__SET("Id_Salida", implode('', $ultimaSalida));
-				$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST['idf'][$i]);
-				$this->mdlModel->RegistrarSP();
+						$this->mdlModel->__SET("Id_Salida", implode('', $ultimaSalida));
+						$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST['idf'][$i]);
+						$this->mdlModel->__SET("Cantidad", $_POST["salida"][$i]);
+						$this->mdlModel->RegistrarSP();
+						}
 						}
 					}	
 				}
-			}
 			$productos = $this->mdlModel->getProducto();
-
-
-
 
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/productoT.php';

@@ -96,23 +96,21 @@
                 <div class="box-body""> 
                   <div class="form-group col-sm-6">
                       <label for="referencia" class="">Referencia</label>
-                      <input type="text" class="form-control" name="Referencia" id="Referencia"> 
+                      <input type="text" class="form-control" name="Referencia" id="Referencia" readonly=""> 
                     </div>
 
                      <div class="form-group col-sm-offset-1 col-sm-5">
-                      <label for="color" class="">Color</label>
-                      <div class="input-group my-colorpicker2 colorpicker-element">
-                        <i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 300%;" ></i>
-                      </div>
+                     <label>Fecha</label>
+                      <input type="text" name="FechaActual" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
                     </div>
 
                      <div class="form-group col-sm-6">
-                    <label for="referencia" class="">Cantidad</label>
-                    <input type="text" class="form-control"  name="Cantidad" id="Cantidad">
+                    <label for="referencia" class="">Cantidad actual</label>
+                    <input type="text" class="form-control"  name="Cantidad" id="Cantidad" readonly="">
                   </div>
 
                    <div class="form-group col-sm-offset-1 col-sm-5">
-                    <label for="color" class="">Salida</label>
+                    <label for="color" class="">Cantidad salida</label>
                      <input type="number" class="form-control"  min="0" id="salida"     name="salida">  
                   </div>
 
@@ -163,15 +161,24 @@
                   <th>Cantidad</th>
                   <th style="display: none">Id_Ficha</th>
                   <th>Salida</th>
-                  <th>Descripción</th>
                 </tr>
               </thead>
               <tbody id="tbodySal">
               </tbody>      
             </table>
           </div>
-        </div> 
+        </div>
+        <div class="form-group col-sm-5">
+      <label>Fecha</label>
+        <input type="text" name="FechaActual" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
+    </div>
+
+    <div class="form-group col-sm-offset-1 col-sm-5">
+      <label>Descipción</label>
+     <textarea rows="2" cols="10" class="form-control" name="descripcion" id="descripcion"></textarea> 
+    </div> 
       </div>
+  
     </div>
 </div>
 

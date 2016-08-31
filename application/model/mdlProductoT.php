@@ -59,8 +59,8 @@ class mdlProductoT
 
 	    	 try{
       			$query = $this->db->prepare($sql);
-      			$query->bindParam(1, $this->salida);
-      			$query->bindParam(2, $this->descripcion);
+      			$query->bindParam(1, $this->descripcion);
+      			$query->bindParam(2, $this->Fecha_Salida);
       			return $query->execute();
       		} catch (PDOException $e){
       		}
@@ -77,12 +77,13 @@ class mdlProductoT
 
 
 	     public function RegistrarSP(){
- 			$sql= "CALL SP_RegistrarSPro(?, ?)";
+ 			$sql= "CALL SP_RegistrarSPro(?, ?, ?)";
 
 	    	 try{
       			$query = $this->db->prepare($sql);
       			$query->bindParam(1, $this->Id_Salida);
       			$query->bindParam(2, $this->Id_Ficha_Tecnica);
+      			$query->bindParam(3, $this->salida);
       			return $query->execute();
       		} catch (PDOException $e){
       		}
