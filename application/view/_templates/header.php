@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="<?= URL; ?>css/skin-blue.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/_all-skins.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
+  <link rel="stylesheet" href="<?= URL; ?>Parsley.js-2.4.4/src/parsley.css">
       <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
   <!--  <script src="<?= URL;?>css/jQuery-2.2.0.min.js"></script> -->
 </head>

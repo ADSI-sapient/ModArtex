@@ -14,11 +14,11 @@
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
         <br>
-        <form action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
+        <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;">
+              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -27,20 +27,20 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="estado" class="">*Estado:</label>
-              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;">
+              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
-              <div class="input-group">
-              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha">
+              <div class="input-group" >
+              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="">
                 <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
@@ -51,7 +51,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="tallas" >*Tallas:</label>
-              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]">
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="">
                 <option value="1">L</option>
                 <option value="2">M</option>
                 <option value="3">S</option>
@@ -59,7 +59,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;">
+              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
           <div class="row col-lg-12">
@@ -104,7 +104,7 @@
 
             <div class="form-group col-lg-offset-5 col-lg-4">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;">
+              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">

@@ -2,7 +2,7 @@
 
         //permite seleccionar y asociar tallas al registrar ficha técnica
         $("#selectTallas").select2({});
-        
+     
         //permite seleccionar y asociar un color a la ficha técnica al registrarla
         $("#colorFicha").select2({});
 
@@ -106,34 +106,34 @@
         var stockmini = $("#stock_minimo").val();
         var vlrproducto = $("#vlr_producto").val();
 
-        if (referencia === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una referencia'});
-          return false;
-        }
-        if (colFichaT === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un color'});
-          return false;
-        }
-        if (document.forms['frmRegFicha']['tallas[]'].selectedIndex == -1){
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar una talla'});
-          return false;
-        }
-        if (tallas === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar al menos una talla'});
-          return false;
-        }
-        if (stockmini === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un stock mínimo'});
-          return false;
-        }
-        if (vlrproducto === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un valor del producto'});
-          return false;
-        }
-        if (vlrproducto <= vlrproduccion) {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El valor del producto debe ser mayor al valor de producción'});
-          return false;
-        }
+        // if (referencia === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una referencia'});
+        //   return false;
+        // }
+        // if (colFichaT === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un color'});
+        //   return false;
+        // }
+        // if (document.forms['frmRegFicha']['tallas[]'].selectedIndex == -1){
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar una talla'});
+        //   return false;
+        // }
+        // if (tallas === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar al menos una talla'});
+        //   return false;
+        // }
+        // if (stockmini === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un stock mínimo'});
+        //   return false;
+        // }
+        // if (vlrproducto === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar un valor del producto'});
+        //   return false;
+        // }
+        // if (vlrproducto <= vlrproduccion) {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El valor del producto debe ser mayor al valor de producción'});
+        //   return false;
+        // }
 
         //validación para los inputs de cantidad necesaria
         // $("#tablaInsumos tbody tr").each(function(){
@@ -146,17 +146,15 @@
         // });
 
         //valida insumos asociados
-        if ($("#tablaInsumos >tbody >tr").length == 0)
-        {
-          Lobibox.notify('error', {size: 'mini', imageUrl: uri+"img/android.jpg", rounded: true, delayIndicator: false, msg: 'Debe asociar al menos un insumo'});
-          //retorna false y no permite que se envie el formulario.
-          return false;
-        }
-        else
-        {
+        // if ($("#tablaInsumos >tbody >tr").length == 0)
+        // {
+        //   Lobibox.notify('error', {size: 'mini', imageUrl: uri+"img/android.jpg", rounded: true, delayIndicator: false, msg: 'Debe asociar al menos un insumo'});
+        //   //retorna false y no permite que se envie el formulario.
+        //   return false;
+        // }
+
           //Este retorno permite enviar el formulario
           return true;
-        }
       }
 
       $(document).ready(function(){
@@ -366,6 +364,7 @@
         }).fail(function(){})
       }
 
+      $('#frmRegFicha').parsley();
 
 
         

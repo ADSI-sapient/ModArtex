@@ -12,7 +12,6 @@
     <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
     </div>
 
-
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
     <script src="<?= URL;?>js/select2.full.min.js"></script>
     <script src="<?= URL;?>js/jquery.inputmask.js"></script>
@@ -39,6 +38,8 @@
     <script src="<?= URL;?>js/lobibox.min.js"></script>
     <script src="<?= URL;?>js/messageboxes.min.js"></script>
     <script src="<?= URL;?>js/notifications.min.js"></script>
+    <script src="<?= URL;?>Parsley.js-2.4.4/dist/parsley.min.js"></script>
+    <script src="<?= URL;?>Parsley.js-2.4.4/dist/i18n/es.js"></script>
 
     <script type="text/javascript">
       var uri = "<?= URL;?>";
