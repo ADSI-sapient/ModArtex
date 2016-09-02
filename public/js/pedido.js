@@ -136,7 +136,7 @@
         //var tr2 = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input valorTotalPedido type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         
         $("#tablaFicha").append(tr);
-        // boton = "#btn"+idbton;
+        boton = "#btn"+idbton;
         // cantProd = "#cantProducir"+idbton;
         // subt = "#capValor"+idbton;
 
@@ -330,71 +330,18 @@
                 subtotal = arrayProductos[i]['Subtotal'];
                 var tr ="";
                 if (modalPa == 1) {
-
-                  //anterior
                   tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td><input type='text' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); calcularVlrTotalPed(); validarExistenciasIn("+id_fichat+", cantProducir"+idProducto+".value, 1);' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+id_fichat+"'><td style='display: none;'>"+id_fichat+"</td></tr>";
                   $('#tbl-prod-aso-ped').append(tr);
-
-                  //nueva
-                  // tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td><input type='text' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+id_fichat+"'></tr>";
-                  // $('#tbl-prod-aso-ped').append(tr);
-
-                  // $("#tbl-prod-aso-ped tbody tr").each(function(){
-                  // $("#cantProducir"+idProducto).on("keyup change", function(){
-
-                  // //$("#capValor"+idProducto).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
-                  
-                  //   //nueva
-                  //   var subtot = $("#cantProducir"+idProducto).val() * vlrProducto;
-                  //   $("#capValor"+idProducto).val(subtot);
-                  //   // $("#subt"+idProducto).val(subtot);
-                    
-                  //   calcularVlrTotalPed2(idProducto);
-                  //   //calcularVlrTotalPed();
-                  //   //validarExistenciasIn(idf, $("#cantProducir"+idbton).val());
-                  //   });
-                  // });
                 }
                 else if(modalPa == 2)
                 {
                   $("#agregarFichaProd").removeAttr("hidden");
-                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' value='"+cantProducir+"' id='cantProducirPed'"+id_fichat+" readonly></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"'></td><td style='display:none' id='cantSatelite"+id_fichat+"'><input type='text'></td></tr>";
+                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' value='"+cantProducir+"' id='cantProducirPed'"+id_fichat+" readonly></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", 1)'></td><td><input type='text' style='display:none' id='cantSatelite"+id_fichat+"'></td></tr>";
                   $('#tblFichasProd').append(tr);
                   $('#fecha_terminacion').val(fechaTerm);
 
                   var emsj = "#chb"+id_fichat;
                   var cants = "#cantSatelite"+id_fichat;
-
-                  // $("#tblFichasProd tbody tr").each(function(){
-                  //   $(emsj).change(function() 
-                  //   {
-                  //       if($(this).is(":checked")) {
-                  //         $(cants).removeAttr("style");
-                  //         $("#cantidadSat").removeAttr("style");
-                  //       }
-                  //       else
-                  //       {
-                  //         $(cants).css("display", 'none');
-                  //         $("#cantidadSat").css("display", 'none');
-                  //       }       
-                  //   });
-                  // });
-
-
-                    $(emsj).change(function() 
-                    {
-                      $("#tblFichasProd tbody tr").each(function(){
-                        if($(this).is(":checked")) {
-                            $(cants).removeAttr("style");
-                            $("#cantidadSat").removeAttr("style");
-                        }
-                        else
-                        {
-                          $(cants).css("display", 'none');
-                          $("#cantidadSat").css("display", 'none');
-                        }       
-                      });
-                    });
                 }
                 else
                 {
@@ -408,6 +355,32 @@
 
         })
       }
+
+      function prueba(cantproduc, inputCantidadSat, checkbox, cantProdu)
+      {
+        console.log(cantproduc, inputCantidadSat, checkbox, cantProdu);
+        
+        $("#tblFichasProd tbody tr").each(function(){
+          if($(checkbox).is(":checked"))
+          {
+            $(inputCantidadSat).removeAttr("style");
+
+            var hola = $(inputCantidadSat).val();
+            
+
+            $("#cantidadSat").removeAttr("style");
+            // var resta = cantidSatelite - cantProdu;
+            // console.log(resta);
+          }
+          else
+          {
+            $(inputCantidadSat).css("display", 'none');
+            // $("#cantidadSat").css("display", 'none');
+          }       
+        });
+      }
+
+
 
       function calcularVlrTotalPed2(idbton){
         var total = 0;

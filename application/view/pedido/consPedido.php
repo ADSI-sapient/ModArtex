@@ -93,7 +93,7 @@
       <!-- Incio modal modificar pedido -->
       <div class="modal fade" id="modalEditPedido" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" onclick="cancelar()"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Pedido</b></h4>
@@ -140,7 +140,7 @@
                   <div class="form-group col-sm-offset-2 col-sm-5">
                     <label for="doc_cliente" class="">*Asociar Cliente:</label>
                     <br>
-                    <select class="form-control" name="doc_cliente" id="doc_cliente">
+                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="width: 100%; height: 100%;">
                         <!-- <option value=""></option> -->
                       <?php foreach ($clientes as $cliente): ?>
                         <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
