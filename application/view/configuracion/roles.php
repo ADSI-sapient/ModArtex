@@ -90,7 +90,8 @@
                       <th class="col-lg-3">#</th>
                         <th class="col-lg-3">Nombre</th>
                         <th class="col-lg-3">Estado</th>
-                         <th style="width: 15%">Opción</th>
+                         <th>Opción</th>
+                        
                       </tr>
                     </thead>
                  <tbody class="list">
@@ -100,17 +101,17 @@
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                       <td>
-                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="editarRolesN('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
+                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
 
 
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
 
                         <?php if ($rol["Estado"] == 1){ ?>
                           
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
                           
                           <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
 
                             <?php } ?>
                           </td>
@@ -180,48 +181,37 @@
 </div>
 
  <div class="modal fade" id="ModificarR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-   <form role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
+   <form role="form" id="ModificarR" method="post">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="border-radius: 25px;">
        <div class="modal-header with-border" style="text-align: center;"> 
-                   <h4 class="control-label"><strong>MODIFICAR ROL</strong></h4>
+                   <h4 class="control-label"><strong>PERMISOS ASIGNADOS</strong></h4>
               </div>
          
               <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
                 <input type="hidden" id="idRol" name="idRol">
-                <input type="text" class="form-control" name="Nombre" id="nombre_rol" >
+                <input type="text" class="form-control" name="nombrerol" id="nombrerol" >
               </div> 
-              <div class="form-grouf">
-                <label for="nombre" class="col-lg-4  col-lg-offset-1 control-label">Agregar Permisos</label>
-                <button type="button" class="btn btn-primary  col-lg-offset-1 col-lg-4 "  data-toggle="modal" data-target="#permisosN">+</button>
-                <br>
-              </div>
-            </div>
+      
      <div class="box-body  ">
             <div class="box-header">
             <h3 class="box-title"><strong>Permisos</strong></h3>
            </div>
             <!-- /.box-header -->
-            <table class="table table-hover col-lg-12" id="tablaR">
+            <table class="table table-hover col-lg-12" id="tablaRU">
             <thead>
               <tr class="info">
-                <th class="col-lg-2">Id</th>
+                <th class="col-lg-4">Id</th>
                 <th class="col-lg-4">Modulo</th>
                 <th class="col-lg-4">Privilegios</th>
-                <th>Eliminar</th>
               </tr>
             </thead>
-            <tbody id="fila">
+            <tbody id="filass">
             </tbody>
          </table>
 
-      </div>
-      
-      <div class="modal-footer">
-         <button type="submit" class="btn btn-primary" name="btnModificarRol">Guardar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
