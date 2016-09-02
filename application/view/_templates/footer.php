@@ -57,6 +57,7 @@
     <script src="<?= URL;?>js/cotizacion.js"></script>
     <script src="<?= URL;?>js/persona.js"></script>
     <script src="<?= URL;?>js/productoT.js"></script>
+    <script src="<?= URL;?>js/produccion.js"></script>
 
       <script type="text/javascript">
         $(function(){ 

@@ -133,13 +133,12 @@
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
         +"<td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
         
-        //onchange
-        //var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input valorTotalPedido type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
+        //var tr2 = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' min='1' id='cantProducir"+idbton+"' value='0' onchange='res"+idbton+".value=cantProducir"+idbton+".value * "+vlrprodto+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorTotalPedido();' style='border-radius:5px;' name='cantProducir[]'></td><td><input valorTotalPedido type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+ref+"></tr>";
         
         $("#tablaFicha").append(tr);
-        boton = "#btn"+idbton;
-        cantProd = "#cantProducir"+idbton;
-        subt = "#capValor"+idbton;
+        // boton = "#btn"+idbton;
+        // cantProd = "#cantProducir"+idbton;
+        // subt = "#capValor"+idbton;
 
         $(boton).attr('disabled', 'disabled');
 
@@ -307,7 +306,7 @@
       };
 
      //carga productos asociados al pedido
-      function cargarProductosAsoPed(idped, modalPa){
+      function cargarProductosAsoPed(idped, fechaTerm, modalPa){
         $.ajax({
           type: 'post',
           dataType: 'json',
@@ -317,6 +316,9 @@
           if (respuesta.r != null) {
               $("#tbl-prod-aso-ped > tbody tr").empty();
               $("#dll-prod-asoped > tbody tr").empty();
+              $('#dtlle-pedido-prod > tbody tr').empty();
+              $('#tblFichasProd > tbody tr').empty();
+
               arrayProductos = respuesta.r;
               for (var i = 0; i <= arrayProductos.length - 1; i++) {
 
@@ -353,10 +355,52 @@
                   //   });
                   // });
                 }
+                else if(modalPa == 2)
+                {
+                  $("#agregarFichaProd").removeAttr("hidden");
+                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' value='"+cantProducir+"' id='cantProducirPed'"+id_fichat+" readonly></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"'></td><td style='display:none' id='cantSatelite"+id_fichat+"'><input type='text'></td></tr>";
+                  $('#tblFichasProd').append(tr);
+                  $('#fecha_terminacion').val(fechaTerm);
+
+                  var emsj = "#chb"+id_fichat;
+                  var cants = "#cantSatelite"+id_fichat;
+
+                  // $("#tblFichasProd tbody tr").each(function(){
+                  //   $(emsj).change(function() 
+                  //   {
+                  //       if($(this).is(":checked")) {
+                  //         $(cants).removeAttr("style");
+                  //         $("#cantidadSat").removeAttr("style");
+                  //       }
+                  //       else
+                  //       {
+                  //         $(cants).css("display", 'none');
+                  //         $("#cantidadSat").css("display", 'none');
+                  //       }       
+                  //   });
+                  // });
+
+
+                    $(emsj).change(function() 
+                    {
+                      $("#tblFichasProd tbody tr").each(function(){
+                        if($(this).is(":checked")) {
+                            $(cants).removeAttr("style");
+                            $("#cantidadSat").removeAttr("style");
+                        }
+                        else
+                        {
+                          $(cants).css("display", 'none');
+                          $("#cantidadSat").css("display", 'none');
+                        }       
+                      });
+                    });
+                }
                 else
                 {
-                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td>";
+                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
                   $('#dll-prod-asoped').append(tr);
+                  $('#dtlle-pedido-prod').append(tr);
                 }
               }
             }

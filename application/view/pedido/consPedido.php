@@ -183,7 +183,7 @@
         </div>
       </div>
       <!-- fin modal modificar pedido-->
-       <!-- Incio modal cambiar estado pedido -->
+      <!-- Incio modal productos asociados pedido -->
       <div class="modal fade" id="dllProductosAso" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
@@ -216,7 +216,7 @@
           </div>
         </div>
       </div>
-      <!-- fin modal cambiar estado pedido-->
+      <!-- fin modal productos asociados pedido-->
       <!-- inicio modal asociar cliente-->
       <div class="modal fade" id="asoClientesHab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
