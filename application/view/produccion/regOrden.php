@@ -11,7 +11,7 @@
  <br>
  <div>
   <div  class="box box-info">
-    <div class="box-header with-border" style="text-align: center;">
+    <div class="box-header with-border">
       <h1 class="box-title"><strong>REGISTRAR ORDEN</strong></h1>
     </div>
     <div style="padding-left: 8%;">

@@ -8,11 +8,12 @@
     </section>
     <!-- Main content -->
     <section class="content">
-      <div class="box box-primary" style="padding-right: 15px;">
+      <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
         <br>
+        <div class="box-body">
         <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();">
         <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
         <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
@@ -104,6 +105,7 @@
             <!-- </div> -->
           </div>
         </form>
+      </div>
       </div>
       
       <!-- Inicio Modal asociar fichas -->

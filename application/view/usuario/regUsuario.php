@@ -9,13 +9,13 @@
   </section>
     <!-- Main content -->
   <section class="content">
-    <div class="box box-primary" style="padding-right: 15px;">
-      <div class="box-header with-border">
-        <div class="box-header with-border" style="text-align: center;">
-          <h3 class="box-title"><strong>REGISTRAR USUARIO</strong></h3>
-        </div>
+    <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><strong>REGISTRAR USUARIO</strong></h3>
+          </div>
         <br>
         <br>
+        <div class="box-body">
         <form action="<?php echo URL; ?>ctrUsuario/regUsuario" method="POST">
           <div class="row col-lg-12">
             <div class="form-group col-lg-2">
@@ -80,10 +80,8 @@
               <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
             </div>
           </div>      
-
-    
         </form>
-      </div>
+        </div>
     </div>
   </section>
     

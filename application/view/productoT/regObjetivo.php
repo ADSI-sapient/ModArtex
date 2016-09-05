@@ -12,7 +12,7 @@
 
     <section class="content">
       <div class="box box-info">
-        <div class="box-header with-border" style="text-align: center;">
+        <div class="box-header with-border">
           <h3 class="box-title"><strong>REGISTRAR OBJETIVO</strong></h3>
         </div>
 

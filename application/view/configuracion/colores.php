@@ -15,10 +15,10 @@
         <div class="col-xs-6">
 
           <div class="box box-primary">
-            <form action="<?= URL.'ctrConfiguracion/registrarColor'?>" method="POST">
               <div class="box-header with-border" style="text-align: center;"> 
                      <h4 class="control-label"><strong>REGISTRAR COLOR</strong></h4>
               </div>
+            <form action="<?= URL.'ctrConfiguracion/registrarColor'?>" method="POST">
                 <div class="box-body">
                    <div class="form-group">
                      <h4>Código: </h4>
@@ -46,7 +46,7 @@
 
 
         <div class="col-xs-6">
-          <div class="box box-warning">
+          <div class="box box-primary">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR COLORES</strong></h4>
               </div>

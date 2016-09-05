@@ -8,7 +8,7 @@
     </section>
 
     <section class="content">
-      <div class="box box-info with-border">
+      <div class="box box-primary with-border">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>LISTAR INSUMOS</strong></h3>
         </div>

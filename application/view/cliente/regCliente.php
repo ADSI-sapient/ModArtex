@@ -9,13 +9,13 @@
   <br>
 
   <section class="content">
-    <div class="box box-primary" style="padding-right: 15px;">
-      <div class="box-header with-border">
+    <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR ClIENTE</strong></h3>
         </div>
         <br>
         <br>
+        <div class="box-body">
         <form action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Estado:</label>
@@ -62,7 +62,7 @@
               <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
             </div>
           </form>
-      </div>
+        </div>
     </div>
   </section>
 

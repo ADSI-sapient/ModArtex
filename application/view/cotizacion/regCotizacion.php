@@ -8,13 +8,12 @@
 
 <section class="content">
   <br>
-  <div class="box box-info" style="padding-right: 15px;">
-    <div class="box-header with-border">
+  <div class="box box-primary">
       <div class="box-header with-border" style="text-align: center;">
         <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
       </div>
       <br>
-
+      <div class="box-body">
       <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
 
         <div class="row col-lg-12">

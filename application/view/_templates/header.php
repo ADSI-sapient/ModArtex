@@ -124,7 +124,7 @@
       </div> -->
       <ul class="sidebar-menu">
 <!--         <li style="text-align: center;" class="header">MÓDULOS</li> -->
-        <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
+<!--         <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li> -->
         <?php $nom = ''; ?>
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>

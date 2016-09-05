@@ -65,7 +65,7 @@
 
     <!--Listar Rol-->
       <div class="col-md-6" >
-          <div class="box box-warning">
+          <div class="box box-primary">
             <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR ROLES</strong></h4>
               </div>
