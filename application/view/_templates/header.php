@@ -91,7 +91,7 @@
   </header>
   <aside class="main-sidebar">
     <section class="sidebar">
-
+<!-- 
       <div class="user-panel">
         <div class="pull-left image">
           <img src="<?php echo URL; ?>img/avatar5.png" class="img-circle" alt="User Image">
@@ -99,9 +99,9 @@
         <div class="pull-left info">
           <p><?= $_SESSION['user']['Nombre']; ?><?= substr($_SESSION['user']['Apellido'], 0, 3); ?></p>
         </div>
-      </div>
+      </div> -->
       <ul class="sidebar-menu">
-        <li class="header">MÓDULOS</li>
+<!--         <li style="text-align: center;" class="header">MÓDULOS</li> -->
         <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
         <?php $nom = ''; ?>
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
