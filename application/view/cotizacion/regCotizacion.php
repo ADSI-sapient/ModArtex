@@ -15,10 +15,8 @@
       </div>
       <br>
 
-      <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form">
-
+      <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form" onsubmit="return ValCoti()">
         <div class="row col-lg-12">
-
           <div class="form-group col-lg-4">
             <label class="">Fecha Registro</label>
             <div class="">
@@ -64,15 +62,17 @@
      </div>  -->
      <div class="row col-lg-12">
             <div class="form-group col-lg-4">
-              <label for="id_cliente" class="" >*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente">
+              <label for="id_cliente" class="" >Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg">
+
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
-              </div>
+              
             </div>
+      </div>
                 
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table">
@@ -104,14 +104,14 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-offset-8 col-lg-4">
               <label for="vlr_total" class="">Valor Total:</label>
-              <div class="">
-                <div class="input-group">
-                  <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                  <!--   <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button> -->
-                  </div>
-                  <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
-                </div>
-              </div>
+              
+                
+                  <!-- <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%; size:10px;">
+                    <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
+                  </div> -->
+                  <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
+                
+              
             </div>
           </div>
 
@@ -252,5 +252,16 @@
     </div> 
   </div> 
 </div>
-
 </section>
+
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+</style>

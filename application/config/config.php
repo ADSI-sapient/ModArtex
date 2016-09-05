@@ -56,5 +56,7 @@ define('DB_NAME', 'modartex');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8');
+
 # ruta base del proyecto
 define('RAIZ', realpath( __DIR__ . '/../../'));
+define('DS', DIRECTORY_SEPARATOR);
