@@ -9,7 +9,7 @@
 
     <form action="<?= URL.'ctrBodega/registrarInsumo'; ?>" method="POST">
       <section class="content">
-        <div class="box box-info">
+        <div class="box box-primary">
           <div class="box-header with-border" style="text-align: center;">
             <h1 class="box-title"><strong>REGISTRAR INSUMO</strong></h1>
           </div>

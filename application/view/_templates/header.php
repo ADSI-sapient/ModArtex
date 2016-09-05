@@ -32,17 +32,39 @@
   <header class="main-header">
     <a href="<?php echo URL ?>home/index" class="logo">
       <span class="logo-mini"><b>M</b>A</span>
-      <span class="logo-lg"><b>ModArtex</b></span>
+      <span style="text-align: left;" class="logo-lg"><i class="fa fa-scissors" aria-hidden="true"></i>&nbsp;&nbsp;
+      <b> ModArtex</b></span>
     </a>
+
     <nav class="navbar navbar-static-top" role="navigation">
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <style type="text/css">
+            .circleColor {
+              background: linear-gradient(yellow,red, blue);
+              -webkit-background-clip: text;
+              color: transparent;  
+            }
+          </style>
+          <li>
+            <a disabled="" href="#" data-toggle="modal" data-target="#myModalMedidas" class="dropdown-toggle" data-toggle="dropdown">
+              <i style="font-size: 130%;" class="fa fa-balance-scale" aria-hidden="true"></i>
+            </a>
+          </li> 
+          <li>
+            <a class="dropdown-toggle">
+            <button style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
+              <i style="font-size: 130%;" class="fa fa-circle circleColor" aria-hidden="true"></i>
+            </button>
+            </a>
+          </li>         
+
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
+              <i style="font-size: 130%;" class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
             </a>
             <ul class="dropdown-menu">
@@ -66,25 +88,25 @@
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
-                <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image">
+<!--                 <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image"> -->
                 <p>
                   <?= $_SESSION['user']['Nombre']; ?> <?= $_SESSION['user']['Apellido']; ?>
                   <small><?= $_SESSION['user']['nombreR']; ?></small>
                 </p>
               </li>
               <li class="user-footer">
-                <div class="pull-left">
+<!--                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                </div>
+                </div> -->
                 <div class="pull-right">
                   <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat">Cerrar sesión</a>
                 </div>
               </li>
             </ul>
           </li>
-          <li>
+<!--           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -102,7 +124,7 @@
       </div> -->
       <ul class="sidebar-menu">
 <!--         <li style="text-align: center;" class="header">MÓDULOS</li> -->
-        <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li>
+<!--         <li class=""><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i><span>Inicio</span></a></li> -->
         <?php $nom = ''; ?>
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>

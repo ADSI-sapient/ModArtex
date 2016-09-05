@@ -9,12 +9,12 @@
 
   <!-- Main content -->
   <section class="content">
-    <div class="box box-info">
-      <div class="box-header with-border">
+    <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
       </div>
 
+    <div class="box box-body">  
     <div id="users">
       <div class="row box-header">
         <div class="col-md-8"></div>
@@ -95,6 +95,7 @@
         </div>
       </form>
     </div>
+  </div>
 
  <!-- Modal De Modificar -->
 

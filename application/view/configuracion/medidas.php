@@ -16,6 +16,7 @@
                    <h4 class="control-label"><strong>REGISTRAR UNIDAD DE MEDIDA</strong></h4>
               </div>
 
+              <div class="box box-body">
               <form action="<?= URL.'ctrConfiguracion/registrarMedida'; ?>" method="POST">
                 <div class="box-body">
                   <div class="col-md-6">
@@ -37,6 +38,7 @@
                 </div> 
               </form>
             </div>
+            </div>
           </div>
 
 
@@ -44,7 +46,7 @@
 
 
         <div class="col-md-6">
-          <div class="box box-warning">
+          <div class="box box-primary">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR UNIDADES DE MEDIDA</strong></h4>
               </div>

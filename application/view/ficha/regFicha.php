@@ -9,11 +9,12 @@
     </section>
     <!-- Main content -->
     <section class="content">
-      <div class="box box-primary" style="padding-right: 15px;">
+      <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
         <br>
+        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
           <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-2">
@@ -117,6 +118,7 @@
             </div>
           </div>
         </form>
+        </div>
       </div>
       <!-- Inicio Modal asociar insumos -->
       <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >

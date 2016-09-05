@@ -1716,13 +1716,13 @@ a:focus {
   clear: both;
 }
 .box-header {
-  color: #444;
+  color: #f4f4f4;
   display: block;
   padding: 10px;
   position: relative;
 }
 .box-header.with-border {
-  border-bottom: 1px solid #f4f4f4;
+  background: #3c8dbc;
 }
 .collapsed-box .box-header.with-border {
   border-bottom: none;
