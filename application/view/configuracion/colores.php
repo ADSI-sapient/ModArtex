@@ -135,3 +135,155 @@
 
 
 
+
+
+
+
+
+<div class="modal fade" id="modalCrudColores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document";>
+      <div class="modal-content" style="border-radius: 25px;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
+                </div>
+                <div class="modal-body">
+                    <!--             <form action="http://localhost:83/EmploIter/ctrEmpleado/regProfesion" method="POST"> -->
+
+                    <div class="row col-sm-12">
+                        <div class="form-group col-sm-12">
+<!--                    <div style="text-align:center;" class="col-sm-2">
+                            <i style="font-size: 250%;" class="fa fa-square circleColor" aria-hidden="true"></i>
+                        </div> -->
+
+                        <div class="col-sm-5">  
+                        <div class="input-group my-colorpicker2 colorpicker-element">
+                          <input type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
+                          <div class="input-group-addon">
+                            <i type="input" style="background-color: rgb(0, 0, 255);"></i>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" name="nombre" class="form-control" required=""> 
+                        </div> 
+                        <div class="col-sm-2">
+                         <button onclick="registrarProfesion()" class="btn btn-primary">Registrar</button>
+                     </div> 
+                 </div>
+             </div> 
+             <!--            </form>   -->
+             <div class="row col-sm-12" style="margin-right: 0; padding-left: 8%">
+             <div class="box box-primary">
+             <div class="box-body">
+               <div class="dataTable_wrapper table-responsive">
+                  <table id="example1" width="100%" class="table table-striped table-hover" id="tblProfesion">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th style="text-align: center;">Color</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                        <th>Guardar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-profesion">
+                  <tr>
+                    <td>1</td>
+                    <td>#ff00ff</td>
+                    <td>Rojo</td>
+                    <td style="text-align: center;">
+                      <button id="btnEditProf1" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i>
+                      </button>
+                    </td>  
+                    <td style="text-align: center;">
+                      <button data-dismiss="alert" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                      <button disabled="true" type="button" class="btn btn-box-tool">
+                        <i class="font-size: 150%; fa fa-check" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                                    <tr>
+                    <td>1</td>
+                    <td>#ff00ff</td>
+                    <td>Rojo</td>
+                    <td style="text-align: center;">
+                      <button id="btnEditProf1" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i>
+                      </button>
+                    </td>  
+                    <td style="text-align: center;">
+                      <button data-dismiss="alert" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                      <button disabled="true" type="button" class="btn btn-box-tool">
+                        <i class="font-size: 150%; fa fa-check" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                                    <tr>
+                    <td>1</td>
+                    <td>#ff00ff</td>
+                    <td>Rojo</td>
+                    <td style="text-align: center;">
+                      <button id="btnEditProf1" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i>
+                      </button>
+                    </td>  
+                    <td style="text-align: center;">
+                      <button data-dismiss="alert" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                      <button disabled="true" type="button" class="btn btn-box-tool">
+                        <i class="font-size: 150%; fa fa-check" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>#ff00ff</td>
+                    <td>Rojo</td>
+                    <td style="text-align: center;">
+                      <button id="btnEditProf1" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i>
+                      </button>
+                    </td>  
+                    <td style="text-align: center;">
+                      <button data-dismiss="alert" class="btn btn-box-tool">
+                        <i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                    <td style="text-align: center;">
+                      <button disabled="true" type="button" class="btn btn-box-tool">
+                        <i class="font-size: 150%; fa fa-check" arial-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+<div>
+  <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+<!--             <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+-->          </div>
+</div>
+</div>
+  </div>
+</div>
+
+
+

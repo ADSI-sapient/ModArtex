@@ -14,8 +14,6 @@ class ctrConfiguracion extends Controller{
 	}
 
 	public function index(){
-		var_dump("sgsf");
-		exit();
 		$lista = $this->_modelColor->listar();
 
 		include APP . 'view/_templates/header.php';
