@@ -28,7 +28,7 @@
 
 
 <body class="hold-transition skin-blue sidebar-mini">
- <div class="wrapper">
+ <div class="wrapper fixed">
   <header class="main-header">
     <a href="<?php echo URL ?>home/index" class="logo">
       <span class="logo-mini"><b>M</b>A</span>

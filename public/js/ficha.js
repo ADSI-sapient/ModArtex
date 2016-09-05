@@ -1,13 +1,28 @@
 
 
         //permite seleccionar y asociar tallas al registrar ficha técnica
-        $("#selectTallas").select2({});
+        $("#selectTallas").select2({
+          language: {
+          noResults: function (params) {
+          return "No hay resultados";
+          }}
+        });
      
         //permite seleccionar y asociar un color a la ficha técnica al registrarla
-        $("#colorFicha").select2({});
+        $("#colorFicha").select2({
+          language: {
+          noResults: function (params) {
+          return "No hay resultados";
+          }}
+        });
 
         //permite seleccionar y asociar un color a la ficha técnica al modificar
-        $("#colorModFicha").select2({});
+        $("#colorModFicha").select2({
+          language: {
+          noResults: function (params) {
+          return "No hay resultados";
+          }}
+        });
 
         // $("#doc_cliente").select2().on('show', function(){
         //   // Obtener valores actuales z-index de cada elemento
@@ -194,9 +209,7 @@
         $("#vlr_total").val(desc);
       }
 
-      
-      // var userList = new List('pedidos', options);
-    
+          
       function cerrar(){
         swal({title: "¿Está seguro de cancelar?", 
           text: "Los cambios realizados no se guardaran!", 
@@ -357,9 +370,11 @@
             data: {referencia:ref, estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
+                location.href = uri+"ctrFicha/consFicha";
                 Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado', rounded: true, delay: false});
             }else{
                 Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false});
+                location.href = uri+"ctrFicha/consFicha";
             }
         }).fail(function(){})
       }

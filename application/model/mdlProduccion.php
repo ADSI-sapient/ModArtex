@@ -2,6 +2,17 @@
 	class mdlProduccion{
 		private $_db;
 		private $_id_solicitud;
+		private $_estado_prod;
+		private $_fecha_regist;
+		private $_fecha_term;
+		private $_lugar_prod;
+		private $_cantFab;
+		private $_cantSat;
+
+		//
+		private $_id_solc_prod;
+		private $_id_ordenProd;
+		private $_estado;
 
 		function __construct($db)
 	    {
@@ -11,7 +22,6 @@
 	        	exit('No se pudo establecer la conexión a la base de datos.');
 	        }
 	    }
-
 
 		public function __GET($atributo){
 			return $this->$atributo;
@@ -37,4 +47,75 @@
 	        return $query->fetchAll();
 	    }
 
+	    public function regOrdenProduccion()
+	    {
+	    	$sql = "CALL SP_regOrdenProduccion(?,?,?,?)";
+	        $query = $this->_db->prepare($sql);
+	        $query->bindParam(1, $this->_estado_prod);
+	        $query->bindParam(2, $this->_fecha_regist);
+	        $query->bindParam(3, $this->_fecha_term);
+	        $query->bindParam(4, $this->_lugar_prod);
+	        return $query->execute();
+	    }
+
+	    public function consUltimaOrdenReg()
+	    {
+	    	$sql = "CALL SP_consUltimaOrden()";
+	        $query = $this->_db->prepare($sql);
+	        $query->execute();
+	        return $query->fetch();
+	    }
+
+	    public function regSolicitudOrdenProduccion()
+	    {
+	    	$sql = "CALL SP_regSolcOrdenProd(?,?)";
+	        $query = $this->_db->prepare($sql);
+	        $query->bindParam(1, $this->_id_solc_prod);
+	        $query->bindParam(2, $this->_id_ordenProd);
+	        return $query->execute();
+	    }
+
+	    public function actualizarCantProducir()
+	    {
+	    	$sql = "CALL SP_actualizarCantidadProd(?,?,?)";
+	        $query = $this->_db->prepare($sql);
+	        $query->bindParam(1, $this->_id_solc_prod);
+	        $query->bindParam(2, $this->_cantFab);
+	        $query->bindParam(3, $this->_cantSat);
+	        return $query->execute();
+	    }
+
+	    public function actualizarEstadoPed()
+	    {
+	    	$sql = "CALL SP_actualizarEstadoPed(?)";
+	        $query = $this->_db->prepare($sql);
+	        $query->bindParam(1, $this->_id_solicitud);
+	        return $query->execute();
+	    }
+
+	    public function consOrdenesProd()
+	    {
+	        $sql = "CALL SP_consOrdenes()";
+	        $query = $this->_db->prepare($sql);
+	        $query->execute();
+	        return $query->fetchAll();
+	    }
+
+	    public function consProductosOrden()
+	    {
+	        $sql = "CALL SP_consProductosOrden(?)";
+	        $query = $this->_db->prepare($sql);
+	        $query->bindParam(1, $this->_id_ordenProd);
+	        $query->execute();
+	        return $query->fetchAll();
+	    }
+
+	    public function cancelOrden(){
+
+      		$sql = "CALL SP_cancelarOdenPr(?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_ordenProd);
+      		$query->execute();
+      		return $query;
+      	}
 	}
