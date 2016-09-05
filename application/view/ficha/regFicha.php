@@ -15,7 +15,7 @@
         </div>
         <br>
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-2">
               <label for="referencia" class="">*Referencia:</label>
               <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="">
@@ -36,7 +36,7 @@
               <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-2">
               <label for="colorFicha">*Color:</label>
               <div class="input-group" >
@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
-              <label for="tallas" >*Tallas:</label>
+              <label for="selectTallas">*Tallas:</label>
               <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="">
                 <option value="1">L</option>
                 <option value="2">M</option>
@@ -62,7 +62,7 @@
               <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-3">
               <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum"><b>Asociar Insumos</b></button>
             </div>
@@ -89,7 +89,7 @@
               </div>
             </div>
           </div>
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-3">
               <label for="vlr_produccion" class="">Valor Producción:</label>
               <div class="">
@@ -112,8 +112,8 @@
           <br>
           <div class="row"> 
             <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
+              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-right:2%; margin-left:4.6%; margin-top: 15px; padding-left:2%; padding-right:2%" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
           </div>
         </form>

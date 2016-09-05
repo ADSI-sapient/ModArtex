@@ -16,7 +16,7 @@
         <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();">
         <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
         <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
@@ -44,7 +44,7 @@
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
           </div>
-          <div class="row col-lg-12">
+          <div class="row col-lg-12" style="margin-left:1%">
             <div class="form-group col-lg-4">
               <label for="id_cliente" class="" >*Asociar Cliente:</label>
               <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente">
@@ -80,12 +80,12 @@
               </div>
             </div>
             </div>
-            <div class="row col-lg-12">
+            <div class="row col-lg-12" style="margin-left:1%">
               <div class="form-group col-lg-3">
                 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Productos</b></button>
               </div>
             </div>
-            <div class="row col-lg-12">
+            <div class="row col-lg-12" style="margin-left:1%">
        			  <div class="form-group col-lg-offset-8 col-lg-4">
                 <label for="vlr_total" class="">*Valor Total:</label>
                 <div class="">
@@ -94,14 +94,11 @@
               </div>
             </div>
           <br>
-          <div class="row">
-            <!-- <div class="form-group"> -->
-              <div class="form-group col-lg-12">
-                <!-- <button type="button" onclick="prueba()">pruebame</button> -->
-                <button type="submit" class="btn btn-primary  col-lg-offset-9" style="margin-top: 15px;" name="btnRegPedido" ><b>Registrar</b></button>
-                <button type="reset" class="btn btn-danger" onclick="limpiarFormRegPedido()" style="margin-left: 15px; margin-top: 15px;"><b>Limpiar</b></button>
+          <div class="row"> 
+            <div class="form-group col-lg-12">
+                <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegPedido" ><b>Registrar</b></button>
+                <button type="reset" onclick="limpiarFormRegPedido()" class="btn btn-danger" style="margin-right:2%; margin-left:4%; margin-top: 15px; padding-left:2%; padding-right:2%">Limpiar</b></button>
               </div>
-            <!-- </div> -->
           </div>
         </form>
       </div>

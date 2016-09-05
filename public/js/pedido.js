@@ -1,4 +1,11 @@
-	$('#fecha_entrega').datepicker({
+	$('#tablaPedidos').DataTable( {
+    // "lengthChange": false,
+    //"searching": false,
+    // "info": false,
+    "ordering": false
+  });
+
+  $('#fecha_entrega').datepicker({
           format: "yyyy-mm-dd",
           language: 'es',
           autoclose: true
@@ -23,13 +30,21 @@
 
     //permite seleccionar y asociar un cliente al pedido
     $("#id_cliente").select2({
-        placeholder: 'Seleccionar'
+        placeholder: 'Seleccionar',
+        language: {
+        noResults: function (params) {
+        return "No hay resultados";
+        }}
     });
 
     //permite seleccionar y asociar un cliente al pedido al momento de modificar
     $(document).ready(function(){
-
-    $("#doc_cliente").select2({});
+    $("#doc_cliente").select2({
+      language: {
+        noResults: function (params) {
+        return "No hay resultados";
+        }}
+      });
     });
 
     //valida que se asocie al menos una ficha al momento de registrar un pedido.
@@ -267,7 +282,7 @@
         $("#fecha_reg").val(campos.find("td").eq(1).text());
         $("#fecha_entrega").val(campos.find("td").eq(2).text());
         $("#valor_total").val(campos.find("td").eq(3).text());
-        // $("#estado").val(estado);
+        $("#estado").val(campos.find("td").eq(4).text());
         $("#doc_cliente").val(numDocumento).trigger("change");
         // $("#doc_cliente").select2('data');
         // console.log(data.text);
@@ -291,20 +306,7 @@
             $('#modalEditPedido').modal('toggle');
         });
       }
-    
-      $(document).ready(function(){
-        $('#tablaPedidos').DataTable( {
-          // "lengthChange": false,
-          //"searching": false,
-          // "info": false,
-          "ordering": false
-        });
-      });
-
-      var options = {
-        valueNames: ['freg', 'ftga', 'vtal', 'nomclte']
-      };
-
+      
      //carga productos asociados al pedido
       function cargarProductosAsoPed(idped, fechaTerm, modalPa){
         $.ajax({
@@ -327,6 +329,7 @@
                 color = arrayProductos[i]['Codigo_Color'];
                 vlrProducto = arrayProductos[i]['Valor_Producto'];
                 cantProducir = arrayProductos[i]['Cantidad_Producir'];
+                id_solic_produc = arrayProductos[i]['Id_Solicitudes_Producto'];
                 subtotal = arrayProductos[i]['Subtotal'];
                 var tr ="";
                 if (modalPa == 1) {
@@ -336,12 +339,12 @@
                 else if(modalPa == 2)
                 {
                   $("#agregarFichaProd").removeAttr("hidden");
-                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' value='"+cantProducir+"' id='cantProducirPed'"+id_fichat+" readonly></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", 1)'></td><td><input type='text' style='display:none' id='cantSatelite"+id_fichat+"'></td></tr>";
+                  tr = "<tr class='box box-solid collapsed-box'><input type='hidden' value='"+id_solic_produc+"' name='id_solic_prodcto[]'><input type='hidden' value='"+id_fichat+"' name='id_fichaTec[]'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' readonly value='"+cantProducir+"' id='cantProducirPed"+id_fichat+"' name='cantProducirPed[]'></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantSatelite"+id_fichat+", chb"+id_fichat+", confirmar"+id_fichat+", cancelarCant"+id_fichat+")'><input type='text' value='0' style='display:none' id='cantSatelite"+id_fichat+"' name='cantSatelite[]'><button style='display:none' type='button' id='confirmar"+id_fichat+"' class='btn btn-box-tool' onclick='confirmarCantSat(cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", confirmar"+id_fichat+")'><i class='fa fa-check fa-lg'></i></button><button style='display:none' type='button' id='cancelarCant"+id_fichat+"' class='btn btn-box-tool' onclick='cancelarCantSat(cancelarCant"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", cantProducirPed"+id_fichat+", cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, confirmar"+id_fichat+")'><i class='fa fa-remove fa-lg'></i></button></td></tr>";
                   $('#tblFichasProd').append(tr);
                   $('#fecha_terminacion').val(fechaTerm);
 
-                  var emsj = "#chb"+id_fichat;
-                  var cants = "#cantSatelite"+id_fichat;
+                  //enviamos id_solicitud a input hidden
+                  $('#id_solicitud').val(idped);
                 }
                 else
                 {
@@ -356,19 +359,38 @@
         })
       }
 
-      function prueba(cantproduc, inputCantidadSat, checkbox, cantProdu)
+      function confirmarCantSat(cantProduc, cantSatel, cantProduId, cantSatelId, btnconf)
+      { 
+          $(cantProduId).val(cantProduc - cantSatel);
+          $(cantSatelId).attr("readonly", 'readonly');
+          $(cantSatelId).css("background", '#eee');
+          $(btnconf).css("display", 'none');
+
+      }
+
+      function cancelarCantSat(btcancl, cantidSt, checkb, cantProducirId, cantP, cantSt, btConfm)
       {
-        console.log(cantproduc, inputCantidadSat, checkbox, cantProdu);
+          $(checkb).removeAttr("style");
+          $(checkb).removeAttr("checked");
+          $(btcancl).css("display", 'none');
+          $(cantidSt).css("display", 'none');
+          $(cantidSt).val(0);
+          $(btConfm).css("display", 'none');
+          $(cantProducirId).val(parseInt(cantP)+parseInt(cantSt));
+      }
+
+      function prueba(inputCantidadSat, checkbox, btnconfm, btncancl)
+      {
+        // console.log(inputCantidadSat, checkbox, cantProdu);
         
         $("#tblFichasProd tbody tr").each(function(){
           if($(checkbox).is(":checked"))
           {
+            $(checkbox).css("display", 'none');
             $(inputCantidadSat).removeAttr("style");
-
-            var hola = $(inputCantidadSat).val();
-            
-
-            $("#cantidadSat").removeAttr("style");
+            $(inputCantidadSat).removeAttr("readonly");
+            $(btnconfm).removeAttr("style");
+            $(btncancl).removeAttr("style");
             // var resta = cantidSatelite - cantProdu;
             // console.log(resta);
           }

@@ -134,7 +134,7 @@
                   <label for="color" class="">*Color:</label>
                   <div class="row"></div>
                   <!-- <div class="input-group"> -->
-                  <select name="colorModFicha" id="colorModFicha" class="form-control">
+                  <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%; height: 100%;">
                     <?php foreach ($colores as $color): ?>
                       <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                     <?php endforeach ?>

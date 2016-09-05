@@ -39,7 +39,7 @@
                     <?php foreach($listEx as $valExt): ?>
                      <tr>
                       <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
-                      <td><input type="checkbox" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
+                      <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
                       <td style="padding-left: 0;"><?= $cont += 1;?></td>
                       <td><?= $valExt["NomIns"]?></td>
                       <td><?= $valExt["Nombre"]?></td>

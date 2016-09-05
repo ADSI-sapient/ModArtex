@@ -1,7 +1,6 @@
     </div>
     <footer class="main-footer">
       <div class="pull-right hidden-xs">
-        Anything you want
       </div>
       <strong>Copyright &copy; 2016 <a href="#">ModArtex</a>.</strong> Todos los derechos reservados.
     </footer>
