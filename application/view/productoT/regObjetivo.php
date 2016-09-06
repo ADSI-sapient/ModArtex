@@ -72,6 +72,7 @@
                 <table class="table table-hover" style="margin-top: 2%;" id="tablaFichass">
                   <thead>
                     <tr class="active">
+                    <th>Id</th>
                       <th>Referencia</th>
                       <th>Cantidad</th>
                       <th>Quitar</th>
@@ -94,6 +95,7 @@
        <div class="row"> 
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
+
               <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"><b>Limpiar</b></button>
             </div>
           </div>
@@ -118,6 +120,7 @@
                   <table class="table table-hover" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
+                      <th>Id</th>
                       <th>Referencia</th>
                       <th>Cantidad</th>
                       <th>Seleccionar</th>
@@ -129,10 +132,11 @@
                      <?php $i = 1; ?>
                   <?php foreach ($fichas as $ficha): ?>
                     <tr >
+                      <td><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
                     <td><input type="text"  name="CantidadO" id="CantidadO<?= $ficha["Referencia"]?>" class="form-control" value=""></td>
                       <td>
-                       <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichas('<?= $ficha["Referencia"] ?>', this)"><i class="fa fa-plus"></i></button>
+                       <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this)"><i class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                     </tr>

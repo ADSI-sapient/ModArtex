@@ -251,7 +251,15 @@ function validarTelefono(telefono){
   }
 
 
- 
+function validarRol(){
+  if($("#tblPas tr").length > 0){
+    return true;
+  }else{
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No ha asignado ningun permiso'}); ;
+    return false;
+
+  }
+} 
 
 
 

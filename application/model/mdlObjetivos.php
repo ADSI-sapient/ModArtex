@@ -6,6 +6,9 @@
 		private $Fecha_Registro;
 		private $Fecha_Fin;
 		Private $Id_Estado= 5;
+		private $Id_Objetivo;
+		private $Cantidad;
+		private $Id_Ficha_Tecnica;
 
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
@@ -48,5 +51,28 @@
 		}catch (PDOException $e){
 		}
       	}
+
+      	public function ultimoObjetivo(){
+
+	    	$sql = "CALL SP_UltimoObjetivo";
+	    	$query = $this->db->prepare($sql);
+	        $query->execute();
+	        return $query->fetch();
+	    }
+
+
+      	public function RegistrarObjetivos(){
+      		$sql= "CALL SP_RegProductosObje(?, ?, ?)";
+		try{
+			$query= $this->db->prepare($sql);
+			$query->bindParam(1, $this->Id_Objetivo);
+			$query->bindParam(2, $this->Cantidad);
+			$query->bindParam(3, $this->Id_Ficha_Tecnica);
+			$query->execute();
+				
+		}catch (PDOException $e){
+		}
+      	}
+
 	}
 ?>

@@ -101,7 +101,6 @@ class ctrConfiguracion extends Controller{
 			$validar = $this->_modelRoles->ValidarExistenciaN();
 
 			if ($validar==null) {
-				
 				if($this->_modelRoles->regRoles()){
 				$ultimoRol = $this->_modelRoles->ultimoRol()["rol"];
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
@@ -123,6 +122,7 @@ class ctrConfiguracion extends Controller{
 
 	    $permisos = $this->_modelRoles->getAsoPermisos();
 	    $roles = $this->_modelRoles->getRoles();
+	    
 	        
 	    if (isset($_POST["btnModificarRol"])) {
 	    	

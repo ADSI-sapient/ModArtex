@@ -13,17 +13,22 @@
 
  		  if (isset($_POST["btnRegObjetivo"])) {
 
-
  			$this->mdlModel->__SET("Nombre", $_POST["Nombre"]);
  			$this->mdlModel->__SET("FechaRegistro", $_POST["FechaRegistro"]);
  			$this->mdlModel->__SET("FechaInicio", $_POST["FechaInicio"]);
  			$this->mdlModel->__SET("FechaFin", $_POST["FechaFin"]);
- 			// var_dump( $_POST["Fecha_Inicio"]);
- 			// exit();
  			$this->mdlModel->RegistrarO();
 
+ 			$ultimoObjetivo = $this->mdlModel->ultimoObjetivo();
+		$this->mdlModel->__SET("Id_Objetivo", implode('', $ultimoObjetivo));
 
+			for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
 
+				$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["Id_Ficha_Tecnica"][$i]);
+				$this->mdlModel->__SET("Cantidad", $_POST["CantidadO"][$i]);
+			
+				$this->mdlModel->RegistrarObjetivos();
+			}
  		}
  		
 
@@ -34,6 +39,7 @@
 		}
 
 		public function listarObjetivos(){
+
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/consObjetivo.php';
 			include APP . 'view/_templates/footer.php';
