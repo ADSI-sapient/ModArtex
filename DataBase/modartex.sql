@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-08-2016 a las 16:23:37
+-- Tiempo de generación: 06-09-2016 a las 15:45:42
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.8
 
@@ -26,6 +26,9 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarF` ()  NO SQL
+SELECT Referencia FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
@@ -209,6 +212,9 @@ INSERT INTO tbl_solicitudes_producto VALUES (NULL, _id_solicitudes_tipo, _cant_e
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarMedidas` (IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarObjetivos` (IN `Nombre` VARCHAR(45), IN `FechaR` DATE, IN `FechaI` DATE, IN `FechaF` DATE, IN `Estado` INT(11))  NO SQL
+INSERT into tbl_objetivos (Nombre, FechaRegistro, FechaInicio, FechaFin, Id_Estado) VALUES (Nombre, FechaR, FechaI, FechaF, Estado)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarPedido` (IN `_id_cliente` INT, IN `_id_estado` INT, IN `_fecha_registro` DATE, IN `_vlr_total` DOUBLE)  NO SQL
 INSERT INTO tbl_solicitudes VALUES (NULL, _id_cliente, _id_estado, _fecha_registro, _vlr_total)$$
@@ -456,8 +462,8 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 
 INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`) VALUES
-(1, 123, 1, '2016-08-26', '1', 310, 20, 30, 4000),
-(2, 43, 2, '2016-08-26', '1', 155, 19, 60, 6000);
+(1, 123, 1, '2016-08-26', '1', 310, 94, 30, 4000),
+(2, 43, 2, '2016-08-26', '1', 155, 93, 60, 6000);
 
 -- --------------------------------------------------------
 
@@ -533,7 +539,8 @@ INSERT INTO `tbl_modulos` (`id_Modulo`, `Nombre`, `Icon`) VALUES
 (6, 'Pedido', 'fa fa-calendar'),
 (7, 'Producción', 'fa fa-calendar'),
 (8, 'Producto Terminado', 'fa fa-dropbox'),
-(9, 'Configuración', 'fa fa-cogs');
+(9, 'Configuración', 'fa fa-cogs'),
+(10, 'Objetivos', 'fa fa-signal');
 
 -- --------------------------------------------------------
 
@@ -547,8 +554,17 @@ CREATE TABLE `tbl_objetivos` (
   `FechaRegistro` date NOT NULL,
   `FechaInicio` date NOT NULL,
   `FechaFin` date NOT NULL,
-  `Estado` date NOT NULL
+  `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_objetivos`
+--
+
+INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`) VALUES
+(1, 'Ensayo', '2016-09-06', '0000-00-00', '0000-00-00', 5),
+(2, 'sdfgh', '2016-09-06', '2016-09-06', '2016-09-06', 5),
+(3, 'asdfgh', '2016-09-06', '2016-09-15', '2016-09-12', 5);
 
 -- --------------------------------------------------------
 
@@ -599,7 +615,9 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (16, 8, 'Existencias Producto T', 'ctrProductoT/existenciasProductoT'),
 (17, 9, 'Medidas', 'ctrConfiguracion/listarMedidas'),
 (18, 9, 'Colores', 'ctrConfiguracion/listarColores'),
-(19, 9, 'Roles', 'ctrConfiguracion/RegistrarRoles');
+(19, 9, 'Roles', 'ctrConfiguracion/RegistrarRoles'),
+(20, 10, 'Registrar Objetivos', 'ctrObjetivos/registrarObjetivo'),
+(21, 10, 'Listar Objetivos', 'ctrObjetivos/listarObjetivos');
 
 -- --------------------------------------------------------
 
@@ -624,8 +642,9 @@ CREATE TABLE `tbl_persona` (
 --
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
+('', 2, 'CC', '', '', 1, '', '', ''),
 ('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 0, '', '', 'amurrego6@gmail.com'),
-('1037590137', 2, 'CC', 'Juan', 'Morales', 1, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co');
+('1037590137', 2, 'CC', 'Juan', 'Morales', 0, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co');
 
 -- --------------------------------------------------------
 
@@ -697,9 +716,10 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (17, 1, 17),
 (18, 1, 18),
 (19, 1, 19),
-(20, 2, 1),
-(21, 2, 2),
-(22, 2, 3);
+(23, 1, 20),
+(24, 1, 21),
+(25, 2, 1),
+(26, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -741,7 +761,35 @@ INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`)
 (9, 'Holaaa', '2016-08-30'),
 (10, 'Juan Pablo', '2016-08-30'),
 (11, 'jgjgjh', '2016-08-30'),
-(12, '', '2016-08-30');
+(12, '', '2016-08-30'),
+(13, '                         ', '2016-09-01'),
+(14, '                         ', '2016-09-01'),
+(15, '                         ', '2016-09-01'),
+(16, '', '2016-09-01'),
+(17, '', '2016-09-01'),
+(18, '', '2016-09-01'),
+(19, '', '2016-09-01'),
+(20, '', '2016-09-01'),
+(21, '', '2016-09-01'),
+(22, '', '2016-09-01'),
+(23, '', '2016-09-01'),
+(24, '', '2016-09-01'),
+(25, '', '2016-09-01'),
+(26, '', '2016-09-01'),
+(27, '', '2016-09-01'),
+(28, '', '2016-09-01'),
+(29, '', '2016-09-01'),
+(30, '', '2016-09-01'),
+(31, '                         ', '2016-09-02'),
+(32, '', '2016-09-02'),
+(33, '', '2016-09-02'),
+(34, '', '2016-09-02'),
+(35, '', '2016-09-02'),
+(36, '', '2016-09-02'),
+(37, '', '2016-09-02'),
+(38, '', '2016-09-02'),
+(39, '', '2016-09-02'),
+(40, '', '2016-09-03');
 
 -- --------------------------------------------------------
 
@@ -764,7 +812,56 @@ INSERT INTO `tbl_salida_ficha` (`Codigo`, `Id_Salida`, `Id_Ficha_Tecnica`, `Cant
 (1, 1, 1, 2),
 (2, 3, 1, 1),
 (7, 12, 1, 23),
-(8, 12, 2, 23);
+(8, 12, 2, 23),
+(9, 13, 1, 35),
+(10, 14, 2, 19),
+(11, 15, 1, 2),
+(12, 16, 1, 120),
+(13, 16, 2, 120),
+(14, 17, 1, 22),
+(15, 17, 2, 22),
+(16, 18, 1, 1),
+(17, 20, 1, 1),
+(18, 20, 2, 1),
+(19, 21, 1, 1),
+(20, 21, 2, 1),
+(21, 22, 1, 34),
+(22, 22, 2, 34),
+(23, 23, 1, 700),
+(24, 23, 2, 700),
+(25, 24, 1, 2),
+(26, 24, 2, 2),
+(27, 25, 1, 3),
+(28, 25, 2, 3),
+(29, 26, 1, 2),
+(30, 26, 2, 2),
+(31, 27, 1, 3),
+(32, 27, 2, 3),
+(33, 28, 1, 2),
+(34, 28, 2, 2),
+(35, 29, 1, 1),
+(36, 29, 2, 1),
+(37, 30, 1, 0),
+(38, 30, 2, 0),
+(39, 31, 1, 1),
+(40, 32, 1, 1),
+(41, 32, 2, 1),
+(42, 33, 1, 1),
+(43, 33, 2, 1),
+(44, 34, 1, 1),
+(45, 34, 2, 1),
+(46, 35, 1, 0),
+(47, 35, 2, 0),
+(48, 36, 1, 1),
+(49, 36, 2, 1),
+(50, 37, 1, 1),
+(51, 37, 2, 1),
+(52, 38, 1, 2),
+(53, 38, 2, 2),
+(54, 39, 1, 1),
+(55, 39, 2, 1),
+(56, 40, 1, 3),
+(57, 40, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -1009,7 +1106,8 @@ ALTER TABLE `tbl_modulos`
 -- Indices de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  ADD PRIMARY KEY (`Id_Objetivo`);
+  ADD PRIMARY KEY (`Id_Objetivo`),
+  ADD KEY `estado` (`Id_Estado`);
 
 --
 -- Indices de la tabla `tbl_ordenesproduccion`
@@ -1195,12 +1293,12 @@ ALTER TABLE `tbl_insumos_fichastecnicas`
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
-  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_Modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
@@ -1210,7 +1308,7 @@ ALTER TABLE `tbl_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1220,7 +1318,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
@@ -1230,12 +1328,12 @@ ALTER TABLE `tbl_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_salidas_productos`
 --
 ALTER TABLE `tbl_salidas_productos`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salida_ficha`
 --
 ALTER TABLE `tbl_salida_ficha`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
@@ -1326,6 +1424,12 @@ ALTER TABLE `tbl_insumos`
 ALTER TABLE `tbl_insumos_fichastecnicas`
   ADD CONSTRAINT `fk_insumosFichas_insumos` FOREIGN KEY (`Id_Existencias_InsCol`) REFERENCES `tbl_colores_insumos` (`Id_Existencias_InsCol`),
   ADD CONSTRAINT `fk_tbl_insumos_fichastecnicas_tbl_fichas_tecnicas1` FOREIGN KEY (`Id_Ficha_Tecnica`) REFERENCES `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`);
+
+--
+-- Filtros para la tabla `tbl_objetivos`
+--
+ALTER TABLE `tbl_objetivos`
+  ADD CONSTRAINT `tbl_objetivos_estado` FOREIGN KEY (`Id_Estado`) REFERENCES `tbl_estado` (`Id_Estado`);
 
 --
 -- Filtros para la tabla `tbl_permisos`

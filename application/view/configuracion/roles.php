@@ -101,7 +101,7 @@
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                       <td>
-                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
 
 
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
@@ -185,14 +185,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="border-radius: 25px;">
        <div class="modal-header with-border" style="text-align: center;"> 
+        <button type="button" class="close"><span aria-hidden="true" ></span></button>
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                    <h4 class="control-label"><strong>PERMISOS ASIGNADOS</strong></h4>
               </div>
          
               <div class="box-body">
               <div class="form-group col-lg-5">
                 <label for="nombre" class="col-sm- control-label">Nombre</label>
-                <input type="hidden" id="idRol" name="idRol">
-                <input type="text" class="form-control" name="nombrerol" id="nombrerol" >
+                <input type="hidden" id="id_Rol" name="idRol">
+                <input type="text" class="form-control" name="nombrerol" id="nombreRol" >
               </div> 
       
      <div class="box-body  ">

@@ -46,3 +46,23 @@ function asociarFichas(Referencia, fichas){
     // boton = "#btn"+idbton;
     // $(boton).attr('disabled', 'disabled');
 }
+
+    
+$(function(){
+ $('#Fecha_Inicio').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+
+$(function(){
+ $('#Fecha_Fin').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+

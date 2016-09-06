@@ -81,9 +81,9 @@
       }
 
       //limpia los valores del formulario y reinicia los input acumuladores y total.
-      function limpiarFormRegFicha(){
+      function limpiarobj(){
         valor = 0;
-        $(".subtotal").each(function(){
+        $(".TotalO").each(function(){
           $(this).val(valor);
         });
         $("#vlr_produccion").val(valor);

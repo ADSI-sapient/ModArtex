@@ -16,54 +16,57 @@
         </div>
         <br>
         <br>
-        <form method="POST">
-            <div class="form-group col-lg-offset-1 col-lg-4">
+        <form action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST">
+          <div class="row col-lg-12">
+            <div class="form-group col-lg-3">
               <label class="">Fecha registro:</label>
-              <input type="text" name="FechaActualR" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
+              <input type="text" name="FechaRegistro" readonly="" class="form-control" value="<?php echo date ("Y-m-d"); ?>" >
             </div>
         
-            <div class=" col-lg-offset-1 col-lg-4"> 
+            <div class=" col-lg-offset-1 col-lg-3"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">*Fecha inicio:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right calendario" id="datepicker" name="FechaFin">
+                    <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="">
+
+                  <!--   <input type="text" class="form-control pull-right" name="Fecha_Inicio" required="" id="Fecha_Inicio" style="border-radius:5px;"> -->
                 </div>
               </div>
             </div>
 
-           <div class="form-group col-lg-offset-1 col-lg-4">
+           <div class="form-group col-lg-offset-1 col-lg-3">
               <label class="">*Nombre:</label>
-              <input type="text" name="Nombre" id="Nombre" class="form-control">
+              <input  type="text" name="Nombre" id="Nombre" class="form-control" required="">
             </div>
-        
-            <div class=" col-lg-offset-1 col-lg-4"> 
+          </div>
+
+          <div class="row col-lg-12">
+
+            <div class="form-group col-lg-3">
+              <label>Estado</label>
+              <input type="text" name="estado" value="Pendiente" readonly="" class="form-control">
+            </div>
+
+            <div class=" col-lg-offset-1 col-lg-3"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">*Fecha fin:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right calendario" id="datepicker" name="FechaFin">
+                    <input type="text" class="form-control pull-right" id="Fecha_Fin" name="FechaFin" required="">
                 </div>
               </div>
             </div>
 
-            
-           <div class="form-group col-lg-offset-1 col-lg-4">
-              <label>Estado</label>
-              <input type="text" name="estado" value="Habilitado" readonly="" class="form-control">
-            </div>
-
-          <div class="col-lg-offset-1 col-lg-4">
+          <div class="col-lg-offset-1 col-lg-3">
             <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO">Seleccionar Productos</button>
           </div>
-
-
-
-          <div  class="form-group" id="FichasS">
+          
+          <div class="form-group" id="FichasS" hidden="">
             <div class="table">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover" style="margin-top: 2%;" id="tablaFichass">
@@ -79,8 +82,22 @@
                 </table>
               </div>
             </div>
+        </div>
+        <br>
+      <div class="row col-lg-12">
+       <div class="form-group col-lg-3">
+              <label for="vlr_produccion" class="">Total:</label>
+                 <input type="text" name="TotalO" id="TotalO" value="0" class="form-control" disabled="">
+        </div>
+      </div>
+
+       <div class="row"> 
+            <div class="form-group col-lg-12">
+              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"><b>Limpiar</b></button>
+            </div>
           </div>
-          </form>
+  </form>
       </div>
     </div>
   </section>
