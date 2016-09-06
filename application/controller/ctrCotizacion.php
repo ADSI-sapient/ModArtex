@@ -21,7 +21,7 @@
 
 			if (isset($_POST["btnRegistrar"])) {
 
-	            $this->modelo->__SET("Num_Documento", $_POST["id_cliente"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
 	            $this->modelo->__SET("Id_Estado", 2);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
@@ -55,7 +55,6 @@
 	        }
 
             $fichas = $this->modelo->getFichas();
- 
             $clientes = $this->modelo->getCliente();
  
 			require APP.'view/_templates/header.php';
@@ -67,7 +66,7 @@
 			
 			if (isset($_POST["btnModificar"])){
 
-	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
+	            $this->modelo->__SET("Num_Documento", $_POST["id_cliente"]);
 	            $this->modelo->__SET("Id_Estado", $_POST["estad"]);	
 	            $this->modelo->__SET("Id_Solicitud", $_POST["codigo"]);
 	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fechaVencimiento"]);
@@ -93,7 +92,7 @@
 					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}else {
-					$_SESSION['alert'] = "swal('Error al modificar la cotización','','success')";
+					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 

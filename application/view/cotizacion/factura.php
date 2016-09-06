@@ -5,7 +5,12 @@ $html = '<!DOCTYPE html>
 <head>
     <title>Informe Cotizacion</title>
     <style>
-
+        @media print {
+         .firstrow {page-break-before:always}
+         }
+         tr    { page-break-inside:avoid; page-break-after:auto }
+         table { page-break-inside:auto }
+         
         *
         {
             margin:0;
@@ -167,12 +172,49 @@ $html = '<!DOCTYPE html>
             line-height: 50.6px;
         }
 
+        .titu
+        {
+            font-family: cursive;
+            font-size: 45px;
+            font-style: italic;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 45.1px;
+            text-align:right;
+            padding-top:5mm;
+            margin-top:2%;
+        }
+        #img-reporte{
+            width:200px; 
+            position:absolute; 
+            width:90%; 
+            opacity:0.15;
+            top:30%; 
+            left:15%;
+        }
+        .marca-agua{
+            background-image: url(' . RAIZ . DS . 'public' . DS .'img\Modartex.jpg);
+            position:absolute;
+            width:100%;
+            height:100%;
+            z-index:9;
+            opacity:0.15;
+            background-position-x: 20%;
+            background-position-y: 35%;
+        }
+        #wrapper{
+            z-index: 10;
+        }
+
     </style>
 </head>
 <body>
-
-<div id="wrapper">
-    <h1 id="factu" style="text-align:center; font-weight:bold; padding-top:5mm; font-size:45px;">Cotizacion</h1>
+<!-- <div class="marca-agua"></div> -->
+<div id="wrapper"> 
+    <img src="' . RAIZ . DS . 'public' . DS .'img\Modartex.jpg" id="img-reporte"/>
+    <h1 class="titu">
+        Cotización
+    </h1>
     <br />
     <table style="width:100%;">
         <tr>
@@ -189,7 +231,7 @@ $html = '<!DOCTYPE html>
                 <table class="" style="width:100%;">
                     <tr><td>Numero de Cotizacion : </td><td>'.$factura[0]["Id_Solicitud"] .'</td></tr>
                     <tr><td>Fecha Registro : </td><td>'.$factura[0]["Fecha_Registro"] .'</td></tr>
-                    <tr><td>Fecha Vensimiento : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
+                    <tr><td>Fecha Vencimiento : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
                 </table>
             </td>
         </tr>
@@ -204,25 +246,24 @@ $html = '<!DOCTYPE html>
                 <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Subtotal</b></td>
             </tr>';         
-                
+            
             foreach ($factura as $value):
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Cantidad_Producir"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Valor_Producto"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Subtotal"] .'</td>
+            <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
+            <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>
             </tr>';
 
             endforeach; 
-            
-            $html .='<tr>
-                <td style="border:none;"></td>
-                <td style="border:none;"></td>
-                <td><b>Total</b></td>
-                <td style="width:15%;"class="mono">'.$factura[0]["Valor_Total"].'</td>
+            $html .='
+            <tr>
+                <td style="background:#eee;" colspan="2"><b>Total</b></td>
+                <td style="width:15%; " class="mono" colspan="2">$'.$factura[0]["Valor_Total"].'</td>
             </tr>
             </table>
+
         </div>
     </div>
 </div> 
@@ -282,23 +323,24 @@ $dompdf->render();
 $dompdf->stream("Informe De La Cotizacion ".$factura[0]["Id_Solicitud"] , ["Attachment"=>0]);
 
 //Imagen de PDF
-require_once('imageworkshop.php');
- 
-$norwayLayer = new ImageWorkshop(array(
-    "imageFromPath" => "",
-));
- $rutaImagen = RAIZ . '/public/img/android.jpg';
-$watermarkLayer = new ImageWorkshop(array(
-    "imageFromPath" => $rutaImagen,
-));
 
-$watermarkLayer->opacity(40);
+// require_once('imageworkshop.php');
+ 
+// $norwayLayer = new ImageWorkshop(array(
+//     "imageFromPath" => "",
+// ));
+//  $rutaImagen = RAIZ . '/public/img/android.jpg';
+// $watermarkLayer = new ImageWorkshop(array(
+//     "imageFromPath" => $rutaImagen,
+// ));
 
-$norwayLayer->addLayer(1, $watermarkLayer, 12, 12, "LB");
+// $watermarkLayer->opacity(40);
+
+// $norwayLayer->addLayer(1, $watermarkLayer, 12, 12, "LB");
  
-$image = $norwayLayer->getResult();
-header('Content-type: image/jpeg');
+// $image = $norwayLayer->getResult();
+// header('Content-type: image/jpeg');
  
-imagejpeg($image, null, 95); 
+// imagejpeg($image, null, 95); 
 
 ?>
