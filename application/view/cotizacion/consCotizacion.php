@@ -105,7 +105,7 @@
         }
  </style>
 
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" id="dl">
         <div class="modal-content" style="border-radius: 10px;">
 
@@ -117,12 +117,12 @@
           <div>
               <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form">
                   
-                  <div class="form-group col-sm-5">
-                    <label class="">Codigo</label>
-                    <input type="text" class="form-control" name="codigo" id="Codigo" readonly="" style="border-radius: 5px;">
-                  </div>
+                  <!-- <div class="form-group col-sm-5"> -->
+                    <!-- <label class="">Codigo</label> -->
+                    <input type="hidden" class="form-control" name="codigo" id="Codigo" readonly="" style="border-radius: 5px;">
+                  <!-- </div> -->
                     
-                  <div class="form-group col-sm-push-2 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Estado</label>
                     <select class="form-control" name="estad" id="Estado" style="border-radius: 5px;">
                       <option value="1">Entregada</option>
@@ -132,40 +132,40 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-sm-5">
+                  <div class="form-group col-sm-5 col-sm-push-2">
                     <label class="">Fecha de Registro</label>
                     <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-push-2 col-sm-5">
+                  <div class="form-group col-sm-5">
                     <label class="">Fecha de Vencimineto</label>
                     <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;">
                   </div>
 
-                  <div class="form-group col-sm-5">
+                <!--   <div class="form-group col-sm-5">
                     <label for="aso_cliente" class="">Asociar Cliente</label>
                       <div class="input-group">
-                        <input type="hidden" name="cliente" id="ced_cliente"></input>
-                        <input type="text" class="form-control"  id="Cliente" readonly="" style="border-radius: 5px;">
-                        <!-- <section class="from-control col-sm-12" name="cliente" id="ced_cliente">
-                          <?php foreach ($clientes as $cliente):?>
-                            <option value="<?=$cliente["Num_Documento"]?>"><?=$cliente["Nombre"]?></option>
-                          <?php endforeach ?>
-                        </section> -->
+                      <input type="hidden" name="cliente" id="ced_cliente"></input>
+                      <input type="text" class="form-control"  id="Cliente" readonly="" style="border-radius: 5px;">
                         <span class="input-group-btn">
                           <button type="button" id="search-btn" class="btn btn-flat">
                           <i class="fa fa-search" data-toggle="modal" data-target="#mymoda"></i>
                           </button>
                         </span>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <!-- <div class="form-group col-sm-push-2 col-sm-5">
-                     <label class="">Valor Total</label>
-                     <input type="text" class="form-control" name="valorTotal" id="ValorTotal" readonly="" style="border-radius: 5px;">
-                  </div> -->                  
+                  <div class="form-group col-lg-5 col-lg-push-2">
+                    <label for="id_cliente" class="" >Asociar Cliente</label>
+                    <select class="form-control" style="border-radius:5px; width: 100%; height: 200%;" name="id_cliente" id="Cliente">
+                    <option value=""></option>
 
-
+                      <?php foreach ($clientes as $cliente): ?>
+                        <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                      <?php endforeach ?>
+                      
+                    </select>
+                  </div>                 
 
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
@@ -384,3 +384,15 @@
 </div><!-- /.modal -->
 
 </section>
+
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+</style>

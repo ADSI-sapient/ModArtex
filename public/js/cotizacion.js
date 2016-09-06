@@ -12,8 +12,9 @@ function convertirPedido(codigo, cotizaciones, Id_estado){
 
 function editarCotizacion(codigo, cotizaciones, Id_estado){
   var campo = $(cotizaciones).parent().parent();
+  var cliente = campo.find("td").eq(6).text();
   $("#Codigo").val(campo.find("td").eq(0).text());
-  $("#Cliente").val(campo.find("td").eq(1).text());
+  $("#Cliente").val(cliente).trigger("change");
   $("#Estado").val(Id_estado);
   $("#Fecha_Registro").val(campo.find("td").eq(3).text());
   $("#FechaVencimiento").val(campo.find("td").eq(4).text());
@@ -97,10 +98,7 @@ function agregarCliente(documento_cli, cliente){
 function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha){
   var campo = $(fichas).parent().parent();
   $("#agregarFicha").removeAttr("hidden");
-
-  var tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
-  
-
+  var tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, subt"+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
   $("#Ficha").append(tr);
   boton = "#b"+idboton;
   $(boton).attr('disabled', 'disabled');
@@ -110,26 +108,21 @@ function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha)
 function asoFicha(referen, color, vlrproducto, fichas, idboton){
   var campo = $(fichas).parent().parent();
   $("#agregarficha").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td>"+color+"</td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+referen+"></tr>";
+  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td>"+color+"</td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, subt "+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+referen+"></tr>";
   $("#ficha").append(tr);
   boton = "#bt"+idboton;
   $(boton).attr('disabled', 'disabled');  
 }
 
- function Elificha(btn, elemento){
+ function Elificha(btn, elemento, subtotal){
   var e = $(elemento).parent().parent();
   $(e).remove();
   boton = "#btn"+btn;
   $(boton).attr('disabled', false);
+  valortotal = $("#vlr_total").val();
+  desc = valortotal - subtotal;
+  $("#vlr_total").val(desc);
 }
-
-//  function calcularValorTotal(){
-//   var total = 0;
-//   $(".subtl").each(function(){
-//     total = total + parseFloat($(this).val());
-//   });
-//   $("#vlr_total").val(total);
-// }
 
 
 function fichasAsociad(idCot){
@@ -206,5 +199,26 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   }
 }  
 
+  $("#clienteReg").select2({
+  placeholder: 'Seleccionar'
+});
 
+  $(document).ready(function(){
+  $("#Cliente").select2({
+  });
+}); 
 
+function ValCoti(){
+  var fecha_Venci = $("#fecha_V").val();
+  var fecha_Regi = $("#fecha_R").val();
+
+  if(fecha_Venci === fecha_Regi ){
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    return false;
+  }
+
+  if (fecha_Venci <= fecha_Regi) {
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    return false;
+  }
+}  
