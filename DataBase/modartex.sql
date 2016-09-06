@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-09-2016 a las 15:45:42
+-- Tiempo de generación: 06-09-2016 a las 19:26:15
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.8
 
@@ -28,7 +28,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11)
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarF` ()  NO SQL
-SELECT Referencia FROM tbl_fichas_tecnicas$$
+SELECT Referencia, Id_Ficha_Tecnica FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
@@ -234,6 +234,9 @@ INSERT INTO tbl_rol_permisos (Id_Rol, Id_Permiso) VALUES (_Id_Rol, _Id_Permiso)$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
 INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegProductosObje` (IN `Id_Objetivo` INT, IN `Cantidad` INT, IN `IdFicha_Tecnica` INT)  NO SQL
+INSERT INTO tbl_productos_objetivos(Id_Objetivo, Cantidad, 	Id_Ficha_Tecnica) VALUES (Id_Objetivo, Cantidad, IdFicha_Tecnica)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegRoles` (IN `_nombre` VARCHAR(45), IN `_estado` INT)  NO SQL
 INSERT INTO tbl_roles (Nombre, Estado) VALUES (_nombre, _estado)$$
 
@@ -272,6 +275,9 @@ SELECT Id_Solicitudes_Tipo FROM tbl_solicitudes_tipo WHERE Id_Solicitud = _id_pe
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoIdTipoSolicitud` ()  NO SQL
 SELECT MAX(Id_Solicitudes_Tipo) AS ult_id_soltipo FROM tbl_solicitudes_tipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoObjetivo` ()  NO SQL
+SELECT MAX(Id_Objetivo)  FROM tbl_objetivos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimoPedidoRegistrado` ()  NO SQL
 SELECT MAX(s.Id_Solicitud) AS id_solicitud FROM tbl_solicitudes s$$
@@ -557,15 +563,6 @@ CREATE TABLE `tbl_objetivos` (
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_objetivos`
---
-
-INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`) VALUES
-(1, 'Ensayo', '2016-09-06', '0000-00-00', '0000-00-00', 5),
-(2, 'sdfgh', '2016-09-06', '2016-09-06', '2016-09-06', 5),
-(3, 'asdfgh', '2016-09-06', '2016-09-15', '2016-09-12', 5);
-
 -- --------------------------------------------------------
 
 --
@@ -659,6 +656,16 @@ CREATE TABLE `tbl_productos_objetivos` (
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_productos_objetivos`
+--
+
+INSERT INTO `tbl_productos_objetivos` (`Codigo`, `Id_Objetivo`, `Cantidad`, `Id_Ficha_Tecnica`) VALUES
+(1, 1, 1, 1),
+(2, 8, 1, 1),
+(3, 9, 2, 1),
+(4, 9, 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -676,9 +683,16 @@ CREATE TABLE `tbl_roles` (
 --
 
 INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`, `Estado`) VALUES
-(1, 'Administrador', 1),
-(2, 'Supervisor', 1),
-(3, 'Juan ', 1);
+(1, 'Administrador', 0),
+(2, 'Supervisor', 0),
+(3, 'Juan ', 1),
+(4, 'gjhk', 1),
+(5, 'NJ', 1),
+(6, 'kkhkj', 1),
+(7, 'sdasfa', 1),
+(8, 'dasda', 1),
+(9, 'sdfa', 1),
+(10, 'hOOOLA', 1);
 
 -- --------------------------------------------------------
 
@@ -719,7 +733,8 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (23, 1, 20),
 (24, 1, 21),
 (25, 2, 1),
-(26, 2, 2);
+(26, 2, 2),
+(27, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -1298,7 +1313,7 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
@@ -1310,15 +1325,20 @@ ALTER TABLE `tbl_ordenesproduccion`
 ALTER TABLE `tbl_permisos`
   MODIFY `Id_Permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
+-- AUTO_INCREMENT de la tabla `tbl_productos_objetivos`
+--
+ALTER TABLE `tbl_productos_objetivos`
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
