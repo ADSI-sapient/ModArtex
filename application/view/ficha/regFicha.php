@@ -13,6 +13,7 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
+        <div class="box-body">
         <br>
         <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
