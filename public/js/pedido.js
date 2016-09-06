@@ -303,6 +303,7 @@
           function(){
             // location.href = uri+"ficha/consFicha";
             swal.close();
+            $('#mdlEditOrdenP').modal('toggle');
             $('#modalEditPedido').modal('toggle');
         });
       }
@@ -320,6 +321,7 @@
               $("#dll-prod-asoped > tbody tr").empty();
               $('#dtlle-pedido-prod > tbody tr').empty();
               $('#tblFichasProd > tbody tr').empty();
+              $('#tblFichasProducc > tbody tr').empty();
 
               arrayProductos = respuesta.r;
               for (var i = 0; i <= arrayProductos.length - 1; i++) {
@@ -341,6 +343,7 @@
                   $("#agregarFichaProd").removeAttr("hidden");
                   tr = "<tr class='box box-solid collapsed-box'><input type='hidden' value='"+id_solic_produc+"' name='id_solic_prodcto[]'><input type='hidden' value='"+id_fichat+"' name='id_fichaTec[]'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' readonly value='"+cantProducir+"' id='cantProducirPed"+id_fichat+"' name='cantProducirPed[]'></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantSatelite"+id_fichat+", chb"+id_fichat+", confirmar"+id_fichat+", cancelarCant"+id_fichat+")'><input type='text' value='0' style='display:none' id='cantSatelite"+id_fichat+"' name='cantSatelite[]'><button style='display:none' type='button' id='confirmar"+id_fichat+"' class='btn btn-box-tool' onclick='confirmarCantSat(cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", confirmar"+id_fichat+")'><i class='fa fa-check fa-lg'></i></button><button style='display:none' type='button' id='cancelarCant"+id_fichat+"' class='btn btn-box-tool' onclick='cancelarCantSat(cancelarCant"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", cantProducirPed"+id_fichat+", cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, confirmar"+id_fichat+")'><i class='fa fa-remove fa-lg'></i></button></td></tr>";
                   $('#tblFichasProd').append(tr);
+                  $('#tblFichasProducc').append(tr);
                   $('#fecha_terminacion').val(fechaTerm);
 
                   //enviamos id_solicitud a input hidden

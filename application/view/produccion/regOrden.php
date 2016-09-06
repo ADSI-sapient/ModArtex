@@ -27,7 +27,22 @@
             </div>
           </div>
         </div>
+
         <div class="form-group col-lg-offset-1 col-lg-4">
+          <label for="estadoProdu" class="">*Estado:</label>
+          <input type="text" name="estadoProdu" class="form-control" id="estadoProdu" value="Pendiente" readonly="" style="border-radius:5px;">
+        </div>
+
+
+        <div class="form-group  col-lg-3">
+        <div style="">
+          <button type="button" style="margin-top: 11%; margin-left:45%;" id="asociarPedi" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
+        </div>
+        </div>
+      </div>
+      <div class="row col-lg-12" style="margin-left:1%">
+        
+        <div class="form-group col-lg-4">
           <label class="">*Fecha de Terminación:</label>
           <div class="">
             <div class="input-group date">
@@ -38,21 +53,9 @@
             </div>
           </div>
         </div>
-        <div class="form-group  col-lg-3">
-        <div style="">
-          <button type="button" style="margin-top: 11%; margin-left:30%;" id="asociarPedi" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
-        </div>
-        </div>
-      </div>
-      <div class="row col-lg-12" style="margin-left:1%">
-        <div class="form-group col-lg-4">
-          <label for="estadoProdu" class="">*Estado:</label>
-          <input type="text" name="estadoProdu" class="form-control" id="estadoProdu" value="Producción" readonly="" style="border-radius:5px;">
-        </div>
         <div class="form-group col-lg-offset-1 col-lg-4">
-          <label for="lugar" class="">*Lugar:</label>
-          <select class="form-control" name="lugar">
-            <option value="" selected></option>
+          <label for="lugarP" class="">*Lugar:</label>
+          <select class="form-control" name="lugarP">
             <option value="Fábrica">Fábrica</option>
             <option value="Satélite">Satélite</option>
             <option value="Fábrica-Satélite">Fábrica/Satélite</option>
@@ -83,13 +86,13 @@
   <div class="row text-right" style="margin-right: 2%;">
     <div class="form-group col-lg-04 " >
       <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegistrarProdu">Registrar</button>
-      <button type="reset"  class="btn btn-danger" style="margin-right:2%; margin-left:4.6%; margin-top: 15px; padding-left:2%; padding-right:2%" >Limnpiar</button>
+      <button type="reset"  class="btn btn-danger" style="margin-right:1%; margin-left:4.6%; margin-top: 15px; padding-left:2%; padding-right:2%" >Limnpiar</button>
     </div>
   </div>
 </form>
 </div>
 </section>
-<!-- Inicio Modal asociar fichas -->
+<!-- Inicio Modal asociar pedidos -->
       <div class="modal fade" id="asociarPedid" tabindex="-1" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius: 10px;">
@@ -143,7 +146,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <!-- Fin modal asociar fichas -->
+      <!-- Fin modal asociar pedidos -->
             <div class="modal fade" id="dllPedidosProd" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
