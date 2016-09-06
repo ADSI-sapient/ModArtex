@@ -34,3 +34,35 @@
             }
           });
         }
+
+
+function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas){
+  var campos = $(fichas).parent().parent();
+  CantidadO= $("#CantidadO"+Referencia).val();
+   
+    $("#FichasS").removeAttr("hidden");
+  var tr = "<tr class='box box-solid'><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]/></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]/></td><td>"+CantidadO+"<input type='hidden' value='"+CantidadO+"' name=CantidadO[] /></td><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td></tr>";
+  $("#tablaFichass").append(tr);
+    // boton = "#btn"+idbton;
+    // $(boton).attr('disabled', 'disabled');
+}
+
+    
+$(function(){
+ $('#Fecha_Inicio').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+
+$(function(){
+ $('#Fecha_Fin').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+
