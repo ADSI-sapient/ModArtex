@@ -55,7 +55,6 @@
 	        }
 
             $fichas = $this->modelo->getFichas();
- 
             $clientes = $this->modelo->getCliente();
  
 			require APP.'view/_templates/header.php';

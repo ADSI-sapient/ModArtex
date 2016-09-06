@@ -104,21 +104,9 @@
           <div class="row col-lg-12">
             <div class="form-group col-lg-offset-8 col-lg-4">
               <label for="vlr_total" class="">Valor Total:</label>
-              
-                
-                  <!-- <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%; size:10px;">
-                    <button type='button' id="confir" readonly="" onclick="calcularValorTotal()" class='btn btn-info'><b>Calcular</b></button>
-                  </div> -->
                   <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
-                
-              
             </div>
           </div>
-
-          <!-- <div class="form-group col-sm-5">
-              
-              
-            </div> -->
 
         <div class="row">
           <div class="form-group">
