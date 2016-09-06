@@ -12,29 +12,29 @@
 			if (isset($_POST["btnRegistrarProdu"])) {
 
 	        	//registro nueva orden de produccion
-	        	$this->_modelProduct->__SET("_estado_prod", $_POST["estadoProdu"]);
+	        	$this->_modelProduct->__SET("_estado_prod", 5);
 	        	$this->_modelProduct->__SET("_fecha_regist", $_POST["fecha_registro"]);
-	        	$this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
-	        	$this->_modelProduct->__SET("_lugar_prod", $_POST["lugar"]);
+		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarP"]);
 
 	            if ($this->_modelProduct->regOrdenProduccion()) {
 
 	            	//retorna id ultima orden de produccion registrada
 	            	$ultimaOrden = $this->_modelProduct->consUltimaOrdenReg();
-
+	        	
 	         	    for ($q=0; $q < count($_POST["id_fichaTec"]); $q++) { 
 	            		
 			        	//registrar en tbl_solicitudes_ordenesproduccion
 		        		$this->_modelProduct->__SET("_id_solc_prod", $_POST["id_solic_prodcto"][$q]);
 			        	$this->_modelProduct->__SET("_id_ordenProd", implode('', $ultimaOrden));
-			        	$this->_modelProduct->regSolicitudOrdenProduccion();
-
+		        		$this->_modelProduct->__SET("_estadoFih", 5);
 		        		$this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"][$q]);
 		        		$this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"][$q]);
-			        	$this->_modelProduct->actualizarCantProducir();
+			        	$this->_modelProduct->regSolicitudOrdenProduccion();
 	            	}
 			        
-	        		$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
+		        	$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
+		        	$this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
+				    $this->_modelProduct->actualizarFechaEntregaPd();
 			        $this->_modelProduct->actualizarEstadoPed();
 
 		        	//alerta confirmación registro
@@ -54,6 +54,7 @@
 
 		public function consOrden(){
 
+			$pedidosProdu = $this->_modelProduct->consPedidosProd();
 			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
 			$clientes = $this->_modelPedido->getClientes();
 
@@ -61,6 +62,45 @@
 			include APP . 'view/produccion/consOrden.php';
 			include APP . 'view/_templates/footer.php';
 		}
+
+
+		public function editarOrdenProduccion(){
+
+	    	if (isset($_POST["btnModificarOrd"])) {
+	    		
+	    		$this->_modelProduct->__SET("_estado_prod", $_POST["estadoOp"]);
+	        	$this->_modelProduct->__SET("_fecha_term", $_POST["fecha_entregaOp"]);
+		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarOp"]);
+			    $this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
+
+	    		if ($this->_modelProduct->editOrdenes()) {
+
+	    			// $this->_modelProduct->elimnarSolicitudesOrdenes();
+
+	    			for ($q=0; $q < count($_POST["id_fichaTec"]); $q++) { 
+	            		
+				    	//registrar en tbl_solicitudes_ordenesproduccion
+			      		$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolcProd"][$q]);
+				    	$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
+			        	$this->_modelProduct->__SET("_estadoFih", $_POST["codEstadoFicha"]);
+			        	$this->_modelProduct->__SET("_cantFab", $_POST["cantFab"][$q]);
+			        	$this->_modelProduct->__SET("_cantSat", $_POST["cantSat"][$q]);
+				        $this->_modelProduct->regSolicitudOrdenProduccion();
+	            	}
+
+	    			$_SESSION["mensaje"] = 'swal("Orden Modificada Exitosamente!", "", "success");';
+		    		header("location: " .URL. 'ctrProduccion/consOrden');
+	    		}else{
+	    			$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar la orden', rounded: true, delay: 2500});";
+		      		header("location: " .URL. 'ctrProduccion/consOrden');
+	    		}	
+	    	}
+			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
+
+	    	include APP . 'view/_templates/header.php';
+			include APP . 'view/produccion/consOrden.php';
+			include APP . 'view/_templates/footer.php';
+	    }
 
 		public function consFichasOrdenP()
 		{
