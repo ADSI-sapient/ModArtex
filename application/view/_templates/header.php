@@ -47,7 +47,7 @@
               background: linear-gradient(yellow,red, blue);
               -webkit-background-clip: text;
               color: transparent;  
-            }
+            } 
           </style>
           <li>
             <a disabled="" href="#" data-toggle="modal" data-target="#myModalMedidas" class="dropdown-toggle" data-toggle="dropdown">
@@ -57,7 +57,7 @@
           <li>
             <a class="dropdown-toggle">
             <button style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
-              <i style="font-size: 130%;" class="fa fa-circle circleColor" aria-hidden="true"></i>
+              <i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i>
             </button>
             </a>
           </li>         
