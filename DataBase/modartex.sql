@@ -671,12 +671,6 @@ CREATE TABLE `tbl_productos_objetivos` (
 -- Volcado de datos para la tabla `tbl_productos_objetivos`
 --
 
-INSERT INTO `tbl_productos_objetivos` (`Codigo`, `Id_Objetivo`, `Cantidad`, `Id_Ficha_Tecnica`) VALUES
-(1, 1, 1, 1),
-(2, 8, 1, 1),
-(3, 9, 2, 1),
-(4, 9, 3, 2);
-
 -- --------------------------------------------------------
 
 --

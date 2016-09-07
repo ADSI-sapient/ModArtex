@@ -50,13 +50,15 @@
             } 
           </style>
           <li>
-            <a disabled="" href="#" data-toggle="modal" data-target="#myModalMedidas" class="dropdown-toggle" data-toggle="dropdown">
+            <a class="dropdown-toggle">
+            <button onclick="listarMedidas()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudMedidas" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-balance-scale" aria-hidden="true"></i>
+            </button>  
             </a>
           </li> 
           <li>
             <a class="dropdown-toggle">
-            <button style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
+            <button onclick="listarColores()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i>
             </button>
             </a>
@@ -149,3 +151,115 @@
       </section>
     </aside>
     <div class="content-wrapper" style="min-height: 916px;">
+
+
+
+
+
+    
+    <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document";>
+    <div class="modal-content" style="border-radius: 25px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
+      </div>
+      <div class="modal-body">
+        <div style="margin-top: 10px;" class="row">
+          <div class="form-group col-sm-12">
+          <div class="col-sm-5">  
+            <div class="input-group my-colorpicker2 colorpicker-element">
+            <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
+                <div class="input-group-addon">
+                  <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-5">
+              <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
+          </div> 
+            <div class="col-sm-2">
+              <button onclick="regColor()" type="submit" class="btn btn-primary">Registrar</button>
+            </div> 
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Muestra</th>
+                    <th>Código</th>
+                    <th>Color</th>
+                    <th style="text-align: center;">Modificar</th>
+                    <th>Eliminar</th>
+                    <th>Guardar</th>  
+                  </tr>
+                </thead>
+                <tbody id="tbody-CrudColores">
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+    <div>
+      <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+    <div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document";>
+    <div class="modal-content" style="border-radius: 25px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de medida</h3>
+      </div>
+      <div class="modal-body">
+        <div style="margin-top: 10px;" class="row">
+          <div class="form-group col-sm-12">
+          <div class="col-sm-4">  
+            <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura">
+          </div>
+          <div class="col-sm-6">
+              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control"> 
+          </div> 
+            <div class="col-sm-2">
+              <button onclick="regMedida()" class="btn btn-primary">Registrar</button>
+            </div> 
+          </div>
+        </div>
+        <div class="row">
+        <div class="box box-primary">
+          <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Abreviatura</th>
+                    <th style="text-align: center;">Modificar</th>
+                    <th>Eliminar</th>
+                    <th>Guardar</th>  
+                  </tr>
+                </thead>
+                <tbody id="tbody-CrudMedidas">
+                </tbody>
+              </table>
+            </div>
+            </div>
+      </div>
+    </div>
+    <div>
+      <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
