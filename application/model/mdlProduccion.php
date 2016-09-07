@@ -160,7 +160,7 @@
       		$sql = "CALL SP_consPedidosCliente()";
       		$query = $this->_db->prepare($sql);
       		$query->execute();
-      		return $query;
+      		return $query->fetchAll();
       	}
 
       	public function consPedidosCliente(){

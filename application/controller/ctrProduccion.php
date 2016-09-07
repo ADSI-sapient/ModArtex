@@ -29,8 +29,11 @@
 		        		$this->_modelProduct->__SET("_estadoFih", 5);
 		        		$this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"][$q]);
 		        		$this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"][$q]);
-		        		$this->_modelProduct->__SET("_lugar_prod", $_POST["lugarP"][$q]);
+		        		$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
+
+			       
 			        	$this->_modelProduct->regSolicitudOrdenProduccion();
+
 	            	}
 			        
 		        	$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
@@ -58,6 +61,7 @@
 			$pedidosProdu = $this->_modelProduct->consPedidosProd();
 			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
 			$pedidosCliente = $this->_modelProduct->getPedidosCliente();
+
 
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/produccion/consOrden.php';
