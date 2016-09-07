@@ -30,8 +30,7 @@
 		        		$this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"][$q]);
 		        		$this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"][$q]);
 		        		$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
-
-			       
+			      
 			        	$this->_modelProduct->regSolicitudOrdenProduccion();
 
 	            	}
@@ -61,7 +60,6 @@
 			$pedidosProdu = $this->_modelProduct->consPedidosProd();
 			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
 			$pedidosCliente = $this->_modelProduct->getPedidosCliente();
-
 
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/produccion/consOrden.php';

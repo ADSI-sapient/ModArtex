@@ -3,6 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
+
 -- Tiempo de generación: 06-09-2016 a las 19:26:15
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
