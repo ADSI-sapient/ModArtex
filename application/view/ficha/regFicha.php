@@ -69,7 +69,7 @@
           <div hidden="" class="form-group" id="agregarInsumo">
             <div class="table">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="tablaInsumos">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaInsumos">
                   <thead>
                     <tr class="active">
                       <th>Id Insumo</th>
@@ -110,8 +110,8 @@
           </div>
           <div class="row"> 
             <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
+              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegFicha" id="reg"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
           </div>
         </form>

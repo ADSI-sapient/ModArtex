@@ -128,7 +128,7 @@
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>
           <li class="treeview">
-            <a href="#"><i class="<?= $valor['Icon']; ?> fa-lg"></i><span> <?= $valor["NombreM"]; ?></span>
+            <a href="#"><i class="<?= $valor['Icon']; ?> fa-lg"></i><span>&nbsp;&nbsp;&nbsp;<?= $valor["NombreM"]; ?></span>
               <i class="fa fa-angle-left pull-right"></i>
               <ul class="treeview-menu">
                 <?php foreach ($_SESSION["permisos"] as $valor2) {

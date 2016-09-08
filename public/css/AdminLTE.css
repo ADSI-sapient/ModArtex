@@ -143,7 +143,7 @@ body.hold-transition .main-header .logo {
 }
 /* Content */
 .content {
-  min-height: 550px;
+  min-height: 850px;
   padding: 15px;
   margin-right: auto;
   margin-left: auto;
@@ -2179,6 +2179,7 @@ a:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid transparent;
+  padding: 6px 12px !important;
 }
 .btn.uppercase {
   text-transform: uppercase;
@@ -2975,7 +2976,7 @@ table.text-center th {
 }
 .modal-header {
   border-bottom-color: #f4f4f4;
-  background-color: #246477 !important;
+  background-color: #3c8dbc !important;
 }
 .modal-footer {
   border-top-color: #f4f4f4;

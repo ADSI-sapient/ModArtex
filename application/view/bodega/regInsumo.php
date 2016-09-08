@@ -101,7 +101,7 @@
 
 <div class="modal fade" id="SeleColorReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
-    <div class="modal-content" style="border-radius: 20px;">
+    <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header" style="padding: 1%;">
         <h4 class="box-header" style="text-align: center;"><strong>LISTAR COLORES</strong></h4>
       </div>
@@ -134,7 +134,6 @@
        </tbody>
      </table>
    </div>
-   
    <div class="modal-footer">
     <button type="button" onclick="seleccion()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
   </div> 

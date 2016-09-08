@@ -6,19 +6,16 @@
         <li class="active">Existencias insumos</li>
       </ol>
     </section>
-
     <section class="content">
       <div class="box box-primary">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
-  
       <form class="form-horizontal">
          <div class="col-md-12">
            <div class="box">
             <div class="box-body no-padding">
               <div class="table-responsive">
-
                 <table table-responsive class="table example1" id="tblExistencias">
                   <thead>
                     <tr class="active">

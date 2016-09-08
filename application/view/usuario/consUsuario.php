@@ -32,7 +32,8 @@
                     <th>Email</th>
                     <th>Rol</th>
                     <th style="display: none;"></th>
-                    <th style="width: 7%">Opciones</th>
+                    <th style="width: 7%">Editar</th>
+                    <th class="col-lg">Cambiar Estado</th>
                   </tr>
                 </thead>
                 <tbody class="list">
@@ -52,16 +53,14 @@
 <!--                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td> -->
                       <td>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
-
-                        <?php if ($usuario["Estado"] == 1){ ?>
-                          
+                       </td>
+                       <td>
+                         <?php if ($usuario["Estado"] == 1){ ?>
                           <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
-                          
                           <?php }else{ ?>
                             <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
-
-                            <?php } ?>
-                          </td>
+                          <?php } ?>
+                       </td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -79,7 +78,7 @@
       <!-- inicia el Modal que permite modificar-->  
       <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 25px;">
+          <div class="modal-content" style="border-radius:10px 10px 10px 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Modificar Usuario</h4>
@@ -129,8 +128,8 @@
                 <input type="hidden" id="codigo" name="codigo"></input>
                 <div class="modal-footer" style="border-top:0px;">
                 <div class="row form-group col-sm-12" style="margin-left:1px">
-                  <button type="submit" class="btn btn-primary" name="btonModificar" style="margin-top: 15px; padding:5px 24px !important;"><b>Guardar</b></button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelar()" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;">Cancelar</button>
+                  <button type="submit" class="btn btn-primary" name="btonModificar" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelar()" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cancelar</button>
                   </div>
                 </div>
               </form>
