@@ -332,7 +332,6 @@
         
 
            <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form">
-                  
                   <div class="form-group col-sm-5">
                     <label class="">Codigo</label>
                     <input type="text" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
@@ -382,11 +381,9 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 </section>
 
 <style>
-
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
