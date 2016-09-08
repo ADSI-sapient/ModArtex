@@ -92,32 +92,74 @@
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Sí, cancelar orden",
           cancelButtonText: "No",
-          closeOnConfirm: false,
-          closeOnCancel: false },
+          closeOnConfirm: true,
+          closeOnCancel: true },
           function(isConfirm){
-            if (isConfirm)
-            { 
-              $.ajax({
-            type: 'post',
+          $.ajax({
+            type: 'POST',
             dataType: 'json',
-            url: uri+"ctrProduccion/cancelarOrdenProd",
-            data:{id_orden: idOrden}
-            }).done(function(respuesta){
-              if (respuesta.r == 1) {
-                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                // location.href = uri+"ctrPedido/consPedido";
-              }else{
-                alert("Error al cancelar la orden");
-              }
-            }).fail(function(){
-            })  
-              swal("Cancelada", "La orden ha sido cancelada", "success");
-              location.href = uri+"ctrProduccion/consOrden";
+            url: uri+'ctrProduccion/consFichasOrdenP',
+            data: {idOrden: idOrden}
+          }).done(function(resp){
+              var tr = "";
+              var cont = 0;
+              var band = false;
+            $(resp.v).each(function(i){
+                if(resp.v[i]["Id_Estado"] == 5){
+                    band = true;
+                   tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
+                   "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
+                   "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
+                   "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
+                }
+            });
+            if (band) {
+              $("#tbodyDevolverInsumos").empty();
+              $("#tbodyDevolverInsumos").append(tr);
+              $("#devolverInsumos").modal('show');
+              $("#idOrdenHidden").val(idOrden);
+            }else{
+              $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: uri+"ctrProduccion/cancelarOrdenProd",
+                data:{id_orden: idOrden}
+                }).done(function(respuesta){
+                  if (respuesta.r == 1) {
+                    location.href = uri+'ctrProduccion/consOrden';
+                  }else{
+                    alert("Error al cancelar la orden");
+                  }
+                }).fail(function(){
+                }) 
             }
-            else
-            {
-              swal("Acción interrumpida", "No se completó la acción.", "error");
-            }
+          }).fail(function(){
+          });
+
+
+
+            // if (isConfirm){ 
+            //   $.ajax({
+            // type: 'post',
+            // dataType: 'json',
+            // url: uri+"ctrProduccion/cancelarOrdenProd",
+            // data:{id_orden: idOrden}
+            // }).done(function(respuesta){
+            //   if (respuesta.r == 1) {
+            //     // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+            //     // location.href = uri+"ctrPedido/consPedido";
+            //   }else{
+            //     alert("Error al cancelar la orden");
+            //   }
+            // }).fail(function(){
+            // })  
+            //   swal("Cancelada", "La orden ha sido cancelada", "success");
+            //   location.href = uri+"ctrProduccion/consOrden";
+            // }
+            // else
+            // {
+            //   swal("Acción interrumpida", "No se completó la acción.", "error");
+            // }
           });
         }
 
@@ -149,4 +191,48 @@
             //$("#clienteOrdn").val();
         }
       });
+    }
+
+
+    function devolverInsumos(){
+        $("#tbodyDevolverInsumos tr").each(function(){
+            var idFicha = $(this).find("td").eq(0).html();
+            var cantidadPedida = $(this).find("td").eq(5).html();
+            var cantidadRealizada = $("#inputInsADevolver"+idFicha).val();
+            var cantFichasDevolver = cantidadPedida - cantidadRealizada;
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrFicha/cargarInsumosAsociados',
+              data: {referencia: idFicha}
+            }).done(function(resp){
+              console.log(resp);
+              $(resp.r).each(function(i){
+                 var cantInsumoADevolver =  parseInt(resp.r[i]["Cant_Necesaria"]) * parseInt(cantFichasDevolver);
+                 var cantTotalInsumos = parseInt(resp.r[i]["Cantidad_Insumo"]) + parseInt(cantInsumoADevolver);
+                 var idExsIns = resp.r[i]["Id_Insumo"];
+                 $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: uri+'ctrBodega/actualizarExsIns',
+                    data: {idExs: idExsIns, cantidad: cantTotalInsumos}
+                 }).done(function(resp){
+                 });
+              });
+            });
+        });
+        var idOrden = $("#idOrdenHidden").val();
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          url: uri+"ctrProduccion/cancelarOrdenProd",
+          data:{id_orden: idOrden}
+          }).done(function(respuesta){
+            if (respuesta.r == 1) {
+              location.href = uri+'ctrProduccion/consOrden';
+            }else{
+              alert("Error al cancelar la orden");
+            }
+          }).fail(function(){
+        }); 
     }

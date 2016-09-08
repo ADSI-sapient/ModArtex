@@ -219,3 +219,41 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <!-- Fin modal asociar pedidos -->
+
+
+
+
+      <div class="modal fade" id="devolverInsumos" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Productos pendientes</b></h4>
+            </div>
+            <div class="modal-body">
+              <div class="table">
+                <div class="col-md-12 table-responsive">
+                  <table class="table table-responsive table-hover" style="margin-top: 2%;" id="">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Referencia</th>
+                        <th>Muetra</th>
+                        <th>Color</th>
+                        <th>Cantidad Pedida</th>
+                        <th>Cantidad Realizada</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyDevolverInsumos">
+                    </tbody>
+                  </table>
+                </div>
+              </div>     
+            </div>
+            <div class="modal-footer" style="border-top:0px;">
+              <input type="hidden" id="idOrdenHidden" name="">
+              <button type="button" onclick="devolverInsumos()" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>

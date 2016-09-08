@@ -197,4 +197,11 @@ class ctrBodega extends Controller{
 		}
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
+
+
+	public function actualizarExsIns(){
+		$this->_modelExistencias->__SET("_idExis", $_POST["idExs"]);	
+		$this->_modelExistencias->__SET("_cant", $_POST["cantidad"]);
+		echo json_encode($this->_modelExistencias->actualizarExsIns());	
+	}
 }
