@@ -7,18 +7,24 @@
     $("#Cantidad").val(campos.find("td").eq(3).text());
     $("#ModelSalida").show();
     }
-
-
     $(document).ready(function(){
         $('#tablaProducto').DataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
-          "ordering": false
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay producto terminado para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No hay producto terminado que coincida con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
         });
       });
-
-         
      function Salida(){
           $("#tbodySal").empty();
           $("#tablaProducto tbody tr").each(function(){

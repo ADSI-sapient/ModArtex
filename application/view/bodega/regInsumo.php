@@ -1,7 +1,6 @@
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+        <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Bodega</a></li>
         <li class="active">Registrar insumos</li>
       </ol>
@@ -13,8 +12,6 @@
           <div class="box-header with-border" style="text-align: center;">
             <h1 class="box-title"><strong>REGISTRAR INSUMO</strong></h1>
           </div>
-
-
           <div class="box-body">
 
             <div class="row">
@@ -104,7 +101,7 @@
 
 <div class="modal fade" id="SeleColorReg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="border-radius: 25px;">
-    <div class="modal-content" style="border-radius: 20px;">
+    <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header" style="padding: 1%;">
         <h4 class="box-header" style="text-align: center;"><strong>LISTAR COLORES</strong></h4>
       </div>
@@ -137,7 +134,6 @@
        </tbody>
      </table>
    </div>
-   
    <div class="modal-footer">
     <button type="button" onclick="seleccion()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
   </div> 

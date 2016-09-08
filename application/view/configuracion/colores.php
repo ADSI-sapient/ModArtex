@@ -1,16 +1,12 @@
     <section class="content-header">
-      <br>  
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Configuración</a></li>
         <li class="active">Colores</li>
       </ol>
     </section>
-
-
     <section class="content">
      <div class="row">
-
       
         <div class="col-md-6">
 
@@ -29,6 +25,7 @@
                             <i id="colDatapicker" type="input"></i>
                           </div>
                       </div>
+                    </div>
                   </div>
                   <div class="form-group">
                      <h4>Nombre: </h4>
@@ -40,9 +37,9 @@
                   <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>   
               </div> 
             </form>
+            </div>
           </div>
         </div>
-
 
         <div class="col-md-6">
           <div class="box box-primary">
@@ -88,12 +85,6 @@
         </div>
       </div>
     </section>
-
-
-
-
-
-
     <div class="modal fade" id="modalEditColor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-md" role="document"; border-radius: 25px;">
             <div class="modal-content" style="border-radius: 20px;">

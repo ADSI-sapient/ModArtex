@@ -24,7 +24,20 @@ function editarCotizacion(codigo, cotizaciones, Id_estado){
 }
 
 var options;
-$('#myTable').DataTable();     
+$('#tblCotizaciones').dataTable({
+  "ordering": false,
+      "language": {
+          "emptyTable": "No hay cotizaciones para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron cotizaciones que coincidan con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
+});   
+
 $(function(){
   $('#fecha1').datepicker({
     format: "yyyy-mm-dd",
@@ -200,11 +213,19 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
 }  
 
   $("#clienteReg").select2({
-  placeholder: 'Seleccionar'
+  placeholder: 'Seleccionar',
+  language: {
+          noResults: function (params) {
+          return "No hay resultados";
+  }}
 });
 
   $(document).ready(function(){
   $("#Cliente").select2({
+    language: {
+          noResults: function (params) {
+          return "No hay resultados";
+    }}
   });
 }); 
 
@@ -213,12 +234,11 @@ function ValCoti(){
   var fecha_Regi = $("#fecha_R").val();
 
   if(fecha_Venci === fecha_Regi ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
-
   if (fecha_Venci <= fecha_Regi) {
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 }  

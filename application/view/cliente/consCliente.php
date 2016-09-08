@@ -1,6 +1,5 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
-  <br>
     <ol class="breadcrumb">
       <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Cliente</a></li>
@@ -9,79 +8,53 @@
   </section>
   <!-- Main content -->
   <section class="content">
-    
      <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR CLIENTES</strong></h3>
       </div>
       <div id="users">
-  <!-- <div class="col-md-offset-8 col-md-4">
-         <div class="row box-header">
-            <div class="form-group">
-              <div class="box-tools pull-right">
-                <form action="#" method="get" class="form-horizontal">
-                  <div class="input-group">
-                    <input type="text" class="form-control search" placeholder="Buscar">
-                    <span class="input-group-btn">
-                      <button type="submit" name="search" id="search-btn" class="sort btn btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
-                  </div>
-                </form> 
-              </div>
-          </div>
-        </div>
-        </div> -->
         <form class="form-horizontal">
           <div class="col-md-12">
-            <!-- <div class="box"> -->
-            <br>
-              <div class="table table-responsive">
-                <table class="table table-hover" id="TablaClientes">
-                  <thead>
-                    <tr class="info">
-                      
-                      <th>Tipo de documento</th>
-                      <th>Número de documento</th>
+            <div class="table table-responsive">
+              <table class="table table-hover cell-border" id="TablaClientes">
+                <thead>
+                    <tr class="">
+                      <th class="col-lg">Tipo de Documento</th>
+                      <th>Documento</th>
                       <th>Nombre</th>
                       <th>Apellido</th>
-                      <th>Telefono</th>
+                      <th>Teléfono</th>
                       <th>Dirección</th>
                       <th>Email</th>
                       <th>Estado</th>
-                      <th style="width: 7%">Opción</th>
+                      <th style="width: 7%">Opciones</th>
                     </tr>
                   </thead>
-                  <tbody class="list">
+                  <tbody class="">
                   <?php foreach ($clientes as $cliente): ?>
-                    <tr>
+                  <tr>
                     <td class="Tipo_Documento"><?= $cliente["Tipo_Documento"] ?></td>
                     <td class="Num_Documento"><?= $cliente["Num_Documento"] ?></td>
                     <td class="Nombre"><?= $cliente["Nombre"] ?></td>
                     <td class="Apellido"><?= $cliente["Apellido"] ?></td>
                     <td class="Telefono"><?= $cliente["Telefono"] ?></td>
-                   <td class="Direccion"><?= $cliente["Direccion"] ?></td>
-                   <td class="Email"><?= $cliente["Email"] ?></td>
+                    <td class="Direccion"><?= $cliente["Direccion"] ?></td>
+                    <td class="Email"><?= $cliente["Email"] ?></td>
                     <td class="estado"><?= $cliente["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td>                           
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
-
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
                         <?php if ($cliente["Estado"] == 1){ ?>
-                          
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle"></i></button>
-                          
-                          <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check"></i></button>
-
-                            <?php } ?>
-                          </td>
-                       
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                        <?php }else{ ?>
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                        <?php } ?>
+                      </td>
                     </tr>
-                  <?php endforeach; ?>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>
-            <!-- </div> -->
-          </div>
+            </div>
           </form>
         </div>
         <div class="box-footer">

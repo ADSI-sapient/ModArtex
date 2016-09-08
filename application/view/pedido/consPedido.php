@@ -1,6 +1,5 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Pedido</a></li>
@@ -15,21 +14,19 @@
         <div id="pedidos">
               <form class="form-horizontal">
                 <div class="col-md-12">
-            <!--<div class="box"> -->
-                <br>
                 <div class="table-responsive">
                   <table class="table table-responsive" id="tablaPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>
                         <th>Fecha Registro</th>
-                        <th>Fecha Entrega</th>
-                        <th>Valor Total</th>
-                        <th>Estado</th>
                         <th>Cliente</th>
+                        <th>Fecha Entrega</th>
+                        <th>Estado</th>
+                        <th>Valor Total</th>
                         <th style="width: 7%">Editar</th>
                         <th style="width: 7%">Cancelar</th>
-                        <th style="width: 7%">Productos Asociados</th>
+                        <th class="col col-md">Productos Asociados</th>
                       </tr>
                     </thead>
                     <tbody class="list">
@@ -37,10 +34,10 @@
                       <tr>
                         <td><?= $pedido["Id_Solicitud"] ?></td>
                         <td class="freg"><?= $pedido["Fecha_Registro"] ?></td>
-                        <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
-                        <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
-                        <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
+                        <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
+                        <td><?= $pedido["Nombre_Estado"] ?></td>
+                        <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
@@ -67,7 +64,6 @@
                     </tbody>
                   </table>
                 </div>
-         <!-- </div> -->
             </div>
           </form>
         </div>

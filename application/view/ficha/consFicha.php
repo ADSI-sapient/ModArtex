@@ -1,6 +1,5 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Ficha Técnica</a></li>
@@ -9,37 +8,18 @@
     </section>
     <!-- Main content -->
     <section class="content">
-
       <!-- Inicio de listar -->
       <div class="box box-primary">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>LISTAR FICHAS TÉCNICAS</strong></h3>
         </div>
         <div id="users">
-  <!-- <div class="col-md-offset-8 col-md-4">
-         <div class="row box-header">
-            <div class="form-group">
-              <div class="box-tools pull-right">
-                <form action="#" method="get" class="form-horizontal">
-                  <div class="input-group">
-                    <input type="text" class="form-control search" placeholder="Buscar">
-                    <span class="input-group-btn">
-                      <button type="submit" name="search" id="search-btn" class="sort btn btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
-                  </div>
-                </form> 
-              </div>
-          </div>
-        </div>
-      </div> -->
       <form class="form-horizontal">
         <div class="col-md-12">
-          <!-- <div class="box"> -->
-          <br>
           <div class="table table-responsive">
-            <table class="table table-hover" id="tablaFichas">
+            <table class="table table-hover cell-border" id="tablaFichas">
               <thead>
-                <tr class="info">
+                <tr class="">
                   <th>Referencia</th>
                   <th>Fecha Registro</th>
                   <th>Estado</th>
@@ -48,7 +28,7 @@
                   <th>Valor Producción</th>
                   <th>Valor Producto</th>
                   <th style="width: 7%">Editar</th>
-                  <th style="width: 7%">Cambiar Estado</th>
+                  <th style="width: 7%">C. Estado</th>
                   <th style="width: 15%">Insumos Asociados</th>
                 </tr>
               </thead>

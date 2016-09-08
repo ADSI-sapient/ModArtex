@@ -1,81 +1,58 @@
 <section class="content-header">
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+    <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
     <li><a href="#">Cliente</a></li>
     <li class="active">Registrar Cotización</li>
   </ol>
 </section>
-
 <section class="content">
-  <br>
   <div class="box box-primary">
       <div class="box-header with-border" style="text-align: center;">
         <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
       </div>
-      <br>
       <div class="box-body">
-
-      <form action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form" onsubmit="return ValCoti()">
-        <div class="row col-lg-12">
+      <form data-parsley-validate="" action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form" onsubmit="return ValCoti()">
+        <div class="row col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-4">
-            <label class="">Fecha Registro</label>
+            <label class="">Fecha Registro:</label>
             <div class="">
               <div class="input-group date">
-                <div class="input-group-addon">
+                <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
                 <input type="text" class="form-control pull-right" value="<?php echo date ("Y-m-d"); ?>" name="fecha_R" readonly="" style="border-radius:5px;">
               </div>
             </div>
           </div>
-
           <div class="form-group col-lg-4">
-            <label class="">Fecha Vencimiento</label>
+            <label class="">*Fecha Vencimiento:</label>
             <div class="">
               <div class="input-group date">
-                <div class="input-group-addon">
+                <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;">
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="">
               </div>
             </div>
           </div>
-
           <div class="form-group col-lg-4">
-            <label for="estado" class="">Estado</label>
+            <label for="estado" class="">Estado:</label>
             <input type="text" name="estado" class="form-control" id="estado" readonly="" value="No Entregada">
           </div>
-      </div>
-     <!-- <div class="row col-lg-12">
-        <div class="form-group col-lg-4">
-          <label for="aso_cliente" class="">Asociar Cliente</label>
-            <div class="input-group">
-             <input type="hidden" name="documento_cli" value="" id="documento_cli">
-              <input type="text" name="cliente" class="form-control" id="clienteReg" readonly="" value="" style="border-radius:5px;">
-              <span class="input-group-btn">
-                <button type="button" id="search-btn" class="btn btn-flat">
-                <i class="fa fa-search" data-toggle="modal" data-target="#ModelProducto"></i>
-                </button>
-              </span>
-          </div>
         </div>
-     </div>  -->
-     <div class="row col-lg-12">
+        <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
-              <label for="id_cliente" class="" >Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg">
-
+              <label for="cliente" class="">*Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
-              
             </div>
-      </div>
-                
+        </div>
         <div hidden="" class="form-group" id="agregarFicha">
-            <div class="table">
+            <div class="table" data-parsley-required="">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover" style="margin-top: 2%;" id="Ficha">
                   <thead>
@@ -94,29 +71,23 @@
               </div>
             </div>
         </div>
-
-        <div class="row col-lg-12">
-            <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto"><b>Asociar Fichas</b></button>
-            </div>
-        </div>
-
-          <div class="row col-lg-12">
-            <div class="form-group col-lg-offset-8 col-lg-4">
-              <label for="vlr_total" class="">Valor Total:</label>
-                  <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
-            </div>
+        <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="form-group col-lg-3">
+            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
           </div>
-
+        </div>
+        <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="form-group col-lg-offset-8 col-lg-4">
+            <label for="vlr_total" class="">Valor Total:</label>
+            <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
+          </div>
+        </div>
         <div class="row">
-          <div class="form-group">
-            <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" onclick="" style="margin-top: 15px;" data-toggle="modal" data-target="#modpedidoregist">Registrar</button>
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;">Cancelar</button>
+            <div class="form-group col-lg-12" style="margin-left:14px">
+              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" onclick="" style="margin-top: 15px; padding:7px 24px !important;" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</button>
             </div>
-          </div>
         </div>
-
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
