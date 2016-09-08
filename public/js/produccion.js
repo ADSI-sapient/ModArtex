@@ -35,7 +35,7 @@
         $("#fecha_entregaOp").val(campos.find("td").eq(2).text());
         $("#estadoOp").val(campos.find("td").eq(3).text());
         $("#lugarOp").val(campos.find("td").eq(5).text());
-        $("#ped_asociado_ord").val(campos.find("td").eq(6).text());
+        $("#clienteOrdn").val(campos.find("td").eq(7).text());
         $("#mdlEditOrdenP").show();
     }
 
@@ -47,10 +47,10 @@
             url: uri+"ctrProduccion/consFichasOrdenP",
             data:{idOrden: numOrden}
     	}).done(function(resp){
-            $('#tblFichasProducc > tbody tr').empty();
+        $('#tblFichasProducc > tbody tr').empty();
     		var productosAsoOrden =resp.v;
-    		if (productosAsoOrden != null) 
-    		{
+        if (productosAsoOrden != null) 
+        {
     			for (var i = 0; i < productosAsoOrden.length; i++) {
 	    			var referencia = productosAsoOrden[i]["Referencia"];
 	    			var codColor = productosAsoOrden[i]["Codigo_Color"];
@@ -60,23 +60,24 @@
             var codEstadoFicha = productosAsoOrden[i]["Id_Estado"];
             var nombreEstadoF = productosAsoOrden[i]["Nombre_Estado"];
             var idFichaTec = productosAsoOrden[i]["Id_Ficha_Tecnica"];
-	    			var idSolcProd = productosAsoOrden[i]["Id_Solicitud_Producto"];
+            var idSolcProd = productosAsoOrden[i]["Id_Solicitud_Producto"];
+            var lugar = productosAsoOrden[i]["Lugar_Produccion"];
 
-            var estadoFichaProd="";
-            if (codEstadoFicha == 5) {
-              estadoFichaProd = "Pendiente";
-            }
-            else if(codEstadoFicha == 9){
-              estadoFichaProd = "Calidad";
-            }
-            else{
-              estadoFichaProd = "Terminado";
-            }
 	    			var tr ="";
-	    			tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"+cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"+cantSat+"' name='cantSat[]'></td><td>"+estadoFichaProd+"</td><td></td><input type='hidden' value='"+idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"+idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
+	    			tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
+            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
+            +cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"
+            +cantSat+"' name='cantSat[]'></td><td><select name='lugarP[]' id='lugarP"
+            +idFichaTec+"'><option value='Fábrica'>Fábrica</option><option value='Satélite'>Satélite</option><option value='Fábrica/Satélite'>Fábrica/Satélite</option></select></td><td><select name='estadoF[]' id='estadoF"
+            +idFichaTec+"'><option value='5'>Pendiente</option><option value='9'>Calidad</option><option value='7'>Terminada</option></select></td><td></td><input type='hidden' value='"
+            +idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"
+            +idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
 	           $('#tblFichasProducc').append(tr);
-            // tr = "<tr class='box box-solid collapsed-box'><input type='hidden' value='"+id_solic_produc+"' name='id_solic_prodcto[]'><input type='hidden' value='"+id_fichat+"' name='id_fichaTec[]'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' readonly value='"+cantProducir+"' id='cantProducirPed"+id_fichat+"' name='cantProducirPed[]'></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantSatelite"+id_fichat+", chb"+id_fichat+", confirmar"+id_fichat+", cancelarCant"+id_fichat+")'><input type='text' value='0' style='display:none' id='cantSatelite"+id_fichat+"' name='cantSatelite[]'><button style='display:none' type='button' id='confirmar"+id_fichat+"' class='btn btn-box-tool' onclick='confirmarCantSat(cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", confirmar"+id_fichat+")'><i class='fa fa-check fa-lg'></i></button><button style='display:none' type='button' id='cancelarCant"+id_fichat+"' class='btn btn-box-tool' onclick='cancelarCantSat(cancelarCant"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", cantProducirPed"+id_fichat+", cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, confirmar"+id_fichat+")'><i class='fa fa-remove fa-lg'></i></button></td></tr>";
-    			}
+            var lugarPrd = "#lugarP"+idFichaTec;
+    			  var estadoFc = "#estadoF"+idFichaTec;
+            $(lugarPrd).val(lugar);
+            $(estadoFc).val(codEstadoFicha);
+          }
     		}
     	});
     }
@@ -91,41 +92,147 @@
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Sí, cancelar orden",
           cancelButtonText: "No",
-          closeOnConfirm: false,
-          closeOnCancel: false },
+          closeOnConfirm: true,
+          closeOnCancel: true },
           function(isConfirm){
-            if (isConfirm)
-            { 
-              $.ajax({
-            type: 'post',
+          $.ajax({
+            type: 'POST',
             dataType: 'json',
-            url: uri+"ctrProduccion/cancelarOrdenProd",
-            data:{id_orden: idOrden}
-            }).done(function(respuesta){
-              if (respuesta.r == 1) {
-                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                // location.href = uri+"ctrPedido/consPedido";
-              }else{
-                alert("Error al cancelar la orden");
-              }
-            }).fail(function(){
-            })  
-              swal("Cancelada", "La orden ha sido cancelada", "success");
-              location.href = uri+"ctrProduccion/consOrden";
+            url: uri+'ctrProduccion/consFichasOrdenP',
+            data: {idOrden: idOrden}
+          }).done(function(resp){
+              var tr = "";
+              var cont = 0;
+              var band = false;
+            $(resp.v).each(function(i){
+                if(resp.v[i]["Id_Estado"] == 5){
+                    band = true;
+                   tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
+                   "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
+                   "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
+                   "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
+                }
+            });
+            if (band) {
+              $("#tbodyDevolverInsumos").empty();
+              $("#tbodyDevolverInsumos").append(tr);
+              $("#devolverInsumos").modal('show');
+              $("#idOrdenHidden").val(idOrden);
+            }else{
+              $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: uri+"ctrProduccion/cancelarOrdenProd",
+                data:{id_orden: idOrden}
+                }).done(function(respuesta){
+                  if (respuesta.r == 1) {
+                    location.href = uri+'ctrProduccion/consOrden';
+                  }else{
+                    alert("Error al cancelar la orden");
+                  }
+                }).fail(function(){
+                }) 
             }
-            else
-            {
-              swal("Acción interrumpida", "No se completó la acción.", "error");
-            }
+          }).fail(function(){
+          });
+
+
+
+            // if (isConfirm){ 
+            //   $.ajax({
+            // type: 'post',
+            // dataType: 'json',
+            // url: uri+"ctrProduccion/cancelarOrdenProd",
+            // data:{id_orden: idOrden}
+            // }).done(function(respuesta){
+            //   if (respuesta.r == 1) {
+            //     // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+            //     // location.href = uri+"ctrPedido/consPedido";
+            //   }else{
+            //     alert("Error al cancelar la orden");
+            //   }
+            // }).fail(function(){
+            // })  
+            //   swal("Cancelada", "La orden ha sido cancelada", "success");
+            //   location.href = uri+"ctrProduccion/consOrden";
+            // }
+            // else
+            // {
+            //   swal("Acción interrumpida", "No se completó la acción.", "error");
+            // }
           });
         }
 
-
   //permite seleccionar y asociar un cliente al pedido
-    $("#ped_asociado_ord").select2({
+    $("#clienteOrdn").select2({
         placeholder: 'Seleccionar',
         language: {
         noResults: function (params) {
         return "No hay resultados";
         }}
     });
+
+    function asoPedAOrden(opciones)
+    {
+      var id_solicitud =  $(opciones).val();
+      $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: uri+"ctrProduccion/consPedidoCliente",
+        data:{id_solc:id_solicitud}
+      }).done(function(resp){
+        var solicitudesCliente = resp.r;
+        if (solicitudesCliente != null) {
+            $("#numOrdenp").val(solicitudesCliente["Id_Solicitud"]);
+            $("#fecha_regOp").val(solicitudesCliente["Fecha_Registro"]);
+            $("#fecha_entregaOp").val(solicitudesCliente["Fecha_Entrega"]);
+            $("#estadoOp").val(solicitudesCliente["Id_Estado"]);
+            //$("#lugarOp").val(lugarPrd);
+            //$("#clienteOrdn").val();
+        }
+      });
+    }
+
+
+    function devolverInsumos(){
+        $("#tbodyDevolverInsumos tr").each(function(){
+            var idFicha = $(this).find("td").eq(0).html();
+            var cantidadPedida = $(this).find("td").eq(5).html();
+            var cantidadRealizada = $("#inputInsADevolver"+idFicha).val();
+            var cantFichasDevolver = cantidadPedida - cantidadRealizada;
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrFicha/cargarInsumosAsociados',
+              data: {referencia: idFicha}
+            }).done(function(resp){
+              console.log(resp);
+              $(resp.r).each(function(i){
+                 var cantInsumoADevolver =  parseInt(resp.r[i]["Cant_Necesaria"]) * parseInt(cantFichasDevolver);
+                 var cantTotalInsumos = parseInt(resp.r[i]["Cantidad_Insumo"]) + parseInt(cantInsumoADevolver);
+                 var idExsIns = resp.r[i]["Id_Insumo"];
+                 $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: uri+'ctrBodega/actualizarExsIns',
+                    data: {idExs: idExsIns, cantidad: cantTotalInsumos}
+                 }).done(function(resp){
+                 });
+              });
+            });
+        });
+        var idOrden = $("#idOrdenHidden").val();
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          url: uri+"ctrProduccion/cancelarOrdenProd",
+          data:{id_orden: idOrden}
+          }).done(function(respuesta){
+            if (respuesta.r == 1) {
+              location.href = uri+'ctrProduccion/consOrden';
+            }else{
+              alert("Error al cancelar la orden");
+            }
+          }).fail(function(){
+        }); 
+    }

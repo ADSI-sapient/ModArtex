@@ -78,7 +78,7 @@
         <div class="box-footer">
         </div>
          </section>
-      </div>
+      
 
 
 

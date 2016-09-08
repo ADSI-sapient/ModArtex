@@ -101,4 +101,12 @@
 			$stm2->bindParam(2, $this->_cantInsumo);
 			$stm2->execute();
 		}
+
+		public function actualizarExsIns(){
+			$sql = "CALL SP_UpdateExisColIns(?, ?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idExis);
+			$stm->bindParam(2, $this->_cant);
+			return $stm->execute();
+		}
 	}

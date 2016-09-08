@@ -54,8 +54,8 @@
           </div>
         </div>
         <div class="form-group col-lg-offset-1 col-lg-4">
-          <label for="lugarP" class="">*Lugar:</label>
-          <select class="form-control" name="lugarP">
+          <label for="lugarPrd" class="">*Lugar:</label>
+          <select id="" class="form-control" name="lugarPrd">
             <option value="Fábrica">Fábrica</option>
             <option value="Satélite">Satélite</option>
             <option value="Fábrica-Satélite">Fábrica/Satélite</option>
@@ -74,6 +74,7 @@
                       <th>Valor Producto</th>
                       <th>Subtotal</th>
                       <th>Satélite</th>
+                      <th>Lugar</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -34,62 +34,90 @@ class ctrConfiguracion extends Controller{
 		include APP . 'view/_templates/footer.php';	
 	}
 
+	public function listarColoresAjax(){
+		$lista = $this->_modelColor->listar();
+		echo json_encode($lista);
+	}
+
+	public function consAsoColor(){
+		$this->_modelColor->__SET("_id", $_POST["idColor"]);
+		$this->_modelColor->consultaFichaAsoc();
+		$this->_modelColor->consultaInsumoAsoc();
+	}
+
 	public function registrarColor(){
 		$this->_modelColor->__SET("_codigo", $_POST["codigo"]);
 		$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
-		if ($this->_modelColor->registrar()) {
-			$mensaje = "swal('Hay cantidades asociadas a este registro', 'Regristro exitoso')";
+		
+		if (isset($_POST["crudCol"])) {
+			echo json_encode($this->_modelColor->registrar());
 		}
-
-		header ("location: ".URL."ctrConfiguracion/listarColores");
+		else{
+			$this->_modelColor->registrar();
+			header ("location: ".URL."ctrConfiguracion/listarColores");
+		}
 	}
 
 	public function eliminarColor(){
-		$this->_modelColor->__SET("_id", $_GET["id"]);
-		$this->_modelColor->eliminar();
-
-		header("location: ".URL."ctrConfiguracion/listarColores");
+		$this->_modelColor->__SET("_id", $_POST["idColor"]);
+		echo json_encode($this->_modelColor->eliminar());
 	}
 
 	public function modificarColor(){
 		$this->_modelColor->__SET("_id", $_POST["id"]);
 		$this->_modelColor->__SET("_codigo", $_POST["codigo"]);
 		$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
-		$this->_modelColor->modificar();
 
-		header('location: '.URL.'ctrConfiguracion/listarColores');
+		if (isset($_POST["crudCol"])) {
+			echo json_encode($this->_modelColor->modificar());
+		}else{
+			$this->_modelColor->modificar();
+
+			header('location: '.URL.'ctrConfiguracion/listarColores');
+		}
 	}
 
 	public function listarMedidas(){
-		$lista = $this->_modelMedida->listar();
+		if (isset($_POST["crudMed"])) {
+			echo json_encode($lista = $this->_modelMedida->listar());
+		}else{
+			$lista = $this->_modelMedida->listar();
 
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/configuracion/medidas.php';
-		include APP . 'view/_templates/footer.php'; 
+			include APP . 'view/_templates/header.php';
+			include APP . 'view/configuracion/medidas.php';
+			include APP . 'view/_templates/footer.php'; 
+		}
 	}
 
 	public function registrarMedida(){
 		$this->_modelMedida->__SET("_nombre", $_POST["nombre"]);
 		$this->_modelMedida->__SET("_abreviatura", $_POST["Abr"]);
-		$this->_modelMedida->registrarMedida();
 
-		header('location: '.URL.'ctrConfiguracion/listarMedidas?message=1');
+		if (isset($_POST["crudMed"])) {
+			echo json_encode($this->_modelMedida->registrarMedida());
+		}else{
+			$this->_modelMedida->registrarMedida();
+			header('location: '.URL.'ctrConfiguracion/listarMedidas');
+		}
 	}
 
 	public function eliminarMedida(){
-		$this->_modelMedida->__SET("_codigo", $_GET["cod"]);
-		$this->_modelMedida->eliminarMedida();
+		$this->_modelMedida->__SET("_codigo", $_POST["cod"]);
+		echo json_encode($this->_modelMedida->eliminarMedida());
 
-		header('location: '.URL.'ctrConfiguracion/listarMedidas?message=3');
+		// header('location: '.URL.'ctrConfiguracion/listarMedidas');
 	}
 
 	public function modificarMedida(){
 		$this->_modelMedida->__SET("_codigo", $_POST["cod"]);
 		$this->_modelMedida->__SET("_nombre", $_POST["nombre"]);
 		$this->_modelMedida->__SET("_abreviatura", $_POST["abr"]);
-		$this->_modelMedida->modificarMedida();
-
-		header('location: '.URL.'ctrConfiguracion/listarMedidas?message=2');
+		if (isset($_POST["crudMed"])) {
+			echo json_encode($this->_modelMedida->modificarMedida());
+		}else{
+			$this->_modelMedida->modificarMedida();
+			header('location: '.URL.'ctrConfiguracion/listarMedidas');
+		}
 	}
 
 	public function RegistrarRoles(){
@@ -99,7 +127,6 @@ class ctrConfiguracion extends Controller{
 			$validar = $this->_modelRoles->ValidarExistenciaN();
 
 			if ($validar==null) {
-				
 				if($this->_modelRoles->regRoles()){
 				$ultimoRol = $this->_modelRoles->ultimoRol()["rol"];
 				for ($i=0; $i < count($_POST["Idpermiso"]); $i++) { 
@@ -121,8 +148,10 @@ class ctrConfiguracion extends Controller{
 
 	    $permisos = $this->_modelRoles->getAsoPermisos();
 	    $roles = $this->_modelRoles->getRoles();
+	    
 	        
 	    if (isset($_POST["btnModificarRol"])) {
+	    	
 	      	if ($_POST["idRol"] != 1) {
 				$this->_modelRoles->__SET("Id_Rol", $_POST["idRol"] );
 				$this->_modelRoles->__SET("Nombre", $_POST["Nombre"] );

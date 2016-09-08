@@ -9,6 +9,8 @@
 		private $_cantFab;
 		private $_cantSat;
 		private $_estadoFih;
+		private $_lugarPrficha;
+		private $_idCliente;
 
 		//
 		private $_id_solc_prod;
@@ -68,13 +70,14 @@
 
 	    public function regSolicitudOrdenProduccion()
 	    {
-	    	$sql = "CALL SP_regSolcOrdenProd(?,?,?,?,?)";
+	    	$sql = "CALL SP_regSolcOrdenProd(?,?,?,?,?,?)";
 	        $query = $this->_db->prepare($sql);
 	        $query->bindParam(1, $this->_id_solc_prod);
 	        $query->bindParam(2, $this->_id_ordenProd);
 	        $query->bindParam(3, $this->_estadoFih);
 	        $query->bindParam(4, $this->_cantFab);
 	        $query->bindParam(5, $this->_cantSat);
+	        $query->bindParam(6, $this->_lugarPrficha);
 	        return $query->execute();
 	    }
 
@@ -150,5 +153,22 @@
       		$query->bindParam(1, $this->_id_ordenProd);
       		$query->execute();
       		return $query;
+      	}
+
+      	public function getPedidosCliente(){
+
+      		$sql = "CALL SP_consPedidosCliente()";
+      		$query = $this->_db->prepare($sql);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
+
+      	public function consPedidosCliente(){
+
+      		$sql = "CALL SP_consPedidoCliente(?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_solicitud);
+      		$query->execute();
+      		return $query->fetch();
       	}
 	}

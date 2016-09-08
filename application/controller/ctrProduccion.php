@@ -14,7 +14,7 @@
 	        	//registro nueva orden de produccion
 	        	$this->_modelProduct->__SET("_estado_prod", 5);
 	        	$this->_modelProduct->__SET("_fecha_regist", $_POST["fecha_registro"]);
-		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarP"]);
+		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarPrd"]);
 
 	            if ($this->_modelProduct->regOrdenProduccion()) {
 
@@ -29,7 +29,10 @@
 		        		$this->_modelProduct->__SET("_estadoFih", 5);
 		        		$this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"][$q]);
 		        		$this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"][$q]);
+		        		$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
+			      
 			        	$this->_modelProduct->regSolicitudOrdenProduccion();
+
 	            	}
 			        
 		        	$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
@@ -56,7 +59,7 @@
 
 			$pedidosProdu = $this->_modelProduct->consPedidosProd();
 			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
-			$clientes = $this->_modelPedido->getClientes();
+			$pedidosCliente = $this->_modelProduct->getPedidosCliente();
 
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/produccion/consOrden.php';
@@ -75,16 +78,17 @@
 
 	    		if ($this->_modelProduct->editOrdenes()) {
 
-	    			// $this->_modelProduct->elimnarSolicitudesOrdenes();
+	    			$this->_modelProduct->elimnarSolicitudesOrdenes();
 
 	    			for ($q=0; $q < count($_POST["id_fichaTec"]); $q++) { 
 	            		
 				    	//registrar en tbl_solicitudes_ordenesproduccion
 			      		$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolcProd"][$q]);
 				    	$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
-			        	$this->_modelProduct->__SET("_estadoFih", $_POST["codEstadoFicha"]);
+			        	$this->_modelProduct->__SET("_estadoFih", $_POST["estadoF"][$q]);
 			        	$this->_modelProduct->__SET("_cantFab", $_POST["cantFab"][$q]);
 			        	$this->_modelProduct->__SET("_cantSat", $_POST["cantSat"][$q]);
+			        	$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
 				        $this->_modelProduct->regSolicitudOrdenProduccion();
 	            	}
 
@@ -124,6 +128,18 @@
 		    	echo json_encode(["r"=>1]);
 		    }else{
 		    	echo json_encode(["r"=>0]);
+		    }
+	    }
+
+	    public function consPedidoCliente()
+	    {
+	    	$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solc"]);
+	    	$solicCliente = $this->_modelProduct->consPedidosCliente();
+
+	    	if ($solicCliente) {
+		    	echo json_encode(["r"=>$solicCliente]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
 		    }
 	    }
 

@@ -39,12 +39,14 @@
                       <td style="display:none;"><?= $ordenProduccion["Id_Estado"] ?></td>
                       <td><?= $ordenProduccion["Nombre_Estado"] ?></td>
                       <td><?= $ordenProduccion["Lugar_Produccion"] ?></td>
+                      <td style="display:none;"><?= $ordenProduccion["Num_Documento"] ?></td>
                       <td style="display:none;"><?= $ordenProduccion["Id_Solicitud"] ?></td>
+                      <td style="display:none;"><?= $ordenProduccion["Nombre"] ?></td>
                       <td>
                       <?php if ($ordenProduccion["Id_Estado"] == 4): ?>
                         <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o fa-lg"></i></button>
                         <?php else: ?>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btncarg" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', this); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', this); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
                       <?php endif ?>
                       </td>
                       <td>
@@ -83,7 +85,7 @@
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden">
               <input type="hidden" name="numOrdenp" id="numOrdenp">
-                <div class="form-group col-sm-5">
+                  <div class="form-group col-sm-5">
                   <label class="">Fecha Registro:</label>
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
@@ -102,7 +104,7 @@
                       <option value="7">Terminada</option>
                     </select>
                 </div>
-                  <div class="form-group col-sm-5">
+                    <div class="form-group col-sm-5">
                     <label class="">*Fecha Terminación:</label>
                     <div class="">
                       <div class="input-group date">
@@ -114,14 +116,13 @@
                     </div>
                   </div>
                   <div class="form-group col-sm-offset-2 col-sm-5">
-                    <label for="ped_asociado_ord" class="">Pedido Asociado:</label>
+                    <label for="clienteOrdn" class="">Cliente:</label>
                     <br>
-                    <input type="text" class="form-control" name="" id="ped_asociado_ord" style="border-radius:5px;" readonly>
-                    <!-- <select class="form-control" id="ped_asociado_ord" style="width: 100%; height: 100%;">
-                      <?php foreach ($pedidosProdu as $pedido): ?>
-                        <option value="<?= $pedido["Id_Solicitud"] ?>">Pedido: <?= $pedido["Id_Solicitud"] ?></option>
+                    <select onchange="asoPedAOrden(this);" class="form-control" name="clienteOrdn" id="clienteOrdn">
+                      <?php foreach ($pedidosCliente as $cliente): ?>
+                        <option value="<?= $cliente["Id_Solicitud"] ?>"><?= $cliente["Nombre"] ." - Pedido: ". $cliente["Id_Solicitud"]?></option>
                       <?php endforeach ?>
-                    </select> -->
+                    </select>
                   </div>
                   <div class="form-group col-sm-5">
                     <label for="lugarOp" class="">*Lugar Producción:</label>
@@ -131,8 +132,7 @@
                       <option value="Fábrica-Satélite">Fábrica/Satélite</option>
                     </select>
                   </div>
-                  
-                  <button type="button" class="btn btn-primary pull-right" style="margin-top: 4.7%; margin-right:2.6%;" data-toggle="modal" data-target="#asociarPedidMod">Asociar Pedido</button>
+                  <!-- <button type="button" class="btn btn-primary pull-right" style="margin-top: 4.7%; margin-right:2.6%;" data-toggle="modal" data-target="#asociarPedidMod">Asociar Pedido</button> -->
                 <div class="table">
               <div class="col-sm-12 table-responsive">
                 <table class="table table-hover" style="margin-top: 2%;" id="tblFichasProducc">
@@ -143,6 +143,7 @@
                       <th>Cantidad Total</th>
                       <th>Cantidad Fábrica</th>
                       <th>Cantidad Satélite</th>
+                      <th>Lugar</th>
                       <th>Estado</th>
                     </tr>
                   </thead>
@@ -218,3 +219,41 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <!-- Fin modal asociar pedidos -->
+
+
+
+
+      <div class="modal fade" id="devolverInsumos" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>Productos pendientes</b></h4>
+            </div>
+            <div class="modal-body">
+              <div class="table">
+                <div class="col-md-12 table-responsive">
+                  <table class="table table-responsive table-hover" style="margin-top: 2%;" id="">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Referencia</th>
+                        <th>Muetra</th>
+                        <th>Color</th>
+                        <th>Cantidad Pedida</th>
+                        <th>Cantidad Realizada</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyDevolverInsumos">
+                    </tbody>
+                  </table>
+                </div>
+              </div>     
+            </div>
+            <div class="modal-footer" style="border-top:0px;">
+              <input type="hidden" id="idOrdenHidden" name="">
+              <button type="button" onclick="devolverInsumos()" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>

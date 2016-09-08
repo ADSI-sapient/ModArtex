@@ -13,11 +13,11 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
-        <br>
         <div class="box-body">
+        <br>
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
-          <div class="row col-lg-12" style="margin-left:1%">
-            <div class="form-group col-lg-2">
+          <div class="row col-lg-12" style="margin-left:0.5%">
+            <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
               <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="">
             </div>
@@ -32,13 +32,13 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-offset-1 col-lg-3 ">
               <label for="estado" class="">*Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:1%">
-            <div class="form-group col-lg-2">
+          <div class="row col-lg-12" style="margin-left:0.5%">
+            <div class="form-group col-lg-3">
               <label for="colorFicha">*Color:</label>
               <div class="input-group" >
               <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="">
@@ -58,12 +58,12 @@
                 <option value="3">S</option>
               </select>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">  
+            <div class="form-group col-lg-offset-1 col-lg-3">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
               <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:1%">
+          <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum"><b>Asociar Insumos</b></button>
             </div>
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div class="form-group col-lg-offset-5 col-lg-4">  
+            <div class="form-group col-lg-offset-6 col-lg-3">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true">
             </div>
@@ -114,12 +114,11 @@
           <div class="row"> 
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-right:2%; margin-left:4.6%; margin-top: 15px; padding-left:2%; padding-right:2%" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left:4%; margin-top: 15px; padding-left:2%; padding-right:2%" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
           </div>
         </form>
         </div>
-      </div>
       <!-- Inicio Modal asociar insumos -->
       <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >
         <div class="modal-dialog">

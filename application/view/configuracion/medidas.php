@@ -16,26 +16,22 @@
                    <h4 class="control-label"><strong>REGISTRAR UNIDAD DE MEDIDA</strong></h4>
               </div>
 
-              <div class="box box-body">
+              <div style="padding-top: 0;" class="box box-body">
               <form action="<?= URL.'ctrConfiguracion/registrarMedida'; ?>" method="POST">
                 <div class="box-body">
-                  <div class="col-md-6">
                     <div class="form-group">
                        <h4>Nombre: </h4>                
                        <input type="text" class="form-control" name="nombre" required="">
                     </div>
-                  </div> 
-                  <div class="col-md-6">
                     <div class="form-group">
                        <h4>Abreviatura: </h4>
                          <input type="text" class="form-control" name="Abr" required="">
                     </div>
-                  </div>
                 </div>
-                <div class="box-footer">
-                  <button type="reset" class="btn btn-danger pull-right"  style="margin-left: 2%;">Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>
-                </div> 
+              <div class="box-footer" style="margin-top: 10px;">
+                  <button type="reset" onclick="resetCol();" class="btn btn-danger pull-right"  style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i>  Cancelar</button>
+                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>   
+              </div> 
               </form>
             </div>
             </div>
@@ -50,18 +46,18 @@
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR UNIDADES DE MEDIDA</strong></h4>
               </div>
-       
-
+      
               <div class="box-body">
                 <div class="table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
+                <table class="table table-bordered paginate-search-table">
                   <thead>
                     <tr class="active">
-                      <th style="width: 10%"></th>
+                      <th style="width: 10%">#</th>
                       <th>Nombre</th>
                       <th>Abreviatura</th>
                       <th style="display:none;"></th>
-                      <th style="width: 15%">Opción</th>
+                      <th style="width: 15%">Modificar</th>
+                      <th style="width: 15%">Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -72,11 +68,12 @@
                       <td><?= $valor["Nombre"]; ?></td>
                       <td><?= $valor["Abreviatura"]; ?></td>
                       <td style="display: none; "><?= $valor["Id_Medida"]; ?></td>
-                      <td>
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalMedidas" onclick="editar('<?= $valor["Id_Medida"]; ?>', this)"><i class="fa fa-pencil-square-o"></i></button>
-
-                        <button type="button" onclick="confirmacion(<?= $valor['Id_Medida']; ?>)" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                      <td style="text-align: center;">
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalMedidas" onclick="editar('<?= $valor["Id_Medida"]; ?>', this)"><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
                       </td>
+                      <td style="text-align: center;">
+                        <button type="button" onclick="confirmacionDeleteMed(<?= $valor['Id_Medida']; ?>, false)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-times"></i></button>
+                      </td>  
                     </tr>
                   <?php endforeach; ?>
                 </tbody></table>
@@ -88,7 +85,10 @@
     </section>
 
 
-      <div class="modal fade" id="myModalMedidas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+
+
+      <div class="modal fade" id="myModalMedidas" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document" ; border-radius: 25px;">
             <div class="modal-content" style="border-radius: 20px;">
               <div class="modal-header with-border" style="text-align: center;"> 
@@ -114,10 +114,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-right" style="margin-left: 2%;" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>
+                  <button type="button" class="btn btn-danger pull-right" style="margin-left: 2%;" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>  Cancelar</button>
+                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
                 </div>
               </form> 
             </div> 
           </div> 
         </div>
+
+
+
+

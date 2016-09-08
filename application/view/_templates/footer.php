@@ -1,15 +1,13 @@
     </div>
     <footer class="main-footer">
-      <div class="pull-right hidden-xs">
-      </div>
+      <div class="pull-right hidden-xs"></div>
       <strong>Copyright &copy; 2016 <a href="#">ModArtex</a>.</strong> Todos los derechos reservados.
     </footer>
     <aside class="control-sidebar control-sidebar-dark">
-      <div class="tab-content">
-      </div>
+      <div class="tab-content"></div>
     </aside>
     <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
-    </div>
+
 
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
     <script src="<?= URL;?>js/select2.full.min.js"></script>
@@ -62,9 +60,10 @@
         $(function(){ 
           <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
           <?php $_SESSION["mensaje"] = null; ?>
-        })
+        });
       </script>
 <!--     <script src="<?= URL;?>js/roles.js"></script> -->
+
   </body>
 </html>
 

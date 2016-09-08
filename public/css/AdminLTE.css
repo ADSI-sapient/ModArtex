@@ -143,7 +143,7 @@ body.hold-transition .main-header .logo {
 }
 /* Content */
 .content {
-  min-height: 250px;
+  min-height: 550px;
   padding: 15px;
   margin-right: auto;
   margin-left: auto;
@@ -1528,7 +1528,7 @@ a:focus {
   position: relative;
   border-radius: 3px;
   background: #ffffff;
-  border-top: 3px solid #d2d6de;
+  /*border-top: 3px solid #d2d6de;*/
   margin-bottom: 20px;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -1720,6 +1720,7 @@ a:focus {
   display: block;
   padding: 10px;
   position: relative;
+  text-align: center;
 }
 .box-header.with-border {
   background: #3c8dbc;
@@ -1735,6 +1736,7 @@ a:focus {
   font-size: 18px;
   margin: 0;
   line-height: 1;
+  text-align: center;
 }
 .box-header > .fa,
 .box-header > .glyphicon,
@@ -1771,7 +1773,7 @@ a:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  padding: 10px;
+  padding: 20px;
 }
 .no-header .box-body {
   border-top-right-radius: 3px;
@@ -2972,6 +2974,7 @@ table.text-center th {
 }
 .modal-header {
   border-bottom-color: #f4f4f4;
+  background-color: #3c8dbc;
 }
 .modal-footer {
   border-top-color: #f4f4f4;
