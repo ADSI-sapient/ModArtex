@@ -72,3 +72,57 @@ $(function(){
 });
 
 
+$(function(){
+ $('#FechaRegistro').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+$(function(){
+ $('#FechaInicio').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+$(function(){
+ $('#FechaFin').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   language: 'es'
+ });
+});
+
+
+   function listarO(Id_Objetivo, objetivos){
+          var campos = $(objetivos).parent().parent();
+          // $("#idRol").val(campos.find("td").eq(0).text());
+          // $("#nombre_rol").val(campos.find("td").eq(1).text());
+           $("FichasO").empty();
+           // $("#nombre_rol").val(Nombre);
+
+    $.ajax({
+
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrObjetivos/listarF",
+            data: {objetivo: Id_Objetivo },
+            success: function(data){
+               // $("#Nombre").val(campos.find("td").eq(1).text());
+            for (var i = 0; i < data.length; i++) {
+              Codigo=data[i]["Codigo"];
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
+              $("#FichasO").append(fila);
+                          } 
+            }, 
+            error: function(){
+            }
+        });
+  
+    }
+
+
+

@@ -1,5 +1,3 @@
-  <!-- Contenedor pricipal  -->
-  <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
@@ -12,174 +10,49 @@
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>LISTAR OBJETIVOS</strong></h3>
         </div>
-        <div class="row box-header">
-          <div class="col-md-8"></div>
-             <div class="col-md-4">
-                <div class="form-group">
-                        <div class="box-tools pull-right">   
-                          <form action="#" method="get" class="form-horizontal">
-                            <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Buscar">
-                                  <span class="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                    </button>
-                                  </span>
-                            </div>
-                          </form> 
-                       </div>
-                </div>
+     <form class="form-horizontal">
+          <div class="col-md-12">
+            <!-- <div class="box"> -->
+            <br>
+              <div class="table table-responsive">
+                <table class="table table-hover" id="TablaObjetivos">
+                  <thead>
+                    <tr class="info"> 
+                      <th></th>
+                      <th>Id_Ficha Tecnica </th>
+                      <th>Nombre</th>
+                      <th>Fecha inicio</th>
+                      <th>Fecha fin</th>
+                      <th>Estado</th>
+                      <th style="width: 10%">Opción</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list">
+                  <?php foreach ($objetivos as $objetivo): ?>
+                    <tr>
+                    <td class="Id_Objetivo"><?= $objetivo["Id_Objetivo"] ?></td>
+                    <td class="FechaRegistro"><?= $objetivo["FechaRegistro"] ?></td>
+                    <td class="Nombre"><?= $objetivo["Nombre"] ?></td>
+                    <td class="FechaInicio"><?= $objetivo["FechaInicio"] ?></td>
+                    <td class="FechaFin"><?= $objetivo["FechaFin"]?></td>
+                    <td><?= $objetivo["Id_Estado"]?></td>
+                   <!--  <td class="Estado"><?= $objetivo["Estado"]==5?"Habilitado":"Inhabilitado" ?></td> -->
+                      <td>                           
+                   
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+
+                          </td>
+                       
+                    </tr>
+                  <?php endforeach; ?>
+                  </tbody>
+                </table>
               </div>
-        </div>
-      <form class="form-horizontal">
-         
-      
-         <div class="col-md-12">
-           <div class="box">
-            <!-- /.box-header -->
-          
-            <div class="box-body no-padding">
-              <div class="table-responsive">
-              <table table-responsive class="table">
-                <tbody>
-                  <script type="text/javascript">
-                        function botonHabilitar(){
-                          alert("Insumo habilitado correctamente");
-                        }
-                        function botonCancelarO(){
-                          confirm("¿Esta seguro que desea cancelar el objetivo?");
-                        }
-                     </script> 
-                <tr class="active">
-                  <th style="width: 10px">#</th>
-                  <th>Código</th>
-                  <th>Fecha registro</th>
-                  <th>Nombre</th>
-                  <th>Fecha inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Total</th>
-                  <th>Estado</th>
-                  <th style="width: 10%">Opción</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td> 
-                    001
-                  </td>
-                  <td> 
-                     25/01/2016
-                  </td>
-                  <td>
-                     Primer trimestre
-                  </td>
-                  <td>
-                     01/02/2016
-                  </td>
-                  <td>
-                     31/03/2016
-                  </td>
-                  <td>
-                     600
-                  </td>
-                  <td>
-                     Finalizado
-                  </td>
-                  <td>    
-                    <button type="button" class="btn btn-box-tool"><i class="glyphicon glyphicon-search"></i></button>                 
-                  </td>
-                </tr>
-
-                  
-                  <tr>
-                  <td>2.</td>
-                  <td> 
-                    002
-                  </td>
-                  <td> 
-                     25/03/2016
-                  </td>
-                  <td>
-                     Segundo trimestre
-                  </td>
-                  <td>
-                     01/04/2016
-                  </td>
-                  <td>
-                     30/06/2016
-                  </td>
-                  <td>
-                     900
-                  </td>
-                  <td>
-                     En proceso
-                  </td>
-                  <td>    
-                   <button type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o" data-toggle="modal" data-target="#ModelEditarObjetivo"></i></button>
-                    <button type="button"  onclick="botonCancelarO()" class="btn btn-box-tool" ><i class="glyphicon glyphicon-ban-circle"></i></button>
-                    <button type="button" class="btn btn-box-tool"><i class="fa fa-line-chart" data-toggle="modal" data-target="#ModelEstadistica"></i></button>
-                    
-                  </td>
-                </tr>
-                
-               <tr>
-                  <td>3.</td>
-                  <td> 
-                    003
-                  </td>
-                  <td> 
-                     25/01/2016
-                  </td>
-                  <td>
-                     Semana vacacional
-                  </td>
-                  <td>
-                     15/06/2016
-                  </td>
-                  <td>
-                     10/07/2016
-                  </td>
-                  <td>
-                     400
-                  </td>
-                   <td>
-                      Pendiente
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o" data-toggle="modal" data-target="#ModelEditarObjetivo"></i></button>
-                    <button type="button" onclick="botonCancelarO()" class="btn btn-box-tool"><i class="glyphicon glyphicon-ban-circle"></i></button>
-
-                  </td>
-                </tr>
-
-              </tbody></table>
-            </div>
-            </div>
-            <!-- /.box-body -->
+            <!-- </div> -->
           </div>
-        </div>
-      <!--Termina tabla colores seleccionados-->
-       
-      <div class="box-footer">
-            <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li class="disabled"><a href="#">«</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">»</a></li>
-                </ul>
-              </div>
-
-      </div>
-     </form>  
+          </form>
     </div> 
-</div>
-
-
-
-
-
-
-
+    </section>
 
 <div class="modal fade" id="ModelEditarObjetivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document" style="width: 70%; border-radius: 25px;">
@@ -188,62 +61,52 @@
                     <h3 class="box-title"><strong>MODIFICAR OBJETIVO</strong></h3>
               </div>
               <div class="modal-body">
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
 
-            <div class="col-md-6"> 
-              <div class="form-group">
-                  <label class="control-label">Código:</label>
-                  <input type="text" class="form-control" readonly="readonly" value="002" style="width: 70%;"></input>
-              </div>    
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                  <label class="control-label" length="80px">Fecha registro:</label>
-                  <input type="date" class="form-control" min="0" readonly="readonly" value="25/03/2016"></input>
-               </div>
-            </div>  
-              <!-- /.form-group -->
+          <div class="row col-lg-12">
+
+            <div class="col-md-4">
+                <label class="control-label" style="padding-right: 10px;">Fecha Registro:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="FechaRegistro" name="FechaRegistro" required="">
+                  </div>  
+              </div>
                        
-
-            <div class="col-md-12"> 
-              <div class="form-group">
+            
+              <div class="form-group col-md-4">
                 <label class="control-label" style="padding-right: 10px;">*Fecha inicio:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker" value="01/04/2016">
+                      <input type="text" class="form-control pull-right" id="FechaInicio" name="FechaInicio" required="">
                 </div>
-              </div>
-            </div>  
+              </div> 
               <!-- /.form-group -->
-          </div>
      
-          <div class="col-md-6">
+          <div class="col-md-4">
               <div class="form-group">
                  <label class="control-label">*Nombre:</label>
-                 <input type="text" class="form-control" value="Segundo trimestre">
+                 <input type="text" class="form-control" id="FechaRegistro" name="FechaRegistro">
               </div>
+            </div>
               <!-- /.form-group -->
-              <div class="form-group">
+          </div> 
+
+            <div class="form-group col-lg-4">
                 <label class="control-label">*Fecha fin:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker" value="30/06/2016">
+                    <input type="text" class="form-control pull-right" id="FechaFin" name="FechaFin" required="">
                   </div>
               </div>
               <!-- /.form-group -->
-            </div>
-          
-           </div>  
-        </div> <!--final box body-->
-     
-      
-        <div class="col-md-12">
+              
+  <div class="col-md-12">
            <div class="box">
             <div class="box-header">
               <h3 class="box-title">Productos objetivos</h3>
@@ -330,11 +193,11 @@
                  </div> 
               </div>
             </div>  
-        </div>
-            <!-- /.box-body -->
+    </div>
+              <!-- /.box-body -->
 
-          </div>
-        </div>
+    </div>
+  </div>
        </div>
 
             <div class="modal-footer">
@@ -355,123 +218,40 @@
         </div>
 </div>
 
-
-
-
-
-
-
-<div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document" style="width: 30%; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
-              <div class="modal-header" style="padding: 1%;">
-                  <h4 class="box-header" style="text-align: center;"><strong>LISTAR PRODUCTOS</strong></h4>
+ <div class="modal fade" id="ListarF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <form role="form" id="ListarF"  method="post">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="border-radius: 25px;">
+       <div class="modal-header with-border" style="text-align: center;"> 
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   <h4 class="control-label"><strong>Referencias</strong></h4>
               </div>
-              
-              <div class="col-md-6"></div>
-              <div class="col-md-6">  
-                 <form action="#" method="get" class="form-horizontal" style="margin: 6% 0 2% 0;">
-                   <div class="input-group">
-                     <input type="text" name="q" class="form-control" placeholder="Buscar">
-                         <span class="input-group-btn">
-                           <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                           </button>
-                         </span>
-                   </div>
-                 </form>
-              </div>      
-              <div class="modal-body">
-                      
+         
+     <div class="box-body  ">
+            <!-- /.box-header -->
+            <table class="table table-hover col-lg-12" id="tablaFiO">
+            <thead>
+              <tr class="info">
+                <th class="col-lg-2">Id</th>
+                <th class="col-lg-4">Referencia</th>
+                <th class="col-lg-4">Cantidad</th>
+              </tr>
+            </thead>
+            <tbody id="FichasO">
+            </tbody>
+         </table>
 
-               <table class="table" style="margin-bottom: 3%;">
-                <tbody>
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Referencia</th>
-                  <th>Nombre</th>
-                  <th style="width: 40px">Selección</th>
-                </tr>
-                <tr class="box box-solid collapsed-box">
-                  <td>1.</td>
-                  <td> 
-                     207 
-                  </td>
-                  <td> 
-                     Brasilera
-                  </td>
-                  <td>
-
-                    <input type="checkbox" class="minimal" name="check" style="position: absolute; opacity: 0;">
-
-                  </td>
-                </tr>
-                <tr class="box box-solid collapsed-box">
-                  <td>2.</td>
-                  <td> 
-                      210
-                  </td>
-                  <td> 
-                     Panty niña 
-                  </td>
-                    <td>
-                      <input type="checkbox" class="minimal" name="check" style="position: absolute; opacity: 0;">
-                  </td>
-                </tr>
-                <tr class="box box-solid collapsed-box">
-                  <td>3.</td>
-                  <td> 
-                      212
-                  </td>
-                  <td> 
-                     Panty
-                  </td>
-                  <td>
-                      <input type="checkbox" class="minimal" name="check" style="position: absolute; opacity: 0;">
-                  </td>
-                </tr>
-
-
-              </tbody>
-            </table>
-            <div class="box">
-              <div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li class="disabled"><a href="#">«</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">»</a></li>
-                </ul>
-              </div>
-             </div>
-            </div>
-
-
-                 
-              <div class="row" style="margin: 3%;">
-              
-                 <label class="col-sm-4 control-label">Cantidad</label>
-                 <div class="col-sm-8"> 
-                    <input type="number" style="width: 100%" min="0">
-                 </div>
-      
-              </div>
-              
-
-
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-danger pull-right" style="margin-left: 2%;">Cancelar</button>
-                <button type="submit" class="btn btn-primary pull-right">Aceptar</button> 
-            </div> 
-            </div> 
-         </div>
+      </div>
+    </div>
   </div>
+  </form>
+</div>
 
 
 
 
-  <div class="modal fade" id="ModelEstadistica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<!--   <div class="modal fade" id="ModelEstadistica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document" style="width: 70%; border-radius: 25px;">
             <div class="modal-content" style="border-radius: 20px;">
               <div class="modal-header" style="text-align: center;">
@@ -497,3 +277,4 @@
         </div>
        </div>
   </div>
+ -->

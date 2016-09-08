@@ -74,5 +74,30 @@
 		}
       	}
 
+      	public function getObjetivos()
+	    {
+	        	$sql= "CALL SP_ListarObjetivos";
+
+      		try{
+      			$query = $this->db->prepare($sql);
+      			$query->execute();
+      			return $query->fetchAll();
+      		} catch (PDOException $e){
+      		}
+	    }
+
+	    public function ListarFichasO(){
+	    	$sql = 'CALL SP_ListarFichasObj(?)';
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->bindParam(1, $this->Id_Objetivo);
+	        	$query->execute();
+	        	return $query->fetchAll();
+	        } catch (PDOException $e) {
+	   
+	        }
+	    }
+
+
 	}
 ?>

@@ -1,23 +1,20 @@
-<!-- Contenedor pricipal  -->
-<div class="content-wrapper">
-<!-- Content Header (Page header) -->
-  <section class="content-header">
+   <section class="content-header">
+   <br>
     <ol class="breadcrumb">
       <li><a href="../../starter2.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Objetivos</a></li>
       <li class="active">Registrar Objetivos</li>
     </ol>
   </section>
-  <br>
 
-  <section class="content">
-    <div class="box box-primary" style="padding-right: 15px;">
-      <div class="box-header with-border">
+
+<section class="content">
+      <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR OBJETIVOS</strong></h3>
         </div>
         <br>
-        <br>
+         <div class="box-body">
         <form action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST">
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
@@ -87,13 +84,13 @@
             </div>
         </div>
         <br>
-      <div class="row col-lg-12">
-       <div class="form-group col-lg-3">
-              <label for="vlr_produccion" class="">Total:</label>
-                 <input type="text" name="TotalO" id="TotalO" value="0" class="form-control" disabled="">
+        <div class="row col-lg-12">
+          <div class="form-group col-lg-3">
+            <label>Total:</label>
+            <button name="Total" id="Total" class="form-control" readonly= "" value="0"></button>
+          </div>
         </div>
-      </div>
-
+        <br>
        <div class="row"> 
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
@@ -101,9 +98,9 @@
               <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"><b>Limpiar</b></button>
             </div>
           </div>
-  </form>
+    </form>
       </div>
-    </div>
+     </div> 
   </section>
 
 
@@ -157,3 +154,5 @@
           </form>
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+
+ 
