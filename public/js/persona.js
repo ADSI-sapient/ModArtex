@@ -69,8 +69,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             success: function(data){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
-              idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
+              idperm=data[i]["Codigo"];
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
               $("#filass").append(fila);
                           } 
             }, 

@@ -40,8 +40,17 @@
 
 		public function listarObjetivos(){
 
+			$objetivos = $this->mdlModel->getObjetivos();
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/consObjetivo.php';
 			include APP . 'view/_templates/footer.php';
 		}
+
+		public function listarF(){
+
+		$this->_modelRoles->__SET("Id_Objetivo", $_POST["objetivo"]);
+		$listasO = $this->_modelRoles->ListarPermisos();
+		echo json_encode($listasO);	
+		}
+
  } ?>
