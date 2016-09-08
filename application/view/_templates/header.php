@@ -157,7 +157,7 @@
 
 
     
-    <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
@@ -165,27 +165,30 @@
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
       </div>
       <div class="modal-body">
-        <div style="margin-top: 10px;" class="row">
-          <div class="form-group col-sm-12">
-          <div class="col-sm-5">  
-            <div class="input-group my-colorpicker2 colorpicker-element">
-            <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
-                <div class="input-group-addon">
-                  <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
-                </div>
+        <form data-parsley-validate="">
+          <div style="margin-top: 10px;" class="row">
+            <div class="form-group col-md-12">
+            <div style="padding-left: 0px" class="col-md-5">  
+              <div class="input-group my-colorpicker2 colorpicker-element">
+              <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
+                  <div class="input-group-addon">
+                    <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+                <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
+            </div> 
+            <div class="col-md-2">
+              <button onclick="regColor()" type="button" class="btn btn-primary">Registrar</button>
+            </div> 
             </div>
           </div>
-          <div class="col-sm-5">
-              <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
-          </div> 
-            <div class="col-sm-2">
-              <button onclick="regColor()" type="submit" class="btn btn-primary">Registrar</button>
-            </div> 
-          </div>
-        </div>
+        </form>
         <div class="row">
+        <div class="col-md-12">
           <div class="table-responsive">
-              <table class="table table-bordered">
+              <table id="table-CrudColores" class="table table-bordered paginate-search-table">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -200,6 +203,7 @@
                 <tbody id="tbody-CrudColores">
                 </tbody>
               </table>
+            </div>
             </div>
       </div>
     </div>

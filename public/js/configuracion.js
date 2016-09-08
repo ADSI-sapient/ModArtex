@@ -4,6 +4,8 @@
       // });
 
 
+      $("#nomColorCrud").parsley("data-parsley-trigger", "change");
+
       function listarMedidas(){
         $("#tbody-CrudMedidas").empty();
         $.ajax({
@@ -40,7 +42,7 @@
             '; font-size: 200%;"></i></td><td>'+resp[i]["Codigo_Color"]+
             '</td><td>'+resp[i]["Nombre"]+
             '</td><td style="display: none;">'+resp[i]["Id_Color"]+
-            '</td><td style="text-align: center;"><button id="editCol'+resp[i]["Id_Color"]+'" onclick="editCrudColores(this, '+resp[i]["Id_Color"]+');" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="confirmacionColor(this, '+resp[i]["Id_Color"]+', '+true+');" data-dismiss="alert" class="btn btn-box-tool"><i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="guardarEditCol(this, '+resp[i]["Id_Color"]+')" id="guardarEditCol'+resp[i]["Id_Color"]+'" disabled="true" type="button" class="btn btn-box-tool"><i class="font-size: 150%; fa fa-check" arial-hidden="true"></i></button></td></tr>';
+            '</td><td style="text-align: center;"><button id="editCol'+resp[i]["Id_Color"]+'" onclick="editCrudColores(this, '+resp[i]["Id_Color"]+');" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i></button></td><td style="text-align: center;"><button id="deleteCol'+resp[i]["Id_Color"]+'" onclick="confirmacionColor(this, '+resp[i]["Id_Color"]+', '+true+');" class="btn btn-box-tool"><i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="guardarEditCol(this, '+resp[i]["Id_Color"]+')" id="guardarEditCol'+resp[i]["Id_Color"]+'" disabled="true" type="button" class="btn btn-box-tool"><i class="font-size: 150%; fa fa-check" arial-hidden="true"></i></button></td></tr>';
             $("#tbody-CrudColores").append(tr);
           });
         }).fail(function(){
@@ -55,15 +57,21 @@
         $("#tbody-CrudColores tr").each(function(){
           var idCol = $(this).find("td").eq(4).html();
           if ($("#nomCrudColEdit"+idCol).val()) {
+            $(this).find("td").eq(2).html($("#intColPickerTable"+idCol).val());
             $(this).find("td").eq(3).html($("#nomCrudColEdit"+idCol).val());
             $("#editCol"+idCol).attr("disabled", false);
+            $("#deleteCol"+idCol).attr("disabled", false);
             $("#guardarEditCol"+idCol).attr("disabled", true);
           }
         });
 
-        var intNom = "<input id='nomCrudColEdit"+id+"' type='text' class='form-control' value='"+$(color).find("td").eq(3).html()+"'>";
+        var intNom = "<div class='form-group'><div class='input-group'><input id='nomCrudColEdit"+id+"' type='text' class='form-control' value='"+$(color).find("td").eq(3).html()+"'><div class='input-group-addon'><button onclick='listarColores()' style='padding: 0' class='btn btn-box-tool'><i class='fa fa-times' aria-hidden='true'></i></button></div></div></div>";
+        var intColor = '<div id="colPickerTable'+id+'" class="input-group colorpicker-element"><input id="intColPickerTable'+id+'" type="text" name="codigo" class="form-control" readonly="" value="#0000ff"><div class="input-group-addon"><i type="input" style="background-color: rgb(0, 0, 255);"></i></div></div>';
+        $(color).find("td").eq(2).html(intColor);
         $(color).find("td").eq(3).html(intNom);
+        $("#colPickerTable"+id).colorpicker();
         $("#editCol"+id).attr("disabled", true);
+        $("#deleteCol"+id).attr("disabled", true);
         $("#guardarEditCol"+id).attr("disabled", false);
       }
 
