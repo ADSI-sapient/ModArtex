@@ -254,8 +254,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
           "zeroRecords": "No se encontraron usuarios que coincidan con la búsqueda",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
       }
         });

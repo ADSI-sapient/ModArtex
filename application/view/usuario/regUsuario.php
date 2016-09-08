@@ -70,9 +70,10 @@
             </div>
           </div>
           <div class="row"> 
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegistrar"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger">Limpiar</button>
+            <div class="col-md-12">
+            <button style="margin-right: 1%;" type="reset" class="btn btn-danger pull-right">Limpiar</button>
+              <button style="margin-right: 1%;" type="submit" class="btn btn-primary pull-right" name="btnRegistrar"><b>Registrar</b></button>
+              
             </div>
           </div>      
         </form>

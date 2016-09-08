@@ -40,22 +40,25 @@
             <div class="form-group col-lg-3">
               <label for="colorFicha">*Color:</label>
               <div class="input-group" >
-              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="">
+              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="" data-parsley-errors-container="#errorS">
                 <option value="" selected=""></option>
                 <?php foreach ($colores as $color): ?>
                   <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                 <?php endforeach; ?>
               </select>
+              
               <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
               </div>
+              <span id="errorS"></span>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="selectTallas">*Tallas:</label>
-              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%">
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#errorT">
                 <option value="1" selected="">L</option>
                 <option value="2">M</option>
                 <option value="3">S</option>
               </select>
+              <span id="errorT"></span>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>

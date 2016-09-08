@@ -230,15 +230,17 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
 }); 
 
 function ValCoti(){
-  var fecha_Venci = $("#fecha_V").val();
-  var fecha_Regi = $("#fecha_R").val();
+  // var fecha_Venci = $("#fecha_V").val();
+  // var fecha_Regi = $("#fecha_R").val();
 
-  if(fecha_Venci === fecha_Regi ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
-    return false;
-  }
-  if (fecha_Venci <= fecha_Regi) {
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
-    return false;
-  }
+  // if(fecha_Venci === fecha_Regi ){
+  //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+  //   return false;
+  // }
+  // if (fecha_Venci <= fecha_Regi) {
+  //     Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+  //   return false;
+  // }
+
+  return true;
 }  

@@ -27,7 +27,8 @@
                       <th>Dirección</th>
                       <th>Email</th>
                       <th>Estado</th>
-                      <th style="width: 7%">Opciones</th>
+                      <th style="width: 7%">Editar</th>
+                      <th class="col-lg">Cambiar Estado</th>
                     </tr>
                   </thead>
                   <tbody class="">
@@ -43,6 +44,8 @@
                     <td class="estado"><?= $cliente["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td>                           
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                      </td>
+                      <td>
                         <?php if ($cliente["Estado"] == 1){ ?>
                         <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
                         <?php }else{ ?>
