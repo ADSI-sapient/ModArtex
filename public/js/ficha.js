@@ -173,11 +173,21 @@
       }
 
       $(document).ready(function(){
-        $('#tablaFichas').DataTable( {
+        $('#tablaFichas').dataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
-          "ordering": false
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay fichas para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron fichas que coincidan con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
         });
       });
     

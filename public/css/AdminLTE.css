@@ -149,6 +149,7 @@ body.hold-transition .main-header .logo {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 15px;
 }
 /* H1 - H6 font */
 h1,
@@ -1718,7 +1719,7 @@ a:focus {
 .box-header {
   color: #f4f4f4;
   display: block;
-  padding: 10px;
+  padding: 10px !important;
   position: relative;
   text-align: center;
 }
@@ -2974,7 +2975,7 @@ table.text-center th {
 }
 .modal-header {
   border-bottom-color: #f4f4f4;
-  background-color: #3c8dbc;
+  background-color: #246477 !important;
 }
 .modal-footer {
   border-top-color: #f4f4f4;

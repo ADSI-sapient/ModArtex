@@ -1,7 +1,6 @@
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
-        <li><a href="../../starter2.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Producción</a></li>
         <li class="active">Consultar Orden</li>
       </ol>
@@ -10,17 +9,16 @@
     <section class="content">
       <div class="box box-info">
         <div class="box-header with-border"  style="text-align: center;">
-          <h3 class="box-title"><strong>LISTAR ÓRDENES</strong></h3>
+          <h3 class="box-title"><strong>LISTAR ÓRDENES DE PRODUCCIÓN</strong></h3>
         </div>
         <div id="ordenesP">
           <form class="form-horizontal">
             <div class="col-md-12">
-              <br>
               <div class="table table-responsive">
                 <table class="table table-hover" id="tblOrdenes">
                   <thead>
-                    <tr class="info">
-                      <th># Orden</th>
+                    <tr class="">
+                      <th>#</th>
                       <th>Fecha Registro</th>
                       <th>Fecha Terminación</th>
                       <th>Estado</th>

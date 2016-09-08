@@ -1,50 +1,44 @@
     <section class="content-header">
-      <br>  
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Configuración</a></li>
         <li class="active">Colores</li>
       </ol>
     </section>
-
-
     <section class="content">
      <div class="row">
-
-      
-        <div class="col-xs-6">
-
+        <div class="col-md-6">
           <div class="box box-primary">
-              <div class="box-header with-border" style="text-align: center;"> 
-                     <h4 class="control-label"><strong>REGISTRAR COLOR</strong></h4>
-              </div>
-            <form action="<?= URL.'ctrConfiguracion/registrarColor'?>" method="POST">
-                <div class="box-body">
-                   <div class="form-group">
-                     <h4>Código: </h4>
-                      
-                      <div class="input-group my-colorpicker2 colorpicker-element">
+            <div class="box-header with-border" style="text-align: center;"> 
+              <h4 class="control-label"><strong>REGISTRAR COLOR</strong></h4>
+            </div>
+            <div class="box-body">
+              <form action="<?= URL.'ctrConfiguracion/registrarColor'?>" method="POST" data-parsley-validate="">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <h4>Código: </h4>
+                        <div class="input-group my-colorpicker2 colorpicker-element">
                           <input type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
                           <div class="input-group-addon">
                             <i type="input"></i>
-                          </div>
+                        </div>
                       </div>
+                    </div>
                   </div>
-                 
-                  <div class="form-group">
-                     <h4>Nombre: </h4>
-                    <input type="text" name="nombre" class="form-control" required="">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                       <h4>Nombre: </h4>
+                      <input type="text" name="nombre" class="form-control" data-parsley-required="">
+                    </div>
                   </div>
-              </div>
-              <div class="box-footer" style="margin-top: 1%;">
-                  <button type="reset" onclick="alerta();" class="btn btn-danger pull-right"  style="margin-left: 2%;">Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>   
+              <div class="box-footer">
+                  <button type="reset" onclick="alerta();" class="btn btn-danger pull-right"  style="margin-left: 2%;">Limpiar</button>
+                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>
               </div> 
             </form>
+            </div>
           </div>
         </div>
-
-
         <div class="col-xs-6">
           <div class="box box-primary">
               <div class="box-header with-border" style="text-align: center;"> 
@@ -87,12 +81,6 @@
         </div>
       </div>
     </section>
-
-
-
-
-
-
     <div class="modal fade" id="modalEditColor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document"; border-radius: 25px;">
             <div class="modal-content" style="border-radius: 20px;">
@@ -125,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-left: 2%;">Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>          
+                  <button type="submit" class="btn btn-primary pull-right">Guardar</button>
               </div> 
             </form> 
           </div>

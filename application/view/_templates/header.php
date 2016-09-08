@@ -22,10 +22,9 @@
   <link rel="stylesheet" href="<?= URL; ?>css/_all-skins.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
   <link rel="stylesheet" href="<?= URL; ?>Parsley.js-2.4.4/src/parsley.css">
-      <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+  <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
   <!--  <script src="<?= URL;?>css/jQuery-2.2.0.min.js"></script> -->
 </head>
-
 
 <body class="hold-transition skin-blue sidebar-mini">
  <div class="wrapper fixed">
@@ -129,7 +128,7 @@
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>
           <li class="treeview">
-            <a href="#"><i class="<?= $valor['Icon']; ?>"></i><span><?= $valor["NombreM"]; ?></span>
+            <a href="#"><i class="<?= $valor['Icon']; ?> fa-lg"></i><span> <?= $valor["NombreM"]; ?></span>
               <i class="fa fa-angle-left pull-right"></i>
               <ul class="treeview-menu">
                 <?php foreach ($_SESSION["permisos"] as $valor2) {

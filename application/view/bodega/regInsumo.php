@@ -1,7 +1,6 @@
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+        <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Bodega</a></li>
         <li class="active">Registrar insumos</li>
       </ol>
@@ -13,8 +12,6 @@
           <div class="box-header with-border" style="text-align: center;">
             <h1 class="box-title"><strong>REGISTRAR INSUMO</strong></h1>
           </div>
-
-
           <div class="box-body">
 
             <div class="row">

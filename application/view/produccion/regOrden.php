@@ -6,16 +6,18 @@
   </ol>
 </section>
 <section class="content">
- <br>
  <div>
   <div  class="box box-info">
     <div class="box-header with-border">
-      <h1 class="box-title"><strong>REGISTRAR ORDEN</strong></h1>
+      <h1 class="box-title"><strong>REGISTRAR ORDEN DE PRODUCCIÓN</strong></h1>
     </div>
     <!-- <div style="padding-left: 8%;"> -->
-    <form style="padding-top:10px;" action="<?php echo URL; ?>ctrProduccion/regOrden" method="POST">
+    <div class="box-body">
+    <form data-parsley-validate="" style="padding-top:10px;" action="<?php echo URL; ?>ctrProduccion/regOrden" method="POST">
     <input type="hidden" name="id_solTud" id="id_solicitud">
-      <div class="row col-lg-12" style="margin-left:1%">
+
+
+      <div class="row col-lg-12" style="margin-left:0.5%">
         <div class="form-group col-lg-4">
           <label class="">Fecha Registro:</label>
           <div class="">
@@ -34,13 +36,13 @@
         </div>
 
 
-        <div class="form-group  col-lg-3">
+        <div class="form-group col-lg-3">
         <div style="">
-          <button type="button" style="margin-top: 11%; margin-left:45%;" id="asociarPedi" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
+          <button type="button" style="margin-top:25px; padding:6px 12px !important;" id="asociarPedi" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
         </div>
         </div>
       </div>
-      <div class="row col-lg-12" style="margin-left:1%">
+      <div class="row col-lg-12" style="margin-left:0.5%">
         
         <div class="form-group col-lg-4">
           <label class="">*Fecha de Terminación:</label>
@@ -49,13 +51,13 @@
               <div class="input-group-addon" style="border-radius:5px;">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;">
+              <input type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;" data-parsley-rquired="">
             </div>
           </div>
         </div>
         <div class="form-group col-lg-offset-1 col-lg-4">
           <label for="lugarPrd" class="">*Lugar:</label>
-          <select class="form-control" name="lugarPrd">
+          <select class="form-control" name="lugarPrd" data-parsley-required="">
             <option value="Fábrica">Fábrica</option>
             <option value="Satélite">Satélite</option>
             <option value="Fábrica-Satélite">Fábrica/Satélite</option>
@@ -86,11 +88,12 @@
           <!-- </div> -->
   <div class="row text-right" style="margin-right: 2%;">
     <div class="form-group col-lg-04 " >
-      <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegistrarProdu">Registrar</button>
-      <button type="reset"  class="btn btn-danger" style="margin-right:1%; margin-left:4.6%; margin-top: 15px; padding-left:2%; padding-right:2%" >Limnpiar</button>
+      <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegistrarProdu"><b>Registrar</b></button>
+      <button type="reset"  class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limnpiar</button>
     </div>
   </div>
 </form>
+</div>
 </div>
 </section>
 <!-- Inicio Modal asociar pedidos -->

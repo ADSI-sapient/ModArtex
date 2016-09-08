@@ -1,21 +1,17 @@
   <!-- Contenedor pricipal  -->
   <div class="content-wrapper">
     <section class="content-header">
-    <br>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Producto T</a></li>
         <li class="active">Listar objetivos</li>
       </ol>
     </section>
-
     <section class="content">
     <div class="box box-info">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>LISTAR OBJETIVOS</strong></h3>
         </div>
-
-
         <div class="row box-header">
           <div class="col-md-8"></div>
              <div class="col-md-4">

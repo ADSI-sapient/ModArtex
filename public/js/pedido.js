@@ -1,8 +1,17 @@
-	$('#tablaPedidos').DataTable( {
+	$('#tablaPedidos').dataTable( {
     // "lengthChange": false,
     //"searching": false,
     // "info": false,
-    "ordering": false
+    "ordering": false,
+      "language": {
+          "emptyTable": "No hay pedidos para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
   });
 
   $('#fecha_entrega').datepicker({
@@ -69,22 +78,22 @@
             }
           });
 
-        if (fecha_entrega === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha de entrega'});
-          return false;
-        }
-        if (cliente === '') {
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un cliente'});
-          return false;
-        }
+        // if (fecha_entrega === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha de entrega'});
+        //   return false;
+        // }
+        // if (cliente === '') {
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un cliente'});
+        //   return false;
+        // }
       
-        if ($("#tablaFicha >tbody >tr").length == 0)
-        {
-          // swal({title: "0 Insumos Asociados", text: "Por favor asocie al menos un insumo a esta ficha.",   imageUrl: uri+"img/stop.png"});
-          Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe asociar al menos una ficha al pedido'});
-          //retornar false no permite que se envie el formulario
-          return false;
-        }
+        // if ($("#tablaFicha >tbody >tr").length == 0)
+        // {
+        //   // swal({title: "0 Insumos Asociados", text: "Por favor asocie al menos un insumo a esta ficha.",   imageUrl: uri+"img/stop.png"});
+        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe asociar al menos una ficha al pedido'});
+        //   //retornar false no permite que se envie el formulario
+        //   return false;
+        // }
         return res;
       }
 
@@ -455,3 +464,5 @@
             }
           });
         }
+
+      $("#frmRegPedido").parsley();

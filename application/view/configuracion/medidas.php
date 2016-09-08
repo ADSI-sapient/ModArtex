@@ -1,50 +1,39 @@
      <section class="content-header">
-          <br>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
             <li><a href="#">Configuración</a></li>
             <li class="active">Unidades de medida</li>
           </ol>
       </section>
-
       <section class="content">
-
        <div class="row">
           <div class="col-md-6">
             <div class="box box-primary">
               <div class="box-header with-border" style="text-align: center;">
                    <h4 class="control-label"><strong>REGISTRAR UNIDAD DE MEDIDA</strong></h4>
               </div>
-
               <div class="box box-body">
-              <form action="<?= URL.'ctrConfiguracion/registrarMedida'; ?>" method="POST">
-                <div class="box-body">
-                  <div class="col-md-6">
+              <form action="<?= URL.'ctrConfiguracion/registrarMedida'; ?>" method="POST" data-parsley-validate="">
+                  <div class="col-md-12">
                     <div class="form-group">
                        <h4>Nombre: </h4>                
-                       <input type="text" class="form-control" name="nombre" required="">
+                       <input type="text" class="form-control" name="nombre" autofocus="" data-parsley-required="">
                     </div>
                   </div> 
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="form-group">
-                       <h4>Abreviatura: </h4>
-                         <input type="text" class="form-control" name="Abr" required="">
+                      <h4>Abreviatura: </h4>
+                      <input type="text" class="form-control" name="Abr" data-parsley-required="">
                     </div>
                   </div>
-                </div>
-                <div class="box-footer">
-                  <button type="reset" class="btn btn-danger pull-right"  style="margin-left: 2%;">Cancelar</button>
+                <div class="box-footer"> 
+                  <button type="reset" class="btn btn-danger pull-right" style="margin-left:2%;">Limpiar</button>
                   <button type="submit" class="btn btn-primary pull-right">Guardar</button>
                 </div> 
               </form>
             </div>
             </div>
           </div>
-
-
-
-
-
         <div class="col-md-6">
           <div class="box box-primary">
               <div class="box-header with-border" style="text-align: center;"> 

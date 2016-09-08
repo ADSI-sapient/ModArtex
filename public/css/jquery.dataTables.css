@@ -172,7 +172,7 @@ table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.or
   background-color: #a4b2cb;
 }
 table.dataTable.no-footer {
-  border-bottom: 1px solid #111;
+  border-bottom: 1px solid #ddd !important;
 }
 table.dataTable.nowrap th, table.dataTable.nowrap td {
   white-space: nowrap;
@@ -277,6 +277,8 @@ table.dataTable td {
   clear: both;
   *zoom: 1;
   zoom: 1;
+  margin-bottom: 19px !important;
+  margin-top: 10px !important;
 }
 .dataTables_wrapper .dataTables_length {
   float: left;
@@ -287,6 +289,10 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_filter input {
   margin-left: 0.5em;
+  border-radius: 5px !important;
+  width: 250px;
+  padding: 3px;
+  margin-bottom: 5px !important;
 }
 .dataTables_wrapper .dataTables_info {
   clear: both;

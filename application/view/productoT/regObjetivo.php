@@ -1,7 +1,6 @@
 <!-- Contenedor pricipal  -->
 <div class="content-wrapper">
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">ProductoT</a></li>

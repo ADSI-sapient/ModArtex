@@ -4,60 +4,40 @@
       <li><a href="#">Cotizacion</a></li>
       <li class="active">Listar Cotizaciones</li>
   </ol>
-    <br>
   </section>
-
   <!-- Main content -->
   <section class="content">
     <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
-      </div>
-
-    <div class="box box-body">  
-    <div id="users">
-      <div class="row box-header">
-        <div class="col-md-8"></div>
-           <div class="col-md-4">
-            <div class="form-group">
-              <div class="box-tools pull-right"></div>
-            </div>
-          </div>
-      </div>
-    </div>
-
-      <form class="form-horizontal">
-      <div>
-        <div class="col-md-12">
-          <div class="box">
-            <div class="table table-responsive">
-              <table class="table table-hover" id="myTable">
-
-                <thead>
-                  <tr class="info">
-                    <th style="width: 10px">Código</th>
-                    <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Fecha Registro</th>
-                    <th>Fecha Vencimiento</th>
-                    <th>Valor Total</th>
-                    <th style="display: none;"></th>
-                    <th style="width: 7%">Editar</th>
-                    <th>PDF</th>
-                    <th>Pedido</th>
-                  </tr>
-                </thead>
-
-            <tbody class="list">
-
-                <?php foreach ($cotizaciones as $cotizacion):?>
-                  
-                 <tr>
-                    <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>                 
-                    <td class="Num_Documento"><?= $cotizacion["Nombre"] ?></td>
-                    <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
+      </div> 
+      <div id="users">
+        <form class="form-horizontal">
+          <div class="col-md-12">
+              <div class="table table-responsive">
+                <table class="table table-hover" id="tblCotizaciones">
+                  <thead>
+                    <tr class="info">
+                      <th style="width: 10px">#</th>
+                      <th>Fecha Registro</th>
+                      <th>Cliente</th>
+                      <th>Fecha Vencimiento</th>
+                      <th>Estado</th>
+                      <th>Valor Total</th>
+                      <th style="display: none;"></th>
+                      <th style="width: 7%">Editar</th>
+                      <th>Generar</th>
+                      <th class="col-md">Convertir en Pedido</th>
+                    </tr>
+                  </thead>
+                  <tbody class="">
+                  <?php foreach ($cotizaciones as $cotizacion):?>
+                  <tr>
+                    <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>         
                     <td class="Fecha_Registro"><?= $cotizacion["Fecha_Registro"] ?></td>
+                    <td class="Num_Documento"><?= $cotizacion["Nombre"] ?></td>
                     <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Vencimiento"] ?></td>
+                    <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>
                     <td class="Num_Documento" style="display: none;"><?= $cotizacion["Num_Documento"] ?></td>
 
@@ -86,16 +66,15 @@
                 </tr>
 
                 <?php endforeach; ?> 
-            </tbody>
-
+                </tbody>
               </table>
             </div>
           </div>
-         </div>
-        </div>
       </form>
+     </div>
+      <div class="box-footer">
     </div>
-  </div>
+    </div>
 
  <!-- Modal De Modificar -->
 

@@ -1,11 +1,20 @@
-    $('#tblOrdenes').DataTable( {
+    $('#tblOrdenes').dataTable( {
       // "lengthChange": false,
       //"searching": false,
       // "info": false,
-      "ordering": false
+      "ordering": false,
+      "language": {
+          "emptyTable": "No hay ordenes de producción para listar",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      "paginate": {
+        "previous": "",
+        "next": "",
+        "last": "ultima"
+       }
+      }
     });
 
-    
     $('#fecha_terminacion').datepicker({
           format: "yyyy-mm-dd",
           language: 'es',
@@ -150,3 +159,5 @@
         }
       });
     }
+
+

@@ -1,6 +1,5 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Ficha Técnica</a></li>
@@ -18,7 +17,7 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="">
+              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -32,7 +31,7 @@
               </div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3 ">
-              <label for="estado" class="">*Estado:</label>
+              <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
@@ -51,8 +50,8 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="selectTallas">*Tallas:</label>
-              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="">
-                <option value="1">L</option>
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%">
+                <option value="1" selected="">L</option>
                 <option value="2">M</option>
                 <option value="3">S</option>
               </select>
@@ -64,7 +63,7 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum"><b>Asociar Insumos</b></button>
+              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum" style="padding:6px 12px !important;"><b>Asociar Insumos</b></button>
             </div>
           </div>
           <div hidden="" class="form-group" id="agregarInsumo">
@@ -89,7 +88,7 @@
               </div>
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:1%">
+          <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="vlr_produccion" class="">Valor Producción:</label>
               <div class="">
@@ -109,11 +108,10 @@
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
           </div>
-          <br>
           <div class="row"> 
-            <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left:4%; margin-top: 15px; padding-left:2%; padding-right:2%" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
+            <div class="form-group col-lg-12" style="margin-left:14px">
+              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegFicha" id="reg"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
           </div>
         </form>
