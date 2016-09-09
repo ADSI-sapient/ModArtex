@@ -49,14 +49,14 @@
             } 
           </style>
           <li>
-            <a class="dropdown-toggle">
+            <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarMedidas()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudMedidas" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-balance-scale" aria-hidden="true"></i>
             </button>  
             </a>
           </li> 
           <li>
-            <a class="dropdown-toggle">
+            <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarColores()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i>
             </button>
