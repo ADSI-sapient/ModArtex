@@ -20,7 +20,7 @@
             tr = '<tr><td>'+(cont+=1)+
             '</td><td>'+resp[i]["Nombre"]+'</td><td>'+resp[i]["Abreviatura"]+
             '</td><td style="display: none;">'+resp[i]["Id_Medida"]+
-            '</td><td style="text-align: center;"><button id="editMed'+resp[i]["Id_Medida"]+'" onclick="editCrudMedidas(this, '+resp[i]["Id_Medida"]+');" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="confirmacionDeleteMed('+resp[i]["Id_Medida"]+', '+true+');" data-dismiss="alert" class="btn btn-box-tool"><i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="guardarEditMed(this, '+resp[i]["Id_Medida"]+')" id="guardarEditMed'+resp[i]["Id_Medida"]+'" disabled="true" type="button" class="btn btn-box-tool"><i class="font-size: 150%; fa fa-check" arial-hidden="true"></i></button></td></tr>';
+            '</td><td style="text-align: center;"><button id="editMed'+resp[i]["Id_Medida"]+'" onclick="editCrudMedidas(this, '+resp[i]["Id_Medida"]+');" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-pencil-square-o" arial-hidden="true"></i></button></td><td style="text-align: center;"><button id="btnDeleteMed'+resp[i]["Id_Medida"]+'" onclick="confirmacionDeleteMed('+resp[i]["Id_Medida"]+', '+true+');" data-dismiss="alert" class="btn btn-box-tool"><i style="font-size: 150%; color: red;" class="fa fa-times" arial-hidden="true"></i></button></td><td style="text-align: center;"><button onclick="guardarEditMed(this, '+resp[i]["Id_Medida"]+')" id="guardarEditMed'+resp[i]["Id_Medida"]+'" disabled="true" type="button" class="btn btn-box-tool"><i class="font-size: 150%; fa fa-check" arial-hidden="true"></i></button></td></tr>';
             $("#tbody-CrudMedidas").append(tr);
           });
         }).fail(function(){
@@ -85,15 +85,17 @@
             $(this).find("td").eq(1).html($("#nomCrudMedEdit"+idMed).val());
             $(this).find("td").eq(2).html($("#abrCrudMedEdit"+idMed).val());
             $("#editMed"+idMed).attr("disabled", false);
+            $("#btnDeleteMed"+idMed).attr("disabled", false);
             $("#guardarEditMed"+idMed).attr("disabled", true);
           }
         });
 
         var intNom = "<input id='nomCrudMedEdit"+id+"' type='text' class='form-control' value='"+$(medida).find("td").eq(1).html()+"'>";
-        var intAbr = "<input id='abrCrudMedEdit"+id+"' type='text' class='form-control' value='"+$(medida).find("td").eq(2).html()+"'>";
+        var intAbr = "<div class='form-group'><div class='input-group'><input id='abrCrudMedEdit"+id+"' type='text' class='form-control' value='"+$(medida).find("td").eq(2).html()+"'><div class='input-group-addon'><button onclick='listarMedidas()' style='padding: 0' class='btn btn-box-tool'><i class='fa fa-times' aria-hidden='true'></i></button></div></div></div>";
         $(medida).find("td").eq(1).html(intNom);
         $(medida).find("td").eq(2).html(intAbr);
         $("#editMed"+id).attr("disabled", true);
+        $("#btnDeleteMed"+id).attr("disabled", true);
         $("#guardarEditMed"+id).attr("disabled", false);
       }
 

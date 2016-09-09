@@ -24,8 +24,9 @@
                   <th>Código</th>
                   <th>Nombre</th>
                   <th>Medida</th>
-                  <th>Stock Mínimo</th>
-                  <th style="width: 7%">Opción</th>
+                  <th>Stock mínimo</th>
+                  <th style="width: 7%">Editar</th>
+                  <th style="width: 7%">Inhabilitar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,15 +40,17 @@
                   <td><option value="<?= $valor['Id_Medida']?>"><?= $valor["NombreMed"]?></option></td>
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
-                   <td>    
-                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModEditIns"><i class="fa fa-pencil-square-o"></i></button>
+                  <td style="text-align: center;">    
+                    <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModEditIns"><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
+                  </td>
+                  <td style="text-align: center;">
                     <?php if ($valor["Estado"] == 1): ?>
-                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i class="fa fa-minus-circle"></i></button> 
+                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button> 
                     <?php endif ?>
                     <?php if ($valor["Estado"] == 0): ?>
-                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i class="fa fa-check"></i></button> 
+                         <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-check"></i></button> 
                     <?php endif ?>
-                  </td>
+                  </td>  
                 </tr>
                 <?php endforeach ?>
               </tbody></table>
@@ -60,21 +63,31 @@
      </form>  
     </div> 
   </section>
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document" style="width: 60%;">
-        <div class="modal-content" style="border-radius: 20px;">
-        <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
-          <div class="modal-header" style="text-align: center;">
-            <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
-          </div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 60%;">
+    <div class="modal-content" style="border-radius: 20px;">
+      <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
+        <div class="modal-header" style="text-align: center;">
+          <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
+        </div>
         <div class="modal-body">
-            <div class="row">
+          <div class="row">
             <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
-                   <input type="hidden" name="id" id="mSel">
-                   <label class="control-label" length="80px">*Stock Mínimo:</label>
-                  <input id="stockIns" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
+                  <input type="hidden" name="id" id="mSel">
+                  <label class="control-label" length="80px">*Stock mínimo:</label>
+                    <input id="stockIns" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
                 </div>
               </div>    
               <div class="col-md-12">
@@ -88,7 +101,7 @@
                     </select>
                 </div>
               </div>
-          </div>
+            </div>
             <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
@@ -96,18 +109,16 @@
                    <input id="nomIns" type="text" class="form-control" required="" name="nombre">
                 </div>
               </div>
-
+              <div class="col-md-6">
+                    <div class="form-group">
+                     <label class="control-label" length="80px">*Valor: </label>
+                     <input type="number" class="form-control" min="0" required="" name="valor">
+                   </div>
+              </div>
             <div class="col-md-6">
-                  <div class="form-group">
-                   <label class="control-label" length="80px">*Valor: </label>
-                   <input type="number" class="form-control" min="0" required="" name="valor">
-                 </div>
+              <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar color</button>
             </div>
-
-            <div class="col-md-6">
-                  <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar Color</button>
-            </div>
-             </div>
+          </div>
 
 
        </div>
