@@ -7,8 +7,6 @@
     </ol>
 </section>
 
-<section class="content">
-  <div class="row">
 
   <section class="content">
     <br>

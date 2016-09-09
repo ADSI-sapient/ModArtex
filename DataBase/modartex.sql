@@ -3,10 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
-
--- Tiempo de generación: 06-09-2016 a las 19:26:15
+-- Tiempo de generación: 08-09-2016 a las 15:23:06
 -- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Versión de PHP: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,15 +24,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualiarFechaEntPedi` (IN `_fechaEntreP` DATE, IN `_idSolt` INT)  NO SQL
-UPDATE tbl_solicitudes_ordenesproduccion sop JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo=st.Id_Solicitudes_Tipo SET st.Fecha_Entrega = _fechaEntreP WHERE st.Id_Solicitud = _idSolt$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualizarCantidadProd` (IN `_idSolPr` INT, IN `_cantFab` INT, IN `_cantSat` INT)  NO SQL
-UPDATE tbl_solicitudes_producto SET Cantidad_Producir = _cantFab, Cantidad_Satelite = _cantSat WHERE Id_Solicitudes_Producto = _idSolPr$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualizarEstadoPed` (IN `_idSolt` INT)  NO SQL
-UPDATE tbl_solicitudes SET Id_Estado = 6 WHERE Id_Solicitud = _idSolt$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
@@ -63,9 +53,6 @@ UPDATE tbl_persona SET Estado = _estado WHERE Num_Documento = _documento$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CambiarEstadoR` (IN `_estado` INT, IN `_id_rol` INT)  NO SQL
 UPDATE tbl_roles SET Estado = _estado WHERE Id_Rol = _id_rol$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_cancelarOdenPr` (IN `_id_ordenp` INT)  NO SQL
-UPDATE tbl_ordenesproduccion SET Id_Estado = 4 WHERE Num_Orden = _id_ordenp$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_cancelarPedido` (IN `_id_estado` INT, IN `_id_pedido` INT)  NO SQL
 UPDATE tbl_solicitudes SET Id_Estado = _id_estado WHERE Id_Solicitud = _id_pedido$$
 
@@ -73,7 +60,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CantidadColIns` (IN `_IdCol` INT
 SELECT Cantidad_Insumo cantidad FROM tbl_colores_insumos WHERE Id_Color = _IdCol && Id_Insumo = _IdIns$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CargarProduAsoPed` (IN `_idPedido` INT)  NO SQL
-SELECT sp.Id_Solicitudes_Producto, ft.Id_Ficha_Tecnica, ft.Referencia, c.Codigo_Color, ft.Valor_Producto, sp.Cantidad_Producir, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas ft ON sp.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE s.Id_Solicitud = _idPedido$$
+SELECT ft.Id_Ficha_Tecnica, ft.Referencia, c.Codigo_Color, ft.Valor_Producto, sp.Cantidad_Producir, sp.Subtotal FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas ft ON sp.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE s.Id_Solicitud = _idPedido$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsCantExis` (IN `idExt` INT(11))  NO SQL
 SELECT Cantidad_Insumo Cantidad, Valor_Promedio Valor FROM tbl_colores_insumos$$
@@ -99,20 +86,17 @@ SELECT s.Id_Solicitud, s.Num_Documento, p.Nombre FROM tbl_solicitudes s JOIN tbl
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidosProduccion` ()  NO SQL
 SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE st.Id_Tipo = 2 and s.Id_Estado = 5$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
-SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto, f.Cantidad FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosOrden` (IN `_numOrd` INT)  NO SQL
 SELECT sp.Id_Ficha_Tecnica, ft.Referencia, c.Codigo_Color, sp.Cantidad_Producir, sop.Cantidad_Fabrica, sop.Id_Estado, e.Nombre_Estado, sop.Cantidad_Satelite, sop.Id_Solicitud_Producto, sop.Lugar_Produccion FROM tbl_solicitudes_ordenesproduccion sop JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_fichas_tecnicas ft ON sp.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_colores c ON ft.Id_Color=c.Id_Color JOIN tbl_estado e ON sop.Id_Estado=e.Id_Estado WHERE sop.Num_Orden = _numOrd$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
+SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_id_fichat` INT)  NO SQL
 SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Id_Ficha_Tecnica = _id_fichat$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsultarRoles` ()  NO SQL
 SELECT Id_Rol, Nombre FROM tbl_roles$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consUltimaOrden` ()  NO SQL
-SELECT MAX(Num_Orden) as ultOrden FROM tbl_ordenesproduccion$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DeleteInsumosAso` (IN `_id_fichat` INT)  NO SQL
 DELETE FROM tbl_insumos_fichastecnicas WHERE Id_Ficha_Tecnica = _id_fichat$$
@@ -124,13 +108,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_descExistenciasInsumos` (IN `_id
 UPDATE tbl_colores_insumos cli JOIN tbl_insumos_fichastecnicas ift ON cli.Id_Existencias_InsCol=ift.Id_Existencias_InsCol SET cli.Cantidad_Insumo = cli.Cantidad_Insumo - _cant_descontar WHERE ift.Id_Ficha_Tecnica = _id_ficha and cli.Id_Existencias_InsCol = _id_extcol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DescontarP` (IN `_Cantidad` INT, IN `_id` INT, IN `salida` INT)  NO SQL
-UPDATE tbl_fichas_tecnicas SET Cantidad = _Cantidad - salida WHERE  Id_Ficha_Tecnica = _id$$
+UPDATE tbl_fichas_tecnicas SET Cantidad = _Cantidad - salida WHERE 	Id_Ficha_Tecnica = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DisminuirExsIns` (IN `idExt` INT(11), IN `cant` INT(11))  NO SQL
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant WHERE Id_Existencias_InsCol = idExt$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_editarOrdenProduccion` (IN `_id_estado` INT, IN `_fechaTerm` DATE, IN `_lugarPrd` VARCHAR(30), IN `_id_ordenP` INT)  NO SQL
-UPDATE tbl_ordenesproduccion op JOIN tbl_solicitudes_ordenesproduccion sop ON op.Num_Orden = sop.Num_Orden JOIN tbl_solicitudes_producto sp ON  sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo = st.Id_Solicitudes_Tipo SET op.Id_Estado = _id_estado, st.Fecha_Entrega = _fechaTerm, op.Lugar_Produccion = _lugarPrd WHERE op.Num_Orden = _id_ordenP$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EditarPedido` (IN `_fechaentreg` DATE, IN `_vlrtotal` DOUBLE, IN `_doccliente` VARCHAR(20), IN `_idpedido` INT)  NO SQL
 UPDATE tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud SET st.Fecha_Entrega = _fechaentreg, s.Valor_Total = _vlrtotal, s.Num_Documento = _doccliente WHERE st.Id_Solicitud = _idpedido$$
@@ -143,9 +124,6 @@ DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = _id_solicitudes
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarSolicOrdenes` (IN `_numOrd` INT)  NO SQL
-DELETE FROM tbl_solicitudes_ordenesproduccion WHERE Num_Orden = _numOrd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_id_fichat` INT)  NO SQL
 SELECT ift.Id_Existencias_InsCol Id_Insumo, c.Codigo_Color, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio FROM tbl_insumos_fichastecnicas ift JOIN tbl_colores_insumos ci ON ift.Id_Existencias_InsCol=ci.Id_Existencias_InsCol JOIN tbl_insumos i ON 
@@ -163,6 +141,9 @@ SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color id FROM tbl_colores c 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarExistencias` ()  NO SQL
 SELECT ci.Id_Existencias_InsCol, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasObj` (IN `Id_objetivo` INT)  NO SQL
+SELECT o.Codigo, o.Cantidad, f.Id_Ficha_Tecnica, f.Referencia from tbl_productos_objetivos o JOIN tbl_fichas_tecnicas f ON f.Id_Ficha_Tecnica= o.Id_Ficha_Tecnica WHERE O.Id_Objetivo= Id_objetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasParaAsociar` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
 
@@ -174,6 +155,9 @@ SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT  Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarObjetivos` ()  NO SQL
+SELECT * from tbl_objetivos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarPermisos` (IN `_Id_Rol` INT(11))  NO SQL
 SELECT rp.Id_Permiso, m.Nombre NombreMod, p.Nombre FROM tbl_rol_permisos rp JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso JOIN tbl_modulos m ON p.id_Modulo = m.id_Modulo WHERE rp.Id_Rol = _Id_Rol$$
@@ -308,7 +292,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaFicha` ()  NO SQL
 SELECT MAX(Id_Ficha_Tecnica) AS id_ficha FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Sp_UltimaSalida` ()  NO SQL
-SELECT MAX( Id_Salida) AS  id FROM tbl_salidas_productos$$
+SELECT MAX(	Id_Salida) AS  id FROM tbl_salidas_productos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UltimaSalidaIns` ()  NO SQL
 SELECT max(Id_Salida) idSalida FROM tbl_salidas$$
@@ -390,6 +374,15 @@ CREATE TABLE `tbl_colores_insumos` (
   `Stock_Minimo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_colores_insumos`
+--
+
+INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
+(1, 1, 1, 0, 3100, 201),
+(2, 2, 1, 0, 3100, 201),
+(3, 3, 1, 0, 3100, 201);
+
 -- --------------------------------------------------------
 
 --
@@ -440,9 +433,7 @@ INSERT INTO `tbl_estado` (`Id_Estado`, `Nombre_Estado`) VALUES
 (5, 'Pendiente'),
 (6, 'En Proceso'),
 (7, 'Terminado'),
-(8, 'Cancelado'),
-(9, 'Calidad'),
-(10, 'Produccion');
+(8, 'Cancelado');
 
 -- --------------------------------------------------------
 
@@ -468,6 +459,18 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL,
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
+--
+
+INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 2, 3),
+(4, 1, 4),
+(5, 2, 1),
+(6, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -512,10 +515,6 @@ CREATE TABLE `tbl_insumos` (
 -- Volcado de datos para la tabla `tbl_insumos`
 --
 
-INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(1, 4, 1, 'tela'),
-(2, 5, 1, 'Tela');
-
 -- --------------------------------------------------------
 
 --
@@ -525,10 +524,25 @@ INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
 CREATE TABLE `tbl_insumos_fichastecnicas` (
   `id_Insumos_Fichas` int(11) NOT NULL,
   `Id_Existencias_InsCol` int(11) NOT NULL,
-  `Cant_Necesaria` decimal(10,2) NOT NULL,
+  `Cant_Necesaria` int(11) NOT NULL,
   `Valor_Insumo` double NOT NULL,
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
+--
+
+INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
+(1, 1, 23, 713, 1),
+(2, 2, 34, 1054, 1),
+(3, 3, 51, 1581, 1),
+(4, 2, 20, 620, 2),
+(5, 1, 2, 62, 3),
+(6, 2, 30, 930, 4),
+(7, 2, 5, 155, 1),
+(8, 3, 5, 155, 1),
+(9, 3, 5, 155, 2);
 
 -- --------------------------------------------------------
 
@@ -573,6 +587,13 @@ CREATE TABLE `tbl_objetivos` (
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_objetivos`
+--
+
+INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`) VALUES
+(1, 'Fin se semana', '2016-09-08', '2016-09-06', '2016-09-21', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -581,9 +602,9 @@ CREATE TABLE `tbl_objetivos` (
 
 CREATE TABLE `tbl_ordenesproduccion` (
   `Num_Orden` int(11) NOT NULL,
-  `Id_Estado` int(11) NOT NULL,
+  `Estado` varchar(45) NOT NULL,
   `Fecha_Registro` date NOT NULL,
-  `Lugar_Produccion` varchar(30) NOT NULL
+  `Fecha_Fin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -617,8 +638,8 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (11, 5, 'Listar Cotizaciones', 'ctrCotizacion/consCotizacion'),
 (12, 6, 'Registrar Pedido', 'ctrPedido/regPedido'),
 (13, 6, 'Listar Pedidos', 'ctrPedido/consPedido'),
-(14, 7, 'Registrar Orden', 'ctrProduccion/regOrden'),
-(15, 7, 'Listar Órdenes', 'ctrProduccion/consOrden'),
+(14, 7, 'Registrar Orden', 'ctrOrden/regOrden'),
+(15, 7, 'Listar Órdenes', 'ctrOrden/consOrden'),
 (16, 8, 'Existencias Producto T', 'ctrProductoT/existenciasProductoT'),
 (17, 9, 'Medidas', 'ctrConfiguracion/listarMedidas'),
 (18, 9, 'Colores', 'ctrConfiguracion/listarColores'),
@@ -654,6 +675,7 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 ('123', 2, 'CC', 'Johan', 'Arteaga', 1, '3116440736', 'call71c #30-215 INT 127', 'jaac219@hotmail.com'),
 ('15484', 2, 'CC', 'Juan', 'Morales', 1, '548155', 'Cl14 - 55 - B Sur45', 'jkasdfj@jad.com');
 
+
 -- --------------------------------------------------------
 
 --
@@ -670,7 +692,6 @@ CREATE TABLE `tbl_productos_objetivos` (
 --
 -- Volcado de datos para la tabla `tbl_productos_objetivos`
 --
-
 -- --------------------------------------------------------
 
 --
@@ -770,9 +791,9 @@ CREATE TABLE `tbl_salidas_productos` (
 --
 
 INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`) VALUES
-(1, 'Hola', '2016-08-29'),
-(2, 'Holaaassss ', '2016-08-29'),
-(3, 'Holas', '2016-08-29'),
+(1, '                         Hola', '2016-08-29'),
+(2, '                         Holaaassss ', '2016-08-29'),
+(3, '                         Holas', '2016-08-29'),
 (4, 'Holaaa', '2016-08-29'),
 (5, '', '2016-08-29'),
 (6, 'Hola', '2016-08-30'),
@@ -782,9 +803,9 @@ INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`)
 (10, 'Juan Pablo', '2016-08-30'),
 (11, 'jgjgjh', '2016-08-30'),
 (12, '', '2016-08-30'),
-(13, '', '2016-09-01'),
-(14, '', '2016-09-01'),
-(15, '', '2016-09-01'),
+(13, '                         ', '2016-09-01'),
+(14, '                         ', '2016-09-01'),
+(15, '                         ', '2016-09-01'),
 (16, '', '2016-09-01'),
 (17, '', '2016-09-01'),
 (18, '', '2016-09-01'),
@@ -800,7 +821,7 @@ INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`)
 (28, '', '2016-09-01'),
 (29, '', '2016-09-01'),
 (30, '', '2016-09-01'),
-(31, '', '2016-09-02'),
+(31, '                         ', '2016-09-02'),
 (32, '', '2016-09-02'),
 (33, '', '2016-09-02'),
 (34, '', '2016-09-02'),
@@ -905,7 +926,7 @@ CREATE TABLE `tbl_solicitudes` (
 
 CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
   `Codigo` int(11) NOT NULL,
-  `Id_Solicitud_Producto` int(11) NOT NULL,
+  `Id_Pedidos_Cotizaciones_Tipo_Producto` int(11) NOT NULL,
   `Num_Orden` int(11) NOT NULL,
   `Id_Estado` int(11) NOT NULL,
   `Cantidad_Fabrica` int(11) NOT NULL,
@@ -1018,9 +1039,8 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 
 INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
-(4, 'Mt', 'Metros'),
-(5, 'Cm', 'Centimetros'),
-(6, 'Ud', 'unidades');
+(2, 'mt', 'Metros'),
+(3, 'cm', 'Centimetros');
 
 -- --------------------------------------------------------
 
@@ -1136,8 +1156,7 @@ ALTER TABLE `tbl_objetivos`
 -- Indices de la tabla `tbl_ordenesproduccion`
 --
 ALTER TABLE `tbl_ordenesproduccion`
-  ADD PRIMARY KEY (`Num_Orden`),
-  ADD KEY `Id_Estado` (`Id_Estado`);
+  ADD PRIMARY KEY (`Num_Orden`);
 
 --
 -- Indices de la tabla `tbl_permisos`
@@ -1209,8 +1228,7 @@ ALTER TABLE `tbl_solicitudes`
 ALTER TABLE `tbl_solicitudes_ordenesproduccion`
   ADD PRIMARY KEY (`Codigo`),
   ADD KEY `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_has_TblProducto_ha_idx` (`Num_Orden`),
-  ADD KEY `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_has_TblProducto_ha_idx1` (`Id_Solicitud_Producto`),
-  ADD KEY `Id_Estado` (`Id_Estado`);
+  ADD KEY `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_has_TblProducto_ha_idx1` (`Id_Pedidos_Cotizaciones_Tipo_Producto`);
 
 --
 -- Indices de la tabla `tbl_solicitudes_producto`
@@ -1273,7 +1291,7 @@ ALTER TABLE `tbl_colores`
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
@@ -1288,7 +1306,7 @@ ALTER TABLE `tbl_entradas_exitencias`
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
-  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tbl_existencias_salidas`
 --
@@ -1298,12 +1316,12 @@ ALTER TABLE `tbl_existencias_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_fichastecnicas_tallas`
-  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichas_tecnicas`
 --
 ALTER TABLE `tbl_fichas_tecnicas`
-  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
@@ -1313,7 +1331,7 @@ ALTER TABLE `tbl_insumos`
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
@@ -1323,7 +1341,7 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
@@ -1338,7 +1356,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos_objetivos`
 --
 ALTER TABLE `tbl_productos_objetivos`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1358,12 +1376,12 @@ ALTER TABLE `tbl_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_salidas_productos`
 --
 ALTER TABLE `tbl_salidas_productos`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salida_ficha`
 --
 ALTER TABLE `tbl_salida_ficha`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
@@ -1398,7 +1416,7 @@ ALTER TABLE `tbl_tipopersona`
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
@@ -1456,10 +1474,6 @@ ALTER TABLE `tbl_insumos_fichastecnicas`
   ADD CONSTRAINT `fk_tbl_insumos_fichastecnicas_tbl_fichas_tecnicas1` FOREIGN KEY (`Id_Ficha_Tecnica`) REFERENCES `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`);
 
 --
--- Filtros para la tabla `tbl_ordenesproduccion`
---
-ALTER TABLE `tbl_ordenesproduccion`
-  ADD CONSTRAINT `fk_estado_orden` FOREIGN KEY (`Id_Estado`) REFERENCES `tbl_estado` (`Id_Estado`);
 -- Filtros para la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
@@ -1509,9 +1523,8 @@ ALTER TABLE `tbl_solicitudes`
 -- Filtros para la tabla `tbl_solicitudes_ordenesproduccion`
 --
 ALTER TABLE `tbl_solicitudes_ordenesproduccion`
-  ADD CONSTRAINT `fk_estado_fichasOrden` FOREIGN KEY (`Id_Estado`) REFERENCES `tbl_estado` (`Id_Estado`),
-  ADD CONSTRAINT `fk_orden_solicitud` FOREIGN KEY (`Num_Orden`) REFERENCES `tbl_ordenesproduccion` (`Num_Orden`),
-  ADD CONSTRAINT `fk_solicitud_producto` FOREIGN KEY (`Id_Solicitud_Producto`) REFERENCES `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`);
+  ADD CONSTRAINT `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_has_TblProducto_has_1` FOREIGN KEY (`Id_Pedidos_Cotizaciones_Tipo_Producto`) REFERENCES `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Tbl_Pedidos_Cotizaciones_has_Tbl_Tipo_has_TblProducto_has_2` FOREIGN KEY (`Num_Orden`) REFERENCES `tbl_ordenesproduccion` (`Num_Orden`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tbl_solicitudes_producto`

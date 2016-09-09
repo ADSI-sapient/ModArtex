@@ -55,7 +55,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 
     function listarRoles(Id_Rol, Nombre, roles){
           var campos = $(roles).parent().parent();
-          $("#id_Rol").val(campos.find("td").eq(0).text());
+          $("#idRol").val(campos.find("td").eq(0).text());
           $("#nombreRol").val(campos.find("td").eq(1).text());
            $("#filass").empty();
            // $("#nombre_rol").val(Nombre);
