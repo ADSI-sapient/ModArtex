@@ -9,6 +9,7 @@
 		private $Id_Objetivo;
 		private $Cantidad;
 		private $Id_Ficha_Tecnica;
+		private $CantidadTotal;
 
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
@@ -38,7 +39,7 @@
 
 
       	public function RegistrarO(){
-      		$sql= "CALL SP_RegistrarObjetivos(?, ?, ?, ?, ?)";
+      		$sql= "CALL SP_RegistrarObjetivos(?, ?, ?, ?, ?, ?)";
 		try{
 			$query= $this->db->prepare($sql);
 			$query->bindParam(1, $this->Nombre);
@@ -46,6 +47,7 @@
 			$query->bindParam(3, $this->FechaInicio);
 			$query->bindParam(4, $this->FechaFin);
 			$query->bindParam(5, $this->Id_Estado);
+			$query->bindParam(6, $this->CantidadTotal);
 			$query->execute();
 				
 		}catch (PDOException $e){
@@ -73,6 +75,34 @@
 		}catch (PDOException $e){
 		}
       	}
+
+      	public function getObjetivos()
+	    {
+	        	$sql= "CALL SP_ListarObjetivos";
+
+      		try{
+      			$query = $this->db->prepare($sql);
+      			$query->execute();
+      			return $query->fetchAll();
+      		} catch (PDOException $e){
+      		}
+	    }
+
+	    public function ListarFichasO(){
+
+	    	// var_dump($this->Id_Objetivo);
+	    	// exit();
+	    	$sql = 'CALL SP_ListarFichasObj(?)';
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->bindParam(1, $this->Id_Objetivo);
+	        	$query->execute();
+	        	return $query->fetchAll();
+	        } catch (PDOException $e) {
+	   
+	        }
+	    }
+
 
 	}
 ?>
