@@ -32,7 +32,7 @@
                 <?php $cont = 0;?>
                 <?php foreach ($lisInsumos as $valor): ?>  
                 <tr>
-                  <input type="hidden" value="<?= $valor["Id"]?>" name="int">
+                  <input type="hidden" value="<?= $valor["Id_Insumo"]?>" name="int">
                   <td><?= $cont += 1;?></td>
                   <td><?= $valor["Id_Insumo"]?></td>
                   <td><?= $valor["Nombre"]?></td>

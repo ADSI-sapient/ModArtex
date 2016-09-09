@@ -114,9 +114,9 @@
               var cont = 0;
               var band = false;
             $(resp.v).each(function(i){
-                if(resp.v[i]["Id_Estado"] == 5){
-                  $("#inputDescInsumos").val();
-                }
+                // if(resp.v[i]["Id_Estado"] == 5){
+                //   $("#inputDescInsumos").val();
+                // }
                 if(resp.v[i]["Id_Estado"] == 5){
                   band = true;
                   tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
@@ -131,22 +131,22 @@
               $("#devolverInsumos").modal('show');
               $("#idOrdenHidden").val(idOrden);
             }else{
-          //     $.ajax({
-          //       type: 'post',
-          //       dataType: 'json',
-          //       url: uri+"ctrProduccion/cancelarOrdenProd",
-          //       data:{id_orden: idOrden}
-          //       }).done(function(respuesta){
-          //         if (respuesta.r == 1) {
-          //           location.href = uri+'ctrProduccion/consOrden';
-          //         }else{
-          //           alert("Error al cancelar la orden");
-          //         }
-          //       }).fail(function(){
-          //       }) 
-          //   }
-          // }).fail(function(){
-          // });
+              // $.ajax({
+              //   type: 'post',
+              //   dataType: 'json',
+              //   url: uri+"ctrProduccion/cancelarOrdenProd",
+              //   data:{id_orden: idOrden}
+              //   }).done(function(respuesta){
+              //     if (respuesta.r == 1) {
+              //       location.href = uri+'ctrProduccion/consOrden';
+              //     }else{
+              //       alert("Error al cancelar la orden");
+              //     }
+              //   }).fail(function(){
+              //   }) 
+            }
+          }).fail(function(){
+          });
           });
         }
 
