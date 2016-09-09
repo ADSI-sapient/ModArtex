@@ -1,12 +1,16 @@
     <section class="content-header">
+      <br>  
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Configuración</a></li>
         <li class="active">Colores</li>
       </ol>
     </section>
+
+
     <section class="content">
      <div class="row">
+
       
         <div class="col-md-6">
 
@@ -25,7 +29,6 @@
                             <i id="colDatapicker" type="input"></i>
                           </div>
                       </div>
-                    </div>
                   </div>
                   <div class="form-group">
                      <h4>Nombre: </h4>
@@ -33,13 +36,13 @@
                   </div>
               </div>
               <div class="box-footer" style="margin-top: 20px;">
-                  <button type="reset" onclick="resetCol();" class="btn btn-danger pull-right"  style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i>  Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>   
+                  <button type="reset" onclick="resetCol();" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i>  Limpiar</button>
+                  <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>   
               </div> 
             </form>
-            </div>
           </div>
         </div>
+
 
         <div class="col-md-6">
           <div class="box box-primary">
@@ -85,9 +88,15 @@
         </div>
       </div>
     </section>
+
+
+
+
+
+
     <div class="modal fade" id="modalEditColor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-md" role="document"; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-content">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>MODIFICAR COLOR</strong></h4>
               </div>
@@ -116,8 +125,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>          
+                  <button type="button" class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>          
               </div> 
             </form> 
           </div>
@@ -134,7 +143,7 @@
 
 <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document";>
-    <div class="modal-content" style="border-radius: 25px;">
+    <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>

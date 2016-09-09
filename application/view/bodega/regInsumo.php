@@ -18,7 +18,7 @@
               <div class="col-md-11 off-set-1">
                 <div class="form-group">
                   <label class="control-label" length="80px">*Stock mínimo:</label>
-                  <input type="number" class="form-control" min="0" required="" name="stock">
+                  <input type="number" class="form-control" min="0" required="" name="stock" autofocus="">
                 </div>
               </div>  
             </div> 
