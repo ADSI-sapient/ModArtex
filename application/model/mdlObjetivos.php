@@ -103,6 +103,39 @@
 	        }
 	    }
 
+	     public function EliminarRegistro(){
+	    $sql = "CALL SP_EliminarObjetivos(?)";
+
+	        try{
+	          $query = $this->db->prepare($sql);
+	          $query->bindParam(1, $this->Id_Objetivo);   
+	          return $query->execute();
+
+	        }catch(PDOException $e){
+	        	
+	        }
+	    }
+
+	      public function modificarObjetivo(){
+	        $sql = "CALL SP_ModifivarObjetivo(?, ?, ?, ?, ?, ?)";
+	      
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->bindParam(1, $this->Nombre);
+	        	$query->bindParam(2, $this->FechaRegistro);
+	        	$query->bindParam(3, $this->FechaInicio);
+	        	$query->bindParam(4, $this->FechaFin);
+	        	$query->bindParam(5, $this->CantidadTotal);
+	        	$query->bindParam(6, $this->Id_Objetivo);	        	    
+	        	return $query->execute();
+
+	        } catch (PDOException $e) {
+	        	
+	        }
+      	}
+
+
+
 
 	}
 ?>

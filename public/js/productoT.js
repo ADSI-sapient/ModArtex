@@ -144,10 +144,12 @@ $(function(){
 
      function ModificarObj(Id_Objetivo, Fecha_Registro, Fecha_Inicio, Nombre, Fecha_Fin, objetivos){
           var campos = $(objetivos).parent().parent();
+           $("#Id_Objetivo").val(campos.find("td").eq(0).text());
           $("#Fecha_Registro").val(campos.find("td").eq(1).text());
           $("#Fecha_Inicio").val(campos.find("td").eq(3).text());
           $("#Nombre").val(campos.find("td").eq(2).text());
-          $("#Fecha_Fin").val(campos.find("td").eq(4).text());    
+          $("#Fecha_Fin").val(campos.find("td").eq(4).text());   
+          $("#Id_Estado").val(campos.find("td").eq(7).text()); 
            $("FichasOM").empty();
            // $("#nombre_rol").val(Nombre);
 
@@ -161,7 +163,7 @@ $(function(){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               Codigo=data[i]["Codigo"];
-              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td><input type="text" name="Cantidad[]" id="Cantidad" value='+data[i]["Cantidad"]+'></input></td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
               $("#FichasOM").append(fila);
                           } 
             }, 
@@ -170,5 +172,71 @@ $(function(){
         });
   
     }
+
+
+
+       function listarON(Id_Objetivo, objetivos){
+          var campos = $(objetivos).parent().parent();
+          // $("#idRol").val(campos.find("td").eq(0).text());
+          // $("#nombre_rol").val(campos.find("td").eq(1).text());
+           $("FichasON").empty();
+           // $("#nombre_rol").val(Nombre);
+
+    $.ajax({
+
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrObjetivos/listarF",
+            data: {objetivo: Id_Objetivo },
+            success: function(data){
+               // $("#Nombre").val(campos.find("td").eq(1).text());
+            for (var i = 0; i < data.length; i++) {
+              Codigo=data[i]["Codigo"];
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
+              $("#FichasON").append(fila);
+                          } 
+            }, 
+            error: function(){
+            }
+        });
+  
+    }
+
+
+
+function asociarFichasNuevas(Id_Ficha_Tecnica, Referencia, fichas){
+  var campos = $(fichas).parent().parent();
+  CantidadN= $("#CantidadN"+Referencia).val();
+   
+  $("#ModificarObj").removeAttr("hidden");
+  var tr = "<tr class='box box-solid'><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='text' subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); class='cantTotalN' value=0 name=CantidadN[] id='cantTotalN'"+Id_Ficha_Tecnica+" onkeyup='TotalFCN()'></td><input type='hidden' name='subtotal' id=subtotal"+Id_Ficha_Tecnica+"><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td></tr>";
+  
+  $("#tablaFiOM").append(tr);
+    // boton = "#btn"+idbton;
+    // $(boton).attr('disabled', 'disabled');
+
+  }
+
+
+
+$("#tablaFiOM tbody tr").each(function(){  $("#cantTotalN"+Id_Ficha_Tecnica).on("keyup", function(){
+            $("#TotalTN"+Id_Ficha_Tecnica).val("#cantTotalN"+Id_Ficha_Tecnica).val();
+  });
+});
+
+function TotalFCN(){
+  var totalN=0;
+  $(".cantTotalN").each(function(){
+  totalN=totalN+parseFloat($(this).val());
+  });
+  $("#TotalTN").val(totalN);
+}
+
+
+  function validarC(){
+    
+  }
+
+
 
 

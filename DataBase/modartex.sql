@@ -3,7 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-09-2016 a las 17:18:15
+
+-- Tiempo de generación: 09-09-2016 a las 17:42:30
+
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -27,7 +29,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11)
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarF` ()  NO SQL
-SELECT Referencia, Id_Ficha_Tecnica FROM tbl_fichas_tecnicas$$
+SELECT Referencia, Id_Ficha_Tecnica, Cantidad FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
@@ -124,6 +126,9 @@ DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = _id_solicitudes
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EliminarObjetivos` (IN `idobjetivo` INT)  NO SQL
+DELETE FROM tbl_productos_objetivos WHERE Id_Objetivo= idobjetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_InsumosAsoFicha` (IN `_id_fichat` INT)  NO SQL
 SELECT ift.Id_Existencias_InsCol Id_Insumo, c.Codigo_Color, i.Nombre, um.Abreviatura, ift.Cant_Necesaria, ift.Valor_Insumo, ci.Valor_Promedio, ci.Cantidad_Insumo FROM tbl_insumos_fichastecnicas ift JOIN tbl_colores_insumos ci ON ift.Id_Existencias_InsCol=ci.Id_Existencias_InsCol JOIN tbl_insumos i ON 
 ci.Id_Insumo=i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida=um.Id_Medida JOIN tbl_colores c ON c.Id_Color = ci.Id_Color WHERE ift.Id_Ficha_Tecnica = _id_fichat$$
@@ -156,7 +161,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT  Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarObjetivos` ()  NO SQL
-SELECT * from tbl_objetivos$$
+SELECT o.Id_Objetivo, o.Nombre, o.FechaRegistro, o.FechaInicio, o.FechaFin, o.CantidadTotal,  e.Id_Estado, e.Nombre_Estado from tbl_objetivos o JOIN tbl_estado e ON e.Id_Estado= o.Id_Estado$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarPermisos` (IN `_Id_Rol` INT(11))  NO SQL
 SELECT rp.Id_Permiso, m.Nombre NombreMod, p.Nombre FROM tbl_rol_permisos rp JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso JOIN tbl_modulos m ON p.id_Modulo = m.id_Modulo WHERE rp.Id_Rol = _Id_Rol$$
@@ -206,6 +211,9 @@ DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarUsuario` (IN `_usuario` VARCHAR(15), IN `_id_rol` INT, IN `_documento` VARCHAR(20))  NO SQL
 UPDATE tbl_usuarios SET Usuario = _usuario, Tbl_Roles_Id_Rol = _id_rol WHERE Num_Documento = _documento$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModifivarObjetivo` (IN `Nombre` VARCHAR(45), IN `FechaRegistro` DATE, IN `FechaInicio` DATE, IN `FechaFin` DATE, IN `CantidadTotal` INT, IN `idObjetivo` INT)  NO SQL
+UPDATE tbl_objetivos SET  Nombre= Nombre , FechaRegistro= FechaRegistro, FechaInicio= FechaInicio, FechaFin= FechaFin, CantidadTotal= CantidadTotal  WHERE  Id_Objetivo = idObjetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) Id FROM tbl_insumos$$
 
@@ -233,8 +241,8 @@ INSERT INTO tbl_solicitudes_producto VALUES (NULL, _id_solicitudes_tipo, _cant_e
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarMedidas` (IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarObjetivos` (IN `Nombre` VARCHAR(45), IN `FechaR` DATE, IN `FechaI` DATE, IN `FechaF` DATE, IN `Estado` INT(11))  NO SQL
-INSERT into tbl_objetivos (Nombre, FechaRegistro, FechaInicio, FechaFin, Id_Estado) VALUES (Nombre, FechaR, FechaI, FechaF, Estado)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarObjetivos` (IN `Nombre` VARCHAR(45), IN `FechaR` DATE, IN `FechaI` DATE, IN `FechaF` DATE, IN `Estado` INT(11), IN `_Total` INT)  NO SQL
+INSERT into tbl_objetivos (Nombre, FechaRegistro, FechaInicio, FechaFin, Id_Estado, CantidadTotal) VALUES (Nombre, FechaR, FechaI, FechaF, Estado, _Total)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarPedido` (IN `_id_cliente` INT, IN `_id_estado` INT, IN `_fecha_registro` DATE, IN `_vlr_total` DOUBLE)  NO SQL
 INSERT INTO tbl_solicitudes VALUES (NULL, _id_cliente, _id_estado, _fecha_registro, _vlr_total)$$
@@ -549,7 +557,8 @@ CREATE TABLE `tbl_objetivos` (
   `FechaRegistro` date NOT NULL,
   `FechaInicio` date NOT NULL,
   `FechaFin` date NOT NULL,
-  `Id_Estado` int(11) NOT NULL
+  `Id_Estado` int(11) NOT NULL,
+  `CantidadTotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -637,6 +646,7 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 ('1152694464', 1, 'C.C', 'Juan', 'David', 1, '', '', 'j@h.com'),
 ('123', 2, 'CC', 'Johan', 'Arteaga', 1, '3116440736', 'call71c #30-215 INT 127', 'jaac219@hotmail.com');
 
+
 -- --------------------------------------------------------
 
 --
@@ -649,6 +659,7 @@ CREATE TABLE `tbl_productos_objetivos` (
   `Cantidad` int(11) NOT NULL,
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -667,7 +678,7 @@ CREATE TABLE `tbl_roles` (
 --
 
 INSERT INTO `tbl_roles` (`Id_Rol`, `Nombre`, `Estado`) VALUES
-(1, 'Administrador', 0),
+(1, 'Administrador', 1),
 (2, 'Supervisor', 0),
 (3, 'Juan ', 1),
 (4, 'gjhk', 1),
@@ -931,8 +942,8 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
-(1, '1017223026', 1, 'Manu', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(2, '1152694464', 10, 'jhuhandha', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+(1, '1017223026', 1, 'Manu', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+
 
 --
 -- Índices para tablas volcadas
@@ -1215,7 +1226,7 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
@@ -1230,8 +1241,9 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos_objetivos`
 --
 ALTER TABLE `tbl_productos_objetivos`
+
   MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
---
+
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`

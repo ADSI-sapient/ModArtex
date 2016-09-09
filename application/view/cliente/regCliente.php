@@ -35,6 +35,7 @@
             <div class="form-group col-lg-3">
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
+
                 <option value="CC">CC</option>
                 <option value="CW">CE</option>
                 <option value="NIT">NIT</option>
@@ -42,6 +43,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
+
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">

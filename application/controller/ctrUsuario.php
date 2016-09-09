@@ -40,7 +40,7 @@ class CtrUsuario extends Controller{
 					       
 					        //Registrar usuario
 							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
-								$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!'});"; 
+								$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
 							}else{
 								$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
 							}
