@@ -10,7 +10,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -86,14 +85,11 @@ SELECT s.Id_Solicitud, s.Num_Documento, p.Nombre FROM tbl_solicitudes s JOIN tbl
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidosProduccion` ()  NO SQL
 SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE st.Id_Tipo = 2 and s.Id_Estado = 5$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
-SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto, f.Cantidad FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosOrden` (IN `_numOrd` INT)  NO SQL
 SELECT sp.Id_Ficha_Tecnica, ft.Referencia, c.Codigo_Color, c.Nombre Nombre_Color, sp.Cantidad_Producir, sop.Cantidad_Fabrica, sop.Id_Estado, e.Nombre_Estado, sop.Cantidad_Satelite, sop.Id_Solicitud_Producto, sop.Lugar_Produccion FROM tbl_solicitudes_ordenesproduccion sop JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_fichas_tecnicas ft ON sp.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_colores c ON ft.Id_Color=c.Id_Color JOIN tbl_estado e ON sop.Id_Estado=e.Id_Estado WHERE sop.Num_Orden = _numOrd$$
 
--- CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
--- SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
+SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsTallasAsoFicha` (IN `_id_fichat` INT)  NO SQL
 SELECT t.Id_Talla, t.Nombre FROM tbl_fichastecnicas_tallas df JOIN tbl_tallas t ON df.Id_Talla = t.Id_Talla WHERE df.Id_Ficha_Tecnica = _id_fichat$$
@@ -513,8 +509,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
-
-
 -- --------------------------------------------------------
 
 --
@@ -641,9 +635,7 @@ INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre
 ('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 1, '', '', 'amurrego6@gmail.com'),
 ('1037590137', 2, 'CC', 'Juann', 'Morales', 1, '2304356', 'calle 57', 'jpmorales73@misena.edu.co'),
 ('1152694464', 1, 'C.C', 'Juan', 'David', 1, '', '', 'j@h.com'),
-('123', 2, 'CC', 'Johan', 'Arteaga', 1, '3116440736', 'call71c #30-215 INT 127', 'jaac219@hotmail.com'),
-('15484', 2, 'CC', 'Juan', 'Morales', 1, '548155', 'Cl14 - 55 - B Sur45', 'jkasdfj@jad.com'),
-('6978745212', 2, 'CC', 'Juan', 'Pablo', 0, '45454212', 'ffd', 'ki@ho.com');
+('123', 2, 'CC', 'Johan', 'Arteaga', 1, '3116440736', 'call71c #30-215 INT 127', 'jaac219@hotmail.com');
 
 -- --------------------------------------------------------
 
@@ -723,10 +715,7 @@ INSERT INTO `tbl_rol_permisos` (`Id_Rol_Permisos`, `Id_Rol`, `Id_Permiso`) VALUE
 (18, 1, 18),
 (19, 1, 19),
 (23, 1, 20),
-(24, 1, 21),
-(25, 2, 1),
-(26, 2, 2),
-(27, 6, 4);
+(24, 1, 21);
 
 -- --------------------------------------------------------
 
@@ -805,7 +794,6 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
   `Cantidad_Fabrica` int(11) NOT NULL,
   `Cantidad_Satelite` int(11) NOT NULL,
   `Lugar_Produccion` varchar(30) NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

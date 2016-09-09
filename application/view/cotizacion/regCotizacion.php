@@ -20,7 +20,7 @@
                 <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" value="<?php echo date ("Y-m-d"); ?>" name="fecha_R" readonly="" style="border-radius:5px;">
+                <input type="text" class="form-control pull-right" value="<?php echo date ("Y-m-d"); ?>" name="fecha_R" id="fecha_R" readonly="" style="border-radius:5px;">
               </div>
             </div>
           </div>

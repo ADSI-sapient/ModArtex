@@ -87,7 +87,7 @@
         <div class="row col-lg-12">
           <div class="form-group col-lg-3">
             <label>Total:</label>
-            <button name="Total" id="Total" class="form-control" readonly= "" value="0"></button>
+            <input type="text" name="CantidadTotal" id="TotalT" class="form-control" value="0" >
           </div>
         </div>
         <br>
@@ -121,7 +121,7 @@
                     <tr class="active">
                       <th>Id</th>
                       <th>Referencia</th>
-                      <th>Cantidad</th>
+                      <th>Cantidad actual</th>
                       <th>Seleccionar</th>
                       <th style="display: none"></th>
                     </tr>
@@ -133,7 +133,7 @@
                     <tr >
                       <td><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
-                    <td><input type="text"  name="CantidadO" id="CantidadO<?= $ficha["Referencia"]?>" class="form-control" value=""></td>
+                      <td><?= $ficha["Cantidad"]?></td>
                       <td>
                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this)"><i class="fa fa-plus"></i></button>
                       </td>

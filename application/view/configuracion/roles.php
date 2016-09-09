@@ -5,8 +5,6 @@
       <li class="active">Roles</li>
     </ol>
 </section>
-<section class="content">
-  <div class="row">
   <section class="content">
     <div class="row col-md-12">
     <!--Registrar Rol-->

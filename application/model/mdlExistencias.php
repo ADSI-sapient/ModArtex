@@ -19,6 +19,7 @@
 		private $_descripcion;
 		private $_idSal;
 
+
 		function __construct($db){
 			$this->_db = $db;
 		}
@@ -41,7 +42,7 @@
 		public function regEntrada(){
 			$sql = "CALL SP_RegEntrada(?, ?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_fechaReg);
+			$stm->bindParam(1, $this->_fecha);
 			$stm->bindParam(2, $this->_valorEnt);
 			$stm->execute();
 
