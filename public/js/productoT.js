@@ -212,8 +212,8 @@ function asociarFichasNuevas(Id_Ficha_Tecnica, Referencia, fichas){
   }
 
 
-$("#tablaFiOM tbody tr").each(function(){
-  $("#cantTotalN"+Id_Ficha_Tecnica).on("keyup", function(){
+
+$("#tablaFiOM tbody tr").each(function(){  $("#cantTotalN"+Id_Ficha_Tecnica).on("keyup", function(){
             $("#TotalTN"+Id_Ficha_Tecnica).val("#cantTotalN"+Id_Ficha_Tecnica).val();
   });
 });
@@ -225,6 +225,11 @@ function TotalFCN(){
   });
   $("#TotalTN").val(totalN);
 }
+
+
+  function validarC(){
+    
+  }
 
 
 
