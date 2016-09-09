@@ -59,7 +59,7 @@
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 3)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                           <?php endif ?>
                         </td>
                       </tr>

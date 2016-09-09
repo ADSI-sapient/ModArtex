@@ -45,6 +45,7 @@
                     <th style="width: 7%">Editar</th>
                     <th>PDF</th>
                     <th>Pedido</th>
+                    <th>Detalle</th>
                   </tr>
                 </thead>
 
@@ -64,25 +65,26 @@
                     <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
 
                    <td>
-                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>")'><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>", "", 1)'><i class="fa fa-pencil-square-o fa-lg"></i></button>
                    </td>
 
                    <td><a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o fa-md" aria-hidden="true"></i></a> </td>
 
-                   <td><button type="button" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share fa-lg" style="color:#5A69F2;" aria-hidden="true"></i></button></td>
-                  
-                   <!-- <td class="text-center">
-                    
-                    <?php if ($cotizacion["Id_Estado"] == 1){ ?>
-                    
-                    <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion['Id_Solicitud'] ?>", 2)'><i class="fa fa-check"></i></a>
-                        
-                    <?php }else if($cotizacion["Id_Estado"] == 2){ ?>
+                   <td><button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share fa-lg" style="color:#5A69F2;" aria-hidden="true"></i></button></td>
 
-                    <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion["Id_Solicitud"] ?>", 1)'><i class="fa fa-minus-circle"></i></a>
-                        
-                    <?php } ?>
-                </td> -->
+                  <td>
+                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#Aso" onclick="fichasAsociad('<?= $cotizacion["Id_Solicitud"] ?>','',2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF" aria-hidden="true"></i></button>
+                  </td>
+
+                  
+    <!-- <td class="text-center">
+            <?php if ($cotizacion["Id_Estado"] == 1){ ?>
+            <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion['Id_Solicitud'] ?>", 2)'><i class="fa fa-check"></i></a>
+            <?php }else if($cotizacion["Id_Estado"] == 2){ ?>
+            <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion["Id_Solicitud"] ?>", 1)'><i class="fa fa-minus-circle"></i></a>
+            <?php } ?>
+        </td> -->
+
                 </tr>
 
                 <?php endforeach; ?> 
@@ -104,7 +106,6 @@
            width: 53% !important;
         }
  </style>
-
 <div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" id="dl">
         <div class="modal-content" style="border-radius: 10px;">
@@ -115,7 +116,7 @@
           </div>
 
           <div>
-              <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form">
+          <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form" onsubmit="return ValCot()">
                   
                   <!-- <div class="form-group col-sm-5"> -->
                     <!-- <label class="">Codigo</label> -->
@@ -203,7 +204,8 @@
              </div> 
          </div>           
       </div>           
-  </div>           
+  </div>
+
 
 
       <div class="modal fade" id="Productos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
@@ -331,7 +333,7 @@
       <div class="modal-body">
         
 
-           <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form">
+           <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
                   <div class="form-group col-sm-5">
                     <label class="">Codigo</label>
                     <input type="text" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
@@ -374,14 +376,47 @@
       <div class="modal-footer">
       <div class="row col-sm-push-8 col-sm-5">
        <br />
-        <button type="submit" class="btn btn-primary" name="gurdarPedi" onclick="enviarPedido('<?= $pedido["Id_Solicitud"] ?>')">Enviar Pedido</button>
+        <button type="submit" class="btn btn-primary" name="gurdarPedi">Enviar Pedido</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+ </div><!-- /.modal -->
 </section>
+
+ <div class="modal fade" id="Aso" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>Fichas Asociados</b></h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+              <div class="table">
+                <div class="form-group col-sm-12 table-responsive">
+                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="fichaAsociadas">
+                    <thead>
+                      <tr class="active">
+                        <th>Referencia</th>
+                        <th>Color</th>
+                        <th>Cantidad a Producir</th>
+                        <th>Valor Producto</th>
+                        <th>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 <style>
 input[type=number]::-webkit-outer-spin-button,

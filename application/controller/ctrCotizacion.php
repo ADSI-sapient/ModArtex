@@ -11,6 +11,7 @@
 			$clientes = $this->modelo->getCliente();
 			$fichas = $this->modelo->getFichas();         
 			$productos = $this->modelo->Ficha_habi();
+			
 
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
@@ -56,6 +57,7 @@
 
             $fichas = $this->modelo->getFichas();
             $clientes = $this->modelo->getCliente();
+
  
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
@@ -113,9 +115,11 @@
 				if ($this->modelo->converPedido()) {
 				$_SESSION['alert'] = "swal('Cotizacion Enviada Para Pedido','','success')";
                 header ("location: ".URL."ctrCotizacion/consCotizacion");
+
 				}
 			}
 		}
+
 
 		public function fichaAsociada(){
 			$this->modelo->__SET("Id_Solicitud", $_POST["idCot"]);

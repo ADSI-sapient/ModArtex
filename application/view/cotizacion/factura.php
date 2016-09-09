@@ -193,7 +193,7 @@ $html = '<!DOCTYPE html>
             left:15%;
         }
         .marca-agua{
-            background-image: url(' . RAIZ . DS . 'public' . DS .'img\Modartex.jpg);
+            background-image: url(' . RAIZ . DS . 'public' . DS .'img\modar.png);
             position:absolute;
             width:100%;
             height:100%;
@@ -202,19 +202,14 @@ $html = '<!DOCTYPE html>
             background-position-x: 20%;
             background-position-y: 35%;
         }
-        #wrapper{
-            z-index: 10;
-        }
 
     </style>
 </head>
 <body>
 <!-- <div class="marca-agua"></div> -->
 <div id="wrapper"> 
-    <img src="' . RAIZ . DS . 'public' . DS .'img\Modartex.jpg" id="img-reporte"/>
-    <h1 class="titu">
-        Cotización
-    </h1>
+    <img src="' . RAIZ . DS . 'public' . DS .'img\modar.png" id="img-reporte"/>
+    <h1 class="titu">Cotización</h1>
     <br />
     <table style="width:100%;">
         <tr>
@@ -241,7 +236,8 @@ $html = '<!DOCTYPE html>
         <div id="invoice_body">
             <table class="table">    
             <tr style="background:#eee;">
-                <td style="width:15%;"><b>Producto</b></td>
+                <td style="width:15%;"><b>Referencia</b></td>
+                <td style="width:15%;"><b>Color</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
                 <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Subtotal</b></td>
@@ -251,6 +247,7 @@ $html = '<!DOCTYPE html>
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Nombre"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Cantidad_Producir"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>
@@ -259,7 +256,7 @@ $html = '<!DOCTYPE html>
             endforeach; 
             $html .='
             <tr>
-                <td style="background:#eee;" colspan="2"><b>Total</b></td>
+                <td style="background:#eee;" colspan="3"><b>Total</b></td>
                 <td style="width:15%; " class="mono" colspan="2">$'.$factura[0]["Valor_Total"].'</td>
             </tr>
             </table>
@@ -270,40 +267,6 @@ $html = '<!DOCTYPE html>
 </body>
 </html>';
          
-    //     <table style="width:100%; height:35mm;">
-    //         <tr>
-    //             <td style="width:65%;" valign="top">
-    //                 Payment Information :<br />
-    //                 Please make cheque payments payable to : <br />
-    //                 <b>ABC Corp</b>
-    //                 <br /><br />
-    //                 The Invoice is payable within 7 days of issue.<br /><br />
-    //             </td>
-    //             <td>
-    //             <div id="box">
-    //                 E &amp; O.E.<br />
-    //                 For ABC Corp<br /><br /><br /><br />
-    //                 Authorised Signatory
-    //             </div>
-    //             </td>
-    //         </tr>
-    //     </table>
-    // </div>
-     
-    // <br />
-     
-    // </div>
-     
-   // <htmlpagefooter name="footer">
-   //      <hr />
-   //      <div id="footer"> 
-   //          <table>
-   //              <tr><td>Software Solutions</td><td>Mobile Solutions</td><td>Web Solutions</td></tr>
-   //          </table>
-   //      </div>
-   //  </htmlpagefooter>
-   //  <sethtmlpagefooter name="footer" value="on" /> 
-     
 
 
 // reference the Dompdf namespace
@@ -321,26 +284,4 @@ $dompdf->render();
 
 // Output the generated PDF to Browser
 $dompdf->stream("Informe De La Cotizacion ".$factura[0]["Id_Solicitud"] , ["Attachment"=>0]);
-
-//Imagen de PDF
-
-// require_once('imageworkshop.php');
- 
-// $norwayLayer = new ImageWorkshop(array(
-//     "imageFromPath" => "",
-// ));
-//  $rutaImagen = RAIZ . '/public/img/android.jpg';
-// $watermarkLayer = new ImageWorkshop(array(
-//     "imageFromPath" => $rutaImagen,
-// ));
-
-// $watermarkLayer->opacity(40);
-
-// $norwayLayer->addLayer(1, $watermarkLayer, 12, 12, "LB");
- 
-// $image = $norwayLayer->getResult();
-// header('Content-type: image/jpeg');
- 
-// imagejpeg($image, null, 95); 
-
 ?>

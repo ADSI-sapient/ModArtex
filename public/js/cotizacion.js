@@ -125,31 +125,41 @@ function asoFicha(referen, color, vlrproducto, fichas, idboton){
 }
 
 
-function fichasAsociad(idCot){
+function fichasAsociad(idCot, fechaTerm, fichaAs){
   $.ajax({
   type: 'post',
   dataType: 'json',
   url: uri+"ctrCotizacion/fichaAsociada",
   data: {idCot: idCot}
   }).done(function(respuesta){
+
   if (respuesta != null) {
   $("#Asopedido > tbody tr").empty();
-  arrayProductos = respuesta;
-  for (var i = 0; i <= arrayProductos.length - 1; i++) {
-  idProducto = arrayProductos[i]['Referencia'];
-  idFichaTec = arrayProductos[i]['Id_Ficha_Tecnica'];
-  color = arrayProductos[i]['Codigo_Color'];
-  vlrProducto = arrayProductos[i]['Valor_Producto'];
-  cantProducir = arrayProductos[i]['Cantidad_Producir'];
-  subtotal = arrayProductos[i]['Subtotal'];
-  var tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+idFichaTec+"'></tr>";
+  $("#fichaAsociadas > tbody tr").empty();
 
-  $('#Asopedido').append(tr);
-  }
-  }
-  }).fail(function(){
-        alert("error");
-  })
+    arrayProductos = respuesta;
+    for (var i = 0; i <= arrayProductos.length - 1; i++) {
+    idProducto = arrayProductos[i]['Referencia'];
+    idFichaTec = arrayProductos[i]['Id_Ficha_Tecnica'];
+    color = arrayProductos[i]['Codigo_Color'];
+    vlrProducto = arrayProductos[i]['Valor_Producto'];
+    cantProducir = arrayProductos[i]['Cantidad_Producir'];
+    subtotal = arrayProductos[i]['Subtotal'];
+    var tr = "";
+
+    if (fichaAs == 1) {
+    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+idFichaTec+"'></tr>";
+    $('#Asopedido').append(tr);
+    }
+
+  else{
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+    $('#fichaAsociadas').append(tr);
+   }
+
+    }
+   }
+  }).fail(function(){})
 }
 
 function modifiProductos(btn, elemento, subtotal){
@@ -191,13 +201,14 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   }
   else
   {
-    
+
   var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idft+"></tr>";
   $("#Asopedido").append(tr);
   boton = "#botn"+referencia;
   $(boton).attr('disabled', 'disabled');
   }
 }  
+
 
   $("#clienteReg").select2({
   placeholder: 'Seleccionar'
@@ -208,10 +219,11 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   });
 }); 
 
-function ValCoti(){
-  var fecha_Venci = $("#fecha_V").val();
-  var fecha_Regi = $("#fecha_R").val();
 
+function ValCoti(){
+  var fecha_Venci = $("#fecha1").val();
+  var fecha_Regi = $("#fecha_R").val();
+  
   if(fecha_Venci === fecha_Regi ){
     Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
     return false;
@@ -222,3 +234,35 @@ function ValCoti(){
     return false;
   }
 }  
+
+  function ValCot(){
+    var Mfecha_regi = $("#Fecha_Registro").val();
+    var Mfecha_venci = $("#FechaVencimiento").val();
+    var btn_Pedi = $("#convertiPedido");
+
+    if(Mfecha_venci === Mfecha_regi ){
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    return false;
+  }
+
+   if (Mfecha_venci <= Mfecha_regi) {
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+      $(btn_Pedi).attr('disabled',false);
+    return false;
+  }
+}
+
+function ValCotPedi(){
+  var Pfecha_entrega = $("#Fechaentre").val();
+  var Pfecha_registro = $("#Fecha_Registr").val();
+
+  if(Pfecha_entrega === Pfecha_registro ){
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    return false;
+  }
+
+   if (Pfecha_entrega <= Pfecha_registro){
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    return false;
+  }
+}

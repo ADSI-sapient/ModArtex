@@ -173,7 +173,7 @@
 		}
 
 		public function facturaVenta(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre  FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
