@@ -64,15 +64,6 @@
     </div> 
   </section>
 
-
-
-
-
-
-
-
-
-
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width: 60%;">
     <div class="modal-content" style="border-radius: 20px;">
