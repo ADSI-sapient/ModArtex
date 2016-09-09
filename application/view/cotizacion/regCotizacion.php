@@ -31,9 +31,10 @@
                 <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="">
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv">
               </div>
             </div>
+            <div id="regCotizv"></div>
           </div>
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado:</label>
@@ -43,13 +44,19 @@
         <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label for="cliente" class="">*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="">
+              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
+            <div id="regCotizCl"></div>
             </div>
+        </div>
+        <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="form-group col-lg-3">
+            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+          </div>
         </div>
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table" data-parsley-required="">
@@ -70,11 +77,6 @@
                 </table>
               </div>
             </div>
-        </div>
-        <div class="row col-lg-12" style="margin-left:0.5%">
-          <div class="form-group col-lg-3">
-            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
-          </div>
         </div>
         <div class="row col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">

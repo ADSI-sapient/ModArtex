@@ -15,7 +15,7 @@
         <form class="form-horizontal">
           <div class="col-md-12">
               <div class="table table-responsive">
-                <table class="table table-hover" id="tblCotizaciones">
+                <table class="table table-hover cell-border" id="tblCotizaciones">
                   <thead>
                     <tr class="info">
                       <th style="width: 10px">#</th>
@@ -35,7 +35,7 @@
                   <tr>
                     <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>         
                     <td class="Fecha_Registro"><?= $cotizacion["Fecha_Registro"] ?></td>
-                    <td class="Num_Documento"><?= $cotizacion["Nombre"] ?></td>
+                    <td class=""><?= $cotizacion["Nombre"] ?></td>
                     <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Vencimiento"] ?></td>
                     <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>

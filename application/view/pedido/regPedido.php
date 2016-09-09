@@ -12,7 +12,7 @@
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
         <div class="box-body">
-        <form data-parsley-validate="" action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido">
+        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12" style="margin-left:0.5%">
@@ -23,7 +23,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
@@ -34,9 +34,10 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega"  style="border-radius:5px;" data-parsley-required="">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;" data-parsley-required="" data-parsley-errors-container="#regPedidov">
                 </div>
               </div>
+              <div id="regPedidov"></div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label for="estado" class="">Estado:</label>
@@ -45,19 +46,25 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <label for="id_cliente" class="" >*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="">
+              <label for="id_cliente" class="">*Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="" data-parsley-errors-container="#regPedidoCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
+              <div id="regPedidoCl"></div>
               </div>
             </div>
-          <div hidden="" class="form-group" id="agregarFicha">
+            <div class="row col-lg-12" style="margin-left:0.5%">
+              <div class="form-group col-lg-3">
+                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+              </div>
+            </div>
+          <div class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -73,15 +80,13 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td id="tblFichasVacia" colspan="8" style="text-align:center;"></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            </div>
-            <div class="row col-lg-12" style="margin-left:0.5%">
-              <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
-              </div>
             </div>
             <div class="row col-lg-12" style="margin-left:0.5%">
        			  <div class="form-group col-lg-offset-9 col-lg-3">
@@ -91,9 +96,8 @@
                 </div>
               </div>
             </div>
-          <br>
-          <div class="row">
-            <div class="form-group col-lg-12" style="margin-left:14px">
+            <div class="row">
+              <div class="form-group col-lg-12" style="margin-left:14px">
                 <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegPedido" ><b>Registrar</b></button>
                 <button type="reset" onclick="limpiarFormRegPedido()" class="btn btn-danger"  style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</b></button>
               </div>

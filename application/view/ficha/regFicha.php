@@ -39,22 +39,24 @@
             <div class="form-group col-lg-3">
               <label for="colorFicha">*Color:</label>
               <div class="input-group" >
-              <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="">
-                <option value="" selected=""></option>
-                <?php foreach ($colores as $color): ?>
-                  <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
-                <?php endforeach; ?>
-              </select>
-              <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
+                <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="" data-parsley-errors-container="#coloresRegf">
+                  <option value="" selected=""></option>
+                  <?php foreach ($colores as $color): ?>
+                    <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                  <?php endforeach; ?>
+                </select>
+                <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
               </div>
+              <div id="coloresRegf"></div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label for="selectTallas">*Tallas:</label>
-              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%">
-                <option value="1" selected="">L</option>
+              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#tallasRegf">
+                <option value="1">L</option>
                 <option value="2">M</option>
                 <option value="3">S</option>
               </select>
+              <div id="tallasRegf"></div>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
@@ -63,10 +65,10 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum" style="padding:6px 12px !important;"><b>Asociar Insumos</b></button>
+              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum"><b>Asociar Insumos</b></button>
             </div>
           </div>
-          <div hidden="" class="form-group" id="agregarInsumo">
+          <div class="form-group" id="agregarInsumo">
             <div class="table">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaInsumos">
@@ -75,7 +77,7 @@
                       <th>Id Insumo</th>
                       <th>Nombre</th>
                       <th>Color</th>
-                      <th>Unidad Medida</th>
+                      <th>Unidad de Medida</th>
                       <th>Valor</th>
                       <th>Cantidad Necesaria</th>
                       <th>Valor Insumo</th>
@@ -83,6 +85,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <tr>
+                    <td id="tblInsumosVacia" colspan="8" style="text-align:center;"></td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -127,7 +132,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="insRegFT">
                   <thead>
                     <tr class="active">
                       <th>Id Insumo</th>

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-09-2016 a las 19:00:25
+-- Tiempo de generación: 09-09-2016 a las 07:02:43
 -- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Versión de PHP: 5.5.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -445,13 +445,6 @@ CREATE TABLE `tbl_existencias_salidas` (
   `Cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_existencias_salidas`
---
-
-INSERT INTO `tbl_existencias_salidas` (`Codigo`, `Id_Salida`, `Id_Existencia`, `Cantidad`) VALUES
-(1, 1, 2, 1080);
-
 -- --------------------------------------------------------
 
 --
@@ -552,13 +545,6 @@ CREATE TABLE `tbl_objetivos` (
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_objetivos`
---
-
-INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`) VALUES
-(1, 'Fin se semana', '2016-09-08', '2016-09-06', '2016-09-21', 5);
-
 -- --------------------------------------------------------
 
 --
@@ -636,11 +622,11 @@ CREATE TABLE `tbl_persona` (
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`) VALUES
 ('1017223026', 1, 'C.C', 'Manuela', 'Urrego', 1, '', '', 'amurrego6@gmail.com'),
-('1037590137', 2, 'CC', 'Juann', 'Morales', 0, '2304356', 'Cl 34 S 45', 'jpmorales73@misena.edu.co'),
+('1037590137', 2, 'CC', 'Juann', 'Morales', 0, '2304356', 'calle 57 df', 'jpmorales73@misena.edu.co'),
 ('1152694464', 1, 'C.C', 'Juan', 'David', 1, '', '', 'j@h.com'),
 ('123', 2, 'CC', 'Johan', 'Arteaga', 1, '3116440736', 'call71c #30-215 INT 127', 'jaac219@hotmail.com'),
 ('15484', 2, 'CC', 'Juan', 'Morales', 1, '548155', 'Cl14 - 55 - B Sur45', 'jkasdfj@jad.com'),
-('6978745212', 2, 'CC', 'Juan', 'Pablo', 1, '45454212', 'ffd', 'ki@ho.com');
+('6978745212', 2, 'CC', 'Juan', 'Pablo', 0, '45454212', 'ffd', 'ki@ho.com');
 
 -- --------------------------------------------------------
 
@@ -737,13 +723,6 @@ CREATE TABLE `tbl_salidas` (
   `Descripcion` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_salidas`
---
-
-INSERT INTO `tbl_salidas` (`Id_Salida`, `FechaSal`, `Descripcion`) VALUES
-(1, '2016-09-08', ' cfgdfgfdg');
-
 -- --------------------------------------------------------
 
 --
@@ -755,52 +734,6 @@ CREATE TABLE `tbl_salidas_productos` (
   `Descripcion` varchar(200) DEFAULT NULL,
   `Fecha_Salida` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_salidas_productos`
---
-
-INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`) VALUES
-(1, '                         Hola', '2016-08-29'),
-(2, '                         Holaaassss ', '2016-08-29'),
-(3, '                         Holas', '2016-08-29'),
-(4, 'Holaaa', '2016-08-29'),
-(5, '', '2016-08-29'),
-(6, 'Hola', '2016-08-30'),
-(7, '', '2016-08-30'),
-(8, 'Holaa', '2016-08-30'),
-(9, 'Holaaa', '2016-08-30'),
-(10, 'Juan Pablo', '2016-08-30'),
-(11, 'jgjgjh', '2016-08-30'),
-(12, '', '2016-08-30'),
-(13, '                         ', '2016-09-01'),
-(14, '                         ', '2016-09-01'),
-(15, '                         ', '2016-09-01'),
-(16, '', '2016-09-01'),
-(17, '', '2016-09-01'),
-(18, '', '2016-09-01'),
-(19, '', '2016-09-01'),
-(20, '', '2016-09-01'),
-(21, '', '2016-09-01'),
-(22, '', '2016-09-01'),
-(23, '', '2016-09-01'),
-(24, '', '2016-09-01'),
-(25, '', '2016-09-01'),
-(26, '', '2016-09-01'),
-(27, '', '2016-09-01'),
-(28, '', '2016-09-01'),
-(29, '', '2016-09-01'),
-(30, '', '2016-09-01'),
-(31, '                         ', '2016-09-02'),
-(32, '', '2016-09-02'),
-(33, '', '2016-09-02'),
-(34, '', '2016-09-02'),
-(35, '', '2016-09-02'),
-(36, '', '2016-09-02'),
-(37, '', '2016-09-02'),
-(38, '', '2016-09-02'),
-(39, '', '2016-09-02'),
-(40, '', '2016-09-03');
 
 -- --------------------------------------------------------
 
@@ -814,65 +747,6 @@ CREATE TABLE `tbl_salida_ficha` (
   `Id_Ficha_Tecnica` int(11) NOT NULL,
   `Cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_salida_ficha`
---
-
-INSERT INTO `tbl_salida_ficha` (`Codigo`, `Id_Salida`, `Id_Ficha_Tecnica`, `Cantidad`) VALUES
-(1, 1, 1, 2),
-(2, 3, 1, 1),
-(7, 12, 1, 23),
-(8, 12, 2, 23),
-(9, 13, 1, 35),
-(10, 14, 2, 19),
-(11, 15, 1, 2),
-(12, 16, 1, 120),
-(13, 16, 2, 120),
-(14, 17, 1, 22),
-(15, 17, 2, 22),
-(16, 18, 1, 1),
-(17, 20, 1, 1),
-(18, 20, 2, 1),
-(19, 21, 1, 1),
-(20, 21, 2, 1),
-(21, 22, 1, 34),
-(22, 22, 2, 34),
-(23, 23, 1, 700),
-(24, 23, 2, 700),
-(25, 24, 1, 2),
-(26, 24, 2, 2),
-(27, 25, 1, 3),
-(28, 25, 2, 3),
-(29, 26, 1, 2),
-(30, 26, 2, 2),
-(31, 27, 1, 3),
-(32, 27, 2, 3),
-(33, 28, 1, 2),
-(34, 28, 2, 2),
-(35, 29, 1, 1),
-(36, 29, 2, 1),
-(37, 30, 1, 0),
-(38, 30, 2, 0),
-(39, 31, 1, 1),
-(40, 32, 1, 1),
-(41, 32, 2, 1),
-(42, 33, 1, 1),
-(43, 33, 2, 1),
-(44, 34, 1, 1),
-(45, 34, 2, 1),
-(46, 35, 1, 0),
-(47, 35, 2, 0),
-(48, 36, 1, 1),
-(49, 36, 2, 1),
-(50, 37, 1, 1),
-(51, 37, 2, 1),
-(52, 38, 1, 2),
-(53, 38, 2, 2),
-(54, 39, 1, 1),
-(55, 39, 2, 1),
-(56, 40, 1, 3),
-(57, 40, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -1312,7 +1186,7 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --

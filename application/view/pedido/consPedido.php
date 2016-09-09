@@ -15,7 +15,7 @@
               <form class="form-horizontal">
                 <div class="col-md-12">
                 <div class="table-responsive">
-                  <table class="table table-responsive" id="tablaPedidos">
+                  <table class="table cell-border" id="tablaPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>

@@ -64,10 +64,9 @@
         var cliente = $("#id_cliente").val().trim();
 
         var res = true;
-        
           idfichas = 0;
           cantidadaproducir = 0;
-          $("#tablaFicha tbody tr").each(function(){
+          $("#tablaFicha tbody #trpedidos").each(function(){
             idfichas = $(this).find("td").eq(8).html();
             idbton = $(this).find("td").eq(8).html();
             cantidadaproducir = $("#cantProducir"+idbton).val();
@@ -78,22 +77,13 @@
             }
           });
 
-        // if (fecha_entrega === '') {
-        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha de entrega'});
-        //   return false;
-        // }
-        // if (cliente === '') {
-        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe seleccionar un cliente'});
-        //   return false;
-        // }
-      
-        // if ($("#tablaFicha >tbody >tr").length == 0)
-        // {
-        //   // swal({title: "0 Insumos Asociados", text: "Por favor asocie al menos un insumo a esta ficha.",   imageUrl: uri+"img/stop.png"});
-        //   Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe asociar al menos una ficha al pedido'});
-        //   //retornar false no permite que se envie el formulario
-        //   return false;
-        // }
+        //valida productos asociados al pedido
+        if ($("#tablaFicha tbody tr #tblFichasVacia").length)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto al pedido'});
+          return false;
+        }
+
         return res;
       }
 
@@ -140,18 +130,41 @@
       //calcula el valor total del pedido
       function valorTotalPedido(){
         var total = 0;
-        $("#tablaFicha tbody tr").each(function(){
+        $("#tablaFicha tbody #trpedidos").each(function(){
         var idbton = $(this).find("td").eq(8).html();
         total += parseFloat($("#capValor"+idbton).val());
         $("#vlr_total").val(total);
         });
       }
 
+      $(document).ready(function(){
+        $("#tblFichasVacia").html("No hay productos asociados.");
+      });
+
+      function quitarFicha(btn, elemento, subtotal){
+
+        $("#tablaFicha").each(function(){
+          if ($("#tablaFicha tbody #trpedidos").length < 2){
+            var tr = "<tr><td id='tblFichasVacia' colspan='8' style='text-align:center;'></td></tr>";
+            $("#tablaFicha").append(tr);
+            $("#tblFichasVacia").html("No hay productos asociados.");
+            }
+        });
+        
+        var e = $(elemento).parent().parent();
+        $(e).remove();
+        boton = "#btn"+btn;
+        $(boton).attr('disabled', false);
+        valortotal = $("#vlr_total").val();
+        desc = valortotal - subtotal;
+        $("#vlr_total").val(desc);
+      }
+
     //asocia productos al pedido
     function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad){
         var campos = $(fichas).parent().parent();
-        $("#agregarFicha").removeAttr("hidden");
-        var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='0'></td><td><input type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' value='0' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td>"    
+        $("#tablaFicha tbody tr #tblFichasVacia").remove();
+        var tr = "<tr id='trpedidos' class='box box-solid collapsed-box'><td>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='' data-parsley-required=''></td><td><input type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' value='0' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;'></td>"    
         +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='text' style='border-radius:5px;'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
@@ -166,7 +179,7 @@
 
         $(boton).attr('disabled', 'disabled');
 
-        $("#tablaFicha tbody tr").each(function(){
+        $("#tablaFicha tbody #trpedidos").each(function(){
           $("#cantProducir"+idbton).on("keyup", function(){
 
             //
@@ -223,9 +236,9 @@
               if (cantNecPedido > cantExistIns) {
                 //alert("No hay suficiente "+nombreIns+" de color "+nombreColor);
                 if (alerta == 1) {
-                  Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});
+                  Lobibox.notify('warning', {size: 'mini', msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});
                 }else if(alerta == 0){
-                  Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No hay'});
+                  Lobibox.notify('warning', {size: 'mini', msg: 'No hay'});
                 }
                 res = false;
               }
@@ -289,13 +302,13 @@
         var campos = $(pedidos).parent().parent();
         $("#id_pedido").val(campos.find("td").eq(0).text());
         $("#fecha_reg").val(campos.find("td").eq(1).text());
-        $("#fecha_entrega").val(campos.find("td").eq(2).text());
-        $("#valor_total").val(campos.find("td").eq(3).text());
+        $("#nombreCliente").val(campos.find("td").eq(2).text());
+        $("#fecha_entrega").val(campos.find("td").eq(3).text());
         $("#estado").val(campos.find("td").eq(4).text());
+        $("#valor_total").val(campos.find("td").eq(5).text());
         $("#doc_cliente").val(numDocumento).trigger("change");
         // $("#doc_cliente").select2('data');
         // console.log(data.text);
-        $("#nombreCliente").val(campos.find("td").eq(5).text());
         $("#modalEditPedido").show();
       }
 
