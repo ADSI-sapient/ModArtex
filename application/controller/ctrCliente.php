@@ -89,10 +89,6 @@ class CtrCliente extends Controller{
 		}else{
 		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Erros al modificar'});";
 		      }
-
-
-
-
 		      //header("location: ".URL."usuario/consUsuario")
 
 		    $clientes = $this->mdlModel->getCliente();

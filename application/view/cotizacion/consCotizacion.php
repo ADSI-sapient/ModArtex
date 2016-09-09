@@ -15,7 +15,7 @@
         <form class="form-horizontal">
           <div class="col-md-12">
               <div class="table table-responsive">
-                <table class="table table-hover" id="tblCotizaciones">
+                <table class="table table-hover cell-border" id="tblCotizaciones">
                   <thead>
                     <tr class="info">
                       <th style="width: 10px">#</th>
@@ -35,7 +35,7 @@
                   <tr>
                     <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>         
                     <td class="Fecha_Registro"><?= $cotizacion["Fecha_Registro"] ?></td>
-                    <td class="Num_Documento"><?= $cotizacion["Nombre"] ?></td>
+                    <td class=""><?= $cotizacion["Nombre"] ?></td>
                     <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Vencimiento"] ?></td>
                     <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>
@@ -86,7 +86,7 @@
 
 <div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" id="dl">
-        <div class="modal-content" style="border-radius: 10px;">
+        <div class="modal-content modal-lg" style="border-radius: 10px;">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -149,7 +149,6 @@
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
                 <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
-
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
@@ -174,8 +173,8 @@
 
           <div class="modal-footer" style="border-top:0px;">
            <div  class="col-sm-push-4 col-sm-8">
-            <button type="submit" class="btn btn-primary" name="btnModificar">Guardar modificacion</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+            <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
            </div>
         </div>
           </form> 
@@ -183,8 +182,6 @@
          </div>           
       </div>           
   </div>           
-
-
       <div class="modal fade" id="Productos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
@@ -195,7 +192,7 @@
             <div class="modal-body" style="padding:10px;">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive">
+                <table class="table table-responsive" id="tblfichascotiz">
                 <thead>
                   <tr class="active">
                     <th>Referencia</th>
@@ -354,8 +351,8 @@
       <div class="modal-footer">
       <div class="row col-sm-push-8 col-sm-5">
        <br />
-        <button type="submit" class="btn btn-primary" name="gurdarPedi" onclick="enviarPedido('<?= $pedido["Id_Solicitud"] ?>')">Enviar Pedido</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" name="gurdarPedi" onclick="enviarPedido('<?= $pedido["Id_Solicitud"] ?>')">Enviar a Pedido</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div><!-- /.modal-content -->

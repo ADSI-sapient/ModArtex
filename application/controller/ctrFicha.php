@@ -61,7 +61,7 @@
 
 					// $_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
 
-					$_SESSION["mensaje"] = 'swal("Ficha Registrada Exitosamente", "", "success");';
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha registrada exitosamente'});";
 				}else{
 
 					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', rounded: true, delay: 2500});";
@@ -111,14 +111,13 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-		    	$_SESSION["mensaje"] = 'swal("Ficha Modificada Exitosamente", "", "success");';
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha modificada exitosamente'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
-		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar la ficha', rounded: true, delay: 2500});";
+		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al modificar la ficha'});";
 		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
-	
 		    }
 
 		    $fichas = $this->mdlModel->getFichas();

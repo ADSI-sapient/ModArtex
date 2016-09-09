@@ -31,9 +31,10 @@
                 <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="">
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv">
               </div>
             </div>
+            <div id="regCotizv"></div>
           </div>
           <div class="form-group col-lg-4">
             <label for="estado" class="">Estado:</label>
@@ -43,13 +44,19 @@
         <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label for="cliente" class="">*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="">
+              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
+            <div id="regCotizCl"></div>
             </div>
+        </div>
+        <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="form-group col-lg-3">
+            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+          </div>
         </div>
         <div hidden="" class="form-group" id="agregarFicha">
             <div class="table" data-parsley-required="">
@@ -72,11 +79,6 @@
             </div>
         </div>
         <div class="row col-lg-12" style="margin-left:0.5%">
-          <div class="form-group col-lg-3">
-            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
-          </div>
-        </div>
-        <div class="row col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">
             <label for="vlr_total" class="">Valor Total:</label>
             <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
@@ -84,13 +86,13 @@
         </div>
         <div class="row">
             <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" onclick="" style="margin-top: 15px; padding:7px 24px !important;" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</button>
+              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" name="" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
         </div>
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>

@@ -78,7 +78,7 @@
       <!-- inicia el Modal que permite modificar-->  
       <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius:10px 10px 10px 10px;">
+          <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Modificar Usuario</h4>
@@ -88,7 +88,7 @@
                 <div class="row form-group col-sm-12" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="tipo_Documento" class="">Tipo de Documento:</label>
-                   <input type="text" name="Tipo_Documento" id="tipo_documento" disabled="" class="form-control">
+                   <input type="text" name="Tipo_Documento" id="tipo_documento" readonly="" class="form-control">
                   </div>
                   <div class="form-group col-sm-6">
                     <label for="documento" class="">Documento:</label>
@@ -129,7 +129,8 @@
                 <div class="modal-footer" style="border-top:0px;">
                 <div class="row form-group col-sm-12" style="margin-left:1px">
                   <button type="submit" class="btn btn-primary" name="btonModificar" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="cancelar()" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cancelar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal"
+                   style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
                   </div>
                 </div>
               </form>

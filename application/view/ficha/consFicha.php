@@ -10,7 +10,7 @@
     <section class="content">
       <!-- Inicio de listar -->
       <div class="box box-primary">
-        <div class="box-header with-border"  style="text-align: center;">
+        <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>LISTAR FICHAS TÉCNICAS</strong></h3>
         </div>
         <div id="users">
@@ -72,7 +72,9 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
-              <button type="button" class="close"><span aria-hidden="true" onclick="cerrarModalFicha()">&times;</span></button>
+              <!-- <button type="button" class="close"><span aria-hidden="true">&times;</span></button> -->
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Ficha Técnica</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
@@ -95,21 +97,6 @@
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <!-- <div class="form-group col-sm-4">
-                  <label for="color" class="">*Color:</label>
-                  <input class="form-control" type="text" name="color" id="color" style="border-radius:5px;">
-                </div> -->
-                <!-- <div class="form-group col-sm-1">
-                  <label for="color" class="">*Color:</label>
-                  <div class="">
-                    <div class="input-group my-colorpicker2 colorpicker-element">
-                      <input type="hidden" name="color" class="form-control" id="color" readonly="" value="#60c2e0" style="border-radius:5px;">
-                      <div class="input-group-addon" style="border-radius:5px; padding:16px;">
-                        <div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
                 <div class="form-group col-sm-3">
                   <label for="color" class="">*Color:</label>
                   <div class="row"></div>
@@ -119,8 +106,6 @@
                       <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                     <?php endforeach ?>
                   </select>
-                  <!-- <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span> -->
-                  <!-- </div> -->
                 </div>
                 <div class="form-group col-sm-offset-5 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
@@ -177,8 +162,8 @@
               </div>
               <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
                 <div class="form-group col-sm-12">
-                  <button type="submit" class="btn btn-primary" name="btn-modificar-ficha">Guardar cambios</button>
-                  <button type="button" class="btn btn-danger" onclick="cerrarModalFicha()">Cancelar</button>
+                  <button type="submit" class="btn btn-primary" name="btn-modificar-ficha"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+                  <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
                 </div>
               </form>
             </div>
@@ -197,7 +182,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover mdlConfig" style="margin-top: 2%;" id="insAsocFT">
                     <thead>
                       <tr class="active">
                         <th>Nombre</th>
@@ -245,7 +230,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tllAsociarRegPedido">
                     <thead>
                       <tr class="active">
                         <th>Id</th>
@@ -289,6 +274,7 @@
               <div class="table" style="margin-bottom:0px;">
                 <div class="form-group col-sm-4 table-responsive">
                   <table class="table table-hover" id="dtll-tallas-aso">
+                  <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Tallas</h4>
                     <thead>
                         <tr class="active">
                           <th>Id</th>
@@ -303,6 +289,7 @@
                 <div class="table">
                   <div class="form-group col-sm-8 table-responsive">
                     <table class="table table-hover" id="dtll-insumos-aso">
+                    <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Insumos</h4>
                       <thead>
                         <tr class="active">
                           <th>Nombre</th>

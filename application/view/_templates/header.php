@@ -30,7 +30,7 @@
  <div class="wrapper fixed">
   <header class="main-header">
     <a href="<?php echo URL ?>home/index" class="logo">
-      <span class="logo-mini"><b>M</b>A</span>
+      <span class="logo-mini"><i class="fa fa-scissors" aria-hidden="true"></i></span>
       <span style="text-align: left;" class="logo-lg"><i class="fa fa-scissors" aria-hidden="true"></i>&nbsp;&nbsp;
       <b> ModArtex</b></span>
     </a>

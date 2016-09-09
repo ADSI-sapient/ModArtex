@@ -67,47 +67,55 @@
 
        <div class="modal fade" id="myModalC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 25px;">
+          <div class="modal-content" style="border-radius:10px">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Modificar Cliente</h4>
             </div>
             
             <div class="modal-body">
-              <form role="form" id="myModalC" action="<?= URL ?>ctrCliente/edit" method="post">
-                <div class="box-body">
-                  <div class="form-group col-sm-5">
-                    <label for="tipo_Documento" class="">Tipo de documento</label>
-                    <input type="text" id="Tipo_Documento" disabled="" class="form-control">
+              <form role="form" id="myModalC" action="<?= URL ?>ctrCliente/edit" method="post" data-parsley-validate="">
+                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                    <div class="form-group col-sm-6">
+                      <label for="tipo_Documento" class="">Tipo de Documento:</label>
+                      <input type="text" id="Tipo_Documento" readonly="" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="documento" class="">Documento:</label>
+                      <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento" readonly="">
+                    </div>
                   </div>
-                  <div class="form-group col-sm-offset-1 col-sm-5">
-                    <label for="documento" class="">Documento</label>
-                    <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento" readonly="">
+                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                    <div class="form-group col-sm-6">
+                      <label for="nombre" class="">*Nombre:</label>
+                      <input type="text" class="form-control" id="Nombre" placeholder="" name="Nombre" data-parsley-required="">
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="apellido" class="">*Apellido</label>
+                      <input type="text" class="form-control" id="Apellido" placeholder="" name="Apellido" data-parsley-required="">
+                    </div>
                   </div>
-                  <div class="form-group col-sm-5">
-                    <label for="nombre" class="">Nombre</label>
-                    <input type="text" class="form-control" id="Nombre" placeholder="" name="Nombre">
-                  </div>
-                  <div class="form-group col-sm-offset-1 col-sm-5">
-                    <label for="apellido" class="">Apellido</label>
-                    <input type="text" class="form-control" id="Apellido" placeholder="" name="Apellido">
-                  </div>
-                  <div class="form-group  col-sm-5">
-                    <label for="telefono">Telefono </label>
-                    <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);">
-                  </div>
-                 <div class="form-group col-sm-offset-1 col-sm-5">
-                 <label for="direccion ">Direccion </label>
-                    <input type="text" class="form-control" id="Direccion" name="Direccion">
+                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                    <div class="form-group  col-sm-6">
+                      <label for="telefono">*Teléfono:</label>
+                      <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);" data-parsley-required="">
+                    </div>
+                   <div class="form-group col-sm-6">
+                   <label for="direccion ">*Dirección:</label>
+                      <input type="text" class="form-control" id="Direccion" name="Direccion" data-parsley-required="">
+                   </div>
                  </div>
-                  <div class="form-group col-sm-5">
-                    <label for="email" class="">Email</label>
-                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);">
+                 <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                  <div class="form-group col-sm-6">
+                    <label for="email" class="">*Email:</label>
+                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="">
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" name="btnModificar">Guardar</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <div class="modal-footer" style="border-top:0px;">
+                <div class="row form-group col-sm-12" style="margin-left:1px">
+                  <button type="submit" class="btn btn-primary" name="btnModificar" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
+                </div>
                 </div>
               </form>
             </div>
