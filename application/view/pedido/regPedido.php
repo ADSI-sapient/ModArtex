@@ -98,8 +98,8 @@
             </div>
             <div class="row">
               <div class="form-group col-lg-12" style="margin-left:14px">
-                <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegPedido" ><b>Registrar</b></button>
-                <button type="reset" onclick="limpiarFormRegPedido()" class="btn btn-danger"  style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</b></button>
+                <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegPedido" ><b>Registrar</b></button>
+                <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-danger">Limpiar</b></button>
               </div>
           </div>
         </form>
@@ -108,7 +108,7 @@
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
         <div class="modal-dialog">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Fichas Técnicas</b></h4>
@@ -116,7 +116,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tblFichasAsp">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>

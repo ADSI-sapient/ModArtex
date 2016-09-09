@@ -86,13 +86,13 @@
         </div>
         <div class="row">
             <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary  col-lg-offset-9" name="btnRegistrar" onclick="" style="margin-top: 15px; padding:7px 24px !important;" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</button>
+              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" name="" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
             </div>
         </div>
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>

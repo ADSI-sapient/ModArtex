@@ -101,14 +101,14 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" value="0" style="border-radius:5px;">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="">
                 <!-- </div> -->
               </div>
             </div>
 
             <div class="form-group col-lg-offset-6 col-lg-3">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true">
+              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
@@ -124,7 +124,7 @@
       <!-- Inicio Modal asociar insumos -->
       <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >
         <div class="modal-dialog">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Insumos Para Asociar</b></h4>

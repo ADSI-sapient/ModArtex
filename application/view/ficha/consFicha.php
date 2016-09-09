@@ -182,7 +182,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover mdlConfig" style="margin-top: 2%;" id="insAsocFT">
                     <thead>
                       <tr class="active">
                         <th>Nombre</th>
@@ -230,7 +230,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tllAsociarRegPedido">
                     <thead>
                       <tr class="active">
                         <th>Id</th>

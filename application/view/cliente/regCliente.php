@@ -61,8 +61,8 @@
           </div>
           <div class="row"> 
             <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegistrarC"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limpiar</button>
+              <button type="submit" class="btn btn-primary col-lg-offset-9" style="" name="btnRegistrarC"><b>Registrar</b></button>
+              <button type="reset" class="btn btn-danger" style="">Limpiar</button> 
             </div>
           </div>
           </form>

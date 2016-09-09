@@ -56,6 +56,29 @@
       });
     });
 
+    $('#tblFichasAsp').dataTable({
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay productos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
+      });
+
+$('#prodAsociarPedMod').dataTable({
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay productos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
+      });
+
+
     //valida que se asocie al menos una ficha al momento de registrar un pedido.
       function enviarFormPedido(){
 
@@ -379,6 +402,16 @@
                   $('#dtlle-pedido-prod').append(tr);
                 }
               }
+              $('#tbl-prod-aso-ped').dataTable({
+                "ordering": false,
+                "language": {
+                    "emptyTable": "No hay productos para listar.",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+                "paginate": {"previous": "","next": ""}
+                }
+              });
             }
         }).fail(function(){
 

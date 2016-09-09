@@ -120,15 +120,12 @@
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"
         +unidadMed+"</td><td><p>$ "+valorPromedio+"</p></td><td><input type='text' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
-        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' style='border-radius:5px;'>"
-        +unidadMed+"</td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
+        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
         +idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"
         +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
         $("#tablaInsumos").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
-
-      
       }
 
       //limpia los valores del formulario y reinicia los input acumuladores y total.
@@ -152,18 +149,59 @@
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
           return false;
         }
-
-        if (vlrproduccion >= vlrproducto) {
-          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
-          return false;
+        else{
+          return true;
         }
-
-        //Este retorno permite enviar el formulario
-        return true;
+        // if (vlrproduccion >= vlrproducto) {
+        //   Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
+        //   return false;
+        // }
+        
+        return false;
       }
 
       $('#insRegFT').dataTable({
-        
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay insumos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
+      });
+
+      $('#tablaInsumos').dataTable({
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay insumos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
+      });
+
+      $('#tllAsociarRegPedido').dataTable({
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay tallas para asociar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron tallas que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
+      });
+
+      $('#insAsocFT').dataTable({
+        "ordering": false,
+        "language": {
+            "emptyTable": "No hay productos para asociar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+        "paginate": {"previous": "","next": ""}
+        }
       });
 
       $(document).ready(function(){
@@ -254,6 +292,16 @@
                     $('#dtll-insumos-aso').append(tr);
                  }
               }
+              $('#tbl-insumos-aso').dataTable({
+                "ordering": false,
+                "language": {
+                    "emptyTable": "No hay insumos para listar.",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+                    "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+                "paginate": {"previous": "","next": ""}
+                }
+              });
             }
         }).fail(function(){})
     }
@@ -288,6 +336,17 @@
                   $('#dtll-tallas-aso').append(tr);
                 }
               }
+              // $('#tbl-tallas-aso').dataTable({
+              //   "ordering": false,
+              //   "language": {
+              //       "emptyTable": "No hay insumos para listar.",
+              //       "info": "Mostrando página _PAGE_ de _PAGES_",
+              //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+              //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+              //   "paginate": {"previous": "","next": ""}
+              //   }
+              // });
+
             }
         }).fail(function() {
 
@@ -362,8 +421,10 @@
             data: {referencia:ref, estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
+
+                Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'});
                 location.href = uri+"ctrFicha/consFicha";
-                Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado', rounded: true, delay: false});
+
             }else{
                 Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false});
                 location.href = uri+"ctrFicha/consFicha";

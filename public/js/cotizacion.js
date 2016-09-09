@@ -27,6 +27,48 @@ var options;
 $('#tblCotizaciones').dataTable({
   "ordering": false,
       "language": {
+          "emptyTable": "No hay productos para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
+});
+
+// $('#Asopedido').dataTable({
+//   "ordering": false,
+//       "language": {
+//           "emptyTable": "No hay productos para listar.",
+//           "info": "Mostrando página _PAGE_ de _PAGES_",
+//           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+//           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+//       "paginate": {
+//         "previous": "",
+//         "next": ""
+//        }
+//       }
+// });
+
+$('#tblfichascotiz').dataTable({
+  "ordering": false,
+      "language": {
+          "emptyTable": "No hay productos para asociar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
+}); 
+
+$('#tablaFicha').dataTable({
+  "ordering": false,
+      "language": {
           "emptyTable": "No hay cotizaciones para listar.",
           "info": "Mostrando página _PAGE_ de _PAGES_",
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
@@ -36,7 +78,9 @@ $('#tblCotizaciones').dataTable({
         "next": ""
        }
       }
-});   
+  }); 
+
+
 
 $(function(){
   $('#fecha1').datepicker({
@@ -158,6 +202,19 @@ function fichasAsociad(idCot){
 
   $('#Asopedido').append(tr);
   }
+    $('#Asopedido').dataTable({
+    "ordering": false,
+        "language": {
+            "emptyTable": "No hay productos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+        "paginate": {
+          "previous": "",
+          "next": ""
+         }
+        }
+    });
   }
   }).fail(function(){
         alert("error");
@@ -197,27 +254,48 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   producto = "#idProducto"+referencia;
   valor = $(producto).val();
   if (idProducNuevo == $(producto).val()) {
-
   boton = "#botn"+referencia;
-  $(boton).attr('disabled', 'disabled');
+    $(boton).attr('disabled', 'disabled');
   }
   else
   {
-
-  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idft+"></tr>";
-  $("#Asopedido").append(tr);
-  boton = "#botn"+referencia;
-  $(boton).attr('disabled', 'disabled');
+    var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idft+"></tr>";
+    $("#Asopedido").append(tr);
+    boton = "#botn"+referencia;
+    $(boton).attr('disabled', 'disabled');
   }
-}  
+
+  // $(boton).on("click", RefreshTable);
+
+  $('#Asopedido').dataTable({
+    "ordering": false,
+        "language": {
+            "emptyTable": "No hay productos para listar.",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+        "paginate": {
+          "previous": "",
+          "next": ""
+         }
+        }
+    });
+}
+
+
+
+   // function RefreshTable() {
+   //     $("#Asopedido").load('#Asopedido');
+   // }
+
 
   $("#clienteReg").select2({
-  placeholder: 'Seleccionar',
-  language: {
+    placeholder: 'Seleccionar',
+    language: {
           noResults: function (params) {
           return "No hay resultados";
-  }}
-});
+    }}
+  });
 
   $(document).ready(function(){
   $("#Cliente").select2({
