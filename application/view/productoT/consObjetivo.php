@@ -1,5 +1,4 @@
-
-   <section class="content-header">
+<section class="content-header">
     <br>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
@@ -50,7 +49,7 @@
 
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarObj"onclick="ModificarObj('<?= $objetivo["Id_Objetivo"] ?>', '<?= $objetivo["FechaRegistro"] ?>', '<?= $objetivo["FechaInicio"] ?>', '<?= $objetivo["Nombre"] ?>', '<?= $objetivo["FechaFin"] ?>',    this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#Estadisticas" ><i class="fa fa-signal fa-lg" style="color:#3B73FF"></i></button>
+                         <button type="button" class="btn btn-box-tool"><i class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
                         </td>
                        
                     </tr>
@@ -63,12 +62,6 @@
           </form>
         </div>
       </div>
-
-          </div>
-        </div>
-      </div>
-  </section>
-
 
 <!--Modal para listar las fichas -->
  <div class="modal fade" id="ListarF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -123,12 +116,9 @@
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="">
-
-                  <!--   <input type="text" class="form-control pull-right" name="Fecha_Inicio" required="" id="Fecha_Inicio" style="border-radius:5px;"> -->
                 </div>
               </div>
             </div>
-     
 
            <div class="form-group col-lg-6">
               <label class="">Nombre:</label>
@@ -146,13 +136,11 @@
                 </div>
               </div>
             </div>
-      
-         
+
      <div class="box-body ">
        <div class="box-header">
-            <h3 class="box-title"><strong>Referencias</strong></h3>
+          <h3 class="box-title"><strong>Referencias</strong></h3>
          </div>
-            <!-- /.box-header -->
             <table class="table table-hover col-lg-12" id="tablaFiOM">
             <thead>
               <tr class="info">
@@ -165,51 +153,48 @@
             <tbody id="FichasOM">
             </tbody>
          </table>
-
       </div>
 
          <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" name="btnModificarObj">Guardar</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                </div>
-    </div>
-  </div>
+           <button type="submit" class="btn btn-primary" name="btnModificarObj">Guardar</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          </div>
+         </div>
+     </div>
   </form>
 </div>
 
-
-
-  <div class="modal fade" id="Estadisticas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document" style="width: 70%; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
-              <div class="modal-header" style="text-align: center;">
-                    <h3 class="box-title"><strong>Avance vs Objetivo</strong></h3>
-              </div>
+  <div class="modal fade" id="el-modal-estadistica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 70%; border-radius: 25px;">
+          <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header" style="text-align: center;">
+              <h3 class="box-title"><strong>Avance vs Objetivo</strong></h3>
+            </div>
               <div class="modal-body">
-                <div class="box box-success">
-                  
+                  <div class="box box-success">
                     <div class="box-body">
-
-                    </div>
-                </div> 
                       <div class="chart">
-                        <canvas id="barChart" style="height: 230px; width: 510px;"></canvas>
-                      </div>                
+                        <canvas id="barChart" style="height:230px"></canvas>
+                      </div>
+                    </div>
+                </div>
              </div>
-        </div>
+         </div>
        </div>
   </div>
+   
   <script type="text/javascript">
     $(function(){
       $(".open-modal-estadistica").click(function(){
-        $("#ModelEstadistica").modal("show");
-        mostrarGrafica();
+        $("#el-modal-estadistica").modal("show");
+        setTimeout(function(){
+          mostrarGrafica();
+        }, 800);
       });
     });
 
     function mostrarGrafica(){
-
-      var areaChartData = {
+var areaChartData = {
       labels: ["Janu", "February", "March", "April", "May", "June", "July"],
       datasets: [
         {
@@ -222,7 +207,6 @@
           pointHighlightStroke: "rgba(220,220,220,1)",
           data: [65, 59, 80, 81, 56, 55, 40]
         },
-        
         {
           label: "Digital Goods",
           fillColor: "rgba(60,141,188,0.9)",
@@ -236,41 +220,83 @@
       ]
     };
 
-      var barChartCanvas = $("#barChart").get(0).getContext("2d");
-      var barChart = new Chart(barChartCanvas);
-      var barChartData = areaChartData;
-      barChartData.datasets[1].fillColor = "#00a65a";
-      barChartData.datasets[1].strokeColor = "#00a65a";
-      barChartData.datasets[1].pointColor = "#00a65a";
-      var barChartOptions = {
-        //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-        scaleBeginAtZero: true,
-        //Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-        //Boolean - If there is a stroke on each bar
-        barShowStroke: true,
-        //Number - Pixel width of the bar stroke
-        barStrokeWidth: 2,
-        //Number - Spacing between each of the X value sets
-        barValueSpacing: 5,
-        //Number - Spacing between data sets within X values
-        barDatasetSpacing: 1,
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-        //Boolean - whether to make the chart responsive
-        responsive: true,
-        maintainAspectRatio: true
-      };
-      barChartOptions.datasetFill = false;
-      barChart.Bar(barChartData, barChartOptions);
-      alert("okas");
+    var areaChartOptions = {
+      //Boolean - If we should show the scale at all
+      showScale: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: false,
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - Whether the line is curved between points
+      bezierCurve: true,
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension: 0.3,
+      //Boolean - Whether to show a dot for each point
+      pointDot: false,
+      //Number - Radius of each point dot in pixels
+      pointDotRadius: 4,
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth: 1,
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius: 20,
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke: true,
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth: 2,
+      //Boolean - Whether to fill the dataset with a color
+      datasetFill: true,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive: true
+    };
+    
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    var barChart = new Chart(barChartCanvas);
+    var barChartData = areaChartData;
+    barChartData.datasets[1].fillColor = "#00a65a";
+    barChartData.datasets[1].strokeColor = "#00a65a";
+    barChartData.datasets[1].pointColor = "#00a65a";
+    var barChartOptions = {
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: true,
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke: true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth: 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing: 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing: 1,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+      //Boolean - whether to make the chart responsive
+      responsive: true,
+      maintainAspectRatio: true
+    };
+
+    barChartOptions.datasetFill = false;
+    barChart.Bar(barChartData, barChartOptions);
     }
   </script>

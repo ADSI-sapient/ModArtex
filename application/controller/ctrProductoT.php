@@ -17,11 +17,9 @@
 			include APP . 'view/_templates/footer.php';
 		}
 
-
 		public function salida(){
 			$mensajeu= "";
 					if ($_POST["Cantidad"] >= 1) {
-
 
 						if ($_POST["salida"] <= $_POST["Cantidad"]) {
 

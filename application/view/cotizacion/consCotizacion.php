@@ -206,8 +206,6 @@
       </div>           
   </div>
 
-
-
       <div class="modal fade" id="Productos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
@@ -386,11 +384,11 @@
 </section>
 
  <div class="modal fade" id="Aso" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 10px;">
-            <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Fichas Asociados</b></h4>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             <h4 class="modal-title" id="myModalLabel"><b>Fichas Asociados</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
@@ -415,8 +413,8 @@
               <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
             </div>
           </div>
-        </div>
       </div>
+ </div>
 
 <style>
 input[type=number]::-webkit-outer-spin-button,

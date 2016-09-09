@@ -21,7 +21,7 @@
  			$this->mdlModel->RegistrarO();
 
  			$ultimoObjetivo = $this->mdlModel->ultimoObjetivo();
-		$this->mdlModel->__SET("Id_Objetivo", implode('', $ultimoObjetivo));
+		    $this->mdlModel->__SET("Id_Objetivo", implode('', $ultimoObjetivo));
 
 			for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
 
@@ -32,8 +32,7 @@
 			}
  		}
  		
-
- 		 $fichas = $this->mdlModel->getAsoFichas();
+ 		    $fichas = $this->mdlModel->getAsoFichas();
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/regObjetivo.php';
 			include APP . 'view/_templates/footer.php';

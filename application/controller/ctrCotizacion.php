@@ -12,7 +12,6 @@
 			$fichas = $this->modelo->getFichas();         
 			$productos = $this->modelo->Ficha_habi();
 			
-
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -58,7 +57,6 @@
             $fichas = $this->modelo->getFichas();
             $clientes = $this->modelo->getCliente();
 
- 
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
@@ -120,13 +118,12 @@
 			}
 		}
 
-
 		public function fichaAsociada(){
 			$this->modelo->__SET("Id_Solicitud", $_POST["idCot"]);
 			$fichaAsoc = $this->modelo->PedidoAsociado();
 			echo json_encode($fichaAsoc);
-
 		}
+
 		// public function cambiarEstado(){
 
 		// 	$this->modelo->__SET("codigo", $_POST["codigo"]);
