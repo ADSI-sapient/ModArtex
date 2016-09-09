@@ -27,7 +27,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Tipo de Documento:</label>
-              <select class="form-control" name="tipo_documento">
+              <select class="form-control" name="tipo_documento" required="">
                 <option value="CC">CC</option>
                 <option value="CW">CE</option>
                 <option value="NIT">NIT</option>
@@ -35,27 +35,27 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre">
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Apellido:</label>
-              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido">
+              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Email:</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);">
+              <input type="text" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);"  required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Teléfono:</label>
-              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
+              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);" required="">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Dirección</label>
-              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
+              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" required="">
             </div>
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;"               name="btnRegistrarC">Registrar</button>
