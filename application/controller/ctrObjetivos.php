@@ -17,6 +17,7 @@
  			$this->mdlModel->__SET("FechaRegistro", $_POST["FechaRegistro"]);
  			$this->mdlModel->__SET("FechaInicio", $_POST["FechaInicio"]);
  			$this->mdlModel->__SET("FechaFin", $_POST["FechaFin"]);
+ 			$this->mdlModel->__SET("CantidadTotal", $_POST["CantidadTotal"]);
  			$this->mdlModel->RegistrarO();
 
  			$ultimoObjetivo = $this->mdlModel->ultimoObjetivo();
@@ -48,8 +49,8 @@
 
 		public function listarF(){
 
-		$this->_modelRoles->__SET("Id_Objetivo", $_POST["objetivo"]);
-		$listasO = $this->_modelRoles->ListarPermisos();
+		$this->mdlModel->__SET("Id_Objetivo", $_POST["objetivo"]);
+		$listasO = $this->mdlModel->ListarFichasO();
 		echo json_encode($listasO);	
 		}
 

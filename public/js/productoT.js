@@ -40,14 +40,31 @@ function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas){
   var campos = $(fichas).parent().parent();
   CantidadO= $("#CantidadO"+Referencia).val();
    
-    $("#FichasS").removeAttr("hidden");
-  var tr = "<tr class='box box-solid'><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]/></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]/></td><td>"+CantidadO+"<input type='hidden' value='"+CantidadO+"' name=CantidadO[] /></td><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td></tr>";
+  $("#FichasS").removeAttr("hidden");
+  var tr = "<tr class='box box-solid'><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='text' subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); class='cantTotal' value=0 name=CantidadO[] id='cantTotal'"+Id_Ficha_Tecnica+" onkeyup='TotalFC()'></td><input type='hidden' name='subtotal' id=subtotal"+Id_Ficha_Tecnica+"><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td></tr>";
+  
   $("#tablaFichass").append(tr);
     // boton = "#btn"+idbton;
     // $(boton).attr('disabled', 'disabled');
+
+  }
+
+$("#tablaFichass tbody tr").each(function(){
+  $("#cantTotal"+Id_Ficha_Tecnica).on("keyup", function(){
+            $("#TotalT"+Id_Ficha_Tecnica).val("#cantTotal"+Id_Ficha_Tecnica).val();
+  });
+});
+
+function TotalFC(){
+  var total=0;
+  $(".cantTotal").each(function(){
+  total=total+parseFloat($(this).val());
+  });
+  $("#TotalT").val(total);
 }
 
-    
+
+
 $(function(){
  $('#Fecha_Inicio').datepicker({
    format: "yyyy-mm-dd",
@@ -108,7 +125,7 @@ $(function(){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               Codigo=data[i]["Codigo"];
-              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
               $("#FichasO").append(fila);
                           } 
             }, 
@@ -118,5 +135,34 @@ $(function(){
   
     }
 
+
+     function ModificarObj(Id_Objetivo, Fecha_Registro, Fecha_Inicio, Nombre, Fecha_Fin, objetivos){
+          var campos = $(objetivos).parent().parent();
+          $("#Fecha_Registro").val(campos.find("td").eq(1).text());
+          $("#Fecha_Inicio").val(campos.find("td").eq(3).text());
+          $("#Nombre").val(campos.find("td").eq(2).text());
+          $("#Fecha_Fin").val(campos.find("td").eq(4).text());    
+           $("FichasOM").empty();
+           // $("#nombre_rol").val(Nombre);
+
+    $.ajax({
+
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrObjetivos/listarF",
+            data: {objetivo: Id_Objetivo },
+            success: function(data){
+               // $("#Nombre").val(campos.find("td").eq(1).text());
+            for (var i = 0; i < data.length; i++) {
+              Codigo=data[i]["Codigo"];
+              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-minus"></i></button></td></tr>'; 
+              $("#FichasOM").append(fila);
+                          } 
+            }, 
+            error: function(){
+            }
+        });
+  
+    }
 
 
