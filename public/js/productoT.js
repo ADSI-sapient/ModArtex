@@ -233,9 +233,35 @@ function TotalFCN(){
 }
 
 
-  function validarC(){
-    
+    function cambiarEstadoO(Id_Objetivo, est){
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrObjetivos/cambiarEstadoCancelar",
+            data: {Id_Objetivo:Id_Objetivo, Id_Estado:est}
+        }).done(function(respuesta){
+            if (respuesta.v == "5") {
+               Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
+            
+                // location.href = uri +"ctrObjetivos/listarObjetivos";
+            }else{
+                  Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
+            }
+        }).fail(function() {
+
+        });
+    }
+
+    function validarFichas(){
+  if($("#FichasS tr").length > 0){
+    return true;
+  }else{
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No ha asignado ninguna Referencia'}); ;
+    return false;
+
   }
+} 
+
 
 
 

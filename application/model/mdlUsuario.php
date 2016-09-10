@@ -140,8 +140,9 @@
       			$query= $this->db->prepare($sql);
       			$query->bindParam(1, $this->Usuario);
       			$query->bindParam(2, $this->Tbl_Roles_Id_Rol);
-      			$query->bindParam(2, $this->Num_Documento);
+      			$query->bindParam(3, $this->Num_Documento);
 
+      			return $query->execute();
       		} catch (Exception $e) {
       			
       		}
