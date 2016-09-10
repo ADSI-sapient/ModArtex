@@ -16,6 +16,7 @@
         <br>
          <div class="box-body">
         <form action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST">
+        
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
               <label class="">Fecha registro:</label>

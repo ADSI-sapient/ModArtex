@@ -126,6 +126,7 @@ function asoFicha(referen, color, vlrproducto, fichas, idboton){
 
 
 function fichasAsociad(idCot, fechaTerm, fichaAs){
+  
   $.ajax({
   type: 'post',
   dataType: 'json',
@@ -152,9 +153,10 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     $('#Asopedido').append(tr);
     }
 
-  else{
+  else if(fichaAs == 2){
     tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
     $('#fichaAsociadas').append(tr);
+    $('#DetallesAso').show();
    }
 
     }
@@ -208,7 +210,6 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   $(boton).attr('disabled', 'disabled');
   }
 }  
-
 
   $("#clienteReg").select2({
   placeholder: 'Seleccionar'

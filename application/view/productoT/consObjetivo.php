@@ -173,7 +173,25 @@
               <div class="modal-body">
                   <div class="box box-success">
                     <div class="box-body">
-                      <div class="chart">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Fecha inicial</label>
+                            <input type="text" id="txtFechaI" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Fecha final</label>
+                            <input type="text" id="txtFechaF" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success" onclick="mostrarGrafica()">Consultar</button>
+                        </div>
+                      </div>
+                      
+                      <div class="chart row">
                         <canvas id="barChart" style="height:230px"></canvas>
                       </div>
                     </div>
@@ -184,18 +202,26 @@
   </div>
    
   <script type="text/javascript">
-    $(function(){
-      $(".open-modal-estadistica").click(function(){
-        $("#el-modal-estadistica").modal("show");
-        setTimeout(function(){
-          mostrarGrafica();
-        }, 800);
+      $(function(){
+        $(".open-modal-estadistica").click(function(){
+          $("#el-modal-estadistica").modal("show");
+        });
       });
-    });
 
     function mostrarGrafica(){
-var areaChartData = {
-      labels: ["Janu", "February", "March", "April", "May", "June", "July"],
+      var data = null;
+      $.ajax({
+        data:{FechaInicio:$("#txtFechaI").val(),FechaFin:$("#txtFechaF").val()},
+        type:"post",
+        dataType:"JSON",
+        url:uri+"ctrObjetivos/listar_GraficasOb",
+        async:false
+      }).done(function(respuesta){
+        data = respuesta;
+      })
+
+      var areaChartData = {
+      labels: data["$objetivo"]
       datasets: [
         {
           label: "Electronics",
@@ -205,7 +231,7 @@ var areaChartData = {
           pointStrokeColor: "#c1c7d4",
           pointHighlightFill: "#c1c7d4",
           pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [65, 59, 80, 81, 56, 55, 40]
+          data: data["refObj"]
         },
         {
           label: "Digital Goods",
@@ -215,7 +241,7 @@ var areaChartData = {
           pointStrokeColor: "rgba(60,141,188,1)",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(60,141,188,1)",
-          data: [28, 48, 40, 19, 86, 27, 90]
+          data: []
         }
       ]
     };

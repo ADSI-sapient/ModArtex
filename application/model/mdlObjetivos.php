@@ -103,6 +103,22 @@
 	        }
 	    }
 
+	    public function GraficasFecha(){
+	    	$sql = "SELECT o.*, po.*, pd.Referencia FROM tbl_objetivos o INNER JOIN tbl_productos_objetivos po ON o.Id_Objetivo = po.Id_Objetivo INNER JOIN tbl_fichas_tecnicas pd ON pd.Id_Ficha_Tecnica = po.Id_Ficha_Tecnica WHERE o.FechaFin BETWEEN ? AND ?";
+	    	$query = $this->db->prepare($sql);
+	    	$query->bindParam(1, $this->FechaInicio);
+	    	$query->bindParam(2, $this->FechaFin);
+	    	$query->execute();
+	    	return $query->fetchAll();
+	    }
 
+	    // public function GraficasRefencias(){
+	    // 	$sql = "SELECT  FROM tbl_ordenesproduccion o ON  INNER JOIN  ";
+	    // 	$query = $this->db->prepare($sql);
+	    // 	$query->bindParam(1, $this->Fecha_Registro);
+	    // 	$query->bindParam(2, $this->Fecha_Fin);
+	    // 	$query->execute();
+	    // 	return $query->fetchAll();
+	    // }
 	}
 ?>

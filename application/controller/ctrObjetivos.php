@@ -53,4 +53,28 @@
 		echo json_encode($listasO);	
 		}
 
- } ?>
+
+		public function listar_GraficasOb(){
+			$this->mdlModel->__SET("FechaInicio", $_POST["FechaInicio"]);
+			$this->mdlModel->__SET("FechaFin", $_POST["FechaFin"]);
+
+			$grafi = $this->mdlModel->GraficasFecha();
+			$grafis = $this->mdlModel->GraficasRefencias();
+
+			$objetivo = [];
+			$refObj = [];
+			$refPro = [];
+
+			foreach ($grafi as $value) {
+				$objetivo[] = $value["Nombre"]." ".$value["Referencia"];
+				$refObj[] = $value["Cantidad"];
+				// $refPro[] = $value[__SET("Referencia")];
+
+				// mandar la referencia por set
+				// luego llamar este metodo GraficasRefencias
+				// $refPro en este array se mete lo que devuelve el metodo
+			}
+			echo json_encode(["objetivo"=>$objetivo, "refObj"=>$refObj]);
+
+		}	
+ } 
