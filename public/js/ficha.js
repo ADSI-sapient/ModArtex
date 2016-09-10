@@ -143,7 +143,7 @@
         var vlrproduccion = $("#vlr_produccion").val();
         var vlrproducto = $("#vlr_producto").val();
 
-        //valida insumos asociados
+        valida insumos asociados
         if ($("#tablaInsumos tbody tr #tblInsumosVacia").length)
         {
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
@@ -178,7 +178,7 @@
             "info": "Mostrando página _PAGE_ de _PAGES_",
             "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
             "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-        "paginate": {"previous": "","next": ""}
+        "paginate": {"previous": "Anterior","next": "Siguiente"}
         }
       });
 

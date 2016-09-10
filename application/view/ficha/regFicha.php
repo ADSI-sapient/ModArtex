@@ -18,7 +18,7 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="">
+              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -61,7 +61,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">  
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" style="border-radius:5px;" data-parsley-required="">
+              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" min="0" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
@@ -102,14 +102,14 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto">
                 <!-- </div> -->
               </div>
             </div>
 
             <div class="form-group col-lg-offset-6 col-lg-3">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion">
+              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="1">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
