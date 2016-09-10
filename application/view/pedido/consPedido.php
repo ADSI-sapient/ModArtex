@@ -1,6 +1,5 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Pedido</a></li>
@@ -15,21 +14,19 @@
         <div id="pedidos">
               <form class="form-horizontal">
                 <div class="col-md-12">
-            <!--<div class="box"> -->
-                <br>
                 <div class="table-responsive">
-                  <table class="table table-responsive" id="tablaPedidos">
+                  <table class="table cell-border" id="tablaPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>
                         <th>Fecha Registro</th>
-                        <th>Fecha Entrega</th>
-                        <th>Valor Total</th>
-                        <th>Estado</th>
                         <th>Cliente</th>
+                        <th>Fecha Entrega</th>
+                        <th>Estado</th>
+                        <th>Valor Total</th>
                         <th style="width: 7%">Editar</th>
                         <th style="width: 7%">Cancelar</th>
-                        <th style="width: 7%">Productos Asociados</th>
+                        <th class="col col-md">Productos Asociados</th>
                       </tr>
                     </thead>
                     <tbody class="list">
@@ -37,10 +34,10 @@
                       <tr>
                         <td><?= $pedido["Id_Solicitud"] ?></td>
                         <td class="freg"><?= $pedido["Fecha_Registro"] ?></td>
-                        <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
-                        <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
-                        <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
+                        <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
+                        <td><?= $pedido["Nombre_Estado"] ?></td>
+                        <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
                             <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
@@ -67,7 +64,6 @@
                     </tbody>
                   </table>
                 </div>
-         <!-- </div> -->
             </div>
           </form>
         </div>
@@ -78,15 +74,11 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
-              <button type="button" class="close" onclick="cancelar()"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>Modificar Pedido</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()">
-                <!-- <div class="form-group col-sm-4">
-                  <label for="id_pedido" class="">Id Pedido:</label>
-                  <input class="form-control" type="text" name="id_pedido" id="id_pedido" readonly="" style="border-radius:5px;">
-                </div> -->
                 <input type="hidden" name="id_pedido" id="id_pedido">
                 <div class="form-group col-sm-5">
                   <label class="">Fecha Registro:</label>
@@ -97,14 +89,6 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
-                <!-- <div class="form-group col-sm-6">
-                  <label for="estado" class="">Estado</label>
-                  <select class="form-control" name="estado" id="estado" required="" style="border-radius:5px;">
-                    <option value="5">Pendiente</option>
-                    <option value="6">En Proceso</option>
-                    <option value="7">Terminado</option>
-                  </select>
-                </div> -->
                 <div class="form-group col-sm-offset-2 col-sm-5">
                   <label for="estado" class="">Estado:</label>
                   <input type="text" name="estado" id="estado" class="form-control" value="" readonly="" style="border-radius:5px;">
@@ -157,8 +141,8 @@
             </div>
             <div class="modal-footer" style="border-top:none;">
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary" name="btnModificarPed">Guardar cambios</button>
-                <button type="button" class="btn btn-danger" data-dissmis="modal" onclick="cancelar()">Cancelar</button>
+                <button type="submit" class="btn btn-primary" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+                <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
               </div>
               </form>
             </div>
@@ -253,12 +237,12 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Productos para asociar</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>Productos Para Asociar</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive" id="">
+                <table class="table table-responsive" id="prodAsociarPedMod">
                 <thead>
                   <tr class="active">
                     <th>Ref</th>

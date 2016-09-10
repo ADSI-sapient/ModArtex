@@ -22,16 +22,15 @@
   <link rel="stylesheet" href="<?= URL; ?>css/_all-skins.min.css">
   <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
   <link rel="stylesheet" href="<?= URL; ?>Parsley.js-2.4.4/src/parsley.css">
-      <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+  <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
   <!--  <script src="<?= URL;?>css/jQuery-2.2.0.min.js"></script> -->
 </head>
-
 
 <body class="hold-transition skin-blue sidebar-mini">
  <div class="wrapper fixed">
   <header class="main-header">
     <a href="<?php echo URL ?>home/index" class="logo">
-      <span class="logo-mini"><b>M</b>A</span>
+      <span class="logo-mini"><i class="fa fa-scissors" aria-hidden="true"></i></span>
       <span style="text-align: left;" class="logo-lg"><i class="fa fa-scissors" aria-hidden="true"></i>&nbsp;&nbsp;
       <b> ModArtex</b></span>
     </a>
@@ -50,14 +49,14 @@
             } 
           </style>
           <li>
-            <a class="dropdown-toggle">
+            <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarMedidas()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudMedidas" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-balance-scale" aria-hidden="true"></i>
             </button>  
             </a>
           </li> 
           <li>
-            <a class="dropdown-toggle">
+            <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarColores()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
               <i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i>
             </button>
@@ -131,7 +130,7 @@
         <?php foreach ($_SESSION["permisos"] as $valor): ?>
          <?php if ($valor["NombreM"] != $nom): ?>
           <li class="treeview">
-            <a href="#"><i class="<?= $valor['Icon']; ?>"></i><span><?= $valor["NombreM"]; ?></span>
+            <a href="#"><i class="<?= $valor['Icon']; ?> fa-lg"></i><span>&nbsp;&nbsp;&nbsp;<?= $valor["NombreM"]; ?></span>
               <i class="fa fa-angle-left pull-right"></i>
               <ul class="treeview-menu">
                 <?php foreach ($_SESSION["permisos"] as $valor2) {
@@ -157,7 +156,7 @@
 
 
     
-    <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
@@ -165,27 +164,30 @@
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
       </div>
       <div class="modal-body">
-        <div style="margin-top: 10px;" class="row">
-          <div class="form-group col-sm-12">
-          <div class="col-sm-5">  
-            <div class="input-group my-colorpicker2 colorpicker-element">
-            <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
-                <div class="input-group-addon">
-                  <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
-                </div>
+        <form data-parsley-validate="">
+          <div style="margin-top: 10px;" class="row">
+            <div class="form-group col-md-12">
+            <div style="padding-left: 0px" class="col-md-5">  
+              <div class="input-group my-colorpicker2 colorpicker-element">
+              <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
+                  <div class="input-group-addon">
+                    <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+                <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
+            </div> 
+            <div class="col-md-2">
+              <button onclick="regColor()" type="button" class="btn btn-primary">Registrar</button>
+            </div> 
             </div>
           </div>
-          <div class="col-sm-5">
-              <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
-          </div> 
-            <div class="col-sm-2">
-              <button onclick="regColor()" type="submit" class="btn btn-primary">Registrar</button>
-            </div> 
-          </div>
-        </div>
+        </form>
         <div class="row">
+        <div class="col-md-12">
           <div class="table-responsive">
-              <table class="table table-bordered">
+              <table id="table-CrudColores" class="table table-bordered paginate-search-table">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -201,6 +203,7 @@
                 </tbody>
               </table>
             </div>
+            </div>
       </div>
     </div>
     <div>
@@ -214,7 +217,7 @@
 
 
 
-    <div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
@@ -222,38 +225,41 @@
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de medida</h3>
       </div>
       <div class="modal-body">
-        <div style="margin-top: 10px;" class="row">
-          <div class="form-group col-sm-12">
-          <div class="col-sm-4">  
-            <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura">
-          </div>
-          <div class="col-sm-6">
-              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control"> 
-          </div> 
+        <form data-parsley-validate="">
+          <div style="margin-top: 10px;" class="row">
+            <div class="form-group col-sm-12">
+            <div style="padding-left: 0;" class="col-sm-4">  
+              <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura">
+            </div>
+            <div class="col-sm-6">
+              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control">
+            </div> 
             <div class="col-sm-2">
               <button onclick="regMedida()" class="btn btn-primary">Registrar</button>
             </div> 
+            </div>
+          </div>
+        </form>  
+        <div class="row">
+          <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered paginate-search-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Abreviatura</th>
+                  <th style="display: none;"></th>
+                  <th style="text-align: center;">Modificar</th>
+                  <th>Eliminar</th>
+                  <th>Guardar</th>  
+                </tr>
+              </thead>
+              <tbody id="tbody-CrudMedidas">
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="row">
-        <div class="box box-primary">
-          <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Abreviatura</th>
-                    <th style="text-align: center;">Modificar</th>
-                    <th>Eliminar</th>
-                    <th>Guardar</th>  
-                  </tr>
-                </thead>
-                <tbody id="tbody-CrudMedidas">
-                </tbody>
-              </table>
-            </div>
-            </div>
       </div>
     </div>
     <div>

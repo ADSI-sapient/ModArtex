@@ -37,7 +37,6 @@
     <script src="<?= URL;?>js/notifications.min.js"></script>
     <script src="<?= URL;?>Parsley.js-2.4.4/dist/parsley.min.js"></script>
     <script src="<?= URL;?>Parsley.js-2.4.4/dist/i18n/es.js"></script>
-
     <script type="text/javascript">
       var uri = "<?= URL;?>";
       <?php if(isset($_SESSION['alert']) && $_SESSION['alert'] !== null ){
@@ -55,6 +54,7 @@
     <script src="<?= URL;?>js/persona.js"></script>
     <script src="<?= URL;?>js/productoT.js"></script>
     <script src="<?= URL;?>js/produccion.js"></script>
+    <!-- <script src="<?= URL;?>Parsley.js-2.4.4/src/extra/validator/comparison.js"></script> -->
 
       <script type="text/javascript">
         $(function(){ 
@@ -63,7 +63,6 @@
         });
       </script>
 <!--     <script src="<?= URL;?>js/roles.js"></script> -->
-
   </body>
 </html>
 

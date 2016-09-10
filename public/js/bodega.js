@@ -27,12 +27,7 @@
     $("#vecto").val(vec);
   }
 
-
-
-
 // Listar insumo
-
-
 
 function camEst(cod, est){
   $.ajax({

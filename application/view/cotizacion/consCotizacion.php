@@ -4,61 +4,41 @@
       <li><a href="#">Cotizacion</a></li>
       <li class="active">Listar Cotizaciones</li>
   </ol>
-    <br>
   </section>
-
   <!-- Main content -->
   <section class="content">
     <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
-      </div>
 
-    <div class="box box-body">  
-    <div id="users">
-      <div class="row box-header">
-        <div class="col-md-8"></div>
-           <div class="col-md-4">
-            <div class="form-group">
-              <div class="box-tools pull-right"></div>
-            </div>
-          </div>
-      </div>
-    </div>
-
-      <form class="form-horizontal">
-      <div>
-        <div class="col-md-12">
-          <div class="box">
-            <div class="table table-responsive">
-              <table class="table table-hover" id="myTable">
-
-                <thead>
-                  <tr class="info">
-                    <th style="width: 10px">Código</th>
-                    <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Fecha Registro</th>
-                    <th>Fecha Vencimiento</th>
-                    <th>Valor Total</th>
-                    <th style="display: none;"></th>
-                    <th style="width: 7%">Editar</th>
-                    <th>PDF</th>
-                    <th>Pedido</th>
-                    <th>Detalle</th>
-                  </tr>
-                </thead>
-
-            <tbody class="list">
-
-                <?php foreach ($cotizaciones as $cotizacion):?>
-                  
-                 <tr>
-                    <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>                 
-                    <td class="Num_Documento"><?= $cotizacion["Nombre"] ?></td>
-                    <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
+      </div> 
+      <div id="users">
+        <form class="form-horizontal">
+          <div class="col-md-12">
+              <div class="table table-responsive">
+                <table class="table table-hover cell-border" id="tblCotizaciones">
+                  <thead>
+                    <tr class="info">
+                      <th style="width: 10px">#</th>
+                      <th>Fecha Registro</th>
+                      <th>Cliente</th>
+                      <th>Fecha Vencimiento</th>
+                      <th>Estado</th>
+                      <th>Valor Total</th>
+                      <th style="display: none;"></th>
+                      <th style="width: 7%">Editar</th>
+                      <th>Generar</th>
+                      <th class="col-md">Convertir en Pedido</th>
+                    </tr>
+                  </thead>
+                  <tbody class="">
+                  <?php foreach ($cotizaciones as $cotizacion):?>
+                  <tr>
+                    <td class="Id_Solicitud"><?= $cotizacion["Id_Solicitud"] ?></td>
                     <td class="Fecha_Registro"><?= $cotizacion["Fecha_Registro"] ?></td>
+                    <td class=""><?= $cotizacion["Nombre"] ?></td>
                     <td class="Fecha_Vencimiento"><?= $cotizacion["Fecha_Vencimiento"] ?></td>
+                    <td class="Id_Estado"><?= $cotizacion["Nombre_Estado"] ?></td>
                     <td class="Valor_Total"><?= $cotizacion["Valor_Total"] ?></td>
                     <td class="Num_Documento" style="display: none;"><?= $cotizacion["Num_Documento"] ?></td>
 
@@ -88,16 +68,15 @@
                 </tr>
 
                 <?php endforeach; ?> 
-            </tbody>
-
+                </tbody>
               </table>
             </div>
           </div>
-         </div>
-        </div>
       </form>
+     </div>
+      <div class="box-footer">
     </div>
-  </div>
+    </div>
 
  <!-- Modal De Modificar -->
 
@@ -108,7 +87,7 @@
  </style>
 <div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document" id="dl">
-        <div class="modal-content" style="border-radius: 10px;">
+        <div class="modal-content modal-lg" style="border-radius: 10px;">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -171,7 +150,6 @@
               <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
                 <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
-
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
@@ -196,8 +174,8 @@
 
           <div class="modal-footer" style="border-top:0px;">
            <div  class="col-sm-push-4 col-sm-8">
-            <button type="submit" class="btn btn-primary" name="btnModificar">Guardar modificacion</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
+            <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
            </div>
         </div>
           </form> 
@@ -251,7 +229,7 @@
             <div class="modal-body" style="padding:10px;">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive">
+                <table class="table table-responsive" id="tblfichascotiz">
                 <thead>
                   <tr class="active">
                     <th>Referencia</th>

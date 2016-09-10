@@ -1,40 +1,21 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Exitencias ProductoT</a></li>
+        <li><a class="active">Exitencias ProductoT</a></li>
       </ol>
     </section>
     <!-- Main content -->
     <section class="content">
-
       <!-- Inicio de listar -->
       <div class="box box-primary">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS PRODUCTO TERMINADO</strong></h3>
         </div>
         <div id="users">
-  <!-- <div class="col-md-offset-8 col-md-4">
-         <div class="row box-header">
-            <div class="form-group">
-              <div class="box-tools pull-right">
-                <form action="#" method="get" class="form-horizontal">
-                  <div class="input-group">
-                    <input type="text" class="form-control search" placeholder="Buscar">
-                    <span class="input-group-btn">
-                      <button type="submit" name="search" id="search-btn" class="sort btn btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
-                  </div>
-                </form> 
-              </div>
-          </div>
-        </div>
-      </div> -->
       <form class="form-horizontal">
         <div class="col-md-12">
-          <!-- <div class="box"> -->
-          <br>
           <div class="table table-responsive">
             <table class="table table-hover" id="tablaProducto">
               <thead>
@@ -44,8 +25,8 @@
                   <th>Color</th>
                   <th style="display: none">Id_Ficha</th> 
                   <th>Cantidad</th>
-                  <th>Valor producción</th>
-                  <th>Stock mínimo</th>
+                  <th>Valor Producción</th>
+                  <th>Stock Mínimo</th>
                   <th>Salida</th>
                 </tr>
               </thead>
@@ -70,7 +51,7 @@
                 </table>
               </div>
               <div class="col-md-12" style="text-align: right;">
-             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this)"  data-target="#ModalSalidas"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"  data-target="#ModalSalidas"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
              </div>
             </div>
           </form>

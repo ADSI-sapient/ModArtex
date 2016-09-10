@@ -1,5 +1,4 @@
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Pedido</a></li>
@@ -12,55 +11,60 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
-        <br>
         <div class="box-body">
-        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();">
-        <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
-        <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
-          <div class="row col-lg-12" style="margin-left:1%">
-            <div class="form-group col-lg-4">
+        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
+          <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
+          <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
+          <div class="row col-lg-12" style="margin-left:0.5%">
+            <div class="form-group col-lg-3">
               <label class="">Fecha Registro:</label>
               <div class="">
                 <div class="input-group date">
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" min="2016-06-01" step="1" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-4">
+            <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Fecha Entrega:</label>
               <div class="">
                 <div class="input-group date">
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega"  style="border-radius:5px;">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;" data-parsley-required="" data-parsley-errors-container="#regPedidov">
                 </div>
               </div>
+              <div id="regPedidov"></div>
             </div>
-            <div class="form-group col-lg-4">
-              <label for="estado" class="">*Estado:</label>
+            <div class="form-group col-lg-offset-1 col-lg-3">
+              <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:1%">
-            <div class="form-group col-lg-4">
-              <label for="id_cliente" class="" >*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente">
+          <div class="row col-lg-12" style="margin-left:0.5%">
+            <div class="form-group col-lg-3">
+              <label for="id_cliente" class="">*Asociar Cliente:</label>
+              <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="" data-parsley-errors-container="#regPedidoCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
                 <?php endforeach ?>
               </select>
+              <div id="regPedidoCl"></div>
               </div>
             </div>
-
-          <div hidden="" class="form-group" id="agregarFicha">
+            <div class="row col-lg-12" style="margin-left:0.5%">
+              <div class="form-group col-lg-3">
+                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+              </div>
+            </div>
+          <div class="form-group" id="agregarFicha">
             <div class="table">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -76,39 +80,35 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td id="tblFichasVacia" colspan="8" style="text-align:center;"></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             </div>
-            <div class="row col-lg-12" style="margin-left:1%">
-              <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas"><b>Asociar Productos</b></button>
-              </div>
-            </div>
-            <div class="row col-lg-12" style="margin-left:1%">
-       			  <div class="form-group col-lg-offset-8 col-lg-4">
+            <div class="row col-lg-12" style="margin-left:0.5%">
+       			  <div class="form-group col-lg-offset-9 col-lg-3">
                 <label for="vlr_total" class="">*Valor Total:</label>
                 <div class="">
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
                 </div>
               </div>
             </div>
-          <br>
-          <div class="row"> 
-            <div class="form-group col-lg-12">
-                <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding-left:2%; padding-right:2%;" name="btnRegPedido" ><b>Registrar</b></button>
-                <button type="reset" onclick="limpiarFormRegPedido()" class="btn btn-danger" style="margin-right:2%; margin-left:4%; margin-top: 15px; padding-left:2%; padding-right:2%">Limpiar</b></button>
+            <div class="row">
+              <div class="form-group col-lg-12" style="margin-left:14px">
+                <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegPedido" ><b>Registrar</b></button>
+                <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-danger">Limpiar</b></button>
               </div>
           </div>
         </form>
       </div>
       </div>
-      
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
         <div class="modal-dialog">
-          <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Fichas Técnicas</b></h4>
@@ -116,7 +116,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="tblFichasAsp">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>

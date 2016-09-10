@@ -1,15 +1,11 @@
-<section class="content-header">
-  <br>  
+<section class="content-header"> 
   <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
       <li><a href="#">Configuración</a></li>
       <li class="active">Roles</li>
     </ol>
 </section>
-
-
   <section class="content">
-    <br>
     <div class="row col-md-12">
     <!--Registrar Rol-->
      <div class="col-md-6">
@@ -30,8 +26,6 @@
                 <br>
               </div>
             </div>
-            
-
           <div hidden="" class="form-group" id="permisosasig">
             <div class="table">
               <div class="col-lg-12 table-responsive">
@@ -62,27 +56,20 @@
       </div>
 
     <!--Listar Rol-->
-      <div class="col-md-6" >
-          <div class="box box-primary">
-            <div class="box-header with-border" style="text-align: center;"> 
-                   <h4 class="control-label"><strong>LISTAR ROLES</strong></h4>
+    <div class="col-md-6" >
+      <div class="box box-primary">
+        <div class="box-header with-border" style="text-align: center;"> 
+          <h4 class="control-label"><strong>LISTAR ROLES</strong></h4>
+        </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <div class="box-tools">   
+                <form action="#" method="get" class="form-horizontal no-margin"></form> 
               </div>
-
-
-          <div class="row box-header">
-            <div class="col-md-8"></div>
-               <div class="col-md-4">
-                  <div class="form-group" style="margin-bottom: 0;">
-                          <div class="box-tools">   
-                            <form action="#" method="get" class="form-horizontal no-margin">
-                            </form> 
-                         </div>
-                  </div>
-                </div>
+            </div>
           </div>
-            <div class="box-body">
-                <div class="box-body no-padding">
-                  <table class="table table-hover col-lg-12" id="tablaListar">
+          <div class="box-body">
+            <table class="table table-hover col-lg-12" id="tablaListarRoles">
                     <thead>
                       <tr class="info">
                       <th class="col-lg-3">#</th>
@@ -97,30 +84,23 @@
                       <td class="Id_Rol"><?= $rol["Id_Rol"] ?></td>
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
-                <td>
+                    <td>
                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
-
-
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
-
+                      <td>
                         <?php if ($rol["Estado"] == 1){ ?>
                           
                           <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
                           
                           <?php }else{ ?>
                             <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
-
                             <?php } ?>
                           </td>
-
                         </tr>
                       <?php endforeach; ?>
-                      
-          
                     </tbody>
                   </table>
                 </div>
-            </div>
          </div>
     </div>
   </section>
@@ -166,9 +146,7 @@
             <tbody id="fila">
             </tbody>
          </table>
-
       </div>
-      
       <div class="modal-footer">
          <button type="submit" class="btn btn-primary" name="btnModificarRol">Guardar</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

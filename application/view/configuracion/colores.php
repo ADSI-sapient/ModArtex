@@ -36,8 +36,8 @@
                   </div>
               </div>
               <div class="box-footer" style="margin-top: 20px;">
-                  <button type="reset" onclick="resetCol();" class="btn btn-danger pull-right"  style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i>  Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>   
+                  <button type="reset" onclick="resetCol();" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i>  Limpiar</button>
+                  <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>   
               </div> 
             </form>
           </div>
@@ -96,7 +96,7 @@
 
     <div class="modal fade" id="modalEditColor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-md" role="document"; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-content">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>MODIFICAR COLOR</strong></h4>
               </div>
@@ -125,75 +125,10 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</button>
-                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>          
+                  <button type="button" class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>          
               </div> 
             </form> 
           </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-<div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document";>
-    <div class="modal-content" style="border-radius: 25px;">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
-      </div>
-      <div class="modal-body">
-        <div style="margin-top: 10px;" class="row">
-          <div class="form-group col-sm-12">
-          <div class="col-sm-5">  
-            <div class="input-group my-colorpicker2 colorpicker-element">
-            <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
-                <div class="input-group-addon">
-                  <i type="input" id="colColCrudBox" style="background-color: blue;"></i>
-                </div>
-            </div>
-          </div>
-          <div class="col-sm-5">
-              <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
-          </div> 
-            <div class="col-sm-2">
-              <button onclick="regColor()" type="submit" class="btn btn-primary">Registrar</button>
-            </div> 
-          </div>
-        </div>
-        <div class="row">
-          <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Muestra</th>
-                    <th>Código</th>
-                    <th>Color</th>
-                    <th style="text-align: center;">Modificar</th>
-                    <th>Eliminar</th>
-                    <th>Guardar</th>  
-                  </tr>
-                </thead>
-                <tbody id="tbody-CrudColores">
-                </tbody>
-              </table>
-            </div>
-      </div>
-    </div>
-    <div>
-      <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-

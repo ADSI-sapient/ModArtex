@@ -6,20 +6,17 @@
         <li class="active">Existencias insumos</li>
       </ol>
     </section>
-
     <section class="content">
       <div class="box box-primary">
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
-  
-      <form class="form-horizontal">
+        <form class="form-horizontal">
          <div class="col-md-12">
-           <div class="box">
+           <div style="margin-top: 10px;" class="box">
             <div class="box-body no-padding">
               <div class="table-responsive">
-
-                <table table-responsive class="table example1" id="tblExistencias">
+                <table table-responsive class="table table-bordered paginate-search-table" id="tblExistencias">
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
@@ -30,8 +27,9 @@
                       <th>Medida</th>
                       <th>Cantidad</th>
                       <th>Valor promedio</th>
-                      <th>Stock mínimo</th>
-                      <th style="width: 7%">Opción</th>
+                      <th style="text-align: center;">Stock mínimo</th>
+                      <th style="width: 7%">Entrada</th>
+                      <th style="width: 7%">Salida</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -46,11 +44,13 @@
                       <td><?= $valExt["medida"]?></td>
                       <td><?= $valExt["Cantidad_Insumo"]?></td>
                       <td><?= $valExt["Valor_Promedio"]?></td>
-                      <td><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
-                      <td>
-                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green;" class="fa fa-arrow-up"></i></button>
-                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red;" class="fa fa-arrow-down"></i></button>
+                      <td style="text-align: center;"><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
+                      <td style="text-align: center;">
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
                       </td>
+                      <td style="text-align: center;">
+                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
+                      </td>  
                     </tr>
                   <?php endforeach ?>
                 </tbody></table>
@@ -97,10 +97,6 @@
            <input type="text" class="form-control" id="nomIns" disabled="true">
          </div>
        </div>
-
-
-
-
        <div class="form-group">
          <h4 class="col-md-3">Color: </h4>
          <div class="col-md-9">
@@ -144,10 +140,6 @@
 </div> 
 </div>
 </div>
-
-
-
-
 
 <!-- SALIDA DE INSUMOS DE A UNO -->
 
@@ -215,15 +207,6 @@
 </div> 
 </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalEntradaMayor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width: 60%;">

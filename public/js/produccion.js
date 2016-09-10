@@ -1,11 +1,20 @@
-    $('#tblOrdenes').DataTable( {
+    $('#tblOrdenes').dataTable( {
       // "lengthChange": false,
       //"searching": false,
       // "info": false,
-      "ordering": false
+      "ordering": false,
+      "language": {
+          "emptyTable": "No hay ordenes de producción para listar",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      "paginate": {
+        "previous": "",
+        "next": "",
+        "last": "ultima"
+       }
+      }
     });
 
-    
     $('#fecha_terminacion').datepicker({
           format: "yyyy-mm-dd",
           language: 'es',
@@ -105,12 +114,15 @@
               var cont = 0;
               var band = false;
             $(resp.v).each(function(i){
+                // if(resp.v[i]["Id_Estado"] == 5){
+                //   $("#inputDescInsumos").val();
+                // }
                 if(resp.v[i]["Id_Estado"] == 5){
-                    band = true;
-                   tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
-                   "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
-                   "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
-                   "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
+                  band = true;
+                  tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
+                  "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
+                  "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
+                  "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
                 }
             });
             if (band) {
@@ -119,47 +131,22 @@
               $("#devolverInsumos").modal('show');
               $("#idOrdenHidden").val(idOrden);
             }else{
-              $.ajax({
-                type: 'post',
-                dataType: 'json',
-                url: uri+"ctrProduccion/cancelarOrdenProd",
-                data:{id_orden: idOrden}
-                }).done(function(respuesta){
-                  if (respuesta.r == 1) {
-                    location.href = uri+'ctrProduccion/consOrden';
-                  }else{
-                    alert("Error al cancelar la orden");
-                  }
-                }).fail(function(){
-                }) 
+              // $.ajax({
+              //   type: 'post',
+              //   dataType: 'json',
+              //   url: uri+"ctrProduccion/cancelarOrdenProd",
+              //   data:{id_orden: idOrden}
+              //   }).done(function(respuesta){
+              //     if (respuesta.r == 1) {
+              //       location.href = uri+'ctrProduccion/consOrden';
+              //     }else{
+              //       alert("Error al cancelar la orden");
+              //     }
+              //   }).fail(function(){
+              //   }) 
             }
           }).fail(function(){
           });
-
-
-
-            // if (isConfirm){ 
-            //   $.ajax({
-            // type: 'post',
-            // dataType: 'json',
-            // url: uri+"ctrProduccion/cancelarOrdenProd",
-            // data:{id_orden: idOrden}
-            // }).done(function(respuesta){
-            //   if (respuesta.r == 1) {
-            //     // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-            //     // location.href = uri+"ctrPedido/consPedido";
-            //   }else{
-            //     alert("Error al cancelar la orden");
-            //   }
-            // }).fail(function(){
-            // })  
-            //   swal("Cancelada", "La orden ha sido cancelada", "success");
-            //   location.href = uri+"ctrProduccion/consOrden";
-            // }
-            // else
-            // {
-            //   swal("Acción interrumpida", "No se completó la acción.", "error");
-            // }
           });
         }
 
@@ -192,7 +179,6 @@
         }
       });
     }
-
 
     function devolverInsumos(){
         $("#tbodyDevolverInsumos tr").each(function(){

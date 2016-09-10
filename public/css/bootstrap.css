@@ -123,6 +123,9 @@ button {
 button,
 select {
   text-transform: none;
+  padding: 3px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
 }
 button,
 html input[type="button"],
@@ -2288,6 +2291,7 @@ th {
 .table > colgroup + thead > tr:first-child > td,
 .table > thead:first-child > tr:first-child > td {
   border-top: 0;
+  background-color: #e2e2e2;
 }
 .table > tbody + tbody {
   border-top: 2px solid #ddd;
@@ -5937,6 +5941,7 @@ button.close {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
+  border-radius: 10px 10px 0px 0px;
 }
 .modal-header .close {
   margin-top: -2px;
@@ -5944,10 +5949,14 @@ button.close {
 .modal-title {
   margin: 0;
   line-height: 1.42857143;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
 }
 .modal-body {
   position: relative;
   padding: 15px;
+  border-radius: 10px 10px 0px 0px !important;
 }
 .modal-footer {
   padding: 15px;

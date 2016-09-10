@@ -114,9 +114,9 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $("#codigo").val(campos.find("td").eq(0).text());
     $("#tipo_documento").val(campos.find("td").eq(1).text());
     $("#documento").val(campos.find("td").eq(2).text());
-    $("#estado").val(campos.find("td").eq(3).text());
-    $("#nombre").val(campos.find("td").eq(4).text());
-    $("#apellido").val(campos.find("td").eq(5).text());
+    $("#nombre").val(campos.find("td").eq(3).text());
+    $("#apellido").val(campos.find("td").eq(4).text());
+    $("#estado").val(campos.find("td").eq(5).text());
     $("#nombre_usuario").val(campos.find("td").eq(6).text());
      // $("#clave").val(campos.find("td").eq(7).text());
     $("#email").val(campos.find("td").eq(7).text());   
@@ -196,20 +196,40 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     }
 
      $(document).ready(function(){
-        $('#tablaListar').DataTable( {
+        $('#tablaListarRoles').dataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
-          "ordering": false
+         "ordering": false,
+      "language": {
+          "emptyTable": "No hay roles para listar",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron roles que coincidan con la búsqueda",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
         });
       });
 
         $(document).ready(function(){
-        $('#TablaClientes').DataTable( {
+        $('#TablaClientes').dataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
-          "ordering": false
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay clientes para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron clientes que coincidan con la búsqueda.",
+      "paginate": {
+        "previous": "",
+        "next": ""
+       }
+      }
         });
       });
 
@@ -223,11 +243,21 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
       // });
 
            $(document).ready(function(){
-        $('#TablaUsuarios').DataTable( {
+        $('#TablaUsuarios').dataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
-          "ordering": false
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay usuarios para listar",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No se encontraron usuarios que coincidan con la búsqueda",
+      "paginate": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+       }
+      }
         });
       });
 
