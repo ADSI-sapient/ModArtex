@@ -42,7 +42,7 @@
                     <td class="Fecha_Inicio"><?= $objetivo["FechaInicio"] ?></td>
                     <td class="Fecha_Fin"><?= $objetivo["FechaFin"]?></td>
                     <td class="Total"><?= $objetivo["CantidadTotal"]?></td>
-                    <td class="Estado"><?= $objetivo["Id_Estado"]==5? "Pendiente":"Cancelado" ?></td> 
+                     <td><?= $objetivo["Nombre_Estado"] ?></td> 
                       <td>                           
                    
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
@@ -53,13 +53,13 @@
                         <td>
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target='#Estadisticas'><i class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
                         </td>
-                       <td>
-                         <?php if ($objetivo["Id_Estado"] == 5){ ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoO(<?= $objetivo['Id_Objetivo'] ?>, 5)"><i class="fa fa-minus-circle fa-lg"></i></button>
-                          <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoO(<?= $objetivo['Id_Objetivo'] ?>, 8)"><i class="fa fa-check fa-lg"></i></button>
-                          <?php } ?>
-                       </td>
+                     <td>
+                          <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
+                          <?php else: ?>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
+                          <?php endif ?>
+                        </td>
                        
                     </tr>
                   <?php endforeach; ?>

@@ -233,34 +233,48 @@ function TotalFCN(){
 }
 
 
-    function cambiarEstadoO(Id_Objetivo, est){
-        $.ajax({
-            dataType: 'json',
+  
+      function cancelarobjetivo(Id_Objetivo){
+
+        swal({
+          title: "¿Está seguro?",   
+          text: "El objetivo quedará en estado cancelado!",  
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Sí, cancelar objetivo",
+          cancelButtonText: "No, terminar",
+          closeOnConfirm: false,
+          closeOnCancel: false },
+          function(isConfirm){
+            if (isConfirm)
+            { 
+              $.ajax({
             type: 'post',
-            url: uri+"ctrObjetivos/cambiarEstadoCancelar",
-            data: {Id_Objetivo:Id_Objetivo, Id_Estado:est}
-        }).done(function(respuesta){
-            if (respuesta.v == "5") {
-               Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
-            
-                // location.href = uri +"ctrObjetivos/listarObjetivos";
-            }else{
-                  Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
+            dataType: 'json',
+            url: uri+"ctrObjetivos/cancelarobjetivo",
+            data:{Id_Objetivo: Id_Objetivo}
+            }).done(function(respuesta){
+              if (respuesta.r == 1) {
+                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                // location.href = uri+"ctrPedido/consPedido";
+              }else{
+                alert("Error al cancelar el objetivo");
+              }
+            }).fail(function(){
+            })  
+              swal("Cancelado", "El objetivo ha sido cancelado", "success");
+              location.href = uri+"ctrObjetivos/listarObjetivos";
             }
-        }).fail(function() {
+            else
+            {
+              swal("Acción interrumpida", "No se completo la acción.", "error");
+            }
+          });
+        }
 
-        });
-    }
 
-    function validarFichas(){
-  if($("#FichasS tr").length > 0){
-    return true;
-  }else{
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No ha asignado ninguna Referencia'}); ;
-    return false;
 
-  }
-} 
 
 
 

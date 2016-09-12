@@ -7,7 +7,7 @@
  	function __construct()
  	{
  		$this->mdlModel= $this->loadModel("mdlObjetivos");
- 		// $mensajeobj= "";
+ 	
  	}
 
 
@@ -40,7 +40,7 @@
 			}else{
 					$mensajeobj = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'La fecha de inicio es mayor o igual a la fecha final'});";
 			}
-			// $_SESSION["mensaje"] = $mensajeobj;
+			$_SESSION["mensaje"] = $mensajeobj;
  		}
  		
  		    $fichas = $this->mdlModel->getAsoFichas();
@@ -60,7 +60,6 @@
 				   // 		var_dump($_POST["Id_Objetivo"]);
 			   	// exit();
 				   		$this->mdlModel->EliminarRegistro();
-
 
 				   		$this->mdlModel->__SET("Nombre", $_POST["Nombre"]);
  						$this->mdlModel->__SET("FechaRegistro", $_POST["FechaRegistro"]);
@@ -103,20 +102,21 @@
 
 		}
 
-		public function cambiarEstadoCancelar(){
+		public function cancelarobjetivo(){
 			// var_dump($_POST["Id_Objetivo"]); 
 			// exit();
 		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
-	    $this->mdlModel->__SET("Id_Estado", $_POST["Id_Estado"]);
+	    $this->mdlModel->__SET("Id_Estado", 8);	
 
-		$objetivo= $this->mdlModel->cambiarEstadoCan();
-
-		if ($objetivo) {
-		    echo json_encode(["v"=>5]);
-		}else{
-		    echo json_encode(["v"=>8]);
+		if ($this->mdlModel->cancelarObjetivo()) {
+		    	echo json_encode(["r"=>1]);
+		    }else{
+		    	echo json_encode(["r"=>0]);
+		    }
 		}
-	}
+
+
+
 
 
 
