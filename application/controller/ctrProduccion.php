@@ -10,7 +10,7 @@
 		public function registrarOrdenProduc(){
 				$this->_modelProduct->__SET("_estado_prod", 5);
 	        	$this->_modelProduct->__SET("_fecha_regist", $_POST["fecha_registro"]);
-		        // $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarPrd"]);
+		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarPrd"]);
 
 		        $this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
 		        $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
@@ -28,7 +28,7 @@
 		        $this->_modelProduct->__SET("_estadoFih", 5);
 		        $this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"]);
 		        $this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"]);
-		        $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
+		        // $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
 
 		        $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 					msg: 'La orden se registro correctamente'});";
