@@ -4918,3 +4918,9 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+.scrolltablas {
+  height: 200px;
+  overflow-y: scroll;
+}
+

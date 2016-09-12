@@ -1,3 +1,5 @@
+      
+
       $(window).load(function(){
           asignarDataTable();
       });
@@ -358,3 +360,5 @@
       });
     });
   }
+
+

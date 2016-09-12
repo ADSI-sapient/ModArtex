@@ -25,9 +25,11 @@
                 <button type="button" class="btn btn-primary pull-right" style="margin-left: 2%;" data-toggle="modal" data-target="#permisosm">Permisos</button>
               </div>
             </div>
+
+
             <div class="row col-lg-12">
               <div  class="form-group" id="permisosasig">
-                <div class="table">
+                <div class="table scrolltablas">
                   <div class="col-lg-12 table-responsive">
                     <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaPermisos">
                       <thead>
@@ -62,7 +64,7 @@
 
       <!--Listar Rol-->
       <div class="col-md-6" >
-        <div class="box box-primary">
+        <div class="box box-primary" style="height:462px;">
           <div class="box-header with-border" style="text-align: center;"> 
             <h4 class="control-label"><strong>LISTAR ROLES</strong></h4>
           </div>
@@ -96,16 +98,28 @@
                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                      </td>
                      <td>
+                     <?php if ($rol["Id_Rol"] == 1): ?>
+                       <button type="button" class="btn btn-box-tool" disabled="s"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                     <?php else: ?>
                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                      <?php endif ?>
                     </td>
                     <td>
-                      <?php if ($rol["Estado"] == 1){ ?>
+                    <?php if ($rol["Id_Rol"] == 1): ?>
 
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
-
-                        <?php }else{ ?>
+                        <?php if ($rol["Estado"] == 1): ?>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-minus-circle fa-lg"></i></button>
+                        <?php else: ?>
+                          <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check fa-lg"></i></button>
+                        <?php endif ?>
+                  <?php else: ?>
+                    <?php if ($rol["Estado"] == 1): ?>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                        <?php else: ?>
                           <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
-                          <?php } ?>
+                          <?php endif ?>
+
+                      <?php endif ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>

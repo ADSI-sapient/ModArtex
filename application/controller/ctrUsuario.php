@@ -40,20 +40,20 @@ class CtrUsuario extends Controller{
 					       
 					        //Registrar usuario
 							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
-								$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
+								$mensajeu = "Lobibox.notify('success', {size: 'mini', msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
 							}else{
-								$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
+								$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el usuario'});"; 
 							}
 						}else{
-							$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 					}else{
-						$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
+						$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
 					}
 					//Final de la validación del nombre de usuario
 				 }else{
-				    $mensajeu= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
+				    $mensajeu= "Lobibox.notify('error', {size: 'mini', msg: 'Existe un usuario con este documento'});"; 
 				}
 				$_SESSION["mensaje"] = $mensajeu;
 			}	//Final de la validación del documento

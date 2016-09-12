@@ -171,8 +171,7 @@ class ctrConfiguracion extends Controller{
 			$_SESSION["mensaje"] = $mensajeR;
 	        }
 
-	    $permisos = $this->_modelRoles->getAsoPermisos();
-	    $roles = $this->_modelRoles->getRoles();
+
 	    
 	        
 	    if (isset($_POST["btnModificarRol"])) {
@@ -196,7 +195,8 @@ class ctrConfiguracion extends Controller{
 		}
 
 
-
+	    $permisos = $this->_modelRoles->getAsoPermisos();
+	    $roles = $this->_modelRoles->getRoles();
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/configuracion/roles.php';
 		include APP . 'view/_templates/footer.php';	

@@ -52,14 +52,31 @@
                       <td style="display: none;"><?= $usuario["idRol"] ?></td>
 <!--                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td> -->
                       <td>
+                      <?php if ($usuario["idRol"] == 1): ?>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                      <?php else: ?>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        <?php endif ?>
                        </td>
                        <td>
-                         <?php if ($usuario["Estado"] == 1){ ?>
+                       <?php if ($usuario["idRol"] == 1): ?>
+
+                          <?php if ($usuario["Estado"] == 1): ?>
+                          <button type="button" class="btn btn-box-tool" disabled><i class="fa fa-minus-circle fa-lg"></i></button>
+                          <?php else: ?>
+                          <button type="button" class="btn btn-box-tool" disabled><i class="fa fa-check fa-lg"></i></button>
+                          <?php endif ?>
+
+
+                       <?php else: ?>
+
+                         <?php if ($usuario["Estado"] == 1): ?>
                           <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
-                          <?php }else{ ?>
+                          <?php else: ?>
                             <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
-                          <?php } ?>
+                          <?php endif ?>
+
+                          <?php endif ?>
                        </td>
                         </tr>
                       <?php endforeach; ?>
