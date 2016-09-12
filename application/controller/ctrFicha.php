@@ -143,8 +143,11 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
+		    	$_SESSION["mensaje"] = "Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'})";
+
 		    	echo json_encode(["v"=>0]);
 		    }else{
+                $_SESSION["mensaje"] = "Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    	echo json_encode(["v"=>1]);
 		    }
 		}

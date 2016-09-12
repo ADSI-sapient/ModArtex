@@ -48,7 +48,7 @@
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label class="">*Email:</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="">
+              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">

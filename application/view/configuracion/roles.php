@@ -16,20 +16,17 @@
           <form onsubmit="return validarRol();" action="<?= URL.'ctrConfiguracion/RegistrarRoles'?>" method="POST">
             <div class="box-body">
               <div class="form-group col-lg-5">
-                <label for="nombre" class="col-sm- control-label">Nombre</label>
+                <label for="nombre" class="control-label">Nombre</label>
                 <input type="text" class="form-control" name="nombre" required="">
               </div> 
               <div class="form-group">
-
-                <label for="nombre" class="col-lg-2  col-lg-offset-1 control-label">Permisos</label>
-                <button type="button" class="btn btn-primary  col-lg-offset-1 col-lg-4 "  data-toggle="modal" data-target="#permisos">Asignar permisos</button>
-                <br>
+                <label for="nombre" class="col-lg-2 col-lg-offset-1 control-label">Permisos</label>
+                <button type="button" class="btn btn-primary col-lg-offset-1 col-lg-4" data-toggle="modal" data-target="#permisosm">Asignar permisos</button>
               </div>
-            </div>
-          <div  class="form-group" id="permisosasig">
+              <div  class="form-group" id="permisosasig">
             <div class="table">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="tablaPermisos">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaPermisos">
                   <thead>
                     <tr class="active">
                       <th>Id Permiso</th>
@@ -39,11 +36,17 @@
                     </tr>
                   </thead>
                   <tbody id="tblPas">
+                    <tr>
+                      <td id="tblpermisosvacia" colspan="4" style="text-align:center;"></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+            </div>
+
+          
             <div class="box-footer">
               <div class="row"> 
                 <div class="form-group col-lg-12"> 
@@ -212,7 +215,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover table-bordered paginate-search-table" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
                       <th>Id</th>
@@ -250,7 +253,7 @@
 
 
  <!-- Inicio Modal asociar permisos -->
-      <div class="modal fade" id="permisos" tabindex="-1" role="dialog" >
+      <div class="modal fade" id="permisosm" tabindex="-1" role="dialog" >
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -258,9 +261,9 @@
               <h4 class="modal-title"><b>Permisos</b></h4>
             </div>
             <div class="modal-body">
-              <div class="table ">
-                <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="permisos">
+              <div class="table">
+                <div class="table-responsive">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="permisos">
                   <thead>
                     <tr class="active">
                       <th>Id</th>
@@ -270,10 +273,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tbody class="list">
-                     <?php $i = 1; ?>
-                  <?php foreach ($permisos as $permiso): ?>
-                    <tr >
+                    <?php $i = 1; ?>
+                    <?php foreach ($permisos as $permiso): ?>
+                    <tr>
                       <td><?= $permiso["Id_Permiso"]?></td>
                       <td><?= $permiso["modulos"] ?></td>
                       <td><?= $permiso["Nombre"] ?></td>
@@ -282,8 +284,7 @@
                       </td>
                     </tr>
                     <?php $i++; ?>
-                      <?php endforeach; ?>
-                    </tbody>
+                    <?php endforeach; ?>
                   </tbody>
                   </table>
                 </div>

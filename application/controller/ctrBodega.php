@@ -160,7 +160,7 @@ class ctrBodega extends Controller{
 			$promedio = $valTot/$cantTot;
 
 			$this->_modelExistencias->__SET("_cantInsumo", $cantTot);
-			$this->_modelExistencias->__SET("_valorPro", $promedio);
+			$this->_modelExistencias->__SET("_valorPro", round($promedio, 2));
 
 			$this->_modelExistencias->regEntradaExis();
 		}elseif (isset($_POST["regMuchos"])) {

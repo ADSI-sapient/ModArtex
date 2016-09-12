@@ -777,7 +777,7 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
   `Codigo` int(11) NOT NULL,
   `Id_Solicitud_Producto` int(11) NOT NULL,
   `Num_Orden` int(11) NOT NULL,
-  `Estado` varchar(30) NOT NULL,
+  `Id_Estado` int(11) NOT NULL,
   `LugarProduccion` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

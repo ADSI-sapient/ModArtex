@@ -49,8 +49,9 @@
                 <label class="control-label" length="80px">*Valor: </label>
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
-                  <input type="number" class="form-control" min="0" name="valor" data-parsley-required="">
+                  <input type="number" class="form-control" min="0" name="valor" data-parsley-required="" data-parsley-errors-container="#errorValorInsumoBodega">
                 </div>
+              <div id="errorValorInsumoBodega"></div>
               </div>
               <div style="margin-top: 25px;" class="col-md-4">
                 <button  type="button" class="btn pull-right" data-toggle="modal" data-target="#SeleColorReg"><i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i></button>

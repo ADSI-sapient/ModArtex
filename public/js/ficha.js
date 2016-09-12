@@ -539,12 +539,8 @@
             data: {referencia:ref, estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-
-                Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'});
                 location.href = uri+"ctrFicha/consFicha";
-
             }else{
-                Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false});
                 location.href = uri+"ctrFicha/consFicha";
             }
         }).fail(function(){})
