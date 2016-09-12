@@ -241,9 +241,49 @@ function TotalFCN(){
 }
 
 
-  function validarC(){
-    
-  }
+  
+      function cancelarobjetivo(Id_Objetivo){
+
+        swal({
+          title: "¿Está seguro?",   
+          text: "El objetivo quedará en estado cancelado!",  
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Sí, cancelar objetivo",
+          cancelButtonText: "No, terminar",
+          closeOnConfirm: false,
+          closeOnCancel: false },
+          function(isConfirm){
+            if (isConfirm)
+            { 
+              $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: uri+"ctrObjetivos/cancelarobjetivo",
+            data:{Id_Objetivo: Id_Objetivo}
+            }).done(function(respuesta){
+              if (respuesta.r == 1) {
+                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                // location.href = uri+"ctrPedido/consPedido";
+              }else{
+                alert("Error al cancelar el objetivo");
+              }
+            }).fail(function(){
+            })  
+              swal("Cancelado", "El objetivo ha sido cancelado", "success");
+              location.href = uri+"ctrObjetivos/listarObjetivos";
+            }
+            else
+            {
+              swal("Acción interrumpida", "No se completo la acción.", "error");
+            }
+          });
+        }
+
+
+
+
 
 
 

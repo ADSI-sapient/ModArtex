@@ -86,13 +86,16 @@ class CtrUsuario extends Controller{
 
 		 if (isset($_POST["btonModificar"])) {
 	# code...
-	      $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
+	    $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
       	$this->mdlModel->__SET("Apellido", $_POST["apellido"]);     
-	     $this->mdlModel->__SET("Email", $_POST["email"]);
+	    $this->mdlModel->__SET("Email", $_POST["email"]);
+	    $this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
 	    $this->mdlModel->__SET("Usuario", $_POST["nombre_usuario"]);
 	    $this->mdlModel->__SET("Tbl_Roles_Id_Rol", $_POST["rol"]);
-	     $this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
-		if ($this->mdlModel->modificarPersona()) {		
+	    
+		 
+		if ($this->mdlModel->modificarPersona() && $this->mdlModel->modificarUsuario()) {
+			
 
 	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario modificado exitosamente'});";
 	  		header("location: ".URL."ctrUsuario/consUsuario");
@@ -114,8 +117,8 @@ class CtrUsuario extends Controller{
 
 
 	public function cambiarEstado(){
-		$this->mdlModel->__SET("Num_Documento", $_POST["Num_Documento"]);
-	    $this->mdlModel->__SET("Estado", $_POST["Estado"]);
+		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
+	    $this->mdlModel->__SET("Id_Estado", $_POST["Id_Estado"]);
 
 		$usuarios = $this->mdlModel->cambiarEstado();
 

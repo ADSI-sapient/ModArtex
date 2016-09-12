@@ -26,7 +26,7 @@
                 <br>
               </div>
             </div>
-          <div hidden="" class="form-group" id="permisosasig">
+          <div  class="form-group" id="permisosasig">
             <div class="table">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover" style="margin-top: 2%;" id="tablaPermisos">
@@ -72,10 +72,12 @@
             <table class="table table-hover col-lg-12" id="tablaListarRoles">
                     <thead>
                       <tr class="info">
-                      <th class="col-lg-3">#</th>
-                        <th class="col-lg-3">Nombre</th>
-                        <th class="col-lg-3">Estado</th>
-                         <th style="width: 15%">Opción</th>
+                      <th class="col-lg-2">#</th>
+                        <th class="col-lg-2">Nombre</th>
+                        <th class="col-lg-2">Estado</th>
+                         <th style="width: 15%">Permisos</th>
+                         <th>Modificar</th>
+                         <th>Modificar Estado</th>
                       </tr>
                     </thead>
                  <tbody class="list">
@@ -86,7 +88,10 @@
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                     <td>
                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                       </td>
+                       <td>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        </td>
                       <td>
                         <?php if ($rol["Estado"] == 1){ ?>
                           
@@ -162,7 +167,7 @@
       <div class="modal-content" style="border-radius: 25px;">
        <div class="modal-header with-border" style="text-align: center;"> 
          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                   <h4 class="control-label"><strong>MODIFICAR ROL</strong></h4>
+                   <h4 class="control-label"><strong>Permisos asignados</strong></h4>
               </div>
          
               <div class="box-body">
@@ -255,7 +260,7 @@
             <div class="modal-body">
               <div class="table ">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover" style="margin-top: 2%;" id="permisos">
                   <thead>
                     <tr class="active">
                       <th>Id</th>

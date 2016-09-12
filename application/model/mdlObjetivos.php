@@ -136,6 +136,24 @@
 
 
 
+          public function cancelarObjetivo(){
+	        $sql = "CALL SP_CancelarObjetivo(?, ?)";
+
+	        try{
+	          $query = $this->db->prepare($sql);
+	          $query->bindParam(1, $this->Id_Estado);
+	          $query->bindParam(2, $this->Id_Objetivo);
+	          return $query->execute();
+
+	        }catch(PDOException $e){
+	        	
+	        }
+      	}
+
+      	
+
+
+
 
 	}
 ?>

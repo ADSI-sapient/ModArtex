@@ -27,7 +27,10 @@
                       <th>Total</th>
                       <th>Estado</th>
                       <th style="display: none">Id_Estado</th>
-                      <th style="width: 10%">Opción</th>
+                      <th>Referencias</th>
+                      <th>Modificar</th>
+                      <th>Estadistica</th>
+                      <th>Cancelar objetivo</th>
                     </tr>
                   </thead>
                   <tbody class="list">
@@ -39,16 +42,23 @@
                     <td class="Fecha_Inicio"><?= $objetivo["FechaInicio"] ?></td>
                     <td class="Fecha_Fin"><?= $objetivo["FechaFin"]?></td>
                     <td class="Total"><?= $objetivo["CantidadTotal"]?></td>
-                    <td><?= $objetivo["Nombre_Estado"]?></td>
-                    <td style="display: none"><?= $objetivo["Id_Estado"]?></td>
-                   <!--  <td class="Estado"><?= $objetivo["Estado"]==5?"Habilitado":"Inhabilitado" ?></td> -->
+                     <td><?= $objetivo["Nombre_Estado"] ?></td> 
                       <td>                           
                    
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
-
+                        </td>
+                        <td>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarObj"onclick="ModificarObj('<?= $objetivo["Id_Objetivo"] ?>', '<?= $objetivo["FechaRegistro"] ?>', '<?= $objetivo["FechaInicio"] ?>', '<?= $objetivo["Nombre"] ?>', '<?= $objetivo["FechaFin"] ?>',    this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
-
-                         <button type="button" class="btn btn-box-tool"><i class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
+                        </td>
+                        <td>
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target='#Estadisticas'><i class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
+                        </td>
+                     <td>
+                          <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
+                          <?php else: ?>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
+                          <?php endif ?>
                         </td>
                        
                     </tr>
