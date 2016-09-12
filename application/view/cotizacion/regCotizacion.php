@@ -37,8 +37,9 @@
             <div id="regCotizv"></div>
           </div>
           <div class="form-group col-lg-4">
-            <label for="estado" class="">Estado:</label>
-            <input type="text" name="estado" class="form-control" id="estado" readonly="" value="No Entregada">
+
+            <label for="estado" class="">Estado</label>
+            <input type="text" name="estado" class="form-control" id="estado" readonly="" value="Pendiente">
           </div>
         </div>
         <div class="row col-lg-12" style="margin-left:0.5%">
