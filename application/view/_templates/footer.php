@@ -32,9 +32,9 @@
     <script src="<?= URL;?>js/jquery.dataTables.min.js"></script>
     <script src="<?= URL;?>js/sweetalert.js"></script>
     <!-- Lobibox -->
-    <script src="<?= URL;?>js/lobibox.min.js"></script>
-    <script src="<?= URL;?>js/messageboxes.min.js"></script>
-    <script src="<?= URL;?>js/notifications.min.js"></script>
+    <script src="<?= URL;?>js/lobibox.js"></script>
+   <!--  <script src="<?= URL;?>lobibox/dist/js/messageboxes.min.js"></script>
+    <script src="<?= URL;?>lobibox/dist/js/notifications.min.js"></script> -->
     <script src="<?= URL;?>Parsley.js-2.4.4/dist/parsley.min.js"></script>
     <script src="<?= URL;?>Parsley.js-2.4.4/dist/i18n/es.js"></script>
     <script type="text/javascript">

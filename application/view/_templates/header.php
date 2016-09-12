@@ -156,18 +156,18 @@
 
 
     
-<div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
       </div>
       <div class="modal-body">
         <form data-parsley-validate="">
           <div style="margin-top: 10px;" class="row">
             <div class="form-group col-md-12">
-            <div style="padding-left: 0px" class="col-md-5">  
+            <div style="padding-left: 0px" class="col-md-4">  
               <div class="input-group my-colorpicker2 colorpicker-element">
               <input id="codigoColorCrud" type="text" name="codigo" class="form-control" readonly="" value="#0000ff">
                   <div class="input-group-addon">
@@ -178,8 +178,8 @@
             <div class="col-md-5">
                 <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
             </div> 
-            <div class="col-md-2">
-              <button onclick="regColor()" type="button" class="btn btn-primary">Registrar</button>
+            <div class="col-md-3">
+              <button onclick="regColor()" class="btn btn-success" type="button"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
             </div> 
             </div>
           </div>
@@ -192,11 +192,11 @@
                   <tr>
                     <th>#</th>
                     <th>Muestra</th>
-                    <th>Código</th>
                     <th>Color</th>
                     <th style="text-align: center;">Modificar</th>
                     <th>Eliminar</th>
                     <th>Guardar</th>  
+                    <th style="display: none;"></th>  
                   </tr>
                 </thead>
                 <tbody id="tbody-CrudColores">
@@ -208,6 +208,7 @@
     </div>
     <div>
       <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+          <button class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div>
     </div>
   </div>
@@ -217,25 +218,25 @@
 
 
 
-<div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de medida</h3>
       </div>
-      <div class="modal-body">
+      <div class="modal-body">  
         <form data-parsley-validate="">
           <div style="margin-top: 10px;" class="row">
             <div class="form-group col-sm-12">
             <div style="padding-left: 0;" class="col-sm-4">  
-              <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura">
+              <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura" data-parsley-required="">
             </div>
-            <div class="col-sm-6">
-              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control">
+            <div class="col-sm-5">
+              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control" data-parsley-required="">
             </div> 
-            <div class="col-sm-2">
-              <button onclick="regMedida()" class="btn btn-primary">Registrar</button>
+            <div class="col-sm-3">
+              <button onclick="regMedida()" class="btn btn-success" type="button"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
             </div> 
             </div>
           </div>
@@ -264,6 +265,7 @@
     </div>
     <div>
       <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+        <button class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div>
     </div>
   </div>

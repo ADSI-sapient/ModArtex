@@ -14,6 +14,8 @@
 		private $_nombre;
 		private $_estado;
 
+		private $_idColIns;
+
 		function __construct($db){
 			$this->_db = $db;
 		}
@@ -94,34 +96,39 @@
 			$stm->bindParam(1, $this->_idInsumo);
 			$stm->bindParam(2, $this->_codMedida);
 			$stm->bindParam(3, $this->_nombre);
-			$stm->execute();
-
-			$this->modiExistencia();
-		}
-
-		public function modiExistencia(){
-			$sql = "CALL SP_ModExisIns(?, ?, ?)";
-			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idInsumo);
-			$stm->bindParam(2, $this->_stock);
-			$stm->bindParam(3, $this->_valPro);
 			return $stm->execute();
 		}
 
-		public function deleteColor(){
-			$sql = "CALL SP_BorrarColIns(?, ?)";
+		public function modiExistencia(){
+			$sql = "CALL SP_ModExisIns(?, ?, ?, ?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idColor);
-			$stm->bindParam(2, $this->_idInsumo);
+			$stm->bindParam(1, $this->_idColIns);
+			$stm->bindParam(2, $this->_cant);
+			$stm->bindParam(3, $this->_valPro);
+			$stm->bindParam(4, $this->_stock);
+			return $stm->execute();
+		}
+
+		public function deleteColorIns(){
+			$sql = "CALL SP_BorrarColIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idColIns);
 			return $stm->execute();
 		}
 
 		public function cantidadColIns(){
-			$sql = "CALL SP_CantidadColIns(?, ?)";
+			$sql = "CALL SP_CantidadColIns(?)";
 			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->_idColor);
-			$stm->bindParam(2, $this->_idInsumo);
+			$stm->bindParam(1, $this->_idColIns);
 			$stm->execute();
 			return $stm->fetch();	
+		}
+
+		public function fichasAsociadas(){
+			$sql = "CALL SP_ConsFichasAsocColIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idColIns);
+			$stm->execute();
+			return $stm->fetchAll();
 		}
 	}

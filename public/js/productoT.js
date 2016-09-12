@@ -27,6 +27,7 @@
       });
      function Salida(){
           $("#tbodySal").empty();
+          var band = false;
           $("#tablaProducto tbody tr").each(function(){
             var valor = $(this).find("td").eq(0).html();
             // console.log($(this).find("td").eq(0));
@@ -37,8 +38,14 @@
               +$(this).find("td").eq(3).html()+"'>"+$(this).find("td").eq(3).html()+"</td><td style='display: none'><input type='hidden' name='idf[]' value='"
               +$(this).find("td").eq(2).html()+"'></td><td><input id='Salida' type='number' name='salida[]'></td></tr>";
               $("#tbodySal").append(fila);
+              band = true;
             }
           });
+          if (band) {
+              $("#ModalSalidas").modal();
+          }else{
+              Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Debe seleccionar productos'});
+          }
         }
 
 
