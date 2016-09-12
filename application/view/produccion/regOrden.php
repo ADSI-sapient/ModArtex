@@ -58,9 +58,9 @@
         <div class="form-group col-lg-8">
           <label for="lugarPrd" class="">*Lugar:</label>
           <select id="selectLugarProducc" disabled="" onchange="selectLugarProduccion(this)" class="form-control" name="lugarPrd" data-parsley-required="">
-            <option value="1">Fábrica</option>
-            <option value="2">Satélite</option>
-            <option value="3">Fábrica/Satélite</option>
+            <option value="Fábrica">Fábrica</option>
+            <option value="Satélite">Satélite</option>
+            <option value="Fábrica-Satélite">Fábrica-Satélite</option>
           </select>
         </div>
         <div class="form-group col-lg-4">

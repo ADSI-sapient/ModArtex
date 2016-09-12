@@ -244,7 +244,7 @@
 
 
 function selectLugarProduccion(select){
-    if ($(select).val() == 3) {
+    if ($(select).val() == "Fábrica-Satélite") {
       $('#tblFichasProd thead tr').each(function(){
         var th = "<th>Fabrica</th><th>Satelite</th>"
         $(this).append(th);
@@ -272,37 +272,35 @@ function regOrdenProducc(){
   var fechaRegistro = $("#fecha_registro").val();
   var idSolicitud = $("#id_solicitud").val();
   var fechaFin = $("#fecha_terminacion").val();
+  var lugarPro = $("#selectLugarProducc").val();
 
   $.ajax({
     type: 'POST',
     dataType: 'json',
     url: uri+'ctrProduccion/registrarOrdenProduc',
-    data: {fecha_registro: fechaRegistro, id_solTud: idSolicitud, fecha_terminacion: fechaFin}
+    data: {fecha_registro: fechaRegistro, id_solTud: idSolicitud, fecha_terminacion: fechaFin, lugarPrd: lugarPro}
   }).done(function(resp){
     var ultimaOrden = resp["ultOrden"]
     $('#tblFichasProd tbody tr').each(function(){
       var idSolProd = $(this).find("td").eq(0).html();
-      var lugarPro = "";
       var CantFab = "";
       var CantSat = "";
-      if($("#selectLugarProducc").val() == 1){
-        lugarPro = "Fábrica";
+      if($("#selectLugarProducc").val() == "Fábrica"){
         CantFab = $(this).find("td").eq(5).html();
         CantSat = 0;
-      }else if($("#selectLugarProducc").val() == 2){
-        lugarPro = "Satélite";
+      }else if($("#selectLugarProducc").val() == "Satélite"){
         CantFab = 0;
         CantSat = $(this).find("td").eq(5).html();
-      }else if($("#selectLugarProducc").val() == 3){
-        lugarPro = "Fábrica/Satélite";
+      }else if($("#selectLugarProducc").val() == "Fábrica-Satélite"){
         CantFab = $("#canFabri"+idSolProd).val();
         CantSat = $("#cantSate"+idSolProd).val();
       }
+      console.log(idSolProd, ultimaOrden, CantFab, CantSat);
       $.ajax({
         type: 'POST',
         dataType: 'json',
         url: uri+'ctrProduccion/registraOrdenSolicitud',
-        data: {id_solic_prodcto: idSolProd, idOrden: ultimaOrden, cantProducirPed: CantFab, cantSatelite: CantSat, lugarP: lugarPro}
+        data: {id_solic_prodcto: idSolProd, idOrden: ultimaOrden, cantProducirPed: CantFab, cantSatelite: CantSat}
       }).done(function(resp){
         location.href = uri+'ctrProduccion/regOrden';
       }).fail(function(){

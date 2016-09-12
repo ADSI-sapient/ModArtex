@@ -15,7 +15,7 @@
 		        $this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
 		        $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
 				$this->_modelProduct->actualizarFechaEntregaPd();
-			    $this->_modelProduct->actualizarEstadoPed();
+			    // $this->_modelProduct->actualizarEstadoPed();
 
 		        $this->_modelProduct->regOrdenProduccion();
 		        $ultimaOrden = $this->_modelProduct->consUltimaOrdenReg();

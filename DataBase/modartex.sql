@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2016 a las 05:26:09
+-- Tiempo de generación: 12-09-2016 a las 23:17:36
 -- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 7.0.8
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `modartex1`
+-- Base de datos: `modartex`
 --
 
 DELIMITER $$
@@ -70,11 +70,11 @@ UPDATE tbl_persona SET Estado = _estado WHERE Num_Documento = _documento$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CambiarEstadoR` (IN `_estado` INT, IN `_id_rol` INT)  NO SQL
 UPDATE tbl_roles SET Estado = _estado WHERE Id_Rol = _id_rol$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_cancelarOdenPr` (IN `_id_ordenp` INT)  NO SQL
-UPDATE tbl_ordenesproduccion SET Id_Estado = 4 WHERE Num_Orden = _id_ordenp$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CancelarObjetivo` (IN `estado` INT, IN `objetivo` INT)  NO SQL
 UPDATE tbl_objetivos set Id_Estado= estado where Id_objetivo= objetivo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_cancelarOdenPr` (IN `_id_ordenp` INT)  NO SQL
+UPDATE tbl_ordenesproduccion SET Id_Estado = 4 WHERE Num_Orden = _id_ordenp$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_cancelarPedido` (IN `_id_estado` INT, IN `_id_pedido` INT)  NO SQL
 UPDATE tbl_solicitudes SET Id_Estado = _id_estado WHERE Id_Solicitud = _id_pedido$$
@@ -280,8 +280,8 @@ INSERT INTO tbl_salida_ficha (Id_Salida, Id_Ficha_Tecnica, Cantidad) VALUES (_sa
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarTipoSolicitud` (IN `_id_pedido` INT, IN `_id_tipoSolicitud` INT, IN `_fecha_entrega` DATE)  NO SQL
 INSERT INTO tbl_solicitudes_tipo VALUES (NULL, _id_pedido, _id_tipoSolicitud, _fecha_entrega, NULL)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regOrdenProduccion` (IN `_estado` VARCHAR(45), IN `_fechaReg` DATE)  NO SQL
-INSERT INTO tbl_ordenesproduccion VALUES (NULL, _estado, _fechaReg)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regOrdenProduccion` (IN `_estado` VARCHAR(45), IN `_fechaReg` DATE, IN `lugar` VARCHAR(30))  NO SQL
+INSERT INTO tbl_ordenesproduccion VALUES (NULL, _estado, _fechaReg, lugar)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPermisos` (IN `_Id_Rol` INT, IN `_Id_Permiso` INT)  NO SQL
 INSERT INTO tbl_rol_permisos (Id_Rol, Id_Permiso) VALUES (_Id_Rol, _Id_Permiso)$$
@@ -300,6 +300,9 @@ INSERT INTO tbl_existencias_salidas VALUES(NULL, idSal, idExs, cant)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegSalidaIns` (IN `fecha` DATE, IN `descr` VARCHAR(100))  NO SQL
 INSERT INTO tbl_salidas VALUES (NULL, fecha, descr)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regSolcOrdenProd` (IN `_id_solProd` INT, IN `_numOrden` INT, IN `_estadof` INT, IN `_cantF` INT, IN `_cantS` INT)  NO SQL
+INSERT INTO tbl_solicitudes_ordenesproduccion VALUES (NULL, _id_solProd, _numOrden, _estadof, _cantF, _cantS)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_regSolicitud` (IN `Num` VARCHAR(20), IN `Estado` INT(11), IN `Fecha` DATE, IN `Total` INT(11))  NO SQL
 INSERT INTO tbl_solicitudes VALUES (NULL, Num,Estado,Fecha,Total)$$
@@ -577,7 +580,8 @@ CREATE TABLE `tbl_objetivos` (
 CREATE TABLE `tbl_ordenesproduccion` (
   `Num_Orden` int(11) NOT NULL,
   `Id_Estado` int(11) NOT NULL,
-  `Fecha_Registro` date NOT NULL
+  `Fecha_Registro` date NOT NULL,
+  `LugarProduccion` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -777,8 +781,7 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
   `Codigo` int(11) NOT NULL,
   `Id_Solicitud_Producto` int(11) NOT NULL,
   `Num_Orden` int(11) NOT NULL,
-  `Id_Estado` int(11) NOT NULL,
-  `LugarProduccion` varchar(30) NOT NULL
+  `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1207,7 +1210,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT de la tabla `tbl_rol_permisos`
 --
 ALTER TABLE `tbl_rol_permisos`
-  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Rol_Permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
@@ -1262,7 +1265,7 @@ ALTER TABLE `tbl_unidades_medida`
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
