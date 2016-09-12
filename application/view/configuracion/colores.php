@@ -35,7 +35,7 @@
                   </div>
               </div>
               <div class="box-footer" style="margin-top: 50px;">
-                  <button type="reset" onclick="resetCol();" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i>  Limpiar</button>
+                  <button type="reset" onclick="resetCol();" class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i>  Limpiar</button>
                   <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>   
               </div> 
             </form>

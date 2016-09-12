@@ -195,6 +195,8 @@ class ctrConfiguracion extends Controller{
 	      	$_SESSION["mensaje"] = $mensajeR;
 		}
 
+
+
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/configuracion/roles.php';
 		include APP . 'view/_templates/footer.php';	
