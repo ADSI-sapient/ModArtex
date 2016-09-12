@@ -13,12 +13,11 @@
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
         <div class="box-body">
-        <br>
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
+              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">Fecha Registro:</label>
@@ -102,7 +101,7 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
                 <!-- </div> -->
               </div>
             </div>
@@ -124,8 +123,8 @@
         </div>
       <!-- Inicio Modal asociar insumos -->
       <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >
-        <div class="modal-dialog">
-          <div class="modal-content modal-lg" style="border-radius: 10px;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title"><b>Insumos Para Asociar</b></h4>

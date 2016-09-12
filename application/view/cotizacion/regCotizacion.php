@@ -52,16 +52,16 @@
               </select>
             <div id="regCotizCl"></div>
             </div>
-        </div>
-        <div class="row col-lg-12" style="margin-left:0.5%">
+        <!-- </div> -->
+        <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
           <div class="form-group col-lg-3">
-            <button type="button" class="btn btn-info btn-md" id="" data-toggle="modal" data-target="#ModelProducto" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+            <button type="button" class="btn btn-info pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
           </div>
         </div>
-        <div hidden="" class="form-group" id="agregarFicha">
+        <div class="form-group" id="agregarFicha">
             <div class="table" data-parsley-required="">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="Ficha">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="Ficha">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -73,6 +73,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td id="tblFichasVaciaCoti" colspan="8" style="text-align:center;"></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -95,14 +98,13 @@
           <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Agregar Ficha</h4>
+              <h4 class="modal-title" id="myModalLabel">Productos Para Asociar</h4>
             </div>
             <div>
-
               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">
            <div class="table">
                 <div class="col-lg-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tablaFicha">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFichasCoti">
                     <thead>
                       <tr class="active">
                         <th style="display: none;"></th>

@@ -55,10 +55,10 @@
               </select>
               <div id="regPedidoCl"></div>
               </div>
-            </div>
-            <div class="row col-lg-12" style="margin-left:0.5%">
+            <!-- </div> -->
+            <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
               <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
               </div>
             </div>
           <div class="form-group" id="agregarFicha">
@@ -107,16 +107,16 @@
       </div>
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content modal-lg" style="border-radius: 10px;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Fichas Técnicas</b></h4>
+              <h4 class="modal-title"><b>Productos Para Asociar</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tblFichasAsp">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tblFichasAsp">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -137,7 +137,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>');"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

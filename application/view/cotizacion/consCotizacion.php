@@ -10,7 +10,6 @@
     <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
-<<<<<<< HEAD
       </div> 
       <div id="users">
         <form class="form-horizontal">
@@ -29,6 +28,7 @@
                       <th style="width: 7%">Editar</th>
                       <th>Generar</th>
                       <th class="col-md">Convertir en Pedido</th>
+                      <th class="col-md">Detalle</th>
                     </tr>
                   </thead>
                   <tbody class="">
@@ -303,11 +303,10 @@
     <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Convertir a Pedido</h4>
+        <h4 class="modal-title">Convertir en Pedido</h4>
       </div>
       <div class="modal-body">
-        
-
+      
            <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
                   <div class="form-group col-sm-5">
                     <label class="">Codigo</label>

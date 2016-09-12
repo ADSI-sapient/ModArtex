@@ -15,7 +15,7 @@
               <form class="form-horizontal">
                 <div class="col-md-12">
                 <div class="table-responsive">
-                  <table class="table cell-border" id="tablaPedidos">
+                  <table class="table table-hover table-bordered" id="tablaPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>
@@ -40,21 +40,21 @@
                         <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o"></i></button>
+                            <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto;"></i></button>
                           <?php else: ?>
                             <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="cursor:auto;"></i></button>
                           <?php else: ?>
                             <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto;"></i></button>
                           <?php else: ?>
                           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                           <?php endif ?>
@@ -117,7 +117,7 @@
                 <div class="table">
                 <div class="form-group col-sm-12 table-responsive">
                 <label for="valor_total" class="">*Productos Asociados:</label>
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="tbl-prod-aso-ped">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tbl-prod-aso-ped">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>

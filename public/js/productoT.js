@@ -19,10 +19,11 @@
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
           "zeroRecords": "No hay producto terminado que coincida con la búsqueda.",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
-      }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
         });
       });
      function Salida(){

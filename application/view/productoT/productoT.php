@@ -17,7 +17,7 @@
       <form class="form-horizontal">
         <div class="col-md-12">
           <div class="table table-responsive">
-            <table class="table table-hover" id="tablaProducto">
+            <table class="table table-hover table-bordered" id="tablaProducto">
               <thead>
                 <tr class="info">
                 <th></th>
