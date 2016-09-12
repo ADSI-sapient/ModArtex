@@ -19,11 +19,6 @@ class ctrConfiguracion extends Controller{
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/configuracion/colores.php';
 		include APP . 'view/_templates/footer.php';
-
-
-		if ($mensaje != "") {
-			echo("<script> swal('Hay cantidades asociadas a este registro', 'Regristro exitoso'); </script>");
-		}
 	}
 
 	public function listarColores(){
@@ -48,19 +43,34 @@ class ctrConfiguracion extends Controller{
 	public function registrarColor(){
 		$this->_modelColor->__SET("_codigo", $_POST["codigo"]);
 		$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
+
+		$validate = $this->_modelColor->validar();
 		
+		if($validate != false) {
+			$_SESSION["mensaje"] = "Lobibox.notify('error', {delay: 6000, size: 'mini',
+					msg: 'El color ingresado ya existe'});";
+			header ("location: ".URL."ctrConfiguracion/listarColores");
+		}else{
+
 		if (isset($_POST["crudCol"])) {
 			echo json_encode($this->_modelColor->registrar());
 		}
 		else{
-			$this->_modelColor->registrar();
+			if ($this->_modelColor->registrar()) {
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'El color registro correctamente'});";
+			}
 			header ("location: ".URL."ctrConfiguracion/listarColores");
 		}
+	}
 	}
 
 	public function eliminarColor(){
 		$this->_modelColor->__SET("_id", $_POST["idColor"]);
-		echo json_encode($this->_modelColor->eliminar());
+		if($this->_modelColor->eliminar()){
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El color se elimino correctamente'});";
+			echo json_encode(true);
+		}
 	}
 
 	public function modificarColor(){
@@ -71,8 +81,10 @@ class ctrConfiguracion extends Controller{
 		if (isset($_POST["crudCol"])) {
 			echo json_encode($this->_modelColor->modificar());
 		}else{
-			$this->_modelColor->modificar();
-
+			if ($this->_modelColor->modificar()) {
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'El color modifico correctamente'});";
+			}
 			header('location: '.URL.'ctrConfiguracion/listarColores');
 		}
 	}
@@ -93,19 +105,29 @@ class ctrConfiguracion extends Controller{
 		$this->_modelMedida->__SET("_nombre", $_POST["nombre"]);
 		$this->_modelMedida->__SET("_abreviatura", $_POST["Abr"]);
 
-		if (isset($_POST["crudMed"])) {
-			echo json_encode($this->_modelMedida->registrarMedida());
-		}else{
-			$this->_modelMedida->registrarMedida();
+		if ($this->_modelMedida->validar() != false) {
+			$_SESSION["mensaje"] = "Lobibox.notify('error', {delay: 6000, size: 'mini',
+					msg: 'La unidad de medida ingresada ya existe'});";
 			header('location: '.URL.'ctrConfiguracion/listarMedidas');
+		}else{
+			if (isset($_POST["crudMed"])) {
+				echo json_encode($this->_modelMedida->registrarMedida());
+			}else{
+				if($this->_modelMedida->registrarMedida()){
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+						msg: 'La unidad de medida se registro correctamente'});";
+				}
+				header('location: '.URL.'ctrConfiguracion/listarMedidas');
+			}
 		}
 	}
 
 	public function eliminarMedida(){
 		$this->_modelMedida->__SET("_codigo", $_POST["cod"]);
-		echo json_encode($this->_modelMedida->eliminarMedida());
-
-		// header('location: '.URL.'ctrConfiguracion/listarMedidas');
+		if ($this->_modelMedida->eliminarMedida()) {
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La unidad de medida se elimino correctamente'});";
+			echo json_encode(true);
+		}
 	}
 
 	public function modificarMedida(){
@@ -115,7 +137,10 @@ class ctrConfiguracion extends Controller{
 		if (isset($_POST["crudMed"])) {
 			echo json_encode($this->_modelMedida->modificarMedida());
 		}else{
-			$this->_modelMedida->modificarMedida();
+			if($this->_modelMedida->modificarMedida()){
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+				msg: 'La unidad de medidas se modifico correctamente'});";
+			}
 			header('location: '.URL.'ctrConfiguracion/listarMedidas');
 		}
 	}
@@ -193,5 +218,16 @@ class ctrConfiguracion extends Controller{
 		}else{
 			echo json_encode(["v"=>0]);
 		}
+	}
+
+	public function validateColor(){
+		$this->_modelColor->__SET("_nombre", $_POST["nombre"]);
+		echo json_encode($this->_modelColor->validar());
+	}
+
+	public function validateMedida(){
+		$this->_modelMedida->__SET("_nombre", $_POST["nombre"]);
+		$this->_modelMedida->__SET("_abreviatura", $_POST["Abr"]);
+		echo json_encode($this->_modelMedida->validar());
 	}
 }

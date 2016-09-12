@@ -1,3 +1,10 @@
+    $(window).load(function(){
+        if ($("#tblFichasProd tbody tr").length == 0) {
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='7' style='text-align: center;''>La tabla esta vacia</td></tr>";
+          $("#tblFichasProd tbody").append(tr);
+        }
+    });
+
     $('#tblOrdenes').dataTable( {
       // "lengthChange": false,
       //"searching": false,
@@ -62,7 +69,8 @@
         {
     			for (var i = 0; i < productosAsoOrden.length; i++) {
 	    			var referencia = productosAsoOrden[i]["Referencia"];
-	    			var codColor = productosAsoOrden[i]["Codigo_Color"];
+            var codColor = productosAsoOrden[i]["Codigo_Color"];
+	    			var nomColor = productosAsoOrden[i]["Nombre_Color"];
             var cantTotal = productosAsoOrden[i]["Cantidad_Producir"];
 	    			var cantFab = productosAsoOrden[i]["Cantidad_Fabrica"];
             var cantSat = productosAsoOrden[i]["Cantidad_Satelite"];
@@ -73,15 +81,21 @@
             var lugar = productosAsoOrden[i]["Lugar_Produccion"];
 
 	    			var tr ="";
-	    			tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
-            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
-            +cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"
-            +cantSat+"' name='cantSat[]'></td><td><select name='lugarP[]' id='lugarP"
-            +idFichaTec+"'><option value='Fábrica'>Fábrica</option><option value='Satélite'>Satélite</option><option value='Fábrica/Satélite'>Fábrica/Satélite</option></select></td><td><select name='estadoF[]' id='estadoF"
-            +idFichaTec+"'><option value='5'>Pendiente</option><option value='9'>Calidad</option><option value='7'>Terminada</option></select></td><td></td><input type='hidden' value='"
-            +idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"
-            +idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
-	           $('#tblFichasProducc').append(tr);
+            tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
+            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"+nomColor+"</td><td>"
+            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='text' value='"
+            +cantSat+"' name='cantSat[]'></td><td style='display: none;'><input type='hidden' value='"
+            +idFichaTec+"' name='id_fichaTec[]'></td><td style='display: none;'><input type='hidden' value='"
+            +idSolcProd+"' name='idSolcProd[]'></td></tr>";
+	    			// tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
+        //     "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
+        //     +cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"
+        //     +cantSat+"' name='cantSat[]'></td><td><select name='lugarP[]' id='lugarP"
+        //     +idFichaTec+"'><option value='Fábrica'>Fábrica</option><option value='Satélite'>Satélite</option><option value='Fábrica/Satélite'>Fábrica/Satélite</option></select></td><td><select name='estadoF[]' id='estadoF"
+        //     +idFichaTec+"'><option value='5'>Pendiente</option><option value='9'>Calidad</option><option value='7'>Terminada</option></select></td><td></td><input type='hidden' value='"
+        //     +idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"
+        //     +idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
+	           $('#tblFichasProducc tbody').append(tr);
             var lugarPrd = "#lugarP"+idFichaTec;
     			  var estadoFc = "#estadoF"+idFichaTec;
             $(lugarPrd).val(lugar);
@@ -222,3 +236,149 @@
           }).fail(function(){
         }); 
     }
+
+
+
+
+
+
+
+function selectLugarProduccion(select){
+    if ($(select).val() == 3) {
+      $('#tblFichasProd thead tr').each(function(){
+        var th = "<th>Fabrica</th><th>Satelite</th>"
+        $(this).append(th);
+      });
+      $('#tblFichasProd tbody tr').each(function(){
+        var solPro = $(this).find("td").eq(0).html();
+        var td = "<td><input type='number' id='canFabri"+solPro+
+        "'></td><td><input type='number' id='cantSate"+solPro+"'></td>";
+        $(this).append(td);
+      });
+    }else{
+      $('#tblFichasProd thead tr').each(function(){
+        $(this).find("th").eq(8).remove();
+        $(this).find("th").eq(8).remove();
+      });
+      $('#tblFichasProd tbody tr').each(function(){
+        $(this).find("td").eq(8).remove();
+        $(this).find("td").eq(8).remove();
+      });
+    }
+}
+
+
+function regOrdenProducc(){
+  var fechaRegistro = $("#fecha_registro").val();
+  var idSolicitud = $("#id_solicitud").val();
+  var fechaFin = $("#fecha_terminacion").val();
+
+  $.ajax({
+    type: 'POST',
+    dataType: 'json',
+    url: uri+'ctrProduccion/registrarOrdenProduc',
+    data: {fecha_registro: fechaRegistro, id_solTud: idSolicitud, fecha_terminacion: fechaFin}
+  }).done(function(resp){
+    var ultimaOrden = resp["ultOrden"]
+    $('#tblFichasProd tbody tr').each(function(){
+      var idSolProd = $(this).find("td").eq(0).html();
+      var lugarPro = "";
+      var CantFab = "";
+      var CantSat = "";
+      if($("#selectLugarProducc").val() == 1){
+        lugarPro = "Fábrica";
+        CantFab = $(this).find("td").eq(5).html();
+        CantSat = 0;
+      }else if($("#selectLugarProducc").val() == 2){
+        lugarPro = "Satélite";
+        CantFab = 0;
+        CantSat = $(this).find("td").eq(5).html();
+      }else if($("#selectLugarProducc").val() == 3){
+        lugarPro = "Fábrica/Satélite";
+        CantFab = $("#canFabri"+idSolProd).val();
+        CantSat = $("#cantSate"+idSolProd).val();
+      }
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+'ctrProduccion/registraOrdenSolicitud',
+        data: {id_solic_prodcto: idSolProd, idOrden: ultimaOrden, cantProducirPed: CantFab, cantSatelite: CantSat, lugarP: lugarPro}
+      }).done(function(resp){
+        location.href = uri+'ctrProduccion/regOrden';
+      }).fail(function(){
+        console.log("fail");
+      });
+    });
+  }).fail(function(){
+    console.log("fallo");
+  })
+}
+
+
+function cambiarEstadoOrdenPro(idOrd){
+  swal({
+        title: "¿Está seguro de iniciar la producción?",   
+        text: "No podra editar la orden",  
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sí, iniciar la producción",
+        cancelButtonText: "No",
+        closeOnConfirm: true,
+        closeOnCancel: true },
+        function(){
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: uri+'ctrProduccion/cambiarEstadoOrden',
+            data: {id_orden: idOrd, id_est: 6}
+          }).done(function(resp){
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrProduccion/consFichasOrdenP',
+              data: {idOrden: idOrd}
+            }).done(function(fichaAso){
+              var fichas = fichaAso.v;
+              $.each(fichas, function(i){
+                  var codOrdSol = fichas[i]["Codigo"];
+                  $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: uri+'ctrProduccion/cambiarEstadoOrdenSol',
+                    data: {id_ordenSoli: codOrdSol, id_est: 6}
+                  }).done(function(res){
+                    location.href = uri+'ctrProduccion/consOrden';
+                  });
+              });
+            }).fail(function(){
+              console.log("Error fichaAso");
+            });
+          }).fail(function(){
+            console.log("fall");
+          });
+        }
+      );  
+}
+
+function selLugOrdSol(){
+  $("#tblFichasProducc tbody tr").each(function(){
+    var idSolPro = $(this).find("td").eq(0).html();
+    var cantTot = $(this).find("td").eq(4).html();
+
+    if ($("#lugarOp").val() == "Fábrica"){
+      $("#cantFabEdit"+idSolPro).removeAttr("disabled");
+      $("#cantFabEdit"+idSolPro).val(cantTot);
+      $("#cantSatEdit"+idSolPro).attr("disabled", true);
+      $("#cantSatEdit"+idSolPro).val(0);
+    }else if($("#lugarOp").val() == "Satélite"){
+      $("#cantSatEdit"+idSolPro).removeAttr("disabled");
+      $("#cantSatEdit"+idSolPro).val(cantTot);
+      $("#cantFabEdit"+idSolPro).attr("disabled", true);
+      $("#cantFabEdit"+idSolPro).val(0);
+    }else if($("#lugarOp").val() == "Fábrica-Satélite"){
+      $("#cantSatEdit"+idSolPro).removeAttr("disabled");
+      $("#cantFabEdit"+idSolPro).removeAttr("disabled");
+    }
+  });
+}

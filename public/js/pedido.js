@@ -362,23 +362,23 @@ $('#prodAsociarPedMod').dataTable({
         $("#modalEditPedido").show();
       }
 
-      function cancelar(){
-        swal({title: "¿Está seguro de cancelar?", 
-          text: "Los cambios realizados no se guardaran!", 
-          type: "warning", 
-          showCancelButton: true,
-          cancelButtonText: 'No',
-          confirmButtonColor: "#DD6B55", 
-          confirmButtonText: "Si", 
-          closeOnConfirm: false 
-          },
-          function(){
-            // location.href = uri+"ficha/consFicha";
-            swal.close();
-            $('#mdlEditOrdenP').modal('toggle');
-            $('#modalEditPedido').modal('toggle');
-        });
-      }
+      // function cancelar(){
+      //   swal({title: "¿Está seguro de cancelar?", 
+      //     text: "Los cambios realizados no se guardaran!", 
+      //     type: "warning", 
+      //     showCancelButton: true,
+      //     cancelButtonText: 'No',
+      //     confirmButtonColor: "#DD6B55", 
+      //     confirmButtonText: "Si", 
+      //     closeOnConfirm: false 
+      //     },
+      //     function(){
+      //       // location.href = uri+"ficha/consFicha";
+      //       swal.close();
+      //       $('#mdlEditOrdenP').modal('toggle');
+      //       $('#modalEditPedido').modal('toggle');
+      //   });
+      // }
       
      //carga productos asociados al pedido
       function cargarProductosAsoPed(idped, fechaTerm, modalPa){
@@ -396,11 +396,14 @@ $('#prodAsociarPedMod').dataTable({
               $('#tblFichasProducc > tbody tr').empty();
 
               arrayProductos = respuesta.r;
+              var cont = 0;
+              $("#agregarFichaProd tbody").empty();
               for (var i = 0; i <= arrayProductos.length - 1; i++) {
 
                 id_fichat = arrayProductos[i]['Id_Ficha_Tecnica'];
                 idProducto = arrayProductos[i]['Referencia'];
                 color = arrayProductos[i]['Codigo_Color'];
+                nomColor = arrayProductos[i]['nomColor'];
                 vlrProducto = arrayProductos[i]['Valor_Producto'];
                 cantProducir = arrayProductos[i]['Cantidad_Producir'];
                 id_solic_produc = arrayProductos[i]['Id_Solicitudes_Producto'];
@@ -413,11 +416,14 @@ $('#prodAsociarPedMod').dataTable({
                 }
                 else if(modalPa == 2)
                 {
-                  $("#agregarFichaProd").removeAttr("hidden");
-                  tr = "<tr class='box box-solid collapsed-box'><input type='hidden' value='"+id_solic_produc+"' name='id_solic_prodcto[]'><input type='hidden' value='"+id_fichat+"' name='id_fichaTec[]'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='text' readonly value='"+cantProducir+"' id='cantProducirPed"+id_fichat+"' name='cantProducirPed[]'></td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td><input type='checkbox' id='chb"+id_fichat+"' onchange='prueba(cantSatelite"+id_fichat+", chb"+id_fichat+", confirmar"+id_fichat+", cancelarCant"+id_fichat+")'><input type='text' value='0' style='display:none' id='cantSatelite"+id_fichat+"' name='cantSatelite[]'><button style='display:none' type='button' id='confirmar"+id_fichat+"' class='btn btn-box-tool' onclick='confirmarCantSat(cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, cantProducirPed"+id_fichat+", cantSatelite"+id_fichat+", confirmar"+id_fichat+")'><i class='fa fa-check fa-lg'></i></button><button style='display:none' type='button' id='cancelarCant"+id_fichat+"' class='btn btn-box-tool' onclick='cancelarCantSat(cancelarCant"+id_fichat+", cantSatelite"+id_fichat+", chb"+id_fichat+", cantProducirPed"+id_fichat+", cantProducirPed"+id_fichat+".value, cantSatelite"+id_fichat+".value, confirmar"+id_fichat+")'><i class='fa fa-remove fa-lg'></i></button></td><td><select name='lugarP[]'><option value='Fábrica'>Fábrica</option><option value='Satélite'>Satélite</option><option value='Fábrica/Satélite'>Fábrica/Satélite</option></select></td></tr>";
-                  $('#tblFichasProd').append(tr);
+                  tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+id_solic_produc+"</td><td>"+(cont+=1)+
+                  "</td><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+
+                  "; font-size: 150%;'></i></td><td>"+nomColor+"</td><td>"+cantProducir+
+                  "</td><td>"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+                  $('#tblFichasProd tbody').append(tr);
                   $('#tblFichasProducc').append(tr);
                   $('#fecha_terminacion').val(fechaTerm);
+                  $('#selectLugarProducc').removeAttr("disabled");
 
                   //enviamos id_solicitud a input hidden
                   $('#id_solicitud').val(idped);

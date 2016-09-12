@@ -51,7 +51,7 @@
                 </table>
               </div>
               <div class="col-md-12" style="text-align: right;">
-             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"  data-target="#ModalSalidas"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
              </div>
             </div>
           </form>

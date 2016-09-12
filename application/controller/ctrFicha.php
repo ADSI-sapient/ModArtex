@@ -143,9 +143,9 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
-		    	echo json_encode(["v"=>1]);
-		    }else{
 		    	echo json_encode(["v"=>0]);
+		    }else{
+		    	echo json_encode(["v"=>1]);
 		    }
 		}
 

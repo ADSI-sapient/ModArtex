@@ -12,13 +12,14 @@
       <h1 class="box-title"><strong>REGISTRAR ORDEN DE PRODUCCIÓN</strong></h1>
     </div>
     <!-- <div style="padding-left: 8%;"> -->
-    <div class="box-body">
     <form data-parsley-validate="" style="padding-top:10px;" action="<?php echo URL; ?>ctrProduccion/regOrden" method="POST">
+    <div class="box-body">
     <input type="hidden" name="id_solTud" id="id_solicitud">
 
 
       <div class="row col-lg-12" style="margin-left:0.5%">
-        <div class="form-group col-lg-4">
+        <div class="form-group col-lg-6">
+          <div class="col-lg-12">
           <label class="">Fecha Registro:</label>
           <div class="">
             <div class="input-group date">
@@ -28,23 +29,11 @@
               <input type="text" class="form-control pull-right" name="fecha_registro" id="fecha_registro" value="<?php echo date("Y-m-d");?>" readonly=""  style="border-radius:5px;">
             </div>
           </div>
+          </div>
         </div>
 
-        <div class="form-group col-lg-offset-1 col-lg-4">
-          <label for="estadoProdu" class="">*Estado:</label>
-          <input type="text" name="estadoProdu" class="form-control" id="estadoProdu" value="Pendiente" readonly="" style="border-radius:5px;">
-        </div>
-
-
-        <div class="form-group col-lg-3">
-        <div style="">
-          <button type="button" style="margin-top:25px; padding:6px 12px !important;" id="asociarPedi" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
-        </div>
-        </div>
-      </div>
-      <div class="row col-lg-12" style="margin-left:0.5%">
-        
-        <div class="form-group col-lg-4">
+        <div class="form-group col-lg-6">
+        <div class="col-lg-12">
           <label class="">*Fecha de Terminación:</label>
           <div class="">
             <div class="input-group date">
@@ -55,28 +44,50 @@
             </div>
           </div>
         </div>
-        <div class="form-group col-lg-offset-1 col-lg-4">
-          <label for="lugarPrd" class="">*Lugar:</label>
-          <select class="form-control" name="lugarPrd" data-parsley-required="">
-            <option value="Fábrica">Fábrica</option>
-            <option value="Satélite">Satélite</option>
-            <option value="Fábrica-Satélite">Fábrica/Satélite</option>
-          </select>
         </div>
       </div>
-          <div hidden="" class="form-group" id="agregarFichaProd">
+      <div class="row col-lg-12" style="margin-left:0.5%">
+        <div class="form-group col-lg-6">
+          <div class="col-lg-12">
+          <label for="estadoProdu" class="">*Estado:</label>
+          <input type="text" name="estadoProdu" class="form-control" id="estadoProdu" value="Pendiente" readonly="" style="border-radius:5px;">
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+        <div class="form-group col-lg-8">
+          <label for="lugarPrd" class="">*Lugar:</label>
+          <select id="selectLugarProducc" disabled="" onchange="selectLugarProduccion(this)" class="form-control" name="lugarPrd" data-parsley-required="">
+            <option value="1">Fábrica</option>
+            <option value="2">Satélite</option>
+            <option value="3">Fábrica/Satélite</option>
+          </select>
+        </div>
+        <div class="form-group col-lg-4">
+        <div style="">
+          <button type="button" style="margin-top:25px; padding:6px 12px !important;" id="asociarPedi" class="btn btn-primary btn-md" data-toggle="modal" data-target="#asociarPedid"><b>Asociar Pedido</b></button>
+        </div>
+        </div>
+        </div>
+      </div>
+        <div class="row">
+        <div class="col-lg-12">
+        <div class="col-lg-12">
+        <div class="col-lg-12">
+          <div class="form-group" id="agregarFichaProd">
             <div class="table">
               <div class="col-lg-12 table-responsive">
-                <table class="table table-hover" style="margin-top: 2%;" id="tblFichasProd">
+                <table class="table table-bordered" id="tblFichasProd">
                   <thead>
                     <tr class="active">
+                      <th style="display: none;"></th>
+                      <th>#</th>
                       <th>Referencia</th>
+                      <th>Muestra</th>
                       <th>Color</th>
                       <th>Cantidad a Producir</th>
                       <th>Valor Producto</th>
                       <th>Subtotal</th>
-                      <th>Satélite</th>
-                      <th>Lugar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -85,17 +96,27 @@
               </div>
             </div>
             </div>
+            </div>
+            </div>
+            </div>
+          </div>  
           <!-- </div> -->
-  <div class="row text-right" style="margin-right: 2%;">
-    <div class="form-group col-lg-04 " >
-      <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px; padding:7px 24px !important;" name="btnRegistrarProdu"><b>Registrar</b></button>
-      <button type="reset"  class="btn btn-danger" style="margin-left:15px; margin-top: 15px; padding:7px 24px !important;">Limnpiar</button>
+  </div>
+  <div class="box-footer">
+    <div class="row col-lg-12" >
+      <button style="margin-left: 2%;" type="reset"  class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+      <button onclick="regOrdenProducc()" type="button" class="btn btn-success pull-right" name="btnRegistrarProdu"><b><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</b></button>
     </div>
   </div>
 </form>
 </div>
-</div>
 </section>
+
+
+
+
+
+
 <!-- Inicio Modal asociar pedidos -->
       <div class="modal fade" id="asociarPedid" tabindex="-1" role="dialog">
         <div class="modal-dialog">
