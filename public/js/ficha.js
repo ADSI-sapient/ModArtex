@@ -113,7 +113,7 @@
         // }
 
         $("#tablaInsumos").each(function(){
-          if ($("#tablaInsumos tbody #trfichas").length < 2){
+          if ($("#tablaInsumos tbody .trfichas").length < 2){
             var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
             $("#tablaInsumos").append(tr);
             $("#tblInsumosVacia").html("No hay insumos asociados");
@@ -140,7 +140,7 @@
         valorPromedio = Math.round(valorPromedio);
 
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
-        var tr = "<tr id='trfichas' class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+
+        var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"
         +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='text' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
@@ -417,16 +417,16 @@
                     $('#dtll-insumos-aso').append(tr);
                  }
               }
-              $('#tbl-insumos-aso').dataTable({
-                "ordering": false,
-                "language": {
-                    "emptyTable": "No hay insumos para listar.",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-                    "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-                "paginate": {"previous": "Anterior","next": "Siguiente"}
-                }
-              });
+              // $('#tbl-insumos-aso').dataTable({
+              //   "ordering": false,
+              //   "language": {
+              //       "emptyTable": "No hay insumos para listar.",
+              //       "info": "Mostrando página _PAGE_ de _PAGES_",
+              //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+              //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+              //   "paginate": {"previous": "Anterior","next": "Siguiente"}
+              //   }
+              // });
             }
         }).fail(function(){})
     }
