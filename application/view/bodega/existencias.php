@@ -20,8 +20,8 @@
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
+                      <th></th>
                       <th>#</th>
-                      <th>Seleccionar</th>
                       <th>Nombre</th>
                       <th>Color</th>
                       <th>Medida</th>
@@ -37,8 +37,8 @@
                     <?php foreach($listEx as $valExt): ?>
                      <tr>
                       <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
-                      <td><?= $cont += 1;?></td>
                       <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
+                      <td><?= $cont += 1;?></td>
                       <td><?= $valExt["NomIns"]?></td>
                       <td><?= $valExt["Nombre"]?></td>
                       <td><?= $valExt["medida"]?></td>

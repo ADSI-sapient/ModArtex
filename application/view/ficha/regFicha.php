@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="form-group" id="agregarInsumo">
-            <div class="table">
+            <div class="table scrolltablas">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaInsumos">
                   <thead>

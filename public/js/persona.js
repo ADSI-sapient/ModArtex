@@ -35,11 +35,24 @@ $(document).ready(function(){
 function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
    var campos = $(permisos).parent().parent();
     $("#permisosN").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
-  $("#tablaR").append(tr);
+  
+    //rol que se va a agregar
+    idrolagregar = Id_Permiso;
 
-    boton = "#btn"+idbton;
-    $(boton).attr('disabled', 'disabled');
+    //comparar con los que ya se encuentran agregados
+    idpermisoagregado = "#idPermiso"+idbton;
+    idperm = $(idpermisoagregado).val();
+
+    if (idrolagregar == $(idpermisoagregado).val()) {
+      boton = "#btn"+idbton;
+      $(boton).attr('disabled', 'disabled');
+    }
+    else{
+      var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso"+idbton+"'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+      $("#tablaR").append(tr);
+      boton = "#btn"+idbton;
+      $(boton).attr('disabled', 'disabled');
+    }
 }
 
     function editarRoles(Id_Rol, Nombre, roles){
@@ -59,7 +72,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
               $("#fila").append(fila);
 
                           }
