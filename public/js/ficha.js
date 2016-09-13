@@ -171,6 +171,12 @@
           $(this).val(valor);
         });
         $("#vlr_produccion").val(valor);
+
+        $("#tablaInsumos tbody .trfichas").remove();
+        var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
+        $("#tablaInsumos").append(tr);
+        $("#tblInsumosVacia").html("No hay insumos asociados");
+        $(".btnInsumo").attr('disabled', false);
       }
 
       //valida todos los campos necesarios para el registro en el formulario
