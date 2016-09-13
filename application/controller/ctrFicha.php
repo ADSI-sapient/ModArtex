@@ -65,10 +65,10 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha registrada exitosamente'});";
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente'});";
 				}else{
 
-					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', rounded: true, delay: 2500});";
+					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', delay: 2500});";
 				}
 
 				// }
@@ -143,11 +143,11 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
-		    	$_SESSION["mensaje"] = "Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'})";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('warning', {size: 'mini', msg: 'El estado ha sido modificado'})";
 
 		    	echo json_encode(["v"=>0]);
 		    }else{
-                $_SESSION["mensaje"] = "Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
+                $_SESSION["mensaje"] = "Lobibox.notify('warning', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    	echo json_encode(["v"=>1]);
 		    }
 		}

@@ -75,7 +75,7 @@
               <!-- <button type="button" class="close"><span aria-hidden="true">&times;</span></button> -->
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-              <h4 class="modal-title" id="myModalLabel"><b>Modificar Ficha Técnica</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR FICHA TÉCNICA</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
@@ -227,7 +227,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Tallas para asociar</b></h4>
+              <h4 class="modal-title"><b>TALLAS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -269,12 +269,12 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Tallas e Insumos Asociados</b></h4>
+              <h4 class="modal-title"><b>TALLAS E INSUMOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body">
             <div class="row col-sm-12">
               <div class="table" style="margin-bottom:0px;">
-                <div class="form-group col-sm-4 table-responsive">
+                <div class="form-group scrolltablas col-sm-4 table-responsive">
                   <table class="table table-hover" id="dtll-tallas-aso">
                   <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Tallas:</h4>
                     <thead>
@@ -289,9 +289,9 @@
                   </div>
                 </div>
                 <div class="table">
-                  <div class="form-group col-sm-8 table-responsive">
+                  <div class="form-group scrolltablas col-sm-8 table-responsive">
                     <table class="table table-hover" id="dtll-insumos-aso">
-                    <h4 style="padding-bottom:5px">Insumos:</h4>
+                    <h4 style="border-bottom:1px solid #9e9e9e;  padding-bottom:5px">Insumos:</h4>
                       <thead>
                         <tr class="active">
                           <th>Nombre</th>

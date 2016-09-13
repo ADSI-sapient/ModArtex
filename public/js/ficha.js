@@ -173,10 +173,17 @@
         $("#vlr_produccion").val(valor);
 
         $("#tablaInsumos tbody .trfichas").remove();
+        if (!$("#tablaInsumos tbody tr #tblInsumosVacia").length) {
+
         var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
         $("#tablaInsumos").append(tr);
         $("#tblInsumosVacia").html("No hay insumos asociados");
         $(".btnInsumo").attr('disabled', false);
+        }
+
+        $("#selectTallas").select2("val", "");
+        $("#colorFicha").select2("val", "");
+        $("#colorF").css("color", "gray");
       }
 
       //valida todos los campos necesarios para el registro en el formulario
@@ -187,8 +194,8 @@
 
         var referencia = $("#referencia").val();
         var idcolor = $("#colorFicha").val();
-        var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+        var vlrproduccion = parseFloat($("#vlr_produccion").val());
+        var vlrproducto = parseFloat($("#vlr_producto").val());
 
         //valida insumos asociados
         if ($("#tablaInsumos tbody tr #tblInsumosVacia").length)
