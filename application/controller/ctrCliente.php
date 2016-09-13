@@ -83,11 +83,11 @@ class CtrCliente extends Controller{
 	  	$this->mdlModel->modificarCliente();
 
 		if($this->mdlModel->modificarCliente()){
-			 $mensajecm= "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Cliente modificado exitosamente'});";
+			 $mensajecm= "Lobibox.notify('success', {size: 'mini', msg: ' Cliente modificado exitosamente'});";
 
 			header('location: '.URL.'ctrCliente/consCliente');
 		}else{
-		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Erros al modificar'});";
+		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', msg: ' Erros al modificar'});";
 		      }
 		      //header("location: ".URL."usuario/consUsuario")
 
@@ -107,10 +107,10 @@ class CtrCliente extends Controller{
 		$clientes = $this->mdlModel->cambiarEstado();
 
 		if ($clientes) {
-			$_SESSION["mensaje"] = "Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'})";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado'})";
 		    echo json_encode(["v"=>1]);
 		}else{
-			$_SESSION["mensaje"] = "Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    echo json_encode(["v"=>0]);
 		}
 		}

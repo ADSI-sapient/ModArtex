@@ -26,8 +26,8 @@
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label for="tipo_de_documento" class="">*Tipo de documento: </label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
-                <option value="CC" selected>CC</option>
-                <option value="CE">CE</option>
+                <option value="C.C" selected>C.C</option>
+                <option value="C.E">C.E</option>
               </select>
             </div>
           </div>

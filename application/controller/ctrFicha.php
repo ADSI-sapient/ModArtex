@@ -65,7 +65,7 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente'});";
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente!'});";
 				}else{
 
 					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', delay: 2500});";
@@ -117,11 +117,11 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha modificada exitosamente'});";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha modificada exitosamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
-		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al modificar la ficha'});";
+		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al modificar la ficha'});";
 		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
 		    }
@@ -143,11 +143,11 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
-		    	$_SESSION["mensaje"] = "Lobibox.notify('warning', {size: 'mini', msg: 'El estado ha sido modificado'})";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('sucess', {size: 'mini', msg: 'El estado ha sido modificado!'})";
 
 		    	echo json_encode(["v"=>0]);
 		    }else{
-                $_SESSION["mensaje"] = "Lobibox.notify('warning', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
+                $_SESSION["mensaje"] = "Lobibox.notify('sucess', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    	echo json_encode(["v"=>1]);
 		    }
 		}

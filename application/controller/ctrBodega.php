@@ -39,8 +39,7 @@ class ctrBodega extends Controller{
 				$this->_modelInsumo->regColorInsumo();
 			}
 
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'El insumo se registro correctamente'});";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El insumo se registro correctamente!'});";
 		}
 
 		$lista = $this->_modelColor->listar();
@@ -78,7 +77,7 @@ class ctrBodega extends Controller{
 		$this->_modelInsumo->cambiarEstado();
 
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-		msg: 'Se cambio el estado del insumo correctamente'});";
+		msg: 'Se cambio el estado del insumo correctamente!'});";
 
 		echo json_encode(["v"=>1]);
 	}
@@ -109,7 +108,7 @@ class ctrBodega extends Controller{
 
 
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'El insumo se modifico correctamente'});";
+					msg: 'El insumo se modifico correctamente!'});";
 	}
 
 	public function cantidadColIns(){
@@ -181,7 +180,7 @@ class ctrBodega extends Controller{
 			}
 		}
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La entrada de insumo se registro correctamente'});";
+					msg: 'La entrada de insumo se registro correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 
@@ -214,7 +213,7 @@ class ctrBodega extends Controller{
 			}
 		}
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La salida de insumo se registro correctamente'});";
+					msg: 'La salida de insumo se registro correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 

@@ -191,11 +191,9 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             data: {Num_Documento:documento, Estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-               //Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
             
                 location.href = uri +"ctrUsuario/consUsuario";
             }else{
-                  //Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
             }
         }).fail(function() {
 
@@ -211,11 +209,9 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-              Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
                
                 location.href = uri +"ctrCliente/consCliente";
             }else{
-                  Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
             }
         }).fail(function() {
 

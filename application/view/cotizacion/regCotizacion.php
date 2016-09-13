@@ -55,8 +55,8 @@
             </div>
         <!-- </div> -->
         <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
-          <div class="form-group col-lg-3">
-            <button type="button" class="btn btn-info pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
+          <div class="form-group col-lg-8">
+            <button type="button" class="btn btn-primary pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
           </div>
         </div>
         <div class="form-group" id="agregarFicha">

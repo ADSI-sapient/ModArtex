@@ -244,7 +244,7 @@
         var idcolor = $("#colorModFicha").val();
 
         var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+        var vlrproducto = parseFloat($("#vlr_producto").val());
         var idfit = $("#idFicha_Tec").val();
 
         //valida insumos asociados
@@ -253,6 +253,13 @@
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
           return false;
         }
+
+          if ($("#tbl-tallas-aso tbody tr").length < 1)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos una talla a la ficha'});
+          return false;
+        }
+
 
         //valida que el valor producto sea mayor al valor de producción
         if (vlrproduccion >= vlrproducto) {
