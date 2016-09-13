@@ -383,7 +383,7 @@
                 </div> -->
 
       <div class="modal-footer">
-      <div class="row col-sm-push-8 col-sm-5">
+      <div class="row col-sm-7">
        <br />
         <button type="submit" class="btn btn-primary" name="gurdarPedi">Enviar Pedido</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

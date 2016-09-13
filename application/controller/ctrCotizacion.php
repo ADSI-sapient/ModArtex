@@ -112,7 +112,7 @@
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
 				
 				if ($this->modelo->converPedido()) {
-				$_SESSION['alert'] = "swal('Cotizacion Enviada Para Pedido','','success')";
+				$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización Enviada A Pedido exitosamente!'});";
                 header ("location: ".URL."ctrCotizacion/consCotizacion");
 
 				}

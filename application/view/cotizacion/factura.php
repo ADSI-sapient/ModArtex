@@ -174,9 +174,9 @@ $html = '<!DOCTYPE html>
 
         .titu
         {
-            font-family: cursive;
-            font-size: 45px;
-            font-style: italic;
+            font-family: Arial;
+            font-size: 30px;
+            font-style: Arial;
             font-variant: normal;
             font-weight: 400;
             line-height: 45.1px;
@@ -184,6 +184,7 @@ $html = '<!DOCTYPE html>
             padding-top:5mm;
             margin-top:2%;
         }
+
         #img-reporte{
             width:200px; 
             position:absolute; 
@@ -192,32 +193,46 @@ $html = '<!DOCTYPE html>
             top:30%; 
             left:15%;
         }
-        // .marca-agua{
-        //     background-image: url(' . RAIZ . DS . 'public' . DS .'img\modar.png);
-        //     position:absolute;
-        //     width:100%;
-        //     height:100%;
-        //     z-index:9;
-        //     opacity:0.15;
-        //     background-position-x: 20%;
-        //     background-position-y: 35%;
-        // }
+        .marca-agua{
+            background-image: url(' . RAIZ . DS . 'public' . DS .'img\Modartex.jpg);
+            position:absolute;
+            width:100%;
+            height:100%;
+            z-index:9;
+            opacity:0.15;
+            background-position-x: 20%;
+            background-position-y: 35%;
+        }
+
+        #img-dos{
+
+            position:absolute; 
+            left: 8%;
+            width:25%;
+            height:2%;
+        }
 
     </style>
 </head>
 <body>
 <!-- <div class="marca-agua"></div> -->
 <div id="wrapper"> 
-    
-    <h1 class="titu" img src="' . RAIZ . DS . 'public' . DS .'img\modar.png" id="img-reporte";>Cotización</h1>
+
+    <br clear="left">
+
+
+    <img src="' . RAIZ . DS . 'public' . DS .'img\modar.png" id="img-dos"/>
+    <h1 class="titu">COTIZACIÓN</h1>
+
+
     <br />
     <table style="width:100%;">
         <tr>
             <td style="width:80mm;">
                 <h1 class="heading">'.$factura[0]["Nombre"].' '.$factura[0]["Apellido"].'</h1>
                 <br>
-                <h2 class="heading">Documento : '.$factura[0]["Num_Documento"] .'</h2>
                 <h2 class="heading">Tipo De Documento : '.$factura[0]["Tipo_Documento"] .'</h2>
+                <h2 class="heading">Documento : '.$factura[0]["Num_Documento"] .'</h2>
                 <h2 class="heading">Telefono : '. $factura[0]["Telefono"] .'</h2>
                 <h2 class="heading">Direccion : '. $factura[0]["Direccion"] .'</h2>
                 <h2 class="heading">Email : '. $factura[0]["Email"] .'</h2>

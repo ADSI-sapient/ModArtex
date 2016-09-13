@@ -133,20 +133,20 @@
                     <label for="estadoOp" class="">Estado:</label>
                     <input type="text" class="form-control" value="Pendiente" readonly="" style="border-radius:5px;">
                 </div>
-                  <div class="form-group col-sm-5">
+                  <div class="form-group col-sm-6">
                     <label for="lugarOp" class="">*Lugar Producción:</label>
-                    <select onchange="selLugOrdSol()" class="form-control" name="lugarOp" id="lugarOp" style="border-radius:5px;">
+                    <select onchange="selLugOrdSol()" class="form-control" name="lugarOp" id="lugarOp" style="border-radius:5px;" >
                       <option value="Fábrica">Fábrica</option>
                       <option value="Satélite">Satélite</option>
                       <option value="Fábrica-Satélite">Fábrica/Satélite</option>
                     </select>
                   </div>
                </div>
-               <div class="col-sm-6"> 
-                <div class="form-group col-sm-12">
+                <div class="col-sm-6"> 
+                   <div class="form-group col-sm-12 ">
                     <label for="clienteOrdn" class="">Cliente:</label>
                     <br>
-                    <select onchange="asoPedAOrden(this);" class="form-control" name="clienteOrdn" id="clienteOrdn">
+                    <select onchange="asoPedAOrden(this);" class="form-control" name="clienteOrdn" id="clienteOrdn" style="width: 100%;" >
                       <?php foreach ($pedidosCliente as $cliente): ?>
                         <option value="<?= $cliente["Id_Solicitud"] ?>"><?= $cliente["Nombre"] ." - Pedido: ". $cliente["Id_Solicitud"]?></option>
                       <?php endforeach ?>
@@ -159,7 +159,7 @@
            <div class="col-sm-12">       
            <div class="col-sm-12">       
             <div class="table">
-              <div class="col-sm-12 table-responsive">
+              <div class="col-sm-12 table-responsive scrolltablas">
                 <table class="table table-responsive table-hover" id="tblFichasProducc">
                   <thead>
                     <tr class="active">

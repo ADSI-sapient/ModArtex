@@ -14,8 +14,8 @@
 
 		        $this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
 		        $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
-				$this->_modelProduct->actualizarFechaEntregaPd();
-			    // $this->_modelProduct->actualizarEstadoPed();
+				// $this->_modelProduct->actualizarFechaEntregaPd();
+			     $this->_modelProduct->actualizarEstadoPed();
 
 		        $this->_modelProduct->regOrdenProduccion();
 		        $ultimaOrden = $this->_modelProduct->consUltimaOrdenReg();
@@ -30,8 +30,7 @@
 		        $this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"]);
 		        // $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
 
-		        $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La orden se registro correctamente'});";
+		        $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La orden se registró correctamente!'});";
 			    
 			    echo json_encode($this->_modelProduct->regSolicitudOrdenProduccion());
 		}
@@ -76,7 +75,7 @@
 			// $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
 
 			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La orden se modifico correctamente'});";
+					msg: 'La orden se modificó correctamente!'});";
 			echo json_encode($this->_modelProduct->regSolicitudOrdenProduccion());
 	    }
 

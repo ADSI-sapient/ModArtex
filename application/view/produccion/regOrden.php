@@ -40,9 +40,10 @@
               <div class="input-group-addon" style="border-radius:5px;">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input readonly="" type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;" data-parsley-required="">
+              <input readonly="" type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;" data-parsley-required="" data-parsley-errors-container="#ErrorFechaT">
             </div>
           </div>
+          <div id="ErrorFechaT"></div>
         </div>
         </div>
       </div>
@@ -76,7 +77,7 @@
         <div class="col-lg-12">
           <div class="form-group" id="agregarFichaProd">
             <div class="table">
-              <div class="col-lg-12 table-responsive">
+              <div class="col-lg-12 table-responsive scrolltablas">
                 <table class="table table-bordered" id="tblFichasProd">
                   <thead>
                     <tr class="active">
@@ -117,12 +118,12 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Pedidos Para Producir</b></h4>
+              <h4 class="modal-title"><b>PEDIDOS PENDIENTES</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-responsive table-hover" style="margin-top: 2%;" id="">
+                  <table class="table table-responsive table-hover" style="margin-top: 2%;" id="TablOrdenesPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>
@@ -171,11 +172,11 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Productos Asociados</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>PRODUCTOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="dtlle-pedido-prod">
                     <thead>
                       <tr class="active">
