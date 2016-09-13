@@ -23,6 +23,7 @@
                       <th>Fecha Terminación</th>
                       <th style="display: none;"></th>
                       <th>Estado</th>
+                      <th>Lugar</th>
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>
@@ -41,8 +42,8 @@
                       <td><?= $ordenProduccion["Fecha_Entrega"] ?></td>
                       <td style="display:none;"><?= $ordenProduccion["Id_Estado"] ?></td>
                       <td><?= $ordenProduccion["Nombre_Estado"] ?></td>
-<!--                       <td><?= $ordenProduccion["Lugar_Produccion"] ?></td>
- -->                  <td style="display: none;"></td>
+                      <td><?= $ordenProduccion["LugarProduccion"] ?></td>
+                      <td style="display: none;"></td>
                       <td style="display:none;"><?= $ordenProduccion["Num_Documento"] ?></td>
                       <td style="display:none;"><?= $ordenProduccion["Id_Solicitud"] ?></td>
                       <td style="display:none;"><?= $ordenProduccion["Nombre"] ?></td>
@@ -86,12 +87,18 @@
       </div>
     </section> 
   <!-- Incio modal modificar orden -->
+
+
+
+
+
+
     <div class="modal fade" id="mdlEditOrdenP" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div style="width: 70% !important;" class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Modificar Orden de Producción</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR ORDEN DE PRODUCCIÓN</b></h4>
             </div>
             <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden">
             <div class="modal-body" style="padding:10px;">
@@ -111,11 +118,11 @@
                 <div class="form-group col-sm-6">
                     <div class="col-sm-12">
                     <label class="">*Fecha Terminación:</label>
-                      <div class="input-group date">
+                      <div class="input-group">
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
+                        <input readonly="" type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
                       </div>
                     </div>
                   </div>
@@ -163,8 +170,6 @@
                       <th>Cantidad Total</th>
                       <th>Cantidad Fábrica</th>
                       <th>Cantidad Satélite</th>
-                      <th style="display: none;"></th>
-                      <th style="display: none;"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -179,13 +184,18 @@
             <div class="modal-footer" >
               <div class="row col-lg-12">
                 <button type="button" class="btn btn-default pull-right" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                <button type="submit" class="btn btn-warning pull-right" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                <button type="button" onclick="actualizarOrdenProd()" class="btn btn-warning pull-right" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
               </div>
             </div>
             </form>
           </div>
         </div>
       </div>
+
+
+
+
+
       <!-- fin modal modificar orden-->
       <!-- Inicio Modal asociar pedidos -->
       <div class="modal fade" id="asociarPedidMod" tabindex="-1" role="dialog">
@@ -246,12 +256,16 @@
 
 
 
+
+
+
+
       <div class="modal fade" id="devolverInsumos" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Productos pendientes</b></h4>
+              <h4 class="modal-title"><b>PRODUCTOS PENDIENTES</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">

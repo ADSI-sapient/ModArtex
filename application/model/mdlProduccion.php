@@ -142,9 +142,9 @@
 	    	$sql = "CALL SP_editarOrdenProduccion(?,?)";
 	        $query = $this->_db->prepare($sql);
 	        // $query->bindParam(1, $this->_estado_prod);
-	        $query->bindParam(1, $this->_fecha_term);
-	        // $query->bindParam(2, $this->_lugar_prod);
-	        $query->bindParam(2, $this->_id_ordenProd);
+	        // $query->bindParam(1, $this->_fecha_term);
+	        $query->bindParam(1, $this->_id_ordenProd);
+	        $query->bindParam(2, $this->_lugar_prod);
 	        return $query->execute();
 	    }
 

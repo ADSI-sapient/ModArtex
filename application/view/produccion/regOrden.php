@@ -36,11 +36,11 @@
         <div class="col-lg-12">
           <label class="">*Fecha de Terminación:</label>
           <div class="">
-            <div class="input-group date">
+            <div class="input-group">
               <div class="input-group-addon" style="border-radius:5px;">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;" data-parsley-rquired="">
+              <input readonly="" type="text" class="form-control pull-right" name="fecha_terminacion" id="fecha_terminacion" style="border-radius:5px;" data-parsley-required="">
             </div>
           </div>
         </div>
@@ -104,19 +104,13 @@
   </div>
   <div class="box-footer">
     <div class="row col-lg-12" >
-      <button style="margin-left: 2%;" type="reset"  class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+      <button onclick="limpiarFormRegOrdPro()" style="margin-left: 2%;" type="reset"  class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
       <button onclick="regOrdenProducc()" type="button" class="btn btn-success pull-right" name="btnRegistrarProdu"><b><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</b></button>
     </div>
   </div>
 </form>
 </div>
 </section>
-
-
-
-
-
-
 <!-- Inicio Modal asociar pedidos -->
       <div class="modal fade" id="asociarPedid" tabindex="-1" role="dialog">
         <div class="modal-dialog">

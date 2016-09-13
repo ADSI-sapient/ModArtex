@@ -427,6 +427,8 @@ $('#prodAsociarPedMod').dataTable({
 
                   //enviamos id_solicitud a input hidden
                   $('#id_solicitud').val(idped);
+                }else if(modalPa == 2){
+                  
                 }
                 else
                 {
