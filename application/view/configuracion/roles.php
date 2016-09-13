@@ -256,7 +256,7 @@
                   <td><?= $permiso["modulos"] ?></td>
                   <td><?= $permiso["Nombre"] ?></td>
                   <td>
-                    <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarPermisosNuevos('<?= $permiso["Id_Permiso"] ?>', '<?= $permiso["modulos"] ?>','<?= $permiso["Nombre"] ?>', $i)"><i class="fa fa-plus"></i></button>
+                    <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarPermisosNuevos('<?= $permiso["Id_Permiso"] ?>', '<?= $permiso["modulos"] ?>','<?= $permiso["Nombre"] ?>', '<?= $i ?>')"><i class="fa fa-plus"></i></button>
                   </td>
                 </tr>
                 <?php $i++; ?>
