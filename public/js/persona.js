@@ -1,7 +1,7 @@
 function asociarPermisos(Id_Permiso, modulos, Nombre, idbton){
 	var campos = $(permisos).parent().parent();
     $("#permisosasig").removeAttr("hidden");
-	var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-times'></i></button></td></tr>";
+	var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-times'></i></button></td></tr>";
 	$("#tablaPermisos").append(tr);
 
     boton = "#bt"+idbton;
@@ -32,16 +32,34 @@ $(document).ready(function(){
   $("#tblpermisosvacia").html("No hay productos asociados.");
 });
 
+//se implemento bloqueo para no dejar agregar el mismo permiso al momento de editar el rol
+//en otros lugares se implemento el scrolltablas
 function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
    var campos = $(permisos).parent().parent();
     $("#permisosN").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
-  $("#tablaR").append(tr);
+  
+    //rol que se va a agregar
+    idrolagregar = Id_Permiso;
 
-    boton = "#btn"+idbton;
-    $(boton).attr('disabled', 'disabled');
+    //comparar con los que ya se encuentran agregados
+    idpermisoagregado = "#idPermiso"+idbton;
+    idperm = $(idpermisoagregado).val();
+
+    if (idrolagregar == $(idpermisoagregado).val()) {
+      boton = "#btn"+idbton;
+      $(boton).attr('disabled', 'disabled');
+    }
+    else{
+      var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso"+idbton+"'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+      $("#tablaR").append(tr);
+      boton = "#btn"+idbton;
+      $(boton).attr('disabled', 'disabled');
+    }
+
+
 }
 
+//se coloco un id al lado del td id permiso para poder comparar y bloquear el repetido
     function editarRoles(Id_Rol, Nombre, roles){
           var campos = $(roles).parent().parent();
           $("#idRol").val(campos.find("td").eq(0).text());
@@ -59,7 +77,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
               $("#fila").append(fila);
 
                           }
@@ -103,7 +121,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
               $("#filass").append(fila);
                           } 
             }, 
@@ -131,7 +149,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
               $("#fila").append(fila);
                           } 
             }, 

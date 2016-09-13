@@ -85,7 +85,7 @@
                     <th class="col-lg-2">Estado</th>
                     <th style="width: 15%">Permisos</th>
                     <th>Modificar</th>
-                    <th>Modificar Estado</th>
+                    <th>Cambiar Estado</th>
                   </tr>
                 </thead>
                 <tbody class="list">
@@ -159,7 +159,7 @@
           <!-- /.box-header -->
           <div class="row">
             <div class="col-lg-12">
-              <div class="table">
+              <div class="table scrolltablas">
                 <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="tablaR">
                     <thead>
@@ -256,7 +256,7 @@
                   <td><?= $permiso["modulos"] ?></td>
                   <td><?= $permiso["Nombre"] ?></td>
                   <td>
-                    <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarPermisosNuevos('<?= $permiso["Id_Permiso"] ?>', '<?= $permiso["modulos"] ?>','<?= $permiso["Nombre"] ?>', $i)"><i class="fa fa-plus"></i></button>
+                    <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarPermisosNuevos('<?= $permiso["Id_Permiso"] ?>', '<?= $permiso["modulos"] ?>','<?= $permiso["Nombre"] ?>', '<?= $i ?>')"><i class="fa fa-plus"></i></button>
                   </td>
                 </tr>
                 <?php $i++; ?>

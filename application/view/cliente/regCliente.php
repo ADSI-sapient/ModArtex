@@ -36,8 +36,8 @@
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
 
-                <option value="CC">CC</option>
-                <option value="CW">CE</option>
+                <option value="C.C">C.C</option>
+                <option value="C.W">C.E</option>
                 <option value="NIT">NIT</option>
               </select>
             </div>

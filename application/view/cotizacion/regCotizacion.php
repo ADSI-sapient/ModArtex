@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="form-group" id="agregarFicha">
-            <div class="table" data-parsley-required="">
+            <div class="table scrolltablas">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="Ficha">
                   <thead>
@@ -95,8 +95,8 @@
             </div>
         </div>
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content modal-lg" style="border-radius: 10px;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Productos Para Asociar</h4>

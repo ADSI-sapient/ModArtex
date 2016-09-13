@@ -16,7 +16,7 @@
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
                 <div class="input-group date">
@@ -27,7 +27,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">*Fecha Entrega:</label>
               <div class="">
                 <div class="input-group date">
@@ -39,13 +39,13 @@
               </div>
               <div id="regPedidov"></div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="id_cliente" class="">*Asociar Cliente:</label>
               <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="" data-parsley-errors-container="#regPedidoCl">
               <option value=""></option>
@@ -57,12 +57,12 @@
               </div>
             <!-- </div> -->
             <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
-              <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
+              <div class="form-group col-lg-7">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
               </div>
             </div>
           <div class="form-group" id="agregarFicha">
-            <div class="table">
+            <div class="table scrolltablas">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
                   <thead>
@@ -137,7 +137,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>');"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>');"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
