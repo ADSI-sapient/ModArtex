@@ -23,7 +23,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="fecha_reg" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
@@ -57,8 +57,8 @@
               </div>
             <!-- </div> -->
             <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
-              <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
+              <div class="form-group col-lg-9">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
               </div>
             </div>
           <div class="form-group" id="agregarFicha">
@@ -72,7 +72,7 @@
                       <th>Valor Producto</th>
                       <th>Cantidad a Producir</th>
                       <th>Subtotal</th>
-                      <th>Usar</th>
+                      <th>Cantidad a usar</th>
                       <th>Producto T</th>
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>

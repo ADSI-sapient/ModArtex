@@ -91,7 +91,7 @@
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modificar Cotizacion</h4>
+            <h4 class="modal-title" id="myModalLabel">MODIFICAR COTIZACIÓN</h4>
           </div>
 
           <div>
@@ -148,9 +148,8 @@
                   </div>                 
 
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -190,12 +189,12 @@
         <div class="modal-content" style="border-radius: 10px;">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-             <h4 class="modal-title"><b>Fichas Asociados</b></h4>
+             <h4 class="modal-title"><b>PRODUCTOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="fichaAsociadas">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="fichaAsociadas">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>

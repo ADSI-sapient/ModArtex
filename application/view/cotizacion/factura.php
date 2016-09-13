@@ -192,24 +192,24 @@ $html = '<!DOCTYPE html>
             top:30%; 
             left:15%;
         }
-        .marca-agua{
-            background-image: url(' . RAIZ . DS . 'public' . DS .'img\modar.png);
-            position:absolute;
-            width:100%;
-            height:100%;
-            z-index:9;
-            opacity:0.15;
-            background-position-x: 20%;
-            background-position-y: 35%;
-        }
+        // .marca-agua{
+        //     background-image: url(' . RAIZ . DS . 'public' . DS .'img\modar.png);
+        //     position:absolute;
+        //     width:100%;
+        //     height:100%;
+        //     z-index:9;
+        //     opacity:0.15;
+        //     background-position-x: 20%;
+        //     background-position-y: 35%;
+        // }
 
     </style>
 </head>
 <body>
 <!-- <div class="marca-agua"></div> -->
 <div id="wrapper"> 
-    <img src="' . RAIZ . DS . 'public' . DS .'img\modar.png" id="img-reporte"/>
-    <h1 class="titu">Cotización</h1>
+    
+    <h1 class="titu" img src="' . RAIZ . DS . 'public' . DS .'img\modar.png" id="img-reporte";>Cotización</h1>
     <br />
     <table style="width:100%;">
         <tr>
@@ -247,7 +247,7 @@ $html = '<!DOCTYPE html>
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Nombre"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Nom"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Cantidad_Producir"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>

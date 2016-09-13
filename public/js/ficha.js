@@ -184,6 +184,7 @@
         $("#selectTallas").select2("val", "");
         $("#colorFicha").select2("val", "");
         $("#colorF").css("color", "gray");
+     
       }
 
       //valida todos los campos necesarios para el registro en el formulario

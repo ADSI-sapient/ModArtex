@@ -47,7 +47,8 @@
 
 	            $this->modelo->regProducto_Aso();
 	            }
-			        $_SESSION['alert'] = "swal('Cotizacion Registrada Exitosamente','','success')";
+			        $_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Cotización registrada exitosamente!'});"; 
+			        
 			     	header(URL . '/ctrCotizacion/regCotizacion');    
 			    }else{
 			    	$mensajeCo = "swal('Cotizacion No Registrada','','success')";

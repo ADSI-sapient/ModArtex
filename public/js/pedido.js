@@ -84,6 +84,12 @@ $('#prodAsociarPedMod').dataTable({
         // var vlrproduccion = $("#vlr_produccion").val();
         var fecha_entrega = $("#fecha_entrega").val();
         var cliente = $("#id_cliente").val().trim();
+        var fecha_registro = $("#fecha_reg").val();
+       
+        if (fecha_entrega <= fecha_registro) {
+            Lobibox.notify('warning', {size: 'mini', msg: 'Debe ingresar una fecha superior a la fecha actual'});
+            return false;
+        }
 
         var res = true;
           idfichas = 0;
@@ -105,6 +111,7 @@ $('#prodAsociarPedMod').dataTable({
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto al pedido'});
           return false;
         }
+
 
         return res;
       }
