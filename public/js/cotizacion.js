@@ -27,15 +27,16 @@ var options;
 $('#tblCotizaciones').dataTable({
   "ordering": false,
       "language": {
-          "emptyTable": "No hay productos para listar.",
+          "emptyTable": "No hay cotizaciones para listar.",
           "info": "Mostrando página _PAGE_ de _PAGES_",
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-          "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+          "zeroRecords": "No se encontraron cotizaciones que coincidan con la búsqueda.",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
-      }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
 });
 
 // $('#Asopedido').dataTable({
@@ -66,7 +67,7 @@ $('#tblfichascotiz').dataTable({
       }
 }); 
 
-$('#tablaFicha').dataTable({
+$('#tablaFichasCoti').dataTable({
   "ordering": false,
       "language": {
           "emptyTable": "No hay cotizaciones para listar.",
@@ -117,6 +118,9 @@ $('#Fechaentre').datepicker({
   $('.datepicker').css('z-index',zIndexModal+1);
 });
 
+$(document).ready(function(){
+  $("#tblFichasVaciaCoti").html("No hay productos asociados.");
+});
 
 $(document).ready(function(){
   var miboton = $("#myModal-btn");
@@ -154,8 +158,8 @@ function agregarCliente(documento_cli, cliente){
 
 function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha){
   var campo = $(fichas).parent().parent();
-  $("#agregarFicha").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]' data-parsley-required=''></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, subt"+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
+  $("#Ficha tbody tr #tblFichasVaciaCoti").remove();
+  var tr = "<tr class='box box-solid collapsed-box trcotiza' id='trcotizaciones'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]' data-parsley-required=''></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
   $("#Ficha").append(tr);
   boton = "#b"+idboton;
   $(boton).attr('disabled', 'disabled');
@@ -164,16 +168,25 @@ function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha)
 function asoFicha(referen, color, vlrproducto, fichas, idboton){
   var campo = $(fichas).parent().parent();
   $("#agregarficha").removeAttr("hidden");
-  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td>"+color+"</td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, subt "+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-minus'></i></button></td><input type='hidden' name='idFicha[]' value="+referen+"></tr>";
+  var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td>"+color+"</td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='0' onchange='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value);' name='cantiProdu[]'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+referen+"></tr>";
   $("#ficha").append(tr);
   boton = "#bt"+idboton;
   $(boton).attr('disabled', 'disabled');  
 }
 
  function Elificha(btn, elemento, subtotal){
+
+   $("#Ficha").each(function(){
+      if ($("#Ficha tbody #trcotizaciones").length < 2){
+        var tr = "<tr><td id='tblFichasVaciaCoti' colspan='8' style='text-align:center;'></td></tr>";
+        $("#Ficha").append(tr);
+        $("#tblFichasVaciaCoti").html("No hay productos asociados.");
+        }
+    });
+
   var e = $(elemento).parent().parent();
   $(e).remove();
-  boton = "#btn"+btn;
+  boton = "#b"+btn;
   $(boton).attr('disabled', false);
   valortotal = $("#vlr_total").val();
   desc = valortotal - subtotal;
@@ -182,6 +195,7 @@ function asoFicha(referen, color, vlrproducto, fichas, idboton){
 
 
 function fichasAsociad(idCot, fechaTerm, fichaAs){
+  
   $.ajax({
   type: 'post',
   dataType: 'json',
@@ -204,29 +218,30 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     var tr = "";
 
     if (fichaAs == 1) {
-    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+idFichaTec+"'></tr>";
+    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idProducto+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idProducto+".value=cantProducir"+idProducto+".value * "+vlrProducto+"; subt"+idProducto+".value=parseFloat(res"+idProducto+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idProducto+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idProducto+"' name='res"+idProducto+"' for='cantProducir"+idProducto+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idProducto+", this, subt"+idProducto+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idProducto+"' name='idProducto[]' value='"+idFichaTec+"'><td></td></tr>";
     $('#Asopedido').append(tr);
     }
 
-  else{
+  else if(fichaAs == 2){
     tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
     $('#fichaAsociadas').append(tr);
+    $('#DetallesAso').show();
    }
 
     }
-    $('#Asopedido').dataTable({
-    "ordering": false,
-        "language": {
-            "emptyTable": "No hay productos para listar.",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-        "paginate": {
-          "previous": "",
-          "next": ""
-         }
-        }
-    });
+    // $('#Asopedido').dataTable({
+    // "ordering": false,
+    //     "language": {
+    //         "emptyTable": "No hay productos para listar.",
+    //         "info": "Mostrando página _PAGE_ de _PAGES_",
+    //         "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+    //         "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+    //     "paginate": {
+    //       "previous": "",
+    //       "next": ""
+    //      }
+    //     }
+    // });
    }
   }).fail(function(){
         alert("error");
@@ -271,7 +286,7 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   }
   else
   {
-    var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idft+"></tr>";
+    var tr = "<tr class='box box-solid collapsed-box'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+referencia+"' name='cantProducir[]' value='0' onchange='res"+referencia+".value=cantProducir"+referencia+".value * "+vlrproducto+"; subt"+referencia+".value=parseFloat(res"+referencia+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+referencia+"'value='0'><input readonly='' type='text' id='capValor"+referencia+"' name='res"+referencia+"' for='cantProducir"+referencia+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+referencia+", this, subt"+referencia+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+referencia+"' name='idProducto[]' value="+idft+"><td></td></tr>";
     $("#Asopedido").append(tr);
     boton = "#botn"+referencia;
     $(boton).attr('disabled', 'disabled');
@@ -279,19 +294,19 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
 
   // $(boton).on("click", RefreshTable);
 
-  $('#Asopedido').dataTable({
-    "ordering": false,
-        "language": {
-            "emptyTable": "No hay productos para listar.",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-            "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-        "paginate": {
-          "previous": "",
-          "next": ""
-         }
-        }
-    });
+  // $('#Asopedido').dataTable({
+  //   "ordering": false,
+  //       "language": {
+  //           "emptyTable": "No hay productos para listar.",
+  //           "info": "Mostrando página _PAGE_ de _PAGES_",
+  //           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+  //           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+  //       "paginate": {
+  //         "previous": "",
+  //         "next": ""
+  //        }
+  //       }
+  //   });
 }
 
 
@@ -299,7 +314,6 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
    // function RefreshTable() {
    //     $("#Asopedido").load('#Asopedido');
    // }
-
 
 
   $("#clienteReg").select2({
@@ -325,12 +339,22 @@ function ValCoti(){
   var fecha_Regi = $("#fecha_R").val();
 
   if (fecha_Venci <= fecha_Regi) {
-      Lobibox.notify('warning', {size: 'mini', msg: 'Debe ingresar una fecha superior'});
+      Lobibox.notify('warning', {size: 'mini', msg: 'Debe ingresar una fecha superior a la fecha actual'});
     return false;
   }
 
+  if ($("#tblFichasVaciaCoti").length)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
+          return false;
+        }
+        else{
+
   return true;
-}  
+        }
+        return false;
+
+}
 
   function ValCot(){
     var Mfecha_regi = $("#Fecha_Registro").val();
@@ -338,12 +362,12 @@ function ValCoti(){
     var btn_Pedi = $("#convertiPedido");
 
     if(Mfecha_venci === Mfecha_regi ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 
    if (Mfecha_venci <= Mfecha_regi) {
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
       $(btn_Pedi).attr('disabled',false);
     return false;
   }
@@ -354,12 +378,39 @@ function ValCotPedi(){
   var Pfecha_registro = $("#Fecha_Registr").val();
 
   if(Pfecha_entrega === Pfecha_registro ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 
    if (Pfecha_entrega <= Pfecha_registro){
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresa una fecha superios'});
+      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
+
+
+  console.log($("#tblFichasVaciaCoti").length);
+  if ($("#tblFichasVaciaCoti").length)
+  {
+    Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+  return false;
 }
+
+function limpiarFormRegCoti(){
+     $("#clienteReg").select2("val", "");
+
+    $("#Ficha tbody .trcotiza").remove();
+    if (!$("#Ficha tbody tr #tblFichasVaciaCoti").length) {
+
+      var tr = "<tr><td id='tblFichasVaciaCoti' colspan='8' style='text-align:center;'></td></tr>";
+      $("#Ficha").append(tr);
+        $("#tblFichasVaciaCoti").html("No hay productos asociados");
+        $(".btnAsociarP").attr('disabled', false);
+        }
+}
+

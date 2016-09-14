@@ -17,6 +17,8 @@
 		private $_id_ordenProd;
 		private $_estado;
 
+		private $_id_ord_solPro;
+
 		function __construct($db)
 	    {
 	        try {
@@ -52,7 +54,7 @@
 
 	    public function regOrdenProduccion()
 	    {
-	    	$sql = "CALL SP_regOrdenProduccion(?,?,?)";
+	    	$sql = "CALL SP_regOrdenProduccion(?,?, ?)";
 	        $query = $this->_db->prepare($sql);
 	        $query->bindParam(1, $this->_estado_prod);
 	        $query->bindParam(2, $this->_fecha_regist);
@@ -70,14 +72,14 @@
 
 	    public function regSolicitudOrdenProduccion()
 	    {
-	    	$sql = "CALL SP_regSolcOrdenProd(?,?,?,?,?,?)";
+	    	$sql = "CALL SP_regSolcOrdenProd(?,?,?,?,?)";
 	        $query = $this->_db->prepare($sql);
 	        $query->bindParam(1, $this->_id_solc_prod);
 	        $query->bindParam(2, $this->_id_ordenProd);
 	        $query->bindParam(3, $this->_estadoFih);
 	        $query->bindParam(4, $this->_cantFab);
 	        $query->bindParam(5, $this->_cantSat);
-	        $query->bindParam(6, $this->_lugarPrficha);
+	        // $query->bindParam(6, $this->_lugarPrficha);
 	        return $query->execute();
 	    }
 
@@ -127,7 +129,7 @@
 
       	public function actualizarFechaEntregaPd(){
 
-      		$sql = "CALL SP_actualiarFechaEntPedi(?,?)";
+      		$sql = "CALL SP_actualiarFechaEntPedi(?, ?)";
       		$query = $this->_db->prepare($sql);
       		$query->bindParam(1, $this->_fecha_term);
       		$query->bindParam(2, $this->_id_solicitud);
@@ -137,12 +139,12 @@
 
       	public function editOrdenes()
 	    {
-	    	$sql = "CALL SP_editarOrdenProduccion(?,?,?,?)";
+	    	$sql = "CALL SP_editarOrdenProduccion(?,?)";
 	        $query = $this->_db->prepare($sql);
-	        $query->bindParam(1, $this->_estado_prod);
-	        $query->bindParam(2, $this->_fecha_term);
-	        $query->bindParam(3, $this->_lugar_prod);
-	        $query->bindParam(4, $this->_id_ordenProd);
+	        // $query->bindParam(1, $this->_estado_prod);
+	        // $query->bindParam(1, $this->_fecha_term);
+	        $query->bindParam(1, $this->_id_ordenProd);
+	        $query->bindParam(2, $this->_lugar_prod);
 	        return $query->execute();
 	    }
 
@@ -170,5 +172,21 @@
       		$query->bindParam(1, $this->_id_solicitud);
       		$query->execute();
       		return $query->fetch();
+      	}
+
+      	public function cambiarEstadoOrden(){
+      		$sql = "CALL SP_CambiarEstadoOrden(?, ?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_ordenProd);
+      		$query->bindParam(2, $this->_estado);
+      		return $query->execute();
+      	}
+
+      	public function cambiarEstadoOrdenSol(){
+      		$sql = "CALL SP_CambiarEstadoOrdenSol(?, ?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_ord_solPro);
+      		$query->bindParam(2, $this->_estado);
+      		return $query->execute();
       	}
 	}

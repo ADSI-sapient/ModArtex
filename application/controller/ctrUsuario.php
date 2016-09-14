@@ -40,20 +40,20 @@ class CtrUsuario extends Controller{
 					       
 					        //Registrar usuario
 							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
-								$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
+								$mensajeu = "Lobibox.notify('success', {size: 'mini', msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
 							}else{
-								$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el usuario'});"; 
+								$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el usuario'});"; 
 							}
 						}else{
-							$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 					}else{
-						$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
+						$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'El nombre de usuario ya se encuentra en la base de datos'});";
 					}
 					//Final de la validación del nombre de usuario
 				 }else{
-				    $mensajeu= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Existe un usuario con este documento'});"; 
+				    $mensajeu= "Lobibox.notify('error', {size: 'mini', msg: 'Existe un usuario con este documento'});"; 
 				}
 				$_SESSION["mensaje"] = $mensajeu;
 			}	//Final de la validación del documento
@@ -97,11 +97,11 @@ class CtrUsuario extends Controller{
 		if ($this->mdlModel->modificarPersona() && $this->mdlModel->modificarUsuario()) {
 			
 
-	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario modificado exitosamente'});";
+	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', msg: 'Usuario modificado exitosamente!'});";
 	  		header("location: ".URL."ctrUsuario/consUsuario");
 			}else{
 
-				$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error! No se pudo modificar el usuario'});";
+				$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'Error! No se pudo modificar el usuario'});";
 				header("location: ".URL."ctrUsuario/consUsuario");
 				
 			}
@@ -117,14 +117,16 @@ class CtrUsuario extends Controller{
 
 
 	public function cambiarEstado(){
-		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
-	    $this->mdlModel->__SET("Id_Estado", $_POST["Id_Estado"]);
+		$this->mdlModel->__SET("Num_Documento", $_POST["Num_Documento"]);
+	    $this->mdlModel->__SET("Estado", $_POST["Estado"]);
 
 		$usuarios = $this->mdlModel->cambiarEstado();
 
 		if ($usuarios) {
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado!'})";
 		    echo json_encode(["v"=>1]);
 		}else{
+			$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al cambiar el estado'})";
 		    echo json_encode(["v"=>0]);
 		}
 	}

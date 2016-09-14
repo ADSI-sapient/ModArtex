@@ -257,5 +257,35 @@
       		$query->execute();
       		return $query->fetchAll();
       	}
+
+      	public function validColorFichaReg(){
+
+      		$sql = "SELECT Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Referencia = ? and Id_Color = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->referencia);
+	        $query->bindParam(2, $this->color);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
+
+      	public function consColorFicha(){
+
+      		$sql = "SELECT c.Id_Color, c.Codigo_Color FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE Id_Ficha_Tecnica = ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_fichaT);
+      		$query->execute();
+      		return $query->fetch();
+      	}
+
+      	public function validColorFichaMod(){
+
+      		$sql = "SELECT Id_Ficha_Tecnica, Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Id_Ficha_Tecnica != ?";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_fichaT);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
+
+
 	}
 ?>

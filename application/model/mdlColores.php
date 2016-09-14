@@ -53,4 +53,12 @@
 			$stm->bindParam(3, $this->_codigo);
 			return $stm->execute();
 		}
+
+		public function validar(){
+			$sql = "CALL SP_ValidarColor(?)";
+			$stm =$this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_nombre);
+			$stm->execute();
+			return $stm->fetch();
+		}
 	}

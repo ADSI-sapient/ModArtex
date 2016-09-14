@@ -7,47 +7,35 @@
 			$this->_modelPedido = $this->loadModel('mdlPedido');
 		}
 
-		public function regOrden(){
-
-			if (isset($_POST["btnRegistrarProdu"])) {
-
-	        	//registro nueva orden de produccion
-	        	$this->_modelProduct->__SET("_estado_prod", 5);
+		public function registrarOrdenProduc(){
+				$this->_modelProduct->__SET("_estado_prod", 5);
 	        	$this->_modelProduct->__SET("_fecha_regist", $_POST["fecha_registro"]);
 		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarPrd"]);
 
-	            if ($this->_modelProduct->regOrdenProduccion()) {
+		        $this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
+		        $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
+				// $this->_modelProduct->actualizarFechaEntregaPd();
+			     $this->_modelProduct->actualizarEstadoPed();
 
-	            	//retorna id ultima orden de produccion registrada
-	            	$ultimaOrden = $this->_modelProduct->consUltimaOrdenReg();
-	        	
-	         	    for ($q=0; $q < count($_POST["id_fichaTec"]); $q++) { 
-	            		
-			        	//registrar en tbl_solicitudes_ordenesproduccion
-		        		$this->_modelProduct->__SET("_id_solc_prod", $_POST["id_solic_prodcto"][$q]);
-			        	$this->_modelProduct->__SET("_id_ordenProd", implode('', $ultimaOrden));
-		        		$this->_modelProduct->__SET("_estadoFih", 5);
-		        		$this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"][$q]);
-		        		$this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"][$q]);
-		        		$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
-			      
-			        	$this->_modelProduct->regSolicitudOrdenProduccion();
+		        $this->_modelProduct->regOrdenProduccion();
+		        $ultimaOrden = $this->_modelProduct->consUltimaOrdenReg();
+		        echo json_encode($ultimaOrden);
+		}
 
-	            	}
-			        
-		        	$this->_modelProduct->__SET("_id_solicitud", $_POST["id_solTud"]);
-		        	$this->_modelProduct->__SET("_fecha_term", $_POST["fecha_terminacion"]);
-				    $this->_modelProduct->actualizarFechaEntregaPd();
-			        $this->_modelProduct->actualizarEstadoPed();
+		public function registraOrdenSolicitud(){
+				$this->_modelProduct->__SET("_id_solc_prod", $_POST["id_solic_prodcto"]);
+			    $this->_modelProduct->__SET("_id_ordenProd", $_POST["idOrden"]);
+		        $this->_modelProduct->__SET("_estadoFih", 5);
+		        $this->_modelProduct->__SET("_cantFab", $_POST["cantProducirPed"]);
+		        $this->_modelProduct->__SET("_cantSat", $_POST["cantSatelite"]);
+		        // $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
 
-		        	//alerta confirmación registro
-	            	$_SESSION["mensaje"] = 'swal("Orden Registrada Exitosamente!", "", "success");';
-				}else{
+		        $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La orden se registró correctamente!'});";
+			    
+			    echo json_encode($this->_modelProduct->regSolicitudOrdenProduccion());
+		}
 
-					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar la orden', size: 'mini', rounded: true, delay: 2500,});";
-				}
-	        }
-
+		public function regOrden(){
 			$pedidosProdu = $this->_modelProduct->consPedidosProd();
 
 			include APP . 'view/_templates/header.php';
@@ -68,43 +56,31 @@
 
 
 		public function editarOrdenProduccion(){
+	    	// $this->_modelProduct->__SET("_estado_prod", $_POST["estadoOp"]);
+	        // $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_entregaOp"]);
+			$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
+		    $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarOp"]);
 
-	    	if (isset($_POST["btnModificarOrd"])) {
-	    		
-	    		$this->_modelProduct->__SET("_estado_prod", $_POST["estadoOp"]);
-	        	$this->_modelProduct->__SET("_fecha_term", $_POST["fecha_entregaOp"]);
-		        $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarOp"]);
-			    $this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
-
-	    		if ($this->_modelProduct->editOrdenes()) {
-
-	    			$this->_modelProduct->elimnarSolicitudesOrdenes();
-
-	    			for ($q=0; $q < count($_POST["id_fichaTec"]); $q++) { 
-	            		
-				    	//registrar en tbl_solicitudes_ordenesproduccion
-			      		$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolcProd"][$q]);
-				    	$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
-			        	$this->_modelProduct->__SET("_estadoFih", $_POST["estadoF"][$q]);
-			        	$this->_modelProduct->__SET("_cantFab", $_POST["cantFab"][$q]);
-			        	$this->_modelProduct->__SET("_cantSat", $_POST["cantSat"][$q]);
-			        	$this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"][$q]);
-				        $this->_modelProduct->regSolicitudOrdenProduccion();
-	            	}
-
-	    			$_SESSION["mensaje"] = 'swal("Orden Modificada Exitosamente!", "", "success");';
-		    		header("location: " .URL. 'ctrProduccion/consOrden');
-	    		}else{
-	    			$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar la orden', rounded: true, delay: 2500});";
-		      		header("location: " .URL. 'ctrProduccion/consOrden');
-	    		}	
-	    	}
-			$ordenesProduccion = $this->_modelProduct->consOrdenesProd();
-
-	    	include APP . 'view/_templates/header.php';
-			include APP . 'view/produccion/consOrden.php';
-			include APP . 'view/_templates/footer.php';
+	    	$this->_modelProduct->elimnarSolicitudesOrdenes();
+	    	echo json_encode($this->_modelProduct->editOrdenes());
 	    }
+
+	    function registrarSolicitudesOrdenes(){
+	    	//registrar en tbl_solicitudes_ordenesproduccion
+			$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolcProd"]);
+			$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
+			$this->_modelProduct->__SET("_estadoFih", 5);
+			$this->_modelProduct->__SET("_cantFab", $_POST["cantFab"]);
+			$this->_modelProduct->__SET("_cantSat", $_POST["cantSat"]);
+			// $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
+
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'La orden se modificó correctamente!'});";
+			echo json_encode($this->_modelProduct->regSolicitudOrdenProduccion());
+	    }
+
+
+
 
 		public function consFichasOrdenP()
 		{
@@ -143,4 +119,15 @@
 		    }
 	    }
 
+	    public function cambiarEstadoOrden(){
+	    	$this->_modelProduct->__SET("_id_ordenProd", $_POST["id_orden"]);
+	    	$this->_modelProduct->__SET("_estado", $_POST["id_est"]);
+	    	echo json_encode($this->_modelProduct->cambiarEstadoOrden());
+	    }
+
+	  	public function cambiarEstadoOrdenSol(){
+	    	$this->_modelProduct->__SET("_id_ord_solPro", $_POST["id_ordenSoli"]);
+	    	$this->_modelProduct->__SET("_estado", $_POST["id_est"]);
+	    	echo json_encode($this->_modelProduct->cambiarEstadoOrdenSol());
+	    }
 	}

@@ -34,16 +34,16 @@ class CtrCliente extends Controller{
 					       
 					    	//Registrar usuario
 							if($this->mdlModel->regCliente()){
-								$mensajec = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Cliente registrado exitosamente!'});"; 
+								$mensajec = "Lobibox.notify('success', {size: 'mini', msg: 'Cliente registrado exitosamente!'});"; 
 							}else{
-								$mensajec = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'No se puedo registrar el cliente'});"; 
+								$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el cliente'});"; 
 							}
 						}else{
-							$mensajec = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 				 }else{
-				    $mensajec= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Ya existe un cliente con este documento'});"; 
+				    $mensajec= "Lobibox.notify('error', {size: 'mini', msg: 'Ya existe un cliente con este documento'});"; 
 				}
 				$_SESSION["mensaje"] = $mensajec;
 			}	//Final de la validación del documento
@@ -83,11 +83,11 @@ class CtrCliente extends Controller{
 	  	$this->mdlModel->modificarCliente();
 
 		if($this->mdlModel->modificarCliente()){
-			 $mensajecm= "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Cliente modificado exitosamente'});";
+			 $mensajecm= "Lobibox.notify('success', {size: 'mini', msg: ' Cliente modificado exitosamente'});";
 
 			header('location: '.URL.'ctrCliente/consCliente');
 		}else{
-		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: ' Erros al modificar'});";
+		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', msg: ' Erros al modificar'});";
 		      }
 		      //header("location: ".URL."usuario/consUsuario")
 
@@ -107,8 +107,10 @@ class CtrCliente extends Controller{
 		$clientes = $this->mdlModel->cambiarEstado();
 
 		if ($clientes) {
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado'})";
 		    echo json_encode(["v"=>1]);
 		}else{
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    echo json_encode(["v"=>0]);
 		}
 		}

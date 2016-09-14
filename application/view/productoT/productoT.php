@@ -17,7 +17,7 @@
       <form class="form-horizontal">
         <div class="col-md-12">
           <div class="table table-responsive">
-            <table class="table table-hover" id="tablaProducto">
+            <table class="table table-hover table-bordered" id="tablaProducto">
               <thead>
                 <tr class="info">
                 <th></th>
@@ -51,7 +51,7 @@
                 </table>
               </div>
               <div class="col-md-12" style="text-align: right;">
-             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"  data-target="#ModalSalidas"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
              </div>
             </div>
           </form>

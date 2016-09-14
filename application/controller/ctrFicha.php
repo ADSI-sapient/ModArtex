@@ -37,6 +37,12 @@
 				$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
 				$this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 
+				// $regFColores = $this->mdlModel->validColorFichaReg();
+
+				// if ($regFColores != null) {
+				// 	$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Ya existe una ficha con este color', size: 'mini', rounded: true, delay: 2500});";
+				// }
+				// else{
 				if($this->mdlModel->regFicha()){
 
 					$ultima = $this->mdlModel->ultimaFicha()["id_ficha"];
@@ -59,13 +65,13 @@
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 
-					// $_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Ficha Registrada Exitosamente!', size: 'mini', rounded: true, delay: 3000});";
-
-					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha registrada exitosamente'});";
+					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente!'});";
 				}else{
 
-					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', rounded: true, delay: 2500});";
+					$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al registrar la ficha', size: 'mini', delay: 2500});";
 				}
+
+				// }
 	      	}
 	       
 	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
@@ -111,11 +117,11 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Ficha modificada exitosamente'});";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha modificada exitosamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
-		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al modificar la ficha'});";
+		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al modificar la ficha'});";
 		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
 		    }
@@ -137,9 +143,12 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
-		    	echo json_encode(["v"=>1]);
-		    }else{
+		    	$_SESSION["mensaje"] = "Lobibox.notify('sucess', {size: 'mini', msg: 'El estado ha sido modificado!'})";
+
 		    	echo json_encode(["v"=>0]);
+		    }else{
+                $_SESSION["mensaje"] = "Lobibox.notify('sucess', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
+		    	echo json_encode(["v"=>1]);
 		    }
 		}
 
@@ -199,7 +208,49 @@
 		    }else{
 		    	echo json_encode(["r"=>null]);
 		    }
-
 		}
+
+		public function mostrarUnColor(){
+
+		    $this->mdlModel->__SET("id_fichaT", $_POST["idficht"]);
+			$color = $this->mdlModel->consColorFicha();
+			
+			if ($color) {
+		    	echo json_encode(["r"=>$color]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
+		    }
+		}
+
+		public function validarColorRegFicha(){
+
+			    $this->mdlModel->__SET("referencia", $_POST["referencia"]);
+			    $this->mdlModel->__SET("color", $_POST["color"]);
+
+				$regFColores = $this->mdlModel->validColorFichaReg();
+
+			
+			if ($regFColores) {
+		    	echo json_encode(["r"=>$regFColores]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
+		    }
+		}
+
+
+		public function validarColorModFicha(){
+
+			
+			    $this->mdlModel->__SET("id_fichaT", $_POST["idficht"]);
+
+				$modFColores = $this->mdlModel->validColorFichaMod();
+			
+			if ($modFColores) {
+		    	echo json_encode(["r"=>$modFColores]);
+		    }else{
+		    	echo json_encode(["r"=>null]);
+		    }
+		}
+
 	}
 ?>

@@ -53,4 +53,13 @@
 			$stm->bindParam(3, $this->_nombre);
 			return $stm->execute();
 		}
+
+		public function validar(){
+			$sql = "CALL SP_ValidarMedida(?, ?)";
+			$stm =$this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_nombre);
+			$stm->bindParam(2, $this->_abreviatura);
+			$stm->execute();
+			return $stm->fetch();
+		}
 	}

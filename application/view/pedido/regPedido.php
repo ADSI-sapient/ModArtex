@@ -16,18 +16,18 @@
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
                 <div class="input-group date">
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="fecha_reg" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">*Fecha Entrega:</label>
               <div class="">
                 <div class="input-group date">
@@ -39,13 +39,13 @@
               </div>
               <div id="regPedidov"></div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="id_cliente" class="">*Asociar Cliente:</label>
               <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="" data-parsley-errors-container="#regPedidoCl">
               <option value=""></option>
@@ -55,14 +55,14 @@
               </select>
               <div id="regPedidoCl"></div>
               </div>
-            </div>
-            <div class="row col-lg-12" style="margin-left:0.5%">
-              <div class="form-group col-lg-3">
-                <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asociarFichas" style="padding:6px 12px !important;"><b>Asociar Productos</b></button>
+            <!-- </div> -->
+            <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
+              <div class="form-group col-lg-7">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
               </div>
             </div>
           <div class="form-group" id="agregarFicha">
-            <div class="table">
+            <div class="table scrolltablas">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
                   <thead>
@@ -89,7 +89,7 @@
             </div>
             </div>
             <div class="row col-lg-12" style="margin-left:0.5%">
-       			  <div class="form-group col-lg-offset-9 col-lg-3">
+              <div class="form-group col-lg-offset-9 col-lg-3">
                 <label for="vlr_total" class="">*Valor Total:</label>
                 <div class="">
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
@@ -107,16 +107,16 @@
       </div>
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content modal-lg" style="border-radius: 10px;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Fichas Técnicas</b></h4>
+              <h4 class="modal-title"><b>Productos Para Asociar</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tblFichasAsp">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tblFichasAsp">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -137,7 +137,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>');"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

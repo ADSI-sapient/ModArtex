@@ -36,19 +36,19 @@
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
 
-                <option value="CC">CC</option>
-                <option value="CW">CE</option>
+                <option value="C.C">C.C</option>
+                <option value="C.E">C.E</option>
                 <option value="NIT">NIT</option>
               </select>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
 
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" min="0">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label class="">*Email:</label>
-              <input type="text" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="">
+              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">

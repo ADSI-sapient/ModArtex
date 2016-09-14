@@ -10,7 +10,6 @@
     <div class="box box-primary">
       <div class="box-header with-border"  style="text-align: center;">
         <h3 class="box-title"><strong>LISTAR COTIZACIONES</strong></h3>
-<<<<<<< HEAD
       </div> 
       <div id="users">
         <form class="form-horizontal">
@@ -29,6 +28,7 @@
                       <th style="width: 7%">Editar</th>
                       <th>Generar</th>
                       <th class="col-md">Convertir en Pedido</th>
+                      <th class="col-md">Detalle</th>
                     </tr>
                   </thead>
                   <tbody class="">
@@ -53,7 +53,7 @@
                    <td><button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share fa-lg" style="color:#5A69F2;" aria-hidden="true"></i></button></td>
 
                   <td>
-                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#Aso" onclick="fichasAsociad('<?= $cotizacion["Id_Solicitud"] ?>','',2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF" aria-hidden="true"></i></button>
+                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#DetallesAso" onclick='fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",2)'><i class="fa fa-eye fa-lg" style="color:#3B73FF" aria-hidden="true"></i></button>
                   </td>
 
                   
@@ -91,7 +91,7 @@
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modificar Cotizacion</h4>
+            <h4 class="modal-title" id="myModalLabel">MODIFICAR COTIZACIÓN</h4>
           </div>
 
           <div>
@@ -148,9 +148,8 @@
                   </div>                 
 
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -183,6 +182,42 @@
          </div>           
       </div>           
   </div>
+
+
+   <div class="modal fade" id="DetallesAso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius: 10px;">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+             <h4 class="modal-title"><b>PRODUCTOS ASOCIADOS</b></h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+              <div class="table">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="fichaAsociadas">
+                    <thead>
+                      <tr class="active">
+                        <th>Referencia</th>
+                        <th>Color</th>
+                        <th>Cantidad a Producir</th>
+                        <th>Valor Producto</th>
+                        <th>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+            </div>
+          </div>
+      </div>
+ </div>
+
+
       <div class="modal fade" id="Productos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius: 10px;">
@@ -303,11 +338,10 @@
     <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Convertir a Pedido</h4>
+        <h4 class="modal-title">Convertir en Pedido</h4>
       </div>
       <div class="modal-body">
-        
-
+      
            <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
                   <div class="form-group col-sm-5">
                     <label class="">Codigo</label>
@@ -349,7 +383,7 @@
                 </div> -->
 
       <div class="modal-footer">
-      <div class="row col-sm-push-8 col-sm-5">
+      <div class="row col-sm-7">
        <br />
         <button type="submit" class="btn btn-primary" name="gurdarPedi">Enviar Pedido</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -359,39 +393,6 @@
   </div><!-- /.modal-dialog -->
  </div><!-- /.modal -->
 </section>
-
- <div class="modal fade" id="Aso" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content" style="border-radius: 10px;">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-             <h4 class="modal-title" id="myModalLabel"><b>Fichas Asociados</b></h4>
-            </div>
-            <div class="modal-body" style="padding:10px;">
-              <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="fichaAsociadas">
-                    <thead>
-                      <tr class="active">
-                        <th>Referencia</th>
-                        <th>Color</th>
-                        <th>Cantidad a Producir</th>
-                        <th>Valor Producto</th>
-                        <th>Subtotal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
-            </div>
-          </div>
-      </div>
- </div>
 
 <style>
 input[type=number]::-webkit-outer-spin-button,

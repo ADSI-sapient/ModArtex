@@ -1,22 +1,79 @@
-  var cont = 0;
-  function seleccion(){
-    $("#tblRegIns").removeAttr("style");
-    $(".tr").each( function(){
-      var rg = false;
-      if ($(".chkReg"+$(this).find("td").eq(4).html()).is(':checked')) {
-        var cod = $(this).find("td").eq(4).html();
-        $("#tblRegIns tr").find('td:eq(4)').each(function(){
-          if (cod == $(this).html()) {
-            rg = true;
-          }
+var tempIdColIns = [];
+
+$(window).load(function(){
+  mensajeTablaVacia();
+  if ($("#tableListInsumos tbody tr").length == 0) {
+    var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">La tabla esta vacia</td></tr>';
+    $("#tableListInsumos tbody").append(tr);
+  }
+});
+
+function mensajeTablaVacia(){
+    var tr = '<tr id="trTablaVacia"><td colspan="6" style="text-align: center;">La tabla esta vacia</td></tr>';
+    if ($("#tbody-colAsocInsumos tr").length == 0) {
+      $("#tbody-colAsocInsumos").append(tr);
+      return false;
+    }else{
+      $("#trTablaVacia").remove();
+      return true;
+    }
+}
+
+$("#checkValor").click( function(){
+   if($(this).is(':checked')){
+      $("#valColIns").removeAttr("readonly");
+      $("#tbodyColIns tr").each(function(){
+        var idCol = $(this).find("td").eq(0).html();
+        $("#valColIns"+idCol).attr("readonly", "");
+      });
+      $("#valColIns").on('keyup', function(){
+        $("#tbodyColIns tr").each(function(){
+          var idCol = $(this).find("td").eq(0).html();
+          $("#valColIns"+idCol).val($("#valColIns").val());
         });
-        if (rg == false) {
-          var fila = '<tr class="box box-solid collapsed-box"><td>'+(++cont)+'</td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-          $("#tbody").append(fila);
-        }
-        $(".chkReg"+$(this).find("td").eq(4).html()).prop("checked", "");
+      });
+   }else{
+      $("#valColIns").attr("readonly", "");
+      $("#valColIns").val("");
+      $("#tbodyColIns tr").each(function(i){
+        var idCol = $(this).find("td").eq(0).html();
+        $("#valColIns"+idCol).removeAttr("readonly");
+      });
+   }
+});
+
+
+  var cont = 0;
+  function seleccion(col){
+      $(col).attr("disabled", true);
+      var color = $(col).parent().parent();
+      var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+'</td><td>'+$(color).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(color).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove(); mensajeTablaVacia(); removeDisabledBtn(this);"><i class="fa fa-times"></i></button></td></tr>';
+      $("#tbody-colAsocInsumos").append(fila);
+      mensajeTablaVacia();
+  }
+
+  function removeDisabledBtn(col){
+    var color = $(col).parent().parent();
+    $("#btnAgreColAsoc"+$(color).find("td").eq(4).html()).attr("disabled", false);
+  }
+
+  function limpiarTableColAsoc(){
+      $("#tbody-colAsocInsumos tr").each(function(){
+        $("#btnAgreColAsoc"+$(this).find("td").eq(4).html()).attr("disabled", false);
+      });
+      $("#tbody-colAsocInsumos").empty();
+      mensajeTablaVacia();
+  }
+
+
+  function valiTablaLlenaColIns(){
+      mensajeTablaVacia();
+      if (mensajeTablaVacia()) {
+        return true;
+      }else{
+        Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'Debe asociar colores al insumo'});
+        return false;
       }
-    });
   }
 
   function colores(){
@@ -41,10 +98,18 @@ function camEst(cod, est){
     }
   }).fail(function(){
   });
-} 
+}
 
 
 function editInsumos(id, insumos){
+  $("#tbodyColIns").empty();
+  habilitarBotonAgreCol();
+  validateColSelec();
+  $("#valColIns").val("");
+  $("#valColIns").attr("readonly", true);
+  $("#checkValor").attr("checked", false);
+
+  
   var campos = $(insumos).parent().parent();
   $.ajax({
     dataType: 'json',
@@ -53,9 +118,15 @@ function editInsumos(id, insumos){
     data:{id: id}
   }).done(function(respuesta){
     if (respuesta) {
-      // var cont = 0;
+      var cont = 0;
       $.each(respuesta, function(i){
-        var fila = '<tr class="box box-solid collapsed-box"><td></td><td>'+respuesta[i]["codigo"]+'</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+'; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+'</td><td id="'+respuesta[i]["id"]+'" style="display: none; ">'+respuesta[i]["id"]+'</td><td><button type="button" class="btn btn-box-tool" onclick="quitarCol('+respuesta[i]["id"]+', '+id+')"><i class="fa fa-times"></i></button></td></tr>';
+        var fila = '<tr class="box box-solid collapsed-box"><td style="display: none;">'
+        +respuesta[i]["Id_Color"]+'</td><td style="display: none;">'+respuesta[i]["Id_ColIns"]+
+        '</td><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+
+        '</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+
+        '; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+
+        '</td><td><input id="valColIns'+respuesta[i]["Id_Color"]+'" type="number" class="form-control" min="1" required="" value="'+respuesta[i]["valor"]+
+        '"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, '+respuesta[i]["Id_ColIns"]+')"><i style="font-size: 150%;" class="fa fa-times"></i></button></td><td style="display: none;">'+respuesta[i]["cantidad"]+'</td></tr>';
         $("#tbodyColIns").append(fila);  
       });
     }
@@ -63,86 +134,83 @@ function editInsumos(id, insumos){
   });
   $("#mSel").val(campos.find("td").eq(1).text());   
   $("#nomIns").val(campos.find("td").eq(2).text());
-  $("#medIns").val(campos.find("td").eq(3).find("option").val());
-  $("#medIns").text(campos.find("td").eq(3).find("option").text());
-  $("#stockIns").val(campos.find("td").eq(4).text());
+  $("#selMedInsCol").val(campos.find("td").eq(8).html());
+  $("#stockIns").val(campos.find("td").eq(4).html());
   $("#ModEditIns").show(); 
 }
 
-function seleccionCol(){
+function seleccionCol(col){
+  var color = $(col).parent().parent();
+  tr = '<tr class="box box-solid collapsed-box"><td style="display: none;">'
+        +$(color).find("td").eq(0).html()+'</td><td style="display: none;">'+false+
+        '</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+
+        '</td><td><i class="fa fa-square" style="color: '+$(color).find("td").eq(2).html()+
+        '; font-size: 200%;"></i></td><td>'+$(color).find("td").eq(4).html()+
+        '</td><td><input id="valColIns'+$(color).find("td").eq(0).html()+'" type="number" class="form-control" min="1" required="" value="0"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, 0)"><i style="font-size: 150%;" class="fa fa-times"></i></button></td></tr>';
+  $("#tbodyColIns").append(tr);
+  habilitarBotonAgreCol();
+  validateColSelec();
+}
 
-          // $("#tablaCol").removeAttr("style");
-          $(".tr").each( function(){
-            var rg = false;
-            // console.log($(".chk"+$(this).find("td").eq(4).html()));
-            if ($(".chk"+$(this).find("td").eq(4).html()).is(':checked')) {
-              var cod = $(this).find("td").eq(4).html();
-              $("#tablaCol tr").find('td:eq(4)').each(function(){
-                if (cod == $(this).html()) {
-                  rg = true;
-                }
-              });
-              if (rg == false) {
-                var fila = '<tr class="box box-solid collapsed-box"><td></td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-                $("#tbodyColIns").append(fila);
-              }
-              $(".chk"+$(this).find("td").eq(4).text()).prop("checked", "");
-            }
-          });
-        }
+// function coloresVec(){
+//   var vec = [];
+//   $("#tablaCol tr").find('td:eq(4)').each(function(){
+//     vec.unshift([$(this).html()]);
+//   });
+//   $("#vectorCol").val(vec);
+// }
 
-        function coloresVec(){
-          var vec = [];
-          $("#tablaCol tr").find('td:eq(4)').each(function(){
-            vec.unshift([$(this).html()]);
-          });
-          $("#vectorCol").val(vec);
-        }
-
-        var vec = [];
-        function quitarCol(idCol, idIns){
+//         var vec = [];
+        function quitarCol(col, idColIns){
+          var colorInsumo = $(col).parent().parent();
+          if (idColIns == 0) {
+            $(colorInsumo).remove();
+            var idCol = $(colorInsumo).find("td").eq(0).html();
+            $("#btnAgreColAsoc"+idCol).attr("disabled", false);
+          }else{
           $.ajax({
             dataType: "json",
             url: uri+"ctrBodega/cantidadColIns",
             type: 'POST',
-            data: {idCol: idCol, idIns: idIns},
-            success: function(data) {
-              if (data.cantidad > 0) {
-                // Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, position: 'center bottom', msg: 'Datos incorrectos!'});
-                swal("Hay cantidades asociadas a este registro", "no se puede eliminar")
-                // alert("Hay cantidades asociadas a este registro, no se puede eliminar");
-              }else{
-                // var str = "#"+idCol;
-                // $(str).parent().remove();
-                swal({
-                  title: "¿Seguro que desea eliminar esta asociación?",
-                  text: "",
-                  type: "warning",
-                  showCancelButton: true,
-                  confirmButtonClass: "btn-danger",
-                  confirmButtonText: "Si, borrar asociación",
-                  closeOnConfirm: true
-                },
-                function(){
-                  $.ajax({
-                    url: uri+"ctrBodega/deleteColor",
-                    type: 'POST',
-                    data: {idCol: idCol, idIns: idIns},
-                    success: function(res){
-                      if (res) {
-                        var str = "#"+idCol;
-                        $(str).parent().remove();
-                      }
-                    }
-                  });
-                });
-              }
-            },
-            error: function(){
-              alert('Error!-');
+            data: {idColIns: idColIns}
+          }).done(function(resp){
+            if (resp["cantidad"] > 0) {
+              Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'Este registro tiene cantidades asociadas'});
+            }else{
+              $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: uri+'ctrBodega/validateFichasAsoc',
+                data: {idColIns: idColIns}
+              }).done(function(resp){
+                if (resp){
+                  tempIdColIns.push(idColIns);
+                  $(colorInsumo).remove();
+                  var idCol = $(colorInsumo).find("td").eq(0).html();
+                  $("#btnAgreColAsoc"+idCol).attr("disabled", false);
+                }else{
+                  Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'Este registro esta asociado a una ficha tecnica'});
+                }
+              });
             }
           });
+            //       $.ajax({
+            //         url: uri+"ctrBodega/deleteColor",
+            //         type: 'POST',
+            //         data: {idCol: idCol, idIns: idIns},
+            //         success: function(res){
+            //           if (res) {
+            //             var str = "#"+idCol;
+            //             $(str).parent().remove();
+            //           }
+            //         }
+            //       });
+            //     });
+            //   }
+            // }
         }
+
+      }
 
 
         //Existencias de insumos
@@ -190,9 +258,27 @@ function seleccionCol(){
 
 
         //muchas entradas
+
+        function validateMuchasEntradas(){
+            $("#tbodyEnt tr").each(function(){
+              var valor = $(this).find("td").eq(0).html();
+              $("#extCant"+valor).parsley().validate();
+              $("#extValUni"+valor).parsley().validate();
+              $("#extValTot"+valor).parsley().validate();
+              if ($("#extCant"+valor).val() == "" || $("#extCant"+valor).val() < 0 || $("#extValUni"+valor).val() == "" || $("#extValUni"+valor).val() < 0 || $("#extValTot"+valor).val() == "" || $("#extValTot"+valor).val() < 0) {
+                return false;
+              }else{
+                return true;
+              }
+            });
+        }
+
+
+
         function tableEntMay(){
           $("#tbodyEnt").empty();
           $("#valEnt").val("");
+          var band = false;
           $("#tblExistencias tbody tr").each(function(){
             var valor = $(this).find("td").eq(0).html();
 
@@ -201,14 +287,14 @@ function seleccionCol(){
               +$(this).find("td").eq(4).html()+"</td><td>"
               +$(this).find("td").eq(5).html()+"</td><td style='display: none;'>"
               +$(this).find("td").eq(6).html()+"</td><td style='display: none;'>"
-              +$(this).find("td").eq(7).html()+"</td><td><input id='extCant"
-              +valor+"' type='number'></td><td><input id='extValUni"
-              +valor+"' type='number'></td><td><input id='extValTot"
+              +$(this).find("td").eq(7).html()+"</td><td><input data-parsley-required='' min='0' id='extCant"
+              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' id='extValUni"
+              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' id='extValTot"
               +valor+"' type='number'></td></tr>";
               $("#tbodyEnt").append(fila);
+              band = true;
             }
-
-
+            
             $("#extValUni"+valor).on("keyup change", function(){
               if ($("#extCant"+valor).val() <= 0) {
                 $("#extValTot"+valor).val("");
@@ -251,6 +337,11 @@ function seleccionCol(){
               }
             });
           });
+          if (band) {
+              $("#ModalEntradaMayor").modal();
+            }else{
+              Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Debe seleccionar insumos'});
+            }
         } 
 
         $("#regMuchos").click(function(){
@@ -292,9 +383,26 @@ function salidaUno(ins){
 
 // SALIDA DE VARIOS INSUMOS
 
+
+
+
+function validateMuchasSalidas(){
+    $("#tbodySalIns tr").each(function(){
+      var valor = $(this).find("td").eq(0).html();
+      $("#cantSalIns"+valor).parsley().validate();
+      if ($("#cantSalIns"+valor).val() == "" || $("#cantSalIns"+valor).val() < 0 || $("#cantSalIns"+valor).val() > $(this).find("td").eq(5).html()) {
+        return false;
+      }else{
+        return true;
+      }
+    });
+}
+
 function salidaIns(){
           $("#tbodySalIns").empty();
           $("#descripcion").text("");
+
+          var band = false;
           $("#tblExistencias tbody tr").each(function(){
             var valor = $(this).find("td").eq(0).html();
 
@@ -302,11 +410,17 @@ function salidaIns(){
               var fila = "<tr><td style='display: none;'>"+valor+"</td><td>"+$(this).find("td").eq(3).html()+"</td><td>"
               +$(this).find("td").eq(4).html()+"</td><td>"
               +$(this).find("td").eq(5).html()+"</td><td style='display: none;'>"
-              +$(this).find("td").eq(6).html()+"</td><td><input style='width: 85%;' id='cantSalIns"+valor+"' max='"
+              +$(this).find("td").eq(6).html()+"</td><td><input data-parsley-required='' min='0' style='width: 85%;' id='cantSalIns"+valor+"' max='"
               +$(this).find("td").eq(6).text()+"' min='1' type='number'></td></tr>";
               $("#tbodySalIns").append(fila); 
+              band = true;
             }
           });
+          if (band) {
+              $("#SalidaMuchos").modal();
+          }else{
+              Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Debe seleccionar insumos'});
+          }
 }
 
 $("#salIns").click(function(){
@@ -321,6 +435,131 @@ $("#salIns").click(function(){
   console.log(array);
   $("#arraySalIns").val(JSON.stringify(array));
 });
+
+
+function validateColSelec(){
+    $("#tableCols tbody tr").each(function(){
+        var idCol = $(this).find("td").eq(0).html();
+        $("#tbodyColIns tr").each(function(){
+          if ($(this).find("td").eq(0).html() == idCol){
+              $("#btnAgreColAsoc"+idCol).attr("disabled", true);
+          }
+        });
+    });
+}
+
+function habilitarBotonAgreCol(){
+    $("#tableCols tbody tr").each(function(){
+        var idCol = $(this).find("td").eq(0).html();
+        $("#btnAgreColAsoc"+idCol).removeAttr("disabled");
+    });
+}
+
+
+
+function updateColIns(){
+  $("#nomIns").parsley().validate();
+  $("#stockIns").parsley().validate();
+  $("#selMedInsCol").parsley().validate();
+
+  var band = true;
+  $("#tbodyColIns tr").each(function(){
+    var IdCol = $(this).find("td").eq(0).html();
+    var valIns =  $("#valColIns"+IdCol).parsley().validate();
+    if ($("#valColIns"+IdCol).val() == "" || $("#valColIns"+IdCol).val() < 1) {
+      band = false;
+    }
+  });
+
+  var band2 = true;
+  if ($("#tbodyColIns tr").length == 0) {
+    Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'La tabla debe tener datos'});
+    band2 = false;
+  }
+
+  if ($("#nomIns").val() != "" &&  ($("#stockIns").val() != "" && $("#stockIns").val() >= 0) && $("#selMedInsCol").val() != "" && band == true && band2 == true){
+      var idIns = $("#mSel").val();
+      var idMedida = $("#selMedInsCol").val();
+      var nomIns = $("#nomIns").val();
+      var stock = $("#stockIns").val();
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+'ctrBodega/modificarInsumo',
+        data: {id: idIns, select: idMedida, nombre: nomIns}
+      }).done(function(){
+        $.each(tempIdColIns, function(i){
+          var idColIns = tempIdColIns[i];
+          // console.log(idColIns);
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: uri+'ctrBodega/borrarColorInsumo',
+            data: {idColIns: idColIns}
+          }).done(function(){
+          }).fail(function(){
+            console.log();
+          });
+        });
+        $("#tbodyColIns tr").each(function(){
+            var IdColIns = $(this).find("td").eq(1).html();
+            var IdCol = $(this).find("td").eq(0).html();
+            var valIns =  $("#valColIns"+IdCol).val();
+            if ($(this).find("td").eq(1).html() != "false") {
+              var cantidad = $(this).find("td").eq(8).html();
+              $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: uri+'ctrBodega/modificarColorInsumo',
+                data: {idColIns: IdColIns, cantidadIns: cantidad, valIns: valIns, stock: stock}
+              }).done(function(resp){
+                console.log(resp);
+              }).fail(function(){
+                console.log("fail");
+              })
+            }else{
+              $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: uri+'ctrBodega/regColorInsumo',
+                data: {IdCol: IdCol, idIns: idIns, valIns: valIns, stock: stock}
+              }).done(function(resp){
+                console.log(resp);
+              }).fail(function(){
+                console.log("fail");
+              })
+            }
+        });
+        location.href = uri+'ctrBodega/listarInsumos';
+      });
+  }
+  band = true;
+  band2 = false;
+}
+
+
+function verDetalleColIns(id){
+    $("#tbodyDetalleColIns").empty();  
+  $.ajax({
+    dataType: 'json',
+    type: 'POST',
+    url: uri+"ctrBodega/lisColInsu", 
+    data:{id: id}
+  }).done(function(respuesta){
+    if (respuesta) {
+      var cont = 0;
+      $.each(respuesta, function(i){
+        var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+
+        '</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+
+        '; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+
+        '</td><td>'+respuesta[i]["valor"]+'</td><td style="display: none;">'+respuesta[i]["cantidad"]+'</td></tr>';
+        $("#tbodyDetalleColIns").append(fila);  
+      });
+      // $("#tbodyDetalleColIns").dataTable();  
+    }
+  }).fail(function(){
+  });
+}
 
 
 

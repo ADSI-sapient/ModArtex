@@ -28,7 +28,7 @@
                   <th>Valor Producción</th>
                   <th>Valor Producto</th>
                   <th style="width: 7%">Editar</th>
-                  <th style="width: 7%">C. Estado</th>
+                  <th style="width: 5%">Cambiar Estado</th>
                   <th style="width: 15%">Insumos Asociados</th>
                 </tr>
               </thead>
@@ -43,7 +43,7 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1)" ><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1);" ><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
                     </td>
                     <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
@@ -53,7 +53,7 @@
                       <?php } ?>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                      <button style="width:120px" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                     </td>
                     </tr>
                     <?php endforeach; ?>
@@ -75,11 +75,12 @@
               <!-- <button type="button" class="close"><span aria-hidden="true">&times;</span></button> -->
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-              <h4 class="modal-title" id="myModalLabel"><b>Modificar Ficha Técnica</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR FICHA TÉCNICA</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
-              <form role="form" action="<?= URL ?>ctrFicha/editFicha" method="post" id="modficha">
+              <form role="form" action="<?php echo URL; ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
                 <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
+                 <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">Referencia:</label>
                   <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
@@ -97,22 +98,28 @@
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                <div class="form-group col-sm-3">
+                </div>
+                <div class="form-group col-sm-12">
+                <div class="col-sm-3">
                   <label for="color" class="">*Color:</label>
-                  <div class="row"></div>
-                  <!-- <div class="input-group"> -->
-                  <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%; height: 100%;">
-                    <?php foreach ($colores as $color): ?>
-                      <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
-                    <?php endforeach ?>
-                  </select>
+                  <!-- <div class="row"></div> -->
+                  <div class="input-group">
+                    <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%; height: 100%;" onchange="coloresFichas()" data-parsley-required="">
+                      <?php foreach ($colores as $color): ?>
+                        <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                    <span class="input-group-addon" style="background-color:white; border-radius:5px"><i class="fa fa-square" style="font-size:150%;" id="colorFMod"></i></span>
+                  </div>
                 </div>
                 <div class="form-group col-sm-offset-5 col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
-                  <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;">
+                  <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1">
                 </div>
+              </div>
+
                 <div class="table">
-                  <div class="form-group col-sm-4 table-responsive">
+                  <div class="form-group col-sm-4 table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
                     <table class="table table-hover" id="tbl-tallas-aso">
                       <thead>
@@ -129,7 +136,7 @@
                   </div>
                 </div>
                 <div class="table">
-                  <div class="form-group col-sm-8 table-responsive">
+                  <div class="form-group col-sm-8 table-responsive scrolltablas">
                     <label>*Insumos asociados:</label>
                     <table class="table table-hover" id="tbl-insumos-aso">
                       <thead>
@@ -153,11 +160,11 @@
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="vlr_produccion" class="">Valor Producción:</label>
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;">
+                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
                 </div>
                 <div class="form-group col-sm-offset-4 col-sm-4"> 
                   <label for="vlr_producto" class="">*Valor Producto:</label>
-                  <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;">
+                  <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="">
                 </div>
               </div>
               <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
@@ -177,7 +184,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Insumos para asociar</b></h4>
+              <h4 class="modal-title"><b>INSUMOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -225,7 +232,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Tallas para asociar</b></h4>
+              <h4 class="modal-title"><b>TALLAS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -267,14 +274,14 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Tallas e Insumos Asociados</b></h4>
+              <h4 class="modal-title"><b>TALLAS E INSUMOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body">
             <div class="row col-sm-12">
               <div class="table" style="margin-bottom:0px;">
                 <div class="form-group col-sm-4 table-responsive">
                   <table class="table table-hover" id="dtll-tallas-aso">
-                  <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Tallas</h4>
+                  <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Tallas:</h4>
                     <thead>
                         <tr class="active">
                           <th>Id</th>
@@ -289,7 +296,7 @@
                 <div class="table">
                   <div class="form-group col-sm-8 table-responsive">
                     <table class="table table-hover" id="dtll-insumos-aso">
-                    <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Insumos</h4>
+                    <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Insumos:</h4>
                       <thead>
                         <tr class="active">
                           <th>Nombre</th>

@@ -36,21 +36,45 @@
         valueNames: ['ref', 'color', 'stock', 'fecha_reg', 'estado']
       };
 
+      function colorFichaModi(idficha)
+      {
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrFicha/mostrarUnColor",
+            data: {idficht: idficha}
+        }).done(function(respuesta){
+          if (respuesta.r != null) {
+            miArray = respuesta.r;
+              codColor = miArray['Codigo_Color'];
+              if ($("#colorModFicha").val() == miArray['Id_Color']) {
+                $("#colorFMod").css("color", codColor);
+                // $("#colorFMod").css("background-color", codColor);
+              }
+          }
+        });
+      }
+
       //pinta el div con el color correspondiente a la opción seleccionada en el select color de ficha
       function coloresFichas(){
         $.ajax({
             dataType: 'json',
             type: 'post',
-            url: uri+"ctrFicha/mostrarColores",
-            async: false
+            url: uri+"ctrFicha/mostrarColores"
+            // async: false
         }).done(function(respuesta){
           if (respuesta.r != null) {
             miArray = respuesta.r;
             for (var i = 0; i <= miArray.length - 1; i++) {
               codColor = miArray[i]['Codigo_Color'];
+
               if ($("#colorFicha").val() == miArray[i]['Id_Color']) {
                 $("#colorF").css("color", codColor);
                 // $("#colorF").css("background-color", codColor);
+              }
+
+              if ($("#colorModFicha").val() === miArray[i]['Id_Color']) {
+                $("#colorFMod").css("color", codColor);
               }
             }
           }
@@ -89,7 +113,7 @@
         // }
 
         $("#tablaInsumos").each(function(){
-          if ($("#tablaInsumos tbody #trfichas").length < 2){
+          if ($("#tablaInsumos tbody .trfichas").length < 2){
             var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
             $("#tablaInsumos").append(tr);
             $("#tblInsumosVacia").html("No hay insumos asociados");
@@ -116,16 +140,28 @@
         valorPromedio = Math.round(valorPromedio);
 
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
-        var tr = "<tr id='trfichas' class='box box-solid collapsed-box'><td>"+id_insumo+"</td><td>"+nombre+
+        var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"
-        +unidadMed+"</td><td><p>$ "+valorPromedio+"</p></td><td><input type='text' id='cantNec"
+        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='text' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
-        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
-        +idbton+"'value='0'>$<input readonly='' type='text' id='capValor"+idbton+"' name='res"
-        +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
+        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='1' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
+        +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
+        +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
         $("#tablaInsumos").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
+
+
+      //   $('#tablaInsumos').dataTable({
+      //   "ordering": false,
+      //   "language": {
+      //       "emptyTable": "No hay insumos para listar.",
+      //       "info": "Mostrando página _PAGE_ de _PAGES_",
+      //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+      //   "paginate": {"previous": "Anterior","next": "Siguiente"}
+      //   }
+      // });
       }
 
       //limpia los valores del formulario y reinicia los input acumuladores y total.
@@ -135,13 +171,32 @@
           $(this).val(valor);
         });
         $("#vlr_produccion").val(valor);
+
+        $("#tablaInsumos tbody .trfichas").remove();
+        if (!$("#tablaInsumos tbody tr #tblInsumosVacia").length) {
+
+        var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
+        $("#tablaInsumos").append(tr);
+        $("#tblInsumosVacia").html("No hay insumos asociados");
+        $(".btnInsumo").attr('disabled', false);
+        }
+
+        $("#selectTallas").select2("val", "");
+        $("#colorFicha").select2("val", "");
+        $("#colorF").css("color", "gray");
+     
       }
 
       //valida todos los campos necesarios para el registro en el formulario
       function enviarFormFicha()
       {
-        var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+
+        var res = true;
+
+        var referencia = $("#referencia").val();
+        var idcolor = $("#colorFicha").val();
+        var vlrproduccion = parseFloat($("#vlr_produccion").val());
+        var vlrproducto = parseFloat($("#vlr_producto").val());
 
         //valida insumos asociados
         if ($("#tablaInsumos tbody tr #tblInsumosVacia").length)
@@ -149,16 +204,100 @@
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
           return false;
         }
+        //valida que el valor producto sea mayor al valor de producción
+        if (vlrproduccion >= vlrproducto) {
+          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
+          return false;
+        }
+
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrFicha/validarColorRegFicha",
+            async: false,
+            data: {referencia:referencia, color:idcolor}
+        }).done(function(respuesta){
+            if (respuesta.r != null) {
+              var arrayColorFicha = respuesta.r;
+              for (var i = 0; i < arrayColorFicha.length; i++) {
+                if (arrayColorFicha[i]["Referencia"] == referencia && arrayColorFicha[i]["Id_Color"] == idcolor) {
+                  res = false;
+                }
+              }
+
+            }
+        });
+
+        if (res == false) {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha con este color'});
+          return false
+        }
         else{
           return true;
         }
-        // if (vlrproduccion >= vlrproducto) {
-        //   Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
-        //   return false;
-        // }
-        
         return false;
       }
+
+      function validarColorFicha()
+      {
+        var res = true;
+        var referencia = $("#referencia").val();
+        var idcolor = $("#colorModFicha").val();
+
+        var vlrproduccion = $("#vlr_produccion").val();
+        var vlrproducto = parseFloat($("#vlr_producto").val());
+        var idfit = $("#idFicha_Tec").val();
+
+        //valida insumos asociados
+        if ($("#tbl-insumos-aso tbody tr").length < 1)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
+          return false;
+        }
+
+          if ($("#tbl-tallas-aso tbody tr").length < 1)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos una talla a la ficha'});
+          return false;
+        }
+
+
+        //valida que el valor producto sea mayor al valor de producción
+        if (vlrproduccion >= vlrproducto) {
+          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
+          return false;
+        }
+
+
+        $.ajax({
+            dataType: 'json',
+            type: 'post',
+            url: uri+"ctrFicha/validarColorModFicha",
+            async: false,
+            data: {idficht:idfit}
+        }).done(function(respuesta){
+            if (respuesta.r != null) {
+              var arrayColorFicha = respuesta.r;
+              for (var i = 0; i < arrayColorFicha.length; i++) {
+                if (arrayColorFicha[i]["Referencia"] == referencia && arrayColorFicha[i]["Id_Color"] == idcolor) {
+                  res = false;
+                }
+              }
+            }
+        });
+
+        if (res == false) {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha con este color'});
+          return false;
+        }
+        else{
+          return true;
+        }
+        return false;
+      }
+
+
+
 
       $('#insRegFT').dataTable({
         "ordering": false,
@@ -167,20 +306,20 @@
             "info": "Mostrando página _PAGE_ de _PAGES_",
             "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
             "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-        "paginate": {"previous": "","next": ""}
+        "paginate": {"previous": "Anterior","next": "Siguiente"}
         }
       });
 
-      $('#tablaInsumos').dataTable({
-        "ordering": false,
-        "language": {
-            "emptyTable": "No hay insumos para listar.",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-            "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-        "paginate": {"previous": "","next": ""}
-        }
-      });
+      // $('#tablaInsumos').dataTable({
+      //   "ordering": false,
+      //   "language": {
+      //       "emptyTable": "No hay insumos para listar.",
+      //       "info": "Mostrando página _PAGE_ de _PAGES_",
+      //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+      //   "paginate": {"previous": "Anterior","next": "Siguiente"}
+      //   }
+      // });
 
       $('#tllAsociarRegPedido').dataTable({
         "ordering": false,
@@ -189,7 +328,7 @@
             "info": "Mostrando página _PAGE_ de _PAGES_",
             "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
             "zeroRecords": "No se encontraron tallas que coincidan con la búsqueda.",
-        "paginate": {"previous": "","next": ""}
+        "paginate": {"previous": "Anterior","next": "Siguiente"}
         }
       });
 
@@ -200,7 +339,7 @@
             "info": "Mostrando página _PAGE_ de _PAGES_",
             "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
             "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-        "paginate": {"previous": "","next": ""}
+        "paginate": {"previous": "Anterior","next": "Siguiente"}
         }
       });
 
@@ -216,10 +355,11 @@
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
           "zeroRecords": "No se encontraron fichas que coincidan con la búsqueda.",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
-      }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
         });
       });
     
@@ -285,23 +425,23 @@
                 color = arrayInsumos[i]['Codigo_Color'];
                 var tr = "";
                 if (modalFp == 1) {
-                    tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''></tr>";
+                    tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumo("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''></tr>";
                     $('#tbl-insumos-aso').append(tr);
                  }else{
                     tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td>"+cantNec+"</td><td>"+valorIns+"</td>";
                     $('#dtll-insumos-aso').append(tr);
                  }
               }
-              $('#tbl-insumos-aso').dataTable({
-                "ordering": false,
-                "language": {
-                    "emptyTable": "No hay insumos para listar.",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-                    "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-                "paginate": {"previous": "","next": ""}
-                }
-              });
+              // $('#tbl-insumos-aso').dataTable({
+              //   "ordering": false,
+              //   "language": {
+              //       "emptyTable": "No hay insumos para listar.",
+              //       "info": "Mostrando página _PAGE_ de _PAGES_",
+              //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+              //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
+              //   "paginate": {"previous": "Anterior","next": "Siguiente"}
+              //   }
+              // });
             }
         }).fail(function(){})
     }
@@ -413,7 +553,6 @@
 
       //Cambia estado a la ficha técnica (Habilita/Inhabilita)
       function cambiarEstadoFicha(ref, est){
-        console.log(ref, est);
         $.ajax({
             dataType: 'json',
             type: 'post',
@@ -421,12 +560,8 @@
             data: {referencia:ref, estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-
-                Lobibox.notify('info', {size: 'mini', msg: 'El estado ha sido modificado'});
                 location.href = uri+"ctrFicha/consFicha";
-
             }else{
-                Lobibox.notify('info', {msg: 'Error al cambiar el estado', rounded: true, delay: false});
                 location.href = uri+"ctrFicha/consFicha";
             }
         }).fail(function(){})

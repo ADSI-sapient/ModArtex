@@ -38,6 +38,8 @@ class ctrBodega extends Controller{
 				$this->_modelInsumo->__SET("_idColor", $value2);
 				$this->_modelInsumo->regColorInsumo();
 			}
+
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El insumo se registro correctamente!'});";
 		}
 
 		$lista = $this->_modelColor->listar();
@@ -46,6 +48,16 @@ class ctrBodega extends Controller{
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/bodega/regInsumo.php';
 		include APP . 'view/_templates/footer.php';
+	}
+
+	public function regColorInsumo(){
+		$this->_modelInsumo->__SET("_idColor", $_POST["IdCol"]);
+		$this->_modelInsumo->__SET("_idInsumo", $_POST["idIns"]);
+		$this->_modelInsumo->__SET("_cant", 0);
+		$this->_modelInsumo->__SET("_valPro", $_POST["valIns"]);
+		$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
+
+		echo json_encode($this->_modelInsumo->regColorInsumo());
 	}
 
 	public function listarInsumos(){
@@ -64,6 +76,9 @@ class ctrBodega extends Controller{
 		$this->_modelInsumo->__SET("_estado", $_POST["estado"]);
 		$this->_modelInsumo->cambiarEstado();
 
+		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+		msg: 'Se cambio el estado del insumo correctamente!'});";
+
 		echo json_encode(["v"=>1]);
 	}
 
@@ -75,45 +90,46 @@ class ctrBodega extends Controller{
 		}
 	}
 
+	public function modificarColorInsumo(){
+		$this->_modelInsumo->__SET("_idColIns", $_POST["idColIns"]);
+		$this->_modelInsumo->__SET("_cant", $_POST["cantidadIns"]);
+		$this->_modelInsumo->__SET("_valPro", $_POST["valIns"]);
+		$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
+
+		echo json_encode($this->_modelInsumo->modiExistencia());
+	}
+
 	public function modificarInsumo(){
 		$this->_modelInsumo->__SET("_idInsumo", $_POST["id"]);
-		$this->_modelInsumo->__SET("_stock", $_POST["stock"]);
-		$this->_modelInsumo->__SET("_valPro", $_POST["valor"]);
 		$this->_modelInsumo->__SET("_codMedida", $_POST["select"]);
 		$this->_modelInsumo->__SET("_nombre", $_POST["nombre"]);
 
-		$this->_modelInsumo->modInsumo();
-		$lis = $this->_modelInsumo->listarColorInsumo();
+		echo json_encode($this->_modelInsumo->modInsumo());
 
-		$col = explode(',', $_POST['arregloCol'][0]);
 
-		foreach ($col as $value2) {
-			$band = true;
-			foreach ($lis as $val) {
-				if ($value2 == $val["id"]) {
-					$band = false;
-				}
-			}
-			if ($band) {
-				$this->_modelInsumo->__SET("_idColor", $value2);
-				$this->_modelInsumo->regColorInsumo();
-			}
-		}
-
-		header ("location: ".URL."ctrBodega/listarInsumos");
+		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'El insumo se modifico correctamente!'});";
 	}
 
 	public function cantidadColIns(){
-		$this->_modelInsumo->__SET("_idColor", $_POST["idCol"]);
-		$this->_modelInsumo->__SET("_idInsumo", $_POST["idIns"]);
+		$this->_modelInsumo->__SET("_idColIns", $_POST["idColIns"]);
 		$cant = $this->_modelInsumo->cantidadColIns();
 		echo json_encode($cant);
 	}
 
-	public function deleteColor(){
-		$this->_modelInsumo->__SET("_idColor", $_POST["idCol"]);
-		$this->_modelInsumo->__SET("_idInsumo", $_POST["idIns"]);
-		echo json_encode($this->_modelInsumo->deleteColor());
+	public function validateFichasAsoc(){
+		$this->_modelInsumo->__SET("_idColIns", $_POST["idColIns"]);
+		$fichasAsoc = $this->_modelInsumo->fichasAsociadas();
+		if ($fichasAsoc) {
+			echo json_encode(false);
+		}else{
+			echo json_encode(true);
+		}
+	}
+
+	public function borrarColorInsumo(){
+		$this->_modelInsumo->__SET("_idColIns", $_POST["idColIns"]);
+		echo json_encode($this->_modelInsumo->deleteColorIns());
 	}
 
 	public function listExistencias(){
@@ -143,7 +159,7 @@ class ctrBodega extends Controller{
 			$promedio = $valTot/$cantTot;
 
 			$this->_modelExistencias->__SET("_cantInsumo", $cantTot);
-			$this->_modelExistencias->__SET("_valorPro", $promedio);
+			$this->_modelExistencias->__SET("_valorPro", round($promedio, 2));
 
 			$this->_modelExistencias->regEntradaExis();
 		}elseif (isset($_POST["regMuchos"])) {
@@ -163,7 +179,8 @@ class ctrBodega extends Controller{
 				$this->_modelExistencias->regEntradaExis();
 			}
 		}
-		//Comentario
+		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'La entrada de insumo se registro correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 
@@ -195,6 +212,8 @@ class ctrBodega extends Controller{
 				$this->_modelExistencias->regSalExis();
 			}
 		}
+		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'La salida de insumo se registro correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 
@@ -202,6 +221,7 @@ class ctrBodega extends Controller{
 	public function actualizarExsIns(){
 		$this->_modelExistencias->__SET("_idExis", $_POST["idExs"]);	
 		$this->_modelExistencias->__SET("_cant", $_POST["cantidad"]);
+
 		echo json_encode($this->_modelExistencias->actualizarExsIns());	
 	}
 }

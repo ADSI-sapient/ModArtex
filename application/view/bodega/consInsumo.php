@@ -1,5 +1,4 @@
-    <section class="content-header"  >
-    <br>
+    <section class="content-header" >
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Bodega</a></li>
@@ -15,29 +14,30 @@
       <form class="form-horizontal" id="frm" action="" method="POST">
          <div class="col-md-12">
            <div class="box">
-            <div class="box-body no-padding">
+            <div class="box-body">
               <div class="table-responsive">
-              <table class="table" id="example1">
+              <table id="tableListInsumos" class="table table-bordered paginate-search-table">
               <thead>
                 <tr class="active" style="color: ">
-                  <th style="width: 10px"></th>
-                  <th>Código</th>
+                  <th style="width: 10px">#</th>
+                  <th style="display: none;"></th>
                   <th>Nombre</th>
                   <th>Medida</th>
                   <th>Stock mínimo</th>
                   <th style="width: 7%">Editar</th>
-                  <th style="width: 7%">Inhabilitar</th>
+                  <th style="width: 7%">Estado</th>
+                  <th style="width: 7%">Detalle</th>
+                  <th style="display: none;"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $cont = 0;?>
                 <?php foreach ($lisInsumos as $valor): ?>  
                 <tr>
-                  <input type="hidden" value="<?= $valor["Id_Insumo"]?>" name="int">
                   <td><?= $cont += 1;?></td>
-                  <td><?= $valor["Id_Insumo"]?></td>
+                  <td style="display: none;"><?= $valor["Id_Insumo"]?></td>
                   <td><?= $valor["Nombre"]?></td>
-                  <td><option value="<?= $valor['Id_Medida']?>"><?= $valor["NombreMed"]?></option></td>
+                  <td><?= $valor["NombreMed"]?></td>
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
                   <td style="text-align: center;">    
@@ -50,7 +50,11 @@
                     <?php if ($valor["Estado"] == 0): ?>
                          <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-check"></i></button> 
                     <?php endif ?>
-                  </td>  
+                  </td> 
+                  <td style="text-align: center;">
+                    <button type="button" onclick="verDetalleColIns(<?= $valor["Id_Insumo"]?>)" class="btn btn-box-tool" data-toggle="modal" data-target="#detalleColIns"><i style="font-size: 150%; color: blue;" class="fa fa-eye"></i></button>
+                  </td> 
+                  <td style="display: none;"><?= $valor['Id_Medida']?></td>
                 </tr>
                 <?php endforeach ?>
               </tbody></table>
@@ -69,217 +73,183 @@
 
 
 
-
-
-
-
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div style="position: absolute;" class="modal fade" data-backdrop="static" data-keyboard="false" id="ModEditIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document" style="width: 60%;">
     <div class="modal-content" style="border-radius: 20px;">
-      <form action="<?= URL;?>ctrBodega/modificarInsumo" method="POST">
-        <div class="modal-header" style="text-align: center;">
-          <h3 class="box-title"><strong>MODIFICAR INSUMO</strong></h3>
+      <form data-parsley-validate="">
+        <div class="modal-header" style="padding: 1%;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="box-header" style="text-align: center;"><strong>MODIFICAR INSUMO</strong></h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
-                  <input type="hidden" name="id" id="mSel">
-                  <label class="control-label" length="80px">*Stock mínimo:</label>
-                    <input id="stockIns" type="number" class="form-control" min="0" style="width: 50%; " required="" name="stock">
+                   <label class="control-label">*Nombre:</label>
+                   <input id="nomIns" type="text" class="form-control" data-parsley-required="" name="nombre">
                 </div>
-              </div>    
+               </div> 
+            </div>
+            <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
                   <label class="control-label">*Unidad de Medida:</label>
-                    <select class="form-control" style="width: 100%;" required="" name="select">
-                     <option id="medIns" selected=""></option>
+                    <select id="selMedInsCol" class="form-control" style="width: 100%;" data-parsley-required="" name="select">
+                     <option selected=""></option>
                       <?php foreach ($listaM as $valor): ?>
                         <option value="<?= $valor["Id_Medida"]; ?>"><?= $valor["Nombre"]; ?></option>  
                       <?php endforeach ?>
                     </select>
                 </div>
               </div>
-            </div>
+            </div> 
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
-                   <label class="control-label">*Nombre:</label>
-                   <input id="nomIns" type="text" class="form-control" required="" name="nombre">
+                  <input type="hidden" name="id" id="mSel">
+                  <label class="control-label" length="80px">*Stock mínimo:</label>
+                    <input id="stockIns" type="number" class="form-control" min="0" data-parsley-required="" name="stock">
                 </div>
               </div>
-              <div class="col-md-6">
-                    <div class="form-group">
-                     <label class="control-label" length="80px">*Valor: </label>
-                     <input type="number" class="form-control" min="0" required="" name="valor">
-                   </div>
-              </div>
-            <div class="col-md-6">
-              <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 15%;" data-target="#ModelProducto">Seleccionar color</button>
             </div>
-          </div>
-
-
-       </div>
-            
-        </div>
+            <div class="col-md-6">
+              <div class="col-md-8">
+                <label class="control-label" length="80px">Valor: </label>
+                <input id="checkValor" type="checkbox" class="">
+                <div class="input-group">
+                  <span  class="input-group-addon">$</span>
+                  <input id="valColIns" readonly="" type="number" class="form-control" data-parsley-required="" min="1" name="valor">
+                </div>
+              </div>
+              <div style="margin-top: 25px;" class="col-md-4">
+                <button onclick="validateColSelec()" type="button" class="btn pull-right" data-toggle="modal"  data-target="#ModelProducto"><i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>  
+          <div class="row">
             <div class="col-md-12">
-           <div class="box">
-            <div class="box-body no-padding">
+            <div class="col-md-12">
              <div class="table-responsive"> 
-              <table class="table" id="tablaCol" >
+              <table class="table table-bordered">
                 <thead>
                   <tr class="active">
-                    <th style="width: 10px"></th>
+                    <th style="display: none;"></th>
+                    <th style="display: none;"></th>
+                    <th style="width: 10px">#</th>
                     <th>Código</th>
                     <th>Muestra</th>
                     <th>Nombre</th>
-                    <th style="display: none; ">Id</th>
+                    <th style="width: 20%">Valor</th>
                     <th style="width: 40px">Quitar</th>
+                    <th style="display: none;"></th>
                   </tr>
                 </thead>
                 <tbody id="tbodyColIns">
                 </tbody>      
               </table>
              </div>
-           </div> 
-          </div>
+            </div>
+            </div> 
          </div>             
+        </div>
          <div class="modal-footer">
-
-            <button data-dismiss="modal" onclick="reload()" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
-            <script type="text/javascript">
-              function reload(){
-              $('#tbodyColIns').empty();
-              }
-            </script>
-            <input type="hidden" name="arregloCol[]" id="vectorCol">
-            <button type="submit" onclick="coloresVec()" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns">Registrar</button>
+            <button data-dismiss="modal" type="reset" class="btn btn-default pull-right" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            <button type="button" onclick="updateColIns()" class="btn btn-warning pull-right" style="margin-left: 2%; margin-top: 2%" name="btnRegIns"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
          </div> 
          </form>
         </div> 
       </div>
     </div>
-    <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document" style="border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
-              <div class="modal-header" style="padding: 1%;">
-                  <h4 class="box-header" style="text-align: center;"><strong>LISTAR COLORES</strong></h4>
-              </div>
-              
-              <div class="col-md-6"></div>
-              <div class="modal-body">
-               <table class="table example1" style="margin-bottom: 3%;">
+
+
+
+
+  <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 10px;">
+      <div class="modal-header" style="padding: 1%;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="box-header" style="text-align: center;"><strong>COLORES PARA ASOCIAR</strong></h4>
+      </div>
+      
+      <div class="col-md-6"></div>
+      <div class="modal-body">
+       <table id="tableCols" class="table table-bordered paginate-search-table" style="margin-bottom: 3%;">
+        <thead>
+          <tr>
+            <th style="display: none;"></th>
+            <th style="width: 10%">#</th>
+            <th>Código</th>
+            <th>Muestra</th>
+            <th>Nombre</th>
+            <th style="width: 40px">Selección</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $cont = 0; ?>
+          <?php foreach ($lista as $value): ?>
+            <tr class="box box-solid collapsed-box tr">
+             <td style="display: none;"><?= $value["Id_Color"]; ?></td>
+             <td><?= $cont += 1; ?></td>
+             <td><?= $value["Codigo_Color"]; ?></td>
+             <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
+             <td><?= $value["Nombre"]; ?></td>
+             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccionCol(this)" class="btn btn-box-tool"><i class="fa fa-plus" style="color: blue;"></i></button></td> 
+           </tr>
+         <?php endforeach ?>
+       </tbody>
+     </table>
+   </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+  </div> 
+</div> 
+</div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="detalleColIns" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width: 60%;">
+    <div class="modal-content" style="border-radius: 20px;">
+      <form data-parsley-validate="">
+        <div class="modal-header" style="padding: 1%;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="box-header" style="text-align: center;"><strong>DETALLE INSUMO</strong></h4>
+        </div>
+        <div class="modal-body"> 
+          <div class="row">
+            <div class="col-md-12">
+            <div class="col-md-12">
+             <div class="table-responsive"> 
+              <table class="table table-bordered paginate-search-table">
                 <thead>
-                  <tr>
-                    <th style="width: 10%"></th>
+                  <tr class="active">
+                    <th style="width: 10px">#</th>
                     <th>Código</th>
                     <th>Muestra</th>
                     <th>Nombre</th>
-                    <th style="display: none;">Id</th>
-                    <th style="width: 40px">Selección</th>
+                    <th style="width: 20%">Valor</th>
                   </tr>
                 </thead>
-                <tbody>
-                <?php $cont = 0; ?>
-                <?php foreach ($lista as $value): ?>
-                <tr class="box box-solid collapsed-box tr">
-                 <td value="<?= $value["Codigo_Color"]; ?>"><?= $cont += 1; ?></td>
-                  <td><?= $value["Codigo_Color"]; ?></td>
-                  <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
-                  <td><?= $value["Nombre"]; ?></td>
-                  <td style="display: none;"><?= $value["Id_Color"]; ?></td>
-                  <td><input type="checkbox" name="check" class="chk<?=$value["Id_Color"];?>"></td> 
-                </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
+                <tbody id="tbodyDetalleColIns">
+                </tbody>      
+              </table>
+             </div>
             </div>
-              
-            <div class="modal-footer">
-                <button type="button" onclick="seleccionCol()" class="btn btn-primary pull-right" style="margin-left: 2%;" data-dismiss="modal">Seleccionar</button>
             </div> 
-            </div> 
-         </div>
-</div>
-
-    <script type="text/javascript">
-          function camEst(cod, est){
-              alert(cod, est);
-              $.ajax({
-                  dataType: 'json',
-                  type: 'POST',
-                  url: "<?= URL; ?>ctrBodega/cambiarEstado", 
-                  data:{id: cod, estado: est},
-              }).done(function(respuesta){
-                if (respuesta.v == 1) {
-                  location.href = "<?= URL; ?>ctrBodega/listarInsumos"; 
-                }
-              }).fail(function(){
-              });
-          } 
-    </script>
- <script type="text/javascript">
-     function editar(id, insumos){
-          var campos = $(insumos).parent().parent();
-          $.ajax({
-                  dataType: 'json',
-                  type: 'POST',
-                  url: "<?= URL; ?>ctrBodega/lisColInsu", 
-                  data:{id: id},
-              }).done(function(respuesta){
-                if (respuesta) {
-                  var cont = 0;
-                  $.each(respuesta, function(i){
-                  var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+'</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+'; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+'</td><td style="display: none; ">'+respuesta[i]["id"]+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-                  $("#tbody").append(fila);  
-                  });
-                }
-              }).fail(function(){
-              });
-          $("#mSel").val(campos.find("td").eq(1).text());    
-          $("#1").val(campos.find("td").eq(2).text());
-          $("#2").val(campos.find("td").eq(3).find("option").val());
-          $("#2").text(campos.find("td").eq(3).find("option").text());
-          $("#3").val(campos.find("td").eq(4).text());
-          $("#Modeleditar").show();
-        }
- </script>
-<!--  <script type="text/javascript">
-        function seleccion(){
-         
-          $("#tabla1").removeAttr("style");
-          $(".tr").each( function(){
-            var rg = false;
-            // console.log($(".chk"+$(this).find("td").eq(4).html()));
-            if ($(".chk"+$(this).find("td").eq(4).html()).is(':checked')) {
-              var cod = $(this).find("td").eq(4).html();
-              $("#tabla1 tr").find('td:eq(4)').each(function(){
-                  if (cod == $(this).html()) {
-                    rg = true;
-                  }
-              });
-            if (rg == false) {
-              var fila = '<tr class="box box-solid collapsed-box"><td>'+$(this).find("td").eq(0).html()+'</td><td>'+$(this).find("td").eq(1).html()+'</td><td>'+$(this).find("td").eq(2).html()+'</td><td>'+$(this).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(this).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove()"><i class="fa fa-times"></i></button></td></tr>';
-            $("#tbody").append(fila);
-            }
-            $(".chk"+$(this).find("td").eq(4).text()).prop("checked", "");
-          }
-          });
-        }
-</script> -->
-<!-- <script type="text/javascript">
-  function colores(){
-          var vec = [];
-          $("#tabla1 tr").find('td:eq(4)').each(function(){
-            vec.unshift([$(this).html()]);
-          });
-          $("#vector").val(vec);
-  }
-</script> -->
-
-
-
-
-
+         </div>             
+        </div>
+         <div class="modal-footer">
+            <button data-dismiss="modal" type="reset" class="btn btn-default pull-right" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+         </div> 
+         </form>
+        </div> 
+      </div>
+    </div>
