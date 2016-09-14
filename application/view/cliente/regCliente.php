@@ -44,7 +44,7 @@
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
 
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" min="0">
+              <input type="number" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" min="0">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label class="">*Email:</label>
@@ -53,12 +53,12 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <label class="">*Teléfono:</label>
-              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);" data-parsley-required="">
+              <label class="">Teléfono:</label>
+              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
-              <label class="">*Dirección:</label>
-              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" data-parsley-required="">
+              <label class="">Dirección:</label>
+              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
             </div>
           </div>
         </div>

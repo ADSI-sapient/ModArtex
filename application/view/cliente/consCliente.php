@@ -99,12 +99,12 @@
                   </div>
                   <div class="row" style="margin-left:0.5%">
                     <div class="form-group  col-sm-6">
-                      <label for="telefono">*Teléfono:</label>
-                      <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);" data-parsley-required="">
+                      <label for="telefono">Teléfono:</label>
+                      <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);">
                     </div>
                    <div class="form-group col-sm-6">
-                   <label for="direccion ">*Dirección:</label>
-                      <input type="text" class="form-control" id="Direccion" name="Direccion" data-parsley-required="">
+                   <label for="direccion ">Dirección:</label>
+                      <input type="text" class="form-control" id="Direccion" name="Direccion">
                    </div>
                  </div>
                  <div class="row" style="margin-left:0.5%">

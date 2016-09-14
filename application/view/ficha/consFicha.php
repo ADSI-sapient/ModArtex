@@ -29,7 +29,7 @@
                   <th>Valor Producto</th>
                   <th style="width: 7%">Editar</th>
                   <th style="width: 5%">Cambiar Estado</th>
-                  <th style="width: 15%">Insumos Asociados</th>
+                  <th style="width: 7%">Insumos Asociados</th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -144,7 +144,7 @@
                           <th>Nombre</th>
                           <th>Color</th>
                           <th>Medida</th>
-                          <th>Valor</th>
+                          <th style="width: 10px;">$Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
                           <th>Quitar</th>
@@ -225,6 +225,13 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <!-- Inicio Modal asociar tallas a ficha -->
+
+
+
+
+
+
+
       <div class="modal fade" id="asoTallas" tabindex="-1" role="dialog" >
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius: 10px;">
@@ -234,8 +241,8 @@
             </div>
             <div class="modal-body">
               <div class="table">
-                <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;" id="tllAsociarRegPedido">
+                <div class="table-responsive">
+                  <table class="table table-hover table-bordered datTableModals" style="margin-top: 2%;" id="tllAsociarRegPedido">
                     <thead>
                       <tr class="active">
                         <th>Id</th>
@@ -267,6 +274,16 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <!-- Inicio Modal Detalle de insumos y tallas asociadas a ficha técnica -->
+
+
+
+
+
+
+
+
+
+
       <div class="modal fade" id="dtllInsuTallAso" tabindex="-1" role="dialog" >
         <div class="modal-dialog modal-lg">
           <div class="modal-content" style="border-radius: 10px;">
@@ -277,8 +294,8 @@
             <div class="modal-body">
             <div class="row col-sm-12">
               <div class="table" style="margin-bottom:0px;">
-                <div class="form-group col-sm-4 table-responsive">
-                  <table class="table table-hover" id="dtll-tallas-aso">
+                <div class="form-group col-sm-4 table-responsive scrolltablas">
+                  <table class="table table-hover table-bordered" id="dtll-tallas-aso">
                   <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Tallas:</h4>
                     <thead>
                         <tr class="active">
@@ -292,8 +309,8 @@
                   </div>
                 </div>
                 <div class="table">
-                  <div class="form-group col-sm-8 table-responsive">
-                    <table class="table table-hover" id="dtll-insumos-aso">
+                  <div class="form-group col-sm-8 table-responsive scrolltablas">
+                    <table class="table table-hover table-bordered" id="dtll-insumos-aso">
                     <h4 style="border-bottom:1px solid #9e9e9e; padding-bottom:5px">Insumos:</h4>
                       <thead>
                         <tr class="active">

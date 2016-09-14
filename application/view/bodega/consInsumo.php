@@ -237,8 +237,8 @@
           <div class="row">
             <div class="col-md-12">
             <div class="col-md-12">
-             <div class="table-responsive"> 
-              <table class="table table-bordered paginate-search-table">
+             <div class="table-responsive scrolltablas"> 
+              <table class="table table-bordered">
                 <thead>
                   <tr class="active">
                     <th style="width: 10px">#</th>

@@ -28,8 +28,8 @@ $('#tblCotizaciones').dataTable({
   "ordering": false,
       "language": {
           "emptyTable": "No hay cotizaciones para listar.",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "info": "",
+          "infoEmpty": "",
           "zeroRecords": "No se encontraron cotizaciones que coincidan con la búsqueda.",
       "paginate": {
         "previous": "Anterior",
@@ -362,15 +362,25 @@ function ValCoti(){
     var btn_Pedi = $("#convertiPedido");
 
     if(Mfecha_venci === Mfecha_regi ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 
    if (Mfecha_venci <= Mfecha_regi) {
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
       $(btn_Pedi).attr('disabled',false);
     return false;
   }
+
+      if ($("#Asopedido").length)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
+          return false;
+        }
+        else{
+          return true;
+        }
+        return false;
 }
 
 function ValCotPedi(){
@@ -378,12 +388,12 @@ function ValCotPedi(){
   var Pfecha_registro = $("#Fecha_Registr").val();
 
   if(Pfecha_entrega === Pfecha_registro ){
-    Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 
    if (Pfecha_entrega <= Pfecha_registro){
-      Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Debe ingresar una fecha superior'});
+      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
     return false;
   }
 

@@ -24,11 +24,12 @@
                      <h4>Código: </h4>
                       
                       <div class="input-group my-colorpicker2 colorpicker-element">
-                          <input type="text" name="codigo" class="form-control" readonly="" data-parsley-required="">
+                          <input type="text" name="codigo" class="form-control" readonly="" data-parsley-required="" data-parsley-errors-container="#contErrorRegCodCol">
                           <div  class="input-group-addon">
-                            <i style="background-color: blue;" id="colDatapicker" type="input"></i>
+                            <i style="background-color: grey;" id="colDatapicker" type="input"></i>
                           </div>
                       </div>
+                      <div id="contErrorRegCodCol"></div>
 
                      <h4>Nombre: </h4>
                     <input id="nomColorReg" type="text" name="nombre" class="form-control" data-parsley-required="">
@@ -44,13 +45,13 @@
 
 
         <div class="col-md-6">
-          <div class="box box-primary">
+          <div class="box box-primary" style="height: 385px;">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR COLORES</strong></h4>
               </div>
               <div class="box-body">
                 <div class="table-responsive">
-                  <table class="table table-bordered paginate-search-table">
+                  <table class="table table-bordered datTableModals">
                     <thead>
                     <tr class="active">
                       <th style="width: 10%">#</th>

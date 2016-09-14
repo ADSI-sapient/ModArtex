@@ -1,4 +1,4 @@
-<section class="content-header">
+  <section class="content-header">
   <ol class="breadcrumb">
       <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Cotizacion</a></li>
@@ -338,7 +338,7 @@
     <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Convertir en Pedido</h4>
+        <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
       <div class="modal-body">
       

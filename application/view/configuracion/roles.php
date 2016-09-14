@@ -29,8 +29,8 @@
 
             <div class="row col-lg-12">
               <div  class="form-group" id="permisosasig">
-                <div class="table scrolltablas">
-                  <div class="col-lg-12 table-responsive">
+                <div class="table">
+                  <div class="col-lg-12 table-responsive scrolltablas">
                     <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaPermisos">
                       <thead>
                         <tr class="active">
@@ -89,6 +89,7 @@
                   </tr>
                 </thead>
                 <tbody class="list">
+                <?php $c = 1; ?>
                   <?php foreach ($roles as $rol): ?>
                     <tr >
                       <td class="Id_Rol"><?= $rol["Id_Rol"] ?></td>
@@ -101,7 +102,7 @@
                      <?php if ($rol["Id_Rol"] == 1): ?>
                        <button type="button" class="btn btn-box-tool" disabled="s"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                      <?php else: ?>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1, '<?= $c ?>')"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                       <?php endif ?>
                     </td>
                     <td>
@@ -122,7 +123,9 @@
                       <?php endif ?>
                         </td>
                       </tr>
+                <?php $c++; ?>
                     <?php endforeach; ?>
+
                   </tbody>
                 </table>
               </div>
@@ -136,7 +139,7 @@
     <!-- Modal -->
 
     <div class="modal fade" id="ModificarRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     <form data-parsley-validate="" role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
+     <form onsubmit="return validarRolEdit();"  data-parsley-validate="" role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="border-radius: 25px;">
          <div class="modal-header with-border" style="text-align: center;">
@@ -165,7 +168,7 @@
                     <thead>
                       <tr class="info">
                         <th>Id</th>
-                        <th>Modulo</th>
+                        <th>Módulo</th>
                         <th>Privilegios</th>
                         <th>Eliminar</th>
                       </tr>

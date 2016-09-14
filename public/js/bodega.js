@@ -25,6 +25,22 @@ $(window).load(function(){
         });
 
 
+    $('#tblExistencias').dataTable( {
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay resultados",
+          "info": "",
+          "infoEmpty": "",
+          "zeroRecords": "No se encontraron resultados",
+      "paginate": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+       }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
+        });
+
+
 
 
 

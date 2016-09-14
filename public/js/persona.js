@@ -16,6 +16,7 @@ function quitarPermisosR(btn, elemento){
     $(e).remove();
 
     boton = "#bt"+btn;
+    boton = "#btn"+btn;
     $(boton).attr('disabled', false);
 
     if ($("#tblPas tr").length < 2) {
@@ -55,7 +56,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     }
 }
 
-    function editarRoles(Id_Rol, Nombre, roles){
+    function editarRoles(Id_Rol, Nombre, roles, btn){
           var campos = $(roles).parent().parent();
           $("#idRol").val(campos.find("td").eq(0).text());
           $("#nombre_rol").val(campos.find("td").eq(1).text());
@@ -72,7 +73,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR('+btn+', this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
               $("#fila").append(fila);
 
                           }
@@ -239,22 +240,23 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
         });
       });
 
-        $(document).ready(function(){
+      $(document).ready(function(){
         $('#TablaClientes').dataTable( {
           // "lengthChange": false,
           //"searching": false,
           // "info": false,
           "ordering": false,
       "language": {
-          "emptyTable": "No hay clientes para listar.",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-          "zeroRecords": "No se encontraron clientes que coincidan con la búsqueda.",
+          "emptyTable": "No hay usuarios para listar",
+          "info": "",
+          "infoEmpty": "",
+          "zeroRecords": "No se encontraron usuarios que coincidan con la búsqueda",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
-      }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
         });
       });
 
@@ -313,8 +315,17 @@ function validarRol(){
   }else{
     Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'No ha asignado ningun permiso'}); ;
     return false;
-
   }
+}
+
+function validarRolEdit(){
+  if($("#fila tr").length > 0){
+    return true;
+  }else{
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'No ha asignado ningun permiso'}); ;
+    return false;
+  }
+  return false;
 }
 
 function limpiarTablePermisosRoles(){

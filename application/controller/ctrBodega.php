@@ -77,9 +77,9 @@ class ctrBodega extends Controller{
 		$this->_modelInsumo->cambiarEstado();
 
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-		msg: 'Se cambio el estado del insumo correctamente!'});";
+		msg: 'Se cambió el estado del insumo correctamente!'});";
 
-		echo json_encode(["v"=>1]);
+		echo json_encode(["v"=>1]); 
 	}
 
 	public function lisColInsu(){
@@ -108,7 +108,7 @@ class ctrBodega extends Controller{
 
 
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'El insumo se modifico correctamente!'});";
+					msg: 'El insumo se modificó correctamente!'});";
 	}
 
 	public function cantidadColIns(){
@@ -174,13 +174,13 @@ class ctrBodega extends Controller{
 				$promedio = $valTot/$cantTot;
 
 				$this->_modelExistencias->__SET("_cantInsumo", $cantTot);
-				$this->_modelExistencias->__SET("_valorPro", $promedio);
+				$this->_modelExistencias->__SET("_valorPro", round($promedio, 2));
 
 				$this->_modelExistencias->regEntradaExis();
 			}
 		}
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La entrada de insumo se registro correctamente!'});";
+					msg: 'La entrada ha sido registrada correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 
@@ -213,7 +213,7 @@ class ctrBodega extends Controller{
 			}
 		}
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La salida de insumo se registro correctamente!'});";
+					msg: 'La salida ha sido registrida correctamente!'});";
 		header("location: ".URL."ctrBodega/listExistencias");
 	}
 

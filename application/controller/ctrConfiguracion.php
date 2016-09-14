@@ -58,7 +58,7 @@ class ctrConfiguracion extends Controller{
 		else{
 			if ($this->_modelColor->registrar()) {
 				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'El color registro correctamente'});";
+					msg: 'El color ha sido registrado correctamente!'});";
 			}
 			header ("location: ".URL."ctrConfiguracion/listarColores");
 		}
@@ -68,7 +68,7 @@ class ctrConfiguracion extends Controller{
 	public function eliminarColor(){
 		$this->_modelColor->__SET("_id", $_POST["idColor"]);
 		if($this->_modelColor->eliminar()){
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El color se elimino correctamente'});";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El color se ha eliminado correctamente'});";
 			echo json_encode(true);
 		}
 	}
@@ -83,7 +83,7 @@ class ctrConfiguracion extends Controller{
 		}else{
 			if ($this->_modelColor->modificar()) {
 				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'El color modifico correctamente'});";
+					msg: 'El color se actualizó correctamente'});";
 			}
 			header('location: '.URL.'ctrConfiguracion/listarColores');
 		}
@@ -115,7 +115,7 @@ class ctrConfiguracion extends Controller{
 			}else{
 				if($this->_modelMedida->registrarMedida()){
 					$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-						msg: 'La unidad de medida se registro correctamente'});";
+						msg: 'La unidad de medida ha sido registrada correctamente'});";
 				}
 				header('location: '.URL.'ctrConfiguracion/listarMedidas');
 			}
@@ -125,7 +125,7 @@ class ctrConfiguracion extends Controller{
 	public function eliminarMedida(){
 		$this->_modelMedida->__SET("_codigo", $_POST["cod"]);
 		if ($this->_modelMedida->eliminarMedida()) {
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La unidad de medida se elimino correctamente'});";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La unidad de medida se ha eliminado correctamente'});";
 			echo json_encode(true);
 		}
 	}

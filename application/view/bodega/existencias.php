@@ -16,7 +16,7 @@
            <div style="margin-top: 10px;" class="box">
             <div class="box-body no-padding">
               <div class="table-responsive">
-                <table table-responsive class="table table-bordered paginate-search-table" id="tblExistencias">
+                <table table-responsive class="table table-bordered" id="tblExistencias">
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
@@ -76,7 +76,7 @@
     <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="control-label" style="text-align: center;"><strong>ENTRADA DE INSUMO</strong></h4>
+        <h4 class="modal-title" style="text-align: center;"><strong>ENTRADA DE INSUMO</strong></h4>
       </div>
 
       <form data-parsley-validate="" action="<?= URL; ?>ctrBodega/regEntrada" method="POST">
@@ -150,7 +150,7 @@
     <div class="modal-content" style="border-radius: 20px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="control-label" style="text-align: center;"><strong>SALIDA DE INSUMO</strong></h4>
+        <h4 class="modal-title" style="text-align: center;"><strong>SALIDA DE INSUMO</strong></h4>
       </div>
 
       <form data-parsley-validate="" action="<?= URL; ?>ctrBodega/regSalida" method="POST">
@@ -217,15 +217,15 @@
       <form onsubmit="return validateMuchasEntradas()" data-parsley-validate="" action="<?= URL;?>ctrBodega/regEntrada" method="POST">
         <div class="modal-header" style="text-align: center;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="box-title"><strong>ENTRADA DE INSUMOS</strong></h4>
+          <h4 class="modal-title"><strong>ENTRADA DE INSUMOS</strong></h4>
         </div>
 
         <div class="modal-body">
         <div class="col-md-12">
          <div class="box">
           <div class="box-body no-padding">
-           <div class="table-responsive"> 
-            <table class="table" id="tableEnt" >
+           <div class="table-responsive scrolltablas"> 
+            <table class="table table-hover cell-border" id="tableEnt" >
               <thead>
                 <tr class="active">
                   <th style="display: none;"></th>
@@ -294,15 +294,15 @@
       <form onsubmit="return validateMuchasSalidas()" data-parsley-validate="" action="<?= URL;?>ctrBodega/regSalida" method="POST">
         <div class="modal-header" style="text-align: center;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="box-title"><strong>SALIDA DE INSUMOS</strong></h4>
+          <h4 class="modal-title"><strong>SALIDA DE INSUMOS</strong></h4>
         </div>
 
         <div class="modal-body">
         <div class="col-md-12">
          <div class="box">
           <div class="box-body no-padding">
-           <div class="table-responsive"> 
-            <table class="table" id="tableSalIns" >
+           <div class="table-responsive scrolltablas"> 
+            <table class="table table-hover cell-border" id="tableSalIns" >
               <thead>
                 <tr class="active">
                   <th style="display: none;"></th>
