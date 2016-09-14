@@ -65,9 +65,9 @@
             <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO">Seleccionar Productos</button>
           </div>
           
-          <div class="form-group" id="FichasS" hidden="">
+          <div class="form-group" id="FichasS">
             <div class="table">
-              <div class="col-lg-12 table-responsive">
+              <div class="col-lg-12 table-responsive scrolltablas">
                 <table class="table table-hover" style="margin-top: 2%;" id="tablaFichass">
                   <thead>
                     <tr class="active">
