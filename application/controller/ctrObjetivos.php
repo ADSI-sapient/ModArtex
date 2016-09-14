@@ -35,12 +35,12 @@
 				
 					$this->mdlModel->RegistrarObjetivos();
 
-					$mensajeobj = "Lobibox.notify('succes', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Objetivo registrado exitosamente'});";
+					
 	 			}
 			}else{
-					$mensajeobj = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'La fecha de inicio es mayor o igual a la fecha final'});";
+					
 			}
-			$_SESSION["mensaje"] = $mensajeobj;
+			
  		}
  		
  		    $fichas = $this->mdlModel->getAsoFichas();
@@ -57,8 +57,7 @@
 
 				   	if ($_POST ["Id_Estado"] == 5) {
 				   		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
-				   // 		var_dump($_POST["Id_Objetivo"]);
-			   	// exit();
+
 				   		$this->mdlModel->EliminarRegistro();
 
 				   		$this->mdlModel->__SET("Nombre", $_POST["Nombre"]);
@@ -68,14 +67,14 @@
  						$this->mdlModel->__SET("CantidadTotal", $_POST["CantidadTotalN"]);
  						$this->mdlModel->modificarObjetivo();
 
-
+ 						
 						$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
 
 						for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
 						$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["Id_Ficha_Tecnica"][$i]);
 						$this->mdlModel->__SET("Cantidad", $_POST["CantidadN"][$i]);
 						$this->mdlModel->RegistrarObjetivos();
-			}	
+						}	
 
 				   	}
 				   	else{

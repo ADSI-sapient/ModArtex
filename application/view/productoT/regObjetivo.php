@@ -15,12 +15,11 @@
         </div>
         <br>
          <div class="box-body">
-        <form action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST">
-        
+        <form data-parsley-validate="" id="form" action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST" onsubmit="return ValObj()">
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
               <label class="">Fecha registro:</label>
-              <input type="text" name="FechaRegistro" readonly="" class="form-control" value="<?php echo date ("Y-m-d"); ?>" >
+              <input type="text" name="FechaRegistro" id="Fecha_Registro" readonly="" class="form-control" value="<?php echo date ("Y-m-d"); ?>"  >
             </div>
         
             <div class=" col-lg-offset-1 col-lg-3"> 
@@ -31,8 +30,6 @@
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="">
-
-                  <!--   <input type="text" class="form-control pull-right" name="Fecha_Inicio" required="" id="Fecha_Inicio" style="border-radius:5px;"> -->
                 </div>
               </div>
             </div>
@@ -67,9 +64,9 @@
           </div>
           
           <div class="form-group" id="FichasS">
-            <div class="table">
+            <div class="table" data-parsley-required="">
               <div class="col-lg-12 table-responsive scrolltablas">
-                <table class="table table-hover" style="margin-top: 2%;" id="tablaFichass">
+                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFichass">
                   <thead>
                     <tr class="active">
                     <th>Id</th>
@@ -79,6 +76,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                 <tr id="tblVaciaObj">
+                  <td id="tblFichasObje" colspan="4" style="text-align:center;"></td>
+                </tr>
                   </tbody>
                 </table>
               </div>
@@ -116,8 +116,8 @@
             </div>
             <div class="modal-body">
               <div class="table">
-                <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                <div class="col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
                       <th>Id</th>

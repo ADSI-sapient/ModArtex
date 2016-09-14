@@ -23,8 +23,6 @@ function quitarPermisosR(btn, elemento){
       var tr = '<tr><td id="tblpermisosvacia" colspan="4" style="text-align:center;">No hay productos asociados</td></tr>';
       $("#tblPas").append(tr);
     }
-
-
 }
 
 

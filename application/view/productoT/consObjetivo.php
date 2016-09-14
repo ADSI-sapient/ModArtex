@@ -1,22 +1,23 @@
-
-    <section class="content-header">
+   <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Producto T</a></li>
         <li class="active">Listar objetivos</li>
       </ol>
     </section>
-    <section class="content">
-    <div class="box box-info">
-        <div class="box-header with-border"  style="text-align: center;">
-          <h3 class="box-title"><strong>LISTAR OBJETIVOS</strong></h3>
-        </div>
-     <form class="form-horizontal">
+  <!-- Main content -->
+  <section class="content">
+     <div class="box box-primary">
+      <div class="box-header with-border"  style="text-align: center;">
+       <h3 class="box-title"><strong>LISTAR OBJETIVOS</strong></h3>
+      </div>
+      <div id="users">
+         <form class="form-horizontal">
           <div class="col-md-12">
             <!-- <div class="box"> -->
             <br>
               <div class="table table-responsive">
-                <table class="table table-hover" id="TablaObjetivos">
+                <table class="table table-hover cell-border" id="TablaObjetivos">
                   <thead>
                     <tr class="info"> 
                       <th></th>
@@ -26,7 +27,7 @@
                       <th>Fecha fin</th>
                       <th>Total</th>
                       <th>Estado</th>
-                      <th style="display: none">Id_Estado</th>
+                      <th style="display:none">Id_Estado</th>
                       <th>Referencias</th>
                       <th>Modificar</th>
                       <th>Estadistica</th>
@@ -43,6 +44,7 @@
                     <td class="Fecha_Fin"><?= $objetivo["FechaFin"]?></td>
                     <td class="Total"><?= $objetivo["CantidadTotal"]?></td>
                      <td><?= $objetivo["Nombre_Estado"] ?></td> 
+                     <td style="display: none"><?= $objetivo["Id_Estado"] ?></td>
                       <td>                           
                    
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
@@ -69,6 +71,8 @@
             <!-- </div> -->
           </div>
           </form>
+        </div>
+        <div class="box-footer">
         </div>
       </div>
 
@@ -104,25 +108,25 @@
 <!--Final del modal -->
 
 
-<!--Modal Para modificar  el objetivo-->
- <div class="modal fade" id="ModificarObj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-   <form role="form" id="ModificarObj"  method="post">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="border-radius: 25px;">
-       <div class="modal-header with-border" style="text-align: center;"> 
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="control-label"><strong>Modificar Objetivo</strong></h4>
-              </div>
-
+<div class="modal fade" id="ModificarObj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content" style="border-radius:10px">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">MODIFICAR OBJETIVO</h4>
+            </div>
+            
+            <div class="modal-body">
+              <form role="form" id="ModificarObj" action="<?= URL ?>ctrObjetivos/listarObjetivos" method="post" data-parsley-validate="">    
               <input type="hidden" name="Id_Objetivo" id="Id_Objetivo">
 
               <input type="hidden" name="Id_Estado" id="Id_Estado">
-            <div class="form-group col-lg-6">
+            <div class="form-group col-lg-5">
               <label class="">Fecha registro:</label>
               <input type="text" id="Fecha_Registro" name="FechaRegistro" readonly="" class="form-control">
             </div>
         
-            <div class="  col-lg-6"> 
+            <div class="col-lg-offset-1 col-lg-5"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">Fecha inicio:</label>
                   <div class="input-group date">
@@ -134,12 +138,12 @@
               </div>
             </div>
 
-           <div class="form-group col-lg-6">
+           <div class="form-group col-lg-5">
               <label class="">Nombre:</label>
               <input  type="text" name="Nombre" id="Nombre" class="form-control" required="">
             </div>
 
-             <div class=" col-lg-6"> 
+             <div class=" col-lg-offset-1 col-lg-5"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">Fecha fin:</label>
                   <div class="input-group date">
@@ -151,18 +155,13 @@
               </div>
             </div>
 
-        <div class="row col-lg-12">
-          <div class="box-header col-lg-3">
-              <h3 class="box-title"><strong>Referencias</strong></h3>
-          </div>
-
-         <button type="button" class="btn btn-primary  col-lg-offset-6 col-lg-3 "  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)">Agregar Fichas</button>
+        <div class="form-group col-lg-12">
+         <button type="button" class="btn btn-primary  col-lg-1 "  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)">Fichas</button>
       </div>
       
-     <div class="box-body ">
-       
-            <!-- /.box-header -->
-            <table class="table table-hover col-lg-12" id="tablaFiOM">
+     <div class="box-body  scrolltablas">
+         <!-- /.box-header -->
+            <table class="table table-hover cell-border col-lg-12" id="tablaFiOM">
             <thead>
               <tr class="info">
                 <th class="col-lg-2">Id</th>
@@ -179,7 +178,7 @@
         <div class="row col-lg-12">
           <div class="form-group col-lg-5">
             <label>Total:</label>
-            <input type="text" name="CantidadTotalN" id="TotalTN" class="form-control" value="0" >
+            <input type="text" name="CantidadTotalN" id="TotalTN" class="form-control" value="0">
           </div>
         </div>
 
@@ -187,10 +186,13 @@
            <button type="submit" class="btn btn-primary" name="btnModificarObj">Guardar</button>
            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
           </div>
-         </div>
-     </div>
-  </form>
-</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 
 
 
@@ -199,7 +201,7 @@
           <div class="modal-dialog" role="document" style="width: 70%; border-radius: 25px;">
             <div class="modal-content" style="border-radius: 20px;">
               <div class="modal-header" style="text-align: center;">
-                    <h3 class="box-title"><strong>Avance vs Objetivo</strong></h3>
+                  <h3 class="box-title"><strong>Avance vs Objetivo</strong></h3>
               </div>
               <div class="modal-body">
                   <div class="box box-success">
@@ -244,7 +246,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover" style="margin-top: 2%;">
+                  <table class="table table-hover cell-border" id="tablaFo" style="margin-top: 2%;" >
                   <thead>
                     <tr class="active">
                       <th>Id</th>
