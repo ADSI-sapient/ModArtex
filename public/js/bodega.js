@@ -134,8 +134,8 @@ function editInsumos(id, insumos){
   });
   $("#mSel").val(campos.find("td").eq(1).text());   
   $("#nomIns").val(campos.find("td").eq(2).text());
-  $("#selMedInsCol").val(campos.find("td").eq(8).html());
-  $("#stockIns").val(campos.find("td").eq(4).html());
+  $("#selMedInsCol").val(campos.find("td").eq(9).html());
+  $("#stockIns").val(campos.find("td").eq(5).html());
   $("#ModEditIns").show(); 
 }
 

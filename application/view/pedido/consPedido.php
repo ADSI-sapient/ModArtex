@@ -40,23 +40,23 @@
                         <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto;"></i></button>
+                            <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o" name="btncarg" style="font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="cursor:auto;"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red; font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto;"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                       </tr>
@@ -147,7 +147,7 @@
             </div>
             <div class="modal-footer" style="border-top:none;">
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-warning" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Actualizar</b></button>
+                <button type="submit" class="btn btn-warning" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i><b> Actualizar</b></button>
                 <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
               </div>
               </form>
@@ -184,7 +184,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>
@@ -278,7 +278,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

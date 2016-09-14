@@ -202,7 +202,7 @@ $('#prodAsociarPedMod').dataTable({
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
         var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='' data-parsley-required='' min='1'></td><td><input type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' value='0' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
-        +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='text' style='border-radius:5px;'></td>"
+        +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='text' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
         +"<td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
@@ -227,8 +227,8 @@ $('#prodAsociarPedMod').dataTable({
 
         $(boton).attr('disabled', 'disabled');
 
+        $("#cantProductT"+idbton).val(cantidad);
         $("#tablaFicha tbody .trpedidos").each(function(i){
-          
 
           $("#spanCant"+idbton).on("click", function(){
               $("#spanCant"+idbton).html(cantidad);
@@ -240,7 +240,7 @@ $('#prodAsociarPedMod').dataTable({
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
               $("#spanCant"+idbton).html(parseInt(cantidad) - parseInt($("#usarProductoT"+idbton).val()));
-              $("#cantProductT"+idbton).val($("#spanCant"+idbton).html());
+              $("#cantProductT"+idbton).val(parseInt($("#spanCant"+idbton).html()));
             }else{
               $("#spanCant"+idbton).html(cantidad);
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
@@ -536,27 +536,27 @@ $('#prodAsociarPedMod').dataTable({
           function(isConfirm){
             if (isConfirm)
             { 
-              $.ajax({
-            type: 'post',
-            dataType: 'json',
-            url: uri+"ctrPedido/cancelarPedido",
-            data:{id_Pedido: idpedido}
-            }).done(function(respuesta){
-              if (respuesta.r == 1) {
-                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                // location.href = uri+"ctrPedido/consPedido";
-              }else{
-                alert("Error al cancelar el pedido");
+            $.ajax({
+              type: 'post',
+              dataType: 'json',
+              url: uri+"ctrPedido/cancelarPedido",
+              data:{id_Pedido: idpedido}
+              }).done(function(respuesta){
+                if (respuesta.r == 1) {
+                  // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                  // location.href = uri+"ctrPedido/consPedido";
+                }else{
+                  alert("Error al cancelar el pedido");
+                }
+              }).fail(function(){
+              })  
+                swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                location.href = uri+"ctrPedido/consPedido";
               }
-            }).fail(function(){
-            })  
-              swal("Cancelado", "El Pedido ha sido cancelado", "success");
-              location.href = uri+"ctrPedido/consPedido";
-            }
-            else
-            {
-              swal("Acción interrumpida", "No se completó la acción.", "error");
-            }
+              else
+              {
+                swal("Acción interrumpida", "No se completó la acción.", "error");
+              }
           });
         }
 

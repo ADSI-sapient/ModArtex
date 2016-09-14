@@ -43,13 +43,13 @@
                     <td class="Email"><?= $cliente["Email"] ?></td>
                     <td class="estado"><?= $cliente["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td>                           
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                       </td>
-                      <td>
+                      <td style="text-align: center">
                         <?php if ($cliente["Estado"] == 1){ ?>
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
                         <?php }else{ ?>
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
                         <?php } ?>
                       </td>
                     </tr>
@@ -63,19 +63,21 @@
         <div class="box-footer">
         </div>
       </div>
+     </section>   
+
 
 
        <div class="modal fade" id="myModalC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius:10px">
+              <form role="form" id="myModalC" action="<?= URL ?>ctrCliente/edit" method="post" data-parsley-validate="">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Modificar Cliente</h4>
             </div>
             
             <div class="modal-body">
-              <form role="form" id="myModalC" action="<?= URL ?>ctrCliente/edit" method="post" data-parsley-validate="">
-                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                  <div class="row" style="margin-left:0.5%">
                     <div class="form-group col-sm-6">
                       <label for="tipo_Documento" class="">Tipo de Documento:</label>
                       <input type="text" id="Tipo_Documento" readonly="" class="form-control">
@@ -85,7 +87,7 @@
                       <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento" readonly="">
                     </div>
                   </div>
-                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                  <div class="row" style="margin-left:0.5%">
                     <div class="form-group col-sm-6">
                       <label for="nombre" class="">*Nombre:</label>
                       <input type="text" class="form-control" id="Nombre" placeholder="" name="Nombre" data-parsley-required="">
@@ -95,7 +97,7 @@
                       <input type="text" class="form-control" id="Apellido" placeholder="" name="Apellido" data-parsley-required="">
                     </div>
                   </div>
-                  <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                  <div class="row" style="margin-left:0.5%">
                     <div class="form-group  col-sm-6">
                       <label for="telefono">*Teléfono:</label>
                       <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);" data-parsley-required="">
@@ -105,21 +107,19 @@
                       <input type="text" class="form-control" id="Direccion" name="Direccion" data-parsley-required="">
                    </div>
                  </div>
-                 <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="email" class="">*Email:</label>
                     <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="">
                   </div>
                 </div>
-                <div class="modal-footer" style="border-top:0px;">
-                <div class="row form-group col-sm-12" style="margin-left:1px">
-                  <button type="submit" class="btn btn-primary" name="btnModificar" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
-                </div>
-                </div>
-              </form>
             </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning" name="btnModificar"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                </div>
+          </form>
           </div>
         </div>
       </div>
-  </section>
+

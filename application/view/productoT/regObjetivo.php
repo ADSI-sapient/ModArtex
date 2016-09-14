@@ -13,9 +13,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR OBJETIVOS</strong></h3>
         </div>
-        <br>
-         <div class="box-body">
         <form action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST">
+         <div class="box-body">
         
           <div class="row col-lg-12">
             <div class="form-group col-lg-3">
@@ -50,7 +49,7 @@
               <input type="text" name="estado" value="Pendiente" readonly="" class="form-control">
             </div>
 
-            <div class=" col-lg-offset-1 col-lg-3"> 
+            <div class="col-lg-offset-1 col-lg-3"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">*Fecha fin:</label>
                   <div class="input-group date">
@@ -66,7 +65,7 @@
             <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO">Seleccionar Productos</button>
           </div>
           
-          <div class="form-group" id="FichasS" hidden="">
+          <div class="" id="FichasS" hidden="">
             <div class="table">
               <div class="col-lg-12 table-responsive">
                 <table class="table table-hover" style="margin-top: 2%;" id="tablaFichass">
@@ -84,23 +83,20 @@
               </div>
             </div>
         </div>
-        <br>
         <div class="row col-lg-12">
           <div class="form-group col-lg-3">
             <label>Total:</label>
             <input type="text" name="CantidadTotal" id="TotalT" class="form-control" value="0" >
           </div>
         </div>
-        <br>
-       <div class="row"> 
-            <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
-
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"><b>Limpiar</b></button>
-            </div>
-          </div>
-    </form>
       </div>
+      </div>
+       <div class="box-footer"> 
+              <button type="reset" class="btn btn-default pull-right" name="btnCanFicha"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+              <button type="submit" class="btn btn-success pull-right" name="btnRegObjetivo" id="btnRegObjetivo"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+
+        </div>
+    </form>
      </div> 
   </section>
 
@@ -149,7 +145,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
           </form>

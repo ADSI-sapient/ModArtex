@@ -49,7 +49,7 @@
 		        	for ($f=0; $f < count($_POST['idFicha']); $f++) { 
 		        		
 		        		$this->mdlModel->__SET("id_solicitudes_tipo", $ultimoIdTipoSolicitud);
-		        		$this->mdlModel->__SET("cant_existencias", 123);
+		        		$this->mdlModel->__SET("cant_existencias", $_POST['cantExisUsar'][$f]);
 		        		$this->mdlModel->__SET("estado", "nose");
 		        		$this->mdlModel->__SET("cant_producir", $_POST['cantProducir'][$f]);
 						$this->mdlModel->__SET("subtotal", $_POST['subTotal'][$f]);

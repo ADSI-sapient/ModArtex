@@ -43,17 +43,17 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1);" ><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1);" ><i style="font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
                     </td>
                     <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
                       <?php }else{ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i style="font-size: 150%;" class="fa fa-check"></i></button>
                       <?php } ?>
                     </td>
                     <td>
-                      <button style="width:120px" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                      <button style="width:120px" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
                     </td>
                     </tr>
                     <?php endforeach; ?>
@@ -77,8 +77,8 @@
 
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR FICHA TÉCNICA</b></h4>
             </div>
-            <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?php echo URL; ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
+            <div class="modal-body" style="padding:10px;">
                 <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
                  <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
@@ -156,7 +156,6 @@
                     </table>
                   </div>
                 </div>                
-              </div>
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="vlr_produccion" class="">Valor Producción:</label>
@@ -167,13 +166,12 @@
                   <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="">
                 </div>
               </div>
-              <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-                <div class="form-group col-sm-12">
-                  <button type="submit" class="btn btn-primary" name="btn-modificar-ficha"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-                  <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div class="modal-footer" style="border-top: 0;">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                <button type="submit" class="btn btn-warning pull-right" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+              </div> 
+            </form>
           </div>
         </div>
       </div>
@@ -221,7 +219,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -263,7 +261,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -315,7 +313,7 @@
               </div> 
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

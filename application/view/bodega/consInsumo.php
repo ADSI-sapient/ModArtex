@@ -23,6 +23,7 @@
                   <th style="display: none;"></th>
                   <th>Nombre</th>
                   <th>Medida</th>
+                  <th>Estado</th>
                   <th>Stock mínimo</th>
                   <th style="width: 7%">Editar</th>
                   <th style="width: 7%">Estado</th>
@@ -38,10 +39,19 @@
                   <td style="display: none;"><?= $valor["Id_Insumo"]?></td>
                   <td><?= $valor["Nombre"]?></td>
                   <td><?= $valor["NombreMed"]?></td>
+                  <?php if ($valor["Estado"] == 1): ?>
+                    <td>Habilitado</td>
+                  <?php else: ?>
+                    <td>Inhabilitado</td>
+                  <?php endif ?>  
                   <td><?= $valor["Stock_Minimo"]?></td>
                   <input type="hidden" value="<?= $valor["Estado"]?>" name="est">
-                  <td style="text-align: center;">    
+                  <td style="text-align: center;">
+                  <?php if ($valor["Estado"] == 1): ?>    
                     <button type="button" id="btnEditar" onclick="editInsumos(<?= $valor["Id_Insumo"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModEditIns"><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
+                  <?php else: ?>
+                    <button type="button" disabled="" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
+                  <?php endif ?>    
                   </td>
                   <td style="text-align: center;">
                     <?php if ($valor["Estado"] == 1): ?>

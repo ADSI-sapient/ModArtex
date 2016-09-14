@@ -12,8 +12,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
-        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
+        <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
@@ -113,16 +113,14 @@
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
           </div>
-          <div class="row"> 
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
-            </div>
-          </div>
-        </form>
         </div>
+        <div class="box-footer"> 
+              <button type="reset" class="btn btn-default pull-right" name="btnCanFicha" onclick="limpiarFormRegFicha()" style="margin-left: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+              <button type="submit" class="btn btn-success pull-right" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> Registra</button>
+        </div>
+      </form>
       <!-- Inicio Modal asociar insumos -->
-      <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >
+      <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -166,7 +164,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

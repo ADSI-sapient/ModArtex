@@ -246,7 +246,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -289,7 +289,7 @@
             </div>
             <div class="modal-footer" style="border-top:0px;">
               <input type="hidden" id="idOrdenHidden" name="">
-              <button type="button" onclick="devolverInsumos()" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" onclick="devolverInsumos()" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

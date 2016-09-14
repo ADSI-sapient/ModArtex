@@ -11,8 +11,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR CLIENTE</strong></h3>
         </div>
-        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
+        <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label class="">*Nombre:</label>
@@ -61,14 +61,12 @@
               <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" data-parsley-required="">
             </div>
           </div>
-          <div class="row"> 
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="" name="btnRegistrarC"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="">Limpiar</button> 
-            </div>
-          </div>
-          </form>
         </div>
+        <div class="box-footer"> 
+          <button type="reset" class="btn btn-default pull-right" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button> 
+          <button type="submit" class="btn btn-success pull-right" style="" name="btnRegistrarC"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+        </div>
+      </form>
     </div>
   </section>
 
