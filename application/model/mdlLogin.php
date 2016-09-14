@@ -51,7 +51,7 @@
         }
 
         public function traerEmails(){
-            $sql = "CALL SP_mails()";
+            $sql = "CALL SP_Mails()";
             $stm = $this->db->prepare($sql);
             $stm->execute();
             return $stm->fetchAll();

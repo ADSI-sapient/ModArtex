@@ -131,7 +131,9 @@
                     <label for="rol" class="">*Rol:</label>
                     <select class="form-control" name="rol" id="rol" data-parsley-required="">
                       <?php foreach ($rol as $value): ?>
-                        <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre']?></option>
+                        <?php if ($value['Id_Rol'] != 1): ?>
+                          <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre']?></option>
+                        <?php endif ?>
                       <?php endforeach ?> 
                     </select>
                   </div>
@@ -139,7 +141,7 @@
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="email" class="">*Email:</label>
-                    <input type="text" class="form-control" id="email" placeholder="" name="email" data-parsley-required="">
+                    <input type="email" class="form-control" id="email" placeholder="" name="email" data-parsley-required="">
                   </div>
                 </div>
             </div>

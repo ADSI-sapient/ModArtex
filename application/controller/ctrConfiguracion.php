@@ -160,13 +160,13 @@ class ctrConfiguracion extends Controller{
 				$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 				$this->_modelRoles->regPermisosAsociados();
 
-				$mensajeR = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Rol registrado exitosamente'});"; 
+				$mensajeR = "Lobibox.notify('success', {size: 'mini', delayIndicator: 6000, msg: 'Rol registrado exitosamente'});"; 
 				}
 			}else{
 			    // alert("Error al registrar");
 			 	}
 			}else{
-				$mensajeR = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Este nombre de usuario ya se encuentra en la base de datos'});"; 
+				$mensajeR = "Lobibox.notify('error', {size: 'mini', delayIndicator: 6000, msg: 'Este nombre de usuario ya se encuentra en la base de datos'});"; 
 			}
 			$_SESSION["mensaje"] = $mensajeR;
 	        }
@@ -186,10 +186,10 @@ class ctrConfiguracion extends Controller{
 					$this->_modelRoles->__SET("Id_Permiso", $_POST['Idpermiso'][$i]);
 					$this->_modelRoles->regPermisosAsociados();
 
-					$mensajeR = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Rol modificado exitosamente'});";
+					$mensajeR = "Lobibox.notify('success', {size: 'mini', delayIndicator: 6000, msg: 'Rol modificado exitosamente'});";
 				}
 	      	}else{
-	      		$mensajeR = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'El rol administrador no se puede modificar'});";
+	      		$mensajeR = "Lobibox.notify('error', {size: 'mini', delayIndicator: 6000, msg: 'El rol administrador no se puede modificar'});";
 	      	}
 	      	$_SESSION["mensaje"] = $mensajeR;
 		}

@@ -76,20 +76,6 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
               $("#fila").append(fila);
 
                           }
-              $('#tablaR').dataTable( {
-                // "lengthChange": false,
-                //"searching": false,
-                // "info": false,
-                "ordering": false,
-                "language": {
-                "emptyTable": "No hay permisos para listar",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
-                "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-                "zeroRecords": "No se encontraron permisos que coincidan con la búsqueda",
-                "paginate": {"previous": "Anterior", "next": "Siguiente"}
-                  },
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50]]
-                });
             }, 
             error: function(){
             }
@@ -272,28 +258,6 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
         });
       });
 
-
-$(document).ready(function(){
-
-        $('.dtaTablerolPermisos').dataTable( {
-          // "lengthChange": false,
-          //"searching": false,
-          // "info": false,
-         "ordering": false,
-      "language": {
-          "emptyTable": "No hay permisos para listar",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-          "zeroRecords": "No se encontraron permisos que coincidan con la búsqueda",
-      "paginate": {"previous": "Anterior", "next": "Siguiente"}
-      },
-      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "Todo"]]
-        });
-
-
-
-      });
-
       //    $(document).ready(function(){
       //   $('#tablaR').DataTable( {
       //     // "lengthChange": false,
@@ -311,14 +275,15 @@ $(document).ready(function(){
           "ordering": false,
       "language": {
           "emptyTable": "No hay usuarios para listar",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "info": "",
+          "infoEmpty": "",
           "zeroRecords": "No se encontraron usuarios que coincidan con la búsqueda",
       "paginate": {
         "previous": "Anterior",
         "next": "Siguiente"
        }
-      }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
         });
       });
 

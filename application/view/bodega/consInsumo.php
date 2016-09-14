@@ -187,7 +187,7 @@
       
       <div class="col-md-6"></div>
       <div class="modal-body">
-       <table id="tableCols" class="table table-bordered paginate-search-table" style="margin-bottom: 3%;">
+       <table id="tableCols" class="table table-hover cell-border datTableModals" style="margin-bottom: 3%;">
         <thead>
           <tr>
             <th style="display: none;"></th>

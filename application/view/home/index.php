@@ -246,6 +246,6 @@
     </script>
 </section>
 
-    <script src="<?= URL;?>js/docs.min.js"></script>
+   <!--  <script src="<?= URL;?>js/docs.min.js"></script> -->
     <script src="<?= URL;?>js/ie10-viewport-bug-workaround.js"></script>
     <script src="<?= URL;?>js/jssor.slider.mini.js"></script>

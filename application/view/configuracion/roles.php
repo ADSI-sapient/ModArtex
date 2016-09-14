@@ -6,7 +6,7 @@
   </ol>
 </section>
 <section class="content">
-  <div class="row col-md-12">
+  <div class="row">
     <!--Registrar Rol-->
     <div class="col-md-6">
       <div class="box box-primary">
@@ -77,7 +77,7 @@
           </div>
           <div class="box-body">
             <div class="col-lg-12 table-responsive">
-              <table class="table table-hover col-lg-12" id="tablaListarRoles">
+              <table class="table table-hover col-lg-12 datTableModals" id="tablaListarRoles">
                 <thead>
                   <tr class="info">
                     <th class="col-lg-2">#</th>
@@ -159,8 +159,8 @@
           <!-- /.box-header -->
           <div class="row">
             <div class="col-lg-12">
-              <div class="table">
-                <div class="table-responsive">
+              <div  class="table">
+                <div class="table-responsive scrolltablas">
                 <table class="table table-hover table-bordered" id="tablaR">
                     <thead>
                       <tr class="info">
@@ -189,27 +189,15 @@
 </div>
 
 <div class="modal fade" id="ModificarR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <form role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-radius: 25px;">
      <div class="modal-header with-border" style="text-align: center;"> 
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title"><strong>Permisos asignados</strong></h4>
+       <h4 class="modal-title"><strong>PERMISOS ASIGNADOS</strong></h4>
      </div>
-
-     <div class="box-body">
-      <div class="form-group col-lg-5">
-        <label for="nombre" class="col-sm- control-label">Nombre</label>
-        <input type="hidden" id="id_Rol" name="id_Rol">
-        <input type="text" class="form-control" name="Nombre" id="nombreRol" >
-      </div> 
-    </div>
-    <div class="box-body  ">
-      <div class="box-header">
-        <h3 class="box-title"><strong>Permisos</strong></h3>
-      </div>
+    <div class="modal-body">
       <!-- /.box-header -->
-      <table class="table table-hover col-lg-12" id="">
+      <table class="table table-hover cell-border datTableModals" id="">
         <thead>
           <tr class="info">
             <th class="col-lg-2">Id</th>
@@ -220,11 +208,11 @@
         <tbody id="filass">
         </tbody>
       </table>
-
+    </div>
+    <div class="modal-footer">
     </div>
   </div>
 </div>
-</form>
 </div>
 
 
@@ -239,7 +227,7 @@
       <div class="modal-body">
         <div class="table">
           <div class="col-sm-12 table-responsive">
-            <table class="table table-hover table-bordered dtaTablerolPermisos" style="margin-top: 2%;">
+            <table class="table table-hover cell-border datTableModals" style="margin-top: 2%;">
               <thead>
                 <tr class="active">
                   <th>Id</th>
@@ -285,7 +273,7 @@
       <div class="modal-body">
         <div class="table">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered dtaTablerolPermisos" style="margin-top: 2%;" id="permisos">
+            <table class="table table-hover cell-border datTableModals" style="margin-top: 2%;" id="permisos">
               <thead>
                 <tr class="active">
                   <th>Id</th>
