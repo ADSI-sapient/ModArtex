@@ -116,8 +116,7 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha modificada exitosamente!'});";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La ficha se modificó correctamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
@@ -232,7 +231,6 @@
 			    $this->mdlModel->__SET("color", $_POST["color"]);
 
 				$regFColores = $this->mdlModel->validColorFichaReg();
-
 			
 			if ($regFColores) {
 		    	echo json_encode(["r"=>$regFColores]);

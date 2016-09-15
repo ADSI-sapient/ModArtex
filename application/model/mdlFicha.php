@@ -36,7 +36,7 @@
 
 	    public function regFicha()
 	    {
-	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (NULL,?,?,?,?,?,?,?,?)";
+	        $sql = "CALL SP_regFichaTecnica(?,?,?,?,?,?,?,?)";
 
 	        try {
 	        	$query = $this->db->prepare($sql);
@@ -75,7 +75,7 @@
 	    
       	public function regInsumosAso(){
 
-      		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (NULL,?,?,?,?)";
+      		$sql = "CALL SP_regInsumosAsoF(?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_insumo);
       		$query->bindParam(2, $this->cant_necesaria);
@@ -148,20 +148,7 @@
 	        } catch (PDOException $e) {
 	   
 	        }
-
 	    }
-
-	    // public function insertarTallaAsoFicha(){
-	    // 	$sql = "CALL SP_InsertarTallaAso(?, ?)";
-	    //     try {
-	    //     	$query = $this->db->prepare($sql);
-	    //     	$query->bindParam(1, $this->id_talla);
-	    //     	$query->bindParam(2, $this->referencia);
-	    //     	$query->execute();
-	    //     	return $query;
-	    //     } catch (PDOException $e) {
-	    //     }
-	    // }
 
 	    public function eliminarInsumoAsoFicha(){
 
@@ -193,7 +180,7 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Id_Ficha_Tecnica = ?";
+	        $sql = "CALL SP_modificarFicha(?,?,?,?,?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
@@ -228,7 +215,7 @@
 
       	public function getAsoInsumos(){
 
-      		$sql = "SELECT Id_Insumo, Id_Medida, Estado, Nombre FROM tbl_insumos";
+      		$sql = "CALL SP_getAsoInsumos";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
@@ -244,7 +231,7 @@
 
       	public function getAsoTallas(){
 
-      		$sql = "SELECT Id_Talla, Nombre FROM tbl_tallas";
+      		$sql = "CALL SP_consTallasAsoF";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
@@ -252,7 +239,7 @@
 
       	public function consColoresFicha(){
 
-      		$sql = "SELECT * FROM tbl_colores";
+      		$sql = "CALL SP_consColoresFicha";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
@@ -260,7 +247,7 @@
 
       	public function validColorFichaReg(){
 
-      		$sql = "SELECT Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Referencia = ? and Id_Color = ?";
+      		$sql = "CALL SP_validColorFichaReg(?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->referencia);
 	        $query->bindParam(2, $this->color);
@@ -270,7 +257,7 @@
 
       	public function consColorFicha(){
 
-      		$sql = "SELECT c.Id_Color, c.Codigo_Color FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE Id_Ficha_Tecnica = ?";
+      		$sql = "CALL SP_consColorFicha(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_fichaT);
       		$query->execute();
@@ -279,13 +266,11 @@
 
       	public function validColorFichaMod(){
 
-      		$sql = "SELECT Id_Ficha_Tecnica, Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Id_Ficha_Tecnica != ?";
+      		$sql = "CALL SP_validColorFichaMod(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_fichaT);
       		$query->execute();
       		return $query->fetchAll();
       	}
-
-
 	}
 ?>
