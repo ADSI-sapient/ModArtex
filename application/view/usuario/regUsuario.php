@@ -12,8 +12,8 @@
           <div class="box-header with-border">
             <h3 class="box-title"><strong>REGISTRAR USUARIO</strong></h3>
           </div>
-        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrUsuario/regUsuario" method="POST">
+        <div class="box-body">
         <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="nombre" class="">*Nombre: </label>
@@ -26,8 +26,8 @@
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label for="tipo_de_documento" class="">*Tipo de documento: </label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
-                <option value="CC" selected>CC</option>
-                <option value="CE">CE</option>
+                <option value="C.C" selected>C.C</option>
+                <option value="C.E">C.E</option>
               </select>
             </div>
           </div>
@@ -64,20 +64,19 @@
               <label for="roles" class="">*Rol:</label>
               <select class="form-control" name="rol"  id="rol" data-parsley-required="">
               <?php foreach ($rol as $value): ?>
-                <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre'] ?></option>
+                <?php if ($value['Id_Rol'] != 1): ?>
+                  <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre'] ?></option>
+                <?php endif ?>
               <?php endforeach ?>
               </select>
             </div>
-          </div>
-          <div class="row"> 
-            <div class="col-md-12">
-            <button style="margin-right: 1%;" type="reset" class="btn btn-danger pull-right">Limpiar</button>
-              <button style="margin-right: 1%;" type="submit" class="btn btn-primary pull-right" name="btnRegistrar"><b>Registrar</b></button>
-              
-            </div>
-          </div>      
-        </form>
-        </div>
-    </div>
-  </section>
+          </div>     
+      </div>
+      <div class="box-footer"> 
+          <button style="margin-right: 1%;" type="reset" class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+          <button style="margin-right: 1%;" type="submit" class="btn btn-success pull-right" name="btnRegistrar"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+      </div> 
+    </form>
+  </div>
+</section>
     

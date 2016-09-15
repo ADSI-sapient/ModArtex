@@ -10,8 +10,8 @@
       <div class="box-header with-border" style="text-align: center;">
         <h3 class="box-title"><strong>REGISTRAR COTIZACIÓN</strong></h3>
       </div>
-      <div class="box-body">
       <form data-parsley-validate="" action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form" onsubmit="return ValCoti()">
+      <div class="box-body">
         <div class="row col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-4">
             <label class="">Fecha Registro:</label>
@@ -45,7 +45,7 @@
         <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label for="cliente" class="">*Asociar Cliente:</label>
-              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
+              <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
                   <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
@@ -55,8 +55,8 @@
             </div>
         <!-- </div> -->
         <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
-          <div class="form-group col-lg-3">
-            <button type="button" class="btn btn-info pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
+          <div class="form-group col-lg-8">
+            <button type="button" class="btn btn-primary pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
           </div>
         </div>
         <div class="form-group" id="agregarFicha">
@@ -74,7 +74,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr id="tlcotiz">
                       <td id="tblFichasVaciaCoti" colspan="8" style="text-align:center;"></td>
                     </tr>
                   </tbody>
@@ -85,15 +85,25 @@
         <div class="row col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">
             <label for="vlr_total" class="">Valor Total:</label>
-            <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px; font-size:300;">
+            <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
           </div>
         </div>
-        <div class="row">
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" name="" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
-            </div>
+      </div>
+      <div class="box-footer">
+              <button type="reset" class="btn btn-default pull-right" name="" onclick="limpiarFormRegCoti()" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+              <button type="submit" class="btn btn-success pull-right" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
         </div>
+      </form>
+    </div>  
+</section>       
+
+
+
+
+
+
+
+
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
@@ -130,7 +140,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
@@ -142,7 +152,7 @@
               </div>
 
       <div class="modal-footer" style="border-top:0px;">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div> 
     </form>
      </div>
@@ -215,8 +225,6 @@
       </div>
     </div> 
   </div> 
-</div>
-</section>
 
 <style>
 

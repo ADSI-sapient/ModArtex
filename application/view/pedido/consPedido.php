@@ -26,7 +26,7 @@
                         <th>Valor Total</th>
                         <th style="width: 7%">Editar</th>
                         <th style="width: 7%">Cancelar</th>
-                        <th class="col col-md">Productos Asociados</th>
+                        <th style="width: 7%">Productos Asociados</th>
                       </tr>
                     </thead>
                     <tbody class="list">
@@ -40,23 +40,23 @@
                         <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto;"></i></button>
+                            <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o" name="btncarg" style="font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="cursor:auto;"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarPedido('<?= $pedido["Id_Solicitud"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red; font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                         <td>
                           <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto;"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
                           <?php endif ?>
                         </td>
                       </tr>
@@ -75,11 +75,12 @@
           <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Modificar Pedido</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR PEDIDO</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()">
                 <input type="hidden" name="id_pedido" id="id_pedido">
+                <div class="form-group col-sm-12">
                 <div class="form-group col-sm-5">
                   <label class="">Fecha Registro:</label>
                   <div class="input-group date">
@@ -93,6 +94,8 @@
                   <label for="estado" class="">Estado:</label>
                   <input type="text" name="estado" id="estado" class="form-control" value="" readonly="" style="border-radius:5px;">
                 </div>
+                </div>
+                 <div class="form-group col-sm-12">
                   <div class="form-group col-sm-5">
                     <label class="">*Fecha Entrega:</label>
                     <div class="">
@@ -114,8 +117,9 @@
                       <?php endforeach ?>
                     </select>
                   </div>
+                  </div>
                 <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
                 <label for="valor_total" class="">*Productos Asociados:</label>
                   <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tbl-prod-aso-ped">
                     <thead>
@@ -126,7 +130,7 @@
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                         <th>Quitar</th>
-                        <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
+                        <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -135,14 +139,16 @@
                 </div>
                 </div>
             </div>
+            <div class="form-group col-sm-12">
             <div class="form-group col-sm-5" style="margin-left:1%">
               <label for="valor_total" class="">Valor Total:</label>
               <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
             </div>
+            </div>
             <div class="modal-footer" style="border-top:none;">
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-primary" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-                <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
+                <button type="submit" class="btn btn-warning" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i><b> Actualizar</b></button>
+                <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
               </div>
               </form>
             </div>
@@ -156,11 +162,11 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Productos Asociados</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>PRODUCTOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
                   <table class="table table-hover table-responsive" style="margin-top: 2%;" id="dll-prod-asoped">
                     <thead>
                       <tr class="active">
@@ -178,7 +184,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>
@@ -225,7 +231,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>
@@ -237,7 +243,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Productos Para Asociar</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>PRODUCTOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
@@ -272,7 +278,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

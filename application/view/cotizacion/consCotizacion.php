@@ -1,4 +1,4 @@
-<section class="content-header">
+  <section class="content-header">
   <ol class="breadcrumb">
       <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Cotizacion</a></li>
@@ -45,15 +45,15 @@
                     <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
 
                    <td>
-                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>", "", 1)'><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>", "", 1)'><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                    </td>
 
-                   <td><a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o fa-md" aria-hidden="true"></i></a> </td>
+                   <td><a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> </td>
 
-                   <td><button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share fa-lg" style="color:#5A69F2;" aria-hidden="true"></i></button></td>
+                   <td><button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button></td>
 
                   <td>
-                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#DetallesAso" onclick='fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",2)'><i class="fa fa-eye fa-lg" style="color:#3B73FF" aria-hidden="true"></i></button>
+                   <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#DetallesAso" onclick='fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",2)'><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;" aria-hidden="true"></i></button>
                   </td>
 
                   
@@ -91,7 +91,7 @@
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modificar Cotizacion</h4>
+            <h4 class="modal-title" id="myModalLabel">MODIFICAR COTIZACIÓN</h4>
           </div>
 
           <div>
@@ -148,9 +148,8 @@
                   </div>                 
 
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                <label for="valor_total" class="form-group col-sm-0">Fichas Asociadas</label>
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="Asopedido">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="Asopedido">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -174,8 +173,8 @@
 
           <div class="modal-footer" style="border-top:0px;">
            <div  class="col-sm-push-4 col-sm-8">
-            <button type="submit" class="btn btn-primary" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-            <button type="button" class="btn btn-danger" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
+            <button type="submit" class="btn btn-warning" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+            <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
            </div>
         </div>
           </form> 
@@ -190,12 +189,12 @@
         <div class="modal-content" style="border-radius: 10px;">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-             <h4 class="modal-title"><b>Fichas Asociados</b></h4>
+             <h4 class="modal-title"><b>PRODUCTOS ASOCIADOS</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="fichaAsociadas">
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="fichaAsociadas">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
@@ -212,7 +211,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
       </div>
@@ -339,7 +338,7 @@
     <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Convertir en Pedido</h4>
+        <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
       <div class="modal-body">
       
@@ -384,7 +383,7 @@
                 </div> -->
 
       <div class="modal-footer">
-      <div class="row col-sm-push-8 col-sm-5">
+      <div class="row col-sm-7">
        <br />
         <button type="submit" class="btn btn-primary" name="gurdarPedi">Enviar Pedido</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

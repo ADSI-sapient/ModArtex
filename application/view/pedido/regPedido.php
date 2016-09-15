@@ -11,8 +11,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
-        <div class="box-body">
         <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
+        <div class="box-body">
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
           <div class="row col-lg-12" style="margin-left:0.5%">
@@ -23,7 +23,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
+                  <input type="text" class="form-control pull-right" name="fecha_reg" id="fecha_reg" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
@@ -89,21 +89,19 @@
             </div>
             </div>
             <div class="row col-lg-12" style="margin-left:0.5%">
-       			  <div class="form-group col-lg-offset-9 col-lg-3">
+              <div class="form-group col-lg-offset-9 col-lg-3">
                 <label for="vlr_total" class="">*Valor Total:</label>
                 <div class="">
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="form-group col-lg-12" style="margin-left:14px">
-                <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegPedido" ><b>Registrar</b></button>
-                <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-danger">Limpiar</b></button>
-              </div>
-          </div>
-        </form>
       </div>
+      <div class="box-footer">
+        <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+        <button type="submit" class="btn btn-success pull-right" name="btnRegPedido" ><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+      </div>
+    </form>
       </div>
       <!-- Inicio Modal asociar fichas -->
       <div class="modal fade" id="asociarFichas" tabindex="-1" role="dialog">
@@ -148,7 +146,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -195,7 +193,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

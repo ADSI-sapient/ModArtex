@@ -35,14 +35,14 @@
             </div>
           </div>
         <div class="col-md-6">
-          <div class="box box-primary">
+          <div class="box box-primary" style="height: 395px;">
               <div class="box-header with-border" style="text-align: center;"> 
                    <h4 class="control-label"><strong>LISTAR UNIDADES DE MEDIDA</strong></h4>
               </div>
       
               <div class="box-body">
                 <div class="table-responsive">
-                <table class="table table-bordered paginate-search-table">
+                <table class="table table-bordered datTableModals">
                   <thead>
                     <tr class="active">
                       <th style="width: 10%">#</th>

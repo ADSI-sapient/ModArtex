@@ -142,9 +142,9 @@
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
         var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"
-        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='text' id='cantNec"
+        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='number' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
-        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='1' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
+        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='0' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
         +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
         +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
         $("#tablaInsumos").append(tr);
@@ -173,10 +173,16 @@
         $("#vlr_produccion").val(valor);
 
         $("#tablaInsumos tbody .trfichas").remove();
+        if (!$("#tablaInsumos tbody tr #tblInsumosVacia").length) {
         var tr = "<tr><td id='tblInsumosVacia' colspan='8' style='text-align:center;'></td></tr>";
         $("#tablaInsumos").append(tr);
         $("#tblInsumosVacia").html("No hay insumos asociados");
         $(".btnInsumo").attr('disabled', false);
+        }
+
+        $("#selectTallas").select2("val", "");
+        $("#colorFicha").select2("val", "");
+        $("#colorF").css("color", "gray");
       }
 
       //valida todos los campos necesarios para el registro en el formulario
@@ -187,8 +193,8 @@
 
         var referencia = $("#referencia").val();
         var idcolor = $("#colorFicha").val();
-        var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+        var vlrproduccion = parseFloat($("#vlr_produccion").val());
+        var vlrproducto = parseFloat($("#vlr_producto").val());
 
         //valida insumos asociados
         if ($("#tablaInsumos tbody tr #tblInsumosVacia").length)
@@ -237,7 +243,7 @@
         var idcolor = $("#colorModFicha").val();
 
         var vlrproduccion = $("#vlr_produccion").val();
-        var vlrproducto = $("#vlr_producto").val();
+        var vlrproducto = parseFloat($("#vlr_producto").val());
         var idfit = $("#idFicha_Tec").val();
 
         //valida insumos asociados
@@ -246,6 +252,13 @@
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un insumo a la ficha'});
           return false;
         }
+
+          if ($("#tbl-tallas-aso tbody tr").length < 1)
+        {
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos una talla a la ficha'});
+          return false;
+        }
+
 
         //valida que el valor producto sea mayor al valor de producción
         if (vlrproduccion >= vlrproducto) {
@@ -306,16 +319,16 @@
       //   }
       // });
 
-      $('#tllAsociarRegPedido').dataTable({
-        "ordering": false,
-        "language": {
-            "emptyTable": "No hay tallas para asociar.",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-            "zeroRecords": "No se encontraron tallas que coincidan con la búsqueda.",
-        "paginate": {"previous": "Anterior","next": "Siguiente"}
-        }
-      });
+      // $('#tllAsociarRegPedido').dataTable({
+      //   "ordering": false,
+      //   "language": {
+      //       "emptyTable": "No hay tallas para asociar.",
+      //       "info": "Mostrando página _PAGE_ de _PAGES_",
+      //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      //       "zeroRecords": "No se encontraron tallas que coincidan con la búsqueda.",
+      //   "paginate": {"previous": "Anterior","next": "Siguiente"}
+      //   }
+      // });
 
       $('#insAsocFT').dataTable({
         "ordering": false,
@@ -336,8 +349,8 @@
           "ordering": false,
       "language": {
           "emptyTable": "No hay fichas para listar.",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "info": "",
+          "infoEmpty": "",
           "zeroRecords": "No se encontraron fichas que coincidan con la búsqueda.",
       "paginate": {
         "previous": "Anterior",
@@ -545,9 +558,10 @@
             data: {referencia:ref, estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
+                
                 location.href = uri+"ctrFicha/consFicha";
             }else{
-                location.href = uri+"ctrFicha/consFicha";
+                // location.href = uri+"ctrFicha/consFicha";
             }
         }).fail(function(){})
       }

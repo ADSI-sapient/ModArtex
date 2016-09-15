@@ -12,14 +12,14 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR FICHA TÉCNICA</strong></h3>
         </div>
-        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
+        <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
               <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
                 <div class="input-group date">
@@ -30,9 +30,11 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3 ">
+            <div class="form-group col-lg-5">
+            <div class="col-lg-12">
               <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
+            </div>
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
@@ -49,7 +51,7 @@
               </div>
               <div id="coloresRegf"></div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label for="selectTallas">*Tallas:</label>
               <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#tallasRegf">
                 <option value="1">L</option>
@@ -58,16 +60,19 @@
               </select>
               <div id="tallasRegf"></div>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">  
+            <div class="col-lg-5"> 
+            <div class="col-lg-8">
               <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="text" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" min="0" style="border-radius:5px;" data-parsley-required="">
-            </div>
-          </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
+              <input type="number" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" min="0" style="border-radius:5px;" data-parsley-required="">
+            </div> 
+            <div class="col-lg-3" style="margin-top: 25px;">
             <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#asoInsum"><b>Asociar Insumos</b></button>
+              <button type="button" class="btn btn-primary pull-rigth" data-toggle="modal" data-target="#asoInsum"><b>Insumos</b></button>
+            </div>
+            </div>  
             </div>
           </div>
+
           <div class="form-group" id="agregarInsumo">
             <div class="table scrolltablas">
               <div class="col-lg-12 table-responsive">
@@ -108,21 +113,19 @@
 
             <div class="form-group col-lg-offset-6 col-lg-3">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="text" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="1">
+              <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0">
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
           </div>
-          <div class="row"> 
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" name="btnRegFicha" id="reg"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" name="btnCanFicha" onclick="limpiarFormRegFicha()"><b>Limpiar</b></button>
-            </div>
-          </div>
-        </form>
         </div>
+        <div class="box-footer"> 
+              <button type="reset" class="btn btn-default pull-right" name="btnCanFicha" onclick="limpiarFormRegFicha()" style="margin-left: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+              <button type="submit" class="btn btn-success pull-right" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> Registra</button>
+        </div>
+      </form>
       <!-- Inicio Modal asociar insumos -->
-      <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" >
+      <div class="modal fade" id="asoInsum" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
@@ -166,7 +169,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

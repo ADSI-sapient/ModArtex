@@ -48,7 +48,7 @@ class CtrLogin extends Controller
             $emails = $this->mdlModel->traerEmails();
 
             foreach ($emails as $value) {
-                if ($value["email"] == $_POST["txtEmail"]) {
+                if ($value["Email"] == $_POST["txtEmail"]) {
 
                     $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-/*.";
                     $cad = "";
@@ -85,7 +85,9 @@ class CtrLogin extends Controller
                     $cabeceras .= 'Bcc: johanandres219@hotmail.com' . "\r\n";
 
                     mail($para, $titulo, $mensaje, $cabeceras);
-                    echo "<script>alert('Su clave fue enviada al correo'); </script>";
+                    
+                    $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini' msg: 'La nueva clave fue enviada a su correo electronico'});";
+                    // header("location:".URL."ctrLogin/login");
                     $sw = 1;
                 }
             }

@@ -1,41 +1,53 @@
 <!DOCTYPE html>
-<html lang="en"> 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Ingreso a Modartex</title>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Login/Logout animation concept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <!--   <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'> -->
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
 
-  <link rel="stylesheet" href="<?= URL; ?>css/Style-login.css">
-  <link rel="stylesheet" href="<?php echo URL; ?>fonts/font-awesome-4.6.1/css/font-awesome.css">
-  <link rel="stylesheet" href="<?php echo URL; ?>css/lobibox.min.css">
-
-</head>
+  <link rel="stylesheet" href="<?= URL; ?>css/styleLogin.css">
+  <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
+  </head>
 <body>
-  <section class="container">
-   
-  </section>
-  <section class="container">
+<div class="cont">
+  <div class="demo" style="height: 380px; border-radius:10px;">
     <div class="login">
-      <h1>Iniciar Sesión</h1>
-      <form method="post" action="">
-        <p><input type="text" name="txtUsuario" value="" placeholder="Usuario" autofocus=""></p>
-        <p><input type="password" name="txtClave" value="" placeholder="Contraseña"></p>
-        <p class="remember_me">
-          <label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-            Recortar contraseña 
-          </label>
-        </p>
-        <p class="submit"><input type="submit" name="btnLogin" value="Login" style="cursor:pointer;"></p>
+      <form action="<?= URL; ?>ctrLogin/login" method="POST">
+      <!-- <div class="login__check1"></div> -->
+      <div class="row" style="position: absolute; top: 5%; left: 17%;  text-align: center; ">
+        <p style="font-family: 'Dancing Script', cursive; color: #ffffff; font-size: 900%">ModArtex</p>
+      </div>
+      <div class="login__form">
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input class="login__input name" name="txtUsuario" value="" placeholder="Usuario" autofocus="">
+        </div>
+        <div class="login__row">
+          <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+          </svg>
+          <input class="login__input pass" type="password" name="txtClave" value="" placeholder="Contraseña">
+        </div>
+        <button type="submit" class="login__submit" name="btnLogin" value="Login" style="cursor:pointer;"><b>Ingresar</b></button>
+        <p class="login__signup"><a href="<?= URL; ?>ctrLogin/recuperarPass">Recuperar contraseña</a></p>
+      </div>
       </form>
     </div>
-
-    <div class="login-help">
-      <p style="font-size: 120%">¿Olvidaste tu contraseña?</p> <a href="<?= URL; ?>ctrLogin/recuperarPass">Click aquí para restaurarla</a>
-    </div>
-  </section>
-
-  <script src="<?php echo URL; ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
-  <script src= "<?php echo URL ?>js/lobibox.min.js"></script>
-</body>
+  </div>
+</div>
+<footer>
+  
+</footer>
+  <script src="<?= URL;?>js/lobibox.js"></script>
+        <script type="text/javascript">
+        $(function(){ 
+          <?= isset($_SESSION["mensaje"])?$_SESSION["mensaje"]:""; ?>
+          <?php $_SESSION["mensaje"] = null; ?>
+        });
+      </script>
+  </body>
 </html>

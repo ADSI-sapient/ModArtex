@@ -53,27 +53,27 @@
 <!--                       <td class="r" style="display: none;"><?= $usuario["Id"] ?></td> -->
                       <td>
                       <?php if ($usuario["idRol"] == 1): ?>
-                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
                       <?php else: ?>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModal3" onclick="editarUsuarios('<?= $usuario["Num_Documento"] ?>', this)"><i style="font-size: 150%;" class="fa fa-pencil-square-o"></i></button>
                         <?php endif ?>
                        </td>
                        <td>
                        <?php if ($usuario["idRol"] == 1): ?>
 
                           <?php if ($usuario["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" disabled><i class="fa fa-minus-circle fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" disabled><i class="fa fa-check fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%;" class="fa fa-check"></i></button>
                           <?php endif ?>
 
 
                        <?php else: ?>
 
                          <?php if ($usuario["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i style="font-size: 150%;" class="fa fa-check"></i></button>
                           <?php endif ?>
 
                           <?php endif ?>
@@ -98,11 +98,11 @@
           <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Modificar Usuario</h4>
+              <h4 class="modal-title" id="myModalLabel">MODIFICAR USUARIO</h4>
             </div>
+            <form role="form" id="myModal3" action="<?= URL ?>ctrUsuario/edit" method="post" data-parsley-validate="">
             <div class="modal-body">
-              <form role="form" id="myModal3" action="<?= URL ?>ctrUsuario/edit" method="post" data-parsley-validate="">
-                <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="tipo_Documento" class="">Tipo de Documento:</label>
                    <input type="text" name="Tipo_Documento" id="tipo_documento" readonly="" class="form-control">
@@ -112,7 +112,7 @@
                     <input type="text" class="form-control" id="documento" placeholder="" name="documento" readonly="">
                   </div>
                 </div>
-                <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="nombre" class="">*Nombre:</label>
                     <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" data-parsley-required="">
@@ -122,7 +122,7 @@
                     <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="">
                   </div>
                 </div>
-                <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="nombre_Usuario" class="">*Nombre de Usuario:</label>
                     <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="">
@@ -131,27 +131,26 @@
                     <label for="rol" class="">*Rol:</label>
                     <select class="form-control" name="rol" id="rol" data-parsley-required="">
                       <?php foreach ($rol as $value): ?>
-                        <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre']?></option>
+                        <?php if ($value['Id_Rol'] != 1): ?>
+                          <option value="<?= $value['Id_Rol']?>"><?= $value['Nombre']?></option>
+                        <?php endif ?>
                       <?php endforeach ?> 
                     </select>
                   </div>
                 </div>
-                <div class="row form-group col-sm-12" style="margin-left:0.5%">
+                <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="email" class="">*Email:</label>
-                    <input type="text" class="form-control" id="email" placeholder="" name="email" data-parsley-required="">
+                    <input type="email" class="form-control" id="email" placeholder="" name="email" data-parsley-required="">
                   </div>
                 </div>
-                <input type="hidden" id="codigo" name="codigo"></input>
-                <div class="modal-footer" style="border-top:0px;">
-                <div class="row form-group col-sm-12" style="margin-left:1px">
-                  <button type="submit" class="btn btn-primary" name="btonModificar" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-save"></i><b> Guardar</b></button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"
-                   style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
-                  </div>
+            </div>
+            <input type="hidden" id="codigo" name="codigo"></input>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning" name="btonModificar"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
                 </div>
               </form>
-            </div>
           </div>
         </div>
       </div>

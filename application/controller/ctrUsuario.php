@@ -97,11 +97,11 @@ class CtrUsuario extends Controller{
 		if ($this->mdlModel->modificarPersona() && $this->mdlModel->modificarUsuario()) {
 			
 
-	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Usuario modificado exitosamente'});";
+	  		$mensajeu = "Lobibox.notify('success', {size: 'mini', msg: 'Usuario modificado exitosamente!'});";
 	  		header("location: ".URL."ctrUsuario/consUsuario");
 			}else{
 
-				$mensajeu = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error! No se pudo modificar el usuario'});";
+				$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'Error! No se pudo modificar el usuario'});";
 				header("location: ".URL."ctrUsuario/consUsuario");
 				
 			}
@@ -117,14 +117,16 @@ class CtrUsuario extends Controller{
 
 
 	public function cambiarEstado(){
-		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
-	    $this->mdlModel->__SET("Id_Estado", $_POST["Id_Estado"]);
+		$this->mdlModel->__SET("Num_Documento", $_POST["Num_Documento"]);
+	    $this->mdlModel->__SET("Estado", $_POST["Estado"]);
 
 		$usuarios = $this->mdlModel->cambiarEstado();
 
 		if ($usuarios) {
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado!'})";
 		    echo json_encode(["v"=>1]);
 		}else{
+			$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al cambiar el estado'})";
 		    echo json_encode(["v"=>0]);
 		}
 	}

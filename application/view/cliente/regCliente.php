@@ -11,8 +11,8 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR CLIENTE</strong></h3>
         </div>
-        <div class="box-body">
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
+        <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
               <label class="">*Nombre:</label>
@@ -37,14 +37,14 @@
               <select class="form-control" name="tipo_documento" data-parsley-required="">
 
                 <option value="C.C">C.C</option>
-                <option value="C.W">C.E</option>
+                <option value="C.E">C.E</option>
                 <option value="NIT">NIT</option>
               </select>
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
               <label class="">*Documento:</label>
 
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="">
+              <input type="number" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" min="0">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-3">
               <label class="">*Email:</label>
@@ -53,22 +53,20 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <label class="">*Teléfono:</label>
-              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);" data-parsley-required="">
+              <label class="">Teléfono:</label>
+              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
             </div>
             <div class="form-group col-lg-offset-1 col-lg-4">
-              <label class="">*Dirección:</label>
-              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" data-parsley-required="">
+              <label class="">Dirección:</label>
+              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
             </div>
           </div>
-          <div class="row"> 
-            <div class="form-group col-lg-12" style="margin-left:14px">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="" name="btnRegistrarC"><b>Registrar</b></button>
-              <button type="reset" class="btn btn-danger" style="">Limpiar</button> 
-            </div>
-          </div>
-          </form>
         </div>
+        <div class="box-footer"> 
+          <button type="reset" class="btn btn-default pull-right" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button> 
+          <button type="submit" class="btn btn-success pull-right" style="" name="btnRegistrarC"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+        </div>
+      </form>
     </div>
   </section>
 

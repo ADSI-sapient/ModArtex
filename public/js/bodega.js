@@ -3,13 +3,50 @@ var tempIdColIns = [];
 $(window).load(function(){
   mensajeTablaVacia();
   if ($("#tableListInsumos tbody tr").length == 0) {
-    var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">La tabla esta vacia</td></tr>';
+    var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">La tabla está vacía</td></tr>';
     $("#tableListInsumos tbody").append(tr);
   }
 });
 
+
+    $('.datTableModals').dataTable( {
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay resultados",
+          "info": "",
+          "infoEmpty": "",
+          "zeroRecords": "No se encontraron resultados",
+      "paginate": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+       }
+      },
+      "lengthMenu": [[3, 5, 10], [3, 5, 10]]
+        });
+
+
+    $('#tblExistencias').dataTable( {
+          "ordering": false,
+      "language": {
+          "emptyTable": "No hay resultados",
+          "info": "",
+          "infoEmpty": "",
+          "zeroRecords": "No se encontraron resultados",
+      "paginate": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+       }
+      },
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
+        });
+
+
+
+
+
+
 function mensajeTablaVacia(){
-    var tr = '<tr id="trTablaVacia"><td colspan="6" style="text-align: center;">La tabla esta vacia</td></tr>';
+    var tr = '<tr id="trTablaVacia"><td colspan="6" style="text-align: center;">La tabla está vacía</td></tr>';
     if ($("#tbody-colAsocInsumos tr").length == 0) {
       $("#tbody-colAsocInsumos").append(tr);
       return false;
@@ -134,8 +171,8 @@ function editInsumos(id, insumos){
   });
   $("#mSel").val(campos.find("td").eq(1).text());   
   $("#nomIns").val(campos.find("td").eq(2).text());
-  $("#selMedInsCol").val(campos.find("td").eq(8).html());
-  $("#stockIns").val(campos.find("td").eq(4).html());
+  $("#selMedInsCol").val(campos.find("td").eq(9).html());
+  $("#stockIns").val(campos.find("td").eq(5).html());
   $("#ModEditIns").show(); 
 }
 
@@ -151,16 +188,6 @@ function seleccionCol(col){
   habilitarBotonAgreCol();
   validateColSelec();
 }
-
-// function coloresVec(){
-//   var vec = [];
-//   $("#tablaCol tr").find('td:eq(4)').each(function(){
-//     vec.unshift([$(this).html()]);
-//   });
-//   $("#vectorCol").val(vec);
-// }
-
-//         var vec = [];
         function quitarCol(col, idColIns){
           var colorInsumo = $(col).parent().parent();
           if (idColIns == 0) {
@@ -194,22 +221,7 @@ function seleccionCol(col){
               });
             }
           });
-            //       $.ajax({
-            //         url: uri+"ctrBodega/deleteColor",
-            //         type: 'POST',
-            //         data: {idCol: idCol, idIns: idIns},
-            //         success: function(res){
-            //           if (res) {
-            //             var str = "#"+idCol;
-            //             $(str).parent().remove();
-            //           }
-            //         }
-            //       });
-            //     });
-            //   }
-            // }
         }
-
       }
 
 
@@ -555,7 +567,6 @@ function verDetalleColIns(id){
         '</td><td>'+respuesta[i]["valor"]+'</td><td style="display: none;">'+respuesta[i]["cantidad"]+'</td></tr>';
         $("#tbodyDetalleColIns").append(fila);  
       });
-      // $("#tbodyDetalleColIns").dataTable();  
     }
   }).fail(function(){
   });

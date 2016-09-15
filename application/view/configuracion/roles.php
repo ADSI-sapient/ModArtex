@@ -6,7 +6,7 @@
   </ol>
 </section>
 <section class="content">
-  <div class="row col-md-12">
+  <div class="row">
     <!--Registrar Rol-->
     <div class="col-md-6">
       <div class="box box-primary">
@@ -29,8 +29,8 @@
 
             <div class="row col-lg-12">
               <div  class="form-group" id="permisosasig">
-                <div class="table scrolltablas">
-                  <div class="col-lg-12 table-responsive">
+                <div class="table">
+                  <div class="col-lg-12 table-responsive scrolltablas">
                     <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaPermisos">
                       <thead>
                         <tr class="active">
@@ -77,7 +77,7 @@
           </div>
           <div class="box-body">
             <div class="col-lg-12 table-responsive">
-              <table class="table table-hover col-lg-12" id="tablaListarRoles">
+              <table class="table table-hover col-lg-12 datTableModals" id="tablaListarRoles">
                 <thead>
                   <tr class="info">
                     <th class="col-lg-2">#</th>
@@ -89,40 +89,43 @@
                   </tr>
                 </thead>
                 <tbody class="list">
+                <?php $c = 1; ?>
                   <?php foreach ($roles as $rol): ?>
                     <tr >
                       <td class="Id_Rol"><?= $rol["Id_Rol"] ?></td>
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
                       <td>
-                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 2)"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
                      </td>
                      <td>
                      <?php if ($rol["Id_Rol"] == 1): ?>
-                       <button type="button" class="btn btn-box-tool" disabled="s"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                       <button type="button" class="btn btn-box-tool" disabled="s"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                      <?php else: ?>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarRol"onclick="editarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this, 1, '<?= $c ?>')"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
                       <?php endif ?>
                     </td>
                     <td>
                     <?php if ($rol["Id_Rol"] == 1): ?>
 
                         <?php if ($rol["Estado"] == 1): ?>
-                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-minus-circle fa-lg"></i></button>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-minus-circle" style="font-size: 150%;"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check" style="font-size: 150%;"></i></button>
                         <?php endif ?>
                   <?php else: ?>
                     <?php if ($rol["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle" style="font-size: 150%;"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
                           <?php endif ?>
 
                       <?php endif ?>
                         </td>
                       </tr>
+                <?php $c++; ?>
                     <?php endforeach; ?>
+
                   </tbody>
                 </table>
               </div>
@@ -136,7 +139,7 @@
     <!-- Modal -->
 
     <div class="modal fade" id="ModificarRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-     <form data-parsley-validate="" role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
+     <form onsubmit="return validarRolEdit();"  data-parsley-validate="" role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="border-radius: 25px;">
          <div class="modal-header with-border" style="text-align: center;">
@@ -159,13 +162,13 @@
           <!-- /.box-header -->
           <div class="row">
             <div class="col-lg-12">
-              <div class="table scrolltablas">
-                <div class="table-responsive">
+              <div  class="table">
+                <div class="table-responsive scrolltablas">
                 <table class="table table-hover table-bordered" id="tablaR">
                     <thead>
                       <tr class="info">
                         <th>Id</th>
-                        <th>Modulo</th>
+                        <th>Módulo</th>
                         <th>Privilegios</th>
                         <th>Eliminar</th>
                       </tr>
@@ -189,27 +192,15 @@
 </div>
 
 <div class="modal fade" id="ModificarR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <form role="form" id="ModificarRol" action="<?= URL ?>ctrConfiguracion/RegistrarRoles" method="post">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-radius: 25px;">
      <div class="modal-header with-border" style="text-align: center;"> 
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title"><strong>Permisos asignados</strong></h4>
+       <h4 class="modal-title"><strong>PERMISOS ASIGNADOS</strong></h4>
      </div>
-
-     <div class="box-body">
-      <div class="form-group col-lg-5">
-        <label for="nombre" class="col-sm- control-label">Nombre</label>
-        <input type="hidden" id="id_Rol" name="id_Rol">
-        <input type="text" class="form-control" name="Nombre" id="nombreRol" >
-      </div> 
-    </div>
-    <div class="box-body  ">
-      <div class="box-header">
-        <h3 class="box-title"><strong>Permisos</strong></h3>
-      </div>
+    <div class="modal-body">
       <!-- /.box-header -->
-      <table class="table table-hover col-lg-12" id="">
+      <table class="table table-hover cell-border datTableModals" id="">
         <thead>
           <tr class="info">
             <th class="col-lg-2">Id</th>
@@ -220,11 +211,11 @@
         <tbody id="filass">
         </tbody>
       </table>
-
+    </div>
+    <div class="modal-footer">
     </div>
   </div>
 </div>
-</form>
 </div>
 
 
@@ -239,7 +230,7 @@
       <div class="modal-body">
         <div class="table">
           <div class="col-sm-12 table-responsive">
-            <table class="table table-hover table-bordered dtaTablerolPermisos" style="margin-top: 2%;">
+            <table class="table table-hover cell-border datTableModals" style="margin-top: 2%;">
               <thead>
                 <tr class="active">
                   <th>Id</th>
@@ -285,7 +276,7 @@
       <div class="modal-body">
         <div class="table">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered dtaTablerolPermisos" style="margin-top: 2%;" id="permisos">
+            <table class="table table-hover cell-border datTableModals" style="margin-top: 2%;" id="permisos">
               <thead>
                 <tr class="active">
                   <th>Id</th>
