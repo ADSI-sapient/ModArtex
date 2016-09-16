@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-09-2016 a las 17:15:10
+-- Tiempo de generación: 16-09-2016 a las 09:04:03
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -214,8 +214,9 @@ ON  u.Tbl_Roles_Id_Rol = r.Id_Rol
 ORDER BY Id_Usuario DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Mails` ()  NO SQL
-SELECT Email FROM tbl_persona p
-WHERE Id_Tipo = 1$$
+SELECT p.Email, u.Id_Usuario FROM tbl_usuarios u  JOIN  tbl_persona p
+ON u.Num_Documento = p.Num_Documento
+WHERE p.Id_Tipo = 1$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModExisIns` (IN `ColIns` INT, IN `cantidad` INT, IN `val` DOUBLE, IN `stock` INT)  NO SQL
 UPDATE tbl_colores_insumos ci SET ci.Cantidad_Insumo = cantidad, ci.Valor_Promedio =  val, ci.Stock_Minimo = stock
@@ -1028,7 +1029,7 @@ CREATE TABLE `tbl_usuarios` (
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
 (1, '1037590137', 1, 'jpmorales', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(2, '1017223026', 2, 'jaac21', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+(2, '1017223026', 2, 'jaac21', '0b52c31a3b01dd61ad2cb4b06ed97961cbe7a281');
 
 --
 -- Índices para tablas volcadas
@@ -1365,7 +1366,7 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --

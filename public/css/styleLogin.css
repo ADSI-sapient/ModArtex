@@ -140,9 +140,9 @@ input, button {
   height: 4rem;
   margin: 5rem 0 2.2rem;
   color: rgba(255, 255, 255, 0.8);
-  background: rgba(92, 92, 231, 0.8);
+  background: rgba(31, 68, 37, 0.5);
   font-size: 1.5rem;
-  border-radius: 3rem;
+  /*border-radius: 3rem;*/
   cursor: pointer;
   overflow: hidden;
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;

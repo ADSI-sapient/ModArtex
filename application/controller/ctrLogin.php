@@ -10,6 +10,7 @@ class CtrLogin extends Controller
 	}
 
     public function login(){
+        include APP. 'view/login/login.php';
         if(isset($_POST['btnLogin'])){
             $usuario = $this->mdlModel->consultarUsuarioLogin($_POST["txtUsuario"]);
 
@@ -25,10 +26,10 @@ class CtrLogin extends Controller
                 
                 header("location: ". URL . "home/index");
             }else{
-                $alerta = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, position: 'center bottom', msg: 'Datos incorrectos!'});"; 
+                $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Usuario o clave incorrecto'});";
+                header("location: ". URL . "ctrLogin/login");
             }
         }
-        include APP. 'view/login/login.php';
     }
 
 
@@ -40,8 +41,7 @@ class CtrLogin extends Controller
 
 
     public function recuperarPass(){
-
-        include APP. 'view/login/recuperar.php'; 
+                include APP. 'view/login/recuperar.php'; 
 
         if (isset($_POST['btnRecuperar'])) {
             $sw = 0;
@@ -50,18 +50,19 @@ class CtrLogin extends Controller
             foreach ($emails as $value) {
                 if ($value["Email"] == $_POST["txtEmail"]) {
 
+
                     $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-/*.";
                     $cad = "";
                     for($i=0; $i<12; $i++) {
                         $cad .= substr($str,rand(0,62),1);
                     }
 
-                    $this->mdlModel->__SET("codigo", $value["codigo"]);
+                    $this->mdlModel->__SET("codigo", $value["Id_Usuario"]);
                     $this->mdlModel->__SET("clave", sha1($cad));
                     $this->mdlModel->cambiarClave();
 
 
-                    $para = $value["email"];
+                    $para = $value["Email"];
                     $titulo = "Recuperación de contraseña";
                     $mensaje = "<!DOCTYPE html>
                                 <html>
@@ -85,14 +86,14 @@ class CtrLogin extends Controller
                     $cabeceras .= 'Bcc: johanandres219@hotmail.com' . "\r\n";
 
                     mail($para, $titulo, $mensaje, $cabeceras);
-                    
-                    $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini' msg: 'La nueva clave fue enviada a su correo electronico'});";
-                    // header("location:".URL."ctrLogin/login");
+                    $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La nueva clave fue enviada a su correo'});";
+                    header("location:".URL."ctrLogin/login");
                     $sw = 1;
                 }
             }
             if($sw == 0) {
-                 echo "<script>alert('Correo no encontrado'); </script>";
+                 $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Correo no encontrado'});";
+                 header("location:".URL."ctrLogin/recuperarPass");
             }  
         }
     }
