@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-09-2016 a las 06:10:27
+-- Tiempo de generación: 16-09-2016 a las 06:39:46
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.5.37
 
@@ -390,7 +390,7 @@ SELECT Email from tbl_persona where Email = _email$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_validarExistenciasInsu` (IN `_idfichatec` INT)  BEGIN
 DECLARE idFicha int;
 SET idFicha = _idfichatec;
-SELECT i.Nombre, c.Nombre AS Nombre_Color, cin.Id_Existencias_InsCol, cin.Cantidad_Insumo, inf.Cant_Necesaria, ft.Referencia FROM tbl_insumos_fichastecnicas inf JOIN tbl_colores_insumos cin ON cin.Id_Existencias_InsCol=inf.Id_Existencias_InsCol JOIN tbl_insumos i ON cin.Id_Insumo=i.Id_Insumo JOIN tbl_colores c ON cin.Id_Color=c.Id_Color JOIN tbl_fichas_tecnicas ft ON inf.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica WHERE inf.Id_Ficha_Tecnica = idFicha;
+SELECT i.Nombre, c.Nombre AS Nombre_Color, cin.Id_Existencias_InsCol, cin.Cantidad_Insumo, inf.Cant_Necesaria, ft.Referencia, (SELECT c.Nombre FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE ft.Id_Ficha_Tecnica = idFicha) as NombreCol_Ficha FROM tbl_insumos_fichastecnicas inf JOIN tbl_colores_insumos cin ON cin.Id_Existencias_InsCol=inf.Id_Existencias_InsCol JOIN tbl_insumos i ON cin.Id_Insumo=i.Id_Insumo JOIN tbl_colores c ON cin.Id_Color=c.Id_Color JOIN tbl_fichas_tecnicas ft ON inf.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica WHERE inf.Id_Ficha_Tecnica = idFicha;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarMedida` (IN `nom` VARCHAR(45), IN `abr` VARCHAR(45))  NO SQL

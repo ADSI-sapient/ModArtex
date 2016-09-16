@@ -27,7 +27,7 @@
                       <th style="display: none;"></th>
                       <th style="width: 7%">Editar</th>
                       <th>Generar</th>
-                      <th class="col-md">Convertir en Pedido</th>
+                      <th style="width:7px">Convertir en Pedido</th>
                       <th class="col-md">Detalle</th>
                     </tr>
                   </thead>
@@ -247,7 +247,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
