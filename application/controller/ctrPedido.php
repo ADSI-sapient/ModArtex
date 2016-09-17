@@ -29,7 +29,6 @@
 
 	        	//registro de nueva solicitud
 	        	$this->mdlModel->__SET("id_cliente", $_POST["id_cliente"]);
-	        	$this->mdlModel->__SET("id_estado", 5);
 	        	$this->mdlModel->__SET("fecha_registro", $_POST["fecha_reg"]);
 	        	$this->mdlModel->__SET("vlr_total", $_POST["vlr_total"]);
 
@@ -42,6 +41,7 @@
 		        	$this->mdlModel->__SET("id_pedido", $ultimoPedido);
 		        	$this->mdlModel->__SET("id_tipoSolicitud", 2);
 		        	$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));
+		        	$this->mdlModel->__SET("id_estado", 5);
 		        	$this->mdlModel->regTipoSolicitud();
 
 		        	//Registro de fichas asociadas al pedido
@@ -90,10 +90,10 @@
 		        		}
 		        	}
 		        	//alerta confirmación registro
-	            	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Pedido registrado exitosamente'});";
+	            	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', delay: 6000, msg: 'Pedido registrado exitosamente'});";
 				}else{
 
-					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', size: 'mini', rounded: true, delay: 2500,});";
+					$_SESSION['mensaje'] = "Lobibox.notify('error', {msg: 'Error al registrar el pedido', size: 'mini', rounded: true, delay: 6000});";
 				}
 	        }
 
@@ -134,10 +134,10 @@
 	    				$this->mdlModel->__SET("subtotal", $_POST["subtotal"][$f]);
 		        		$this->mdlModel->regFichasAsociadas();
 		        	}
-	    			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Pedido modificado exitosamente!'});";
+	    			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', delay: 6000, msg: 'Pedido modificado exitosamente!'});";
 		    		header("location: " .URL. 'ctrPedido/consPedido');
 	    		}else{
-	    			$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar el pedido', rounded: true, delay: 2500});";
+	    			$_SESSION["mensaje"] = "Lobibox.notify('error', {msg: 'Error al modificar el pedido', rounded: true, delay: 6000});";
 		      		header("location: " .URL. 'ctrPedido/consPedido');
 	    		}	
 	    	}

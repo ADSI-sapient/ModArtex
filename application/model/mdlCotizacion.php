@@ -52,7 +52,8 @@
 
 		public function getCotizacion(){
 
-			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, s.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = s.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Tipo = 1";
+			$sql = "SELECT s.Id_Solicitud, s.Num_Documento, t.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre, (SELECT count(st.Id_Solicitud) FROM tbl_solicitudes_tipo st WHERE st.Id_Solicitud = s.Id_Solicitud GROUP BY st.Id_Solicitud) Sol_Repetida FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = t.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Tipo = 1 ORDER BY s.Id_Solicitud DESC";
+
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -60,13 +61,12 @@
 
 		public function regCotizacion(){
 
-			$sql = "CALL SP_regSolicitud(?,?,?,?)";
+			$sql = "CALL SP_regSolicitud(?,?,?)";
 			try{
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->Num_Documento);
-	 			$query->bindParam(2, $this->Id_Estado);
-				$query->bindParam(3, $this->Fecha_Registro);
-				$query->bindParam(4, $this->Valor_Total);
+				$query->bindParam(2, $this->Fecha_Registro);
+				$query->bindParam(3, $this->Valor_Total);
 				return $query->execute();
 
 			}catch (PDOException $e) {
@@ -97,11 +97,12 @@
 		}
 
 		public function registra_Tipo(){
-			$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (null,?,?,null,?)";
+			$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (null,?,?,null,?,?)";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->bindParam(2, $this->Id_tipoSolicitud);
 			$query->bindParam(3, $this->Fecha_Vencimiento);
+			$query->bindParam(4, $this->Id_Estado);
 			return $query->execute();
 		}	
 
@@ -131,15 +132,16 @@
 
 		public function modiCotizacion(){
 
-			$sql = "UPDATE tbl_solicitudes s INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_estado e ON s.Id_Estado = e.Id_Estado INNER JOIN tbl_solicitudes_producto sp ON sp.Id_Solicitudes_Tipo = t.Id_Solicitudes_Tipo SET s.Num_Documento = ?, s.Id_Estado = ?, t.Fecha_Vencimiento = ?, sp.Cantidad_Producir = ?, sp.Subtotal = ?, s.Valor_Total = ? WHERE s.Id_Solicitud = ? AND e.Id_Estado <= 4";
+
+			$sql = "UPDATE tbl_solicitudes s INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_estado e ON t.Id_Estado = e.Id_Estado INNER JOIN tbl_solicitudes_producto sp ON sp.Id_Solicitudes_Tipo = t.Id_Solicitudes_Tipo SET s.Num_Documento = ?, t.Fecha_Vencimiento = ?, sp.Cantidad_Producir = ?, sp.Subtotal = ?, s.Valor_Total = ?, t.Id_Estado = ? WHERE s.Id_Solicitud = ? AND e.Id_Estado <= 4 AND t.Id_Tipo = 1";
 			try{
 				$query = $this->db->prepare($sql);
 				$query->bindParam(1, $this->Num_Documento);
-				$query->bindParam(2, $this->Id_Estado);
-				$query->bindParam(3, $this->Fecha_Vencimiento);
-				$query->bindParam(4, $this->Cantidad_Producir);
-				$query->bindParam(5, $this->Subtotal);
-				$query->bindParam(6, $this->Valor_Total);
+				$query->bindParam(2, $this->Fecha_Vencimiento);
+				$query->bindParam(3, $this->Cantidad_Producir);
+				$query->bindParam(4, $this->Subtotal);
+				$query->bindParam(5, $this->Valor_Total);
+				$query->bindParam(6, $this->Id_Estado);
 				$query->bindParam(7, $this->Id_Solicitud);
 				return $query->execute();
 
@@ -161,19 +163,21 @@
 			}
 		}
 
-		public function getFichas(){
-			$sql = "CALL SP_ListarFichasTecnicas";
-			try {
-				$query = $this->db->prepare($sql);
-				$query->execute();
-				return $query->fetchAll();
-			} catch (PDOException $e) {
-				
-			}
-		}
+		public function getFichas()
+	    {
+	        $sql = "CALL SP_ConsFichasAsocCoti";
+
+	        try {
+	        	$query = $this->db->prepare($sql);
+	        	$query->execute();
+	        	return $query->fetchAll();
+	        } catch (PDOException $e) {
+	   
+	        }
+	    }
 
 		public function facturaVenta(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, s.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nom FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, t.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nom FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
@@ -181,15 +185,16 @@
 		}
 
 		public function converPedido(){
-			$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?,?,?,NULL)";
+			$sql = "INSERT INTO tbl_solicitudes_tipo VALUES (NULL, ?,?,?,NULL,?)";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->bindParam(2, $this->Id_tipoSolicitud);
 			$query->bindParam(3, $this->Fecha_Entrega);
+			$query->bindParam(4, $this->Id_Estado);
 			$query->execute();
 			
 
-			$sql2 = "UPDATE tbl_solicitudes SET Id_Estado = 5 WHERE Id_Solicitud = ?";
+			$sql2 = "UPDATE tbl_solicitudes_tipo SET Id_Estado = 5 WHERE Id_Solicitud = ? AND Id_Tipo = 2";
 			$query2 = $this->db->prepare($sql2);
 			$query2->bindParam(1, $this->Id_Solicitud);
 			$query2->execute();
@@ -239,5 +244,13 @@
       		$query->bindParam(1, $this->Id_Solicitud);
       		$query->execute();
       		return $query->fetch();
+      	}
+
+      	public function cotVencida(){
+      		$sql = "CALL SP_CotVencida(?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Solicitud);
+      		$query->bindParam(2, $this->Id_Estado);
+      		return $query->execute();
       	}
 }  	

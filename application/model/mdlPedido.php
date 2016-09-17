@@ -48,12 +48,11 @@
 
 	    public function regPedido()
 	    {
-	        $sql = "CALL SP_registrarPedido(?,?,?,?)";
+	        $sql = "CALL SP_registrarPedido(?,?,?)";
 	        $query = $this->db->prepare($sql);
 	        $query->bindParam(1, $this->id_cliente);
-	        $query->bindParam(2, $this->id_estado);
-	        $query->bindParam(3, $this->fecha_registro);
-	        $query->bindParam(4, $this->vlr_total);
+	        $query->bindParam(2, $this->fecha_registro);
+	        $query->bindParam(3, $this->vlr_total);
 	        return $query->execute();
 	    }
 
@@ -75,11 +74,12 @@
 
 	    public function regTipoSolicitud(){
 
-	    	$sql = "CALL SP_registrarTipoSolicitud(?,?,?)";
+	    	$sql = "CALL SP_registrarTipoSolicitud(?,?,?,?)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->id_pedido);
 	    	$query->bindParam(2, $this->id_tipoSolicitud);
 	    	$query->bindParam(3, $this->fecha_entrega);
+	    	$query->bindParam(4, $this->id_estado);
 	    	$query->execute();
 	    	return $query;
 	    }

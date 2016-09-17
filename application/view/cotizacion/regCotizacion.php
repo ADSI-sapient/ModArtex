@@ -109,7 +109,7 @@
           <div class="modal-content modal-lg" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Productos Para Asociar</h4>
+              <h4 class="modal-title" id="myModalLabel">PRODUCTOS PARA ASOCIAR</h4>
             </div>
             <div>
               <form  id="myModal" action="<?= URL ?>cotizacion/modiCotizacion" method="post" role="form">

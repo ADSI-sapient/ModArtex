@@ -53,7 +53,7 @@
                       <?php } ?>
                     </td>
                     <td>
-                      <button style="width:120px" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dtllInsuTallAso" onclick="cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 0)" ><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
                     </td>
                     </tr>
                     <?php endforeach; ?>
@@ -121,7 +121,7 @@
                 <div class="table">
                   <div class="form-group col-sm-4 table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
-                    <table class="table table-hover" id="tbl-tallas-aso">
+                    <table class="table table-hover table-bordered" id="tbl-tallas-aso">
                       <thead>
                         <tr class="active">
                           <th>Id</th>
@@ -138,7 +138,7 @@
                 <div class="table">
                   <div class="form-group col-sm-8 table-responsive scrolltablas">
                     <label>*Insumos asociados:</label>
-                    <table class="table table-hover" id="tbl-insumos-aso">
+                    <table class="table table-hover table-bordered" id="tbl-insumos-aso">
                       <thead>
                         <tr class="active">
                           <th>Nombre</th>
@@ -257,7 +257,7 @@
                           <td><?= $talla["Id_Talla"] ?></td>
                           <td><?= $talla["Nombre"] ?></td>
                           <td>
-                            <button id="btn<?= $talla["Id_Talla"] ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                            <button id="btntallas<?= $i ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>

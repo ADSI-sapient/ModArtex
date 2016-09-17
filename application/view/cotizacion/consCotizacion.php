@@ -27,7 +27,7 @@
                       <th style="display: none;"></th>
                       <th style="width: 7%">Editar</th>
                       <th>Generar</th>
-                      <th class="col-md">Convertir en Pedido</th>
+                      <th style="width:7px">Convertir en Pedido</th>
                       <th class="col-md">Detalle</th>
                     </tr>
                   </thead>
@@ -45,25 +45,30 @@
                     <!--<td class="tado"><?= $cotizacion["Id_Estado"]==1?"Habilitado":"Inhabilitado"?></td>-->
 
                    <td>
-                    <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>", "", 1)'><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                   <?php if ($cotizacion["Sol_Repetida"] == 2 || $cotizacion["Id_Estado"] == 1 || $cotizacion["Id_Estado"] == 3): ?>
+                      <button type="button" disabled="" class="btn btn-box-tool"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                   <?php else: ?>
+                      <button type="button" class="btn btn-box-tool" onclick='editarCotizacion("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion['Id_Solicitud'] ?>", "", 1)'><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                   <?php endif ?>
                    </td>
 
-                   <td><a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> </td>
-
-                   <td><button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button></td>
-
+                   <td>
+                   <?php if ($cotizacion["Id_Estado"] == 3): ?>
+                      <a class="btn btn-box-tool"><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a>
+                   <?php else: ?>
+                      <a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a>
+                   <?php endif ?> 
+                  </td>
+                   <td>
+                   <?php if ($cotizacion["Sol_Repetida"] == 1): ?>
+                     <button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
+                   <?php else: ?>
+                      <button type="button" disabled="" class="btn btn-box-tool"><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
+                   <?php endif ?>
+                   </td>
                   <td>
                    <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#DetallesAso" onclick='fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",2)'><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;" aria-hidden="true"></i></button>
                   </td>
-
-                  
-    <!-- <td class="text-center">
-            <?php if ($cotizacion["Id_Estado"] == 1){ ?>
-            <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion['Id_Solicitud'] ?>", 2)'><i class="fa fa-check"></i></a>
-            <?php }else if($cotizacion["Id_Estado"] == 2){ ?>
-            <a href="#" onclick='cambiarEstadoCoti("<?= $cotizacion["Id_Solicitud"] ?>", 1)'><i class="fa fa-minus-circle"></i></a>
-            <?php } ?>
-        </td> -->
 
                 </tr>
 
@@ -80,14 +85,14 @@
 
  <!-- Modal De Modificar -->
 
- <style type="text/css">
+<!--  <style type="text/css">
         #dl{
            width: 53% !important;
         }
- </style>
+ </style> -->
 <div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document" id="dl">
-        <div class="modal-content modal-lg" style="border-radius: 10px;">
+      <div class="modal-dialog modal-lg" role="document" id="dl">
+        <div class="modal-content" style="border-radius: 10px;">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -105,10 +110,8 @@
                   <div class="form-group col-sm-5">
                     <label class="">Estado</label>
                     <select class="form-control" name="estad" id="Estado" style="border-radius: 5px;">
+                      <option value="2">No Entregada</option>
                       <option value="1">Entregada</option>
-                      <option value="2">No Entregado</option>
-                      <option value="3">Vencida</option>
-                      <option value="4">Cancelada</option>
                     </select>
                   </div>
 
@@ -121,19 +124,6 @@
                     <label class="">Fecha de Vencimineto</label>
                     <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;">
                   </div>
-
-                <!--   <div class="form-group col-sm-5">
-                    <label for="aso_cliente" class="">Asociar Cliente</label>
-                      <div class="input-group">
-                      <input type="hidden" name="cliente" id="ced_cliente"></input>
-                      <input type="text" class="form-control"  id="Cliente" readonly="" style="border-radius: 5px;">
-                        <span class="input-group-btn">
-                          <button type="button" id="search-btn" class="btn btn-flat">
-                          <i class="fa fa-search" data-toggle="modal" data-target="#mymoda"></i>
-                          </button>
-                        </span>
-                    </div>
-                  </div> -->
 
                   <div class="form-group col-lg-5 col-lg-push-2">
                     <label for="id_cliente" class="" >Asociar Cliente</label>
@@ -159,6 +149,7 @@
                         <th>Subtotal</th>
                         <th>Quitar</th>
                         <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Productos"><b>Agregar</b></button></th>
+                        <th style="display: none;"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -223,7 +214,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Fichas Para Asociar</b></h4>
+              <h4 class="modal-title" id="myModalLabel"><b>FICHAS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
@@ -247,7 +238,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="botn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -258,7 +249,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

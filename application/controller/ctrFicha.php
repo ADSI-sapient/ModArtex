@@ -64,7 +64,6 @@
 						$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
-
 					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente!'});";
 				}else{
 
@@ -117,15 +116,18 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha modificada exitosamente!'});";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La ficha se modificó correctamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
 		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al modificar la ficha'});";
 		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
+		    	$_SESSION["mensaje"] = $mensaje;
+		    	header("location: " .URL. 'ctrFicha/consFicha');
 		    }
 
+		    
 		    $fichas = $this->mdlModel->getFichas();
 
 		    require APP . 'view/_templates/header.php';
@@ -229,7 +231,6 @@
 			    $this->mdlModel->__SET("color", $_POST["color"]);
 
 				$regFColores = $this->mdlModel->validColorFichaReg();
-
 			
 			if ($regFColores) {
 		    	echo json_encode(["r"=>$regFColores]);

@@ -137,7 +137,7 @@
                     </tbody>
                   </table>
                 </div>
-                </div>
+              </div>
             </div>
             <div class="form-group col-sm-12">
             <div class="form-group col-sm-5" style="margin-left:1%">
@@ -248,7 +248,7 @@
             <div class="modal-body" style="padding:10px;">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive" id="prodAsociarPedMod">
+                <table class="table table-hover table-bordered" id="prodAsociarPedMod">
                 <thead>
                   <tr class="active">
                     <th>Ref</th>
@@ -267,7 +267,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Referencia"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>

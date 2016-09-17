@@ -6,15 +6,26 @@
 		}
 
 		public function consCotizacion(){
+				$cotizaciones = $this->modelo->getCotizacion();
+				// date_default_timezone_set("America/Puerto_Rico");
 
-			$cotizaciones = $this->modelo->getCotizacion();
-			$clientes = $this->modelo->getCliente();
-			$fichas = $this->modelo->getFichas();         
-			$productos = $this->modelo->Ficha_habi();
-			
-			require APP.'view/_templates/header.php';
-			require APP.'view/Cotizacion/consCotizacion.php';
-			require APP.'view/_templates/footer.php';
+				foreach ($cotizaciones as $val) {
+					var_dump(date("Y-m-d"), $val["Fecha_Vencimiento"]);
+					exit();
+					if (date("Y-m-d") >= $val["Fecha_Vencimiento"]) {
+						$this->modelo->__SET("Id_Solicitud", $val["Id_Solicitud"]);
+						$this->modelo->__SET("Id_Estado", 3);
+						$this->modelo->cotVencida();
+					}
+				}
+
+				$clientes = $this->modelo->getCliente();
+				$fichas = $this->modelo->getFichas();         
+				$productos = $this->modelo->Ficha_habi();
+				
+				require APP.'view/_templates/header.php';
+				require APP.'view/Cotizacion/consCotizacion.php';
+				require APP.'view/_templates/footer.php';
 		}	
 
 		public function regCotizacion(){
@@ -22,7 +33,6 @@
 			if (isset($_POST["btnRegistrar"])) {
 
 	            $this->modelo->__SET("Num_Documento", $_POST["cliente"]);
-	            $this->modelo->__SET("Id_Estado", 2);
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
 	          
@@ -32,6 +42,7 @@
 	            $this->modelo->__SET("Id_Solicitud", $ultimaSolicitud_reg["Id_Solicitud"]);
 	            $this->modelo->__SET("Id_tipoSolicitud", 1);
 	            $this->modelo->__SET("Fecha_Vencimiento", $_POST["fecha_V"]);
+	            $this->modelo->__SET("Id_Estado", 2);
 	            $this->modelo->registra_Tipo();
 
 	            $ultimo_tipo_solicitud = $this->modelo->ultimaSolicitud_Tipo();
@@ -90,7 +101,9 @@
 			            $this->modelo->regFichasAso();
 					}
 
-					$_SESSION['alert'] = "swal('Cotizacion Modifacada Exitosamente','','success')";
+					$_SESSION['alert'] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'La cotización se modificó correctamente!'});";
+
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}else {
 					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
@@ -110,6 +123,7 @@
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud", 2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
+				$this->modelo->__SET("Id_Estado", 1);
 				
 				if ($this->modelo->converPedido()) {
 				$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización Enviada A Pedido exitosamente!'});";

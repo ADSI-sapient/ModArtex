@@ -121,7 +121,7 @@
         </div>
         <div class="box-footer"> 
               <button type="reset" class="btn btn-default pull-right" name="btnCanFicha" onclick="limpiarFormRegFicha()" style="margin-left: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-              <button type="submit" class="btn btn-success pull-right" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> Registra</button>
+              <button type="submit" class="btn btn-success pull-right" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
         </div>
       </form>
       <!-- Inicio Modal asociar insumos -->

@@ -106,7 +106,6 @@ class ctrBodega extends Controller{
 
 		echo json_encode($this->_modelInsumo->modInsumo());
 
-
 		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 					msg: 'El insumo se modificó correctamente!'});";
 	}
