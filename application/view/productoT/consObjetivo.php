@@ -46,7 +46,6 @@
                      <td><?= $objetivo["Nombre_Estado"] ?></td> 
                      <td style="display: none"><?= $objetivo["Id_Estado"] ?></td>
                       <td>                           
-                   
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
                         </td>
                         <td>
@@ -83,10 +82,10 @@
       <div class="modal-content" style="border-radius: 25px;">
        <div class="modal-header with-border" style="text-align: center;"> 
          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                   <h4 class="control-label"><strong>Referencias</strong></h4>
+                   <h4 class="control-label"><strong>REFERENCIAS</strong></h4>
               </div>
          
-     <div class="box-body  ">
+     <div class="box-body">
             <!-- /.box-header -->
             <table class="table table-hover col-lg-12" id="tablaFiO">
             <thead>
@@ -117,7 +116,7 @@
             </div>
             
             <div class="modal-body">
-              <form role="form" id="ModificarObj" action="<?= URL ?>ctrObjetivos/listarObjetivos" method="post" data-parsley-validate="">    
+              <form data-parsley-validate="" role="form" id="ModificarObj" action="<?= URL ?>ctrObjetivos/listarObjetivos" method="post" data-parsley-validate="">    
               <input type="hidden" name="Id_Objetivo" id="Id_Objetivo">
 
               <input type="hidden" name="Id_Estado" id="Id_Estado">
@@ -154,9 +153,8 @@
                 </div>
               </div>
             </div>
-
         <div class="form-group col-lg-12">
-         <button type="button" class="btn btn-primary  col-lg-1 "  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)">Fichas</button>
+         <button type="button" class="btn btn-primary col-lg-1"  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)">Fichas</button>
       </div>
       
      <div class="box-body  scrolltablas">
@@ -178,7 +176,7 @@
         <div class="row col-lg-12">
           <div class="form-group col-lg-5">
             <label>Total:</label>
-            <input type="text" name="CantidadTotalN" id="TotalTN" class="form-control" value="0">
+            <input type="number" name="CantidadTotalN" id="TotalTN" class="form-control" value="0">
           </div>
         </div>
 
@@ -241,7 +239,7 @@
             <div class="modal-header">
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Fichas tecnicas</b></h4>
+              <h4 class="modal-title"><b>FICHAS TÉCNICAS</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -258,8 +256,8 @@
                   </thead>
                   <tbody>
                     <tbody class="list">
-                     <?php $i = 1; ?>
-                  <?php foreach ($fichas as $ficha): ?>
+                    <?php $i = 1; ?>
+                    <?php foreach ($fichas as $ficha): ?>
                     <tr >
                       <td><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
@@ -270,7 +268,7 @@
                       <td style="display: none" id="ICantidad"></td>
                     </tr>
                     <?php $i++; ?>
-                      <?php endforeach; ?>
+                    <?php endforeach; ?>
                     </tbody>
                   </tbody>
                   </table>
@@ -325,7 +323,7 @@
           pointStrokeColor: "rgba(60,141,188,1)",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(60,141,188,1)",
-          data: []
+          data:[]
         }
       ]
     };
@@ -405,8 +403,6 @@
       responsive: true,
       maintainAspectRatio: true
     };
-
-
 
     barChartOptions.datasetFill = false;
     barChart.Bar(barChartData, barChartOptions);

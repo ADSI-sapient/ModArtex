@@ -52,16 +52,18 @@
         }
 
 
-function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas){
+function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas, idbton){
+
   var campos = $(fichas).parent().parent();
   CantidadO= $("#CantidadO"+Referencia).val();
-  $("#tablaFichass tbody tr #tblFichasObje").remove();
+  $("#tblVaciaObj").remove();
   // $("#FichasS").removeAttr("hidden");
-  var tr = "<tr class='box box-solid' id=''><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='text' data-parsley-required='' subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); class='cantTotal'  name=CantidadO[] id='cantTotal'"+Id_Ficha_Tecnica+" onkeyup='TotalFC()'></td><input type='hidden' name='subtotal' id=subtotal"+Id_Ficha_Tecnica+"><td><button type='button' onclick='quitarFichaObj(0, this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+  var tr = "<tr class='box box-solid trFichasObj' id=''><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='number' data-parsley-required='' name=CantidadO[] id='cantTotal"+Id_Ficha_Tecnica+"' onkeyup='subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); TotalFC()' style='border-radius:5px;' value='0'></td><input type='hidden' name='subtotal"+Id_Ficha_Tecnica+"' class='subtotal' id='subtotal"+Id_Ficha_Tecnica+"' value='0'><td><button type='button' onclick='quitarFichaObj("+idbton+",this)' class='btn btn-box-tool btnObjt'><i class='fa fa-remove'></i></button></td></tr>";
   
+
   $("#tablaFichass").append(tr);
-    // boton = "#btn"+idbton;
-    // $(boton).attr('disabled', 'disabled');
+    boton = "#btnobj"+idbton;
+    $(boton).attr('disabled', 'disabled');
 
   }
 
@@ -76,17 +78,14 @@ function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas){
 //   });
 // });
 
-
-
 function TotalFC(){
+  $("#TotalT").val(0);
   var total=0;
-  $(".cantTotal").each(function(){
-  total=total+parseFloat($(this).val());
+  $(".subtotal").each(function(){
+  total+=parseFloat($(this).val());
   });
   $("#TotalT").val(total);
 }
-
-
 
 $(function(){
  $('#Fecha_Inicio').datepicker({
@@ -133,10 +132,7 @@ $(function(){
 
    function listarO(Id_Objetivo, objetivos){
           var campos = $(objetivos).parent().parent();
-          // $("#idRol").val(campos.find("td").eq(0).text());
-          // $("#nombre_rol").val(campos.find("td").eq(1).text());
-           $("FichasO").empty();
-           // $("#nombre_rol").val(Nombre);
+           $("#FichasO").empty();
 
     $.ajax({
 
@@ -161,15 +157,16 @@ $(function(){
 
      function ModificarObj(Id_Objetivo, Fecha_Registro, Fecha_Inicio, Nombre, Fecha_Fin, objetivos){
           var campos = $(objetivos).parent().parent();
+           $("#FichasOM").empty();
            $("#Id_Objetivo").val(campos.find("td").eq(0).text());
           $("#Fecha_Registro").val(campos.find("td").eq(1).text());
           $("#Fecha_Inicio").val(campos.find("td").eq(3).text());
           $("#Nombre").val(campos.find("td").eq(2).text());
           $("#Fecha_Fin").val(campos.find("td").eq(4).text());   
           $("#Id_Estado").val(campos.find("td").eq(7).text()); 
-           $("FichasOM").empty();
+          $("#TotalTN").val(campos.find("td").eq(5).text()); 
+          
            // $("#nombre_rol").val(Nombre);
-
     $.ajax({
 
             dataType: 'json',
@@ -179,28 +176,52 @@ $(function(){
             success: function(data){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
-              Codigo=data[i]["Codigo"];
-              var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td><input type="text" name="Cantidad[]" id="Cantidad" value='+data[i]["Cantidad"]+'></input></td><td><button type="button" onclick="quitarFichaObj(0, this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              Codigo = data[i]["Codigo"];
+              Id_Ficha_Tecnica = data[i]["Id_Ficha_Tecnica"];
+              cantidad = data[i]["Cantidad"];
+
+              var fila = "<tr><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+data[i]["Referencia"]+"<input type='hidden' value='"+data[i]["Referencia"]+"' name='Referencia[]' ></td><td><input type='number' class='cantTotalN' value='"+cantidad+"' name=CantidadN[] id='cantTotalN"+Id_Ficha_Tecnica+"' onkeyup='subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotalN"+Id_Ficha_Tecnica+".value); TotalFCN();'></td><input type='hidden' name='subtotal' class='subtotal' id=subtotal"+Id_Ficha_Tecnica+" value='"+cantidad+"'><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
               $("#FichasOM").append(fila);
-                          } 
+
+
+            } 
             }, 
             error: function(){
             }
         });
-  
     }
 
-    function quitarFichaObj(btn, elemento){
+
+    function quitarFichaObj(btn, elemento, subtotal){
+    $("#tablaFichass").each(function(){
+       if ($("#tablaFichass tbody .trFichasObj").length < 2){
+    var tr = "<tr id='tblVaciaObj'><td id='tblFichasObje' colspan='4' style='text-align:center;'></td></tr>";
+    $("#tablaFichass").append(tr);
+    $("#tblFichasObje").html("No hay productos asociados.");
+    }
+    });
 
     var e = $(elemento).parent().parent();
     $(e).remove();
-    var tr = "<tr id='tblVaciaObj'><td id='tblFichasObje' colspan='4' style='text-align:center;'></td></tr>";
-    
-    $("#tablaFichass").append(tr);
-    $("#tblFichasObje").html("No hay productos asociados.");
-
+    boton = "#btnobj"+btn;
+    $(boton).attr('disabled',false);
+    valor_tota = $("#TotalT").val();
+    desc = valor_tota-subtotal;
+    $("#TotalT").val(desc);
 
 }
+
+function limpiarFormRegObj(){
+    $("#tablaFichass tbody .trFichasObj").remove();
+    if (!$("#tablaFichass tbody tr #tblFichasObje").length) {
+
+      var tr = "<tr><td id='tblFichasObje' colspan='8' style='text-align:center;'></td></tr>";
+      $("#tablaFichass").append(tr);
+      $("#tblFichasObje").html("No hay productos asociados");
+      $(".btnasociarObje").attr('disabled', false);
+      }
+}
+
 
 
 
@@ -223,7 +244,7 @@ $(function(){
               Codigo=data[i]["Codigo"];
               var fila = '<tr><td>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
               $("#FichasON").append(fila);
-                          } 
+                } 
             }, 
             error: function(){
             }
@@ -234,12 +255,15 @@ $(function(){
 
 
 function asociarFichasNuevas(Id_Ficha_Tecnica, Referencia, fichas){
+
+
   var campos = $(fichas).parent().parent();
-  CantidadN= $("#CantidadN"+Referencia).val();
+  CantidadN = $("#CantidadN"+Referencia).val();
    
   $("#ModificarObj").removeAttr("hidden");
-  var tr = "<tr class='box box-solid'><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='text' subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); class='cantTotalN' value=0 name=CantidadN[] id='cantTotalN'"+Id_Ficha_Tecnica+" onkeyup='TotalFCN()'></td><input type='hidden' name='subtotal' id=subtotal"+Id_Ficha_Tecnica+"><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
-  
+
+  var tr = "<tr><td>"+Id_Ficha_Tecnica+"<input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]></td><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td><input type='number' onkeyup='subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotalN"+Id_Ficha_Tecnica+".value); TotalFCN();' class='cantTotalN' value=0 name=CantidadN[] id='cantTotalN"+Id_Ficha_Tecnica+"'></td><input type='hidden' class='subtotal' name='subtotal' id=subtotal"+Id_Ficha_Tecnica+" min='0' value='0'><td><button type='button' onclick='quitarPermisosR(0, this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+
   $("#tablaFiOM").append(tr);
     // boton = "#btn"+idbton;
     // $(boton).attr('disabled', 'disabled');
@@ -253,13 +277,13 @@ function asociarFichasNuevas(Id_Ficha_Tecnica, Referencia, fichas){
 //   });
 // });
 
-// function TotalFCN(){
-//   var totalN=0;
-//   $(".cantTotalN").each(function(){
-//   totalN=totalN+parseFloat($(this).val());
-//   });
-//   $("#TotalTN").val(totalN);
-// }
+function TotalFCN(){
+  var totalN=0;
+  $(".subtotal").each(function(){
+  totalN=totalN+parseFloat($(this).val());
+  });
+  $("#TotalTN").val(totalN);
+}
 
 
   
@@ -353,20 +377,6 @@ return false;
       });
 
       
-
-// $('#tablaFo').dataTable({
-//   "ordering": false,
-//       "language": {
-//           "emptyTable": "",
-//           "info": "Mostrando página _PAGE_ de _PAGES_",
-//           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-//           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-//       "paginate": {
-//         "previous": "",
-//         "next": ""
-//        }
-//       }
-// }); 
 
 
 

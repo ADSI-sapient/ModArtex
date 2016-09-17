@@ -88,7 +88,7 @@
         <div class="row col-lg-12">
           <div class="form-group col-lg-3">
             <label>Total:</label>
-            <input type="text" name="CantidadTotal" id="TotalT" class="form-control" value="0" >
+            <input type="number" name="CantidadTotal" id="TotalT" class="form-control" value="" readonly="">
           </div>
         </div>
         <br>
@@ -96,7 +96,7 @@
             <div class="form-group col-lg-12">
               <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
 
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"><b>Limpiar</b></button>
+              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"  onclick="limpiarFormRegObj()"><b>Limpiar</b></button>
             </div>
           </div>
     </form>
@@ -112,7 +112,7 @@
             <div class="modal-header">
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Fichas tecnicas</b></h4>
+              <h4 class="modal-title"><b>FICHAS TÉCNICAS</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -136,7 +136,7 @@
                       <td><?= $ficha["Referencia"]?></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this)"><i class="fa fa-plus"></i></button>
+                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>' )"><i class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                     </tr>
@@ -156,4 +156,14 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 
- 
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+</style>
