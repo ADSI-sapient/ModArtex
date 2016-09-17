@@ -7,12 +7,16 @@
 
 		public function consCotizacion(){
 				$cotizaciones = $this->modelo->getCotizacion();
-				// date_default_timezone_set("America/Puerto_Rico");
+				date_default_timezone_set("America/Bogota");
+				foreach ($cotizaciones as $cotizacion) {
+					$fechaActual = date("Y-m-d");
+					$fechaVencito = $cotizacion["Fecha_Vencimiento"];
 
-				foreach ($cotizaciones as $val) {
-					var_dump(date("Y-m-d"), $val["Fecha_Vencimiento"]);
-					exit();
-					if (date("Y-m-d") >= $val["Fecha_Vencimiento"]) {
+					//$date1 = new DateTime("now");
+					$fecha1 = new DateTime($fechaActual);
+					$fecha2 = new DateTime($fechaVencito);
+
+					if ($fecha1 >= $fecha2) {
 						$this->modelo->__SET("Id_Solicitud", $val["Id_Solicitud"]);
 						$this->modelo->__SET("Id_Estado", 3);
 						$this->modelo->cotVencida();

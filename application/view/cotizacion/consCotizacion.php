@@ -61,7 +61,7 @@
                   </td>
                    <td>
                    <?php if ($cotizacion["Sol_Repetida"] == 1): ?>
-                     <button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>")'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
+                     <button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",3);'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
                    <?php else: ?>
                       <button type="button" disabled="" class="btn btn-box-tool"><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
                    <?php endif ?>
@@ -166,6 +166,21 @@
            <div  class="col-sm-push-4 col-sm-8">
             <button type="submit" class="btn btn-warning" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
             <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
            </div>
         </div>
           </form> 
@@ -254,78 +269,9 @@
           </div>
         </div>
       </div>
- 
-
 <!-- Modal -->
-           
-<style type="text/css">
-        #al{
-           width: 68% !important;
-        }
- </style>
-
-<div class="modal fade" id="mymoda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" id="al">
-        <div class="modal-content" style="border-radius: 10px;">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Asociar Cliente</h4>
-          </div>
-          <div class="modal-body">
-         <div class="table">
-        <div class="col-sm-12 table-responsive">
-           
-        </style>      
-              <table class="table table-hover">
-                <thead>
-                  <tr class="info">
-                    <th>Tipo</th>
-                    <th>Estado</th>
-                    <th>Tipo de Documento</th>
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Telefono</th>
-                    <th>Direccion</th>
-                    <th>Email</th>
-                    <th>Opcion</th>
-                  </tr>
-                </thead>
-
-                <tbody> 
-                 <?php foreach ($clientes as $cliente):?>
-
-                  <tr>
-                    <td><?php echo $cliente["Tipo_Nombre"] ?></td>
-                    <td><?php echo $cliente["Estado"] ?></td>
-                    <td><?php echo $cliente["Tipo_Documento"] ?></td>
-                    <td><?php echo $cliente["Num_Documento"] ?></td>
-                    <td><?php echo $cliente["Nombre"] ?></td>
-                    <td><?php echo $cliente["Apellido"] ?></td>
-                    <td><?php echo $cliente["Telefono"] ?></td>
-                    <td><?php echo $cliente["Direccion"] ?></td>
-                    <td><?php echo $cliente["Email"] ?></td>
-                    <td>
-                      <button class="btn btn-box-tool" onclick="agregarCliente('<?= $cliente['Num_Documento'] ?>','<?= $cliente['Nombre']?>')"><i class="fa fa-plus"></i></button>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table> 
-          </div>
-          </div>
-         </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-        </div> 
-      </div>
-    </div> 
-  </div> 
-</div>
-<!--fin-->
-
 <div class="modal fade" id="modalConvPed" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 10px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -334,51 +280,65 @@
       <div class="modal-body">
       
            <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
-                  <div class="form-group col-sm-5">
-                    <label class="">Codigo</label>
-                    <input type="text" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
-                  </div>
-                    
-                  <div class="form-group col-sm-push-2 col-sm-5">
-                    <label class="">Estado</label>
-                    <input type="text" value="Pendiente" readonly="" class="form-control">
-                  </div>
 
-                  <div class="form-group col-sm-5">
-                    <label class="">Fecha de Registro</label>
-                    <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registr" readonly="" style="border-radius: 5px;">
-                  </div>
+                  <input type="hidden" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
 
-                  <div class="form-group col-sm-push-2 col-sm-5">
-                    <label class="">Fecha de Entrega</label>
-                    <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" style="border-radius: 5px;">
-                  </div>
-
-                  <div class="form-group col-sm-5">
-                    <label for="aso_cliente" class="">Asociar Cliente</label>
-                      <div class="input-group">
-                        <input type="hidden" name="cliente" id="ced_cliente"></input>
-                        <input type="text" class="form-control"  id="Client" readonly="" style="border-radius: 5px;" size="28%">
+                  <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-5">
+                      <label class="">Fecha de Registro:</label>
+                      <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registr" readonly="" style="border-radius: 5px;">
+                    </div>
+                    <div class="form-group col-sm-offset-1 col-sm-6">
+                      <label class="">Estado:</label>
+                      <input type="text" value="Pendiente" readonly="" class="form-control">
                     </div>
                   </div>
-   
-                  <div class="form-group col-sm-push-2 col-sm-5">
-                     <label class="">Valor Total</label>
+
+                  <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-5">
+                      <label for="aso_cliente" class="">Cliente:</label>
+                        <div class="input-group">
+                          <input type="hidden" name="cliente" id="ced_cliente"></input>
+                          <input type="text" class="form-control"  id="Client" readonly="" style="border-radius: 5px;" size="28%">
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-offset-1 col-sm-6">
+                      <label class="">*Fecha de Entrega:</label>
+                      <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" style="border-radius: 5px;">
+                    </div>
+                  </div>
+
+                  <div class="table">
+                  <div class="form-group col-sm-12 table-responsive scrolltablas">
+                  <label>Productos Asociados:</label>
+                    <table class="table table-hover table-bordered" style="margin-top: 2%;" id="fichaAsoConvPedido">
+                      <thead>
+                        <tr class="active">
+                          <th>Referencia</th>
+                          <th>Color</th>
+                          <th>Cantidad a Producir</th>
+                          <th>Valor Producto</th>
+                          <th>Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                  <div class="form-group col-sm-12">
+                  <div class="form-group col-sm-offset-6 col-sm-6">
+                     <label class="">Valor Total:</label>
                      <input type="text" class="form-control" name="valorTotal" id="ValorTota" readonly="" style="border-radius: 5px;">
                   </div>
-
-              <!--   <div class="row col-sm-12">
-                  <div class="form-group col-lg-3">
-                  <button type="button" class="btn btn-primary btn-md" id="myModal-btn" data-toggle="modal" data-target="#ModelProducto"><b>Modificar Fichas</b></button>
                   </div>
-                </div> -->
 
-      <div class="modal-footer">
-      <div class="row col-sm-7">
-       <br />
-        <button type="submit" class="btn btn-primary" name="gurdarPedi">Enviar Pedido</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        </div>
+      <div class="modal-footer" style="border-top:0px;">
+      <div  class="col-sm-push-4 col-sm-8">
+         <!-- <button type="submit" class="btn btn-warning" name="gurdarPedi" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-send-o" aria-hidden="true"></i>  Enviar Pedido</button> -->
+          <button type="submit" class="btn btn-warning" name="gurdarPedi" style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-exchange" aria-hidden="true"></i>  <b>Enviar a Pedido</b></button>
+            <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+            </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

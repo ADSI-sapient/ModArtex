@@ -206,6 +206,7 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
   if (respuesta != null) {
   $("#Asopedido > tbody tr").empty();
   $("#fichaAsociadas > tbody tr").empty();
+  $("#fichaAsoConvPedido > tbody tr").empty();
 
     arrayProductos = respuesta;
     for (var i = 0; i <= arrayProductos.length - 1; i++) {
@@ -226,6 +227,13 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
     $('#fichaAsociadas').append(tr);
     $('#DetallesAso').show();
+
+   }
+   else if(fichaAs == 3){
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+    //tabla convertir a pedido
+    $('#fichaAsoConvPedido').append(tr);
+    $('#modalConvPed').show();
    }
   }
     // $('#Asopedido').dataTable({
@@ -371,34 +379,36 @@ function ValCoti(){
     var Mfecha_venci = $("#FechaVencimiento").val();
     var btn_Pedi = $("#convertiPedido");
 
-    var res = true;
+    var resExist = true;
+    var resFechaV = true;
+    var resTabla = true;
+
     $("#Asopedido tbody tr").each(function(){
       var idFicha = $(this).find("td").eq(7).html();
       var cantProducir = $("#cantProducir"+idFicha).val();
       bol = validarExistenciasIn(idFicha, cantProducir, 0);
       if (bol == false) {
-        res = false;
+        resExist = false;
       }
     });
-
-    if(Mfecha_venci === Mfecha_regi ){
-      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
-      return false;
-    }
 
    if (Mfecha_venci <= Mfecha_regi) {
       Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
       $(btn_Pedi).attr('disabled',false);
-    return false;
+      resFechaV = false;
     }
 
     if ($("#tblProductosVacia").length)
     {
       Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
-      return false;
+      resTabla = false;
+    }
+
+    if (resExist == true && resFechaV  == true && resTabla == true) {
+      return true;
     }
     else{
-      return true;
+      return false;
     }
     return false;
 }
