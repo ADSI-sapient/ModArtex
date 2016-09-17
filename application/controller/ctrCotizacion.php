@@ -8,28 +8,29 @@
 		public function consCotizacion(){
 				$cotizaciones = $this->modelo->getCotizacion();
 				date_default_timezone_set("America/Bogota");
-				foreach ($cotizaciones as $cotizacion) {
-					$fechaActual = date("Y-m-d");
-					$fechaVencito = $cotizacion["Fecha_Vencimiento"];
+			foreach ($cotizaciones as $cotizacion) {
+				$fechaActual = date("Y-m-d");
+				$fechaVencito = $cotizacion["Fecha_Vencimiento"];
 
-					//$date1 = new DateTime("now");
-					$fecha1 = new DateTime($fechaActual);
-					$fecha2 = new DateTime($fechaVencito);
-
+				//$date1 = new DateTime("now");
+				$fecha1 = new DateTime($fechaActual);
+				$fecha2 = new DateTime($fechaVencito);
+				if ($cotizacion["Sol_Repetida"] != 2) {
 					if ($fecha1 >= $fecha2) {
-						$this->modelo->__SET("Id_Solicitud", $val["Id_Solicitud"]);
+						$this->modelo->__SET("Id_Solicitud", $cotizacion["Id_Solicitud"]);
 						$this->modelo->__SET("Id_Estado", 3);
 						$this->modelo->cotVencida();
-					}
+					}	
 				}
+			}
 
-				$clientes = $this->modelo->getCliente();
-				$fichas = $this->modelo->getFichas();         
-				$productos = $this->modelo->Ficha_habi();
-				
-				require APP.'view/_templates/header.php';
-				require APP.'view/Cotizacion/consCotizacion.php';
-				require APP.'view/_templates/footer.php';
+			$clientes = $this->modelo->getCliente();
+			$fichas = $this->modelo->getFichas();         
+			$productos = $this->modelo->Ficha_habi();
+			
+			require APP.'view/_templates/header.php';
+			require APP.'view/Cotizacion/consCotizacion.php';
+			require APP.'view/_templates/footer.php';
 		}	
 
 		public function regCotizacion(){
@@ -165,5 +166,13 @@
 				require APP.'view/cotizacion/consCotizacion.php';	
 			}
 		}
+
+		public function updateSolProd(){
+			$this->modelo->__SET("IdSolPro", $_POST["idSolPro"]);
+			$this->modelo->__SET("CantPro", $_POST["cantProd"]);
+			$this->modelo->__SET("CantUsar", $_POST["cantUsar"]);
+			$this->modelo->__SET("CantProductTer", $_POST["cantProdTer"]);
+
+			$this->modelo->updateSolProd();
+		}
 	}
-?>

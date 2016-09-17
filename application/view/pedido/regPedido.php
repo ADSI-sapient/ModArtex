@@ -15,7 +15,8 @@
         <div class="box-body">
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
-          <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="row">
+          <div class="col-lg-12">
             <div class="form-group col-lg-4">
               <label class="">Fecha Registro:</label>
               <div class="">
@@ -43,8 +44,10 @@
               <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
+            </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
+          <div class="row">
+          <div class="col-lg-12">
             <div class="form-group col-lg-4">
               <label for="id_cliente" class="">*Asociar Cliente:</label>
               <select class="form-control" style="border-radius:5px;" name="id_cliente" id="id_cliente" data-parsley-required="" data-parsley-errors-container="#regPedidoCl">
@@ -57,13 +60,16 @@
               </div>
             <!-- </div> -->
             <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
-              <div class="form-group col-lg-7">
+              <div class="col-lg-4 col-lg-offset-4">
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#asociarFichas" style="margin-top:25px"><b>Asociar Productos</b></button>
               </div>
+              </div>
             </div>
-          <div class="form-group" id="agregarFicha">
+          <div class="row">
+          <div class="col-md-12" id="agregarFicha">
+          <div class="col-md-12">
             <div class="table scrolltablas">
-              <div class="col-lg-12 table-responsive">
+              <div class="col-lg-12 table-responsive" style="padding: 0;">
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
                   <thead>
                     <tr class="active">
@@ -88,12 +94,16 @@
               </div>
             </div>
             </div>
-            <div class="row col-lg-12" style="margin-left:0.5%">
-              <div class="form-group col-lg-offset-9 col-lg-3">
+            </div>
+            </div>  
+            <div class="row">
+              <div class="col-lg-offset-8 col-lg-4">
+              <div class="col-lg-12">
                 <label for="vlr_total" class="">*Valor Total:</label>
                 <div class="">
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
                 </div>
+              </div>
               </div>
             </div>
       </div>

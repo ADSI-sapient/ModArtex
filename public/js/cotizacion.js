@@ -10,6 +10,21 @@ function convertirPedido(codigo, cotizaciones, Id_estado){
   $("#modalConvPed").modal();
 }
 
+function PressCantDesCot(){
+ $("#fichaAsoConvPedido tbody tr").each(function(){
+   var idFicha = $(this).find("td").eq(5).html();
+   var cantProd = $(this).find("td").eq(2).html();
+   var cantProdTerm = $("#spanCantCot"+idFicha).html();
+
+   $("#usarProductoTCot"+idFicha).on("keyup", function(){
+      var fila = $(this).parent().parent();
+      $(fila).find("td").eq(2).html(cantProd - parseInt($(this).val()));
+      $("#spanCantCot"+idFicha).html(cantProdTerm - $(this).val());
+   });
+ });
+}
+
+
 function editarCotizacion(codigo, cotizaciones, Id_estado){
   var campo = $(cotizaciones).parent().parent();
   var cliente = campo.find("td").eq(6).text();
@@ -210,12 +225,14 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
 
     arrayProductos = respuesta;
     for (var i = 0; i <= arrayProductos.length - 1; i++) {
+    idSolProducto = arrayProductos[i]['Id_Solicitudes_Producto'];  
     idProducto = arrayProductos[i]['Referencia'];
     idFichaTec = arrayProductos[i]['Id_Ficha_Tecnica'];
     color = arrayProductos[i]['Codigo_Color'];
     vlrProducto = arrayProductos[i]['Valor_Producto'];
     cantProducir = arrayProductos[i]['Cantidad_Producir'];
     subtotal = arrayProductos[i]['Subtotal'];
+    cantidad = arrayProductos[i]['Cantidad'];
     var tr = "";
 
     if (fichaAs == 1) {
@@ -230,10 +247,14 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
 
    }
    else if(fichaAs == 3){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
+    "</td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 90%;' min='0' max='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
+    "</span><td style='display: none;'>"+idSolProducto+"</td></tr>";
     //tabla convertir a pedido
     $('#fichaAsoConvPedido').append(tr);
     $('#modalConvPed').show();
+
+     PressCantDesCot();
    }
   }
     // $('#Asopedido').dataTable({
@@ -362,10 +383,10 @@ function ValCoti(){
   }
 
   if ($("#tblFichasVaciaCoti").length)
-        {
+  {
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
           return false;
-        }
+    }
         else{
 
   return true;
@@ -378,19 +399,8 @@ function ValCoti(){
     var Mfecha_regi = $("#Fecha_Registro").val();
     var Mfecha_venci = $("#FechaVencimiento").val();
     var btn_Pedi = $("#convertiPedido");
-
-    var resExist = true;
     var resFechaV = true;
     var resTabla = true;
-
-    $("#Asopedido tbody tr").each(function(){
-      var idFicha = $(this).find("td").eq(7).html();
-      var cantProducir = $("#cantProducir"+idFicha).val();
-      bol = validarExistenciasIn(idFicha, cantProducir, 0);
-      if (bol == false) {
-        resExist = false;
-      }
-    });
 
    if (Mfecha_venci <= Mfecha_regi) {
       Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
@@ -404,7 +414,7 @@ function ValCoti(){
       resTabla = false;
     }
 
-    if (resExist == true && resFechaV  == true && resTabla == true) {
+    if (resFechaV  == true && resTabla == true) {
       return true;
     }
     else{
@@ -419,24 +429,35 @@ function ValCotPedi(){
   var idSolicitudCoti = $("#Codig").val();
   var band1 = true;
 
-  if(Pfecha_entrega === Pfecha_registro ){
-    Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
-    return false;
-  }
+  var resExist = true;
+  var resFechaVen = true;
+  var resTabla = true;
+
+  $("#fichaAsoConvPedido tbody tr").each(function(){
+    var idFicha = $(this).find("td").eq(5).html();
+    var cantProducir = $(this).find("td").eq(2).html();
+    bol = validarExistenciasIn(idFicha, cantProducir, 0);
+    if (bol == false) {
+      resExist = false;
+    }
+  });
 
    if (Pfecha_entrega <= Pfecha_registro){
       Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
-    return false;
+    resFechaVen = false;
   }
 
   if ($("#tblFichasVaciaCoti").length)
   {
     Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
-    return false;
+    resTabla = false;
+  }
+  if (resExist && resFechaVen && resTabla) {
+    return true
   }
   else
   {
-    return true;
+    return false;
   }
 
   return false;
@@ -455,3 +476,22 @@ function limpiarFormRegCoti(){
         }
 }
 
+
+function updateSolProCot(){
+  $("#fichaAsoConvPedido tbody tr").each(function(){
+    var idFicha = $(this).find("td").eq(5).html();
+    var idSolPro = $(this).find("td").eq(8).html();
+    var cantProd = $(this).find("td").eq(2).html();
+    var cantUsar = $("#usarProductoTCot"+idFicha).val();
+
+    var cantProdTer = $("#spanCantCot"+idFicha).html();
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: uri+'ctrCotizacion/updateSolProd',
+      data: {idSolPro: idSolPro, cantProd: cantProd, cantUsar: cantUsar, cantProdTer: cantProdTer}
+    }).done(function(res){
+      console.log(res);
+    });
+  });
+}

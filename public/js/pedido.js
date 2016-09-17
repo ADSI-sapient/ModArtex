@@ -5,8 +5,8 @@
     "ordering": false,
       "language": {
           "emptyTable": "No hay pedidos para listar.",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "info": "",
+          "infoEmpty": "",
       "paginate": {"previous": "Anterior", "next": "Siguiente"}
       },
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
@@ -205,7 +205,7 @@ $('#prodAsociarPedMod').dataTable({
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
         var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='' data-parsley-required='' min='1'></td><td><input type='hidden' name='subTotal[]' id='subt"+idbton+"'value='0'>$<input readonly='' value='0' type='text' id='capValor"+idbton+"' name='res"+idbton+"' for='cantProducir"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
-        +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='text' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
+        +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
         +"<td><button type='button' onclick='quitarFicha("+idbton+", this, res"+idbton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idf+"></tr>";

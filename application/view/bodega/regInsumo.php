@@ -15,20 +15,20 @@
         <div class="box-body">
           <div class="row col-md-12">
             <div class="col-md-6">
-              <div class="col-md-11 off-set-1">
+              <div class="col-md-11  off-set-1">
                 <div class="form-group">
-                  <label class="control-label" length="80px">*Stock mínimo:</label>
-                  <input type="number" class="form-control" min="0" required="" name="stock" autofocus="" data-parsley-required="">
+                  <label class="control-label">*Nombre:</label>
+                  <input type="text" class="form-control" required="" name="nombre" data-parsley-required="" autofocus="">
                 </div>
-              </div>  
+              </div>
             </div> 
             <div class="col-md-6">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="control-label">*Nombre:</label>
-                  <input type="text" class="form-control" required="" name="nombre" data-parsley-required="">
+                  <label class="control-label" length="80px">*Stock mínimo:</label>
+                  <input type="number" class="form-control" min="0" required="" name="stock" data-parsley-required="">
                 </div>
-              </div>
+              </div>  
             </div>      
           </div>
           <div class="row col-md-12">

@@ -87,9 +87,9 @@
         <input type="hidden" name="cantActual" id="cantActual">
         <input type="hidden" name="valPromedio" id="valPromedio">
         <div class="form-group">
-         <h4 class="col-md-3">Fecha: </h4>
+         <h4 class="col-md-3">Fecha Entrada: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" name="fechaEnt" value="<?= date("Y/m/d")?>" readonly="">
+           <input type="text" class="form-control" name="fechaEnt" value="<?= date("Y-m-d")?>" readonly="">
          </div>
        </div>
        <div class="form-group">
@@ -160,9 +160,9 @@
         <input type="hidden" name="idExs" id="idExiSal">
         <input type="hidden" name="cant" id="cantAct">
         <div class="form-group">
-         <h4 class="col-md-3">Fecha: </h4>
+         <h4 class="col-md-3">Fecha Salida: </h4>
          <div class="col-md-9">
-           <input type="text" class="form-control" name="fechaSal" value="<?= date("Y/m/d")?>" readonly="">
+           <input type="text" class="form-control" name="fechaSal" value="<?= date("Y-m-d")?>" readonly="">
          </div>
        </div>
        <div class="form-group">
@@ -254,8 +254,8 @@
         <div class="col-md-12">
           <div class="form-group">
            <input type="hidden" name="id" id="mSel">
-           <label class="control-label" length="80px">Fecha: </label>
-           <input type="text" class="form-control" readonly="" name="fechaEnt" value="<?= date("Y/m/d"); ?>">
+           <label class="control-label" length="80px">Fecha Entrada: </label>
+           <input type="text" class="form-control" readonly="" name="fechaEnt" value="<?= date("Y-m-d"); ?>">
          </div>
        </div>    
      </div>
@@ -327,8 +327,8 @@
 
         <div class="col-md-12">
           <div class="form-group">
-           <label class="control-label" length="80px">Fecha: </label>
-           <input type="text" class="form-control" readonly="" name="fechaSal" value="<?= date("Y/m/d"); ?>">
+           <label class="control-label" length="80px">Fecha Salida: </label>
+           <input type="text" class="form-control" readonly="" name="fechaSal" value="<?= date("Y-m-d"); ?>">
          </div>
        </div>    
      </div>

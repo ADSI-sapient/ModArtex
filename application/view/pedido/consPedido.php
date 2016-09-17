@@ -39,7 +39,7 @@
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
                         <td>
-                          <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso"): ?>
+                          <?php if ($pedido["Nombre_Estado"] == "Cancelado" || $pedido["Nombre_Estado"] == "En Proceso" || $pedido["Sol_Repetida"] == 2): ?>
                             <button style="cursor:auto;" type="" class="btn btn-box-tool" disabled="" ><i class="fa fa-pencil-square-o" style="cursor:auto; font-size: 150%;"></i></button>
                           <?php else: ?>
                             <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modalEditPedido" id="btncarg" onclick="editarPedido('<?= $pedido["Id_Solicitud"] ?>', this, '<?= $pedido["Num_Documento"] ?>', '<?= $pedido["Nombre"] ?>'); cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '', 1)"><i class="fa fa-pencil-square-o" name="btncarg" style="font-size: 150%;"></i></button>
@@ -53,11 +53,7 @@
                           <?php endif ?>
                         </td>
                         <td>
-                          <?php if ($pedido["Nombre_Estado"] == "Cancelado"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-eye" style="color:#3B73FF; cursor:auto; font-size: 150%;"></i></button>
-                          <?php else: ?>
                           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllProductosAso" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>')"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
-                          <?php endif ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>
