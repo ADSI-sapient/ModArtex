@@ -2,14 +2,10 @@
 
  class ctrObjetivos extends controller
  {
-
- 	
  	function __construct()
  	{
  		$this->mdlModel= $this->loadModel("mdlObjetivos");
- 	
  	}
-
 
  	public function registrarObjetivo(){
 
@@ -29,18 +25,15 @@
 			    $this->mdlModel->__SET("Id_Objetivo", implode('', $ultimoObjetivo));
 
 				for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
-
 					$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["Id_Ficha_Tecnica"][$i]);
 					$this->mdlModel->__SET("Cantidad", $_POST["CantidadO"][$i]);
-				
 					$this->mdlModel->RegistrarObjetivos();
-
-					$mensajeobj = "Lobibox.notify('succes', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Objetivo registrado exitosamente'});";
+			        $_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Objetivo registrado exitosamente!'});";	
 	 			}
 			}else{
-					$mensajeobj = "Lobibox.notify('error', {size: 'mini', rounded: true, delayIndicator: false, msg: 'La fecha de inicio es mayor o igual a la fecha final'});";
+					
 			}
-			$_SESSION["mensaje"] = $mensajeobj;
+			
  		}
  		
  		    $fichas = $this->mdlModel->getAsoFichas();
@@ -57,8 +50,7 @@
 
 				   	if ($_POST ["Id_Estado"] == 5) {
 				   		$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
-				   // 		var_dump($_POST["Id_Objetivo"]);
-			   	// exit();
+
 				   		$this->mdlModel->EliminarRegistro();
 
 				   		$this->mdlModel->__SET("Nombre", $_POST["Nombre"]);
@@ -68,14 +60,14 @@
  						$this->mdlModel->__SET("CantidadTotal", $_POST["CantidadTotalN"]);
  						$this->mdlModel->modificarObjetivo();
 
-
+ 						
 						$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
 
 						for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
 						$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["Id_Ficha_Tecnica"][$i]);
 						$this->mdlModel->__SET("Cantidad", $_POST["CantidadN"][$i]);
 						$this->mdlModel->RegistrarObjetivos();
-			}	
+						}	
 
 				   	}
 				   	else{
@@ -116,20 +108,16 @@
 		}
 
 
-
-
-
-
 		public function listar_GraficasOb(){
 			$this->mdlModel->__SET("FechaInicio", $_POST["FechaInicio"]);
 			$this->mdlModel->__SET("FechaFin", $_POST["FechaFin"]);
 
 			$grafi = $this->mdlModel->GraficasFecha();
-			$grafis = $this->mdlModel->GraficasRefencias();
+			// $grafis = $this->mdlModel->GraficasRefencias();
 
 			$objetivo = [];
 			$refObj = [];
-			$refPro = [];
+			// $refPro = [];
 
 			foreach ($grafi as $value) {
 				$objetivo[] = $value["Nombre"]." ".$value["Referencia"];
@@ -143,4 +131,4 @@
 			echo json_encode(["objetivo"=>$objetivo, "refObj"=>$refObj]);
 
 		}	
- } 
+ }
