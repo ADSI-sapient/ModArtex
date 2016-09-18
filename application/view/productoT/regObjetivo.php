@@ -86,10 +86,10 @@
           <div class="row">
           <div class="col-md-12" id="FichasS">
           <div class="col-md-12">
-          <div class="table scrolltablas">
-            <div class="col-lg-12 table-responsive" style="padding: 0;">
             <label>Productos Seleccionados:</label>
-                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFichass">
+          <div class="table scrolltablas" style="margin-top: 2%;">
+            <div class="col-lg-12 table-responsive" style="padding: 0;">
+                <table class="table table-hover table-bordered" id="tablaFichass">
                   <thead>
                     <tr class="active">
                     <th>Referencia</th>

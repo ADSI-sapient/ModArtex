@@ -16,15 +16,12 @@
 		private $nombreInsumo;
 		private $id_fichaT;
 		private $db;
-
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
 		}
-
 		public function __GET($atributo){
 			return $this->$atributo;
 		}
-
 		function __construct($db)
 	    {
 	        try {
@@ -33,11 +30,9 @@
 	        	exit('No se pudo establecer la conexión a la base de datos.');
 	        }
 	    }
-
 	    public function regFicha()
 	    {
 	        $sql = "INSERT INTO tbl_fichas_tecnicas VALUES (NULL,?,?,?,?,?,?,?,?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->referencia);
@@ -48,25 +43,19 @@
 	        	$query->bindParam(6, $this->cantidad);
 	        	$query->bindParam(7, $this->stock_min);
 	        	$query->bindParam(8, $this->valor_producto);
-
 	        	return $query->execute();
-
 	        } catch (PDOException $e) {
 	        	
 	        }
 	    }
-
 	    public function validarReferencia(){
-
 	    	$sql = "CALL SP_ValidarReferencia(?)";
 	    	$query = $this->db->prepare($sql);
 	    	$query->bindParam(1, $this->referencia);
 	    	$query->execute();
 	    	return $query->fetch();
 	    }
-
 	    public function ultimaFicha(){
-
 	    	$sql = "CALL SP_UltimaFicha";
 	    	$query = $this->db->prepare($sql);
 	        $query->execute();
@@ -74,7 +63,6 @@
 	    }
 	    
       	public function regInsumosAso(){
-
       		$sql = "INSERT INTO tbl_insumos_fichastecnicas VALUES (NULL,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_insumo);
@@ -84,7 +72,6 @@
       		$query->execute();
       		return $query;
       	}
-
       	public function regTallasAso(){
       		$sql = "CALL SP_RegTallasAsociadas(?,?)";
       		$query = $this->db->prepare($sql);
@@ -93,11 +80,9 @@
       		$query->execute();
       		return $query;
       	}
-
 	    public function getFichas()
 	    {
 	        $sql = "CALL SP_ListarFichasTecnicas";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->execute();
@@ -106,11 +91,8 @@
 	   
 	        }
 	    }
-
 	    public function insumosAsociadosFicha(){
-
 	    	$sql = "CALL SP_InsumosAsoFicha(?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->id_fichaT);
@@ -120,11 +102,8 @@
 	   
 	        }
 	    }
-
 	   	public function tallasAsociadasFicha(){
-
 	    	$sql = "CALL SP_ConsTallasAsoFicha(?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->id_fichaT);
@@ -134,11 +113,8 @@
 	   
 	        }
 	    }
-
 	    public function insertarInsumoAsoFicha(){
-
 	    	$sql = "CALL SP_InsertarInsumoAso(?, ?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->id_insumo);
@@ -148,9 +124,7 @@
 	        } catch (PDOException $e) {
 	   
 	        }
-
 	    }
-
 	    // public function insertarTallaAsoFicha(){
 	    // 	$sql = "CALL SP_InsertarTallaAso(?, ?)";
 	    //     try {
@@ -162,11 +136,8 @@
 	    //     } catch (PDOException $e) {
 	    //     }
 	    // }
-
 	    public function eliminarInsumoAsoFicha(){
-
 	    	$sql = "CALL SP_DeleteInsumosAso(?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->id_fichaT);
@@ -176,11 +147,8 @@
 	   
 	        }
 	    }
-
 	    public function eliminarTallaAsoFicha(){
-
 	    	$sql = "CALL SP_DeleteTallasAso(?)";
-
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->id_fichaT);
@@ -190,11 +158,9 @@
 	   
 	        }
 	    }
-
 	    public function modificarFicha(){
 	    	
 	        $sql = "UPDATE tbl_fichas_tecnicas SET Id_Color = ?, Valor_Produccion = ?, Stock_Minimo = ?, Valor_Producto = ? WHERE Id_Ficha_Tecnica = ?";
-
 	        try{
 	          $query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->color);
@@ -202,64 +168,49 @@
 	        	$query->bindParam(3, $this->stock_min);
 	        	$query->bindParam(4, $this->valor_producto);
 	        	$query->bindParam(5, $this->id_fichaT);
-
 	          return $query->execute();
-
 	        }catch(PDOException $e){
 	        	
 	        }
       	}
-
       	public function cambiarEstadoFicha(){
       		
 	        $sql = "CALL SP_CambiarEstadoFicha(?,?)";
-
 	        try{
 	          $query = $this->db->prepare($sql);
 	          $query->bindParam(1, $this->id_fichaT);
 	          $query->bindParam(2, $this->estado);
 	        
 	          return $query->execute();
-
 	        }catch(PDOException $e){
 	        	
 	        }
       	}
-
       	public function getAsoInsumos(){
-
       		$sql = "SELECT Id_Insumo, Id_Medida, Estado, Nombre FROM tbl_insumos";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
       	}
-
       	public function consInsumosRegFicha(){
-
       		$sql = "CALL SP_consInsumosRegFicha";
 			$query = $this->db->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
       	}
-
       	public function getAsoTallas(){
-
       		$sql = "SELECT Id_Talla, Nombre FROM tbl_tallas";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
       	}
-
       	public function consColoresFicha(){
-
       		$sql = "SELECT * FROM tbl_colores";
       		$query = $this->db->prepare($sql);
       		$query->execute();
       		return $query->fetchAll();
       	}
-
       	public function validColorFichaReg(){
-
       		$sql = "SELECT Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Referencia = ? and Id_Color = ?";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->referencia);
@@ -267,25 +218,19 @@
       		$query->execute();
       		return $query->fetchAll();
       	}
-
       	public function consColorFicha(){
-
       		$sql = "SELECT c.Id_Color, c.Codigo_Color FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE Id_Ficha_Tecnica = ?";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_fichaT);
       		$query->execute();
       		return $query->fetch();
       	}
-
       	public function validColorFichaMod(){
-
       		$sql = "SELECT Id_Ficha_Tecnica, Referencia, Id_Color FROM tbl_fichas_tecnicas WHERE Id_Ficha_Tecnica != ?";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_fichaT);
       		$query->execute();
       		return $query->fetchAll();
       	}
-
-
 	}
 ?>
