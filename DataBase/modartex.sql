@@ -37,7 +37,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11)
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarF` ()  NO SQL
-SELECT Referencia, Id_Ficha_Tecnica FROM tbl_fichas_tecnicas$$
+SELECT Referencia, Id_Ficha_Tecnica, Cantidad FROM tbl_fichas_tecnicas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
@@ -171,6 +171,9 @@ DELETE FROM tbl_solicitudes_producto WHERE Id_Solicitudes_Tipo = _id_solicitudes
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarMedida` (IN `_id` INT(11))  NO SQL
 DELETE FROM tbl_unidades_medida WHERE Id_Medida = _id$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_EliminarObjetivos` (IN `idobjetivo` INT)  NO SQL
+DELETE FROM tbl_productos_objetivos WHERE Id_Objetivo= idobjetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_eliminarSolicOrdenes` (IN `_numOrd` INT)  NO SQL
 DELETE FROM tbl_solicitudes_ordenesproduccion WHERE Num_Orden = _numOrd$$
 
@@ -190,6 +193,9 @@ SELECT c.Codigo_Color codigo, c.Nombre nombre, c.Id_Color, ci.Id_Existencias_Ins
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarExistencias` ()  NO SQL
 SELECT ci.Id_Existencias_InsCol, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasObj` (IN `Id_objetivo` INT)  NO SQL
+SELECT o.Codigo, o.Cantidad, f.Id_Ficha_Tecnica, f.Referencia from tbl_productos_objetivos o JOIN tbl_fichas_tecnicas f ON f.Id_Ficha_Tecnica= o.Id_Ficha_Tecnica WHERE O.Id_Objetivo= Id_objetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasParaAsociar` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
 
@@ -201,6 +207,9 @@ SELECT DISTINCT i.Id_Insumo, i.Estado, i.Nombre, m.Id_Medida, m.Nombre NombreMed
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_listarMedidas` ()  NO SQL
 SELECT  Id_Medida, Abreviatura, Nombre FROM tbl_unidades_medida ORDER BY Id_Medida DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarObjetivos` ()  NO SQL
+SELECT o.Id_Objetivo, o.Nombre, o.FechaRegistro, o.FechaInicio, o.FechaFin, o.CantidadTotal,  e.Id_Estado, e.Nombre_Estado from tbl_objetivos o JOIN tbl_estado e ON e.Id_Estado= o.Id_Estado$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarPermisos` (IN `_Id_Rol` INT(11))  NO SQL
 SELECT rp.Id_Permiso, m.Nombre NombreMod, p.Nombre FROM tbl_rol_permisos rp JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso JOIN tbl_modulos m ON p.id_Modulo = m.id_Modulo WHERE rp.Id_Rol = _Id_Rol$$
@@ -256,6 +265,9 @@ DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarUsuario` (IN `_usuario` VARCHAR(15), IN `_id_rol` INT, IN `_documento` VARCHAR(20))  NO SQL
 UPDATE tbl_usuarios SET Usuario = _usuario, Tbl_Roles_Id_Rol = _id_rol WHERE Num_Documento = _documento$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarObjetivo` (IN `Nombre` VARCHAR(45), IN `FechaRegistro` DATE, IN `FechaInicio` DATE, IN `FechaFin` DATE, IN `CantidadTotal` INT, IN `idObjetivo` INT)  NO SQL
+UPDATE tbl_objetivos SET  Nombre= Nombre , FechaRegistro= FechaRegistro, FechaInicio= FechaInicio, FechaFin= FechaFin, CantidadTotal= CantidadTotal  WHERE  Id_Objetivo = idObjetivo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) Id FROM tbl_insumos$$
 
@@ -283,8 +295,8 @@ INSERT INTO tbl_solicitudes_producto VALUES (NULL, _id_solicitudes_tipo, _cant_e
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarMedidas` (IN `_abr` VARCHAR(45), IN `_nom` VARCHAR(45))  NO SQL
 INSERT INTO tbl_unidades_medida VALUES(null, _abr, _nom)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarObjetivos` (IN `Nombre` VARCHAR(45), IN `FechaR` DATE, IN `FechaI` DATE, IN `FechaF` DATE, IN `Estado` INT(11))  NO SQL
-INSERT into tbl_objetivos (Nombre, FechaRegistro, FechaInicio, FechaFin, Id_Estado) VALUES (Nombre, FechaR, FechaI, FechaF, Estado)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegistrarObjetivos` (IN `Nombre` VARCHAR(45), IN `FechaR` DATE, IN `FechaI` DATE, IN `FechaF` DATE, IN `Estado` INT(11), IN `_Total` INT)  NO SQL
+INSERT into tbl_objetivos (Nombre, FechaRegistro, FechaInicio, FechaFin, Id_Estado, CantidadTotal) VALUES (Nombre, FechaR, FechaI, FechaF, Estado, _Total)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_registrarPedido` (IN `_id_cliente` VARCHAR(20), IN `_fecha_registro` DATE, IN `_vlr_total` DOUBLE)  NO SQL
 INSERT INTO tbl_solicitudes VALUES (NULL, _id_cliente, _fecha_registro, _vlr_total)$$

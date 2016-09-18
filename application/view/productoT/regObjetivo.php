@@ -2,73 +2,100 @@
     <ol class="breadcrumb">
       <li><a href="../../starter2.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Objetivos</a></li>
-      <li class="active">Registrar Objetivos</li>
+      <li class="active">Registrar Objetivo</li>
     </ol>
   </section>
 <section class="content">
       <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
-          <h3 class="box-title"><strong>REGISTRAR OBJETIVOS</strong></h3>
+          <h3 class="box-title"><strong>REGISTRAR OBJETIVO</strong></h3>
         </div>
+          <form data-parsley-validate="" id="form" action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST" onsubmit="return ValObj()">
          <div class="box-body">
-        <form data-parsley-validate="" id="form" action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST" onsubmit="return ValObj()">
-          <div class="row col-lg-12">
-            <div class="form-group col-lg-3">
+
+          <div class="row">
+          <div class="col-lg-12">
+
+
+            <div class="form-group col-lg-4">
               <label class="">Fecha registro:</label>
+              <div class="">
+              <div class="input-group date">
+               <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
               <input type="text" name="FechaRegistro" id="Fecha_Registro" readonly="" class="form-control" value="<?php echo date ("Y-m-d"); ?>"  >
             </div>
+            </div>
+            </div>
         
-            <div class=" col-lg-offset-1 col-lg-3"> 
+            <div class="form-group col-lg-4">
+              <label>Estado:</label>
+              <input type="text" name="estado" value="Pendiente" readonly="" class="form-control">
+            </div>
+           
+           <div class="col-lg-4"> 
               <div class="form-group">
-                <label class="control-label" style="padding-right: 10px;">*Fecha inicio:</label>
+                <label class="control-label" style="padding-right: 10px;">*Fecha Inicio:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="">
+                    <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="" data-parsley-errors-container="#errorfechainiciObj">
                 </div>
+                <div id="errorfechainiciObj"></div>
               </div>
             </div>
 
-           <div class="form-group col-lg-offset-1 col-lg-3">
+            </div>
+          </div>
+
+          <div class="row">
+          <div class="col-lg-12">
+
+            
+            
+
+            <div class="form-group col-lg-4">
               <label class="">*Nombre:</label>
               <input  type="text" name="Nombre" id="Nombre" class="form-control" required="">
             </div>
-          </div>
 
-          <div class="row col-lg-12">
 
-            <div class="form-group col-lg-3">
-              <label>Estado</label>
-              <input type="text" name="estado" value="Pendiente" readonly="" class="form-control">
-            </div>
 
-            <div class=" col-lg-offset-1 col-lg-3"> 
+
+
+            <div class="col-lg-4"> 
               <div class="form-group">
-                <label class="control-label" style="padding-right: 10px;">*Fecha fin:</label>
+                <label class="control-label" style="padding-right: 10px;">*Fecha Fin:</label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="Fecha_Fin" name="FechaFin" required="">
+                    <input type="text" class="form-control pull-right" id="Fecha_Fin" name="FechaFin" required="" data-parsley-errors-container="#errorfechafinobj">
                 </div>
+                <div id="errorfechafinobj"></div>
               </div>
             </div>
 
-          <div class="col-lg-offset-1 col-lg-3">
-            <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO">Seleccionar Productos</button>
+            <div class="col-lg-4">
+              <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO"><b>Productos</b></button>
+            </div>
           </div>
-          
-          <div class="form-group" id="FichasS">
-            <div class="table" data-parsley-required="">
-              <div class="col-lg-12 table-responsive scrolltablas">
+          </div>
+          <div class="row">
+          <div class="col-md-12" id="FichasS">
+          <div class="col-md-12">
+          <div class="table scrolltablas">
+            <div class="col-lg-12 table-responsive" style="padding: 0;">
+            <label>Productos Seleccionados:</label>
                 <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFichass">
                   <thead>
                     <tr class="active">
-                    <th>Id</th>
-                      <th>Referencia</th>
-                      <th>Cantidad</th>
-                      <th>Quitar</th>
+                    <th>Referencia</th>
+                    <th>Color</th>
+                    <th>Cantidad Objetivo</th>
+                    <th>Quitar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -80,24 +107,27 @@
               </div>
             </div>
         </div>
-        <br>
-        <div class="row col-lg-12">
-          <div class="form-group col-lg-3">
-            <label>Total:</label>
-            <input type="number" name="CantidadTotal" id="TotalT" class="form-control" value="" readonly="">
-          </div>
         </div>
-        <br>
-       <div class="row"> 
-            <div class="form-group col-lg-12">
-              <button type="submit" class="btn btn-primary col-lg-offset-9" style="margin-top: 15px;" name="btnRegObjetivo" id="btnRegObjetivo"><b>Registrar</b></button>
-
-              <button type="reset" class="btn btn-danger" style="margin-left: 15px; margin-top: 15px;" name="btnCanFicha"  onclick="limpiarFormRegObj()"><b>Limpiar</b></button>
+        </div>
+        <div class="row">
+        <div class="col-lg-offset-8 col-lg-4">
+        <div class="col-lg-12">
+            <label>Total:</label>
+            <div class="">
+            <input type="number" name="CantidadTotal" id="TotalT" class="form-control" value="" readonly="">
             </div>
           </div>
+        </div>
+        </div>
+
+
+      </div>
+      <div class="box-footer">
+        <button type="reset" onclick="limpiarFormRegObj()" name="btnCanFicha" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
+        <button type="submit" class="btn btn-success pull-right" name="btnRegObjetivo" ><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+      </div>
     </form>
       </div>
-     </div> 
   </section>
 
 
@@ -116,10 +146,12 @@
                   <table class="table table-hover table-bordered" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
-                      <th>Id</th>
+                      <th style="display:none;">Id</th>
                       <th>Referencia</th>
-                      <th>Cantidad actual</th>
+                      <th>Color</th>
+                      <th>Cantidad Actual</th>
                       <th>Seleccionar</th>
+                      <th style="display: none"></th>
                       <th style="display: none"></th>
                     </tr>
                   </thead>
@@ -128,13 +160,15 @@
                      <?php $i = 1; ?>
                   <?php foreach ($fichas as $ficha): ?>
                     <tr >
-                      <td><?= $ficha["Id_Ficha_Tecnica"]?></td>
+                      <td style="display:none;"><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
+                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>' )"><i class="fa fa-plus"></i></button>
+                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>')"><i class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
+                      <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>
                     </tr>
                     <?php $i++; ?>
                       <?php endforeach; ?>
@@ -145,7 +179,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
           </form>

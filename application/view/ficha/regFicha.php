@@ -14,7 +14,8 @@
         </div>
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
         <div class="box-body">
-          <div class="row col-lg-12" style="margin-left:0.5%">
+        <div class="row">
+          <div class="col-lg-12">
             <div class="form-group col-lg-3">
               <label for="referencia" class="">*Referencia:</label>
               <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
@@ -37,7 +38,10 @@
             </div>
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
+          </div>
+
+          <div class="row">
+          <div class="col-lg-12">
             <div class="form-group col-lg-3">
               <label for="colorFicha">*Color:</label>
               <div class="input-group" >
@@ -72,11 +76,14 @@
             </div>  
             </div>
           </div>
-
-          <div class="form-group" id="agregarInsumo">
-            <div class="table scrolltablas">
-              <div class="col-lg-12 table-responsive">
-                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaInsumos">
+          </div>
+          <div class="row">
+          <div class="col-md-12" id="agregarInsumo">
+          <div class="col-md-12">
+          <label>*Insumos Asociados:</label>
+          <div class="table scrolltablas" style="margin-top: 2%;">
+            <div class="col-lg-12 table-responsive" style="padding: 0;">
+                <table class="table table-hover table-bordered" id="tablaInsumos">
                   <thead>
                     <tr class="active">
                       <th>Id Insumo</th>
@@ -97,6 +104,8 @@
                 </table>
               </div>
             </div>
+          </div>
+          </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
@@ -130,7 +139,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Insumos Para Asociar</b></h4>
+              <h4 class="modal-title"><b>INSUMOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -154,11 +163,11 @@
                         <td><?= $insumo["Id_Insumo"] ?></td>
                         <td><?= $insumo["Nombre"] ?></td>
                         <td><?= $insumo["Abreviatura"] ?></td>
-                        <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                        <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;" title="<?= $insumo["Nombre_Color"] ?>"></i></td>
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

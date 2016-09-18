@@ -16,8 +16,8 @@
     <div class="box-body">
     <input type="hidden" name="id_solTud" id="id_solicitud">
 
-
-      <div class="row col-lg-12" style="margin-left:0.5%">
+    <div class="row">
+      <div class="col-lg-12">
         <div class="form-group col-lg-6">
           <div class="col-lg-12">
           <label class="">Fecha Registro:</label>
@@ -47,7 +47,10 @@
         </div>
         </div>
       </div>
-      <div class="row col-lg-12" style="margin-left:0.5%">
+      </div>
+
+      <div class="row">
+      <div class="col-lg-12">
         <div class="form-group col-lg-6">
           <div class="col-lg-12">
           <label for="estadoProdu" class="">*Estado:</label>
@@ -71,13 +74,14 @@
         </div>
         </div>
       </div>
-        <div class="row">
-        <div class="col-lg-12">
-        <div class="col-lg-12">
-        <div class="col-lg-12">
-          <div class="form-group" id="agregarFichaProd">
-            <div class="table">
-              <div class="col-lg-12 table-responsive scrolltablas">
+      </div>
+
+          <div class="row">
+          <div class="col-md-12" id="agregarFichaProd">
+          <div class="col-md-12">
+          <div class="col-md-12">
+          <div class="table scrolltablas" style="margin-top: 2%;">
+            <div class="col-lg-12 table-responsive" style="padding: 0;">
                 <table class="table table-bordered" id="tblFichasProd">
                   <thead>
                     <tr class="active">
@@ -98,10 +102,8 @@
             </div>
             </div>
             </div>
-            </div>
-            </div>
-          </div>  
-          <!-- </div> -->
+            </div>  
+          </div>
   </div>
   <div class="box-footer">
     <div class="row col-lg-12" >

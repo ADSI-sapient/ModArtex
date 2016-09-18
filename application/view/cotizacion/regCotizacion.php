@@ -12,7 +12,9 @@
       </div>
       <form data-parsley-validate="" action="<?php echo URL; ?>ctrCotizacion/regCotizacion" method="POST" id="form" onsubmit="return ValCoti()">
       <div class="box-body">
-        <div class="row col-lg-12" style="margin-left:0.5%">
+      <div class="row">
+
+        <div class="col-lg-12">
           <div class="form-group col-lg-4">
             <label class="">Fecha Registro:</label>
             <div class="">
@@ -42,7 +44,10 @@
             <input type="text" name="estado" class="form-control" id="estado" readonly="" value="Pendiente">
           </div>
         </div>
-        <div class="row col-lg-12" style="margin-left:0.5%">
+        </div>
+
+        <div class="row">
+        <div class="col-lg-12">
             <div class="form-group col-lg-4">
               <label for="cliente" class="">*Asociar Cliente:</label>
               <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
@@ -59,10 +64,14 @@
             <button type="button" class="btn btn-primary pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
           </div>
         </div>
-        <div class="form-group" id="agregarFicha">
-            <div class="table" data-parsley-required="">
-              <div class="col-lg-12 table-responsive">
-                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="Ficha">
+        </div>
+          <div class="row">
+          <div class="col-md-12" id="agregarFicha">
+          <div class="col-md-12">
+          <label>*Productos Asociados:</label>
+          <div class="table scrolltablas" style="margin-top: 2%;">
+            <div class="col-lg-12 table-responsive" style="padding: 0;">
+                <table class="table table-hover table-bordered" id="Ficha">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
@@ -82,11 +91,17 @@
               </div>
             </div>
         </div>
-        <div class="row col-lg-12" style="margin-left:0.5%">
+        </div>
+        </div>
+
+
+        <div class="row">
+        <div class="col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">
             <label for="vlr_total" class="">Valor Total:</label>
             <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
           </div>
+        </div>
         </div>
       </div>
       <div class="box-footer">

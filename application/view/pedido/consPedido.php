@@ -73,8 +73,8 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR PEDIDO</b></h4>
             </div>
-            <div class="modal-body" style="padding:10px;">
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()">
+            <div class="modal-body" style="padding:10px;">
                 <input type="hidden" name="id_pedido" id="id_pedido">
                 <div class="form-group col-sm-12">
                 <div class="form-group col-sm-5">
@@ -106,7 +106,7 @@
                   <div class="form-group col-sm-offset-2 col-sm-5">
                     <label for="doc_cliente" class="">*Asociar Cliente:</label>
                     <br>
-                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="width: 100%; height: 100%;">
+                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="width: 100%;">
                         <!-- <option value=""></option> -->
                       <?php foreach ($clientes as $cliente): ?>
                         <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
@@ -186,53 +186,6 @@
         </div>
       </div>
       <!-- fin modal productos asociados pedido-->
-      <!-- inicio modal asociar cliente-->
-      <div class="modal fade" id="asoClientesHab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content" style="border-radius: 10px;">
-            <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"><b>Clientes para asociar</b></h4>
-            </div>
-            <div class="modal-body" style="padding:10px;">
-              <div class="table">
-                <div class="col-sm-12 table-responsive">
-                <table class="table table-responsive" id="tblClientesAsoHab">
-                <thead>
-                  <tr class="active">
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Agregar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php $a = 1; ?>
-                <?php foreach ($clientes as $cliente): ?>
-                  <tr>
-                    <td><?= $cliente["Num_Documento"] ?></td>
-                    <td><?= $cliente["Nombre"] ?></td>
-                    <td><?= $cliente["Telefono"] ?></td>
-                    <td><?= $cliente["Email"] ?></td>
-                    <td>
-                      <button id="btnAgregar<?= $a; ?>" type="button" class="btn btn-box-tool" onclick="asoClienteModifPedido('<?= $cliente["Nombre"] ?>', <?= $cliente["Num_Documento"] ?>, this, '<?= $a; ?>')"><i class="fa fa-plus"></i></button>
-                    </td>
-                  </tr>
-                  <?php $a++; ?>
-                <?php endforeach; ?>
-                </tbody>
-              </table>
-              </div>
-              </div>
-            </div>
-            <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- fin modal asociar cliente-->
       <!-- Inicio modal asociar productos(fichas) -->
       <div class="modal fade" id="asoProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">

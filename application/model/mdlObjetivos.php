@@ -126,7 +126,7 @@
 	    }
 
 	      public function modificarObjetivo(){
-	        $sql = "CALL SP_ModifivarObjetivo(?, ?, ?, ?, ?, ?)";
+	        $sql = "CALL SP_ModificarObjetivo(?, ?, ?, ?, ?, ?)";
 	      
 	        try {
 	        	$query = $this->db->prepare($sql);

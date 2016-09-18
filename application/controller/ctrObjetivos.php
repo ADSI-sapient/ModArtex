@@ -68,15 +68,13 @@
 						$this->mdlModel->__SET("Cantidad", $_POST["CantidadN"][$i]);
 						$this->mdlModel->RegistrarObjetivos();
 						}	
-
 				   	}
 				   	else{
 
 				   	}
 			   }
 
-
- 			 $fichas = $this->mdlModel->getAsoFichas();
+ 			$fichas = $this->mdlModel->getAsoFichas();
 			$objetivos = $this->mdlModel->getObjetivos();
 
 

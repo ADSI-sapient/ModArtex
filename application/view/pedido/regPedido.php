@@ -11,7 +11,7 @@
         <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>REGISTRAR PEDIDO</strong></h3>
         </div>
-        <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
+          <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
         <div class="box-body">
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
           <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
@@ -44,7 +44,7 @@
               <label for="estado" class="">Estado:</label>
               <input type="text" name="estado" class="form-control" id="estado" value="Pendiente" readonly="" style="border-radius:5px;">
             </div>
-            </div>
+          </div>
           </div>
           <div class="row">
           <div class="col-lg-12">
@@ -68,9 +68,10 @@
           <div class="row">
           <div class="col-md-12" id="agregarFicha">
           <div class="col-md-12">
-            <div class="table scrolltablas">
+          <label>*Productos Asociados:</label>
+            <div class="table scrolltablas" style="margin-top: 2%;">
               <div class="col-lg-12 table-responsive" style="padding: 0;">
-                <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tablaFicha">
+                <table class="table table-hover table-bordered" id="tablaFicha">
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>

@@ -148,14 +148,14 @@
       });
 
       //funcion que asocia insumos al momento de registrar una ficha
-      function asociarInsumosHab(id_insumo, nombre, color, insumos, idbton, estado, valorPromedio, unidadMed){
+      function asociarInsumosHab(id_insumo, nombre, color, insumos, idbton, estado, valorPromedio, unidadMed, nombColInsu){
         var campos = $(insumos).parent().parent();
         // valorcm = valorPromedio / 100;
         valorPromedio = Math.round(valorPromedio);
 
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
         var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
-        "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"
+        "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColInsu+"'></i></td><td>"
         +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='number' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
         ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='0' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
@@ -437,7 +437,7 @@
                 color = arrayInsumos[i]['Codigo_Color'];
                 var tr = "";
                 if (modalFp == 1) {
-                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''><td></td></tr>";
+                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>"+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''><td></td></tr>";
                     $('#tbl-insumos-aso').append(tr);
                  }else{
                     tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td>"+cantNec+"</td><td>"+valorIns+"</td>";

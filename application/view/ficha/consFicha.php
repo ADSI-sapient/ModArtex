@@ -104,7 +104,7 @@
                   <label for="color" class="">*Color:</label>
                   <!-- <div class="row"></div> -->
                   <div class="input-group">
-                    <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%; height: 100%;" onchange="coloresFichas()" data-parsley-required="">
+                    <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%;" onchange="coloresFichas()" data-parsley-required="">
                       <?php foreach ($colores as $color): ?>
                         <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
                       <?php endforeach ?>
@@ -127,7 +127,7 @@
                           <th>Id</th>
                           <th>Nombre</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Agregar</b></button></th>
+                          <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -144,11 +144,11 @@
                           <th>Nombre</th>
                           <th>Color</th>
                           <th>Medida</th>
-                          <th style="width: 10px;">$Valor</th>
+                          <th style="width: 10px;">Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
+                          <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -169,7 +169,7 @@
               </div>
               <div class="modal-footer" style="border-top: 0;">
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                <button type="submit" class="btn btn-warning pull-right" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                <button type="submit" class="btn btn-warning pull-right" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i>  <b>Actualizar</b></button>
               </div> 
             </form>
           </div>

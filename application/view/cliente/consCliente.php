@@ -73,7 +73,7 @@
               <form role="form" id="myModalC" action="<?= URL ?>ctrCliente/edit" method="post" data-parsley-validate="">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Modificar Cliente</h4>
+              <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR CLIENTE</b></h4>
             </div>
             
             <div class="modal-body">
