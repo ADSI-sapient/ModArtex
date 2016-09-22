@@ -8,13 +8,17 @@
 		}
 
 		public function existenciasProductoT(){
+			if($this->validarURL("ctrProductoT/existenciasProductoT")){
 
-			$productos = $this->mdlModel->getProducto();
-
-			
-			include APP . 'view/_templates/header.php';
-			include APP . 'view/productoT/productoT.php';
-			include APP . 'view/_templates/footer.php';
+				$productos = $this->mdlModel->getProducto();
+	
+					
+				include APP . 'view/_templates/header.php';
+				include APP . 'view/productoT/productoT.php';
+				include APP . 'view/_templates/footer.php';
+			}else{
+				header('location: '.URL.'home/index');
+			}
 		}
 
 		public function salida(){

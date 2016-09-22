@@ -13,14 +13,8 @@ class ctrBodega extends Controller{
 		$this->_modelExistencias = $this->loadModel('mdlExistencias');
 	}
 
-	public function index(){
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/bodega/consInsumo.php';
-		include APP . 'view/_templates/footer.php';
-	}
-
 	public function registrarInsumo(){	
-
+		if($this->validarURL("ctrBodega/registrarInsumo")){
 		if (isset($_POST["btnRegIns"])) {
 			$this->_modelInsumo->__SET("_codMedida", $_POST["select"]);
 			$this->_modelInsumo->__SET("_nombre", $_POST["nombre"]);
@@ -48,6 +42,9 @@ class ctrBodega extends Controller{
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/bodega/regInsumo.php';
 		include APP . 'view/_templates/footer.php';
+		}else{
+			header('location: '.URL.'home/index');
+		}
 	}
 
 	public function regColorInsumo(){
@@ -61,14 +58,16 @@ class ctrBodega extends Controller{
 	}
 
 	public function listarInsumos(){
-		$lisInsumos = $this->_modelInsumo->listarInsumos();
-
-		$lista = $this->_modelColor->listar();
-		$listaM = $this->_modelMedida->listar();
-
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/bodega/consInsumo.php';
-		include APP . 'view/_templates/footer.php';
+		if($this->validarURL("ctrBodega/listarInsumos")){
+			$lisInsumos = $this->_modelInsumo->listarInsumos();
+	
+			$lista = $this->_modelColor->listar();
+			$listaM = $this->_modelMedida->listar();
+	
+			include APP . 'view/_templates/header.php';
+			include APP . 'view/bodega/consInsumo.php';
+			include APP . 'view/_templates/footer.php';
+		}
 	}
 
 	public function cambiarEstado(){
@@ -132,11 +131,15 @@ class ctrBodega extends Controller{
 	}
 
 	public function listExistencias(){
-		$listEx = $this->_modelExistencias->listarExistencias();
-
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/bodega/existencias.php';
-		include APP . 'view/_templates/footer.php';
+		if($this->validarURL("ctrBodega/listExistencias")){
+			$listEx = $this->_modelExistencias->listarExistencias();
+	
+			include APP . 'view/_templates/header.php';
+			include APP . 'view/bodega/existencias.php';
+			include APP . 'view/_templates/footer.php';
+		}else{
+			header('location: '.URL.'home/index');
+		}	
 	}
 
 

@@ -12,20 +12,25 @@
 	    //método para listar todas las fichas técnicas
 	    public function consFicha()
 	    {
-	        $insumos = $this->mdlModel->getAsoInsumos();
-	        $insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
-	        $tallas = $this->mdlModel->getAsoTallas();
-	    	$fichas = $this->mdlModel->getFichas();
-	        $colores = $this->mdlModel->consColoresFicha();
-
-	    	require APP . 'view/_templates/header.php';
-	        require APP . 'view/ficha/consFicha.php';
-	        require APP . 'view/_templates/footer.php';
+	    	if($this->validarURL("ctrFicha/consFicha")){
+	        	$insumos = $this->mdlModel->getAsoInsumos();
+	        	$insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
+	        	$tallas = $this->mdlModel->getAsoTallas();
+	    		$fichas = $this->mdlModel->getFichas();
+	        	$colores = $this->mdlModel->consColoresFicha();
+	
+		    	require APP . 'view/_templates/header.php';
+		        require APP . 'view/ficha/consFicha.php';
+	        	require APP . 'view/_templates/footer.php';
+	    	}else{
+	    		header('location: '.URL.'home/index');
+	    	}
 	    }
 
 	    //método que permite registrar fichas técnicas
 	   	public function regFicha()
 	   	{
+	   		if($this->validarURL("ctrFicha/regFicha")){
 	        if (isset($_POST["btnRegFicha"])) {
 
 	        	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
@@ -79,6 +84,9 @@
 	        require APP . 'view/_templates/header.php';
         	require APP . 'view/ficha/regFicha.php';
         	require APP . 'view/_templates/footer.php';
+        	}else{
+        		header('location: '.URL.'home/index');
+        	}
 	    }
 
 	    public function editFicha(){

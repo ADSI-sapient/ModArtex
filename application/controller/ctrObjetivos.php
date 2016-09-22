@@ -8,6 +8,7 @@
  	}
 
  	public function registrarObjetivo(){
+ 		if($this->validarURL("ctrObjetivos/registrarObjetivo")){
 
  		  if (isset($_POST["btnRegObjetivo"])) {
 
@@ -31,18 +32,22 @@
 			        $_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Objetivo registrado exitosamente!'});";	
 	 			}
 			}else{
-					
+				$_SESSION['alert'] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al registrar'});";	
 			}
-			
  		}
  		
  		    $fichas = $this->mdlModel->getAsoFichas();
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/regObjetivo.php';
 			include APP . 'view/_templates/footer.php';
+
+		}else{
+				header('location: '.URL.'home/index');
+			}
 		}
 
 		public function listarObjetivos(){
+			if($this->validarURL("ctrObjetivos/listarObjetivos")){
 
 			   if (isset($_POST["btnModificarObj"])) {
 			   	$this->mdlModel->__SET("Id_Estado", $_POST["Id_Estado"]);
@@ -82,6 +87,9 @@
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/consObjetivo.php';
 			include APP . 'view/_templates/footer.php';
+		}else{
+			header('location: '.URL.'home/index');
+		}
 		}
 
 		public function listarF(){

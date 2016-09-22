@@ -10,7 +10,7 @@ class CtrCliente extends Controller{
 	//Registrar usuario
 	public function regCliente(){
 		//Validar permisos y consultar rol
-	    if($this->validarURL("ctrUsuario/regUsuario")){
+	    if($this->validarURL("ctrCliente/regCliente")){
 			$rol = $this->mdlModelU->consultarRol();
 	    	$mensajec = "";
 
@@ -58,10 +58,9 @@ class CtrCliente extends Controller{
 	
 	    //FInal del registro de usuario
 
-	    public function consCliente()
-	    {
+	    public function consCliente(){
+	    	if($this->validarURL("ctrCliente/consCliente")){
 	    	$rol = $this->mdlModelU->consultarRol();
-	    	if($this->validarURL("ctrUsuario/regUsuario")){
 		    	$clientes = $this->mdlModel->getCliente();
 
 		        require APP . 'view/_templates/header.php';

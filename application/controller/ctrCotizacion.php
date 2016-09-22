@@ -6,6 +6,7 @@
 		}
 
 		public function consCotizacion(){
+			if($this->validarURL("ctrCotizacion/consCotizacion")){
 				$cotizaciones = $this->modelo->getCotizacion();
 				date_default_timezone_set("America/Bogota");
 			foreach ($cotizaciones as $cotizacion) {
@@ -31,9 +32,13 @@
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/consCotizacion.php';
 			require APP.'view/_templates/footer.php';
+			}else{
+				header('location: '.URL.'home/index');
+			}
 		}	
 
 		public function regCotizacion(){
+			if($this->validarURL("ctrCotizacion/regCotizacion")){
 
 			if (isset($_POST["btnRegistrar"])) {
 
@@ -77,6 +82,9 @@
 			require APP.'view/_templates/header.php';
 			require APP.'view/Cotizacion/regCotizacion.php';
 			require APP.'view/_templates/footer.php';
+			}else{
+				header('location: '.URL.'home/index');
+			}
 		}
 
 		public function modiCotizacion(){

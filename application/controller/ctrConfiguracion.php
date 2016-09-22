@@ -22,11 +22,14 @@ class ctrConfiguracion extends Controller{
 	}
 
 	public function listarColores(){
-		$lista = $this->_modelColor->listar();
-
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/configuracion/colores.php';
-		include APP . 'view/_templates/footer.php';	
+		if($this->validarURL("ctrConfiguracion/listarColores")){	
+			$lista = $this->_modelColor->listar();
+			include APP . 'view/_templates/header.php';
+			include APP . 'view/configuracion/colores.php';
+			include APP . 'view/_templates/footer.php';	
+		}else{
+			header('location: '.URL.'home/index');
+		}
 	}
 
 	public function listarColoresAjax(){
@@ -90,14 +93,18 @@ class ctrConfiguracion extends Controller{
 	}
 
 	public function listarMedidas(){
-		if (isset($_POST["crudMed"])) {
-			echo json_encode($lista = $this->_modelMedida->listar());
+		if($this->validarURL("ctrConfiguracion/listarMedidas")){
+			if (isset($_POST["crudMed"])) {
+				echo json_encode($lista = $this->_modelMedida->listar());
+			}else{
+				$lista = $this->_modelMedida->listar();
+	
+				include APP . 'view/_templates/header.php';
+				include APP . 'view/configuracion/medidas.php';
+				include APP . 'view/_templates/footer.php'; 
+			}
 		}else{
-			$lista = $this->_modelMedida->listar();
-
-			include APP . 'view/_templates/header.php';
-			include APP . 'view/configuracion/medidas.php';
-			include APP . 'view/_templates/footer.php'; 
+			header('location: '.URL.'home/index');
 		}
 	}
 
@@ -146,6 +153,8 @@ class ctrConfiguracion extends Controller{
 	}
 
 	public function RegistrarRoles(){
+
+		if($this->validarURL("ctrConfiguracion/RegistrarRoles")){
 
 		if (isset($_POST["btnRegistrarR"])) {
 			$this->_modelRoles->__SET("Nombre", $_POST["nombre"]);
@@ -200,6 +209,9 @@ class ctrConfiguracion extends Controller{
 		include APP . 'view/_templates/header.php';
 		include APP . 'view/configuracion/roles.php';
 		include APP . 'view/_templates/footer.php';	
+	}else{
+		header('location: '.URL.'home/index');
+	}
 	}
 
 	public function listarR(){

@@ -13,18 +13,23 @@
 		//método que permite listar todos los pedidos registrados.
 		public function consPedido()
 		{
-			$pedidos = $this->mdlModel->getPedidos();
-			$clientes = $this->mdlModel->getClientes();
-			$productosHab = $this->mdlModel->getFichasHabilitadas();
-
-	        require APP . 'view/_templates/header.php';
-	        require APP . 'view/pedido/consPedido.php';
-	        require APP . 'view/_templates/footer.php';
+			if($this->validarURL("ctrPedido/consPedido")){
+				$pedidos = $this->mdlModel->getPedidos();
+				$clientes = $this->mdlModel->getClientes();
+				$productosHab = $this->mdlModel->getFichasHabilitadas();
+	
+		        require APP . 'view/_templates/header.php';
+		        require APP . 'view/pedido/consPedido.php';
+	        	require APP . 'view/_templates/footer.php';
+	        }else{
+	        	header('location: '.URL.'home/index');
+	        }	
 		}
 
 		//método que permite registrar una solicitud de tipo pedido
 		public function regPedido()
 	    {
+	    	if($this->validarURL("ctrPedido/regPedido")){
 	        if (isset($_POST["btnRegPedido"])) {
 
 	        	//registro de nueva solicitud
@@ -103,6 +108,9 @@
 	        require APP . 'view/_templates/header.php';
         	require APP . 'view/pedido/regPedido.php';
         	require APP . 'view/_templates/footer.php';
+        	}else{
+        		header('location: '.URL.'home/index');
+        	}
 	    }
 
 	    public function editarPedido(){

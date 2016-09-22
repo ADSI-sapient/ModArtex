@@ -68,17 +68,16 @@ class CtrUsuario extends Controller{
 	
 	    //FInal del registro de usuario
 
-	    public function consUsuario()
-	    {
-	    	$rol = $this->mdlModel->consultarRol();
-	    	if($this->validarURL("ctrUsuario/regUsuario")){
-		    	$usuarios = $this->mdlModel->getUsuario();
-
-		        require APP . 'view/_templates/header.php';
-		        require APP . 'view/usuario/consUsuario.php';
-		        require APP . 'view/_templates/footer.php';
-	    	}else{
-	    		header('location: '.URL.'home/index');
+	    public function consUsuario(){
+	    	if($this->validarURL("ctrUsuario/consUsuario")){
+	    		$rol = $this->mdlModel->consultarRol();
+		    		$usuarios = $this->mdlModel->getUsuario();
+	
+			    	require APP . 'view/_templates/header.php';
+			    	require APP . 'view/usuario/consUsuario.php';
+			    	require APP . 'view/_templates/footer.php';
+		    }else{
+		    	header('location: '.URL.'home/index');
 	    	}
 	    }
 
