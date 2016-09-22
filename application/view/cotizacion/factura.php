@@ -263,7 +263,7 @@ $html = '<!DOCTYPE html>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
             <td style="width:15%;" class="mono">'.$value["Nom"] .'</td>
-            <td class="mono" style="width:15%;">'.$value["Cantidad_Producir"] .'</td>
+            <td class="mono" style="width:15%;">'.$value["Cant_Cotizada"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>
             </tr>';

@@ -77,7 +77,7 @@
                       <th>Referencia</th>
                       <th>Color</th>
                       <th>Valor Producto</th>
-                      <th>Cantidad a Producir</th>
+                      <th>Cantidad</th>
                       <th>Subtotal</th>
                       <th>Quitar</th>
                     </tr>

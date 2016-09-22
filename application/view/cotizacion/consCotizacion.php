@@ -145,7 +145,7 @@
                       <tr class="active">
                         <th>Referencia</th>
                         <th>Color</th>
-                        <th>Cantidad a Producir</th>
+                        <th>Cantidad</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                         <th>Quitar</th>
@@ -206,7 +206,7 @@
                       <tr class="active">
                         <th>Referencia</th>
                         <th>Color</th>
-                        <th>Cantidad a Producir</th>
+                        <th>Cantidad</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                       </tr>
@@ -289,7 +289,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
-      <form  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
+      <form data-parsley-validate=""  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
         <div class="modal-body">
           <div class="row col-sm-12">
             <input type="hidden" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
@@ -326,12 +326,14 @@
                       <tr class="active">
                         <th>Referencia</th>
                         <th>Color</th>
-                        <th>Cantidad a Producir</th>
+                        <th>Cantidad Cotizada</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                         <th style="display: none;"></th>
-                        <th style="width: 20%">Usar</th>
+                        <th>Cantidad a Producir</th>
+                        <th style="width: 15%">Usar</th>
                         <th>ProductoT</th>
+                        <th style="display: none;"></th>
                         <th style="display: none;"></th>
                       </tr>
                     </thead>

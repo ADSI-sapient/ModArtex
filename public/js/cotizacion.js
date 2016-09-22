@@ -12,14 +12,33 @@ function convertirPedido(codigo, cotizaciones, Id_estado){
 
 function PressCantDesCot(){
  $("#fichaAsoConvPedido tbody tr").each(function(){
-   var idFicha = $(this).find("td").eq(5).html();
-   var cantProd = $(this).find("td").eq(2).html();
-   var cantProdTerm = $("#spanCantCot"+idFicha).html();
+   var idFicha = parseInt($(this).find("td").eq(5).html());
+   var cantProd = parseInt($("#cantProdCot"+idFicha).val());
+
+   var cantCotizada = parseInt($(this).find("td").eq(2).html());
+   var cantProdTerm = parseInt($("#spanCantCot"+idFicha).html());
+
+   $("#exisProdTerCotPed"+idFicha).val(cantProdTerm);
+
 
    $("#usarProductoTCot"+idFicha).on("keyup", function(){
-      var fila = $(this).parent().parent();
-      $(fila).find("td").eq(2).html(cantProd - parseInt($(this).val()));
-      $("#spanCantCot"+idFicha).html(cantProdTerm - $(this).val());
+      if ($(this).val() == "" || $(this).val() > cantCotizada || $(this).val() > cantProdTerm) {
+        $("#cantProdCot"+idFicha).val(cantProd);
+        $("#spanCantCot"+idFicha).html(cantProdTerm);
+
+        $("#exisProdTerCotPed"+idFicha).val($("#spanCantCot"+idFicha).html());
+      }else{
+        $("#cantProdCot"+idFicha).val(cantProd - parseInt($(this).val()));
+        $("#spanCantCot"+idFicha).html(cantProdTerm - $(this).val());
+
+        $("#exisProdTerCotPed"+idFicha).val($("#spanCantCot"+idFicha).html());
+      }
+
+      if (cantCotizada < cantProdTerm) {
+        $(this).attr("max", cantCotizada);
+      }else{
+        $(this).attr("max", cantProdTerm);
+      }
    });
  });
 }
@@ -53,20 +72,6 @@ $('#tblCotizaciones').dataTable({
       },
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
 });
-
-// $('#Asopedido').dataTable({
-//   "ordering": false,
-//       "language": {
-//           "emptyTable": "No hay productos para listar.",
-//           "info": "Mostrando página _PAGE_ de _PAGES_",
-//           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-//           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-//       "paginate": {
-//         "previous": "",
-//         "next": ""
-//        }
-//       }
-// });
 
 $('#tblfichascotiz').dataTable({
   "ordering": false,
@@ -233,23 +238,24 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     cantProducir = arrayProductos[i]['Cantidad_Producir'];
     subtotal = arrayProductos[i]['Subtotal'];
     cantidad = arrayProductos[i]['Cantidad'];
+    cant_Cotizada = arrayProductos[i]['Cant_Cotizada'];
     var tr = "";
 
     if (fichaAs == 1) {
-    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box trProducModCoti'><td>"+idProducto+"<input type='hidden' id='idProducto"+idFichaTec+"' value='"+idFichaTec+"'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idFichaTec+"' name='cantProducir[]' value='"+cantProducir+"' onkeyup='res"+idFichaTec+".value=cantProducir"+idFichaTec+".value * "+vlrProducto+"; subt"+idFichaTec+".value=parseFloat(res"+idFichaTec+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idFichaTec+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idFichaTec+"' name='res"+idFichaTec+"' for='cantProducir"+idFichaTec+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idFichaTec+", this, subt"+idFichaTec+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idFichaTec+"' name='idProducto[]' value='"+idFichaTec+"'><td></td><td style='display: none;'>"+idFichaTec+"</td</tr>";
+    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box trProducModCoti'><td>"+idProducto+"<input type='hidden' id='idProducto"+idFichaTec+"' value='"+idFichaTec+"'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idFichaTec+"' name='cantProducir[]' value='"+cant_Cotizada+"' onkeyup='res"+idFichaTec+".value=cantProducir"+idFichaTec+".value * "+vlrProducto+"; subt"+idFichaTec+".value=parseFloat(res"+idFichaTec+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idFichaTec+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idFichaTec+"' name='res"+idFichaTec+"' for='cantProducir"+idFichaTec+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idFichaTec+", this, subt"+idFichaTec+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idFichaTec+"' name='idProducto[]' value='"+idFichaTec+"'><td></td><td style='display: none;'>"+idFichaTec+"</td</tr>";
     $('#Asopedido').append(tr);
     }
 
   else if(fichaAs == 2){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
     $('#fichaAsociadas').append(tr);
     $('#DetallesAso').show();
 
    }
    else if(fichaAs == 3){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cantProducir+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
-    "</td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 90%;' min='0' max='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
-    "</span><td style='display: none;'>"+idSolProducto+"</td></tr>";
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
+    "</td><td><input type='number' style='width: 100%' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichaTec+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 100%;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichaTec+".value=jsjasd' id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
+    "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichaTec+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichaTec+"' name='exisProdTerCotPed[]'></td></tr>";
     //tabla convertir a pedido
     $('#fichaAsoConvPedido').append(tr);
     $('#modalConvPed').show();
@@ -257,19 +263,6 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
      PressCantDesCot();
    }
   }
-    // $('#Asopedido').dataTable({
-    // "ordering": false,
-    //     "language": {
-    //         "emptyTable": "No hay productos para listar.",
-    //         "info": "Mostrando página _PAGE_ de _PAGES_",
-    //         "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-    //         "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-    //     "paginate": {
-    //       "previous": "",
-    //       "next": ""
-    //      }
-    //     }
-    // });
    }
   }).fail(function(){
         alert("error");
@@ -330,30 +323,7 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
     boton = "#botn"+idft;
     $(boton).attr('disabled', 'disabled');
   }
-
-  // $(boton).on("click", RefreshTable);
-
-  // $('#Asopedido').dataTable({
-  //   "ordering": false,
-  //       "language": {
-  //           "emptyTable": "No hay productos para listar.",
-  //           "info": "Mostrando página _PAGE_ de _PAGES_",
-  //           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-  //           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
-  //       "paginate": {
-  //         "previous": "",
-  //         "next": ""
-  //        }
-  //       }
-  //   });
 }
-
-
-
-   // function RefreshTable() {
-   //     $("#Asopedido").load('#Asopedido');
-   // }
-
 
   $("#clienteReg").select2({
     placeholder: 'Seleccionar',
@@ -435,7 +405,7 @@ function ValCotPedi(){
 
   $("#fichaAsoConvPedido tbody tr").each(function(){
     var idFicha = $(this).find("td").eq(5).html();
-    var cantProducir = $(this).find("td").eq(2).html();
+    var cantProducir = $("#cantProdCot"+idFicha).val();
     bol = validarExistenciasIn(idFicha, cantProducir, 0);
     if (bol == false) {
       resExist = false;
@@ -474,24 +444,4 @@ function limpiarFormRegCoti(){
         $("#tblFichasVaciaCoti").html("No hay productos asociados");
         $(".btnAsociarP").attr('disabled', false);
         }
-}
-
-
-function updateSolProCot(){
-  $("#fichaAsoConvPedido tbody tr").each(function(){
-    var idFicha = $(this).find("td").eq(5).html();
-    var idSolPro = $(this).find("td").eq(8).html();
-    var cantProd = $(this).find("td").eq(2).html();
-    var cantUsar = $("#usarProductoTCot"+idFicha).val();
-
-    var cantProdTer = $("#spanCantCot"+idFicha).html();
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: uri+'ctrCotizacion/updateSolProd',
-      data: {idSolPro: idSolPro, cantProd: cantProd, cantUsar: cantUsar, cantProdTer: cantProdTer}
-    }).done(function(res){
-      console.log(res);
-    });
-  });
 }

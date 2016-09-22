@@ -73,7 +73,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR PEDIDO</b></h4>
             </div>
-              <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()">
+              <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
                 <input type="hidden" name="id_pedido" id="id_pedido">
                 <div class="form-group col-sm-12">
@@ -99,7 +99,7 @@
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
+                        <input data-parsley-required='' type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
                       </div>
                     </div>
                   </div>
@@ -125,6 +125,8 @@
                         <th>Cantidad a Producir</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
+                        <th>Usar</th>
+                        <th>ProductoT</th>
                         <th>Quitar</th>
                         <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
                       </tr>
@@ -138,7 +140,7 @@
             <div class="form-group col-sm-12">
             <div class="form-group col-sm-5" style="margin-left:1%">
               <label for="valor_total" class="">Valor Total:</label>
-              <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+              <input data-parsley-required='' min='0' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
             </div>
             </div>
             <div class="modal-footer" style="border-top:none;">
@@ -162,13 +164,14 @@
             </div>
             <div class="modal-body" style="padding:10px;">
               <div class="table">
-                <div class="form-group col-sm-12 table-responsive scrolltablas">
-                  <table class="table table-hover table-responsive" style="margin-top: 2%;" id="dll-prod-asoped">
+                <div class="table-responsive scrolltablas">
+                  <table class="table table-hover cell-border" style="margin-top: 2%;" id="dll-prod-asoped">
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
                         <th>Color</th>
-                        <th>Cantidad a Producir</th>
+                        <th style="text-align: center;">Cantidad a Producir</th>
+                        <th style="text-align: center;">Cantidad a Usar</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                       </tr>
@@ -216,7 +219,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>

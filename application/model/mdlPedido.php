@@ -16,6 +16,7 @@
 		private $cant_existencias;
 		private $estado;
 		private $cant_descontar;
+		private $cant_devolver;
 		private $id_existcolinsu;
 		private $db;
 
@@ -120,6 +121,17 @@
       		$query->bindParam(1, $this->id_ficha);
       		$query->bindParam(2, $this->id_existcolinsu);
       		$query->bindParam(3, $this->cant_descontar);
+      		$query->execute();
+      		return $query;
+      	}
+
+      	public function devolverExistInsumos()
+      	{
+      		$sql = "CALL SP_DevolverExistenciasInsumos(?,?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_ficha);
+      		$query->bindParam(2, $this->id_existcolinsu);
+      		$query->bindParam(3, $this->cant_devolver);
       		$query->execute();
       		return $query;
       	}

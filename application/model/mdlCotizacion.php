@@ -36,7 +36,6 @@
 		private $IdSolPro;
 		private $CantPro;
 		private $CantUsar;
-		private $CantProductTer;
 
 
 		public function updateSolProd(){
@@ -123,7 +122,7 @@
 		}	
 
 		public function regProducto_Aso(){
-			$sql = "INSERT INTO tbl_solicitudes_producto VALUES (null,?,?,?,?,?,?)";
+			$sql = "INSERT INTO tbl_solicitudes_producto VALUES (null,?,?,?,?,?,?,?)";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_tipoSolicitud);
 			$query->bindParam(2, $this->Cantidad_existencias);
@@ -131,6 +130,7 @@
 			$query->bindParam(4, $this->Cantidad_Producir);
 			$query->bindParam(5, $this->Subtotal);
 			$query->bindParam(6, $this->referencia);
+			$query->bindParam(7, $this->Cantidad_Producir);
 			return $query->execute();
 		}
 		
@@ -193,7 +193,7 @@
 	    }
 
 		public function facturaVenta(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, t.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nom FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, t.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nom, sp.Cant_Cotizada FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
@@ -219,7 +219,7 @@
 		}
 
 		public function PedidoAsociado(){
-			$sql = "SELECT sp.Id_Ficha_Tecnica, f.Referencia, c.Codigo_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal, f.Cantidad, sp.Id_Solicitudes_Producto FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
+			$sql = "SELECT sp.Id_Ficha_Tecnica, f.Referencia, c.Codigo_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal, f.Cantidad, sp.Id_Solicitudes_Producto, sp.Cant_Cotizada FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
             $query = $this->db->prepare($sql);
             $query->bindParam(1, $this->Id_Solicitud);
             $query->execute();
@@ -242,7 +242,7 @@
       	}
 
       	public function regFichasAso(){
-      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?)";
+      		$sql = "INSERT INTO tbl_solicitudes_producto VALUES (NULL,?,?,?,?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->Id_tipoSolicitud);
       		$query->bindParam(2, $this->Cantidad_existencias);
@@ -250,6 +250,7 @@
       		$query->bindParam(4, $this->Cantidad_Producir);
       		$query->bindParam(5, $this->Subtotal);
       		$query->bindParam(6, $this->Id_Ficha_Tecnica);
+      		$query->bindParam(7, $this->Cantidad_Producir);
       		return $query->execute();
       	}
 
@@ -267,6 +268,23 @@
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->Id_Solicitud);
       		$query->bindParam(2, $this->Id_Estado);
+      		return $query->execute();
+      	}
+
+      	public function updateSolProdCot(){
+      		$sql = "CALL SP_UpdateSolProdCot(?,?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->IdSolPro);
+      		$query->bindParam(2, $this->CantUsar);
+      		$query->bindParam(3, $this->CantPro);
+      		return $query->execute();
+      	}
+
+      	public function updateProductTerminado(){
+      		$sql = "CALL SP_UpdateProductTerminado(?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Ficha_Tecnica);
+      		$query->bindParam(2, $this->Cantidad_existencias);
       		return $query->execute();
       	}
 }  	

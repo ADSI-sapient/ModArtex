@@ -108,7 +108,6 @@
 	    public function editarPedido(){
 
 	    	if (isset($_POST["btnModificarPed"])) {
-	    		
 	    		$this->mdlModel->__SET("id_cliente", $_POST["doc_cliente"]);
 	    		$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
 	    		$this->mdlModel->__SET("fecha_entrega", date("Y-m-d", strtotime($_POST["fecha_entrega"])));
@@ -123,15 +122,48 @@
 	    			$this->mdlModel->eliminarAsoFichasPedido();
 
 	    			//se editan las asociaciones de productos que tiene el pedido
-	    			for ($f=0; $f < count($_POST["idProducto"]); $f++) { 
+	    			for ($f=0; $f < count($_POST["idFicha"]); $f++) { 
 
-		        		$this->mdlModel->__SET("id_ficha", $_POST['idProducto'][$f]);
+		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
 
+	    				if ($_POST["cantDescInsUpdPed"][$f] > 0) {
+		        			$cantidInsumos = $this->mdlModel->validarExisteIns();
+		        			if (!empty($cantidInsumos)) {
+		        		
+			        			$cantProdu = $_POST['cantDescInsUpdPed'][$f];
+
+			        			foreach ($cantidInsumos as $valor) {
+
+			        				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
+				        			$this->mdlModel->__SET("cant_descontar", $cantNecPed);
+				        			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
+				        			$this->mdlModel->descExistInsumos();
+			        			}
+		        			}
+	    				}
+	    				if ($_POST["cantDevolverInsUpdPed"][$f] > 0) {
+	    					$cantidInsumos = $this->mdlModel->validarExisteIns();
+		        			if (!empty($cantidInsumos)) {
+		        		
+			        			$cantProdu = $_POST['cantDevolverInsUpdPed'][$f];
+
+			        			foreach ($cantidInsumos as $valor) {
+
+			        				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
+				        			$this->mdlModel->__SET("cant_devolver", $cantNecPed);
+				        			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
+				        			$this->mdlModel->devolverExistInsumos();
+			        			}
+		        			}
+	    				}
+	    				
 	    				//registrar en tabla detalle tbl_solicitudes_producto
-	    				$this->mdlModel->__SET("cant_existencias", 123);
-		        		$this->mdlModel->__SET("estado", "nose");
+	    				$this->mdlModel->__SET("cant_existencias", $_POST['cantUsarProTerUpdPed'][$f]);
+		        		$this->mdlModel->__SET("estado", "");
 						$this->mdlModel->__SET("cant_producir", $_POST["cantProducir"][$f]);
-	    				$this->mdlModel->__SET("subtotal", $_POST["subtotal"][$f]);
+	    				$this->mdlModel->__SET("subtotal", $_POST["subTotal"][$f]);
+
+	    				$this->mdlModel->__SET("cantidadPT", $_POST["intSpanUpdaProdPed"][$f]);
 		        		$this->mdlModel->regFichasAsociadas();
 		        	}
 	    			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', delay: 6000, msg: 'Pedido modificado exitosamente!'});";

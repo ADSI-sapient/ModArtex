@@ -129,11 +129,23 @@
 				$this->modelo->__SET("Id_tipoSolicitud", 2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
 				$this->modelo->__SET("Id_Estado", 1);
-				
-				if ($this->modelo->converPedido()) {
-				$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización Enviada A Pedido exitosamente!'});";
-                header ("location: ".URL."ctrCotizacion/consCotizacion");
 
+				if ($this->modelo->converPedido()) {
+					for ($i=0; $i < count($_POST["idSolProducto"]); $i++) { 
+						 $this->modelo->__SET("IdSolPro", $_POST["idSolProducto"][$i]);
+						 $this->modelo->__SET("CantUsar", $_POST["cantExisUsarCot"][$i]);
+						 $this->modelo->__SET("CantPro", $_POST["cantProdCot"][$i]);
+
+						if ($this->modelo->updateSolProdCot()) {
+						 	$this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idFichaCotPed"][$i]);
+						 	$this->modelo->__SET("Cantidad_existencias", $_POST["exisProdTerCotPed"][$i]);
+
+						 	if ($this->modelo->updateProductTerminado()) {
+						 		$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización Enviada A Pedido exitosamente!'});";
+						 	}
+						}
+					}
+                	header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 			}
 		}
@@ -165,14 +177,5 @@
 			}else{
 				require APP.'view/cotizacion/consCotizacion.php';	
 			}
-		}
-
-		public function updateSolProd(){
-			$this->modelo->__SET("IdSolPro", $_POST["idSolPro"]);
-			$this->modelo->__SET("CantPro", $_POST["cantProd"]);
-			$this->modelo->__SET("CantUsar", $_POST["cantUsar"]);
-			$this->modelo->__SET("CantProductTer", $_POST["cantProdTer"]);
-
-			$this->modelo->updateSolProd();
 		}
 	}
