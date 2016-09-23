@@ -109,7 +109,7 @@
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
-              <label for="vlr_produccion" class="">Valor Producción:</label>
+              <label for="vlr_produccion" class="">Total Insumos:</label>
               <div class="">
                 <!-- <div class="input-group">
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
@@ -120,7 +120,7 @@
               </div>
             </div>
 
-            <div class="form-group col-lg-offset-6 col-lg-3">  
+            <div class="form-group col-lg-offset-4 col-lg-5">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0">
             </div>

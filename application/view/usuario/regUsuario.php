@@ -15,15 +15,15 @@
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrUsuario/regUsuario" method="POST">
         <div class="box-body">
         <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="nombre" class="">*Nombre: </label>
               <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label for="apellido" class="">*Apellido:</label>
               <input type="text" class="form-control" id="apellido" placeholder="" value="" name="apellido" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="tipo_de_documento" class="">*Tipo de documento: </label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
                 <option value="C.C" selected>C.C</option>
@@ -32,11 +32,11 @@
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="documento" class="" >*Documento:</label>
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" data-parsley-required="" onChange="validarSiDocumento(this.value);">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label for="Estado" class="">Estado:</label> 
               <input type="text" class="form-control" name="estado" value="Habilitado" disabled="">
               <!-- <select class="form-control" name="estado" required="" disabled="">
@@ -44,23 +44,23 @@
                 <option value="Inhabilitado">Inhabilitado</option>
               </select> -->
             </div>
-              <div class="form-group col-lg-offset-1 col-lg-3">
+              <div class="form-group col-lg-4">
                 <label for="nombre_usuario" class="">*Nombre de usuario:</label>
                 <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="">
               </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="acontraseña" class="">*Contraseña:</label>
               <input type="password" class="form-control" id="contraseña" placeholder="" value="" name="clave" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label for="Email" class="">*Email:</label>
               <input type="email" class="form-control" id="email" placeholder="" name="email"  onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change">
             </div>
             <input type="hidden" name="direccion">
             <input type="hidden" name="telefono">
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label for="roles" class="">*Rol:</label>
               <select class="form-control" name="rol"  id="rol" data-parsley-required="">
               <?php foreach ($rol as $value): ?>

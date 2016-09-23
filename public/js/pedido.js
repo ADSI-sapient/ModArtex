@@ -45,14 +45,12 @@
     });
 
     //permite seleccionar y asociar un cliente al pedido al momento de modificar
-    $(document).ready(function(){
     $("#doc_cliente").select2({
       language: {
         noResults: function (params) {
         return "No hay resultados";
         }}
       });
-    });
 
     $('#tblFichasAsp').dataTable({
         "ordering": false,
@@ -200,11 +198,11 @@ $('#prodAsociarPedMod').dataTable({
       }
 
     //asocia productos al pedido
-    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad){
+    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor){
 
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
-        var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td>$<input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
+        var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColor+"'></i></td><td>"+vlrprodto+"</td><td><input type='text' id='cantProducir"+idbton+"' style='border-radius:5px;' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td>$<input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
         +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
@@ -435,7 +433,7 @@ $('#prodAsociarPedMod').dataTable({
                   tr = "<tr id='tr"+id_fichat+
                   "' class='box box-solid collapsed-box trFichasAsoPedMod'><td>"+idProducto+
                   "</td><td><i class='fa fa-square' style='color:"+color+
-                  "; font-size: 150%;'></i></td><td><input data-parsley-required='' type='number' min='0' id='cantProducir"+id_fichat+
+                  "; font-size: 200%;' title='"+nomColor+"'></i></td><td><input data-parsley-required='' type='number' min='0' id='cantProducir"+id_fichat+
                   "' name='cantProducir[]' value='"+cantProducir+"' style='border-radius:5px;'><input type='hidden' id='cantDescInsUpdPed"+id_fichat+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+id_fichat+"' value='0'></td><td>"
                   +vlrProducto+"</td><td><input data-parsley-required='' min='0' readonly='' type='text' id='capValor"
                   +id_fichat+"' name='subTotal[]' for='cantProducir"+id_fichat+
@@ -463,7 +461,7 @@ $('#prodAsociarPedMod').dataTable({
                 }
                 else
                 {
-                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td style='text-align: center;'>"+cantProducir+"</td><td style='text-align: center;'>"+cantUsar+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></td><td style='text-align: center;'>"+cantProducir+"</td><td style='text-align: center;'>"+cantUsar+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
                   $('#dll-prod-asoped').append(tr);
                   $('#dtlle-pedido-prod').append(tr);
                 }

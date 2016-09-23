@@ -202,11 +202,10 @@
       //valida todos los campos necesarios para el registro en el formulario
       function enviarFormFicha()
       {
-
         var res = true;
-
         var referencia = $("#referencia").val();
         var idcolor = $("#colorFicha").val();
+        var nombrecolor = $("#colorFicha option:selected").html();
         var vlrproduccion = parseFloat($("#vlr_produccion").val());
         var vlrproducto = parseFloat($("#vlr_producto").val());
 
@@ -218,7 +217,7 @@
         }
         //valida que el valor producto sea mayor al valor de producción
         if (vlrproduccion >= vlrproducto) {
-          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
+          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor total de insumos'});
           return false;
         }
 
@@ -241,7 +240,7 @@
         });
 
         if (res == false) {
-          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha con este color'});
+          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha '+referencia+' de color '+nombrecolor});
           return false
         }
         else{
@@ -255,7 +254,7 @@
         var res = true;
         var referencia = $("#referencia").val();
         var idcolor = $("#colorModFicha").val();
-
+        var nombrecolormod = $("#colorModFicha option:selected").html();
         var vlrproduccion = $("#vlr_produccion").val();
         var vlrproducto = parseFloat($("#vlr_producto").val());
         var idfit = $("#idFicha_Tec").val();
@@ -276,7 +275,7 @@
 
         //valida que el valor producto sea mayor al valor de producción
         if (vlrproduccion >= vlrproducto) {
-          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor de producción'});
+          Lobibox.notify('warning', {size: 'mini', msg: 'El valor del producto debe ser mayor al valor total de insumos'});
           return false;
         }
 
@@ -299,7 +298,7 @@
         });
 
         if (res == false) {
-          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha con este color'});
+          Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe una ficha '+referencia+' de color '+nombrecolormod});
           return false;
         }
         else{
@@ -435,12 +434,13 @@
                 valorIns = arrayInsumos[i]['Valor_Insumo'];
                 cantNec = arrayInsumos[i]['Cant_Necesaria'];
                 color = arrayInsumos[i]['Codigo_Color'];
+                nomColor = arrayInsumos[i]['Nombre_Color'];
                 var tr = "";
                 if (modalFp == 1) {
-                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>"+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''><td></td></tr>";
+                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></i></td><td>"+abrevit+"</td><td>"+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''><td></td></tr>";
                     $('#tbl-insumos-aso').append(tr);
                  }else{
-                    tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td>"+cantNec+"</td><td>"+valorIns+"</td>";
+                    tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td>"+cantNec+"</td><td>"+valorIns+"</td>";
                     $('#dtll-insumos-aso').append(tr);
                  }
               }

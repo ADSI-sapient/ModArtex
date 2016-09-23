@@ -120,7 +120,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Productos Para Asociar</b></h4>
+              <h4 class="modal-title"><b>PRODUCTOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -142,11 +142,11 @@
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 150%;'></i></td>
+                      <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;' title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>');"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>');"><i class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

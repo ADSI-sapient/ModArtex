@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Formulario de recuperación</title>
+  <title>ModArtex - Recuperar contraseña</title>
 <!--   <link rel="stylesheet" href="<?= URL; ?>css/styleLogin.css">
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet"> -->
     <link rel="stylesheet" href="<?= URL; ?>css/bootstrap.css">
@@ -19,15 +19,18 @@
     <div>
       <form data-parsley-validate="" action="<?= URL; ?>ctrLogin/recuperarPass" method="POST">
       <!-- <div class="login__check1"></div> -->
-      <div style="border-bottom: solid 1px #cbd2d6; margin-bottom: 25px;">
+      <!-- <div style="border-bottom: solid 1px #cbd2d6; margin-bottom: 25px;"> -->
+      <div style="margin-bottom: 25px;">
         <h1 style="color: #337ab7;">ModArtex</h1>
+        <hr>
       </div>
       <div>
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-addon" style="background: transparent;"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></div>
-            <input style="height: 44px; border-left: none" class="form-control" type="email" name="txtEmail" value="" placeholder="Correo electronico" autofocus="" data-parsley-required="">
-          </div>  
+            <input style="height: 44px; border-left: none" class="form-control" type="email" name="txtEmail" value="" placeholder="Correo electronico" autofocus="" data-parsley-required="" data-parsley-errors-container="#msjErrorEmail">
+          </div>
+          <div id="msjErrorEmail"></div>
         </div>
         <div class="form-group">
           <button style="width: 368px; padding: 10px; height: 44px" class="btn btn-primary btn-lg" type="submit" name="btnRecuperar" value="Recuperar"><b>Recuperar</b></button>

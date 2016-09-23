@@ -38,7 +38,7 @@
                     <td class="ref"><?= $ficha["Referencia"] ?></td>
                     <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                     <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                    <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                    <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                     <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
@@ -158,7 +158,7 @@
                 </div>                
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
-                  <label for="vlr_produccion" class="">Valor Producción:</label>
+                  <label for="vlr_produccion" class="">Total Insumos:</label>
                   <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
                 </div>
                 <div class="form-group col-sm-offset-4 col-sm-4"> 
@@ -204,7 +204,7 @@
                         <tr>
                           <td><?= $insumo["Nombre"] ?></td>
                           <td><?= $insumo["Abreviatura"] ?></td>
-                          <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;"></i></td>
+                          <td><i class="fa fa-square" style="color: <?= $insumo["Codigo_Color"] ?>; font-size: 200%;" title="<?= $insumo["Nombre_Color"] ?>"></i></td>
                           <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                           <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                           <td>
