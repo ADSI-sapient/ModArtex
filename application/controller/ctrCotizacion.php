@@ -139,10 +139,12 @@
 				$this->modelo->__SET("Id_Estado", 1);
 
 				if ($this->modelo->converPedido()) {
+					$ultimoPedido = $this->modelo->getIdPedido();
 					for ($i=0; $i < count($_POST["idSolProducto"]); $i++) { 
 						 $this->modelo->__SET("IdSolPro", $_POST["idSolProducto"][$i]);
 						 $this->modelo->__SET("CantUsar", $_POST["cantExisUsarCot"][$i]);
 						 $this->modelo->__SET("CantPro", $_POST["cantProdCot"][$i]);
+						 $this->modelo->__SET("Id_tipoSolicitud", implode("", $ultimoPedido));
 
 						if ($this->modelo->updateSolProdCot()) {
 						 	$this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idFichaCotPed"][$i]);
@@ -153,6 +155,8 @@
 						 	}
 						}
 					}
+
+
                 	header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 			}

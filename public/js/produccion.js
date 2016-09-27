@@ -344,7 +344,7 @@ function regOrdenProducc(){
   $("#fecha_terminacion").parsley().validate();
 
   if ($("#tblFichasProd tbody tr").length == 1 && $("#tableVaciaProduccion").length) {
-    Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La tabla esta vacia'});
+    Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La tabla está vacía'});
   }else{
     if ($("#fecha_terminacion").val() != "" && band == true) {
       $.ajax({

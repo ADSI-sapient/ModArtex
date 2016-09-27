@@ -272,11 +272,12 @@
       	}
 
       	public function updateSolProdCot(){
-      		$sql = "CALL SP_UpdateSolProdCot(?,?,?)";
+      		$sql = "CALL SP_UpdateSolProdCot(?,?,?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->IdSolPro);
       		$query->bindParam(2, $this->CantUsar);
       		$query->bindParam(3, $this->CantPro);
+      		$query->bindParam(4, $this->Id_tipoSolicitud);
       		return $query->execute();
       	}
 
@@ -286,5 +287,12 @@
       		$query->bindParam(1, $this->Id_Ficha_Tecnica);
       		$query->bindParam(2, $this->Cantidad_existencias);
       		return $query->execute();
+      	}
+
+      	public function getIdPedido(){
+      		$sql = "CALL SP_UltimoIdTipoSolicitud()";
+      		$query = $this->db->prepare($sql);
+      		$query->execute();
+      		return $query->fetch();
       	}
 }  	

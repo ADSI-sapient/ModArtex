@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2016 a las 18:20:47
+-- Tiempo de generación: 27-09-2016 a las 07:03:34
 -- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.5.37
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,7 +31,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualizarCantidadProd` (IN `_id
 UPDATE tbl_solicitudes_producto SET Cantidad_Producir = _cantFab, Cantidad_Satelite = _cantSat WHERE Id_Solicitudes_Producto = _idSolPr$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualizarEstadoPed` (IN `_idSolt` INT)  NO SQL
-UPDATE tbl_solicitudes SET Id_Estado = 6 WHERE Id_Solicitud = _idSolt$$
+UPDATE tbl_solicitudes_tipo st SET st.Id_Estado = 6 WHERE st.Id_Solicitud = _idSolt AND st.Id_Tipo = 2$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
@@ -109,20 +109,20 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consInsumosRegFicha` ()  NO SQL
 SELECT ci.Id_Existencias_InsCol Id_Insumo, um.Abreviatura, i.Estado, i.Nombre, ci.Valor_Promedio, c.Codigo_Color, c.Nombre Nombre_Color FROM tbl_insumos i JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida JOIN tbl_colores_insumos ci ON i.Id_Insumo = ci.Id_Insumo JOIN tbl_colores c ON c.Id_Color = ci.Id_Color WHERE i.Estado = 1$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consOrdenes` ()  NO SQL
-SELECT op.Num_Orden, op.Fecha_Registro, e.Nombre_Estado, op.Id_Estado, st.Fecha_Entrega, st.Id_Solicitud, s.Num_Documento, p.Nombre, op.LugarProduccion FROM tbl_ordenesproduccion op JOIN tbl_solicitudes_ordenesproduccion sop ON op.Num_Orden=sop.Num_Orden JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo=st.Id_Solicitudes_Tipo JOIN tbl_estado e ON op.Id_Estado=e.Id_Estado JOIN tbl_solicitudes s ON st.Id_Solicitud=s.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento WHERE st.Id_Tipo = 2
+SELECT op.Num_Orden, st.Id_Tipo, op.Fecha_Registro, e.Nombre_Estado, op.Id_Estado, st.Fecha_Entrega, st.Id_Solicitud, s.Num_Documento, p.Nombre, op.LugarProduccion FROM tbl_ordenesproduccion op JOIN tbl_solicitudes_ordenesproduccion sop ON op.Num_Orden=sop.Num_Orden JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo=st.Id_Solicitudes_Tipo JOIN tbl_estado e ON op.Id_Estado=e.Id_Estado JOIN tbl_solicitudes s ON st.Id_Solicitud=s.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento WHERE st.Id_Tipo = 2
 GROUP BY op.Num_Orden$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidoCliente` (IN `id_solict` INT)  NO SQL
-SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE s.Id_Solicitud = id_solict and st.Id_Tipo = 2 and s.Id_Estado = 5$$
+SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=st.Id_Estado WHERE s.Id_Solicitud = id_solict and st.Id_Tipo = 2 and st.Id_Estado = 5$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ConsPedidos` ()  NO SQL
 SELECT s.Id_Solicitud, s.Num_Documento, t.Id_Estado, s.Valor_Total, s.Fecha_Registro, t.Fecha_Entrega, t.Fecha_Vencimiento, e.Nombre_Estado, p.Nombre, (SELECT count(st.Id_Solicitud) FROM tbl_solicitudes_tipo st WHERE st.Id_Solicitud = s.Id_Solicitud GROUP BY st.Id_Solicitud) Sol_Repetida FROM tbl_solicitudes_tipo t INNER JOIN tbl_solicitudes s ON t.Id_Solicitud = s.Id_Solicitud INNER JOIN tbl_estado e ON e.Id_Estado = t.Id_Estado INNER JOIN tbl_persona p ON p.Num_Documento = s.Num_Documento WHERE t.Id_Tipo = 2 ORDER BY s.Id_Solicitud DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidosCliente` ()  NO SQL
-SELECT s.Id_Solicitud, s.Num_Documento, p.Nombre FROM tbl_solicitudes s JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud= t.Id_Solicitud WHERE t.Id_Tipo= 2$$
+SELECT s.Id_Solicitud, s.Num_Documento, p.Nombre FROM tbl_solicitudes s JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud= t.Id_Solicitud WHERE t.Id_Tipo= 2 AND t.Id_Estado = 5$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidosProduccion` ()  NO SQL
-SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=s.Id_Estado WHERE st.Id_Tipo = 2 and s.Id_Estado = 5$$
+SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=st.Id_Estado WHERE st.Id_Tipo = 2 and st.Id_Estado = 5$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consProductosHab` ()  NO SQL
 SELECT f.Id_Ficha_Tecnica, f.Referencia, f.Estado, c.Codigo_Color, f.Fecha_Registro, f.Stock_Minimo, f.Valor_Produccion, f.Valor_Producto, f.Cantidad, c.Nombre Nombre_Color FROM tbl_fichas_tecnicas f JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
@@ -395,8 +395,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UpdateProductTerminado` (IN `idF
 UPDATE tbl_fichas_tecnicas ft SET ft.Cantidad = exis 
 WHERE ft.Id_Ficha_Tecnica = idFicha$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UpdateSolProdCot` (IN `idSol` INT, IN `cantUsar` INT, IN `cantProd` INT)  NO SQL
-UPDATE tbl_solicitudes_producto SP SET SP.Cantidad_Existencias =  cantUsar, sp.Cantidad_Producir = cantProd WHERE sp.Id_Solicitudes_Producto = idSol$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UpdateSolProdCot` (IN `idSol` INT, IN `cantUsar` INT, IN `cantProd` INT, IN `solTipo` INT)  NO SQL
+UPDATE tbl_solicitudes_producto SP SET SP.Cantidad_Existencias =  cantUsar, sp.Cantidad_Producir = cantProd, sp.Id_Solicitudes_Tipo = solTipo WHERE sp.Id_Solicitudes_Producto = idSol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
 SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
@@ -479,11 +479,11 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 
 INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 9, 1, 1038, 1087.9, 250),
-(2, 10, 1, 2575, 735.59, 250),
+(1, 9, 1, 874, 1087.9, 250),
+(2, 10, 1, 2515, 735.59, 250),
 (3, 11, 1, 1502, 1216.8, 250),
-(4, 10, 2, 3000, 786.67, 450),
-(5, 11, 2, 3125, 615, 450),
+(4, 10, 2, 2885, 786.67, 450),
+(5, 11, 2, 3065, 615, 450),
 (6, 9, 3, 0, 2100, 100),
 (7, 10, 3, 0, 2100, 100),
 (8, 11, 3, 0, 2100, 100);
@@ -772,6 +772,15 @@ CREATE TABLE `tbl_ordenesproduccion` (
   `LugarProduccion` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_ordenesproduccion`
+--
+
+INSERT INTO `tbl_ordenesproduccion` (`Num_Orden`, `Id_Estado`, `Fecha_Registro`, `LugarProduccion`) VALUES
+(1, 6, '2016-09-27', 'Fábrica'),
+(2, 5, '2016-09-27', 'Fábrica'),
+(3, 5, '2016-09-27', 'Fábrica');
+
 -- --------------------------------------------------------
 
 --
@@ -978,22 +987,6 @@ CREATE TABLE `tbl_solicitudes` (
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes`
---
-
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '1343749865', '2016-09-20', 360000),
-(2, '1234567890', '2016-09-20', 330000),
-(3, '1343749865', '2016-09-20', 495000),
-(4, '1234567890', '2016-09-20', 990000),
-(5, '1343749865', '2016-09-20', 33000000),
-(6, '1234567890', '2016-09-20', 330000),
-(7, '1343749865', '2016-09-20', 278000),
-(8, '1343749865', '2016-09-20', 132000),
-(9, '1343749865', '2016-09-20', 240000),
-(10, '1343749865', '2016-09-21', 1866000);
-
 -- --------------------------------------------------------
 
 --
@@ -1026,32 +1019,6 @@ CREATE TABLE `tbl_solicitudes_producto` (
   `Cant_Cotizada` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes_producto`
---
-
-INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Id_Ficha_Tecnica`, `Cant_Cotizada`) VALUES
-(7, 1, 3, 'k', 2, 100000, 1, 5),
-(8, 1, 2, 'k', 18, 260000, 2, 20),
-(11, 3, 0, 'k', 10, 200000, 1, 10),
-(12, 3, 0, 'k', 10, 130000, 2, 10),
-(15, 5, 0, 'k', 15, 300000, 1, 15),
-(16, 5, 0, 'k', 15, 195000, 2, 15),
-(17, 7, 5, 'k', 25, 600000, 1, 30),
-(18, 7, 5, 'k', 25, 390000, 2, 30),
-(19, 9, 0, 'k', 1000, 20000000, 1, 1000),
-(20, 9, 0, 'k', 1000, 13000000, 2, 1000),
-(21, 10, 7, '0', 3, 60000, 1, NULL),
-(22, 10, 7, '0', 3, 39000, 2, NULL),
-(23, 11, 5, '0', 5, 100000, 1, NULL),
-(24, 11, 3, '0', 3, 39000, 2, NULL),
-(25, 12, 2, '0', 2, 80000, 1, NULL),
-(26, 12, 2, '0', 2, 52000, 2, NULL),
-(30, 14, 0, 'k', 21, 1470000, 3, 21),
-(31, 14, 0, 'k', 12, 240000, 1, 12),
-(32, 14, 0, 'k', 12, 156000, 2, 12),
-(34, 13, 2, '0', 10, 240000, 1, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1066,26 +1033,6 @@ CREATE TABLE `tbl_solicitudes_tipo` (
   `Fecha_Vencimiento` date DEFAULT NULL,
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_solicitudes_tipo`
---
-
-INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
-(1, 1, 1, NULL, '2016-10-24', 1),
-(2, 1, 2, '2016-09-23', NULL, 5),
-(3, 2, 1, NULL, '2016-09-30', 1),
-(4, 2, 2, '2016-12-31', NULL, 5),
-(5, 3, 1, NULL, '2016-10-28', 2),
-(6, 3, 2, '2016-11-26', NULL, 5),
-(7, 4, 1, NULL, '2016-09-29', 2),
-(8, 4, 2, '2016-10-08', NULL, 8),
-(9, 5, 1, NULL, '2016-09-30', 2),
-(10, 6, 2, '2016-10-08', NULL, 5),
-(11, 7, 2, '2016-10-07', NULL, 5),
-(12, 8, 2, '2016-10-08', NULL, 5),
-(13, 9, 2, '2016-10-08', NULL, 5),
-(14, 10, 1, NULL, '2016-09-30', 2);
 
 -- --------------------------------------------------------
 
@@ -1473,7 +1420,7 @@ ALTER TABLE `tbl_objetivos`
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
 ALTER TABLE `tbl_ordenesproduccion`
-  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
@@ -1513,7 +1460,7 @@ ALTER TABLE `tbl_salida_ficha`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1523,12 +1470,12 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --

@@ -203,7 +203,7 @@
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>Pedidos Para Producir</b></h4>
+              <h4 class="modal-title"><b>PEDIDOS PARA PRODUCIR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
