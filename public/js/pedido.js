@@ -601,7 +601,7 @@ function changeValCantUpdateFichPedidos(){
           confirmButtonText: "Sí, cancelar pedido",
           cancelButtonText: "No",
           closeOnConfirm: false,
-          closeOnCancel: false },
+          closeOnCancel: true },
           function(isConfirm){
             if (isConfirm)
             { 

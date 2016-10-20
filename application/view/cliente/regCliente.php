@@ -14,15 +14,15 @@
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
         <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">*Nombre:</label>
               <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">*Apellido:</label>
               <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">Estado:</label>
               <input type="text" name="Estado" class="form-control" value="Habilitado" disabled="">
               <!-- <select class="form-control" name="estado" required="" disabled="">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
 
@@ -41,22 +41,22 @@
                 <option value="NIT">NIT</option>
               </select>
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">*Documento:</label>
 
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">*Email:</label>
               <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-4">
               <label class="">Teléfono:</label>
               <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
             </div>
-            <div class="form-group col-lg-offset-1 col-lg-4">
+            <div class="form-group col-lg-4">
               <label class="">Dirección:</label>
               <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
             </div>

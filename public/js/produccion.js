@@ -6,21 +6,19 @@
     });
 
     $('#tblOrdenes').dataTable( {
-      // "lengthChange": false,
-      //"searching": false,
-      // "info": false,
-      "ordering": false,
+          "ordering": false,
       "language": {
-          "emptyTable": "No hay ordenes de producción para listar",
-          "info": "Mostrando página _PAGE_ de _PAGES_",
-          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "emptyTable": "No hay resultados",
+          "info": "",
+          "infoEmpty": "",
+          "zeroRecords": "No se encontraron resultados",
       "paginate": {
-        "previous": "",
-        "next": "",
-        "last": "ultima"
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
-      }
-    });
+      },
+      "lengthMenu": [[3, 5, 10], [3, 5, 10]]
+        });
 
        $('#TablOrdenesPedidos').dataTable( {
       // "lengthChange": false,
@@ -62,6 +60,7 @@
         $("#estadoOp").val(campos.find("td").eq(3).text());
         $("#lugarOp").val(campos.find("td").eq(5).text());
         $("#clienteOrdn").val(campos.find("td").eq(7).text());
+        $("#clienteAsoPedProd").val(campos.find("td").eq(9).text());
         $("#mdlEditOrdenP").show();
     }
 
@@ -198,6 +197,7 @@
             $("#fecha_regOp").val(solicitudesCliente["Fecha_Registro"]);
             $("#fecha_entregaOp").val(solicitudesCliente["Fecha_Entrega"]);
             $("#estadoOp").val(solicitudesCliente["Id_Estado"]);
+            $("#clienteAsoPedProd").val(solicitudesCliente["Nombre"]);
             //$("#lugarOp").val(lugarPrd);
             //$("#clienteOrdn").val();
             $.ajax({
