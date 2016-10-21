@@ -130,4 +130,10 @@
 	    	$this->_modelProduct->__SET("_estado", $_POST["id_est"]);
 	    	echo json_encode($this->_modelProduct->cambiarEstadoOrdenSol());
 	    }
+
+	    public function cambiarEstadoSolProd(){
+	    	$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolProd"]);
+	    	$this->_modelProduct->__SET("_estado", $_POST["idEstado"]);
+	    	echo json_encode($this->_modelProduct->cambiarEstadoSolProd());
+	    }
 	}

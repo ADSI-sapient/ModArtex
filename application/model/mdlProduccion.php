@@ -189,4 +189,12 @@
       		$query->bindParam(2, $this->_estado);
       		return $query->execute();
       	}
+
+      	public function cambiarEstadoSolProd(){
+      		$sql = "CALL SP_CambiarEstadoSolOrden(?, ?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_solc_prod);
+      		$query->bindParam(2, $this->_estado);
+      		return $query->execute();
+      	}
 	}
