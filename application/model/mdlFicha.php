@@ -2,6 +2,7 @@
 	class mdlFicha
 	{
 		private $referencia;
+		private $nombre_ficha;
 		private $fecha_reg;
 		private $estado;
 		private $color;
@@ -32,7 +33,8 @@
 	    }
 	    public function regFicha()
 	    {
-	        $sql = "CALL SP_regFichaTecnica(?,?,?,?,?,?,?,?)";
+	    	var_dump($this->nombre_ficha);
+	        $sql = "CALL SP_regFichaTecnica(?,?,?,?,?,?,?,?,?)";
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        	$query->bindParam(1, $this->referencia);
@@ -43,6 +45,7 @@
 	        	$query->bindParam(6, $this->cantidad);
 	        	$query->bindParam(7, $this->stock_min);
 	        	$query->bindParam(8, $this->valor_producto);
+	        	$query->bindParam(9, $this->nombre_ficha);
 	        	return $query->execute();
 	        } catch (PDOException $e) {
 	        	
@@ -152,7 +155,7 @@
 
 	    public function modificarFicha(){
 	    	
-	        $sql = "CALL SP_modificarFicha(?,?,?,?,?)";
+	        $sql = "CALL SP_modificarFicha(?,?,?,?,?,?)";
 
 	        try{
 	          $query = $this->db->prepare($sql);
@@ -161,6 +164,7 @@
 	        	$query->bindParam(3, $this->stock_min);
 	        	$query->bindParam(4, $this->valor_producto);
 	        	$query->bindParam(5, $this->id_fichaT);
+	        	$query->bindParam(6, $this->nombre_ficha);
 	          return $query->execute();
 	        }catch(PDOException $e){
 	        	

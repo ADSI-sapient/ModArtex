@@ -7,6 +7,7 @@
           "emptyTable": "No hay pedidos para listar.",
           "info": "",
           "infoEmpty": "",
+          "zeroRecords": "No se encontraron resultados.",
       "paginate": {"previous": "Anterior", "next": "Siguiente"}
       },
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]

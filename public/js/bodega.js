@@ -3,11 +3,22 @@ var tempIdColIns = [];
 $(window).load(function(){
   mensajeTablaVacia();
   if ($("#tableListInsumos tbody tr").length == 0) {
-    var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">La tabla está vacía</td></tr>';
+    var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">No hay colores asociados.</td></tr>';
     $("#tableListInsumos tbody").append(tr);
   }
 });
 
+    $('#tableListInsumos').dataTable( {
+      "ordering": false,
+        "language": {
+            "emptyTable": "No hay insumos para listar.",
+            "info": "",
+            "infoEmpty": "",
+            "zeroRecords": "No se encontraron resultados.",
+        "paginate": {"previous": "Anterior", "next": "Siguiente"}
+        },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]]
+    });
 
     $('.datTableModals').dataTable( {
           "ordering": false,
@@ -23,7 +34,6 @@ $(window).load(function(){
       },
       "lengthMenu": [[3, 5, 10], [3, 5, 10]]
         });
-
 
     $('#tblExistencias').dataTable( {
           "ordering": false,
@@ -41,12 +51,8 @@ $(window).load(function(){
         });
 
 
-
-
-
-
 function mensajeTablaVacia(){
-    var tr = '<tr id="trTablaVacia"><td colspan="6" style="text-align: center;">La tabla está vacía</td></tr>';
+    var tr = '<tr id="trTablaVacia"><td colspan="6" style="text-align: center;">No hay colores asociados.</td></tr>';
     if ($("#tbody-colAsocInsumos tr").length == 0) {
       $("#tbody-colAsocInsumos").append(tr);
       return false;
@@ -84,7 +90,7 @@ $("#checkValor").click( function(){
   function seleccion(col){
       $(col).attr("disabled", true);
       var color = $(col).parent().parent();
-      var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+'</td><td>'+$(color).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(color).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove(); mensajeTablaVacia(); removeDisabledBtn(this);"><i class="fa fa-times"></i></button></td></tr>';
+      var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+'</td><td>'+$(color).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(color).find("td").eq(4).html()+'</td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove(); mensajeTablaVacia(); removeDisabledBtn(this);"><i class="fa fa-times" style="font-size: 150%;"></i></button></td></tr>';
       $("#tbody-colAsocInsumos").append(fila);
       mensajeTablaVacia();
   }
@@ -105,10 +111,16 @@ $("#checkValor").click( function(){
 
   function valiTablaLlenaColIns(){
       mensajeTablaVacia();
+      var valorInsumo = $("#valorIns").val();
       if (mensajeTablaVacia()) {
         return true;
-      }else{
-        Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'Debe asociar colores al insumo'});
+      }else if (valorInsumo.charAt(0) == 0) {
+        Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'El valor del insumo debe ser mayor a cero'});
+        $("#valorIns").val("");        
+        return false;
+      }
+      else{
+        Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Debe asociar colores al insumo'});
         return false;
       }
   }
@@ -262,7 +274,7 @@ function seleccionCol(col){
           $("#valUnit").val("");
         }).change(function(){
           if ($("#cant").val() <= 0 && $("#cant").val() != "") {
-            alert("La cantidad debe ser mayor a cero");
+            Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La cantidad debe ser mayor a cero'});
             $("#cant").val("");
           }
         });
@@ -344,7 +356,7 @@ function seleccionCol(col){
               $("#extValUni"+valor).val("");
             }).change(function(){
               if ($("#extCant"+valor).val() <= 0 && $("#extCant"+valor).val() != "") {
-                alert("La cantidad debe ser mayor a cero");
+                Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La cantidad debe ser mayor a cero'});
                 $("#extCant"+valor).val("");
               }
             });
@@ -402,7 +414,8 @@ function validateMuchasSalidas(){
     $("#tbodySalIns tr").each(function(){
       var valor = $(this).find("td").eq(0).html();
       $("#cantSalIns"+valor).parsley().validate();
-      if ($("#cantSalIns"+valor).val() == "" || $("#cantSalIns"+valor).val() < 0 || $("#cantSalIns"+valor).val() > $(this).find("td").eq(5).html()) {
+      if ($("#cantSalIns"+valor).val() == "" || $("#cantSalIns"+valor).val() <= 0 || $("#cantSalIns"+valor).val() > $(this).find("td").eq(5).html()) {
+        alert("La cantidad debe ser mayor a cero");
         return false;
       }else{
         return true;

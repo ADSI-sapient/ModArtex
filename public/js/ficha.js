@@ -86,12 +86,13 @@
         var campos = $(fichas).parent().parent();
         $("#idFicha_Tec").val(referencia);
         $("#referencia").val(campos.find("td").eq(0).text());
-        $("#fecha_reg").val(campos.find("td").eq(1).text());
-        $("#estado").val(campos.find("td").eq(2).text());
+        $("#nombreFichaMod").val(campos.find("td").eq(1).text());
+        $("#fecha_reg").val(campos.find("td").eq(2).text());
+        $("#estado").val(campos.find("td").eq(3).text());
         $("#colorModFicha").val(idColor).trigger("change");
-        $("#stock_min").val(campos.find("td").eq(4).text());
-        $("#vlr_produccion").val(campos.find("td").eq(5).text());
-        $("#vlr_producto").val(campos.find("td").eq(6).text());
+        $("#stock_min").val(campos.find("td").eq(5).text());
+        $("#vlr_produccion").val(campos.find("td").eq(6).text());
+        $("#vlr_producto").val(campos.find("td").eq(7).text());
         $("#mdEditFicha").show();
       }
 
@@ -156,11 +157,11 @@
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
         var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColInsu+"'></i></td><td>"
-        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input type='number' id='cantNec"
+        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input maxlength='10' type='number' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
         ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='0' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
         +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
-        +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
+        +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i style='font-size: 150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
         $("#tablaInsumos").append(tr);
         boton = "#btn"+idbton;
         $(boton).attr('disabled', 'disabled');
@@ -437,7 +438,7 @@
                 nomColor = arrayInsumos[i]['Nombre_Color'];
                 var tr = "";
                 if (modalFp == 1) {
-                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></i></td><td>"+abrevit+"</td><td>"+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''><td></td></tr>";
+                    tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></i></td><td>"+abrevit+"</td><td>"+valorInsumo+"</td><td><input type='text' min='1' id='cantNec"+idIns+"' name='cantNecesaria[]' value='"+cantNec+"' onkeyup='res"+idIns+".value=cantNec"+idIns+".value * "+valorInsumo+"; subt"+idIns+".value=parseFloat(res"+idIns+".value); valorProduccion();' style='border-radius:5px;' data-parsley-required=''></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+idIns+"' value='"+valorIns+"'><input readonly='' type='text' id='capValor"+idIns+"' name='res"+idIns+"' for='cantNec"+idIns+"' style='border-radius:5px;' value='"+valorIns+"' data-parsley-required='' min='1'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+idIns+", this, subt"+idIns+".value)' ><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden'id='idInsu"+idIns+"' name='idInsumo[]' value='"+idIns+"'><input type='hidden' value=''><input type='hidden'' value=''></tr>";
                     $('#tbl-insumos-aso').append(tr);
                  }else{
                     tr = "<tr class='box box-solid collapsed-box'><td>"+nombreIns+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></i></td><td>"+abrevit+"</td><td>$ "+valorInsumo+"</td><td>"+cantNec+"</td><td>"+valorIns+"</td>";
@@ -490,32 +491,19 @@
                 nombre = arrayTallas[i]['Nombre'];
                 var tr = "";
                 if (modalFp == 1) {
-                  tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i class='fa fa-remove'></i></button></td><td></td></tr>";
+                  tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td></tr>";
                   $('#tbl-tallas-aso').append(tr);
                 }else{
                   tr = "<tr class='box box-solid collapsed-box'><td>"+idTalla+"</td><td>"+nombre+"</td>";
                   $('#dtll-tallas-aso').append(tr);
                 }
               }
-              // $('#tbl-tallas-aso').dataTable({
-              //   "ordering": false,
-              //   "language": {
-              //       "emptyTable": "No hay insumos para listar.",
-              //       "info": "Mostrando página _PAGE_ de _PAGES_",
-              //       "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
-              //       "zeroRecords": "No se encontraron insumos que coincidan con la búsqueda.",
-              //   "paginate": {"previous": "","next": ""}
-              //   }
-              // });
-
             }
-        }).fail(function() {
-
-        })
+        }).fail(function(){})
     }
 
       //funcion que asocia insumos al momento de modificar ficha
-      function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, color, idbt, abrevt){
+      function asociarInsumoFicha(id, nombre, ref, insumos, valorProm, color, idbt, abrevt, nombre_color){
           var campos = $(insumos).parent().parent();
           // valorcm = valorProm / 100;
           valorProm = Math.round(valorProm);
@@ -534,7 +522,7 @@
           }
           else
           {
-            var tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombre+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></i></td><td>"+abrevt+"</td><td><p>$ "+valorProm+"</p></td><td><input type='text' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onkeyup='res"+id+".value=cantNec"+id+".value * "+valorProm+"; subt"+id+".value=parseFloat(res"+id+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+id+", this, subt"+id+".value)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idInsu"+id+"' name='idInsumo[]' value="+id+"><td></td></tr>";
+            var tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombre+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombre_color+"'></i></td><td>"+abrevt+"</td><td><p>"+valorProm+"</p></td><td><input type='text' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onkeyup='res"+id+".value=cantNec"+id+".value * "+valorProm+"; subt"+id+".value=parseFloat(res"+id+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+id+", this, subt"+id+".value)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='idInsu"+id+"' name='idInsumo[]' value="+id+"></tr>";
             $("#tblInsumosModFichaVacia").remove();
             $("#tbl-insumos-aso").append(tr);
             boton = "#btn"+id;
@@ -564,7 +552,7 @@
           //si no existe la talla acá la agrega
           }else{
 
-            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"><td></td></tr>";
+            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"></tr>";
            
             $("#tblTallasVacia").remove();
             $("#tbl-tallas-aso").append(tr);

@@ -1,3 +1,13 @@
+    <style>
+      input[type=number]::-webkit-outer-spin-button,
+      input[type=number]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      input[type=number] {
+          -moz-appearance:textfield;
+      }
+    </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <ol class="breadcrumb">
@@ -14,98 +24,100 @@
         </div>
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrFicha/regFicha" method="POST" onsubmit="return enviarFormFicha();" id="frmRegFicha">
         <div class="box-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="form-group col-lg-3">
-              <label for="referencia" class="">*Referencia:</label>
-              <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;" data-parsley-required="" autofocus="" min="0">
-            </div>
-            <div class="form-group col-lg-4">
-              <label class="">Fecha Registro:</label>
-              <div class="">
-                <div class="input-group date">
-                  <div class="input-group-addon" style="border-radius:5px;">
-                    <i class="fa fa-calendar"></i>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group col-lg-4">
+                <label for="referencia" class="">*Referencia:</label>
+                <input type="text" name="referencia" class="form-control" id="referencia" autofocus="" style="border-radius:5px;" data-parsley-required="" maxlength="25">
+              </div>
+              <div class="form-group col-lg-4">
+                <label for="nombreFicha" class="">*Nombre:</label>
+                <input type="text" name="nombreFicha" class="form-control" id="nombreFicha" style="border-radius:5px;" data-parsley-required="" maxlength="45">
+              </div>
+              <div class="form-group col-lg-4">
+                <label class="">Fecha Registro:</label>
+                <div class="">
+                  <div class="input-group date">
+                    <div class="input-group-addon" style="border-radius:5px;">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-5">
+          </div>
+          <div class="row">
             <div class="col-lg-12">
-              <label for="estado" class="">Estado:</label>
-              <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
-            </div>
-            </div>
-          </div>
-          </div>
+              <div class="form-group col-lg-4">
+                <label for="estado" class="">Estado:</label>
+                <input type="text" name="estado" class="form-control" id="estado" value="Habilitado" readonly="" style="border-radius:5px;" data-parsley-required="">
+              </div>
+              <div class="form-group col-lg-4">
 
-          <div class="row">
-          <div class="col-lg-12">
-            <div class="form-group col-lg-3">
-              <label for="colorFicha">*Color:</label>
-              <div class="input-group" >
-                <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="" data-parsley-errors-container="#coloresRegf">
-                  <option value="" selected=""></option>
-                  <?php foreach ($colores as $color): ?>
-                    <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
-                  <?php endforeach; ?>
+                <label for="colorFicha">*Color:</label>
+                <div class="input-group" >
+                  <select onchange="coloresFichas()" class="form-control" name="colorFicha" id="colorFicha"  data-parsley-required="" data-parsley-errors-container="#coloresRegf">
+                    <option value="" selected=""></option>
+                    <?php foreach ($colores as $color): ?>
+                      <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
+                </div>
+                <div id="coloresRegf"></div>
+              </div>
+              <div class="form-group col-lg-4">
+                <label for="selectTallas">*Tallas:</label>
+                <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#tallasRegf">
+                  <option value="1">L</option>
+                  <option value="2">M</option>
+                  <option value="3">S</option>
                 </select>
-                <span class="input-group-addon"  style="background-color:white; border-radius:5px"><i class="fa fa-square" style="color:gray; font-size:150%;" id="colorF"></i></span>
+                <div id="tallasRegf"></div>
               </div>
-              <div id="coloresRegf"></div>
             </div>
-            <div class="form-group col-lg-4">
-              <label for="selectTallas">*Tallas:</label>
-              <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#tallasRegf">
-                <option value="1">L</option>
-                <option value="2">M</option>
-                <option value="3">S</option>
-              </select>
-              <div id="tallasRegf"></div>
-            </div>
-            <div class="col-lg-5"> 
-            <div class="col-lg-8">
-              <label for="stock_minimo" class="">*Stock Mínimo:</label>
-              <input type="number" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" min="0" style="border-radius:5px;" data-parsley-required="">
-            </div> 
-            <div class="col-lg-3" style="margin-top: 25px;">
-            <div class="form-group col-lg-3">
-              <button type="button" class="btn btn-primary pull-rigth" data-toggle="modal" data-target="#asoInsum"><b>Insumos</b></button>
-            </div>
-            </div>  
-            </div>
-          </div>
           </div>
           <div class="row">
-          <div class="col-md-12" id="agregarInsumo">
-          <div class="col-md-12">
-          <label>*Insumos Asociados:</label>
-          <div class="table scrolltablas" style="margin-top: 2%;">
-            <div class="col-lg-12 table-responsive" style="padding: 0;">
-                <table class="table table-hover table-bordered" id="tablaInsumos">
-                  <thead>
-                    <tr class="active">
-                      <th>Id Insumo</th>
-                      <th>Nombre</th>
-                      <th>Color</th>
-                      <th>Unidad de Medida</th>
-                      <th>Valor</th>
-                      <th>Cantidad Necesaria</th>
-                      <th>Valor Insumo</th>
-                      <th>Quitar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td id="tblInsumosVacia" colspan="8" style="text-align:center;"></td>
-                  </tr>
-                  </tbody>
-                </table>
+            <div class="col-lg-12">
+              <div class="form-group col-lg-4">
+                <label for="stock_minimo" class="">*Stock Mínimo:</label>
+                <input type="number" name="stock_min" class="form-control" id="stock_minimo" placeholder="" value="" min="0" max="9999999" style="border-radius:5px;" data-parsley-required="">
               </div>
+              <div class="form-group col-lg-offset-6 col-lg-2" style="margin-top: 25px;">
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#asoInsum"><b>Insumos</b></button>
+              </div> 
             </div>
           </div>
-          </div>
+          <div class="row">
+            <div class="col-md-12" id="agregarInsumo">
+            <div class="col-md-12">
+              <label>*Insumos Asociados:</label>
+              <div class="table scrolltablas" style="margin-top: 2%;">
+                <div class="col-lg-12 table-responsive" style="padding: 0;">
+                    <table class="table table-hover table-bordered" id="tablaInsumos">
+                      <thead>
+                        <tr class="active">
+                          <th>Id Insumo</th>
+                          <th>Nombre</th>
+                          <th>Color</th>
+                          <th>Unidad de Medida</th>
+                          <th>Valor</th>
+                          <th>Cantidad Necesaria</th>
+                          <th>Valor Insumo</th>
+                          <th>Quitar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td id="tblInsumosVacia" colspan="8" style="text-align:center;"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+            </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-3">
@@ -115,22 +127,34 @@
                   <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
                     <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
                   </div> -->
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
+                  <div class="input-group">
+                    <span class="input-group-addon"><b>$</b></span>
+                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
+                  </div>
                 <!-- </div> -->
               </div>
             </div>
-
             <div class="form-group col-lg-offset-4 col-lg-5">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
-              <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0" max="9999999">
+              </div>
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">
           </div>
         </div>
         <div class="box-footer"> 
-              <button type="reset" class="btn btn-default pull-right" name="btnCanFicha" onclick="limpiarFormRegFicha()" style="margin-left: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-              <button type="submit" class="btn btn-success pull-right" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-3">
+              <button type="submit" class="btn btn-success btn-md btn-block" name="btnRegFicha" id="reg"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+            </div>
+            <div class="col-lg-3">
+              <button type="reset" class="btn btn-default btn-md btn-block" name="btnCanFicha" onclick="limpiarFormRegFicha()" style="margin-left: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+            </div>
+          </div>
+          <small><b>*Campo requerido</b></small>
         </div>
       </form>
       <!-- Inicio Modal asociar insumos -->
@@ -167,7 +191,7 @@
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i class="fa fa-plus" style="font-size: 150%"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>

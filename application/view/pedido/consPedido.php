@@ -1,7 +1,6 @@
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Pedido</a></li>
         <li class="active">Listar Pedidos</li>
       </ol>

@@ -3,7 +3,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Bodega</a></li>
-        <li class="active">Existencias insumos</li>
+        <li class="active">Existencias Insumos</li>
       </ol>
     </section>
     <section class="content">
@@ -49,7 +49,11 @@
                         <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
                       </td>
                       <td style="text-align: center;">
+                      <?php if ( $valExt["Cantidad_Insumo"] > 0 ): ?>
                         <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
+                      <?php else: ?>
+                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" disabled=""><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
+                      <?php endif ?>
                       </td>  
                     </tr>
                   <?php endforeach ?>
@@ -60,7 +64,7 @@
         </div>
         <div class="box-footer">
           <div class="col-md-4">
-           <button class="btn btn-primary">Generar reporte</button>
+           <button class="btn btn-primary"><b>Generar Reporte</b></button>
          </div> 
          <div class="col-md-8" style="text-align: right;">
            <button type="button" onclick="tableEntMay()" class="btn btn-box-tool"><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>
@@ -119,13 +123,13 @@
         </div> 
       </div>
       <div class="form-group">
-       <h4 class="col-md-3">Valor unitario: </h4>
+       <h4 class="col-md-3">Valor Unitario: </h4>
        <div class="col-md-9">
          <input data-parsley-required="" type="number" id="valUnit" name="valorUni" class="form-control" min="0">
        </div>
      </div>
      <div class="form-group">
-       <h4 class="col-md-3">Valor total: </h4>
+       <h4 class="col-md-3">Valor Total: </h4>
        <div class="col-md-9">
          <input  data-parsley-required="" type="number" id="valTot" name="valorTot" class="form-control" min="0">
        </div>
@@ -134,8 +138,14 @@
    </div>
  </div>
  <div class="modal-footer">
-  <button type="button" data-dismiss="modal" class="btn btn-default pull-right" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-  <button type="submit" name="regUno" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+  <div class="row">
+    <div class="col-lg-offset-3 col-lg-3">
+      <button type="submit" name="regUno" class="btn btn-success btn-md btn-block"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+    </div>
+    <div class="col-lg-3">
+      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+    </div>
+  </div>
 </div> 
 </form>
 </div> 
@@ -192,7 +202,7 @@
         </div> 
       </div>
      <div class="form-group">
-       <h4 class="col-md-3">Descripcion: </h4>
+       <h4 class="col-md-3">Descripción: </h4>
        <div class="col-md-9">
          <textarea type="text" id="descripcionSal" name="descripcion" class="form-control"> </textarea>
        </div>
@@ -211,7 +221,7 @@
 </div>
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalEntradaMayor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-  <div class="modal-dialog" role="document" style="width: 60%;">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 20px;">
 
       <form onsubmit="return validateMuchasEntradas()" data-parsley-validate="" action="<?= URL;?>ctrBodega/regEntrada" method="POST">
@@ -262,8 +272,11 @@
      <div class="col-md-6">
       <div class="col-md-12">
         <div class="form-group">
-         <label class="control-label">Valor entrada: </label>
-         <input type="number" readonly="" value="0" class="form-control" id="valEnt" data-parsley-required="" name="valorTot">
+         <label class="control-label">Valor Entrada: </label>
+         <div class="input-group">
+          <span class="input-group-addon">$</span>
+           <input type="number" readonly="" value="0" class="form-control" id="valEnt" data-parsley-required="" name="valorTot">
+         </div>
        </div>
      </div>
    </div>
@@ -272,8 +285,14 @@
 
 <input type="hidden" id="vec" name="vec">
 <div class="modal-footer">
-  <button type="button" data-dismiss="modal" class="btn btn-default pull-right" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-  <button type="submit" class="btn btn-success pull-right" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+  <div class="row">
+    <div class="col-lg-offset-3 col-lg-3">
+      <button type="submit" class="btn btn-success btn-md btn-block" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+    </div>
+    <div class="col-lg-3">
+      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+    </div>
+  </div>
 </div> 
 </form>
 </div> 
@@ -288,7 +307,7 @@
 
 
  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="SalidaMuchos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-  <div class="modal-dialog" role="document" style="width: 60%;">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 20px;">
 
       <form onsubmit="return validateMuchasSalidas()" data-parsley-validate="" action="<?= URL;?>ctrBodega/regSalida" method="POST">
@@ -345,8 +364,14 @@
 
 <input type="hidden" id="arraySalIns" name="arraySalIns">
 <div class="modal-footer">
-  <button type="button" data-dismiss="modal" class="btn btn-default pull-right" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-  <button type="submit" class="btn btn-success pull-right" style="margin-left: 2%; margin-top: 2%" id="salIns" name="salIns"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+  <div class="row">
+    <div class="col-lg-offset-3 col-lg-3">
+      <button type="submit" class="btn btn-success btn-md btn-block" style="margin-left: 2%; margin-top: 2%" id="salIns" name="salIns"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+    </div>
+    <div class="col-lg-3">
+      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+    </div>
+  </div>
 </div> 
 </form>
 </div> 

@@ -21,6 +21,7 @@
               <thead>
                 <tr class="">
                   <th>Referencia</th>
+                  <th>Nombre</th>
                   <th>Fecha Registro</th>
                   <th>Estado</th>
                   <th>Color</th>
@@ -36,6 +37,7 @@
                 <?php foreach ($fichas as $ficha): ?>
                   <tr>
                     <td class="ref"><?= $ficha["Referencia"] ?></td>
+                    <td class="nombreF"><?= $ficha["Nombre"] ?></td>
                     <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
                     <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                     <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
@@ -79,11 +81,15 @@
             </div>
               <form role="form" action="<?php echo URL; ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
-                <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
-                 <div class="form-group col-sm-12">
+              <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
+              <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">Referencia:</label>
-                  <input class="form-control" type="text" name="referencia" id="referencia" readonly="" style="border-radius:5px;">
+                  <input class="form-control" type="text" name="referencia" id="referencia" style="border-radius:5px;" maxlength="25" disabled="">
+                </div>
+                <div class="form-group col-sm-4">
+                  <label for="nombre" class="">*Nombre:</label>
+                  <input class="form-control" type="text" name="nombreFichaMod" id="nombreFichaMod" style="border-radius:5px;" maxlength="45">
                 </div>
                 <div class="form-group col-sm-4">
                   <label class="">Fecha Registro:</label>
@@ -94,13 +100,13 @@
                     <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
+              </div>
+              <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="estado" class="">*Estado:</label>
                   <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                 </div>
-                </div>
-                <div class="form-group col-sm-12">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                   <label for="color" class="">*Color:</label>
                   <!-- <div class="row"></div> -->
                   <div class="input-group">
@@ -112,22 +118,22 @@
                     <span class="input-group-addon" style="background-color:white; border-radius:5px"><i class="fa fa-square" style="font-size:150%;" id="colorFMod"></i></span>
                   </div>
                 </div>
-                <div class="form-group col-sm-offset-5 col-sm-4">
+                <div class="form-group col-sm-4">
                   <label for="stock_min" class="">*Stock Mínimo:</label>
-                  <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1">
+                  <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1" max="9999999">
                 </div>
               </div>
 
                 <div class="table">
                   <div class="form-group col-sm-4 table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Tallas</b></button>
                     <table class="table table-hover table-bordered" id="tbl-tallas-aso">
                       <thead>
                         <tr class="active">
                           <th>Id</th>
                           <th>Nombre</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -138,6 +144,7 @@
                 <div class="table">
                   <div class="form-group col-sm-8 table-responsive scrolltablas">
                     <label>*Insumos asociados:</label>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Insumos</b></button>
                     <table class="table table-hover table-bordered" id="tbl-insumos-aso">
                       <thead>
                         <tr class="active">
@@ -148,7 +155,6 @@
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
                           <th>Quitar</th>
-                          <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Agregar</b></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -159,17 +165,30 @@
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="vlr_produccion" class="">Total Insumos:</label>
-                  <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
+                  <div class="input-group">
+                    <span class="input-group-addon"><b>$</b></span>
+                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
+                  </div>
                 </div>
                 <div class="form-group col-sm-offset-4 col-sm-4"> 
                   <label for="vlr_producto" class="">*Valor Producto:</label>
-                  <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="">
+                  <div class="input-group">
+                    <span class="input-group-addon"><b>$</b></span>
+                    <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="" max="9999999">
+                  </div>
                 </div>
               </div>
               </div>
               <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                <button type="submit" class="btn btn-warning pull-right" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i>  <b>Actualizar</b></button>
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-3">
+                    <button type="submit" class="btn btn-warning btn-sm btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i><b>Actualizar</b></button>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-default btn-sm btn-block" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i><b>Cerrar</b></button>
+                  </div>
+                </div>
+                <small class="pull-left"><b>*Campo requerido</b></small>
               </div> 
             </form>
           </div>
@@ -208,7 +227,7 @@
                           <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                           <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                           <td>
-                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>', '<?= $insumo["Abreviatura"] ?>')"><i class="fa fa-plus"></i></button>
+                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i style="font-size: 150%" class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>
@@ -257,7 +276,7 @@
                           <td><?= $talla["Id_Talla"] ?></td>
                           <td><?= $talla["Nombre"] ?></td>
                           <td>
-                            <button id="btntallas<?= $i ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i class="fa fa-plus"></i></button>
+                            <button id="btntallas<?= $i ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i style="font-size: 150%" class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>
@@ -330,7 +349,7 @@
               </div> 
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

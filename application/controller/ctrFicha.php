@@ -32,8 +32,8 @@
 	   	{
 	   		if($this->validarURL("ctrFicha/regFicha")){
 	        if (isset($_POST["btnRegFicha"])) {
-
 	        	$this->mdlModel->__SET("referencia", $_POST["referencia"]);
+	        	$this->mdlModel->__SET("nombre_ficha", $_POST["nombreFicha"]);
 	        	$this->mdlModel->__SET("fecha_reg", $_POST["fecha_reg"]);
 			    $this->mdlModel->__SET("color", $_POST["colorFicha"]);
 			 	$this->mdlModel->__SET("estado", 1);
@@ -94,6 +94,7 @@
 		    if(isset($_POST["btn-modificar-ficha"])){
 
 		      	$this->mdlModel->__SET("id_fichaT", $_POST["idFicha_Tec"]);
+		      	$this->mdlModel->__SET("nombre_ficha", $_POST["nombreFichaMod"]);
 	            $this->mdlModel->__SET("color", $_POST["colorModFicha"]);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
 	            $this->mdlModel->__SET("cantidad", 456);

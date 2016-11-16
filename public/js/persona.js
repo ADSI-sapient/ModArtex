@@ -289,11 +289,11 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
         });
       });
 
-        //validar que si ingrese datos correctos
-  function validarSiDocumento(documento){
-    if (!/^([0-9])*$/.test(documento))
-      Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El documento ingresado contiene caracteres incorrectos'}); 
-  }
+//validar que si ingrese datos correctos
+function validarSiDocumento(documento){
+  if (!/^([0-9])*$/.test(documento) || documento.charAt(0) == 0)
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El número de documento contiene caracteres incorrectos'}); 
+}
  
 
 //Validar email
@@ -332,5 +332,27 @@ function limpiarTablePermisosRoles(){
   var tr = '<tr><td id="tblpermisosvacia" colspan="4" style="text-align:center;">No hay productos asociados.</td></tr>';
   $("#tblPas").empty();
   $("#tblPas").append(tr);
+}
+
+function enviarFormRegUsuario(){
+  var clave1 = $("#contraseña").val();
+  var clave2 = $("#confirmContraseña").val();
+ 
+  if (clave1 != clave2) {
+
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'Las contraseñas no coinciden'});
+    $("#contraseña").val("");
+    $("#confirmContraseña").val("");
+    return false;
+  }
+  if (/\s/.test(clave1) || /\s/.test(clave2)) {
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La contraseña no debe contener espacios en blanco'});
+    $("#contraseña").val("");
+    $("#confirmContraseña").val();
+    return false;
+  }else{
+    return true;
+  }
+  return false;
 }
 

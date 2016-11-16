@@ -23,7 +23,7 @@
                   <tr class="">
                     <th style="display:none;"></th>
                     <th>Tipo de Documento</th>
-                    <th>Documento</th>
+                    <th>Número de Documento</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Estado</th>
