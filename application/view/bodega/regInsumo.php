@@ -129,7 +129,7 @@
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
              <td style="display: none;"><?= $value["Id_Color"]; ?></td>
-             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccion(this)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-plus"></i></button></td> 
+             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccion(this)" class="btn btn-box-tool"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button></td> 
            </tr>
          <?php endforeach ?>
        </tbody>

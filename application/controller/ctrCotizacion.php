@@ -182,10 +182,10 @@
 
 		public function cotizacion($cod){
 			$this->modelo->__SET("Id_Solicitud", $cod);
-			$factura = $this->modelo->facturaVenta();
+			$cotizacion = $this->modelo->generarCotizacion();
 
-			if($factura != false){
-				require APP.'view/cotizacion/factura.php';
+			if($cotizacion != false){
+				require APP.'view/cotizacion/cotizacion.php';
 			}else{
 				require APP.'view/cotizacion/consCotizacion.php';	
 			}

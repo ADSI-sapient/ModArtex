@@ -119,14 +119,10 @@
             </div>
             </div>
           </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-3">
+          <div class="row col-lg-12">
+            <div class="form-group col-lg-4">
               <label for="vlr_produccion" class="">Total Insumos:</label>
               <div class="">
-                <!-- <div class="input-group">
-                  <div class="input-group-btn" style="border-radius:5px; margin-bottom:10%;">
-                    <button type='button' id="confir" onclick="calcularVlrProd()" class='btn btn-info'><b>Calcular</b></button>
-                  </div> -->
                   <div class="input-group">
                     <span class="input-group-addon"><b>$</b></span>
                     <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
@@ -134,10 +130,10 @@
                 <!-- </div> -->
               </div>
             </div>
-            <div class="form-group col-lg-offset-4 col-lg-5">  
+            <div class="form-group col-lg-offset-3 col-lg-5">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
+                <span class="input-group-addon"><b>$</b></span>
                 <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0" max="9999999">
               </div>
             </div>
@@ -191,7 +187,7 @@
                         <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                         <td><?= round($insumo["Valor_Promedio"], 2) ?></td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i class="fa fa-plus" style="font-size: 150%"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnInsumo" onclick="asociarInsumosHab('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', '<?= $insumo["Codigo_Color"] ?>' , this, '<?= $i; ?>', '<?= $insumo["Estado"] ?>', '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i class="fa fa-plus" style="font-size: 150%; color: blue;"></i></button>
                         </td>
                       </tr>
                       <?php $i++; ?>
@@ -202,7 +198,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px">
-              <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

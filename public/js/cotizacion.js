@@ -52,6 +52,12 @@ function editarCotizacion(codigo, cotizaciones, Id_estado){
   $("#Estado").val(Id_estado);
   $("#Fecha_Registro").val(campo.find("td").eq(1).text());
   $("#FechaVencimiento").val(campo.find("td").eq(3).text());
+  var $fechaVencimiento = $("#FechaVencimiento").val(campo.find("td").eq(3).text());
+  $("#FechaVencimiento").on('blur', function(ev){
+    if (!$.trim($fechaVencimiento.val())) {
+        $fechaVencimiento.val(campo.find("td").eq(3).text());
+      }
+  });
   $("#valor_total").val(campo.find("td").eq(5).text());
   $("#ced_cliente").val(campo.find("td").eq(6).text());
   $("#myModal3").modal();
@@ -81,8 +87,8 @@ $('#tblfichascotiz').dataTable({
           "infoEmpty": "",
           "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
       }
 }); 
@@ -95,8 +101,8 @@ $('#tablaFichasCoti').dataTable({
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
           "zeroRecords": "No se encontraron cotizaciones que coincidan con la búsqueda.",
       "paginate": {
-        "previous": "",
-        "next": ""
+        "previous": "Anterior",
+        "next": "Siguiente"
        }
       }
   }); 
@@ -179,7 +185,7 @@ function agregarCliente(documento_cli, cliente){
 function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha){
   var campo = $(fichas).parent().parent();
   $("#Ficha tbody tr #tblFichasVaciaCoti").remove();
-  var tr = "<tr class='box box-solid collapsed-box trcotiza' id='trcotizaciones'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]' data-parsley-required=''></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
+  var tr = "<tr class='box box-solid collapsed-box trcotiza' id='trcotizaciones'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]' data-parsley-required='' style='border-radius:5px'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"' style='border-radius:5px'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
   $("#Ficha").append(tr);
   boton = "#b"+idboton;
   $(boton).attr('disabled', 'disabled');
@@ -232,8 +238,10 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     for (var i = 0; i <= arrayProductos.length - 1; i++) {
     idSolProducto = arrayProductos[i]['Id_Solicitudes_Producto'];  
     idProducto = arrayProductos[i]['Referencia'];
+    nombreProducto = arrayProductos[i]['Nombre'];
     idFichaTec = arrayProductos[i]['Id_Ficha_Tecnica'];
     color = arrayProductos[i]['Codigo_Color'];
+    nombreColor = arrayProductos[i]['Nombre_Color'];
     vlrProducto = arrayProductos[i]['Valor_Producto'];
     cantProducir = arrayProductos[i]['Cantidad_Producir'];
     subtotal = arrayProductos[i]['Subtotal'];
@@ -242,18 +250,18 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     var tr = "";
 
     if (fichaAs == 1) {
-    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box trProducModCoti'><td>"+idProducto+"<input type='hidden' id='idProducto"+idFichaTec+"' value='"+idFichaTec+"'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td><input type='number' min='1' id='cantProducir"+idFichaTec+"' name='cantProducir[]' value='"+cant_Cotizada+"' onkeyup='res"+idFichaTec+".value=cantProducir"+idFichaTec+".value * "+vlrProducto+"; subt"+idFichaTec+".value=parseFloat(res"+idFichaTec+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idFichaTec+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idFichaTec+"' name='res"+idFichaTec+"' for='cantProducir"+idFichaTec+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idFichaTec+", this, subt"+idFichaTec+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idFichaTec+"' name='idProducto[]' value='"+idFichaTec+"'><td></td><td style='display: none;'>"+idFichaTec+"</td</tr>";
+    tr = "<tr id='tr"+idProducto+"' class='box box-solid collapsed-box trProducModCoti'><td>"+idProducto+"<input type='hidden' id='idProducto"+idFichaTec+"' value='"+idFichaTec+"'></td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td><input type='number' min='1' maxlength='10' data-parsley-required='' id='cantProducir"+idFichaTec+"' name='cantProducir[]' value='"+cant_Cotizada+"' onkeyup='res"+idFichaTec+".value=cantProducir"+idFichaTec+".value * "+vlrProducto+"; subt"+idFichaTec+".value=parseFloat(res"+idFichaTec+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrProducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idFichaTec+"' value='"+subtotal+"'><input readonly='' type='text' id='capValor"+idFichaTec+"' name='res"+idFichaTec+"' data-parsley-required='' for='cantProducir"+idFichaTec+"' style='border-radius:5px;' value='"+subtotal+"'></td><td><button type='button' class='btn btn-box-tool' onclick='modifiProductos("+idFichaTec+", this, subt"+idFichaTec+".value)' ><i class='fa fa-remove' style='font-size:150%'></i></button></td><input type='hidden' id='idProducto"+idFichaTec+"' name='idProducto[]' value='"+idFichaTec+"'><td style='display: none;'>"+idFichaTec+"</td</tr>";
     $('#Asopedido').append(tr);
     }
 
   else if(fichaAs == 2){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td></tr>";
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td></tr>";
     $('#fichaAsociadas').append(tr);
     $('#DetallesAso').show();
 
    }
    else if(fichaAs == 3){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
     "</td><td><input type='number' style='width: 100%' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichaTec+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 100%;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichaTec+".value=jsjasd' id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
     "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichaTec+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichaTec+"' name='exisProdTerCotPed[]'></td></tr>";
     //tabla convertir a pedido
@@ -333,14 +341,12 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
     }}
   });
 
-  $(document).ready(function(){
   $("#Cliente").select2({
     language: {
           noResults: function (params) {
           return "No hay resultados";
     }}
   });
-}); 
 
 
 function ValCoti(){
@@ -348,13 +354,13 @@ function ValCoti(){
   var fecha_Regi = $("#fecha_R").val();
 
   if (fecha_Venci <= fecha_Regi) {
-      Lobibox.notify('warning', {size: 'mini', msg: 'Debe ingresar una fecha superior a la fecha actual'});
+      Lobibox.notify('warning', {size: 'mini', msg: 'Debe ingresar una fecha de vencimiento superior a la fecha actual.'});
     return false;
   }
 
   if ($("#tblFichasVaciaCoti").length)
   {
-          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
+          Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización.'});
           return false;
     }
         else{
@@ -373,14 +379,14 @@ function ValCoti(){
     var resTabla = true;
 
    if (Mfecha_venci <= Mfecha_regi) {
-      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
+      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha de vencimiento superior a la fecha de registro.'});
       $(btn_Pedi).attr('disabled',false);
       resFechaV = false;
     }
 
     if ($("#tblProductosVacia").length)
     {
-      Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización'});
+      Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto a la cotización.'});
       resTabla = false;
     }
 
@@ -413,7 +419,7 @@ function ValCotPedi(){
   });
 
    if (Pfecha_entrega <= Pfecha_registro){
-      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha superior'});
+      Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha de vencimiento superior a la fecha de registro.'});
     resFechaVen = false;
   }
 
@@ -444,4 +450,8 @@ function limpiarFormRegCoti(){
         $("#tblFichasVaciaCoti").html("No hay productos asociados");
         $(".btnAsociarP").attr('disabled', false);
         }
+}
+
+function prohibirEscritura(){
+  $("#fecha1").val("");
 }

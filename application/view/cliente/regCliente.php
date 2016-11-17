@@ -16,11 +16,11 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="">
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
             </div>
             <div class="form-group col-lg-4">
               <label class="">*Apellido:</label>
-              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="">
+              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="" maxlength="45">
             </div>
             <div class="form-group col-lg-4">
               <label class="">Estado:</label>
@@ -42,29 +42,36 @@
               </select>
             </div>
             <div class="form-group col-lg-4">
-              <label class="">*Documento:</label>
+              <label class="">*Número de Documento:</label>
 
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" maxlength="20">
             </div>
             <div class="form-group col-lg-4">
-              <label class="">*Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change">
+              <label class="">Email:</label>
+              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change" maxlength="45">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label class="">Teléfono:</label>
-              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);">
+              <input type="text" class="form-control" id="telefono" placeholder="" name="telefono" onChange="validarTelefono(this.value);" maxlength="25">
             </div>
             <div class="form-group col-lg-4">
               <label class="">Dirección:</label>
-              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion">
+              <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" maxlength="45">
             </div>
           </div>
         </div>
         <div class="box-footer"> 
-          <button type="reset" class="btn btn-default pull-right" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button> 
-          <button type="submit" class="btn btn-success pull-right" style="" name="btnRegistrarC"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-3">
+              <button type="submit" class="btn btn-success btn-md btn-block" style="" name="btnRegistrarC"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+            </div>
+            <div class="col-md-3">
+              <button type="reset" class="btn btn-default btn-md btn-block" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+            </div>
+          </div>
+          <small><b>*Campo requerido</b></small>
         </div>
       </form>
     </div>

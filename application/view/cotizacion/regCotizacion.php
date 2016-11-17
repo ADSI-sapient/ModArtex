@@ -33,7 +33,7 @@
                 <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv">
+                <input type="text" class="form-control pull-right" autofocus="" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv" onkeyup="prohibirEscritura();">
               </div>
             </div>
             <div id="regCotizv"></div>
@@ -99,15 +99,25 @@
         <div class="col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">
             <label for="vlr_total" class="">Valor Total:</label>
-            <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
+            <div class="input-group">
+              <span class="input-group-addon"><b>$</b></span>
+              <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
+            </div>
           </div>
         </div>
         </div>
       </div>
       <div class="box-footer">
-              <button type="reset" class="btn btn-default pull-right" name="" onclick="limpiarFormRegCoti()" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-              <button type="submit" class="btn btn-success pull-right" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-3">
+            <button type="submit" class="btn btn-success btn-md btn-block" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+          </div>
+          <div class="col-lg-3">
+            <button type="reset" class="btn btn-default btn-md btn-block" name="" onclick="limpiarFormRegCoti()" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+          </div>
         </div>
+        <small><b>*Campo requerido</b></small>
+      </div>
       </form>
     </div>  
 </section>       
@@ -120,8 +130,8 @@
 
 
       <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content modal-lg" style="border-radius: 10px;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">PRODUCTOS PARA ASOCIAR</h4>
@@ -135,6 +145,7 @@
                       <tr class="active">
                         <th style="display: none;"></th>
                         <th>Referencia</th>
+                        <th>Nombre</th>
                         <th>Estado</th>
                         <th>Color</th>
                         <th>Valor Produccion</th>
@@ -150,12 +161,13 @@
                     <tr>
                       <td style="display: none;"><?= $ficha["Id_Ficha_Tecnica"] ?></td>
                       <td><?= $ficha["Referencia"] ?></td>
+                      <td><?= $ficha["Nombre"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td><i class="fa fa-square" style="color:<?= $ficha["Codigo_Color"] ?>; font-size: 150%;"></i></td>
+                      <td><i class="fa fa-square" style="color:<?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i style="font-size: 150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
@@ -167,7 +179,7 @@
               </div>
 
       <div class="modal-footer" style="border-top:0px;">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div> 
     </form>
      </div>

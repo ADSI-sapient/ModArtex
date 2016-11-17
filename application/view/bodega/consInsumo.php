@@ -164,10 +164,10 @@
          <div class="modal-footer">
             <div class="row">
               <div class="col-lg-offset-3 col-lg-3">
-                <button type="button" onclick="updateColIns()" class="btn btn-warning btn-md btn-block" style="margin-left: 2%; margin-top: 2%" name="btnRegIns"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                <button type="button" onclick="updateColIns()" class="btn btn-warning btn-md btn-block" style="margin-left: 2%; margin-top: 2%" name="btnRegIns"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
               </div>
               <div class="col-lg-3">
-                <button data-dismiss="modal" type="reset" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                <button data-dismiss="modal" type="reset" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
               </div>
             </div>
          </div> 
@@ -182,9 +182,9 @@
   <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-radius: 10px;">
-      <div class="modal-header" style="padding: 1%;">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="box-header" style="text-align: center;"><strong>COLORES PARA ASOCIAR</strong></h4>
+        <h4 class="modal-title"><strong>COLORES PARA ASOCIAR</strong></h4>
       </div>
       
       <div class="col-md-6"></div>
@@ -209,14 +209,14 @@
              <td><?= $value["Codigo_Color"]; ?></td>
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
-             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccionCol(this)" class="btn btn-box-tool"><i class="fa fa-plus" style="color: blue;"></i></button></td> 
+             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccionCol(this)" class="btn btn-box-tool"><i class="fa fa-plus" style="color: blue; font-size: 150%;"></i></button></td> 
            </tr>
          <?php endforeach ?>
        </tbody>
      </table>
    </div>
   <div class="modal-footer">
-    <button type="reset" class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+    <button type="reset" class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
   </div> 
 </div> 
 </div>

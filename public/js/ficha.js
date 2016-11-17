@@ -96,6 +96,11 @@
         $("#mdEditFicha").show();
       }
 
+      //permite habilitar los botones de agregar en los modals de asociar tallas e insumos al modificar
+      function habilitarAsociaciones(){
+        $(".btn-box-tool").removeAttr("disabled");
+      }
+
       function valorProduccion(){
         var total=0;
         $(".subtotal").each(function(){
@@ -157,9 +162,9 @@
         $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
         var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
         "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColInsu+"'></i></td><td>"
-        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input maxlength='10' type='number' id='cantNec"
+        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input step='any' maxlength='10' type='number' id='cantNec"
         +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
-        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' min='0' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
+        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion();' data-parsley-required='' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
         +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
         +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i style='font-size: 150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
         $("#tablaInsumos").append(tr);

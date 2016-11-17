@@ -41,7 +41,7 @@
       <div class="form-group">
         <style type="text/css">
           #btnIngresar:hover{
-            background-color: green;
+            background-color: #2e699c;
           }
         </style>  
         <button  id="btnIngresar" style="width: 368px; padding: 10px; height: 44px" class="btn btn-primary btn-lg" type="submit" name="btnLogin" value="Login">Ingresar</button>

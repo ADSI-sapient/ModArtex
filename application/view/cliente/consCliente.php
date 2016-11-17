@@ -83,41 +83,48 @@
                       <input type="text" id="Tipo_Documento" readonly="" class="form-control">
                     </div>
                     <div class="form-group col-sm-6">
-                      <label for="documento" class="">Documento:</label>
+                      <label for="documento" class="">Número de Documento:</label>
                       <input type="text"  class="form-control" id="Num_Documento" name="Num_Documento" readonly="">
                     </div>
                   </div>
                   <div class="row" style="margin-left:0.5%">
                     <div class="form-group col-sm-6">
                       <label for="nombre" class="">*Nombre:</label>
-                      <input type="text" class="form-control" id="Nombre" placeholder="" name="Nombre" data-parsley-required="">
+                      <input type="text" class="form-control" id="Nombre" placeholder="" name="Nombre" data-parsley-required="" maxlength="45">
                     </div>
                     <div class="form-group col-sm-6">
                       <label for="apellido" class="">*Apellido</label>
-                      <input type="text" class="form-control" id="Apellido" placeholder="" name="Apellido" data-parsley-required="">
+                      <input type="text" class="form-control" id="Apellido" placeholder="" name="Apellido" data-parsley-required="" maxlength="45">
                     </div>
                   </div>
                   <div class="row" style="margin-left:0.5%">
                     <div class="form-group  col-sm-6">
                       <label for="telefono">Teléfono:</label>
-                      <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);">
+                      <input type="text" class="form-control" id="Telefono" name="Telefono" onChange="validarTelefono(this.value);" maxlength="25">
                     </div>
                    <div class="form-group col-sm-6">
                    <label for="direccion ">Dirección:</label>
-                      <input type="text" class="form-control" id="Direccion" name="Direccion">
+                      <input type="text" class="form-control" id="Direccion" name="Direccion" maxlength="45">
                    </div>
                  </div>
                  <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
-                    <label for="email" class="">*Email:</label>
-                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="">
+                    <label for="email" class="">Email:</label>
+                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="" maxlength="45">
                   </div>
                 </div>
             </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-warning" name="btnModificar"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                </div>
+            <div class="modal-footer">
+            <div class="row">
+              <div class="col-lg-offset-3 col-lg-3">
+                <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificar"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
+              </div>
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+              </div>
+              </div>
+              <small class="pull-left"><b>*Campo requerido</b></small>
+            </div>      
           </form>
           </div>
         </div>

@@ -45,7 +45,7 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1);" ><i style="font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); habilitarAsociaciones();" ><i style="font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
                     </td>
                     <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
@@ -85,7 +85,7 @@
               <div class="form-group col-sm-12">
                 <div class="form-group col-sm-4">
                   <label for="referencia" class="">Referencia:</label>
-                  <input class="form-control" type="text" name="referencia" id="referencia" style="border-radius:5px;" maxlength="25" disabled="">
+                  <input class="form-control" type="text" name="referencia" id="referencia" style="border-radius:5px;" maxlength="25" readonly="">
                 </div>
                 <div class="form-group col-sm-4">
                   <label for="nombre" class="">*Nombre:</label>
@@ -123,11 +123,17 @@
                   <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1" max="9999999">
                 </div>
               </div>
-
+              <div class="row col-sm-12">
+                  <div class="col-sm-offset-1 col-sm-2">
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>TALLAS</b></button>
+                </div>
+                <div class="col-sm-offset-5 col-sm-3">
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>INSUMOS</b></button>
+                </div>
+              </div>
                 <div class="table">
                   <div class="form-group col-sm-4 table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>Tallas</b></button>
                     <table class="table table-hover table-bordered" id="tbl-tallas-aso">
                       <thead>
                         <tr class="active">
@@ -144,7 +150,6 @@
                 <div class="table">
                   <div class="form-group col-sm-8 table-responsive scrolltablas">
                     <label>*Insumos asociados:</label>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>Insumos</b></button>
                     <table class="table table-hover table-bordered" id="tbl-insumos-aso">
                       <thead>
                         <tr class="active">
@@ -182,10 +187,10 @@
               <div class="modal-footer" style="border-top: 0;">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-3">
-                    <button type="submit" class="btn btn-warning btn-sm btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i><b>Actualizar</b></button>
+                    <button type="submit" class="btn btn-warning btn-sm btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
                   </div>
                   <div class="col-md-3">
-                    <button type="button" class="btn btn-default btn-sm btn-block" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i><b>Cerrar</b></button>
+                    <button type="button" class="btn btn-default btn-sm btn-block" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
                   </div>
                 </div>
                 <small class="pull-left"><b>*Campo requerido</b></small>
@@ -227,7 +232,7 @@
                           <td><?= $insumo["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                           <td><?= round($insumo["Valor_Promedio"],2) ?></td>
                           <td>
-                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i style="font-size: 150%" class="fa fa-plus"></i></button>
+                            <button id="btn<?= $insumo["Id_Insumo"] ?>" type="button" class="btn btn-box-tool" onclick="asociarInsumoFicha('<?= $insumo["Id_Insumo"] ?>', '<?= $insumo["Nombre"] ?>', referencia.value, this, '<?= $insumo["Valor_Promedio"] ?>', '<?= $insumo["Codigo_Color"] ?>', '<?= $i; ?>', '<?= $insumo["Abreviatura"] ?>', '<?= $insumo["Nombre_Color"] ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>
@@ -276,7 +281,7 @@
                           <td><?= $talla["Id_Talla"] ?></td>
                           <td><?= $talla["Nombre"] ?></td>
                           <td>
-                            <button id="btntallas<?= $i ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i style="font-size: 150%" class="fa fa-plus"></i></button>
+                            <button id="btntallas<?= $i ?>" type="button" class="btn btn-box-tool" onclick="asociarTallaFicha('<?= $talla["Id_Talla"] ?>', '<?= $talla["Nombre"] ?>', referencia.value, this, '<?= $i; ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                           </td>
                         </tr>
                         <?php $i++; ?>
@@ -287,7 +292,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

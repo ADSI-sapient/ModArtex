@@ -115,17 +115,17 @@
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="nombre" class="">*Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" data-parsley-required="">
+                    <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" data-parsley-required="" maxlength="45">
                   </div>
                   <div class="form-group col-sm-6">
                     <label for="apellido" class="">*Apellido:</label>
-                    <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="">
+                    <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="" maxlength="45">
                   </div>
                 </div>
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="nombre_Usuario" class="">*Nombre de Usuario:</label>
-                    <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="">
+                    <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="" maxlength="15">
                   </div>
                   <div class="form-group col-sm-6">
                     <label for="rol" class="">*Rol:</label>
@@ -141,14 +141,20 @@
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="email" class="">*Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="" name="email" data-parsley-required="">
+                    <input type="email" class="form-control" id="email" placeholder="" name="email" data-parsley-required="" maxlength="45">
                   </div>
                 </div>
             </div>
             <input type="hidden" id="codigo" name="codigo"></input>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-warning" name="btonModificar"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  <div class="row">
+                    <div class="col-lg-offset-3 col-lg-3">
+                      <button type="submit" class="btn btn-warning btn-md btn-block" name="btonModificar"><i class="fa fa-refresh" aria-hidden="true"></i>  <b>Actualizar</b></button>
+                    </div>
+                    <div class="col-lg-3">
+                      <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+                    </div>
+                  </div>
                 </div>
               </form>
           </div>

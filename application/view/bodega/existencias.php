@@ -287,10 +287,10 @@
 <div class="modal-footer">
   <div class="row">
     <div class="col-lg-offset-3 col-lg-3">
-      <button type="submit" class="btn btn-success btn-md btn-block" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+      <button type="submit" class="btn btn-success btn-md btn-block" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos"><i class="fa fa-check-circle" aria-hidden="true"></i>  <b>Registrar</b></button>
     </div>
     <div class="col-lg-3">
-      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
     </div>
   </div>
 </div> 

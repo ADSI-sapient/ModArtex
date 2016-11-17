@@ -311,9 +311,9 @@ function seleccionCol(col){
               +$(this).find("td").eq(4).html()+"</td><td>"
               +$(this).find("td").eq(5).html()+"</td><td style='display: none;'>"
               +$(this).find("td").eq(6).html()+"</td><td style='display: none;'>"
-              +$(this).find("td").eq(7).html()+"</td><td><input data-parsley-required='' min='0' id='extCant"
-              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' id='extValUni"
-              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' id='extValTot"
+              +$(this).find("td").eq(7).html()+"</td><td><input data-parsley-required='' min='0' maxlength='10' id='extCant"
+              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' maxlength='10'' id='extValUni"
+              +valor+"' type='number'></td><td><input data-parsley-required='' min='0' maxlength='10' id='extValTot"
               +valor+"' type='number'></td></tr>";
               $("#tbodyEnt").append(fila);
               band = true;

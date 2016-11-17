@@ -3,7 +3,7 @@
 $html = '<!DOCTYPE html>
 <html>
 <head>
-    <title>Informe Cotizacion</title>
+    <title>Cotizacion</title>
     <style>
         @media print {
          .firstrow {page-break-before:always}
@@ -229,19 +229,19 @@ $html = '<!DOCTYPE html>
     <table style="width:100%;">
         <tr>
             <td style="width:80mm;">
-                <h1 class="heading">'.$factura[0]["Nombre"].' '.$factura[0]["Apellido"].'</h1>
+                <h1 class="heading">'.$cotizacion[0]["Nombre"].' '.$cotizacion[0]["Apellido"].'</h1>
                 <br>
-                <h2 class="heading">Tipo De Documento : '.$factura[0]["Tipo_Documento"] .'</h2>
-                <h2 class="heading">Documento : '.$factura[0]["Num_Documento"] .'</h2>
-                <h2 class="heading">Telefono : '. $factura[0]["Telefono"] .'</h2>
-                <h2 class="heading">Direccion : '. $factura[0]["Direccion"] .'</h2>
-                <h2 class="heading">Email : '. $factura[0]["Email"] .'</h2>
+                <h2 class="heading">Tipo De Documento : '.$cotizacion[0]["Tipo_Documento"] .'</h2>
+                <h2 class="heading">Número de Documento : '.$cotizacion[0]["Num_Documento"] .'</h2>
+                <h2 class="heading">Teléfono : '. $cotizacion[0]["Telefono"] .'</h2>
+                <h2 class="heading">Dirección : '. $cotizacion[0]["Direccion"] .'</h2>
+                <h2 class="heading">E-mail : '. $cotizacion[0]["Email"] .'</h2>
             </td>
             <td valign="top">
                 <table class="" style="width:100%;">
-                    <tr><td>Numero de Cotizacion : </td><td>'.$factura[0]["Id_Solicitud"] .'</td></tr>
-                    <tr><td>Fecha Registro : </td><td>'.$factura[0]["Fecha_Registro"] .'</td></tr>
-                    <tr><td>Fecha Vencimiento : </td><td>'.$factura[0]["Fecha_Vencimiento"].'</td></tr>
+                    <tr><td>Número de Cotización : </td><td>'.$cotizacion[0]["Id_Solicitud"] .'</td></tr>
+                    <tr><td>Fecha de Registro : </td><td>'.$cotizacion[0]["Fecha_Registro"] .'</td></tr>
+                    <tr><td>Fecha de Vencimiento : </td><td>'.$cotizacion[0]["Fecha_Vencimiento"].'</td></tr>
                 </table>
             </td>
         </tr>
@@ -252,16 +252,18 @@ $html = '<!DOCTYPE html>
             <table class="table">    
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Referencia</b></td>
+                <td style="width:15%;"><b>Nombre</b></td>
                 <td style="width:15%;"><b>Color</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
                 <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Subtotal</b></td>
             </tr>';         
             
-            foreach ($factura as $value):
+            foreach ($cotizacion as $value):
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
+            <td class="mono" style="width:15%;">'.$value["Nombre"] .'</td>
             <td style="width:15%;" class="mono">'.$value["Nom"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Cant_Cotizada"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
@@ -271,8 +273,8 @@ $html = '<!DOCTYPE html>
             endforeach; 
             $html .='
             <tr>
-                <td style="background:#eee;" colspan="3"><b>Total</b></td>
-                <td style="width:15%; " class="mono" colspan="2">$'.$factura[0]["Valor_Total"].'</td>
+                <td style="background:#eee;" colspan="4"><b>Total:</b></td>
+                <td style="width:15%; " class="mono" colspan="2">$'.$cotizacion[0]["Valor_Total"].'</td>
             </tr>
             </table>
 
@@ -298,5 +300,5 @@ $dompdf->loadHtml($html);
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream("Informe De La Cotizacion ".$factura[0]["Id_Solicitud"] , ["Attachment"=>0]);
+$dompdf->stream("Cotizacion ".$cotizacion[0]["Id_Solicitud"] , ["Attachment"=>0]);
 ?>

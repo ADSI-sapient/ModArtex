@@ -2,7 +2,7 @@
 	class ctrFicha extends Controller
 	{
 		private $mdlModel = null;
-
+		
 		/*Constructor donde asignamos el modelo a la variable mdlModel por medio del método
 		loadModel, al cual le mandamos el modelo respectivo por parámetro.*/
 	    function __construct(){

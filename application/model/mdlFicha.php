@@ -33,7 +33,6 @@
 	    }
 	    public function regFicha()
 	    {
-	    	var_dump($this->nombre_ficha);
 	        $sql = "CALL SP_regFichaTecnica(?,?,?,?,?,?,?,?,?)";
 	        try {
 	        	$query = $this->db->prepare($sql);
