@@ -482,12 +482,6 @@ CREATE TABLE `tbl_colores_insumos` (
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
 
-INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 10, 1, 1728, 700.56, 25),
-(2, 11, 1, -200, 250, 25),
-(3, 9, 2, 22, 126, 250),
-(4, 10, 2, 340, 385, 250);
-
 -- --------------------------------------------------------
 
 --
@@ -503,11 +497,6 @@ CREATE TABLE `tbl_entradas` (
 --
 -- Volcado de datos para la tabla `tbl_entradas`
 --
-
-INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
-(1, '2016-11-17', 1145000),
-(2, '2016-11-17', 397750),
-(3, '2016-11-17', 116000);
 
 -- --------------------------------------------------------
 
@@ -527,13 +516,6 @@ CREATE TABLE `tbl_entradas_exitencias` (
 --
 -- Volcado de datos para la tabla `tbl_entradas_exitencias`
 --
-
-INSERT INTO `tbl_entradas_exitencias` (`Id_Entrada_Existencia`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
-(1, 1, 1, 1000, 1145, 1145000),
-(2, 2, 2, 800, 250, 200000),
-(3, 2, 3, 500, 126, 63000),
-(4, 2, 4, 350, 385, 134750),
-(5, 3, 1, 800, 145, 116000);
 
 -- --------------------------------------------------------
 
@@ -580,13 +562,6 @@ CREATE TABLE `tbl_existencias_salidas` (
 -- Volcado de datos para la tabla `tbl_existencias_salidas`
 --
 
-INSERT INTO `tbl_existencias_salidas` (`Codigo`, `Id_Salida`, `Id_Existencia`, `Cantidad`) VALUES
-(1, 1, 8, 0),
-(2, 1, 10, 0),
-(3, 2, 8, 0),
-(4, 2, 10, 0),
-(5, 3, 3, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -602,16 +577,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 --
 -- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
 --
-
-INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`) VALUES
-(4, 2, 1),
-(5, 3, 1),
-(6, 1, 1),
-(7, 2, 2),
-(8, 3, 2),
-(10, 2, 3),
-(11, 1, 4),
-(12, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -635,12 +600,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_fichas_tecnicas`
 --
-
-INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Cantidad`, `Stock_Minimo`, `Valor_Producto`, `Nombre`) VALUES
-(1, 'RF-201', 9, '2016-11-17', '1', 7465, 0, 250, 8000, 'Cuco Tetero'),
-(2, 'RF-202', 11, '2016-11-17', '1', 4652, 0, 320, 5000, 'Tanguita'),
-(3, 'RF-203', 9, '2016-11-17', '1', 3263, 0, 360, 3500, 'Cachetero multicolor'),
-(4, 'AD-352', 10, '2016-11-17', '1', 2588.3, 0, 300, 3500, 'Laureles');
 
 -- --------------------------------------------------------
 
@@ -680,19 +639,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 -- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
 --
-
-INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(7, 1, '1.00', 701, 1),
-(8, 2, '20.00', 5000, 1),
-(9, 3, '14.00', 1764, 1),
-(10, 1, '2.00', 1402, 2),
-(11, 2, '13.00', 3250, 2),
-(14, 2, '10.00', 2500, 3),
-(15, 3, '3.00', 378, 3),
-(16, 4, '1.00', 385, 3),
-(17, 1, '0.30', 210.3, 4),
-(18, 2, '8.00', 2000, 4),
-(19, 3, '3.00', 378, 4);
 
 -- --------------------------------------------------------
 
@@ -958,10 +904,6 @@ CREATE TABLE `tbl_solicitudes` (
 -- Volcado de datos para la tabla `tbl_solicitudes`
 --
 
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '1234589', '2016-11-17', 70000),
-(2, '1234589', '2016-11-17', 391000);
-
 -- --------------------------------------------------------
 
 --
@@ -998,12 +940,6 @@ CREATE TABLE `tbl_solicitudes_producto` (
 -- Volcado de datos para la tabla `tbl_solicitudes_producto`
 --
 
-INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Id_Ficha_Tecnica`, `Cant_Cotizada`) VALUES
-(3, 2, 0, '0', 10, 35000, 3, NULL),
-(4, 2, 0, '0', 20, 100000, 2, NULL),
-(5, 2, 0, '0', 32, 256000, 1, NULL),
-(17, 1, 0, 'k', 20, 70000, 4, 20);
-
 -- --------------------------------------------------------
 
 --
@@ -1023,10 +959,6 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 -- Volcado de datos para la tabla `tbl_solicitudes_tipo`
 --
 
-INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
-(1, 1, 1, NULL, '2016-11-30', 2),
-(2, 2, 2, '2016-11-23', NULL, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -1041,11 +973,6 @@ CREATE TABLE `tbl_tallas` (
 --
 -- Volcado de datos para la tabla `tbl_tallas`
 --
-
-INSERT INTO `tbl_tallas` (`Id_Talla`, `Nombre`) VALUES
-(1, 'L'),
-(2, 'M'),
-(3, 'S');
 
 -- --------------------------------------------------------
 
