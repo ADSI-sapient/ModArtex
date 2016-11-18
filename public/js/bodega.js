@@ -6,7 +6,11 @@ $(window).load(function(){
     var tr = '<tr id="trTablaVacia"><td colspan="7" style="text-align: center;">No hay colores asociados.</td></tr>';
     $("#tableListInsumos tbody").append(tr);
   }
+
 });
+
+
+
 
     $('#tableListInsumos').dataTable( {
       "ordering": false,
@@ -584,6 +588,26 @@ function verDetalleColIns(id){
   }).fail(function(){
   });
 }
+
+$(document).ready(function(){
+  $("#hola").on("keyup", function(e){
+    $("#inphiddn").val(e.currentTarget.value);
+  });
+});
+
+function generarExtIns(){
+  var filtro = $("#inphiddn").val();
+  $.ajax({
+    dataType: 'json',
+    type: 'POST',
+    url: uri+"ctrBodega/reporteExistencias", 
+    data:{filtroReporte: filtro}
+  }).done(function(respuesta){
+    // console.log(respuesta.r);
+    // location.href = "reporteExistenciasIns.php";
+  }).fail(function(){});
+}
+
 
 
 

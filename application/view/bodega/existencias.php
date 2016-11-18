@@ -1,5 +1,4 @@
     <section class="content-header">
-      <br>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
         <li><a href="#">Bodega</a></li>
@@ -12,6 +11,7 @@
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
         <form class="form-horizontal">
+        <input type="hidden" name="filtroReporte" id="inphiddn">
          <div class="col-md-12">
            <div style="margin-top: 10px;" class="box">
             <div class="box-body no-padding">
@@ -35,16 +35,16 @@
                   <tbody>
                     <?php $cont = 0;?>
                     <?php foreach($listEx as $valExt): ?>
-                     <tr>
+                     <tr class="repIns">
                       <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
                       <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
-                      <td><?= $cont += 1;?></td>
-                      <td><?= $valExt["NomIns"]?></td>
-                      <td><?= $valExt["Nombre"]?></td>
-                      <td><?= $valExt["medida"]?></td>
-                      <td><?= $valExt["Cantidad_Insumo"]?></td>
-                      <td><?= $valExt["Valor_Promedio"]?></td>
-                      <td style="text-align: center;"><span class="badge bg-red"> <?= $valExt["Stock_Minimo"]?> </span></td>
+                      <td class="repoInsum"><?= $cont += 1;?></td>
+                      <td class=""><?= $valExt["NomIns"]?></td>
+                      <td class=""><?= $valExt["Nombre"]?></td>
+                      <td class=""><?= $valExt["medida"]?></td>
+                      <td class=""><?= $valExt["Cantidad_Insumo"]?></td>
+                      <td class=""><?= $valExt["Valor_Promedio"]?></td>
+                      <td style="text-align: center;"><span class="badge bg-red"><?= $valExt["Stock_Minimo"]?></span></td>
                       <td style="text-align: center;">
                         <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
                       </td>
@@ -64,7 +64,9 @@
         </div>
         <div class="box-footer">
           <div class="col-md-4">
-           <button class="btn btn-primary"><b>Generar Reporte</b></button>
+
+           <!-- <a target="_blank" href='<?= URL ?>/ctrBodega/reporteExistencias/' class="btn btn-primary" id="buttonID" ><b>Generar Reporte</b></a> -->
+           <button class="btn btn-primary" type="button" onclick="generarExtIns()">Generar Reporte</button>
          </div> 
          <div class="col-md-8" style="text-align: right;">
            <button type="button" onclick="tableEntMay()" class="btn btn-box-tool"><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>

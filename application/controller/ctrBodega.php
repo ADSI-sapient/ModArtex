@@ -133,7 +133,6 @@ class ctrBodega extends Controller{
 	public function listExistencias(){
 		if($this->validarURL("ctrBodega/listExistencias")){
 			$listEx = $this->_modelExistencias->listarExistencias();
-	
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/bodega/existencias.php';
 			include APP . 'view/_templates/footer.php';
@@ -225,5 +224,16 @@ class ctrBodega extends Controller{
 		$this->_modelExistencias->__SET("_cant", $_POST["cantidad"]);
 
 		echo json_encode($this->_modelExistencias->actualizarExsIns());	
+	}
+
+	public function reporteExistencias(){
+		$this->_modelExistencias->__SET("filtroExistencias", $_POST["filtroReporte"]);
+		$existencias = $this->_modelExistencias->reporteExistenciasIns();
+		if($existencias){
+			// require APP.'view/bodega/reporteExistenciasIns.php';
+			echo json_encode(["r" => $existencias]);
+		}else{
+			require APP.'view/bodega/existencias.php';	
+		}
 	}
 }

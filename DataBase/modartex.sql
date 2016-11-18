@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2016 a las 05:53:10
+-- Tiempo de generación: 18-11-2016 a las 05:14:07
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.5.37
 
@@ -368,6 +368,9 @@ INSERT INTO tbl_usuarios(Num_Documento, Tbl_Roles_Id_Rol, Usuario, Clave) VALUES
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Reg_Id` (IN `_id_tipo` INT)  NO SQL
 INSERT INTO tbl_tipopersona (Id_Tipo) VALUES (_id_tipo)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ReporteExistenciasIns` (IN `_pam1` VARCHAR(45))  NO SQL
+SELECT ci.Id_Existencias_InsCol, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida WHERE i.Nombre = _pam1 OR c.Nombre = _pam1 OR um.Abreviatura = _pam1 OR ci.Cantidad_Insumo = _pam1 OR ci.Valor_Promedio = _pam1 OR ci.Stock_Minimo = _pam1$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_solicitarPermisos` (IN `_id_rol` INT(11))  NO SQL
 SELECT p.Id_Permiso, p.Nombre, p.Url, (SELECT m.Nombre FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) NombreM, (SELECT m.Icon FROM tbl_modulos m WHERE p.id_modulo = m.id_Modulo) Icon FROM tbl_roles r JOIN tbl_rol_permisos rp ON r.Id_Rol = rp.Id_Rol JOIN tbl_permisos p ON rp.Id_Permiso = p.Id_Permiso WHERE r.Id_Rol = _id_rol$$
 
@@ -482,6 +485,13 @@ CREATE TABLE `tbl_colores_insumos` (
 -- Volcado de datos para la tabla `tbl_colores_insumos`
 --
 
+INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
+(5, 9, 3, 1000, 147, 250),
+(6, 10, 3, 800, 250, 250),
+(7, 11, 3, 360, 178, 250),
+(8, 11, 4, 700, 365, 32),
+(9, 10, 4, 650, 257, 32);
+
 -- --------------------------------------------------------
 
 --
@@ -497,6 +507,9 @@ CREATE TABLE `tbl_entradas` (
 --
 -- Volcado de datos para la tabla `tbl_entradas`
 --
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
+(4, '2016-11-17', 833630);
 
 -- --------------------------------------------------------
 
@@ -516,6 +529,13 @@ CREATE TABLE `tbl_entradas_exitencias` (
 --
 -- Volcado de datos para la tabla `tbl_entradas_exitencias`
 --
+
+INSERT INTO `tbl_entradas_exitencias` (`Id_Entrada_Existencia`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
+(6, 4, 5, 1000, 147, 147000),
+(7, 4, 6, 800, 250, 200000),
+(8, 4, 7, 360, 178, 64080),
+(9, 4, 8, 700, 365, 255500),
+(10, 4, 9, 650, 257, 167050);
 
 -- --------------------------------------------------------
 
@@ -558,10 +578,6 @@ CREATE TABLE `tbl_existencias_salidas` (
   `Cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_existencias_salidas`
---
-
 -- --------------------------------------------------------
 
 --
@@ -573,10 +589,6 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
   `Id_Talla` int(11) NOT NULL,
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `tbl_fichastecnicas_tallas`
---
 
 -- --------------------------------------------------------
 
@@ -597,10 +609,6 @@ CREATE TABLE `tbl_fichas_tecnicas` (
   `Nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_fichas_tecnicas`
---
-
 -- --------------------------------------------------------
 
 --
@@ -620,7 +628,9 @@ CREATE TABLE `tbl_insumos` (
 
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
 (1, 4, 1, 'Tela'),
-(2, 4, 1, 'Hilo');
+(2, 4, 1, 'Hilo'),
+(3, 4, 1, 'Tela'),
+(4, 4, 1, 'Hilo');
 
 -- --------------------------------------------------------
 
@@ -635,10 +645,6 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
   `Valor_Insumo` double NOT NULL,
   `Id_Ficha_Tecnica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_insumos_fichastecnicas`
---
 
 -- --------------------------------------------------------
 
@@ -900,10 +906,6 @@ CREATE TABLE `tbl_solicitudes` (
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes`
---
-
 -- --------------------------------------------------------
 
 --
@@ -936,10 +938,6 @@ CREATE TABLE `tbl_solicitudes_producto` (
   `Cant_Cotizada` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes_producto`
---
-
 -- --------------------------------------------------------
 
 --
@@ -955,10 +953,6 @@ CREATE TABLE `tbl_solicitudes_tipo` (
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes_tipo`
---
-
 -- --------------------------------------------------------
 
 --
@@ -973,6 +967,11 @@ CREATE TABLE `tbl_tallas` (
 --
 -- Volcado de datos para la tabla `tbl_tallas`
 --
+
+INSERT INTO `tbl_tallas` (`Id_Talla`, `Nombre`) VALUES
+(1, 'L'),
+(2, 'M'),
+(3, 'S');
 
 -- --------------------------------------------------------
 
@@ -1285,17 +1284,17 @@ ALTER TABLE `tbl_colores`
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
 ALTER TABLE `tbl_entradas`
-  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
-  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
@@ -1320,7 +1319,7 @@ ALTER TABLE `tbl_fichas_tecnicas`
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --

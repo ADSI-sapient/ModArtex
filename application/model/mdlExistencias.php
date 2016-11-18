@@ -19,6 +19,8 @@
 		private $_descripcion;
 		private $_idSal;
 
+		private $filtroExistencias;
+
 
 		function __construct($db){
 			$this->_db = $db;
@@ -109,5 +111,13 @@
 			$stm->bindParam(1, $this->_idExis);
 			$stm->bindParam(2, $this->_cant);
 			return $stm->execute();
+		}
+
+		public function reporteExistenciasIns(){
+			$sql = "CALL SP_ReporteExistenciasIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->filtroExistencias);
+			$stm->execute();
+			return $stm->fetchAll();
 		}
 	}

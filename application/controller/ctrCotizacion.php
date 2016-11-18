@@ -183,7 +183,7 @@
 		public function cotizacion($cod){
 			$this->modelo->__SET("Id_Solicitud", $cod);
 			$cotizacion = $this->modelo->generarCotizacion();
-
+			
 			if($cotizacion != false){
 				require APP.'view/cotizacion/cotizacion.php';
 			}else{
