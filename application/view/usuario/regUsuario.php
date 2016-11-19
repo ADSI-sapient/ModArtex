@@ -56,7 +56,7 @@
             </div>
             <div class="form-group col-lg-4">
               <label for="confirmContraseña" class="">*Confirmar Contraseña:</label>
-              <input type="password" class="form-control" id="confirmContraseña" placeholder="" value="" name="confirmarClave" data-parsley-required="" maxlength="8" minlength="6">
+              <input type="password" class="form-control" id="confirmContraseña" placeholder="" value="" name="confirmarClave" data-parsley-required="" maxlength="12" minlength="6">
             </div>
             <div class="form-group col-lg-4">
               <label for="email" class="">*E-mail:</label>

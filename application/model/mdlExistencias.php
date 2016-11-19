@@ -113,11 +113,11 @@
 			return $stm->execute();
 		}
 
-		public function reporteExistenciasIns(){
-			$sql = "CALL SP_ReporteExistenciasIns(?)";
-			$stm = $this->_db->prepare($sql);
-			$stm->bindParam(1, $this->filtroExistencias);
-			$stm->execute();
-			return $stm->fetchAll();
-		}
+		// public function reporteExistenciasIns(){
+		// 	$sql = "CALL SP_ReporteExistenciasIns(?)";
+		// 	$stm = $this->_db->prepare($sql);
+		// 	$stm->bindParam(1, $this->filtroExistencias);
+		// 	$stm->execute();
+		// 	return $stm->fetchAll();
+		// }
 	}

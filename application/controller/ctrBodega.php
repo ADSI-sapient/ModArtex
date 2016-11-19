@@ -227,13 +227,16 @@ class ctrBodega extends Controller{
 	}
 
 	public function reporteExistencias(){
-		$this->_modelExistencias->__SET("filtroExistencias", $_POST["filtroReporte"]);
-		$existencias = $this->_modelExistencias->reporteExistenciasIns();
-		if($existencias){
-			// require APP.'view/bodega/reporteExistenciasIns.php';
-			echo json_encode(["r" => $existencias]);
+		$_SESSION["arrayExistencias"] = $_POST["arrayExist"];
+		if($_SESSION["arrayExistencias"]){
+			echo json_encode(["r" => 1]);
 		}else{
-			require APP.'view/bodega/existencias.php';	
+			echo json_encode(["r" => 0]);
 		}
+	}
+	
+	public function reporteInsumos(){
+		$existencias = $_SESSION["arrayExistencias"];
+		require APP.'view/bodega/reporteExistenciasIns.php';
 	}
 }

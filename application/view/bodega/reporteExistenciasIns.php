@@ -226,58 +226,31 @@ $html = '<!DOCTYPE html>
 
 
     <br />
-    <table style="width:100%;">
-        <tr>
-            <td style="width:80mm;">
-                <h1 class="heading">'.$cotizacion[0]["Nombre"].' '.$cotizacion[0]["Apellido"].'</h1>
-                <br>
-                <h2 class="heading">Tipo De Documento : '.$cotizacion[0]["Tipo_Documento"] .'</h2>
-                <h2 class="heading">Número de Documento : '.$cotizacion[0]["Num_Documento"] .'</h2>
-                <h2 class="heading">Teléfono : '. $cotizacion[0]["Telefono"] .'</h2>
-                <h2 class="heading">Dirección : '. $cotizacion[0]["Direccion"] .'</h2>
-                <h2 class="heading">E-mail : '. $cotizacion[0]["Email"] .'</h2>
-            </td>
-            <td valign="top">
-                <table class="" style="width:100%;">
-                    <tr><td>Número de Cotización : </td><td>'.$cotizacion[0]["Id_Solicitud"] .'</td></tr>
-                    <tr><td>Fecha de Registro : </td><td>'.$cotizacion[0]["Fecha_Registro"] .'</td></tr>
-                    <tr><td>Fecha de Vencimiento : </td><td>'.$cotizacion[0]["Fecha_Vencimiento"].'</td></tr>
-                </table>
-            </td>
-        </tr>
-    </table>
          
     <div id="content">
         <div id="invoice_body">
             <table class="table">    
-            <tr style="background:#eee;">
-                <td style="width:15%;"><b>Referencia</b></td>
+            <tr style="background:#DEF5E3;">
+                <td style="width:15%;"><b>#</b></td>
                 <td style="width:15%;"><b>Nombre</b></td>
-                <td style="width:15%;"><b>Color</b></td>
+                <td style="width:20%;"><b>Color</b></td>
+                <td style="width:15%;"><b>Medida</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
-                <td style="width:15%;"><b>Valor Del Producto</b></td>
-                <td style="width:15%;"><b>Subtotal</b></td>
+                <td style="width:20%;"><b>Valor Promedio</b></td>
+                <td style="width:20%;"><b>Stock Mínimo</b></td>
             </tr>';         
-            
-            foreach ($cotizacion as $value):
-            $html .=' <tr>
-
-            <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
-            <td class="mono" style="width:15%;">'.$value["Nombre"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Nom"] .'</td>
-            <td class="mono" style="width:15%;">'.$value["Cant_Cotizada"] .'</td>
-            <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
-            <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>
-            </tr>';
-
-            endforeach; 
-            $html .='
-            <tr>
-                <td style="background:#eee;" colspan="4"><b>Total:</b></td>
-                <td style="width:15%; " class="mono" colspan="2">$'.$cotizacion[0]["Valor_Total"].'</td>
-            </tr>
-            </table>
-
+            for ($i=0; $i < count($existencias) - 1; $i+=7) { 
+            $html .='<tr>'.
+            '<td class="mono">'.$existencias[$i] .'</td>'.
+            '<td class="mono">'.$existencias[$i + 1] .'</td>'.
+            '<td class="mono">'.$existencias[$i + 2] .'</td>'.
+            '<td class="mono">'.$existencias[$i + 3] .'</td>'.
+            '<td class="mono">'.$existencias[$i + 4] .'</td>'.
+            '<td class="mono">$'.$existencias[$i + 5] .'</td>'.
+            '<td class="mono">'.$existencias[$i + 6] .'</td>'.
+            '</tr>';
+            }
+            '</table>
         </div>
     </div>
 </div> 
@@ -300,5 +273,6 @@ $dompdf->loadHtml($html);
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream("Cotizacion ".$cotizacion[0]["Id_Solicitud"] , ["Attachment"=>0]);
+$time = time();
+$dompdf->stream("Reporte Existencias Insumos - ".date("d-m-Y (H:i:s)", $time), ["Attachment"=>0]);
 ?>

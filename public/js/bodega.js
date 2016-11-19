@@ -8,10 +8,6 @@ $(window).load(function(){
   }
 
 });
-
-
-
-
     $('#tableListInsumos').dataTable( {
       "ordering": false,
         "language": {
@@ -66,6 +62,30 @@ function mensajeTablaVacia(){
     }
 }
 
+
+
+$(".checkboxHijo").change(function(){
+  var checkboxes = $("input:checkbox:checked").length;
+   if($(this).is(':checked') && checkboxes > 1){
+    $("#entradaMultiple").removeAttr("disabled");
+    $("#salidaMultiple").removeAttr("disabled");
+   }else{
+    $("#entradaMultiple").attr("disabled", "disabled");
+    $("#salidaMultiple").attr("disabled", "disabled");
+   }
+});
+
+$("#checkPadre").change(function(){
+   if($(this).is(':checked')){
+    $("#entradaMultiple").removeAttr("disabled");
+    $("#salidaMultiple").removeAttr("disabled");
+   }else{
+    $("#entradaMultiple").attr("disabled", "disabled");
+    $("#salidaMultiple").attr("disabled", "disabled");
+   }
+});
+
+
 $("#checkValor").click( function(){
    if($(this).is(':checked')){
       $("#valColIns").removeAttr("readonly");
@@ -88,6 +108,14 @@ $("#checkValor").click( function(){
       });
    }
 });
+
+$('document').ready(function(){
+   $("#checkPadre").change(function(){
+      $("input:checkbox").prop('checked', $(this).prop("checked"));
+  });
+});
+
+
 
 
   var cont = 0;
@@ -245,6 +273,9 @@ function seleccionCol(col){
 
 
         function existen(id, ins){
+          $("#cant").val("");
+          $("#valUnit").val("");
+          $("#valTot").val("");
           var campos = $(ins).parent().parent();
           $("#idExs").val(id);    
           $("#codIns").val(campos.find("td").eq(2).text());    
@@ -300,8 +331,6 @@ function seleccionCol(col){
               }
             });
         }
-
-
 
         function tableEntMay(){
           $("#tbodyEnt").empty();
@@ -396,6 +425,7 @@ function seleccionCol(col){
 
 
 function salidaUno(ins){
+    $("#descripcionSal").val("");
     var tabla = $(ins).parent().parent();
     $("#idExiSal").val(tabla.find("td").eq(0).text()) ;
     $("#nomInsSal").val(tabla.find("td").eq(3).text());
@@ -419,7 +449,7 @@ function validateMuchasSalidas(){
       var valor = $(this).find("td").eq(0).html();
       $("#cantSalIns"+valor).parsley().validate();
       if ($("#cantSalIns"+valor).val() == "" || $("#cantSalIns"+valor).val() <= 0 || $("#cantSalIns"+valor).val() > $(this).find("td").eq(5).html()) {
-        alert("La cantidad debe ser mayor a cero");
+        Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La cantidad debe ser mayor a cero'});
         return false;
       }else{
         return true;
@@ -429,7 +459,7 @@ function validateMuchasSalidas(){
 
 function salidaIns(){
           $("#tbodySalIns").empty();
-          $("#descripcion").text("");
+          $("#descripcion").val("");
 
           var band = false;
           $("#tblExistencias tbody tr").each(function(){
@@ -589,25 +619,23 @@ function verDetalleColIns(id){
   });
 }
 
-$(document).ready(function(){
-  $("#hola").on("keyup", function(e){
-    $("#inphiddn").val(e.currentTarget.value);
-  });
-});
-
 function generarExtIns(){
-  var filtro = $("#inphiddn").val();
-  $.ajax({
-    dataType: 'json',
-    type: 'POST',
-    url: uri+"ctrBodega/reporteExistencias", 
-    data:{filtroReporte: filtro}
-  }).done(function(respuesta){
-    // console.log(respuesta.r);
-    // location.href = "reporteExistenciasIns.php";
-  }).fail(function(){});
-}
+  var arrayExistencias = [];
+  $(".repIns .repoInsum, .badge").each(function(i,v){
+    arrayExistencias.push(v.outerText);
+  });
 
+  $.ajax({
+    dataType : 'json',
+    type : 'POST',
+    url : uri+"ctrBodega/reporteExistencias",
+    data: {arrayExist : arrayExistencias}
+  }).done(function(respuesta){
+    if (respuesta.r == 1) {
+      location.href = uri+"ctrBodega/reporteInsumos";
+    }
+  });
+}
 
 
 

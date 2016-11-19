@@ -10,8 +10,7 @@
         <div class="box-header with-border"  style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS INSUMOS</strong></h3>
         </div>
-        <form class="form-horizontal">
-        <input type="hidden" name="filtroReporte" id="inphiddn">
+        <form id="form1" class="form-horizontal">
          <div class="col-md-12">
            <div style="margin-top: 10px;" class="box">
             <div class="box-body no-padding">
@@ -20,14 +19,14 @@
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
-                      <th></th>
+                      <th><input type="checkbox" id="checkPadre" style="height:15px; width:15px;"></th>
                       <th>#</th>
                       <th>Nombre</th>
                       <th>Color</th>
                       <th>Medida</th>
                       <th>Cantidad</th>
-                      <th>Valor promedio</th>
-                      <th style="text-align: center;">Stock mínimo</th>
+                      <th>Valor Promedio</th>
+                      <th style="text-align: center;">Stock Mínimo</th>
                       <th style="width: 7%">Entrada</th>
                       <th style="width: 7%">Salida</th>
                     </tr>
@@ -37,16 +36,16 @@
                     <?php foreach($listEx as $valExt): ?>
                      <tr class="repIns">
                       <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
-                      <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>"></td>
+                      <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>" class="checkboxHijo"></td>
                       <td class="repoInsum"><?= $cont += 1;?></td>
-                      <td class=""><?= $valExt["NomIns"]?></td>
-                      <td class=""><?= $valExt["Nombre"]?></td>
-                      <td class=""><?= $valExt["medida"]?></td>
-                      <td class=""><?= $valExt["Cantidad_Insumo"]?></td>
-                      <td class=""><?= $valExt["Valor_Promedio"]?></td>
+                      <td class="repoInsum"><?= $valExt["NomIns"]?></td>
+                      <td class="repoInsum"><?= $valExt["Nombre"]?></td>
+                      <td class="repoInsum"><?= $valExt["medida"]?></td>
+                      <td class="repoInsum"><?= $valExt["Cantidad_Insumo"]?></td>
+                      <td class="repoInsum"><?= $valExt["Valor_Promedio"]?></td>
                       <td style="text-align: center;"><span class="badge bg-red"><?= $valExt["Stock_Minimo"]?></span></td>
                       <td style="text-align: center;">
-                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this);" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
                       </td>
                       <td style="text-align: center;">
                       <?php if ( $valExt["Cantidad_Insumo"] > 0 ): ?>
@@ -64,13 +63,11 @@
         </div>
         <div class="box-footer">
           <div class="col-md-4">
-
-           <!-- <a target="_blank" href='<?= URL ?>/ctrBodega/reporteExistencias/' class="btn btn-primary" id="buttonID" ><b>Generar Reporte</b></a> -->
-           <button class="btn btn-primary" type="button" onclick="generarExtIns()">Generar Reporte</button>
+           <button class="btn btn-primary" type="button" onclick="generarExtIns();"><b>Generar Reporte</b></button>
          </div> 
          <div class="col-md-8" style="text-align: right;">
-           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool"><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>
-           <button type="button" class="btn btn-box-tool" onclick="salidaIns()"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button>
+           <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" id="entradaMultiple" disabled=""><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>
+           <button type="button" class="btn btn-box-tool" onclick="salidaIns()" id="salidaMultiple" disabled=""><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button>
          </div>
        </div>
      </form>  
@@ -121,19 +118,19 @@
        <div class="form-group">
          <h4 class="col-md-3">Cantidad: </h4>
          <div class="col-md-9">
-          <input data-parsley-required="" type="number" id="cant" name="cant" class="form-control"  min="1"> 
+          <input data-parsley-required="" type="number" id="cant" name="cant" class="form-control"  min="1" maxlength="10"> 
         </div> 
       </div>
       <div class="form-group">
        <h4 class="col-md-3">Valor Unitario: </h4>
        <div class="col-md-9">
-         <input data-parsley-required="" type="number" id="valUnit" name="valorUni" class="form-control" min="0">
+         <input data-parsley-required="" type="number" id="valUnit" name="valorUni" class="form-control" min="0" maxlength="10">
        </div>
      </div>
      <div class="form-group">
        <h4 class="col-md-3">Valor Total: </h4>
        <div class="col-md-9">
-         <input  data-parsley-required="" type="number" id="valTot" name="valorTot" class="form-control" min="0">
+         <input  data-parsley-required="" type="number" id="valTot" name="valorTot" class="form-control" min="0" maxlength="10">
        </div>
      </div>
 

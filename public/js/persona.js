@@ -348,7 +348,7 @@ function enviarFormRegUsuario(){
   if (/\s/.test(clave1) || /\s/.test(clave2)) {
     Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La contraseña no debe contener espacios en blanco'});
     $("#contraseña").val("");
-    $("#confirmContraseña").val();
+    $("#confirmContraseña").val("");
     return false;
   }else{
     return true;

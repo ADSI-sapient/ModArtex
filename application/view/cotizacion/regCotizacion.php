@@ -33,7 +33,7 @@
                 <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" autofocus="" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv" onkeyup="prohibirEscritura();">
+                <input type="text" class="form-control pull-right" name="fecha_V" required="" id="fecha1" style="border-radius:5px;" data-parsley-required="" data-parsley-required="" data-parsley-errors-container="#regCotizv" onkeyup="prohibirEscritura();">
               </div>
             </div>
             <div id="regCotizv"></div>
