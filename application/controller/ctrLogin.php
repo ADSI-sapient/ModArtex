@@ -12,21 +12,24 @@ class CtrLogin extends Controller
     public function login(){
         include APP. 'view/login/login.php';
         if(isset($_POST['btnLogin'])){
+
             $usuario = $this->mdlModel->consultarUsuarioLogin($_POST["txtUsuario"]);
 
-            if($usuario != false && $usuario['Clave'] == sha1($_POST["txtClave"]))
+            if ($usuario['Estado'] == 0) {
+                $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Este usuario se encuentra deshabilitado'});";
+                header("location: ". URL . "ctrLogin/login");
+            }
+            else if($usuario != false && $usuario['Clave'] == sha1($_POST["txtClave"]))
             {
                 $this->mdlModel->__SET("id_rol", $usuario['Tbl_Roles_Id_Rol']);
                 $permisos = $this->mdlModel->obtenerPermisos();
 
-
                 $_SESSION['permisos'] = $permisos;
                 $_SESSION['user'] = $usuario;
 
-                
                 header("location: ". URL . "home/index");
             }else{
-                $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Usuario o clave incorrecto'});";
+                $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Usuario o clave incorrecta'});";
                 header("location: ". URL . "ctrLogin/login");
             }
         }

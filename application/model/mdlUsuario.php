@@ -37,7 +37,7 @@
 
 	    public function regUsuario()
 	    {
-	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        
@@ -58,7 +58,7 @@
 
 	    public function registroUsuario(){
 
-	       $sql= "CALL SP_RegUsuario (?, ?, ?, ?)";
+	       $sql= "CALL SP_RegUsuario(?, ?, ?, ?)";
 
 	       try{
 	       	$query= $this->db->prepare($sql);

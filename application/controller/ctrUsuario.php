@@ -10,6 +10,7 @@ class CtrUsuario extends Controller{
 	public function regUsuario(){
 		//Validar permisos y consultar rol
 	    if($this->validarURL("ctrUsuario/regUsuario")){
+	    	
 			$rol = $this->mdlModel->consultarRol();
 
 		    if (isset($_POST["btnRegistrar"])) {
@@ -20,7 +21,8 @@ class CtrUsuario extends Controller{
 
 				$validar = $this->mdlModel->ValidarExistenciaD();
 		        $validarU= $this->mdlModel->ValidarExistenciaU();
-				$validarE= $this->mdlModel->validarExistenciaE();		
+				$validarE= $this->mdlModel->validarExistenciaE();
+
 		        //Validar que no se repita el documento
 				if ($validar == null){
 
@@ -42,7 +44,7 @@ class CtrUsuario extends Controller{
 							if($this->mdlModel->regUsuario() && $this->mdlModel->registroUsuario()){
 								$mensajeu = "Lobibox.notify('success', {size: 'mini', msg: 'Usuario registrado exitosamente!', delay: 6000});"; 
 							}else{
-								$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el usuario'});"; 
+								$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'No se pudo registrar el usuario'});"; 
 							}
 						}else{
 							$mensajeu = "Lobibox.notify('error', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
