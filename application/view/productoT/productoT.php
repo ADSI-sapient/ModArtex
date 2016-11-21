@@ -10,7 +10,7 @@
     <section class="content">
       <!-- Inicio de listar -->
       <div class="box box-primary">
-        <div class="box-header with-border"  style="text-align: center;">
+        <div class="box-header with-border" style="text-align: center;">
           <h3 class="box-title"><strong>EXISTENCIAS PRODUCTO TERMINADO</strong></h3>
         </div>
         <div id="users">
@@ -20,8 +20,9 @@
             <table class="table table-hover table-bordered" id="tablaProducto">
               <thead>
                 <tr class="info">
-                <th></th>
+                <th><input type="checkbox" id="checkPadreSalidas" style="height:15px; width:15px;"></th>
                  <th>Referencia</th>
+                 <th>Nombre</th>
                   <th>Color</th>
                   <th style="display: none">Id_Ficha</th> 
                   <th>Cantidad</th>
@@ -33,32 +34,38 @@
               <tbody class="list">
                   <?php foreach ($productos as $producto): ?>
                     <tr>
-                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>"></th> 
+                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>" style="height:15px; width:15px;"></th>
                       <td class="Referencia"><?= $producto["Referencia"] ?></td>
-                      <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;"></i></td> 
+                      <td class="NombreProducto"><?= $producto["Nombre_Producto"] ?></td>
+                      <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre"] ?>"></i></td> 
                        <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td> 
                        <td class="Cantidad"><?= $producto["Cantidad"] ?></td>
-                       <td class="Valor_Produccion"><?= $producto["Valor_Produccion"] ?></td>
+                       <td class="Valor_Produccion">$<?= $producto["Valor_Produccion"] ?></td>
                        <td><span class="badge bg-red"><?= $producto["Stock_Minimo"] ?></td>
-                         <td>
-
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red;" class="fa fa-arrow-down"></i></button> 
-
-                  </td>
+                      <td>
+                        <?php if ($producto["Cantidad"] == 0): ?>
+                          <button type="button" class="btn btn-box-tool" disabled="true"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
+                        <?php else: ?>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
+                        <?php endif ?>    
+                      </td>
                     </tr>
                   <?php endforeach ?>
                   </tbody>
                 </table>
               </div>
-              <div class="col-md-12" style="text-align: right;">
-             <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
-             </div>
             </div>
           </form>
         </div>
         <div class="box-footer">
+          <div class="col-md-4">
+             <button class="btn btn-primary" type="button" onclick="genRepExtProductoT();"><b>Generar Reporte</b></button>
+           </div>
+           <div class="col-md-8" style="text-align: right;">
+              <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+            </div>
         </div>
-         </section>
+      </section>
       
 
 
@@ -66,53 +73,63 @@
 
 <!--Inicio del modal de registro de salida individual-->
 <div class="modal fade" id="ModelSalida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content" style="border-radius: 30px;">
-              <div class="modal-header">
-                <h4 class="control-label" style="text-align: center;"><strong>SALIDA PRODUCTO TERMINADO</strong></h4>
-              </div>
-
-              <div class="modal-body">
-              <form role="form" id="ModelSalida" method="post" action="<?= URL ?>ctrProductoT/salida">
-                <div class="box-body""> 
-                  <div class="form-group col-sm-6">
-                      <label for="referencia" class="">Referencia</label>
-                      <input type="text" class="form-control" name="Referencia" id="Referencia" readonly=""> 
-                    </div>
-
-                     <div class="form-group col-sm-offset-1 col-sm-5">
-                     <label>Fecha</label>
-                      <input type="text" name="FechaActual" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
-                    </div>
-
-                     <div class="form-group col-sm-6">
-                    <label for="referencia" class="">Cantidad actual</label>
-                    <input type="text" class="form-control"  name="Cantidad" id="Cantidad" readonly="">
-                  </div>
-
-                   <div class="form-group col-sm-offset-1 col-sm-5">
-                    <label for="color" class="">Cantidad salida</label>
-                     <input type="number" class="form-control"  min="0" id="salida"     name="salida">  
-                  </div>
-
-
-                     <div class="form-group col-sm-12">
-                     <label class="col-sm-offset-5">Descripción</label>
-                          <textarea rows="4" cols="50" class="form-control" name="descripcion" id="descripcion">
-                         </textarea> 
-                    </div>
-                      <input type="Hidden" class="form-control"  name="idf" id="idf"> 
-                  </div> 
-                </div>
-
-
-              <div class="modal-footer">
-                  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 15px; margin-top: 2px;">Cancelar</button>
-                <button type="submit"  class="btn btn-primary pull-right" name="btndescontarP">Registrar</button>                
-            </div> 
-            </form>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="border-radius:10px;">
+      <div class="modal-header">
+        <h4 class="modal-title"><b>SALIDA PRODUCTO TERMINADO</b></h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="ModelSalida" method="post" action="<?= URL ?>ctrProductoT/salida" data-parsley-validate="" onsubmit="return validarCantidadSalida();">
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label for="referencia" class="">Referencia:</label>
+            <input type="text" class="form-control" name="Referencia" id="Referencia" readonly="">
           </div>
-</div>
+          <div class="form-group col-sm-6">
+            <label for="nombreProdto" class="">Nombre:</label>
+            <input type="text" class="form-control" name="nombreProdto" id="nombreProdto" readonly="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label>Fecha:</label>                    
+            <div class="input-group date">
+              <div class="input-group-addon" style="border-radius: 5px;">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="text" name="FechaActual" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="referencia" class="">Cantidad Actual:</label>
+            <input type="text" class="form-control" name="cantActual" id="cantActual" readonly="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label for="color" class="">*Cantidad Salida:</label>
+            <input type="number" class="form-control"  min="1" id="cantidadSalida" name="cantidadSalida" data-parsley-required="" onkeyup="prohibirEscritura();">  
+          </div>
+          <div class="form-group col-sm-6">
+            <label>Descripción:</label>
+            <textarea class="form-control" name="descripcionSalida" id="descripcionSalida" maxlength="200"></textarea>
+          </div>
+          <input type="Hidden" class="form-control"  name="idf" id="idf"> 
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-3">
+            <button type="submit" class="btn btn-success btn-md btn-block" name="btndescontarP"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+          </div>
+          <div class="col-md-3">
+            <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Cerrar</b></button>
+          </div>
+        </div>              
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 <!--Final del modal-->
 
@@ -121,52 +138,60 @@
 
   
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalSalidas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document" style="width: 60%;">
-    <div class="modal-content" style="border-radius: 20px;">
-
-      <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 10px;">
+      <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST" onsubmit="return validarSalidasMultiples();" data-parsley-validate="">
         <div class="modal-header" style="text-align: center;">
-          <h3 class="box-title"><strong>SALIDA PRODUCTO TERMINADO</strong></h3>
+          <h4 class="modal-title"><b>SALIDAS PRODUCTO TERMINADO</b></h4>
         </div>
-
         <div class="modal-body">
+
         <div class="col-md-12">
-         <div class="box">
-          <div class="box-body no-padding">
-           <div class="table-responsive"> 
-            <table class="table" id="tableSal" >
+          <div class="table table-responsive scrolltablas"> 
+            <table class="table table-bordered table-hover" id="tableSal">
               <thead>
                 <tr class="active">
                   <th>Referencia</th>
-                  <th>Color</th> 
-                  <th>Cantidad</th>
+                  <th>Nombre</th>
+                  <th>Color</th>
+                  <th>Cantidad Actual</th>
                   <th style="display: none">Id_Ficha</th>
-                  <th>Salida</th>
+                  <th>Cantidad Salida</th>
                 </tr>
               </thead>
               <tbody id="tbodySal">
-              </tbody>      
+              </tbody>
             </table>
           </div>
         </div>
-        <div class="form-group col-sm-5">
-      <label>Fecha</label>
-        <input type="text" name="FechaActual" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
-    </div>
-
-    <div class="form-group col-sm-offset-1 col-sm-5">
-      <label>Descipción</label>
-     <textarea rows="2" cols="10" class="form-control" name="descripcion" id="descripcion"></textarea> 
-    </div> 
-      </div>
-  
-    </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group col-sm-6">
+              <label>Fecha:</label>
+              <div class="input-group date">
+                <div class="input-group-addon" style="border-radius:5px;">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" name="FechaActualSalidas" class="form-control" value="<?php echo date ("Y-m-d"); ?>" readonly>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Descipción:</label>
+             <textarea class="form-control" name="descripcionSalidas" id="descripcionSalidas" maxlength="200"></textarea>
+            </div>
+          </div>
+        </div>
 </div>
-
 <input type="hidden" id="vec" name="vec">
 <div class="modal-footer">
-  <button type="button" data-dismiss="modal" class="btn btn-danger pull-right" style="margin-left: 2%; margin-top: 2%">Cancelar</button>
-  <button type="submit" class="btn btn-primary pull-right" style="margin-left: 2%; margin-top: 2%" id="regMuchos" name="regMuchos">Registrar</button>
+  <div class="row">
+    <div class="col-md-offset-3 col-sm-3">
+      <button type="submit" class="btn btn-success btn-md btn-block" id="regMuchos" name="regMuchasSalidas"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" data-dismiss="modal" class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Cerrar</b></button>
+    </div>
+  </div>
 </div> 
 </form>
 </div> 

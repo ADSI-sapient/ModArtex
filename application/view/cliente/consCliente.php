@@ -29,6 +29,7 @@
                       <th>Estado</th>
                       <th style="width: 7%">Editar</th>
                       <th class="col-lg">Cambiar Estado</th>
+                      <th style="display: none;"></th>
                     </tr>
                   </thead>
                   <tbody class="">
@@ -52,6 +53,7 @@
                         <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
                         <?php } ?>
                       </td>
+                    <td style="display: none;" class=""><?= $cliente["Info_Adicional"] ?></td>
                     </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -111,6 +113,12 @@
                   <div class="form-group col-sm-6">
                     <label for="email" class="">Email:</label>
                     <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="" maxlength="45">
+                  </div>
+
+                  <div class="form-group col-sm-6">
+                    <label for="infoAdicionalMod" class="">Información Adicional:</label>
+                    <textarea class="form-control" name="infoAdicionalMod" id="infoAdicionalMod" maxlength="250"></textarea>
+                    <!-- <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="" maxlength="45"> -->
                   </div>
                 </div>
             </div>

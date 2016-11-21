@@ -244,6 +244,7 @@
                     <tr class="active">
                       <th style="display: none;"></th>
                       <th>Referencia</th>
+                      <!-- <th>Nombre</th> -->
                       <th>Muestra</th>
                       <th>Color</th>
                       <th>Cantidad Total</th>
@@ -262,8 +263,14 @@
             </div>
             <div class="modal-footer" >
               <div class="row col-lg-12">
-                <button type="button" class="btn btn-default pull-right" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                <button type="button" onclick="actualizarOrdenProd()" class="btn btn-warning pull-right" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-3">
+                    <button type="button" onclick="actualizarOrdenProd()" class="btn btn-warning btn-md btn-block" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>                    
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  </div>
+                </div>
               </div>
             </div>
             </form>
@@ -380,7 +387,7 @@
 
 
       <div class="modal fade" id="seguimientoProduccion" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div style="width: 70%;" class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius:10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
@@ -414,8 +421,14 @@
           </div>  
             <div class="modal-footer">
               <div class="row col-lg-12">
-                <button type="button" class="btn btn-default pull-right" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                <button type="button" onclick="actualizarEstadoSolProducto()" class="btn btn-warning pull-right" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-3">
+                    <button type="button" onclick="actualizarEstadoSolProducto()" class="btn btn-warning btn-md btn-block" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

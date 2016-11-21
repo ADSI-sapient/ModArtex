@@ -16,20 +16,26 @@
               <div class="box-body">
                   <div class="col-md-12" style="margin-top: 25px">
                     <div class="form-group">
-                       <h4>Nombre: </h4>                
-                       <input type="text" class="form-control" name="nombre" autofocus="" data-parsley-required="">
+                       <h4>*Nombre: </h4>                
+                       <input type="text" class="form-control" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
                     </div>
                   </div> 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <h4>Abreviatura: </h4>
-                      <input type="text" class="form-control" name="Abr" data-parsley-required="">
+                      <h4>*Abreviatura: </h4>
+                      <input type="text" class="form-control" name="Abr" data-parsley-required="" maxlength="45">
                     </div>
                   </div>
                 </div>
                 <div class="box-footer" style="margin-top: 40px;"> 
-                  <button type="reset" class="btn btn-default pull-right" style="margin-left:2%;"><i class="fa fa-eraser" aria-hidden="true"></i>  Limpiar</button>
-                  <button type="submit" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+                  <div class="row">
+                    <div class="col-md-offset-3 col-md-3">
+                      <button type="submit" class="btn btn-success btn-md btn-block"><i class="fa fa-check-circle" aria-hidden="true"></i>  <b>Registrar</b></button>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="reset" class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+                    </div>
+                  </div>
                 </div> 
               </form>
             </div>
@@ -42,7 +48,7 @@
       
               <div class="box-body">
                 <div class="table-responsive">
-                <table class="table table-bordered datTableModals">
+                <table class="table table-bordered" id="tblListarUnidMedida">
                   <thead>
                     <tr class="active">
                       <th style="width: 10%">#</th>
@@ -83,10 +89,10 @@
 
       <div class="modal fade" id="myModalMedidas" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
           <div class="modal-dialog" role="document" ; border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-content" style="border-radius: 10px;">
               <div class="modal-header with-border" style="text-align: center;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="control-label"><strong>MODIFICAR UNIDAD DE MEDIDA</strong></h4>
+                <h4 class="modal-title"><b>MODIFICAR UNIDAD DE MEDIDA</b></h4>
               </div>
 
               <form action="<?= URL.'ctrConfiguracion/modificarMedida'; ?>" method="POST" data-parsley-validate="">
@@ -94,22 +100,28 @@
                   <div class="form-horizontal"> 
                       <input type="text" id="cod" name="cod" style="display: none; ">
                       <div class="form-group">
-                         <h4 class="col-md-3">Nombre: </h4>
+                         <h4 class="col-md-3">*Nombre: </h4>
                          <div class="col-md-9">
-                            <input type="text" class="form-control" id="nombre" name="nombre" data-parsley-required="">
+                            <input type="text" class="form-control" id="nombre" name="nombre" data-parsley-required="" maxlength="45">
                          </div>
                       </div>
                       <div class="form-group">
-                         <h4 class="col-md-3">Abreviatura: </h4>
+                         <h4 class="col-md-3">*Abreviatura: </h4>
                          <div class="col-md-9">
-                            <input type="text" class="form-control" id="abr" name="abr" data-parsley-required="">
+                            <input type="text" class="form-control" id="abr" name="abr" data-parsley-required="" maxlength="45">
                          </div>
                       </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-right" style="margin-left: 2%;" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-                  <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                  <div class="row">
+                    <div class="col-md-offset-3 col-md-3">
+                      <button type="submit" class="btn btn-warning btn-md btn-block"><i class="fa fa-refresh" aria-hidden="true"></i>  Actualizar</button>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                    </div>
+                  </div>
                 </div>
               </form> 
             </div> 

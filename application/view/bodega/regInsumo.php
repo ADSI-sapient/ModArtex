@@ -48,8 +48,10 @@
               <div class="col-md-8">
                 <label class="control-label" length="80px">*Valor: </label>
                 <div class="input-group">
-                  <span class="input-group-addon">$</span>
-                  <input type="number" class="form-control" min="1" name="valor" data-parsley-required="" data-parsley-errors-container="#errorValorInsumoBodega" id="valorIns" max="9999999">
+                  <span class="input-group-addon">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                  </span>
+                  <input type="number" class="form-control" min="1" name="valor" data-parsley-required="" data-parsley-errors-container="#errorValorInsumoBodega" id="valorIns" maxlength="10">
                 </div>
               <div id="errorValorInsumoBodega"></div>
               </div>
@@ -85,10 +87,10 @@
     <input type="hidden" name="arreglo[]" id="vecto">
     <div class="row">
       <div class="col-lg-offset-3 col-lg-3">
-        <button type="submit" onclick="colores()" class="btn btn-success btn-md btn-block" style="margin-left: 2%; margin-top: 2%" name="btnRegIns"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+        <button type="submit" onclick="colores()" class="btn btn-success btn-md btn-block" name="btnRegIns"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
       </div>
       <div class="col-lg-3">
-        <button onclick="limpiarTableColAsoc()" type="reset" class="btn btn-default btn-md btn-block" style="margin-left: 2%; margin-top: 2%"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>    
+        <button onclick="limpiarTableColAsoc()" type="reset" class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>    
       </div>
     </div>
   <small><b>*Campo requerido</b></small>

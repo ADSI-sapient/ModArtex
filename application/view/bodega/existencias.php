@@ -203,16 +203,21 @@
      <div class="form-group">
        <h4 class="col-md-3">Descripción: </h4>
        <div class="col-md-9">
-         <textarea type="text" id="descripcionSal" name="descripcion" class="form-control"> </textarea>
+         <textarea type="text" id="descripcionSal" name="descripcion" class="form-control" maxlength="100"> </textarea>
        </div>
      </div>
 
    </div>
  </div>
  <div class="modal-footer">
-
-  <button data-dismiss="modal" type="button" class="btn btn-default pull-right" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-  <button type="submit" name="regUnaSal" class="btn btn-success pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
+  <div class="row">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="submit" name="regUnaSal" class="btn btn-success btn-md btn-block"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+    </div>
+    <div class="col-md-3">
+      <button data-dismiss="modal" type="button" class="btn btn-default btn-md btn-block" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>      
+    </div>
+  </div>
 </div> 
 </form>
 </div> 
@@ -354,7 +359,7 @@
       <div class="col-md-12">
         <div class="form-group">
          <label class="control-label">Descripción: </label>
-         <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+         <textarea class="form-control" id="descripcion" name="descripcion" maxlength="100"></textarea>
        </div>
      </div>
    </div>

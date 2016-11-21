@@ -17,7 +17,7 @@
 				$pedidos = $this->mdlModel->getPedidos();
 				$clientes = $this->mdlModel->getClientes();
 				$productosHab = $this->mdlModel->getFichasHabilitadas();
-	
+				
 		        require APP . 'view/_templates/header.php';
 		        require APP . 'view/pedido/consPedido.php';
 	        	require APP . 'view/_templates/footer.php';
@@ -192,7 +192,6 @@
 
 	    	$this->mdlModel->__SET("id_pedido", $_POST["idPed"]);
 	    	$productosAsoPed = $this->mdlModel->cargarProductosAsoPed();
-
 	    	if ($productosAsoPed) {
 		    	echo json_encode(["r"=>$productosAsoPed]);
 		    }else{

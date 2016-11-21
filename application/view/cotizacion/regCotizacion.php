@@ -93,14 +93,14 @@
         </div>
         </div>
         </div>
-
-
         <div class="row">
         <div class="col-lg-12" style="margin-left:0.5%">
           <div class="form-group col-lg-offset-8 col-lg-4">
             <label for="vlr_total" class="">Valor Total:</label>
             <div class="input-group">
-              <span class="input-group-addon"><b>$</b></span>
+              <span class="input-group-addon">
+                <i id="iconoDinero" class="fa fa-money" style="font-weight: bold;"></i>
+              </span>
               <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
             </div>
           </div>
@@ -167,7 +167,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>')"><i style="font-size: 150%; color:blue;" class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Nombre_Color"] ?>')"><i style="font-size: 150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

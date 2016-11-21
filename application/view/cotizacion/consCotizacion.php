@@ -63,7 +63,7 @@
                    <?php if ($cotizacion["Sol_Repetida"] == 2 || $cotizacion["Id_Estado"] == 3): ?>
                      <button type="button" disabled="" class="btn btn-box-tool"><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
                    <?php else: ?>
-                      <button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>"); fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",3);'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
+                      <button type="button" id="convertiPedido" class="btn btn-box-tool" onclick='convertirPedido("<?= $cotizacion['Id_Solicitud'] ?>", this,"<?= $cotizacion['Id_Estado']?>", "<?= $cotizacion["Nombre"] ?>"); fichasAsociad("<?= $cotizacion["Id_Solicitud"] ?>","",3);'><i class="fa fa-share" style="color:#5A69F2; font-size: 150%;" aria-hidden="true"></i></button>
                    <?php endif ?>
                    </td>
                   <td>
@@ -83,109 +83,106 @@
     </div>
     </div>
 </section>
-
- <!-- Modal De Modificar -->
-
-<!--  <style type="text/css">
-        #dl{
-           width: 53% !important;
-        }
- </style> -->
-<div class="modal fade" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-lg" role="document" id="dl">
-        <div class="modal-content" style="border-radius: 10px;">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">MODIFICAR COTIZACIÓN</h4>
-          </div>
-
-          <div>
-          <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form" onsubmit="return ValCot()" data-parsley-validate="">
-                  
-                  <!-- <div class="form-group col-sm-5"> -->
-                    <!-- <label class="">Codigo</label> -->
-                    <input type="hidden" class="form-control" name="codigo" id="Codigo" readonly="" style="border-radius: 5px;">
-                  <!-- </div> -->
-                    
-                  <div class="row col-sm-12">
-                    <div class="form-group col-sm-4">
-                      <label class="">Estado</label>
-                      <select class="form-control" name="estad" id="Estado" style="border-radius: 5px;">
-                        <option value="2">No Entregada</option>
-                        <option value="1">Entregada</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group col-sm-4">
-                      <label class="">Fecha de Registro</label>
-                      <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label class="">Fecha de Vencimineto</label>
-                      <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;" data-parsley-required="">
-                    </div>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="myModal3" tabindex="" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 10px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><b>MODIFICAR COTIZACIÓN</b></h4>
+      </div>
+      <form  id="myModal3" action="<?= URL ?>ctrCotizacion/modiCotizacion" method="post" role="form" onsubmit="return ValCot()" data-parsley-validate="">
+        <div class="modal-body">
+          <input type="hidden" class="form-control" name="codigo" id="Codigo">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group col-sm-4">
+                <label class="">Fecha de Registro:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon" style="border-radius:5px;">
+                    <i class="fa fa-calendar"></i>
                   </div>
-
-                  <div class="row col-sm-12">
-                    <div class="form-group col-sm-4">
-                      <label for="id_cliente" class="">Asociar Cliente</label>
-                      <select class="form-control" style="border-radius:5px; width: 100%; height: 200%;" name="id_cliente" id="Cliente">
-                      <option value=""></option>
-                        <?php foreach ($clientes as $cliente): ?>
-                          <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>
-                    <div class="col-sm-offset-4 col-sm-4" style="margin-top: 25px;">
-                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Productos"><b>Asociar Productos</b></button>
-                    </div>
-                  </div>                
-
-              <div class="table">
-                <div class="form-group col-sm-12 table-responsive scrolltablas">
-                  <table class="table table-hover table-responsive table-bordered" style="margin-top: 2%;" id="Asopedido">
-                    <thead>
-                      <tr class="active">
-                        <th>Referencia</th>
-                        <th>Nombre</th>
-                        <th>Color</th>
-                        <th>Cantidad</th>
-                        <th>Valor Producto</th>
-                        <th>Subtotal</th>
-                        <th>Quitar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+                  <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registro" readonly="" style="border-radius: 5px;">
                 </div>
               </div>
-            <div class="row col-sm-12">
+              <div class="form-group col-sm-4">
+                <label class="">Estado:</label>
+                <select class="form-control" name="estad" id="Estado" style="border-radius: 5px;">
+                  <option value="2">No Entregada</option>
+                  <option value="1">Entregada</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="">Fecha de Vencimiento:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon" style="border-radius:5px;">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control" name="fechaVencimiento" id="FechaVencimiento" style="border-radius: 5px;" data-parsley-required="" onkeyup="prohibirEscritura();">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group col-sm-4">
+                <label for="id_cliente" class="">Asociar Cliente:</label>
+                <select class="form-control" style="border-radius:5px; width: 100%; height: 200%;" name="id_cliente" id="Cliente">
+                <option value=""></option>
+                  <?php foreach ($clientes as $cliente): ?>
+                    <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+              <div class="col-sm-offset-4 col-sm-4" style="margin-top: 25px;">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Productos"><b>Asociar Productos</b></button>
+              </div>
+            </div>
+          </div>
+          <div class="table">
+            <div class="form-group col-sm-12 table-responsive scrolltablas">
+              <table class="table table-hover table-bordered" style="margin-top: 2%;" id="Asopedido">
+                <thead>
+                  <tr class="active">
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Color</th>
+                    <th>Cantidad</th>
+                    <th>Valor Producto</th>
+                    <th>Subtotal</th>
+                    <th>Quitar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
               <div class="form-group col-sm-5">
-              <label for="valor_total" class="">Valor Total:</label>
-              <div class="input-group">
-                <span class="input-group-addon"><b>$</b></span>
-                <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+                <label for="valor_total" class="">Valor Total:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><b>$</b></span>
+                  <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+                </div>
               </div>
             </div>
-            </div>
-
-          <div class="modal-footer" style="border-top:0px;">
-            <div class="row">
-              <div class="col-md-offset-3 col-md-3">
-                <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificar"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
-              </div>
-              <div class="col-md-3">
-                <button type="button" class="btn btn-default btn-md btn-block" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
-              </div>
-            </div>
+          </div>
         </div>
-          </form> 
-             </div> 
-         </div>           
-      </div>           
-  </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-3">
+              <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificar"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
+            </div>
+            <div class="col-md-3">
+              <button type="button" class="btn btn-default btn-md btn-block" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:2%"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>           
+  </div>           
+</div>
 
 
    <div class="modal fade" id="DetallesAso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -254,7 +251,7 @@
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Nombre_Color"] ?>', '<?= $producto["Nombre"] ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -273,15 +270,6 @@
 <!-- Modal -->
 
 
-
-
-
-
-
-
-
-
-
 <div class="modal fade" id="modalConvPed" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 10px;">
@@ -289,72 +277,90 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
-      <form data-parsley-validate=""  id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
+      <form data-parsley-validate="" id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
         <div class="modal-body">
-          <div class="row col-sm-12">
-            <input type="hidden" class="form-control" name="codisoli" id="Codig" readonly="" style="border-radius: 5px;">
-            <div class="col-sm-5">
-              <label class="">Fecha de Registro:</label>
-                <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registr" readonly="" style="border-radius: 5px;">
-            </div>
-            <div class="form-group col-sm-offset-1 col-sm-6">
-              <label class="">Estado:</label>
-              <input type="text" value="Pendiente" readonly="" class="form-control">
-            </div>
-          </div>
-          <div class="row col-md-12" style="margin-bottom: 30px;">
-            <div class="col-md-5">
-              <label for="aso_cliente" class="">Cliente:</label>
-                  <input type="hidden" name="cliente" id="ced_cliente">
-                  <input type="text" class="form-control"  id="Client" readonly="" style="border-radius: 5px;" size="28%">
-            </div>
-            <div class="col-sm-offset-1 col-sm-6">
-              <label class="">*Fecha de Entrega:</label>
-              <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" style="border-radius: 5px;">
-            </div>
-          </div>
-          <div class="row" style="margin: 5px; padding-top: 5px;">
-            <div class="col-md-12"> 
-              <label>Productos Asociados:</label>
-            </div>
-          </div>
-          <div class="row col-sm-12">
-            <div class="table">
-              <div class="col-sm-12 table-responsive scrolltablas">
-                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="fichaAsoConvPedido">
-                    <thead>
-                      <tr class="active">
-                        <th>Referencia</th>
-                        <th>Color</th>
-                        <th>Cantidad Cotizada</th>
-                        <th>Valor Producto</th>
-                        <th>Subtotal</th>
-                        <th style="display: none;"></th>
-                        <th>Cantidad a Producir</th>
-                        <th style="width: 15%">Usar</th>
-                        <th>ProductoT</th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+          <div class="row">
+            <div class="col-md-12">
+              <input type="hidden" class="form-control" name="codisoli" id="Codig">
+              <div class="form-group col-sm-6">
+                <label class="">Fecha de Registro:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon" style="border-radius:5px;">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control" value="<?php echo date ("Y-m-d"); ?>" name="fechaRegistro" id="Fecha_Registr" readonly="" style="border-radius: 5px;">
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="">Estado:</label>
+                <input type="text" value="Pendiente" readonly="" class="form-control">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="col-md-5">
+              <div class="form-group col-md-6">
+                <label for="aso_cliente" class="">Cliente:</label>
+                  <input type="hidden" name="cliente" id="ced_cliente">
+                  <input type="text" class="form-control"  id="Client" readonly="" style="border-radius: 5px;" size="28%">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="">*Fecha de Entrega:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon" style="border-radius:5px">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" style="border-radius: 5px;" onkeyup="prohibirEscritura();">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table">
+            <div class="col-sm-12 table-responsive scrolltablas">
+          <label>Productos Asociados:</label>
+              <table class="table table-hover table-bordered" style="margin-top: 2%;" id="fichaAsoConvPedido">
+                <thead>
+                  <tr class="active">
+                    <th>Referencia</th>
+                    <th>Nombre</th>
+                    <th>Color</th>
+                    <th>Cantidad Cotizada</th>
+                    <th>Valor Producto</th>
+                    <th>Subtotal</th>
+                    <th style="display: none;"></th>
+                    <th>Cantidad a Producir</th>
+                    <th style="width: 15%">Tomar de Stock</th>
+                    <th>En Producto Terminado</th>
+                    <th style="display: none;"></th>
+                    <th style="display: none;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" style="margin-top: 2%;">
+              <div class="form-group col-md-5">
                 <label class="">Valor Total:</label>
-                <input type="text" class="form-control" name="valorTotal" id="ValorTota" readonly="" style="border-radius: 5px;">
+                <div class="input-group">
+                  <div class="input-group-addon" style="border-radius:5px;"><b>$</b></div>
+                  <input type="text" class="form-control" name="valorTotal" id="ValorTota" readonly="" style="border-radius: 5px;">
+                </div>
               </div>
             </div>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-right" style="margin-left: 2%;" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-        <button type="submit" onclick="updateSolProCot()" class="btn btn-success pull-right" name="gurdarPedi"><i class="fa fa-send-o" aria-hidden="true"></i> <b>Enviar a Pedido</b></button>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-3">
+            <button type="submit" onclick="updateSolProCot()" class="btn btn-success btn-md btn-block" name="gurdarPedi"><i class="fa fa-send-o" aria-hidden="true"></i> <b>Enviar a Pedido</b></button>
+          </div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+          </div>
+        </div>
       </div>
      </form> 
     </div><!-- /.modal-content -->

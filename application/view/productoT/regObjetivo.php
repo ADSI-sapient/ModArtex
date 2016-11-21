@@ -1,6 +1,6 @@
 <section class="content-header">
     <ol class="breadcrumb">
-      <li><a href="../../starter2.html"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a href="<?= URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li><a href="#">Objetivos</a></li>
       <li class="active">Registrar Objetivo</li>
     </ol>
@@ -12,11 +12,8 @@
         </div>
           <form data-parsley-validate="" id="form" action="<?php echo URL; ?>ctrObjetivos/registrarObjetivo" method="POST" onsubmit="return ValObj()">
          <div class="box-body">
-
           <div class="row">
           <div class="col-lg-12">
-
-
             <div class="form-group col-lg-4">
               <label class="">Fecha registro:</label>
               <div class="">
@@ -38,10 +35,10 @@
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">*Fecha Inicio:</label>
                   <div class="input-group date">
-                    <div class="input-group-addon">
+                    <div class="input-group-addon" style="border-radius:5px;">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="" data-parsley-errors-container="#errorfechainiciObj">
+                    <input type="text" class="form-control pull-right" id="Fecha_Inicio" name="FechaInicio" required="" data-parsley-errors-container="#errorfechainiciObj" onkeyup="prohibirEscritura();">
                 </div>
                 <div id="errorfechainiciObj"></div>
               </div>
@@ -58,28 +55,22 @@
 
             <div class="form-group col-lg-4">
               <label class="">*Nombre:</label>
-              <input  type="text" name="Nombre" id="Nombre" class="form-control" required="">
+              <input type="text" name="Nombre" id="Nombre" class="form-control" required="" maxlength="45">
             </div>
-
-
-
-
-
             <div class="col-lg-4"> 
               <div class="form-group">
                 <label class="control-label" style="padding-right: 10px;">*Fecha Fin:</label>
                   <div class="input-group date">
-                    <div class="input-group-addon">
+                    <div class="input-group-addon" style="border-radius:5px;">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="Fecha_Fin" name="FechaFin" required="" data-parsley-errors-container="#errorfechafinobj">
+                    <input type="text" class="form-control pull-right" id="Fecha_Fin" name="FechaFin" required="" data-parsley-errors-container="#errorfechafinobj" onkeyup="prohibirEscritura();">
                 </div>
                 <div id="errorfechafinobj"></div>
               </div>
             </div>
-
             <div class="col-lg-4">
-              <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO"><b>Productos</b></button>
+              <button  type="button" class="btn btn-primary pull-right" data-toggle="modal" style="margin-top: 10%;" data-target="#FichasO"><b>Asociar Productos</b></button>
             </div>
           </div>
           </div>
@@ -93,6 +84,7 @@
                   <thead>
                     <tr class="active">
                     <th>Referencia</th>
+                    <th>Nombre</th>
                     <th>Color</th>
                     <th>Cantidad Objetivo</th>
                     <th>Quitar</th>
@@ -100,7 +92,7 @@
                   </thead>
                   <tbody>
                  <tr id="tblVaciaObj">
-                  <td id="tblFichasObje" colspan="4" style="text-align:center;"></td>
+                  <td id="tblFichasObje" colspan="5" style="text-align:center;"></td>
                 </tr>
                   </tbody>
                 </table>
@@ -123,8 +115,14 @@
 
       </div>
       <div class="box-footer">
-        <button type="reset" onclick="limpiarFormRegObj()" name="btnCanFicha" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-        <button type="submit" class="btn btn-success pull-right" name="btnRegObjetivo" ><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-3">
+            <button type="submit" class="btn btn-success btn-md btn-block" name="btnRegObjetivo" ><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+          </div>
+          <div class="col-lg-3">
+            <button type="reset" onclick="limpiarFormRegObj()" name="btnCanFicha" class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+          </div>
+        </div>
       </div>
     </form>
       </div>
@@ -132,25 +130,26 @@
 
 
  <div class="modal fade" id="FichasO" tabindex="-1" role="dialog" >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content" style="border-radius: 10px;">
             <form method="POST">
             <div class="modal-header">
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>FICHAS TÉCNICAS</b></h4>
+              <h4 class="modal-title"><b>PRODUCTOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
-              <div class="table">
-                <div class="col-sm-12 table-responsive scrolltablas">
+              <!-- <div class="table"> -->
+                <div class="table table-responsive scrolltablas">
                   <table class="table table-hover table-bordered" style="margin-top: 2%;">
                   <thead>
                     <tr class="active">
                       <th style="display:none;">Id</th>
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Color</th>
                       <th>Cantidad Actual</th>
-                      <th>Seleccionar</th>
+                      <th>Agregar</th>
                       <th style="display: none"></th>
                       <th style="display: none"></th>
                     </tr>
@@ -162,10 +161,11 @@
                     <tr >
                       <td style="display:none;"><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
+                      <td><?= $ficha["Nombre"]?></td>
                       <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>')"><i class="fa fa-plus"></i></button>
+                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Nombre_Color"]?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                       <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>
@@ -176,10 +176,10 @@
                   </tbody>
                   </table>
                 </div>
-              </div>
+              <!-- </div> -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
           </form>

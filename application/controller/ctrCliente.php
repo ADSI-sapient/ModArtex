@@ -31,6 +31,7 @@ class CtrCliente extends Controller{
 					        $this->mdlModel->__SET("Apellido", $_POST["apellido"]);
 					       	$this->mdlModel->__SET("Telefono", $_POST["telefono"]);
 					       	$this->mdlModel->__SET("Direccion", $_POST["direccion"]);
+					       	$this->mdlModel->__SET("infoAdicional", $_POST["infoAdicional"]);
 					       
 					    	//Registrar usuario
 							if($this->mdlModel->regCliente()){
@@ -62,7 +63,6 @@ class CtrCliente extends Controller{
 	    	if($this->validarURL("ctrCliente/consCliente")){
 	    	$rol = $this->mdlModelU->consultarRol();
 		    	$clientes = $this->mdlModel->getCliente();
-
 		        require APP . 'view/_templates/header.php';
 		        require APP . 'view/cliente/consCliente.php';
 		        require APP . 'view/_templates/footer.php';
@@ -79,7 +79,9 @@ class CtrCliente extends Controller{
 		$this->mdlModel->__SET("Telefono", $_POST["Telefono"]);
 		$this->mdlModel->__SET("Direccion", $_POST["Direccion"]);
 		$this->mdlModel->__SET("Email", $_POST["Email"]);
-	  	$this->mdlModel->modificarCliente();
+		$this->mdlModel->__SET("infoAdicional", $_POST["infoAdicionalMod"]);
+
+	  	// $this->mdlModel->modificarCliente();
 
 		if($this->mdlModel->modificarCliente()){
 			 $mensajecm= "Lobibox.notify('success', {size: 'mini', msg: ' Cliente modificado exitosamente'});";

@@ -361,4 +361,34 @@
     });
   }
 
+  $('#tblListarUnidMedida').dataTable({
+    "ordering": false,
+        "language": {
+            "emptyTable": "No hay unidades de medida para listar.",
+            "info": "",
+            "infoEmpty": "",
+            "zeroRecords": "No se encontraron medidas que coincidan con la búsqueda.",
+        "paginate": {
+          "previous": "Anterior",
+          "next": "Siguiente"
+         }
+        },
+        "lengthMenu": [[3], [3]]
+  });
+
+  $('#tblConfColores').dataTable({
+    "ordering": false,
+        "language": {
+            "emptyTable": "No hay colores para listar.",
+            "info": "",
+            "infoEmpty": "",
+            "zeroRecords": "No se encontraron colores que coincidan con la búsqueda.",
+        "paginate": {
+          "previous": "Anterior",
+          "next": "Siguiente"
+         }
+        },
+        "lengthMenu": [[3], [3]]
+  });
+
 

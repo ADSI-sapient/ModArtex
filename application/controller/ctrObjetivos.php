@@ -37,6 +37,7 @@
  		}
  		
  		    $fichas = $this->mdlModel->getAsoFichas();
+ 		  
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/regObjetivo.php';
 			include APP . 'view/_templates/footer.php';

@@ -74,45 +74,52 @@
             </div>
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
-                <input type="hidden" name="id_pedido" id="id_pedido">
-                <div class="form-group col-sm-12">
-                <div class="form-group col-sm-5">
-                  <label class="">Fecha Registro:</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
-                  </div>
-                </div>
-                <div class="form-group col-sm-offset-2 col-sm-5">
-                  <label for="estado" class="">Estado:</label>
-                  <input type="text" name="estado" id="estado" class="form-control" value="" readonly="" style="border-radius:5px;">
-                </div>
-                </div>
-                 <div class="form-group col-sm-12">
-                  <div class="form-group col-sm-5">
-                    <label class="">*Fecha Entrega:</label>
-                    <div class="">
+              <input type="hidden" name="id_pedido" id="id_pedido">
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-6">
+                      <label class="">Fecha Registro:</label>
                       <div class="input-group date">
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input data-parsley-required='' type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;">
+                        <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label class="">*Fecha Entrega:</label>
+                      <div class="">
+                        <div class="input-group date">
+                          <div class="input-group-addon" style="border-radius:5px;">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input data-parsley-required='' type="text" class="form-control" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;" onkeyup="prohibirEscritura();">
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group col-sm-offset-2 col-sm-5">
-                    <label for="doc_cliente" class="">*Asociar Cliente:</label>
-                    <br>
-                    <select class="form-control" name="doc_cliente" id="doc_cliente" style="width: 100%;">
-                        <!-- <option value=""></option> -->
-                      <?php foreach ($clientes as $cliente): ?>
-                        <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Nombre"]?></option>
-                      <?php endforeach ?>
-                    </select>
-                  </div>
-                  </div>
+                </div>
+                 <div class="row">
+                   <div class="form-group col-sm-12">
+                      <div class="form-group col-sm-6">
+                        <label for="doc_cliente" class="">*Asociar Cliente:</label>
+                        <br>
+                        <select class="form-control" name="doc_cliente" id="doc_cliente" style="width: 100%;">
+                            <!-- <option value=""></option> -->
+                          <?php foreach ($clientes as $cliente): ?>
+                            <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ". $cliente["Nombre"] ?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+                      <div class="form-group col-sm-3">
+                        <label for="estado" class="">Estado:</label>
+                        <input type="text" name="estado" id="estado" class="form-control" value="" readonly="" style="border-radius:5px;">
+                      </div>
+                      <div class="form-group col-sm-3" style="margin-top: 25px;">
+                        <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#asoProductos"><b>Asociar Productos</b></button>
+                      </div>
+                    </div>
+                 </div>
                 <div class="table">
                 <div class="form-group col-sm-12 table-responsive scrolltablas">
                 <label for="valor_total" class="">*Productos Asociados:</label>
@@ -120,14 +127,14 @@
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
+                        <th>Nombre</th>
                         <th>Color</th>
                         <th>Cantidad a Producir</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
-                        <th>Usar</th>
-                        <th>ProductoT</th>
+                        <th>Tomar de Stock</th>
+                        <th>En Producto Terminado</th>
                         <th>Quitar</th>
-                        <th><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoProductos"><b>Agregar</b></button></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -136,16 +143,27 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-sm-12">
-            <div class="form-group col-sm-5" style="margin-left:1%">
-              <label for="valor_total" class="">Valor Total:</label>
-              <input data-parsley-required='' min='0' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
-            </div>
-            </div>
-            <div class="modal-footer" style="border-top:none;">
+            <div class="row">
               <div class="form-group col-sm-12">
-                <button type="submit" class="btn btn-warning" name="btnModificarPed"  style="margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-refresh" aria-hidden="true"></i><b> Actualizar</b></button>
-                <button type="button" class="btn btn-default" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:15px; margin-top: 15px; padding:5px 24px !important;"><i class="fa fa-times-circle"></i> Cerrar</button>
+                <div class="form-group col-sm-6" style="margin-left:1%">
+                  <label for="valor_total" class="">Valor Total:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon" style="border-radius:5px;">
+                      <i class="fa fa-money"></i>
+                    </div>
+                    <input data-parsley-required='' min='0' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
+                  </div>              
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-group col-sm-12">
+                <div class="col-md-offset-3 col-md-3">
+                  <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificarPed"><i class="fa fa-refresh" aria-hidden="true"></i><b> Actualizar</b></button>
+                </div>
+                <div class="col-md-3">
+                  <button type="button" class="btn btn-default btn-md btn-block" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle"></i> Cerrar</button>
+                </div>
               </div>
               </form>
             </div>
@@ -155,7 +173,7 @@
       <!-- fin modal modificar pedido-->
       <!-- Incio modal productos asociados pedido -->
       <div class="modal fade" id="dllProductosAso" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -168,9 +186,10 @@
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
+                        <th>Nombre</th>
                         <th>Color</th>
                         <th style="text-align: center;">Cantidad a Producir</th>
-                        <th style="text-align: center;">Cantidad a Usar</th>
+                        <th style="text-align: center;">Producto Terminado Tomado</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                       </tr>
@@ -182,7 +201,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>
@@ -190,7 +209,7 @@
       <!-- fin modal productos asociados pedido-->
       <!-- Inicio modal asociar productos(fichas) -->
       <div class="modal fade" id="asoProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -202,7 +221,8 @@
                 <table class="table table-hover table-bordered" id="prodAsociarPedMod">
                 <thead>
                   <tr class="active">
-                    <th>Ref</th>
+                    <th>Referencia</th>
+                    <th>Nombre</th>
                     <th>Color</th>
                     <th>Valor Producción</th>
                     <th>Valor Producto</th>
@@ -214,11 +234,12 @@
                 <?php foreach ($productosHab as $producto): ?>
                   <tr>
                     <td><?= $producto["Referencia"] ?></td>
+                    <td><?= $producto["Nombre"] ?></td>
                     <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre_Color"] ?>"></i></td>
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Cantidad"] ?>')"><i class="fa fa-plus"></i></button>
+                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Cantidad"] ?>', '<?= $producto["Nombre"] ?>')"><i class="fa fa-plus" style="font-size:150%; color:blue;"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -229,7 +250,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

@@ -82,53 +82,59 @@
               <form role="form" action="<?php echo URL; ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
               <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
-              <div class="form-group col-sm-12">
-                <div class="form-group col-sm-4">
-                  <label for="referencia" class="">Referencia:</label>
-                  <input class="form-control" type="text" name="referencia" id="referencia" style="border-radius:5px;" maxlength="25" readonly="">
-                </div>
-                <div class="form-group col-sm-4">
-                  <label for="nombre" class="">*Nombre:</label>
-                  <input class="form-control" type="text" name="nombreFichaMod" id="nombreFichaMod" style="border-radius:5px;" maxlength="45">
-                </div>
-                <div class="form-group col-sm-4">
-                  <label class="">Fecha Registro:</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-calendar"></i>
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <div class="form-group col-sm-4">
+                    <label for="referencia" class="">Referencia:</label>
+                    <input class="form-control" type="text" name="referencia" id="referencia" style="border-radius:5px;" maxlength="25" readonly="">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label for="nombre" class="">*Nombre:</label>
+                    <input class="form-control" type="text" name="nombreFichaMod" id="nombreFichaMod" style="border-radius:5px;" maxlength="45">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="">Fecha Registro:</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon" style="border-radius:5px;">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                     </div>
-                    <input class="form-control" readonly type="text" name="fecha_reg" id="fecha_reg" style="border-radius:5px;">
                   </div>
                 </div>
               </div>
-              <div class="form-group col-sm-12">
-                <div class="form-group col-sm-4">
-                  <label for="estado" class="">*Estado:</label>
-                  <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
-                </div>
-                <div class="col-sm-4">
-                  <label for="color" class="">*Color:</label>
-                  <!-- <div class="row"></div> -->
-                  <div class="input-group">
-                    <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%;" onchange="coloresFichas()" data-parsley-required="">
-                      <?php foreach ($colores as $color): ?>
-                        <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
-                      <?php endforeach ?>
-                    </select>
-                    <span class="input-group-addon" style="background-color:white; border-radius:5px"><i class="fa fa-square" style="font-size:150%;" id="colorFMod"></i></span>
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <div class="form-group col-sm-4">
+                    <label for="estado" class="">*Estado:</label>
+                    <input class="form-control" type="text" readonly name="estado" id="estado" style="border-radius:5px;">
                   </div>
-                </div>
-                <div class="form-group col-sm-4">
-                  <label for="stock_min" class="">*Stock Mínimo:</label>
-                  <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1" max="9999999">
-                </div>
+                  <div class="col-sm-4">
+                    <label for="color" class="">*Color:</label>
+                    <!-- <div class="row"></div> -->
+                    <div class="input-group">
+                      <select name="colorModFicha" id="colorModFicha" class="form-control"  style="width: 100%;" onchange="coloresFichas()" data-parsley-required="">
+                        <?php foreach ($colores as $color): ?>
+                          <option value='<?= $color["Id_Color"] ?>'><?= $color["Nombre"] ?></option>
+                        <?php endforeach ?>
+                      </select>
+                      <span class="input-group-addon" style="background-color:white; border-radius:5px"><i class="fa fa-square" style="font-size:150%;" id="colorFMod"></i></span>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label for="stock_min" class="">*Stock Mínimo:</label>
+                    <input class="form-control" type="text" name="stock_min" id="stock_min" style="border-radius:5px;" data-parsley-required="" min="1" max="9999999">
+                  </div>
+                </div>                
               </div>
-              <div class="row col-sm-12">
+              <div class="row">
+                <div class="col-sm-12">
                   <div class="col-sm-offset-1 col-sm-2">
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>TALLAS</b></button>
-                </div>
-                <div class="col-sm-offset-5 col-sm-3">
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>INSUMOS</b></button>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>TALLAS</b></button>
+                  </div>
+                  <div class="col-sm-offset-5 col-sm-3">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>INSUMOS</b></button>
+                  </div>
                 </div>
               </div>
                 <div class="table">
@@ -167,24 +173,27 @@
                     </table>
                   </div>
                 </div>                
-              <div class="form-group col-sm-12">
-                <div class="form-group col-sm-4">
-                  <label for="vlr_produccion" class="">Total Insumos:</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><b>$</b></span>
-                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
-                  </div>
-                </div>
-                <div class="form-group col-sm-offset-4 col-sm-4"> 
-                  <label for="vlr_producto" class="">*Valor Producto:</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><b>$</b></span>
-                    <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="" max="9999999">
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-4">
+                      <label for="vlr_produccion" class="">Valor Total Insumos:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon" style="border-radius: 
+                        5px;"><i class="fa fa-money"></i></span>
+                        <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-offset-4 col-sm-4"> 
+                      <label for="vlr_producto" class="">*Valor Producto:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><b>$</b></span>
+                        <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="" maxlength="10">
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              </div>
-              <div class="modal-footer" style="border-top: 0;">
+              <div class="modal-footer">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-3">
                     <button type="submit" class="btn btn-warning btn-sm btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>

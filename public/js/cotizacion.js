@@ -1,8 +1,9 @@
 //convierte cotizacion en pedido
-function convertirPedido(codigo, cotizaciones, Id_estado){
+function convertirPedido(codigo, cotizaciones, Id_estado, nombreCliente){
   var campo = $(cotizaciones).parent().parent();
   $("#Codig").val(campo.find("td").eq(0).text());
-  $("#Client").val(campo.find("td").eq(6).text());
+  var docuCliente = campo.find("td").eq(6).text();
+  $("#Client").val(docuCliente+" - "+nombreCliente);
   // $("#Estad").val(Id_estado);
   $("#Fecha_Registr").val(campo.find("td").eq(1).text());
   $("#ValorTota").val(campo.find("td").eq(5).text());
@@ -182,13 +183,21 @@ function agregarCliente(documento_cli, cliente){
   moda.modal("hide");
 }
 
-function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha){
+function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha, nombreColor){
   var campo = $(fichas).parent().parent();
   $("#Ficha tbody tr #tblFichasVaciaCoti").remove();
-  var tr = "<tr class='box box-solid collapsed-box trcotiza' id='trcotizaciones'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 150%;'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido();' name='cantiProdu[]' data-parsley-required='' style='border-radius:5px'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"' style='border-radius:5px'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
+  var tr = "<tr class='box box-solid collapsed-box trcotiza' id='trcotizaciones'><td style='display: none;'>"+idFicha+"</td><td id=''>"+referen+"<input type='hidden' value='"+referen+"' name='referencia[]'></td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td>"+vlrproducto+"</td><td><input type='number' min='1' id='cantProducir"+idboton+"' value='' maxlength='10' onkeyup='res"+idboton+".value=cantProducir"+idboton+".value * "+vlrproducto+"; subt"+idboton+".value=parseFloat(res"+idboton+".value); total_Pedido(); animarTotal();' name='cantiProdu[]' data-parsley-required='' style='border-radius:5px'></td><td><input class='subtl' type='hidden' name='subtot[]' id='subt"+idboton+"'value='0'>$<input readonly='' type='text' id='capValor"+idboton+"' name='res"+idboton+"' for='cantProducir"+idboton+"' style='border-radius:5px'></td><td><button type='button' onclick='Elificha("+idboton+", this, res"+idboton+".value)' class='btn btn-box-tool'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFicha+"></tr>";
   $("#Ficha").append(tr);
   boton = "#b"+idboton;
   $(boton).attr('disabled', 'disabled');
+}
+var intervalo = 0;
+function animarTotal(){
+  clearTimeout(intervalo);
+  $("#iconoDinero").removeClass("fa-money").addClass("fa-spinner fa-spin");
+  intervalo = setTimeout(function(){
+    $("#iconoDinero").removeClass("fa-spinner fa-spin").addClass("fa-money");
+  }, 2000);
 }
 
 function asoFicha(referen, color, vlrproducto, fichas, idboton){
@@ -261,8 +270,8 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
 
    }
    else if(fichaAs == 3){
-    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
-    "</td><td><input type='number' style='width: 100%' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichaTec+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 100%;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichaTec+".value=jsjasd' id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
+    tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
+    "</td><td><input type='number' style='width: 100%; border-radius:5px;' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichaTec+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichaTec+"' style='width: 100%; border-radius:5px;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichaTec+".value=jsjasd' id='spanCantCot"+idFichaTec+"' class='badge bg-red'>"+cantidad+
     "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichaTec+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichaTec+"' name='exisProdTerCotPed[]'></td></tr>";
     //tabla convertir a pedido
     $('#fichaAsoConvPedido').append(tr);
@@ -313,7 +322,7 @@ function total_Pedido(){
 }
 
 
-function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton, idft){
+function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton, idft, nombreColor, nombreFicha){
   idProducNuevo = idft;
   producto = "#idProducto"+idft;
   valor = $(producto).val();
@@ -324,7 +333,7 @@ function Modificar_ProductoAso(referencia, color, vlrproducto, productos, idbton
   }
   else
   {
-    var tr = "<tr class='box box-solid collapsed-box trProducModCoti'><td id=''>"+referencia+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 150%;'></i></td><td><input type='number' min='1' id='cantProducir"+idft+"' name='cantProducir[]' value='0' onkeyup='res"+idft+".value=cantProducir"+idft+".value * "+vlrproducto+"; subt"+idft+".value=parseFloat(res"+idft+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idft+"' value='0'><input readonly='' type='text' id='capValor"+idft+"' name='res"+idft+"' for='cantProducir"+idft+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+idft+", this, subt"+idft+".value)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td><input type='hidden' id='idProducto"+idft+"' name='idProducto[]' value="+idft+"><td></td><td style='display:none;'>"+idft+"</td></tr>";
+    var tr = "<tr class='box box-solid collapsed-box trProducModCoti'><td id=''>"+referencia+"</td><td>"+nombreFicha+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombreColor+"'></i></td><td><input type='number' min='1' id='cantProducir"+idft+"' name='cantProducir[]' value='0' maxlength='10' data-parsley-required='' onkeyup='res"+idft+".value=cantProducir"+idft+".value * "+vlrproducto+"; subt"+idft+".value=parseFloat(res"+idft+".value); total_Pedidos();' style='border-radius:5px;'></td><td>$"+vlrproducto+"</td><td><input class='subtotal' type='hidden' name='subtotal[]' id='subt"+idft+"' value='0'><input readonly='' type='text' id='capValor"+idft+"' name='res"+idft+"' for='cantProducir"+idft+"' style='border-radius:5px;'></td><td><button type='button' onclick='modifiProductos("+idft+", this, subt"+idft+".value)' class='btn btn-box-tool'><i class='fa fa-remove' style='font-size:150%'></i></button></td><input type='hidden' id='idProducto"+idft+"' name='idProducto[]' value="+idft+"><td style='display:none;'>"+idft+"</td></tr>";
     $("#tblProductosVacia").remove();
 
     $("#Asopedido").append(tr);
@@ -454,4 +463,15 @@ function limpiarFormRegCoti(){
 
 function prohibirEscritura(){
   $("#fecha1").val("");
+  $("#Fechaentre").val("").trigger("change");
+  $("#fecha_entrega").val("");
+  $("#fecha_entrega").val("").trigger("change");
+  if ($("#cantidadSalida").val() == 0) {
+    $("#cantidadSalida").val("");
+  }
+  $("#Fecha_Inicio").val("");
+  $("#Fecha_Fin").val("");
+  $("#FechaVencimiento").val("").trigger("change");
+
+  
 }

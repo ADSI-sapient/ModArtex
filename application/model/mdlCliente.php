@@ -12,6 +12,7 @@ class mdlCliente
 		private $Id_Tipo = 2;
 		private $Telefono;
 		private $Direccion;
+		private $infoAdicional;
 
 	public function __SET($atributo, $valor){
 		$this->$atributo = $valor;
@@ -32,7 +33,7 @@ class mdlCliente
 
 	    public function regCliente()
 	    {
-	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        $sql = "CALL SP_RegPersona(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	        try {
 	        	$query = $this->db->prepare($sql);
 	        
@@ -45,6 +46,7 @@ class mdlCliente
 	        	$query->bindParam(7, $this->Direccion);
 	        	$query->bindParam(8, $this->Email);
 	        	$query->bindParam(9, $this->Num_Documento);
+	        	$query->bindParam(10, $this->infoAdicional);
 	    
 	        	return $query->execute();
 	        } catch (PDOException $e) {    	
@@ -102,7 +104,7 @@ class mdlCliente
       	}
 
       	  public function modificarCliente(){
-	        $sql = "CALL SP_ModificarClientes(?, ?, ?,?, ?, ?)";
+	        $sql = "CALL SP_ModificarClientes(?, ?, ?, ?, ?, ?, ?)";
 	      
 	        try {
 	        	$query = $this->db->prepare($sql);
@@ -111,7 +113,8 @@ class mdlCliente
 	        	$query->bindParam(2, $this->Apellido);
 	        	$query->bindParam(3, $this->Telefono);
 	        	$query->bindParam(4, $this->Direccion);
-	        	$query->bindParam(5, $this->Email);	        	    
+	        	$query->bindParam(5, $this->Email);     	    
+	        	$query->bindParam(7, $this->infoAdicional);	        	    
 	        	return $query->execute();
 
 	        } catch (PDOException $e) {

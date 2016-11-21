@@ -1,3 +1,13 @@
+    <style>
+      input[type=number]::-webkit-outer-spin-button,
+      input[type=number]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      input[type=number] {
+          -moz-appearance:textfield;
+      }
+    </style>
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -35,7 +45,7 @@
                   <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;" data-parsley-required="" data-parsley-errors-container="#regPedidov">
+                  <input type="text" class="form-control pull-right" name="fecha_entrega" id="fecha_entrega" style="border-radius:5px;" data-parsley-required="" data-parsley-errors-container="#regPedidov" onkeyup="prohibirEscritura();">
                 </div>
               </div>
               <div id="regPedidov"></div>
@@ -75,12 +85,13 @@
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Color</th>
                       <th>Valor Producto</th>
                       <th>Cantidad a Producir</th>
                       <th>Subtotal</th>
-                      <th>Usar</th>
-                      <th>Producto T</th>
+                      <th>Tomar de Stock</th>
+                      <th>En Producto Terminado</th>
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>
                       <th>Quitar</th>
@@ -88,7 +99,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td id="tblFichasVacia" colspan="8" style="text-align:center;"></td>
+                      <td id="tblFichasVacia" colspan="9" style="text-align:center;"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -99,18 +110,27 @@
             </div>  
             <div class="row">
               <div class="col-lg-offset-8 col-lg-4">
-              <div class="col-lg-12">
-                <label for="vlr_total" class="">*Valor Total:</label>
-                <div class="">
+                <div class="col-lg-12">
+                  <label for="vlr_total" class="">*Valor Total:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon" style="border-radius:5px;">
+                      <i class="fa fa-money"></i>
+                    </div>
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
       </div>
       <div class="box-footer">
-        <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-default pull-right"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-        <button type="submit" class="btn btn-success pull-right" name="btnRegPedido" ><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-3">
+            <button type="submit" class="btn btn-success btn-md btn-block" name="btnRegPedido" ><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+          </div>
+          <div class="col-lg-3">
+            <button type="reset" onclick="limpiarFormRegPedido()" name="btnCanFicha" class="btn btn-default btn-md btn-block"  style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>        
+          </div>
+        </div>
       </div>
     </form>
       </div>
@@ -129,6 +149,7 @@
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Estado</th>
                       <th>Color</th>
                       <th>Valor Producción</th>
@@ -141,12 +162,13 @@
                     <?php foreach ($fichas as $ficha): ?>
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
+                      <td><?= $ficha["Nombre"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;' title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>');"><i class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>', '<?= $ficha["Nombre"] ?>');"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
@@ -157,7 +179,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

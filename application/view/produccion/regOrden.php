@@ -88,6 +88,7 @@
                       <th style="display: none;"></th>
                       <th>#</th>
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Muestra</th>
                       <th>Color</th>
                       <th>Cantidad a Producir</th>
@@ -107,8 +108,14 @@
   </div>
   <div class="box-footer">
     <div class="row col-lg-12" >
-      <button onclick="limpiarFormRegOrdPro()" style="margin-left: 2%;" type="reset"  class="btn btn-default pull-right"><i class="fa fa-eraser" aria-hidden="true"></i> Limpiar</button>
-      <button onclick="regOrdenProducc()" type="button" class="btn btn-success pull-right" name="btnRegistrarProdu"><b><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</b></button>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <button onclick="regOrdenProducc()" type="button" class="btn btn-success btn-md btn-block" name="btnRegistrarProdu"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
+        </div>
+        <div class="col-lg-3">
+          <button onclick="limpiarFormRegOrdPro()" style="margin-left: 2%;" type="reset"  class="btn btn-default btn-md btn-block"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>          
+        </div>
+      </div>
     </div>
   </div>
 </form>
@@ -116,7 +123,7 @@
 </section>
 <!-- Inicio Modal asociar pedidos -->
       <div class="modal fade" id="asociarPedid" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -125,7 +132,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-responsive table-hover" style="margin-top: 2%;" id="TablOrdenesPedidos">
+                  <table class="table table-responsive table-hover table-bordered" style="margin-top: 2%;" id="TablOrdenesPedidos">
                     <thead>
                       <tr class="info">
                         <th style="width: 10px">#</th>
@@ -145,14 +152,14 @@
                         <td><?= $pedido["Id_Solicitud"] ?></td>
                         <td class="freg"><?= $pedido["Fecha_Registro"] ?></td>
                         <td class="ftga"><?= $pedido["Fecha_Entrega"] ?></td>
-                        <td class="vtal"><?= $pedido["Valor_Total"] ?></td>
+                        <td class="vtal">$<?=$pedido["Valor_Total"] ?></td>
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllPedidosProd" id="" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllPedidosProd" id="" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size:150%;"></i></button>
                         </td>
                         <td>
-                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '<?= $pedido["Fecha_Entrega"] ?>', 2)"><i class="fa fa-plus"></i></button>
+                          <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '<?= $pedido["Fecha_Entrega"] ?>', 2)"><i class="fa fa-plus" style="font-size:150%; color: blue;"></i></button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -163,7 +170,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:0px;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -183,6 +190,7 @@
                     <thead>
                       <tr class="active">
                         <th>Referencia</th>
+                        <th>Nombre</th>
                         <th>Color</th>
                         <th>Cantidad a Producir</th>
                         <th>Valor Producto</th>

@@ -48,7 +48,7 @@
                         <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
                         <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o fa-lg"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarObj"onclick="ModificarObj('<?= $objetivo["Id_Objetivo"] ?>', '<?= $objetivo["FechaRegistro"] ?>', '<?= $objetivo["FechaInicio"] ?>', '<?= $objetivo["Nombre"] ?>', '<?= $objetivo["FechaFin"] ?>', this, 1)"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarObj"onclick="ModificarObj('<?= $objetivo["Id_Objetivo"] ?>', '<?= $objetivo["FechaRegistro"] ?>', '<?= $objetivo["FechaInicio"] ?>', '<?= $objetivo["Nombre"] ?>', '<?= $objetivo["FechaFin"] ?>', this, 1)"><i style="font-size:150%;" class="fa fa-pencil-square-o fa-lg"></i></button>
                           <?php endif ?>
                           </td>
                         <td>
@@ -58,18 +58,18 @@
 
                          <?php else: ?>
 
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target='#Estadisticas'><i class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target='#Estadisticas'><i style="font-size:150%;" class="fa fa-signal open-modal-estadistica fa-lg" style="color:#3B73FF"></i></button>
 
                          <?php endif ?>
                         </td>
                         <td>                           
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF"></i></button>
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
                         </td>
                      <td>
                           <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red; font-size:150%;"></i></button>
                           <?php endif ?>
                         </td>
 
@@ -88,19 +88,21 @@
 
 <!--Modal para listar las fichas -->
  <div class="modal fade" id="ListarF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" style="border-radius: 25px;">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" style="border-radius: 10px;">
        <div class="modal-header with-border" style="text-align: center;"> 
          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title"><strong>PRODUCTOS SELECCIONADOS</strong></h4>
         </div>
         <div class="modal-body">
-        <div class="col-sm-12 scrolltablas">
+        <div class="table scrolltablas">
           <table class="table table-hover table-bordered" id="tablaFiO">
             <thead>
               <tr class="info">
-                <th>Id</th>
+                <th style="display: none;"></th>
                 <th>Referencia</th>
+                <th>Nombre</th>
+                <th>Color</th>
                 <th>Cantidad</th>
               </tr>
             </thead>
@@ -110,7 +112,7 @@
           </div>
         </div>
         <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+          <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
         </div>
       </div>
     </div>
@@ -135,21 +137,20 @@
               <div class="row">
                 <div class="col-sm-12">
 
-                  <div class="form-group col-sm-5">
+                  <div class="form-group col-sm-6">
                     <label class="">Fecha Registro:</label>
                     <div class="">
                   <div class="input-group date">
-                    <div class="input-group-addon">
+                    <div class="input-group-addon" style="border-radius:5px;">
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" id="Fecha_Registro" name="FechaRegistro" readonly="" class="form-control">
                   </div>
                   </div>
                 </div>
-
-                  <div class="form-group col-lg-offset-1 col-sm-6">
+                  <div class="form-group col-sm-6">
                     <label class="">*Nombre:</label>
-                    <input  type="text" name="Nombre" id="Nombre" class="form-control" required="">
+                    <input  type="text" name="Nombre" id="Nombre" class="form-control" required="" maxlength="45" data-parsley-required="">
                   </div>
 
                 </div>
@@ -158,22 +159,21 @@
 
               <div class="row">
               <div class="col-sm-12">
-              
-              <div class="form-group col-sm-5">
+              <div class="form-group col-sm-6">
                 <label class="control-label" style="padding-right: 10px;">*Fecha Inicio:</label>
                 <div class="input-group date">
-                  <div class="input-group-addon">
+                  <div class="input-group-addon" style="border-radius:5px;">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input type="text" class="form-control pull-right" name="FechaInicio" id="FechaInicioMod" required="" data-parsley-errors-container="#errorFechaIncmodobj">
                 </div>
                 <div id="errorFechaIncmodobj"></div>
               </div>
-              <div class=" col-lg-offset-1 col-sm-3"> 
+              <div class="col-sm-4"> 
               <div class="form-group">
-                <label class="control-label" style="padding-right: 10px;">*Fecha Fin:</label>
+                <label class="control-label" style="">*Fecha Fin:</label>
                   <div class="input-group date">
-                    <div class="input-group-addon">
+                    <div class="input-group-addon" style="border-radius:5px;">
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" class="form-control pull-right" id="Fecha_FinMod" name="FechaFin" required="" data-parsley-errors-container="#errorFechafinmodobj">
@@ -182,7 +182,7 @@
               </div>
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)" style="margin-top: 21%; margin-left:20%;"><b>Seleccionar Productos</b></button>
+              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#FichasN" onclick="listarON('<?= $objetivo["Id_Objetivo"]?>',this)" style="margin-top: 21%; margin-left:20%;"><b>Productos</b></button>
             </div>
           </div>
         </div>
@@ -197,6 +197,7 @@
             <thead>
               <tr class="info">
                 <th>Referencia</th>
+                <th>Nombre</th>
                 <th>Color</th>
                 <th>Cantidad</th>
                 <th>Quitar</th>
@@ -223,11 +224,13 @@
         </div>
 
           <div class="modal-footer" >
-              <div class="row col-lg-12">
-                <button type="reset" class="btn btn-default pull-right" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-
-
-                <button type="submit" class="btn btn-warning pull-right" name="btnModificarObj"><i class="fa fa-refresh" aria-hidden="true"></i>  <b>Actualizar</b></button>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-3">
+                <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificarObj"><i class="fa fa-refresh" aria-hidden="true"></i>  <b>Actualizar</b></button>
+                </div>
+                <div class="col-md-3">
+                  <button type="reset" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                </div>
               </div>
             </div>
             </div>
@@ -284,7 +287,7 @@
             <div class="modal-header">
 
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><b>PRODUCTOS</b></h4>
+              <h4 class="modal-title"><b>PRODUCTOS PARA ASOCIAR</b></h4>
             </div>
             <div class="modal-body">
               <div class="table">
@@ -294,6 +297,7 @@
                     <tr class="active">
                       <th style="display:none;">Id</th>
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Color</th>
                       <th>Cantidad Actual</th>
                       <th>Seleccionar</th>
@@ -308,10 +312,11 @@
                     <tr >
                       <td style="display:none;"><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
+                      <td><?= $ficha["Nombre"]?></td>
                       <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>')"><i class="fa fa-plus"></i></button>
+                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>')"><i style="font-size:150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                       <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>
@@ -325,7 +330,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal"><b>Aceptar</b></button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle"></i> Cerrar</button>
             </div>
           </div><!-- /.modal-content -->
           </form>

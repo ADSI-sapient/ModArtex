@@ -35,10 +35,9 @@
             <div class="form-group col-lg-4">
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
-
                 <option value="C.C">C.C</option>
                 <option value="C.E">C.E</option>
-                <option value="NIT">NIT</option>
+                <!-- <option value="NIT">NIT</option> -->
               </select>
             </div>
             <div class="form-group col-lg-4">
@@ -47,8 +46,8 @@
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" maxlength="20">
             </div>
             <div class="form-group col-lg-4">
-              <label class="">Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change" maxlength="45">
+              <label class="">E-mail:</label>
+              <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-trigger="change" maxlength="45">
             </div>
           </div>
           <div class="row col-lg-12" style="margin-left:0.5%">
@@ -59,6 +58,12 @@
             <div class="form-group col-lg-4">
               <label class="">Dirección:</label>
               <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" maxlength="45">
+            </div>
+
+            <div class="form-group col-lg-4">
+              <label for="infoAdicional" class="">Información Adicional:</label>
+             <!--  <input type="text" class="form-control" id="direccion" placeholder="" name="direccion" maxlength="45"> -->
+             <textarea name="infoAdicional" id="infoAdicional" class="form-control" maxlength="250"></textarea>
             </div>
           </div>
         </div>

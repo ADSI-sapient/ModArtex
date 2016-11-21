@@ -1,6 +1,6 @@
     $(window).load(function(){
         if ($("#tblFichasProd tbody tr").length == 0) {
-          var tr = "<tr id='tableVaciaProduccion'><td colspan='7' style='text-align: center;''>La tabla está vacía</td></tr>";
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='8' style='text-align: center;''>La tabla está vacía</td></tr>";
           $("#tblFichasProd tbody").append(tr);
         }
     });
@@ -60,7 +60,7 @@
         $("#estadoOp").val(idEstado);
         $("#lugarOp").val(lugarProduccion);
         $("#clienteOrdn").val(numCliente);
-        $("#clienteAsoPedProd").val(nombre);
+        $("#clienteAsoPedProd").val(numCliente+" - "+nombre);
         $("#mdlEditOrdenP").show();
     }
 
@@ -93,12 +93,12 @@
             var tr ="";
 	    			var tr2 ="";
             tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
-            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"+nomColor+"</td><td>"
+            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"
             +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='text' value='"
             +cantSat+"' name='cantSat[]'></td></tr>";
 
             tr2 = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td style='display: none;'><input id='progressEstadoSolProd"+idSolcProd+"' type='hidden' value="+codEstadoFicha+"></td><td>"+referencia+
-            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"+nomColor+"</td><td>"
+            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"
             +cantTotal+"</td><td>"+lugar+"</td><td id='nomEstadoProgress"+idSolcProd+"'>"+nombreEstadoF+"</td><td id='tdProgressFicha"+idSolcProd+"'>";
             if (codEstadoFicha == 5) {
               tr2 += "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 0%'><span class='sr-only'></span></div></div>";
@@ -487,7 +487,7 @@ function selLugOrdSol(){
 function limpiarFormRegOrdPro(){
    $("#tblFichasProd tbody").empty();
    if ($("#tblFichasProd tbody tr").length == 0) {
-          var tr = "<tr id='tableVaciaProduccion'><td colspan='7' style='text-align: center;''>La tabla está vacía</td></tr>";
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='9' style='text-align: center;''>La tabla está vacía</td></tr>";
           $("#tblFichasProd tbody").append(tr);
     }
     $("#selectLugarProducc").attr("disabled", true);

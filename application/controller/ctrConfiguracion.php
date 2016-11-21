@@ -146,7 +146,7 @@ class ctrConfiguracion extends Controller{
 		}else{
 			if($this->_modelMedida->modificarMedida()){
 				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-				msg: 'La unidad de medidas se modifico correctamente'});";
+				msg: 'La unidad de medida se modificó correctamente'});";
 			}
 			header('location: '.URL.'ctrConfiguracion/listarMedidas');
 		}
@@ -228,8 +228,12 @@ class ctrConfiguracion extends Controller{
 		$roles = $this->_modelRoles->cambiarEstadoRoles();
 
 		if ($roles) {
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+				msg: 'El estado ha sido modificado!'});";
 			echo json_encode(["v"=>1]);
 		}else{
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+				msg: 'Error al cambiar el estado'});";
 			echo json_encode(["v"=>0]);
 		}
 	}

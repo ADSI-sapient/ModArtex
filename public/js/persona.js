@@ -1,7 +1,7 @@
 function asociarPermisos(Id_Permiso, modulos, Nombre, idbton){
 	var campos = $(permisos).parent().parent();
     $("#permisosasig").removeAttr("hidden");
-	var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-times'></i></button></td></tr>";
+	var tr = "<tr class='box box-solid collapsed-box'><td style='display:none;' >"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisoAsignado("+idbton+", this)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-times'></i></button></td></tr>";
 	$("#tablaPermisos").append(tr);
 
     boton = "#bt"+idbton;
@@ -10,27 +10,51 @@ function asociarPermisos(Id_Permiso, modulos, Nombre, idbton){
     $("#tblpermisosvacia").remove();
 }
 
-function quitarPermisosR(btn, elemento){
+function quitarPermisoAsignado(btn, elemento){
+  var e = $(elemento).parent().parent();
+  $(e).remove();
 
-    var e = $(elemento).parent().parent();
-    $(e).remove();
+  boton = "#bt"+btn;
+  $(boton).attr('disabled', false);
 
-    boton = "#bt"+btn;
-    boton = "#btn"+btn;
-    $(boton).attr('disabled', false);
-
-    if ($("#tblPas tr").length < 2) {
-      $("#tblPas").empty();
-      var tr = '<tr><td id="tblpermisosvacia" colspan="4" style="text-align:center;">No hay productos asociados</td></tr>';
-      $("#tblPas").append(tr);
-    }
-
-
+  if ($("#tblPas tr").length < 2) {
+    $("#tblPas").empty();
+    var tr = '<tr><td id="tblpermisosvacia" colspan="3" style="text-align:center;">No hay permisos asociados.</td></tr>';
+    $("#tblPas").append(tr);
+  }
 }
 
+function quitarPermisoAsignadoMod(btn, elemento){
+  var e = $(elemento).parent().parent();
+  $(e).remove();
+
+  boton = "#btn"+btn;
+  $(boton).attr('disabled', false);
+
+  if ($("#fila tr").length < 2) {
+    $("#fila").empty();
+    var tr = '<tr><td id="tblpermisosmodvacia" colspan="3" style="text-align:center;">No hay permisos asociados.</td></tr>';
+    $("#fila").append(tr);
+  }
+}
+
+function quitarPermisosR(btn, elemento){
+    // var e = $(elemento).parent().parent();
+    // $(e).remove();
+
+    // boton = "#bt"+btn;
+    // boton = "#btn"+btn;
+    // $(boton).attr('disabled', false);
+
+    // if ($("#tblPas tr").length < 2) {
+    //   $("#tblPas").empty();
+    //   var tr = '<tr><td id="tblpermisosvacia" colspan="3" style="text-align:center;">No hay permisos asociados.</td></tr>';
+    //   $("#tblPas").append(tr);
+    // }
+}
 
 $(document).ready(function(){
-  $("#tblpermisosvacia").html("No hay productos asociados.");
+  $("#tblpermisosvacia").html("No hay permisos asociados.");
 });
 
 function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
@@ -49,7 +73,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
       $(boton).attr('disabled', 'disabled');
     }
     else{
-      var tr = "<tr class='box box-solid collapsed-box'><td>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso"+idbton+"'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisosR("+idbton+", this)' class='btn btn-box-tool'><i class='fa fa-remove'></i></button></td></tr>";
+      var tr = "<tr class='box box-solid collapsed-box'><td style='display:none;'>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso"+idbton+"'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisoAsignadoMod("+idbton+", this)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td></tr>";
+      $("#tblpermisosmodvacia").remove();
       $("#tablaR").append(tr);
       boton = "#btn"+idbton;
       $(boton).attr('disabled', 'disabled');
@@ -57,14 +82,13 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
 }
 
     function editarRoles(Id_Rol, Nombre, roles, btn){
+
           var campos = $(roles).parent().parent();
           $("#idRol").val(campos.find("td").eq(0).text());
           $("#nombre_rol").val(campos.find("td").eq(1).text());
            $("#fila").empty();
            // $("#nombre_rol").val(Nombre);
-
     $.ajax({
-
             dataType: 'json',
             type: 'post',
             url: uri+"ctrConfiguracion/listarR",
@@ -73,15 +97,13 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisosR('+btn+', this)" class="btn btn-box-tool"><i class="fa fa-remove"></i></button></td></tr>'; 
+              var fila = '<tr><td style="display:none;">'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'" id="idPermiso'+idperm+'"></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td><td><button type="button" onclick="quitarPermisoAsignadoMod('+btn+', this)" class="btn btn-box-tool"><i style="font-size:150%;" class="fa fa-remove"></i></button></td></tr>';
               $("#fila").append(fila);
-
-                          }
+            }
             }, 
             error: function(){
             }
         });
-  
     }
 
 
@@ -103,7 +125,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               idperm=data[i]["Id_Permiso"];
-              var fila = '<tr><td>'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
+              var fila = '<tr><td style="display:none;">'+data[i]["Id_Permiso"]+'<input type="hidden" name="Idpermiso[]" value="'+idperm+'"/></td><td>'+data[i]["NombreMod"]+'</td><td>'+data[i]["Nombre"]+'</td></tr>'; 
               $("#filass").append(fila);
                           } 
             }, 
@@ -167,6 +189,7 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $("#Telefono").val(campos.find("td").eq(4).text());
     $("#Direccion").val(campos.find("td").eq(5).text());   
     $("#Email").val(campos.find("td").eq(6).text());
+    $("#infoAdicionalMod").val(campos.find("td").eq(10).text());
     $("#myModalC").show();
     }
       
@@ -213,11 +236,11 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
             data: {Id_Rol:Id_Rol, Estado:est}
         }).done(function(respuesta){
             if (respuesta.v == "1") {
-                 Lobibox.notify('success', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Estado actualizado'});
-                // alert("Estado modificado");
+                //Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La orden se modificó correctamente!'});
+                //alert("Estado modificado");
                 location.href = uri +"ctrConfiguracion/RegistrarRoles";
             }else{
-                  Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
+                  // Lobibox.notify('errors', {size: 'mini', rounded: true, delayIndicator: false, msg: 'Error al actualizar el estado'});
             }
         }).fail(function() {
 
@@ -236,7 +259,8 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
           "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
           "zeroRecords": "No se encontraron roles que coincidan con la búsqueda",
       "paginate": {"previous": "Anterior", "next": "Siguiente"}
-      }
+      },
+      "lengthMenu": [[3], [3]]
         });
       });
 
@@ -313,23 +337,23 @@ function validarRol(){
   if($("#tblPas tr").length > 0 && $("#tblpermisosvacia").length == 0){
     return true;
   }else{
-    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'No ha asignado ningun permiso'}); ;
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'Debe asignar al menos un permiso al rol.'}); ;
     return false;
   }
 }
 
 function validarRolEdit(){
-  if($("#fila tr").length > 0){
-    return true;
-  }else{
-    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'No ha asignado ningun permiso'}); ;
+  if($("#tblpermisosmodvacia").length){
+    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'Debe asignar al menos un permiso al rol.'}); ;
     return false;
+  }else{
+    return true;
   }
   return false;
 }
 
 function limpiarTablePermisosRoles(){
-  var tr = '<tr><td id="tblpermisosvacia" colspan="4" style="text-align:center;">No hay productos asociados.</td></tr>';
+  var tr = '<tr><td id="tblpermisosvacia" colspan="3" style="text-align:center;">No hay permisos asociados.</td></tr>';
   $("#tblPas").empty();
   $("#tblPas").append(tr);
 }
