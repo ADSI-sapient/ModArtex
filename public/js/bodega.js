@@ -69,9 +69,13 @@ $(".checkboxHijo").change(function(){
    if($(this).is(':checked') && checkboxes > 1){
     $("#entradaMultiple").removeAttr("disabled");
     $("#salidaMultiple").removeAttr("disabled");
-   }else{
+    $(".arrowEntradaIns").attr("disabled", "disabled");
+    $(".arrowSalidaIns").attr("disabled", "disabled");
+   }else if(checkboxes == 1){
     $("#entradaMultiple").attr("disabled", "disabled");
     $("#salidaMultiple").attr("disabled", "disabled");
+    $(".arrowEntradaIns").removeAttr("disabled");
+    $(".arrowSalidaIns").removeAttr("disabled");
    }
 });
 
@@ -79,9 +83,13 @@ $("#checkPadre").change(function(){
    if($(this).is(':checked')){
     $("#entradaMultiple").removeAttr("disabled");
     $("#salidaMultiple").removeAttr("disabled");
+    $(".arrowEntradaIns").attr("disabled", "disabled");
+    $(".arrowSalidaIns").attr("disabled", "disabled");
    }else{
     $("#entradaMultiple").attr("disabled", "disabled");
     $("#salidaMultiple").attr("disabled", "disabled");
+    $(".arrowEntradaIns").removeAttr("disabled");
+    $(".arrowSalidaIns").removeAttr("disabled");
    }
 });
 

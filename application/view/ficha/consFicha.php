@@ -145,7 +145,7 @@
                         <tr class="active">
                           <th>Id</th>
                           <th>Nombre</th>
-                          <th>Quitar</th>
+                          <th>Retirar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -165,7 +165,7 @@
                           <th style="width: 10px;">Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
-                          <th>Quitar</th>
+                          <th>Retirar</th>
                         </tr>
                       </thead>
                       <tbody>

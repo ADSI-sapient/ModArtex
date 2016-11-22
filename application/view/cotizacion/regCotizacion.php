@@ -61,7 +61,7 @@
         <!-- </div> -->
         <!-- <div class="row col-lg-12" style="margin-left:0.5%"> -->
           <div class="form-group col-lg-8">
-            <button type="button" class="btn btn-primary pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px"><b>Asociar Productos</b></button>
+            <button type="button" class="btn btn-primary pull-right" id="" data-toggle="modal" data-target="#ModelProducto" style="margin-top:25px" onclick="prueba()";><b>Asociar Productos</b></button>
           </div>
         </div>
         </div>
@@ -79,7 +79,7 @@
                       <th>Valor Producto</th>
                       <th>Cantidad</th>
                       <th>Subtotal</th>
-                      <th>Quitar</th>
+                      <th>Retirar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -99,7 +99,7 @@
             <label for="vlr_total" class="">Valor Total:</label>
             <div class="input-group">
               <span class="input-group-addon">
-                <i id="iconoDinero" class="fa fa-money" style="font-weight: bold;"></i>
+                <i id="" class="fa fa-money iconoDinero" style="font-weight: bold;"></i>
               </span>
               <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
             </div>
@@ -113,7 +113,7 @@
             <button type="submit" class="btn btn-success btn-md btn-block" name="btnRegistrar" id="" data-toggle="modal" data-target="#modpedidoregist"><i class="fa fa-check-circle" aria-hidden="true"></i> <b>Registrar</b></button>
           </div>
           <div class="col-lg-3">
-            <button type="reset" class="btn btn-default btn-md btn-block" name="" onclick="limpiarFormRegCoti()" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
+            <button type="reset" class="btn btn-default btn-md btn-block" name="" onclick="limpiarFormRegCoti(); animarTotal();" style="margin-left: 2%;"><i class="fa fa-eraser" aria-hidden="true"></i> <b>Limpiar</b></button>
           </div>
         </div>
         <small><b>*Campo requerido</b></small>
@@ -121,15 +121,7 @@
       </form>
     </div>  
 </section>       
-
-
-
-
-
-
-
-
-      <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="ModelProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">

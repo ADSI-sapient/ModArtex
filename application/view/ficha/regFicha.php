@@ -105,7 +105,7 @@
                           <th>Valor</th>
                           <th>Cantidad Necesaria</th>
                           <th>Valor Insumo</th>
-                          <th>Quitar</th>
+                          <th>Retirar</th>
                         </tr>
                       </thead>
                       <tbody>

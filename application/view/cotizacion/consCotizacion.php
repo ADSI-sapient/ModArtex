@@ -149,7 +149,7 @@
                     <th>Cantidad</th>
                     <th>Valor Producto</th>
                     <th>Subtotal</th>
-                    <th>Quitar</th>
+                    <th>Retirar</th>
                   </tr>
                 </thead>
                 <tbody>

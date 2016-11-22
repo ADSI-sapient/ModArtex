@@ -15,12 +15,7 @@ class CtrLogin extends Controller
 
             $usuario = $this->mdlModel->consultarUsuarioLogin($_POST["txtUsuario"]);
 
-            if ($usuario['Estado'] == 0) {
-                $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Este usuario se encuentra deshabilitado'});";
-                header("location: ". URL . "ctrLogin/login");
-            }
-            else if($usuario != false && $usuario['Clave'] == sha1($_POST["txtClave"]))
-            {
+            if ($usuario && $usuario['Clave'] == sha1($_POST["txtClave"])) {
                 $this->mdlModel->__SET("id_rol", $usuario['Tbl_Roles_Id_Rol']);
                 $permisos = $this->mdlModel->obtenerPermisos();
 
@@ -28,6 +23,12 @@ class CtrLogin extends Controller
                 $_SESSION['user'] = $usuario;
 
                 header("location: ". URL . "home/index");
+
+                if ($usuario['Estado'] == 0) {
+                    $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Este usuario se encuentra deshabilitado'});";
+                    header("location: ". URL . "ctrLogin/login");
+                }
+
             }else{
                 $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Usuario o clave incorrecta'});";
                 header("location: ". URL . "ctrLogin/login");

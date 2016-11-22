@@ -226,12 +226,14 @@
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
+              animarTotal();
               $("#spanCant"+idbton).html(parseInt(cantidad) - parseInt($("#usarProductoT"+idbton).val()));
               $("#cantProductT"+idbton).val(parseInt($("#spanCant"+idbton).html()));
             }else{
               $("#spanCant"+idbton).html(cantidad);
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
+              animarTotal();
             }
           });
         });

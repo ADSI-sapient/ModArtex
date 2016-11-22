@@ -21,7 +21,7 @@
             <div class="inner">
               <h3>Ficha</h3>
 
-              <p>Ficha técnica</p>
+              <p>Ficha Técnica</p>
             </div>
             <div class="icon">
               <i class="fa fa-puzzle-piece fa-lg"></i>
@@ -51,7 +51,7 @@
             <div class="inner">
               <h3>Producto</h3>
 
-              <p>Producto terminado</p>
+              <p>Producto Terminado</p>
             </div>
             <div class="icon">
               <i class="fa fa-cubes" aria-hidden="true"></i>

@@ -168,7 +168,7 @@
                       <tr class="info">
                         <th>Módulo</th>
                         <th>Privilegio</th>
-                        <th>Eliminar</th>
+                        <th>Retirar</th>
                       </tr>
                     </thead>
                     <tbody id="fila">

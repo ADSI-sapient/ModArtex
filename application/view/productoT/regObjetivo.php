@@ -87,7 +87,7 @@
                     <th>Nombre</th>
                     <th>Color</th>
                     <th>Cantidad Objetivo</th>
-                    <th>Quitar</th>
+                    <th>Retirar</th>
                     </tr>
                   </thead>
                   <tbody>

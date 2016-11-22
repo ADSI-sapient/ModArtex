@@ -134,7 +134,7 @@
                         <th>Subtotal</th>
                         <th>Tomar de Stock</th>
                         <th>En Producto Terminado</th>
-                        <th>Quitar</th>
+                        <th>Retirar</th>
                       </tr>
                     </thead>
                     <tbody>

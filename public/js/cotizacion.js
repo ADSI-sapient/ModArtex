@@ -194,10 +194,10 @@ function asociarFichaCoti(referen, color, vlrproducto, fichas, idboton, idFicha,
 var intervalo = 0;
 function animarTotal(){
   clearTimeout(intervalo);
-  $("#iconoDinero").removeClass("fa-money").addClass("fa-spinner fa-spin");
+  $(".iconoDinero").removeClass("fa-money").addClass("fa-spinner fa-spin");
   intervalo = setTimeout(function(){
-    $("#iconoDinero").removeClass("fa-spinner fa-spin").addClass("fa-money");
-  }, 2000);
+    $(".iconoDinero").removeClass("fa-spinner fa-spin").addClass("fa-money");
+  }, 400);
 }
 
 function asoFicha(referen, color, vlrproducto, fichas, idboton){
@@ -472,6 +472,9 @@ function prohibirEscritura(){
   $("#Fecha_Inicio").val("");
   $("#Fecha_Fin").val("");
   $("#FechaVencimiento").val("").trigger("change");
-
-  
 }
+
+// function prueba(){
+//   $(".btn-box-tool").removeAttr("disabled", "disabled");
+//   console.log($(".fa-remove").length);
+// }

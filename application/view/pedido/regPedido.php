@@ -94,7 +94,7 @@
                       <th>En Producto Terminado</th>
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>
-                      <th>Quitar</th>
+                      <th>Retirar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -114,7 +114,7 @@
                   <label for="vlr_total" class="">*Valor Total:</label>
                   <div class="input-group">
                     <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-money"></i>
+                      <i class="fa fa-money iconoDinero"></i>
                     </div>
                     <input type="text" name="vlr_total" class="form-control" id="vlr_total" readonly="" value="0" style="border-radius:5px;">
                   </div>

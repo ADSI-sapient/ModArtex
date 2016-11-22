@@ -200,7 +200,7 @@
                 <th>Nombre</th>
                 <th>Color</th>
                 <th>Cantidad</th>
-                <th>Quitar</th>
+                <th>Retirar</th>
               </tr>
             </thead>
             <tbody id="FichasOM">
@@ -292,7 +292,7 @@
             <div class="modal-body">
               <div class="table">
                 <div class="col-sm-12 table-responsive">
-                  <table class="table table-hover table-bordered" style="margin-top: 2%;">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tblObjetivosAsoProdts">
                   <thead>
                     <tr class="active">
                       <th style="display:none;">Id</th>

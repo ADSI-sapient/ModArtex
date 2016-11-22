@@ -83,5 +83,20 @@
 				}
 			}
 		}
+
+		public function reporteExistenciasProdT(){
+			$_SESSION["arrayExistenciasPT"] = $_POST["arrayExistPT"];
+			if($_SESSION["arrayExistenciasPT"]){
+				echo json_encode(["r" => 1]);
+			}else{
+				echo json_encode(["r" => 0]);
+			}
+		}
+
+		public function reporteProductoTerminado(){
+			$existenciasProductoT = $_SESSION["arrayExistenciasPT"];
+			require APP.'view/productoT/reporteExistenciasProductoT.php';
+		}
+
 	}
 ?>

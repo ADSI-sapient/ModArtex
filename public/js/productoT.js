@@ -5,9 +5,9 @@
     var campos = $(productos).parent().parent();
     $("#Referencia").val(campos.find("td").eq(0).text());
     $("#nombreProdto").val(campos.find("td").eq(1).text());
-    $("#Color").val(campos.find("td").eq(2).text());
-    $("#idf").val(campos.find("td").eq(3).text());
-    $("#cantActual").val(campos.find("td").eq(4).text());
+    $("#Color").val(campos.find("td").eq(3).text());
+    $("#idf").val(campos.find("td").eq(4).text());
+    $("#cantActual").val(campos.find("td").eq(5).text());
     $("#ModelSalida").show();
     }
     $(document).ready(function(){
@@ -35,19 +35,21 @@
       $("#descripcionSalidas").val("");
           $("#tbodySal").empty();
           var band = false;
-          $("#tablaProducto tbody tr").each(function(){
+          // var cont = 0;
+          $("#tablaProducto tbody tr").each(function(i,v){
             var valor = $(this).find("td").eq(0).html();
             // console.log($(this).find("td").eq(0));
             if ($("#chkSali"+valor).prop("checked")) {
-              var fila = "<tr id='trValCantidades'><td style='display: none;'>"+valor+"</td><td> <input type='hidden' name='Referencia[]' value='"
+              var fila = "<tr class='trValCantidades'><td style='display: none;'>"+valor+"</td><td> <input type='hidden' name='Referencia[]' value='"
               +$(this).find("td").eq(0).html()+"'>"+$(this).find("td").eq(0).html()+"</td><td><input name='Nombre[]' type= 'hidden' value='"
               +$(this).find("td").eq(1).html()+"'>"+$(this).find("td").eq(1).html()+"</td><td><input name='Color[]' type= 'hidden' value='"
-              +$(this).find("td").eq(2).html()+"'>"+$(this).find("td").eq(2).html()+"</td><td><input type='hidden' id='cantActl"+$(this).find("td").eq(3).html()+"' name='Cantidad[]' value='"
-              +$(this).find("td").eq(4).html()+"'>"+$(this).find("td").eq(4).html()+"</td><td style='display: none'><input type='hidden' name='idf[]' value='"
-              +$(this).find("td").eq(3).html()+"'></td><td><input id='Salida"+$(this).find("td").eq(3).html()+"' min='0' data-parsley-required type='number' name='salida[]' style='border-radius:5px;'></td></tr>";
+              +$(this).find("td").eq(3).html()+"'>"+$(this).find("td").eq(3).html()+"</td><td><input type='hidden' class='cantidadA' name='Cantidad[]' value='"
+              +$(this).find("td").eq(5).html()+"'>"+$(this).find("td").eq(5).html()+"</td><td style='display: none'><input type='hidden' name='idf[]' value='"
+              +$(this).find("td").eq(4).html()+"'></td><td><input min='0' data-parsley-required type='number' name='salida[]' style='border-radius:5px;'></td></tr>";
               $("#tbodySal").append(fila);
               band = true;
             }
+            // cont++;
           });
           if (band) {
               $("#ModalSalidas").modal();
@@ -522,24 +524,83 @@ function validarCantidadSalida(){
 
 function validarSalidasMultiples(){
   var bandera = 0;
-  $("#tableSal #trValCantidades").each(function(i, v){
+  $("#tableSal .trValCantidades").each(function(i, v){
     var c = i + 1;
-    var cantidadActual = $("#cantActl"+c).val();
-    var cantidadSalida = $("#Salida"+c).val();
+    $(".cantidadA").attr("id", "hola"+c);
 
-    if (parseInt(cantidadSalida) > parseInt(cantidadActual)) {
-      $("#Salida"+c).val("");
-      return bandera = 1;
-    }
+
+  //   var cantidadActual = $(".cantActl").val();
+  //   var cantidadSalida = $(".Salida").val();
+  //   console.log(cantidadActual, cantidadSalida);
+  //   if (parseInt(cantidadSalida) > parseInt(cantidadActual)) {
+  //     $(".Salida").val("");
+  //     return bandera = 1;
+  //   }
+  c++;
   });
+  // console.log(bandera);
   if (bandera == 1) {
     Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La cantidad de salida no debe ser mayor a la cantidad actual.'});
     return false;
   }else{
-    return true;
+    return false;
   }
   return false;
 }
 
+function genRepExtProductoT(){
+  var existenciasProductoT = [];
+  $(".repProdT .repProdTerm, .badge").each(function(i,v){
+    existenciasProductoT.push(v.outerText);
+  });
 
+  $.ajax({
+    dataType : 'json',
+    type : 'POST',
+    url : uri+"ctrProductoT/reporteExistenciasProdT",
+    data: {arrayExistPT : existenciasProductoT}
+  }).done(function(respuesta){
+    if (respuesta.r == 1) {
+      location.href = uri+"ctrProductoT/reporteProductoTerminado";
+    }
+  });
+}
+
+$('document').ready(function(){
+   $("#checkPadreSalidas").change(function(){
+      $("input:checkbox").prop('checked', $(this).prop("checked"));
+  });
+});
+
+$(".checkboxHijoPT").change(function(){
+  var checkboxesPT = $("input:checkbox:checked").length;
+   if($(this).is(':checked') && checkboxesPT > 1){
+    $("#salidaMultiplePT").removeAttr("disabled");
+    $(".arrowSalida").attr("disabled", "disabled");
+   }else if(checkboxesPT == 1){
+    $(".arrowSalida").removeAttr("disabled");
+    $("#salidaMultiplePT").attr("disabled", "disabled");
+   }
+});
+
+$("#checkPadreSalidas").change(function(){
+   if($(this).is(':checked')){
+    $(".arrowSalida").attr("disabled", "disabled");
+    $("#salidaMultiplePT").removeAttr("disabled");
+   }else{
+    $(".arrowSalida").removeAttr("disabled");
+    $("#salidaMultiplePT").attr("disabled", "disabled");
+   }
+});
+
+$('#tblObjetivosAsoProdts').dataTable({
+    "ordering": false,
+    "language": {
+        "emptyTable": "No hay productos para listar.",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+        "zeroRecords": "No se encontraron productos que coincidan con la búsqueda.",
+    "paginate": {"previous": "Anterior","next": "Siguiente"}
+    }
+  });
 

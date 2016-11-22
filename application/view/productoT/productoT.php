@@ -24,6 +24,7 @@
                  <th>Referencia</th>
                  <th>Nombre</th>
                   <th>Color</th>
+                  <th style="display: none"></th> 
                   <th style="display: none">Id_Ficha</th> 
                   <th>Cantidad</th>
                   <th>Valor Producción</th>
@@ -33,20 +34,21 @@
               </thead>
               <tbody class="list">
                   <?php foreach ($productos as $producto): ?>
-                    <tr>
-                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>" style="height:15px; width:15px;"></th>
-                      <td class="Referencia"><?= $producto["Referencia"] ?></td>
-                      <td class="NombreProducto"><?= $producto["Nombre_Producto"] ?></td>
-                      <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre"] ?>"></i></td> 
-                       <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td> 
-                       <td class="Cantidad"><?= $producto["Cantidad"] ?></td>
-                       <td class="Valor_Produccion">$<?= $producto["Valor_Produccion"] ?></td>
+                    <tr class="repProdT">
+                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>" style="height:15px; width:15px;" class="checkboxHijoPT"></th>
+                      <td class="Referencia repProdTerm"><?= $producto["Referencia"] ?></td>
+                      <td class="NombreProducto repProdTerm"><?= $producto["Nombre_Producto"] ?></td>
+                      <td class="repProdTerm" style="display: none"><?= $producto["Nombre"] ?></td>
+                      <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre"] ?>"></i></td>
+                       <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td>
+                       <td class="Cantidad repProdTerm"><?= $producto["Cantidad"] ?></td>
+                       <td class="Valor_Produccion repProdTerm">$<?= $producto["Valor_Produccion"] ?></td>
                        <td><span class="badge bg-red"><?= $producto["Stock_Minimo"] ?></td>
                       <td>
-                        <?php if ($producto["Cantidad"] == 0): ?>
+                        <?php if ($producto["Cantidad"] <= 0): ?>
                           <button type="button" class="btn btn-box-tool" disabled="true"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
+                          <button type="button" class="btn btn-box-tool arrowSalida" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
                         <?php endif ?>    
                       </td>
                     </tr>
@@ -62,7 +64,7 @@
              <button class="btn btn-primary" type="button" onclick="genRepExtProductoT();"><b>Generar Reporte</b></button>
            </div>
            <div class="col-md-8" style="text-align: right;">
-              <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);"><i style="color: red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
+              <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);" disabled="true" id="salidaMultiplePT"><i style="color:red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 
             </div>
         </div>
       </section>

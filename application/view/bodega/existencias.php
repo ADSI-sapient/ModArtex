@@ -45,11 +45,11 @@
                       <td class="repoInsum"><?= $valExt["Valor_Promedio"]?></td>
                       <td style="text-align: center;"><span class="badge bg-red"><?= $valExt["Stock_Minimo"]?></span></td>
                       <td style="text-align: center;">
-                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this);" class="btn btn-box-tool" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
+                        <button type="button" onclick="existen(<?= $valExt["Id_Existencias_InsCol"]?>, this);" class="btn btn-box-tool arrowEntradaIns" data-toggle="modal" data-target="#ModelEntrada"><i style="color: green; font-size: 150%;" class="fa fa-arrow-up"></i></button>
                       </td>
                       <td style="text-align: center;">
                       <?php if ( $valExt["Cantidad_Insumo"] > 0 ): ?>
-                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" data-toggle="modal" data-target="#ModalSalida"><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
+                        <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool arrowSalidaIns" data-toggle="modal" data-target="#ModalSalida"><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
                       <?php else: ?>
                         <button type="button" onclick="salidaUno(this)" class="btn btn-box-tool" disabled=""><i style="color: red; font-size: 150%" class="fa fa-arrow-down"></i></button>
                       <?php endif ?>

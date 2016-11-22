@@ -288,6 +288,9 @@
   function editarColor(codigo, colores){
     var campos = $(colores).parent().parent();
     $("#codigo").val(campos.find("td").eq(2).text());
+    // $("#i").on('mouseleave', function(ev){
+    //     alert("Hola, diste click afuera del color");
+    // });
     $("#i").css("background-color", campos.find("td").eq(2).text());
     $("#inputNom").val(campos.find("td").eq(3).text());
     $("#id").val(campos.find("td").eq(4).text());

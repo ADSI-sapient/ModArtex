@@ -116,8 +116,8 @@
 
 					$_SESSION['alert'] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 					msg: 'La cotización se modificó correctamente!'});";
-
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
+
 				}else {
 					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
