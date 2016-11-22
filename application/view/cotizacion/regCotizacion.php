@@ -75,6 +75,7 @@
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
+                      <th>Talla</th>
                       <th>Color</th>
                       <th>Valor Producto</th>
                       <th>Cantidad</th>
@@ -138,6 +139,7 @@
                         <th style="display: none;"></th>
                         <th>Referencia</th>
                         <th>Nombre</th>
+                        <th>Talla</th>
                         <th>Estado</th>
                         <th>Color</th>
                         <th>Valor Produccion</th>
@@ -154,12 +156,13 @@
                       <td style="display: none;"><?= $ficha["Id_Ficha_Tecnica"] ?></td>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Nombre"] ?></td>
+                      <td><?= $ficha["Nom_Talla"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td><i class="fa fa-square" style="color:<?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Nombre_Color"] ?>')"><i style="font-size: 150%; color:blue;" class="fa fa-plus"></i></button>
+                      <button id="b<?= $i; ?>" type="button" class="btn btn-box-tool btnAsociarP" onclick="asociarFichaCoti('<?= $ficha["Referencia"] ?>', '<?= $ficha["Nom_Talla"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Nombre_Color"] ?>')"><i style="font-size: 150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
