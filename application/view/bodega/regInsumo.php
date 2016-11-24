@@ -48,7 +48,7 @@
               <div class="col-md-8">
                 <label class="control-label" length="80px">*Valor: </label>
                 <div class="input-group">
-                  <span class="input-group-addon">
+                  <span class="input-group-addon" style="border-radius:2px;">
                     <i class="fa fa-money" aria-hidden="true"></i>
                   </span>
                   <input type="number" class="form-control" min="1" name="valor" data-parsley-required="" data-parsley-errors-container="#errorValorInsumoBodega" id="valorIns" maxlength="10">

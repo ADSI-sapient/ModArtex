@@ -23,6 +23,7 @@
                 <th><input type="checkbox" id="checkPadreSalidas" style="height:15px; width:15px;"></th>
                  <th>Referencia</th>
                  <th>Nombre</th>
+                 <th>Talla</th>
                   <th>Color</th>
                   <th style="display: none"></th> 
                   <th style="display: none">Id_Ficha</th> 
@@ -39,6 +40,7 @@
                       <td class="Referencia repProdTerm"><?= $producto["Referencia"] ?></td>
                       <td class="NombreProducto repProdTerm"><?= $producto["Nombre_Producto"] ?></td>
                       <td class="repProdTerm" style="display: none"><?= $producto["Nombre"] ?></td>
+                      <td class="repProdTerm"><?= $producto["Nombre_Talla"] ?></td>
                       <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre"] ?>"></i></td>
                        <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td>
                        <td class="Cantidad repProdTerm"><?= $producto["Cantidad"] ?></td>
@@ -69,8 +71,6 @@
         </div>
       </section>
       
-
-
 
 
 <!--Inicio del modal de registro de salida individual-->

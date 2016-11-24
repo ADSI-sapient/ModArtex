@@ -46,7 +46,8 @@
 	            $this->modelo->__SET("Fecha_Registro", $_POST["fecha_R"]);
 	            $this->modelo->__SET("Valor_Total", $_POST["vlr_total"]);
 	          
-	         if($this->modelo->regCotizacion()){	         		
+	         if($this->modelo->regCotizacion()){
+
 	            $ultimaSolicitud_reg = $this->modelo->ultimaSolicitud();
 
 	            $this->modelo->__SET("Id_Solicitud", $ultimaSolicitud_reg["Id_Solicitud"]);
@@ -58,13 +59,16 @@
 	            $ultimo_tipo_solicitud = $this->modelo->ultimaSolicitud_Tipo();
 
 	            for ($i = 0; $i < count($_POST["idFicha"]) ; $i++) { 
+
 		            $this->modelo->__SET("Id_tipoSolicitud", $ultimo_tipo_solicitud["Id_Tipo_Solicitud"]);
 		            $this->modelo->__SET("referencia", $_POST["idFicha"][$i]);
 
 		            $this->modelo->__SET("Cantidad_existencias", 0);
 		            $this->modelo->__SET("Estado_", "k");
 		            $this->modelo->__SET("Cantidad_Producir", $_POST["cantiProdu"][$i]);
+		            // $this->modelo->__SET("Cantidad_Cotizada", $_POST["cantiProdu"][$i]);
 		            $this->modelo->__SET("Subtotal", $_POST["subtot"][$i]);
+		            $this->modelo->__SET("Id_Fichas_Tallas", $_POST["idFichasTallas"][$i]);
 
 		            $this->modelo->regProducto_Aso();
 	            }
@@ -116,11 +120,11 @@
 
 					$_SESSION['alert'] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 					msg: 'La cotización se modificó correctamente!'});";
-				  header ("location: ".URL."ctrCotizacion/consCotizacion");
+				  // header ("location: ".URL."ctrCotizacion/consCotizacion");
 
 				}else {
 					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
-				  header ("location: ".URL."ctrCotizacion/consCotizacion");
+				  // header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 
 			}

@@ -233,19 +233,21 @@ $html = '<!DOCTYPE html>
             <tr style="background:#DEF5E3;">
                 <td style="width:15%;"><b>Referencia</b></td>
                 <td style="width:15%;"><b>Nombre</b></td>
-                <td style="width:20%;"><b>Color</b></td>
+                <td style="width:15%;"><b>Color</b></td>
+                <td style="width:20%;"><b>Talla</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
                 <td style="width:20%;"><b>Valor Producción</b></td>
                 <td style="width:20%;"><b>Stock Mínimo</b></td>
             </tr>';         
-            for ($i=0; $i < count($existenciasProductoT) - 1; $i+=6) { 
+            for ($i=0; $i < count($existenciasProductoT) - 1; $i+=7) { 
             $html .='<tr>'.
             '<td class="mono">'.$existenciasProductoT[$i] .'</td>'.
             '<td class="mono">'.$existenciasProductoT[$i + 1] .'</td>'.
             '<td class="mono">'.$existenciasProductoT[$i + 2] .'</td>'.
             '<td class="mono">'.$existenciasProductoT[$i + 3] .'</td>'.
             '<td class="mono">'.$existenciasProductoT[$i + 4] .'</td>'.
-            '<td class="mono">$'.$existenciasProductoT[$i + 5] .'</td>'.
+            '<td class="mono">'.$existenciasProductoT[$i + 5] .'</td>'.
+            '<td class="mono">$'.$existenciasProductoT[$i + 6] .'</td>'.
             '</tr>';
             }
             '</table>

@@ -145,6 +145,7 @@
                   <tr class="active">
                     <th>Referencia</th>
                     <th>Nombre</th>
+                    <th>Talla</th>
                     <th>Color</th>
                     <th>Cantidad</th>
                     <th>Valor Producto</th>
@@ -162,7 +163,7 @@
               <div class="form-group col-sm-5">
                 <label for="valor_total" class="">Valor Total:</label>
                 <div class="input-group">
-                  <span class="input-group-addon"><b>$</b></span>
+                  <span class="input-group-addon"><i class="fa fa-money iconoDinero" style="color: green; font-size: 150%"></i></span>
                   <input class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
                 </div>
               </div>
@@ -201,6 +202,7 @@
                         <th>Referencia</th>
                         <th>Nombre</th>
                         <th>Color</th>
+                        <th>Talla</th>
                         <th>Cantidad</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
@@ -236,6 +238,7 @@
                     <th>Referencia</th>
                     <th>Nombre</th>
                     <th>Color</th>
+                    <th>Talla</th>
                     <th>Valor Producción</th>
                     <th>Valor Producto</th>
                     <th>Agregar</th>
@@ -248,10 +251,11 @@
                     <td><?= $producto["Referencia"] ?></td>
                     <td><?= $producto["Nombre"] ?></td>
                     <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre_Color"] ?>"></i></td>
+                    <td><?= $producto["Nombre_Talla"] ?></td>
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Nombre_Color"] ?>', '<?= $producto["Nombre"] ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
+                      <button id="botn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="Modificar_ProductoAso('<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Nombre_Color"] ?>', '<?= $producto["Nombre"] ?>', '<?= $producto["Id_Fichas_Tallas"] ?>', '<?= $producto["Nombre_Talla"] ?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>
@@ -324,6 +328,7 @@
                     <th>Referencia</th>
                     <th>Nombre</th>
                     <th>Color</th>
+                    <th>Talla</th>
                     <th>Cantidad Cotizada</th>
                     <th>Valor Producto</th>
                     <th>Subtotal</th>
@@ -345,7 +350,7 @@
               <div class="form-group col-md-5">
                 <label class="">Valor Total:</label>
                 <div class="input-group">
-                  <div class="input-group-addon" style="border-radius:5px;"><b>$</b></div>
+                  <div class="input-group-addon" style="border-radius:5px;"><i class="fa fa-money iconoDinero" style="font-size:150%; color:green;"></i></div>
                   <input type="text" class="form-control" name="valorTotal" id="ValorTota" readonly="" style="border-radius: 5px;">
                 </div>
               </div>

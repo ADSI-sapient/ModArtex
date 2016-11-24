@@ -7,7 +7,7 @@
     $("#nombreProdto").val(campos.find("td").eq(1).text());
     $("#Color").val(campos.find("td").eq(3).text());
     $("#idf").val(campos.find("td").eq(4).text());
-    $("#cantActual").val(campos.find("td").eq(5).text());
+    $("#cantActual").val(campos.find("td").eq(6).text());
     $("#ModelSalida").show();
     }
     $(document).ready(function(){
@@ -44,7 +44,7 @@
               +$(this).find("td").eq(0).html()+"'>"+$(this).find("td").eq(0).html()+"</td><td><input name='Nombre[]' type= 'hidden' value='"
               +$(this).find("td").eq(1).html()+"'>"+$(this).find("td").eq(1).html()+"</td><td><input name='Color[]' type= 'hidden' value='"
               +$(this).find("td").eq(3).html()+"'>"+$(this).find("td").eq(3).html()+"</td><td><input type='hidden' class='cantidadA' name='Cantidad[]' value='"
-              +$(this).find("td").eq(5).html()+"'>"+$(this).find("td").eq(5).html()+"</td><td style='display: none'><input type='hidden' name='idf[]' value='"
+              +$(this).find("td").eq(6).html()+"'>"+$(this).find("td").eq(6).html()+"</td><td style='display: none'><input type='hidden' name='idf[]' value='"
               +$(this).find("td").eq(4).html()+"'></td><td><input min='0' data-parsley-required type='number' name='salida[]' style='border-radius:5px;'></td></tr>";
               $("#tbodySal").append(fila);
               band = true;
