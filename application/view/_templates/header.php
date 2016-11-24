@@ -69,16 +69,16 @@
               <span class="label label-warning">10</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
+              <li class="header">Tiene 10 notificaciones.</li>
+              <!-- <li>
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <i class="fa fa-users text-aqua"></i> 5 nuevos miembros hoy
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> -->
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>          
@@ -176,7 +176,7 @@
               </div>
             </div>
             <div class="col-md-5">
-                <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required=""> 
+                <input id="nomColorCrud" type="text" name="nombre" placeholder="Nombre del color" class="form-control" data-parsley-required="" maxlength="45"> 
             </div> 
             <div class="col-md-3">
               <button onclick="regColor()" class="btn btn-success" type="button"><i class="fa fa-check-circle" aria-hidden="true"></i> Registrar</button>
@@ -223,17 +223,17 @@
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de medida</h3>
+          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de Medida</h3>
       </div>
       <div class="modal-body">  
         <form data-parsley-validate="">
           <div style="margin-top: 10px;" class="row">
             <div class="form-group col-sm-12">
             <div style="padding-left: 0;" class="col-sm-4">  
-              <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura" data-parsley-required="">
+              <input id="AbreMedidaCrud" type="text" class="form-control" placeholder="Abreviatura" data-parsley-required="" maxlength="45">
             </div>
             <div class="col-sm-5">
-              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control" data-parsley-required="">
+              <input id="nomMedidaCrud" type="text" placeholder="Nombre de la medida" class="form-control" data-parsley-required="" maxlength="45">
             </div> 
             <div class="col-sm-3">
               <button onclick="regMedida()" class="btn btn-success" type="button"><i class="fa fa-check-circle" aria-hidden="true"></i>  Registrar</button>
@@ -244,7 +244,7 @@
         <div class="row">
           <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-bordered paginate-search-table">
+            <table class="table table-bordered datTableModals">
               <thead>
                 <tr>
                   <th>#</th>

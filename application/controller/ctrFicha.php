@@ -38,7 +38,7 @@
 			    $this->mdlModel->__SET("color", $_POST["colorFicha"]);
 			 	$this->mdlModel->__SET("estado", 1);
 			    $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
-			    $this->mdlModel->__SET("cantidad", 0);
+			    // $this->mdlModel->__SET("cantidad", 0);
 				$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
 				$this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 
@@ -67,6 +67,7 @@
 							
 						$this->mdlModel->__SET("id_fichaT", $ultima);
 						$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
+						$this->mdlModel->__SET("cantidad", 0);
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
 					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente!'});";

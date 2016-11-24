@@ -179,7 +179,7 @@
                       <label for="vlr_produccion" class="">Valor Total Insumos:</label>
                       <div class="input-group">
                         <span class="input-group-addon" style="border-radius: 
-                        5px;"><i class="fa fa-money"></i></span>
+                        5px;"><i class="fa fa-money iconoDinero"></i></span>
                         <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
                       </div>
                     </div>

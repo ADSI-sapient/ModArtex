@@ -124,7 +124,7 @@
               <label for="vlr_produccion" class="">Total Insumos:</label>
               <div class="">
                   <div class="input-group">
-                    <span class="input-group-addon"><b>$</b></span>
+                    <span class="input-group-addon"><i class="fa fa-money iconoDinero"></i></span>
                     <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
                   </div>
                 <!-- </div> -->

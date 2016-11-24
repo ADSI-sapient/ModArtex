@@ -58,15 +58,15 @@
 	            $ultimo_tipo_solicitud = $this->modelo->ultimaSolicitud_Tipo();
 
 	            for ($i = 0; $i < count($_POST["idFicha"]) ; $i++) { 
-	            $this->modelo->__SET("Id_tipoSolicitud", $ultimo_tipo_solicitud["Id_Tipo_Solicitud"]);
-	            $this->modelo->__SET("referencia", $_POST["idFicha"][$i]);
+		            $this->modelo->__SET("Id_tipoSolicitud", $ultimo_tipo_solicitud["Id_Tipo_Solicitud"]);
+		            $this->modelo->__SET("referencia", $_POST["idFicha"][$i]);
 
-	            $this->modelo->__SET("Cantidad_existencias", 0);
-	            $this->modelo->__SET("Estado_", "k");
-	            $this->modelo->__SET("Cantidad_Producir", $_POST["cantiProdu"][$i]);
-	            $this->modelo->__SET("Subtotal", $_POST["subtot"][$i]);
+		            $this->modelo->__SET("Cantidad_existencias", 0);
+		            $this->modelo->__SET("Estado_", "k");
+		            $this->modelo->__SET("Cantidad_Producir", $_POST["cantiProdu"][$i]);
+		            $this->modelo->__SET("Subtotal", $_POST["subtot"][$i]);
 
-	            $this->modelo->regProducto_Aso();
+		            $this->modelo->regProducto_Aso();
 	            }
 			        $_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Cotización registrada exitosamente!'});"; 
 			        

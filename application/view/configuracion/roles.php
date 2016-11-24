@@ -82,9 +82,9 @@
                     <th class="col-lg-2">#</th>
                     <th class="col-lg-2">Nombre</th>
                     <th class="col-lg-2">Estado</th>
-                    <th style="width: 15%">Permisos</th>
                     <th>Modificar</th>
-                    <th>Modificar Estado</th>
+                    <th>Cambiar Estado</th>
+                    <th style="width: 15%">Permisos Asignados</th>
                   </tr>
                 </thead>
                 <tbody class="list">
@@ -94,9 +94,6 @@
                       <td class="Id_Rol"><?= $rol["Id_Rol"] ?></td>
                       <td class="Nombre"><?= $rol["Nombre"] ?></td>
                       <td class="estado"><?= $rol["Estado"]==1?"Habilitado":"Inhabilitado"?></td>
-                      <td>
-                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
-                     </td>
                      <td>
                      <?php if ($rol["Id_Rol"] == 1): ?>
                        <button type="button" class="btn btn-box-tool" disabled="s"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
@@ -121,6 +118,9 @@
 
                       <?php endif ?>
                         </td>
+                        <td>
+                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarR"onclick="listarRoles('<?= $rol["Id_Rol"] ?>', '<?= $rol["Nombre"] ?>', this)"><i class="fa fa-eye" style="color:#3B73FF; font-size: 150%;"></i></button>
+                     </td>
                       </tr>
                     <?php $c++; ?>
                     <?php endforeach; ?>

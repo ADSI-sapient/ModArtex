@@ -146,7 +146,6 @@
 
       //remueve de la tabla los productos asociados al pedido al momento de modificar
       function removerProductoAsoPedi(btn, elemento, subtotal){
-        console.log(btn, elemento, subtotal);
 
         $("#tbl-prod-aso-ped").each(function(){
           if ($("#tbl-prod-aso-ped tbody .trFichasAsoPedMod").length < 2){
@@ -173,6 +172,7 @@
         total += parseFloat($("#capValor"+idbton).val());
         $("#vlr_total").val(total);
         });
+        // animarTotal();
       }
 
       $(document).ready(function(){
@@ -182,7 +182,7 @@
       function quitarFicha(btn, elemento, subtotal){
         $("#tablaFicha").each(function(){
           if ($("#tablaFicha tbody .trpedidos").length < 2){
-            var tr = "<tr><td id='tblFichasVacia' colspan='9' style='text-align:center;'></td></tr>";
+            var tr = "<tr><td id='tblFichasVacia' colspan='10' style='text-align:center;'></td></tr>";
             $("#tablaFicha").append(tr);
             $("#tblFichasVacia").html("No hay productos asociados.");
             }
@@ -198,11 +198,11 @@
       }
 
     //asocia productos al pedido
-    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor, nombreProducto){
+    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor, nombreProducto, nomTalla){
 
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
-        var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColor+"'></i></td><td>$"+vlrprodto+"</td><td><input type='number' id='cantProducir"+idbton+"' style='border-radius:5px;' maxlength='10' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td><input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
+        var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td>"+nombreProducto+"</td><td>"+nomTalla+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColor+"'></i></td><td>$"+vlrprodto+"</td><td><input type='number' id='cantProducir"+idbton+"' style='border-radius:5px;' maxlength='10' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td><input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
         +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
@@ -226,14 +226,14 @@
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
-              animarTotal();
+              // animarTotal();
               $("#spanCant"+idbton).html(parseInt(cantidad) - parseInt($("#usarProductoT"+idbton).val()));
               $("#cantProductT"+idbton).val(parseInt($("#spanCant"+idbton).html()));
             }else{
               $("#spanCant"+idbton).html(cantidad);
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
-              animarTotal();
+              // animarTotal();
             }
           });
         });
@@ -343,7 +343,7 @@
         $("#vlr_total").val(valor);
 
         $("#tablaFicha tbody .trpedidos").remove();
-        var tr = "<tr><td id='tblFichasVacia' colspan='9' style='text-align:center;'></td></tr>";
+        var tr = "<tr><td id='tblFichasVacia' colspan='10' style='text-align:center;'></td></tr>";
         $("#tablaFicha").append(tr);
         $("#tblFichasVacia").html("No hay productos asociados");
         $(".btnfichas").attr('disabled', false);
@@ -489,8 +489,6 @@ function changeValCantUpdateFichPedidos(){
     var cantProducirInicial = parseInt($("#cantProdInicial"+idFicha).val());
     var cantUsarIniciar = parseInt($("#cantUsadaInicial"+idFicha).val());
     var ProducTermInicial = parseInt($("#cantProdTerInicial"+idFicha).val());
-
-    console.log(cantProducirInicial, cantUsarIniciar, ProducTermInicial);
 
     $("#cantUsarProTerUpdPed"+idFicha).attr("max", (cantUsarIniciar + ProducTermInicial));
     

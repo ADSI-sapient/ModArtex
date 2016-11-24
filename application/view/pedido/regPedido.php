@@ -86,6 +86,7 @@
                     <tr class="active">
                       <th>Referencia</th>
                       <th>Nombre</th>
+                      <th>Talla</th>
                       <th>Color</th>
                       <th>Valor Producto</th>
                       <th>Cantidad a Producir</th>
@@ -99,7 +100,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td id="tblFichasVacia" colspan="9" style="text-align:center;"></td>
+                      <td id="tblFichasVacia" colspan="10" style="text-align:center;"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -149,6 +150,7 @@
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
+                      <th>Talla</th>
                       <th>Nombre</th>
                       <th>Estado</th>
                       <th>Color</th>
@@ -163,12 +165,13 @@
                     <tr>
                       <td><?= $ficha["Referencia"] ?></td>
                       <td><?= $ficha["Nombre"] ?></td>
+                      <td><?= $ficha["Nom_Talla"] ?></td>
                       <td><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                       <td><i class='fa fa-square' style='color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;' title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>', '<?= $ficha["Nombre"] ?>');"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Nom_Talla"] ?>');"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>
