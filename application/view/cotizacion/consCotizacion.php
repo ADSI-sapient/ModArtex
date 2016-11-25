@@ -308,15 +308,20 @@
                   <input type="hidden" name="cliente" id="ced_cliente">
                   <input type="text" class="form-control"  id="Client" readonly="" style="border-radius: 5px;" size="28%">
               </div>
+
+
               <div class="form-group col-sm-6">
                 <label class="">*Fecha de Entrega:</label>
+                <div class="">
                 <div class="input-group date">
                   <div class="input-group-addon" style="border-radius:5px">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" style="border-radius: 5px;" onkeyup="prohibirEscritura();">
+                  <input type="text" class="form-control" name="Fechaentre" id="Fechaentre" data-parsley-required="" data-parsley-errors-container="#regCotizvMod" style="border-radius: 5px;" onkeyup="prohibirEscritura();">
                 </div>
               </div>
+              <div id="regCotizvMod"></div>
+            </div>
             </div>
           </div>
           <div class="table">
@@ -360,7 +365,8 @@
       <div class="modal-footer">
         <div class="row">
           <div class="col-md-offset-3 col-md-3">
-            <button type="submit" onclick="updateSolProCot()" class="btn btn-success btn-md btn-block" name="gurdarPedi"><i class="fa fa-send-o" aria-hidden="true"></i> <b>Enviar a Pedido</b></button>
+            <button type="submit" class="btn btn-success btn-md btn-block" name="gurdarPedi"><i class="fa fa-send-o" aria-hidden="true"></i> <b>Enviar a Pedido</b></button>
+            <!-- <button type="submit" onclick="updateSolProCot()" class="btn btn-success btn-md btn-block" name="gurdarPedi"><i class="fa fa-send-o" aria-hidden="true"></i> <b>Enviar a Pedido</b></button> -->
           </div>
           <div class="col-md-3">
             <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>

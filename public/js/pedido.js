@@ -198,7 +198,7 @@
       }
 
     //asocia productos al pedido
-    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor, nombreProducto, nomTalla){
+    function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor, nombreProducto, nomTalla, idFTalla){
 
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
@@ -206,7 +206,7 @@
         +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
-        +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
+        +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFTalla+"></tr>";
     
         $("#tablaFicha").append(tr);
 
@@ -223,12 +223,15 @@
             });
 
           $("#usarProductoT"+idbton).on("keyup change", function(){
+
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
+              
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
               // animarTotal();
               $("#spanCant"+idbton).html(parseInt(cantidad) - parseInt($("#usarProductoT"+idbton).val()));
               $("#cantProductT"+idbton).val(parseInt($("#spanCant"+idbton).html()));
+            
             }else{
               $("#spanCant"+idbton).html(cantidad);
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
@@ -251,6 +254,8 @@
       }
       //función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
       function validarExistenciasIn(idfi, cantProdu, alerta){
+
+        // console.log(idfi, cantProdu, alerta);
 
         var res = true;
         $.ajax({

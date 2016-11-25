@@ -124,18 +124,7 @@
 			return $query->execute();
 		}	
 
-		public function regProducto_Aso(){
-			$sql = "INSERT INTO tbl_solicitudes_producto VALUES (null,?,?,?,?,?,?,?)";
-			$query = $this->db->prepare($sql);
-			$query->bindParam(1, $this->Id_tipoSolicitud);
-			$query->bindParam(2, $this->Cantidad_existencias);
-			$query->bindParam(3, $this->Estado_);
-			$query->bindParam(4, $this->Cantidad_Producir);
-			$query->bindParam(5, $this->Subtotal);
-			$query->bindParam(6, $this->Cantidad_Producir);
-			$query->bindParam(7, $this->Id_Fichas_Tallas);
-			return $query->execute();
-		}
+		
 		
 		public function getCliente(){
 			$sql = "SELECT p.Num_Documento, t.Nombre AS Tipo_Nombre, p.Tipo_Documento, p.Nombre, p.Apellido, p.Estado, p.Telefono, p.Direccion, p.Email FROM tbl_persona p INNER JOIN tbl_tipopersona t ON t.Id_tipo = p.Id_tipo WHERE t.Id_tipo = 2 and p.Estado= 1";
@@ -196,7 +185,7 @@
 	    }
 
 		public function generarCotizacion(){
-			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, t.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Nombre, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nom, sp.Cant_Cotizada FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichas_tecnicas f ON sp.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
+			$sql = "SELECT p.Num_Documento, p.Id_Tipo, p.Tipo_Documento, p.Nombre, p.Apellido, p.Telefono, p.Direccion, p.Email, s.Id_Solicitud, t.Id_Estado, s.Fecha_Registro, t.Fecha_Vencimiento, s.Valor_Total, f.Referencia, f.Nombre, f.Valor_Producto, f.Estado, sp.Cantidad_Producir, p.Tipo_Documento, sp.Subtotal, c.Nombre AS Nombre_Color, tl.Nombre AS Nombre_Talla, sp.Cant_Cotizada FROM tbl_persona p INNER JOIN tbl_solicitudes s ON p.Num_Documento = s.Num_Documento INNER JOIN tbl_solicitudes_tipo t ON s.Id_Solicitud = t.Id_Solicitud INNER JOIN tbl_solicitudes_producto sp ON t.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo INNER JOIN tbl_fichastecnicas_tallas ftl ON sp.Id_Fichas_Tallas=ftl.Id_Fichas_Tallas INNER JOIN tbl_tallas tl ON ftl.Id_Talla=tl.Id_Talla INNER JOIN tbl_fichas_tecnicas f ON ftl.Id_Ficha_Tecnica = f.Id_Ficha_Tecnica INNER JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE f.Estado = 1 AND s.Id_Solicitud = ?";
 			$query = $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Solicitud);
 			$query->execute();
@@ -253,10 +242,23 @@
       		$query->bindParam(3, $this->Estado_);
       		$query->bindParam(4, $this->Cantidad_Producir);
       		$query->bindParam(5, $this->Subtotal);
-      		$query->bindParam(6, $this->Id_Ficha_Tecnica);
-      		$query->bindParam(7, $this->Cantidad_Producir);
+      		$query->bindParam(6, $this->Cantidad_Producir);
+      		$query->bindParam(7, $this->Id_Fichas_Tallas);
       		return $query->execute();
       	}
+
+      	public function regProducto_Aso(){
+			$sql = "INSERT INTO tbl_solicitudes_producto VALUES (null,?,?,?,?,?,?,?)";
+			$query = $this->db->prepare($sql);
+			$query->bindParam(1, $this->Id_tipoSolicitud);
+			$query->bindParam(2, $this->Cantidad_existencias);
+			$query->bindParam(3, $this->Estado_);
+			$query->bindParam(4, $this->Cantidad_Producir);
+			$query->bindParam(5, $this->Subtotal);
+			$query->bindParam(6, $this->Cantidad_Producir);
+			$query->bindParam(7, $this->Id_Fichas_Tallas);
+			return $query->execute();
+		}
 
       	public function traerUltimoIdSTipo(){
 

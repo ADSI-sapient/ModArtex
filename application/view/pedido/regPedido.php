@@ -171,7 +171,7 @@
                       <td><?= $ficha["Valor_Produccion"] ?></td>
                       <td><?= $ficha["Valor_Producto"] ?></td>
                       <td>
-                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Nom_Talla"] ?>');"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
+                        <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool btnfichas" onclick="asociarProductos('<?= $ficha["Id_Ficha_Tecnica"] ?>', '<?= $ficha["Referencia"] ?>', '<?= $ficha["Codigo_Color"] ?>', '<?= $ficha["Valor_Producto"] ?>', this, '<?= $i; ?>', '<?= $ficha["Cantidad"] ?>', '<?= $ficha["Nombre_Color"] ?>', '<?= $ficha["Nombre"] ?>', '<?= $ficha["Nom_Talla"] ?>', '<?= $ficha["Id_Fichas_Tallas"] ?>');"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                       </td>
                     </tr>
                     <?php $i++; ?>

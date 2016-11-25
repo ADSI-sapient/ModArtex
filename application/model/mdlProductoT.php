@@ -8,6 +8,7 @@ class mdlProductoT
 		private $Cantidad;
 		private $Valor_Produccion;
 		private $Stock_Minimo;
+		private $Id_Ficha_Tallas;
 
 
 	public function __SET($atributo, $valor){
@@ -47,7 +48,7 @@ class mdlProductoT
 	    	try{
       			$query = $this->db->prepare($sql);
       			$query->bindParam(1, $this->Cantidad);
-      			$query->bindParam(2, $this->Id_Ficha_Tecnica);
+      			$query->bindParam(2, $this->Id_Ficha_Tallas);
       			$query->bindParam(3, $this->salida);
       			return $query->execute();
       		} catch (PDOException $e){
@@ -82,8 +83,8 @@ class mdlProductoT
 	    	 try{
       			$query = $this->db->prepare($sql);
       			$query->bindParam(1, $this->Id_Salida);
-      			$query->bindParam(2, $this->Id_Ficha_Tecnica);
-      			$query->bindParam(3, $this->salida);
+      			$query->bindParam(2, $this->salida);
+      			$query->bindParam(3, $this->Id_Ficha_Tallas);
       			return $query->execute();
       		} catch (PDOException $e){
       		}

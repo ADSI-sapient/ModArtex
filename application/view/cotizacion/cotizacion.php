@@ -254,6 +254,7 @@ $html = '<!DOCTYPE html>
                 <td style="width:15%;"><b>Referencia</b></td>
                 <td style="width:15%;"><b>Nombre</b></td>
                 <td style="width:15%;"><b>Color</b></td>
+                <td style="width:15%;"><b>Talla</b></td>
                 <td style="width:15%;"><b>Cantidad</b></td>
                 <td style="width:15%;"><b>Valor Del Producto</b></td>
                 <td style="width:15%;"><b>Subtotal</b></td>
@@ -264,7 +265,8 @@ $html = '<!DOCTYPE html>
 
             <td class="mono" style="width:15%;">'.$value["Referencia"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Nombre"] .'</td>
-            <td style="width:15%;" class="mono">'.$value["Nom"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Nombre_Color"] .'</td>
+            <td style="width:15%;" class="mono">'.$value["Nombre_Talla"] .'</td>
             <td class="mono" style="width:15%;">'.$value["Cant_Cotizada"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Valor_Producto"] .'</td>
             <td style="width:15%;" class="mono">$'.$value["Subtotal"] .'</td>
@@ -273,7 +275,7 @@ $html = '<!DOCTYPE html>
             endforeach; 
             $html .='
             <tr>
-                <td style="background:#eee;" colspan="4"><b>Total:</b></td>
+                <td style="background:#eee;" colspan="5"><b>Total:</b></td>
                 <td style="width:15%; " class="mono" colspan="2">$'.$cotizacion[0]["Valor_Total"].'</td>
             </tr>
             </table>
@@ -300,5 +302,5 @@ $dompdf->loadHtml($html);
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream("Cotizacion ".$cotizacion[0]["Id_Solicitud"] , ["Attachment"=>0]);
+$dompdf->stream("Cotización ".$cotizacion[0]["Id_Solicitud"].", ".date("d-m-Y (H:i:s)", $time), ["Attachment"=>0]);
 ?>

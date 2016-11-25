@@ -26,7 +26,8 @@
                  <th>Talla</th>
                   <th>Color</th>
                   <th style="display: none"></th> 
-                  <th style="display: none">Id_Ficha</th> 
+                  <th style="display: none">Id_Ficha</th>
+                  <th style="display: none">Id_Ficha_Talla</th>
                   <th>Cantidad</th>
                   <th>Valor Producción</th>
                   <th>Stock Mínimo</th>
@@ -42,7 +43,8 @@
                       <td class="repProdTerm" style="display: none"><?= $producto["Nombre"] ?></td>
                       <td class="repProdTerm"><?= $producto["Nombre_Talla"] ?></td>
                       <td class="Color"><i class="fa fa-square" style="color: <?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre"] ?>"></i></td>
-                       <td class="idf" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td>
+                       <td class="idft" style="display: none"><?= $producto["Id_Ficha_Tecnica"] ?></td>
+                       <td class="idft" style="display: none"><?= $producto["Id_Fichas_Tallas"] ?></td>
                        <td class="Cantidad repProdTerm"><?= $producto["Cantidad"] ?></td>
                        <td class="Valor_Produccion repProdTerm">$<?= $producto["Valor_Produccion"] ?></td>
                        <td><span class="badge bg-red"><?= $producto["Stock_Minimo"] ?></td>
@@ -50,7 +52,7 @@
                         <?php if ($producto["Cantidad"] <= 0): ?>
                           <button type="button" class="btn btn-box-tool" disabled="true"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool arrowSalida" data-toggle="modal" onclick="ProductoT('<?= $producto["Referencia"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
+                          <button type="button" class="btn btn-box-tool arrowSalida" data-toggle="modal" onclick="ProductoT('<?= $producto["Id_Fichas_Tallas"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
                         <?php endif ?>    
                       </td>
                     </tr>
@@ -116,7 +118,7 @@
             <label>Descripción:</label>
             <textarea class="form-control" name="descripcionSalida" id="descripcionSalida" maxlength="200"></textarea>
           </div>
-          <input type="Hidden" class="form-control"  name="idf" id="idf"> 
+          <input type="Hidden" class="form-control"  name="idft" id="idft"> 
         </div>
       </div>
       <div class="modal-footer">

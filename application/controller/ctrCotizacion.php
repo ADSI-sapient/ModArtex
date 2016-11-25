@@ -58,7 +58,7 @@
 
 	            $ultimo_tipo_solicitud = $this->modelo->ultimaSolicitud_Tipo();
 
-	            for ($i = 0; $i < count($_POST["idFicha"]) ; $i++) { 
+	            for ($i = 0; $i < count($_POST["idFichasTallas"]) ; $i++) { 
 
 		            $this->modelo->__SET("Id_tipoSolicitud", $ultimo_tipo_solicitud["Id_Tipo_Solicitud"]);
 		            $this->modelo->__SET("referencia", $_POST["idFicha"][$i]);
@@ -114,22 +114,23 @@
 			            $this->modelo->__SET("Estado_", "k");
 			            $this->modelo->__SET("Cantidad_Producir", $_POST["cantProducir"][$i]);
 			            $this->modelo->__SET("Subtotal", $_POST["subtotal"][$i]);
-			            $this->modelo->__SET("Id_Ficha_Tecnica", $_POST["idProducto"][$i]);
+			            $this->modelo->__SET("Id_Fichas_Tallas", $_POST["idProducto"][$i]);
 			            $this->modelo->regFichasAso();
 					}
 
 					$_SESSION['alert'] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 					msg: 'La cotización se modificó correctamente!'});";
-				  // header ("location: ".URL."ctrCotizacion/consCotizacion");
+				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 
 				}else {
 					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
-				  // header ("location: ".URL."ctrCotizacion/consCotizacion");
+				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 
 			}
 				$cotizaciones = $this->modelo->getCotizacion();
-				
+				$clientes = $this->modelo->getCliente();
+
 				require APP.'view/_templates/header.php';
 				require APP.'view/cotizacion/consCotizacion.php';
 				require APP.'view/_templates/footer.php';
@@ -137,13 +138,16 @@
 
 		public function converCotiAPe(){
 			if (isset($_POST["gurdarPedi"])) {
+
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud", 2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);
 				$this->modelo->__SET("Id_Estado", 1);
 
 				if ($this->modelo->converPedido()) {
+
 					$ultimoPedido = $this->modelo->getIdPedido();
+
 					for ($i=0; $i < count($_POST["idSolProducto"]); $i++) { 
 						 $this->modelo->__SET("IdSolPro", $_POST["idSolProducto"][$i]);
 						 $this->modelo->__SET("CantUsar", $_POST["cantExisUsarCot"][$i]);
@@ -159,7 +163,6 @@
 						 	}
 						}
 					}
-
 
                 	header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}

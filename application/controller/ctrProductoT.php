@@ -29,7 +29,7 @@
 
 				$this->mdlModel->__SET("Cantidad", $_POST["cantActual"]);
 				$this->mdlModel->__SET("salida", $_POST["cantidadSalida"]);
-				$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["idf"]);
+				$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST["idft"]);
 
 				if ($this->mdlModel->descontar()){
 
@@ -41,7 +41,7 @@
 			 			$ultimaSalida = $this->mdlModel->ultimaSalida();
 
 						$this->mdlModel->__SET("Id_Salida", implode('', $ultimaSalida));
-						$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST['idf']);
+						$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST['idft']);
 						$this->mdlModel->RegistrarSP();
 
 						$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'Salida registrada exitosamente!'});";
@@ -57,11 +57,11 @@
 
 			if (isset($_POST["regMuchasSalidas"])){
 
-				for ($i=0; $i < count($_POST["idf"]); $i++){
+				for ($i=0; $i < count($_POST["idft"]); $i++){
 
 					$this->mdlModel->__SET("Cantidad", $_POST["Cantidad"][$i]);
 					$this->mdlModel->__SET("salida", $_POST["salida"][$i]);
-					$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["idf"][$i]);
+					$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST["idft"][$i]);
 
 					$this->mdlModel->descontar();
 					
@@ -73,7 +73,7 @@
 					 	$ultimaSalida = $this->mdlModel->ultimaSalida();
 
 						$this->mdlModel->__SET("Id_Salida", implode('', $ultimaSalida));
-						$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST['idf'][$i]);
+						$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST['idft'][$i]);
 						$this->mdlModel->__SET("salida", $_POST["salida"][$i]);
 						$this->mdlModel->RegistrarSP();
 
