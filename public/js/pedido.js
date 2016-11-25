@@ -168,7 +168,7 @@
       function valorTotalPedido(){
         var total = 0;
         $("#tablaFicha tbody .trpedidos").each(function(){
-        var idbton = $(this).find("td").eq(9).html();
+        var idbton = $(this).find("td").eq(10).html();
         total += parseFloat($("#capValor"+idbton).val());
         $("#vlr_total").val(total);
         });
@@ -206,7 +206,7 @@
         +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
         +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
         +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
-        +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' name='idFicha[]' value="+idFTalla+"></tr>";
+        +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' name='idFichaTalla[]' value="+idFTalla+"><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
     
         $("#tablaFicha").append(tr);
 
