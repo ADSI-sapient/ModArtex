@@ -16,6 +16,7 @@
 		private $valor_insumo;
 		private $nombreInsumo;
 		private $id_fichaT;
+		private $idFichaTalla;
 		private $db;
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
@@ -76,11 +77,11 @@
       	}
 
       	public function regTallasAso(){
-      		$sql = "CALL SP_RegTallasAsociadas(?,?,?)";
+      		$sql = "CALL SP_RegTallasAsociadas(?,?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_talla);
       		$query->bindParam(2, $this->id_fichaT);
-      		$query->bindParam(3, $this->cantidad);
+      		// $query->bindParam(3, $this->cantidad);
       		$query->execute();
       		return $query;
       	}
@@ -145,7 +146,7 @@
 	    	$sql = "CALL SP_DeleteTallasAso(?)";
 	        try {
 	        	$query = $this->db->prepare($sql);
-	        	$query->bindParam(1, $this->id_fichaT);
+	        	$query->bindParam(1, $this->idFichaTalla);
 	        	$query->execute();
 	        	return $query;
 	        } catch (PDOException $e) {
@@ -228,6 +229,14 @@
       		$sql = "CALL SP_validColorFichaMod(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_fichaT);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
+
+      	public function valAsociacionTalla(){
+      		$sql = "CALL SP_valAsoTalla(?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_fichaTalla);
       		$query->execute();
       		return $query->fetchAll();
       	}

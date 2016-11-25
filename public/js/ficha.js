@@ -1,4 +1,4 @@
-
+    var idsTallas = [];
 
         //permite seleccionar y asociar tallas al registrar ficha técnica
         $("#selectTallas").select2({
@@ -83,6 +83,7 @@
 
       //edita la información de una ficha técnica
       function editarFicha(referencia, fichas, idColor){
+        idsTallas = [];
         var campos = $(fichas).parent().parent();
         $("#idFicha_Tec").val(referencia);
         $("#referencia").val(campos.find("td").eq(0).text());
@@ -464,20 +465,38 @@
         }).fail(function(){})
     }
 
-    function quitarTallaAso(btn, elemento){
 
-      $("#tbl-tallas-aso").each(function(){
-          if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 2){
-            var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
-            $("#tbl-tallas-aso").append(tr);
-            $("#tblTallasVacia").html("No hay tallas asociadas");
-            }
-        });
+    function quitarTallaAso(btn, elemento, idFichaTalla){
 
-        var e = $(elemento).parent().parent();
-        $(e).remove();
-        boton = "#btntallas"+btn;
-        $(boton).attr('disabled', false);
+      $.ajax({
+        dataType: 'json',
+        type: 'POST',
+        data: {idFichaTalla: idFichaTalla},
+        url: uri+'ctrFicha/valAsociacionTalla'
+      }).done(function(resp){
+          if (resp.r == 0) {
+            alert("No se puede eliminar");
+          }else{
+            idsTallas.push(idFichaTalla);
+            var e = $(elemento).parent().parent();
+            $(e).remove();
+            $("#idsTallas").val(idsTallas);
+          }
+      }).fail(function(){
+
+      });
+      // $("#tbl-tallas-aso").each(function(){
+      //     if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 2){
+      //       var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
+      //       $("#tbl-tallas-aso").append(tr);
+      //       $("#tblTallasVacia").html("No hay tallas asociadas");
+      //       }
+      //   });
+
+      //   var e = $(elemento).parent().parent();
+      //   $(e).remove();
+      //   boton = "#btntallas"+btn;
+      //   $(boton).attr('disabled', false);
     }
 
       function cargarTallas(ref, modalFp){
@@ -492,11 +511,12 @@
               $("#dtll-tallas-aso > tbody tr").empty();
               arrayTallas = respuesta.r;
               for (var i = 0; i <= arrayTallas.length - 1; i++) {
-                idTalla = arrayTallas[i]['Id_Talla'];
-                nombre = arrayTallas[i]['Nombre'];
+                var idTalla = arrayTallas[i]['Id_Talla'];
+                var nombre = arrayTallas[i]['Nombre'];
+                var idFichaTalla = arrayTallas[i]['Id_Fichas_Tallas'];
                 var tr = "";
                 if (modalFp == 1) {
-                  tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td></tr>";
+                  tr = "<tr id='tr"+idTalla+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><input type='hidden' id='tallas"+idTalla+"' name='tallas[]' value='"+idTalla+"'><td>"+idTalla+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+idTalla+", this, "+idFichaTalla+")'><i style='font-size:150%' class='fa fa-remove'></i></button></td><td style='display: none;'>"+idFichaTalla+"</td></tr>";
                   $('#tbl-tallas-aso').append(tr);
                 }else{
                   tr = "<tr class='box box-solid collapsed-box'><td>"+idTalla+"</td><td>"+nombre+"</td>";

@@ -98,7 +98,7 @@
 		      	$this->mdlModel->__SET("nombre_ficha", $_POST["nombreFichaMod"]);
 	            $this->mdlModel->__SET("color", $_POST["colorModFicha"]);
 	            $this->mdlModel->__SET("valor_produccion", $_POST["vlr_produccion"]);
-	            $this->mdlModel->__SET("cantidad", 456);
+	            // $this->mdlModel->__SET("cantidad", 456);
 		      	$this->mdlModel->__SET("stock_min", $_POST["stock_min"]);
 	            $this->mdlModel->__SET("valor_producto", $_POST["vlr_producto"]);
 
@@ -118,13 +118,19 @@
 				}
 
 				//Elimina todas las tallas asociadas a la ficha
-				$this->mdlModel->eliminarTallaAsoFicha();
+				
 				//Registra nuevas tallas
-				for ($t=0; $t < count($_POST['tallas']); $t++) { 
 
-					$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
-				 	$this->mdlModel->regTallasAso();
+				for ($i=0; $i < count($_POST['idsTallas']); $i++) { 
+					$this->mdlModel->__SET("idFichaTalla", $_POST['idsTallas'][$i]);
+					var_dump($this->mdlModel->eliminarTallaAsoFicha());
+					exit();
 				}
+				// for ($t=0; $t < count($_POST['tallas']); $t++) { 
+
+				// 	$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
+				//  	$this->mdlModel->regTallasAso();
+				// }
 				
 		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La ficha se modificó correctamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
@@ -251,7 +257,6 @@
 
 
 		public function validarColorModFicha(){
-
 			
 			    $this->mdlModel->__SET("id_fichaT", $_POST["idficht"]);
 
@@ -264,5 +269,14 @@
 		    }
 		}
 
+		public function valAsociacionTalla(){
+			$this->mdlModel->__SET("id_fichaTalla", $_POST["idFichaTalla"]);
+			$resConsulta = $this->mdlModel->valAsociacionTalla();
+			if ($resConsulta) {
+		    	echo json_encode(["r"=>0]);
+		    }else{
+		    	echo json_encode(["r"=>1]);
+		    }
+		}
 	}
 ?>

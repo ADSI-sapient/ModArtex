@@ -82,6 +82,8 @@
               <form role="form" action="<?php echo URL; ?>ctrFicha/editFicha" method="post" id="modficha" onsubmit="return validarColorFicha()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
               <input type="hidden" name="idFicha_Tec" id="idFicha_Tec">
+              <input type="hidden" name="idsTallas[]" id="idsTallas">
+
               <div class="row">
                 <div class="form-group col-sm-12">
                   <div class="form-group col-sm-4">
@@ -146,6 +148,7 @@
                           <th>Id</th>
                           <th>Nombre</th>
                           <th>Retirar</th>
+                          <th style="display: none;"></th>
                         </tr>
                       </thead>
                       <tbody>
