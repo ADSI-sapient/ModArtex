@@ -77,10 +77,10 @@
 						$this->mdlModel->__SET("salida", $_POST["salida"][$i]);
 						$this->mdlModel->RegistrarSP();
 
-						$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'Salida registrada exitosamente!'});";
-						header("location: ".URL."ctrProductoT/existenciasProductoT");
 					}
 				}
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'Salida registrada exitosamente!'});";
+				header("location: ".URL."ctrProductoT/existenciasProductoT");
 			}
 		}
 

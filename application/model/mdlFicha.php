@@ -240,5 +240,13 @@
       		$query->execute();
       		return $query->fetchAll();
       	}
+
+      	public function valAsoTallaObjt(){
+      		$sql = "CALL SP_valAsoTallaObj(?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->id_fichaTalla);
+      		$query->execute();
+      		return $query->fetchAll();
+      	}
 	}
 ?>

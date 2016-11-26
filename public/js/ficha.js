@@ -468,6 +468,20 @@
 
     function quitarTallaAso(btn, elemento, idFichaTalla){
 
+      if (idFichaTalla == undefined) {
+        var e = $(elemento).parent().parent();
+        $(e).remove();
+        boton = "#btntallas"+btn;
+        $(boton).attr('disabled', false);
+        $("#tbl-tallas-aso").each(function(){
+          if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 1){
+            var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
+            $("#tbl-tallas-aso").append(tr);
+            $("#tblTallasVacia").html("No hay tallas asociadas");
+            }
+        });
+      }else{
+
       $.ajax({
         dataType: 'json',
         type: 'POST',
@@ -481,17 +495,21 @@
             var e = $(elemento).parent().parent();
             $(e).remove();
             $("#idsTallas").val(idsTallas);
+
+            $("#tbl-tallas-aso").each(function(){
+              if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 2){
+                var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
+                $("#tbl-tallas-aso").append(tr);
+                $("#tblTallasVacia").html("No hay tallas asociadas");
+                }
+            });
           }
       }).fail(function(){
 
       });
-      // $("#tbl-tallas-aso").each(function(){
-      //     if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 2){
-      //       var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
-      //       $("#tbl-tallas-aso").append(tr);
-      //       $("#tblTallasVacia").html("No hay tallas asociadas");
-      //       }
-      //   });
+
+      }
+      
 
       //   var e = $(elemento).parent().parent();
       //   $(e).remove();
@@ -577,7 +595,7 @@
           //si no existe la talla acá la agrega
           }else{
 
-            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallas[]' value="+id+"></tr>";
+            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallasN[]' value="+id+"></tr>";
            
             $("#tblTallasVacia").remove();
             $("#tbl-tallas-aso").append(tr);

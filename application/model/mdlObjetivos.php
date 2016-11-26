@@ -10,6 +10,7 @@
 		private $Cantidad;
 		private $Id_Ficha_Tecnica;
 		private $CantidadTotal;
+		private $Id_Fichas_Tallas;
 
 		public function __SET($atributo, $valor){
 			$this->$atributo = $valor;
@@ -69,7 +70,7 @@
 			$query= $this->db->prepare($sql);
 			$query->bindParam(1, $this->Id_Objetivo);
 			$query->bindParam(2, $this->Cantidad);
-			$query->bindParam(3, $this->Id_Ficha_Tecnica);
+			$query->bindParam(3, $this->Id_Fichas_Tallas);
 			$query->execute();
 				
 		}catch (PDOException $e){

@@ -118,19 +118,21 @@
 				}
 
 				//Elimina todas las tallas asociadas a la ficha
-				
-				//Registra nuevas tallas
 
-				for ($i=0; $i < count($_POST['idsTallas']); $i++) { 
-					$this->mdlModel->__SET("idFichaTalla", $_POST['idsTallas'][$i]);
-					var_dump($this->mdlModel->eliminarTallaAsoFicha());
-					exit();
+				$gola = implode(',', $_POST['idsTallas']);
+				$gola2 = explode(',', $gola);
+				// var_dump($_POST['idsTallas'], $gola2);
+				// exit();
+				for ($i=0; $i < count($gola2); $i++) { 
+					$this->mdlModel->__SET("idFichaTalla", $gola2[$i]);
+					$this->mdlModel->eliminarTallaAsoFicha();
 				}
-				// for ($t=0; $t < count($_POST['tallas']); $t++) { 
 
-				// 	$this->mdlModel->__SET("id_talla", $_POST['tallas'][$t]);
-				//  	$this->mdlModel->regTallasAso();
-				// }
+				//Registra nuevas tallas
+				for ($t=0; $t < count($_POST['tallasN']); $t++) { 
+					$this->mdlModel->__SET("id_talla", $_POST['tallasN'][$t]);
+				 	$this->mdlModel->regTallasAso();
+				}
 				
 		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La ficha se modificó correctamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
@@ -271,8 +273,9 @@
 
 		public function valAsociacionTalla(){
 			$this->mdlModel->__SET("id_fichaTalla", $_POST["idFichaTalla"]);
-			$resConsulta = $this->mdlModel->valAsociacionTalla();
-			if ($resConsulta) {
+			$resConsultaSolicPr = $this->mdlModel->valAsociacionTalla();
+			$resConsObj = $this->mdlModel->valAsoTallaObjt();
+			if ($resConsultaSolicPr || $resConsObj) {
 		    	echo json_encode(["r"=>0]);
 		    }else{
 		    	echo json_encode(["r"=>1]);

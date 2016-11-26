@@ -311,15 +311,6 @@
       </div><!-- /.modal -->
       <!-- Inicio Modal Detalle de insumos y tallas asociadas a ficha técnica -->
 
-
-
-
-
-
-
-
-
-
       <div class="modal fade" id="dtllInsuTallAso" tabindex="-1" role="dialog" >
         <div class="modal-dialog modal-lg">
           <div class="modal-content" style="border-radius: 10px;">

@@ -25,8 +25,8 @@
 	 			$ultimoObjetivo = $this->mdlModel->ultimoObjetivo();
 			    $this->mdlModel->__SET("Id_Objetivo", implode('', $ultimoObjetivo));
 
-				for ($i=0; $i < count($_POST["Id_Ficha_Tecnica"]); $i++){
-					$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["Id_Ficha_Tecnica"][$i]);
+				for ($i=0; $i < count($_POST["Id_Fichas_Tallas"]); $i++){
+					$this->mdlModel->__SET("Id_Fichas_Tallas", $_POST["Id_Fichas_Tallas"][$i]);
 					$this->mdlModel->__SET("Cantidad", $_POST["CantidadO"][$i]);
 					$this->mdlModel->RegistrarObjetivos();
 			        $_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Objetivo registrado exitosamente!'});";	

@@ -13,7 +13,7 @@ function convertirPedido(codigo, cotizaciones, Id_estado, nombreCliente){
 
 function PressCantDesCot(){
  $("#fichaAsoConvPedido tbody tr").each(function(){
-   var idFicha = parseInt($(this).find("td").eq(7).html());
+   var idFicha = parseInt($(this).find("td").eq(8).html());
    var cantProd = parseInt($("#cantProdCot"+idFicha).val());
 
    var cantCotizada = parseInt($(this).find("td").eq(4).html());
@@ -273,6 +273,7 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
 
    }
    else if(fichaAs == 3){
+
     tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td>"+nombreTalla+"</td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
     "</td><td style='display: none;'>"+idFichasTallas+"</td><td><input type='number' style='width: 100%; border-radius:5px;' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichasTallas+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichasTallas+"' style='width: 100%; border-radius:5px;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichasTallas+".value=jsjasd' id='spanCantCot"+idFichasTallas+"' class='badge bg-red'>"+cantidad+
     "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichasTallas+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichasTallas+"' name='exisProdTerCotPed[]'></td></tr>";
@@ -428,32 +429,13 @@ function ValCotPedi(){
     
     var idFicha = $(this).find("td").eq(7).html();
     var idFichasTallas = $(this).find("td").eq(8).html();
-    var cantProducir = $("#cantProdCot"+idFichasTallas).val();
+    // var cantProducir = $("#cantProdCot"+idFichasTallas).val();
+    var cantProducir = $(this).find("td").eq(4).html();
 
-    if (i == 0) {
-      idFichas = idFicha;
-      contador++;
-      cantidadProducir = parseInt(cantidadProducir) + parseInt(cantProducir);
-    }
-
-    if (i > 0 && idFicha == idFichas) {
-      contador++;
-      cantidadProducir = parseInt(cantidadProducir) + parseInt(cantProducir);
-      // bol = validarExistenciasIn(idFicha, cantProducir, 0);
-      // if (bol == false) {
-      //   resExist = false;
-      // }
-
-    }else if(idFicha !== idFichas){
-      idFichas = idFicha;
-      contador++;
-      cantidadProducir = parseInt(cantidadProducir) + parseInt(cantProducir);
-
-    }
-
-    if (i == $("#fichaAsoConvPedido tbody tr").length - 1) {
-      console.log(cantidadProducir);
-    }
+      bol = validarExistenciasIn(idFicha, cantProducir, 0);
+      if (bol == false) {
+        resExist = false;
+      }
   });
 
 

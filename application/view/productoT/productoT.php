@@ -32,6 +32,8 @@
                   <th>Valor Producción</th>
                   <th>Stock Mínimo</th>
                   <th>Salida</th>
+                  <th style="display: none">nombcolor</th>
+                  <th style="display: none">codcolor</th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -55,6 +57,8 @@
                           <button type="button" class="btn btn-box-tool arrowSalida" data-toggle="modal" onclick="ProductoT('<?= $producto["Id_Fichas_Tallas"] ?>',this)"  data-target="#ModelSalida"><i style="color: red; font-size: 150%;" class="fa fa-arrow-down"></i></button>
                         <?php endif ?>    
                       </td>
+                      <td style="display: none"><?= $producto["Nombre"] ?></td>
+                      <td style="display: none"><?= $producto["Codigo_Color"] ?></td>
                     </tr>
                   <?php endforeach ?>
                   </tbody>
@@ -144,7 +148,8 @@
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalSalidas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 10px;">
-      <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST" onsubmit="return validarSalidasMultiples();" data-parsley-validate="">
+      <!-- <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST" onsubmit="return validarSalidasMultiples();" data-parsley-validate=""> -->
+      <form action="<?= URL;?>ctrProductoT/VariasSalidas" method="POST" data-parsley-validate="">
         <div class="modal-header" style="text-align: center;">
           <h4 class="modal-title"><b>SALIDAS PRODUCTO TERMINADO</b></h4>
         </div>
@@ -157,6 +162,7 @@
                 <tr class="active">
                   <th>Referencia</th>
                   <th>Nombre</th>
+                  <th>Talla</th>
                   <th>Color</th>
                   <th>Cantidad Actual</th>
                   <th style="display: none">Id_Ficha</th>

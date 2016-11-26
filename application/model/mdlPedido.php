@@ -200,7 +200,8 @@
 
       	public function validarExisteIns(){
 
-      		$sql = "CALL SP_validarExistenciasInsu(?)";
+                  // $sql = "CALL SP_validarExistenciasInsu(?)";
+      		$sql = "CALL SP_ValidarExistenciasInsumoss(?)";
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_ficha);
       		$query->execute();

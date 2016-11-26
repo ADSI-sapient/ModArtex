@@ -43,9 +43,9 @@
               var fila = "<tr class='trValCantidades'><td style='display: none;'>"+valor+"</td><td> <input type='hidden' name='Referencia[]' value='"
               +$(this).find("td").eq(0).html()+"'>"+$(this).find("td").eq(0).html()+"</td><td><input name='Nombre[]' type= 'hidden' value='"
               +$(this).find("td").eq(1).html()+"'>"+$(this).find("td").eq(1).html()+"</td><td><input name='Color[]' type= 'hidden' value='"
-              +$(this).find("td").eq(3).html()+"'>"+$(this).find("td").eq(3).html()+"</td><td><input type='hidden' class='cantidadA' name='Cantidad[]' value='"
+              +$(this).find("td").eq(3).html()+"'>"+$(this).find("td").eq(3).html()+"</td><td><i class='fa fa-square' style='color:"+$(this).find("td").eq(12).html()+"; font-size: 200%;'' title='"+$(this).find("td").eq(11).html()+"'></i></td><td><input type='hidden' class='cantidadA' name='Cantidad[]' value='"
               +$(this).find("td").eq(7).html()+"'>"+$(this).find("td").eq(7).html()+"</td><td style='display: none'><input type='hidden' name='idft[]' value='"
-              +$(this).find("td").eq(4).html()+"'></td><td><input min='0' data-parsley-required type='number' name='salida[]' style='border-radius:5px;'></td></tr>";
+              +$(this).find("td").eq(6).html()+"'></td><td><input min='0' data-parsley-required type='number' max='"+$(this).find("td").eq(7).html()+"' name='salida[]' style='border-radius:5px;'></td></tr>";
               $("#tbodySal").append(fila);
               band = true;
             }
@@ -59,13 +59,13 @@
         }
 
 
-function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas, idbton, codColor, nombreProducto, nombreColorF){
+function asociarFichas(Id_Ficha_Tecnica, Referencia, fichas, idbton, codColor, nombreProducto, nombreColorF, idFichasTallas, nombreTalla){
 
   var campos = $(fichas).parent().parent();
   CantidadO= $("#CantidadO"+Referencia).val();
   $("#tblVaciaObj").remove();
   // $("#FichasS").removeAttr("hidden");
-  var tr = "<tr class='box box-solid trFichasObj' id=''><input type='hidden' value='"+Id_Ficha_Tecnica+"' name=Id_Ficha_Tecnica[]><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;' title='"+nombreColorF+"'></i></td><td><input type='number' data-parsley-required='' name=CantidadO[] id='cantTotal"+Id_Ficha_Tecnica+"' onkeyup='subtotal"+Id_Ficha_Tecnica+".value=parseFloat(cantTotal"+Id_Ficha_Tecnica+".value); TotalFC();' style='border-radius:5px;' value='0'></td><input type='hidden' name='subtotal"+Id_Ficha_Tecnica+"' class='subtotal' id='subtotal"+Id_Ficha_Tecnica+"' value='0'><td><button type='button' onclick='quitarFichaObj("+idbton+",this,subtotal"+Id_Ficha_Tecnica+".value)' class='btn btn-box-tool btnObjt'><i style='font-size:150%;' class='fa fa-remove'></i></button></td></tr>";
+  var tr = "<tr class='box box-solid trFichasObj' id=''><input type='hidden' value='"+idFichasTallas+"' name=Id_Fichas_Tallas[]><td>"+Referencia+"<input type='hidden' value='"+Referencia+"' name=Referencia[]></td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;' title='"+nombreColorF+"'></i></td><td>"+nombreTalla+"</td><td><input type='number' data-parsley-required='' name=CantidadO[] id='cantTotal"+idFichasTallas+"' onkeyup='subtotal"+idFichasTallas+".value=parseFloat(cantTotal"+idFichasTallas+".value); TotalFC();' style='border-radius:5px;' value='0'></td><input type='hidden' name='subtotal"+idFichasTallas+"' class='subtotal' id='subtotal"+idFichasTallas+"' value='0'><td><button type='button' onclick='quitarFichaObj("+idbton+",this,subtotal"+idFichasTallas+".value)' class='btn btn-box-tool btnObjt'><i style='font-size:150%;' class='fa fa-remove'></i></button></td></tr>";
   
   $("#tablaFichass").append(tr);
     boton = "#btnobj"+idbton;
@@ -228,8 +228,6 @@ $(function(){
             success: function(data){
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
-
-
 
               Codigo = data[i]["Codigo"];
               Id_Ficha_Tecnica = data[i]["Id_Ficha_Tecnica"];
@@ -522,31 +520,30 @@ function validarCantidadSalida(){
   return false;
 }
 
-function validarSalidasMultiples(){
-  var bandera = 0;
-  $("#tableSal .trValCantidades").each(function(i, v){
-    var c = i + 1;
-    $(".cantidadA").attr("id", "hola"+c);
+// function validarSalidasMultiples(){
+//   var bandera = 0;
+//   $("#tableSal .trValCantidades").each(function(i, v){
+//     var c = i + 1;
+//     $(".cantidadA").attr("id", "hola"+c);
 
-
-  //   var cantidadActual = $(".cantActl").val();
-  //   var cantidadSalida = $(".Salida").val();
-  //   console.log(cantidadActual, cantidadSalida);
-  //   if (parseInt(cantidadSalida) > parseInt(cantidadActual)) {
-  //     $(".Salida").val("");
-  //     return bandera = 1;
-  //   }
-  c++;
-  });
-  // console.log(bandera);
-  if (bandera == 1) {
-    Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La cantidad de salida no debe ser mayor a la cantidad actual.'});
-    return false;
-  }else{
-    return false;
-  }
-  return false;
-}
+//   //   var cantidadActual = $(".cantActl").val();
+//   //   var cantidadSalida = $(".Salida").val();
+//   //   console.log(cantidadActual, cantidadSalida);
+//   //   if (parseInt(cantidadSalida) > parseInt(cantidadActual)) {
+//   //     $(".Salida").val("");
+//   //     return bandera = 1;
+//   //   }
+//   c++;
+//   });
+//   // console.log(bandera);
+//   if (bandera == 1) {
+//     Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'La cantidad de salida no debe ser mayor a la cantidad actual.'});
+//     return false;
+//   }else{
+//     return false;
+//   }
+//   return false;
+// }
 
 function genRepExtProductoT(){
   var existenciasProductoT = [];

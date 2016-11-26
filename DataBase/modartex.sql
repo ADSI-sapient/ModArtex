@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2016 a las 19:46:23
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.5.38
+-- Tiempo de generación: 26-11-2016 a las 05:04:13
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.5.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -37,7 +37,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11)
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarF` ()  NO SQL
-SELECT ft.Referencia, ft.Nombre, ft.Id_Ficha_Tecnica, ftl.Cantidad, c.Codigo_Color, c.Nombre Nombre_Color FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color JOIN tbl_fichastecnicas_tallas ftl ON ftl.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_tallas t ON t.Id_Talla=ftl.Id_Talla$$
+SELECT ft.Referencia, ft.Nombre, ft.Id_Ficha_Tecnica, ftl.Cantidad, c.Codigo_Color, c.Nombre Nombre_Color, ftl.Id_Fichas_Tallas, t.Nombre AS Nombre_Talla FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color JOIN tbl_fichastecnicas_tallas ftl ON ftl.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_tallas t ON t.Id_Talla=ftl.Id_Talla$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AsociarPermisos` ()  NO SQL
 SELECT a.Id_Permiso, b.Nombre as modulos, a.Nombre
@@ -207,7 +207,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarExistencias` ()  NO SQL
 SELECT ci.Id_Existencias_InsCol, c.Nombre, c.Codigo_Color, i.Nombre NomIns, um.Abreviatura medida, ci.Cantidad_Insumo, ci.Valor_Promedio, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON c.Id_Color =  ci.Id_Color JOIN tbl_insumos i ON ci.Id_Insumo = i.Id_Insumo JOIN tbl_unidades_medida um ON i.Id_Medida = um.Id_Medida$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasObj` (IN `Id_objetivo` INT)  NO SQL
-SELECT o.Codigo, o.Cantidad, f.Id_Ficha_Tecnica, f.Referencia, f.Nombre, c.Nombre Nombre_Color, c.Codigo_Color from tbl_productos_objetivos o JOIN tbl_fichas_tecnicas f ON f.Id_Ficha_Tecnica= o.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color=c.Id_Color WHERE O.Id_Objetivo= Id_objetivo$$
+SELECT pobj.Codigo, pobj.Cantidad, ftl.Id_Fichas_Tallas, ft.Id_Ficha_Tecnica, ft.Referencia, ft.Nombre, c.Nombre AS Nombre_Color, c.Codigo_Color, t.Nombre AS Nombre_Talla FROM tbl_productos_objetivos pobj JOIN tbl_fichastecnicas_tallas ftl ON pobj.Id_Fichas_Tallas=ftl.Id_Fichas_Tallas JOIN tbl_tallas t ON ftl.Id_Talla=t.Id_Talla JOIN tbl_fichas_tecnicas ft ON ftl.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE pobj.Id_Objetivo = Id_objetivo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ListarFichasParaAsociar` ()  NO SQL
 SELECT f.Referencia, f.Fecha_Registro, f.Estado, f.Color, p.Stock_Minimo, f.Valor_Produccion, p.Valor_Producto FROM tbl_fichas_tecnicas f JOIN tbl_productos p ON f.Referencia = p.Referencia WHERE f.Estado = 1 ORDER BY f.Fecha_Registro DESC$$
@@ -341,8 +341,8 @@ INSERT INTO tbl_rol_permisos (Id_Rol, Id_Permiso) VALUES (_Id_Rol, _Id_Permiso)$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegPersona` (IN `_id_tipo` INT, IN `_tipo_documento` VARCHAR(45), IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_estado` INT, IN `_telefono` VARCHAR(15), IN `_direccion` VARCHAR(30), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20), IN `_infoAdicional` VARCHAR(250))  NO SQL
 INSERT INTO tbl_persona (Num_Documento, Id_Tipo, Tipo_Documento, Nombre,Apellido, Estado, Telefono, Direccion, Email, Info_Adicional) VALUES (_documento, _id_tipo, _tipo_documento, _nombre, _apellido, _estado, _telefono, _direccion, _email, _infoAdicional)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegProductosObje` (IN `Id_Objetivo` INT, IN `Cantidad` INT, IN `IdFicha_Tecnica` INT)  NO SQL
-INSERT INTO tbl_productos_objetivos(Id_Objetivo, Cantidad, 	Id_Ficha_Tecnica) VALUES (Id_Objetivo, Cantidad, IdFicha_Tecnica)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegProductosObje` (IN `Id_Objetivo` INT, IN `Cantidad` INT, IN `_IdFichasTallas` INT)  NO SQL
+INSERT INTO tbl_productos_objetivos(Id_Objetivo, Cantidad, Id_Fichas_Tallas) VALUES (Id_Objetivo, Cantidad, _IdFichasTallas)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RegRoles` (IN `_nombre` VARCHAR(45), IN `_estado` INT)  NO SQL
 INSERT INTO tbl_roles (Nombre, Estado) VALUES (_nombre, _estado)$$
@@ -407,6 +407,9 @@ SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, p.Estado, u.Tbl_Roles_
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_valAsoTalla` (IN `FichaTalla` INT)  NO SQL
 SELECT * FROM tbl_solicitudes_producto sp WHERE sp.Id_Fichas_Tallas = FichaTalla$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_valAsoTallaObj` (IN `_id_ficha_talla` INT)  NO SQL
+SELECT * FROM tbl_productos_objetivos po WHERE po.Id_Fichas_Tallas = _id_ficha_talla$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarColor` (IN `nom` VARCHAR(45))  NO SQL
 SELECT * FROM tbl_colores
 WHERE Nombre = nom$$
@@ -422,6 +425,9 @@ DECLARE idFicha int;
 SET idFicha = _idfichatec;
 SELECT i.Nombre, c.Nombre AS Nombre_Color, cin.Id_Existencias_InsCol, cin.Cantidad_Insumo, inf.Cant_Necesaria, ft.Referencia, (SELECT c.Nombre FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE ft.Id_Ficha_Tecnica = idFicha) as NombreCol_Ficha FROM tbl_insumos_fichastecnicas inf JOIN tbl_colores_insumos cin ON cin.Id_Existencias_InsCol=inf.Id_Existencias_InsCol JOIN tbl_insumos i ON cin.Id_Insumo=i.Id_Insumo JOIN tbl_colores c ON cin.Id_Color=c.Id_Color JOIN tbl_fichas_tecnicas ft ON inf.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica WHERE inf.Id_Ficha_Tecnica = idFicha;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarExistenciasInsumoss` (IN `_id_ficha` INT)  NO SQL
+SELECT i.Nombre, c.Nombre AS Nombre_Color, cin.Id_Existencias_InsCol, cin.Cantidad_Insumo, inf.Cant_Necesaria, ft.Referencia, (SELECT c.Nombre FROM tbl_fichas_tecnicas ft JOIN tbl_colores c ON ft.Id_Color=c.Id_Color WHERE ft.Id_Ficha_Tecnica = _id_ficha) as NombreCol_Ficha, ftl.Id_Fichas_Tallas, t.Nombre AS Nombre_Talla FROM tbl_insumos_fichastecnicas inf JOIN tbl_colores_insumos cin ON cin.Id_Existencias_InsCol=inf.Id_Existencias_InsCol JOIN tbl_insumos i ON cin.Id_Insumo=i.Id_Insumo JOIN tbl_colores c ON cin.Id_Color=c.Id_Color JOIN tbl_fichas_tecnicas ft ON inf.Id_Ficha_Tecnica=ft.Id_Ficha_Tecnica JOIN tbl_fichastecnicas_tallas ftl ON ft.Id_Ficha_Tecnica=ftl.Id_Ficha_Tecnica JOIN tbl_tallas t ON t.Id_Talla=ftl.Id_Talla WHERE inf.Id_Ficha_Tecnica = _id_ficha GROUP BY cin.Id_Existencias_InsCol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ValidarMedida` (IN `nom` VARCHAR(45), IN `abr` VARCHAR(45))  NO SQL
 SELECT * FROM tbl_unidades_medida
@@ -485,10 +491,10 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 
 INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 1, 1, 0, 2100, 101),
-(2, 2, 1, 0, 2100, 101),
-(3, 3, 1, 0, 2100, 101),
-(4, 2, 2, 0, 3100, 201);
+(1, 1, 1, 1250, 122, 101),
+(2, 2, 1, 850, 54, 101),
+(3, 3, 1, 1250, 587, 101),
+(4, 2, 2, 547, 54, 201);
 
 -- --------------------------------------------------------
 
@@ -501,6 +507,13 @@ CREATE TABLE `tbl_entradas` (
   `FechaReg` date NOT NULL,
   `ValorEnt` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_entradas`
+--
+
+INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
+(1, '2016-11-25', 961688);
 
 -- --------------------------------------------------------
 
@@ -516,6 +529,16 @@ CREATE TABLE `tbl_entradas_exitencias` (
   `Valor_Unitario` double NOT NULL,
   `Valor_Total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_entradas_exitencias`
+--
+
+INSERT INTO `tbl_entradas_exitencias` (`Id_Entrada_Existencia`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
+(1, 1, 1, 1250, 122, 152500),
+(2, 1, 2, 850, 54, 45900),
+(3, 1, 3, 1250, 587, 733750),
+(4, 1, 4, 547, 54, 29538);
 
 -- --------------------------------------------------------
 
@@ -576,9 +599,9 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 --
 
 INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`, `Cantidad`) VALUES
-(6, 2, 1, 456),
-(9, 1, 2, 0),
-(10, 2, 2, 0);
+(23, 3, 1, 1200),
+(25, 1, 1, 30),
+(28, 1, 2, 20);
 
 -- --------------------------------------------------------
 
@@ -603,8 +626,8 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 
 INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Stock_Minimo`, `Valor_Producto`, `Nombre`) VALUES
-(1, 'RF-201', 2, '2016-11-25', '1', 7300, 202, 8000, 'Cuquito juanpis'),
-(2, 'RF-201', 3, '2016-11-25', '1', 5200, 300, 6000, 'Hulk');
+(1, 'RF-201', 1, '2016-11-25', '1', 4200, 300, 5200, 'Cachetero'),
+(2, 'RF-202', 2, '2016-11-25', '1', 6300, 350, 7500, 'Tanga');
 
 -- --------------------------------------------------------
 
@@ -646,11 +669,10 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 
 INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(12, 1, '1.00', 2100, 2),
-(13, 4, '1.00', 3100, 2),
-(44, 1, '1.00', 2100, 1),
-(45, 2, '1.00', 2100, 1),
-(46, 4, '1.00', 3100, 1);
+(97, 2, '1.00', 2100, 1),
+(98, 3, '1.00', 2100, 1),
+(99, 1, '2.00', 4200, 2),
+(100, 2, '1.00', 2100, 2);
 
 -- --------------------------------------------------------
 
@@ -695,6 +717,14 @@ CREATE TABLE `tbl_objetivos` (
   `Id_Estado` int(11) NOT NULL,
   `CantidadTotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_objetivos`
+--
+
+INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`, `CantidadTotal`) VALUES
+(1, 'hoka', '2016-11-25', '2016-11-26', '2016-12-01', 5, 45),
+(2, 'Navidad', '2016-11-25', '2016-11-26', '2016-11-29', 5, 18);
 
 -- --------------------------------------------------------
 
@@ -792,6 +822,18 @@ CREATE TABLE `tbl_productos_objetivos` (
   `Id_Fichas_Tallas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_productos_objetivos`
+--
+
+INSERT INTO `tbl_productos_objetivos` (`Codigo`, `Id_Objetivo`, `Cantidad`, `Id_Fichas_Tallas`) VALUES
+(1, 1, 25, 23),
+(2, 1, 25, 25),
+(3, 1, 45, 28),
+(4, 2, 2, 23),
+(5, 2, 4, 25),
+(6, 2, 12, 28);
+
 -- --------------------------------------------------------
 
 --
@@ -880,6 +922,19 @@ CREATE TABLE `tbl_salidas_productos` (
   `Fecha_Salida` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_salidas_productos`
+--
+
+INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`) VALUES
+(1, '', '2016-11-25'),
+(2, '', '2016-11-25'),
+(3, '', '2016-11-25'),
+(4, '', '2016-11-25'),
+(5, '', '2016-11-25'),
+(6, '', '2016-11-25'),
+(7, '', '2016-11-25');
+
 -- --------------------------------------------------------
 
 --
@@ -893,6 +948,19 @@ CREATE TABLE `tbl_salida_ficha` (
   `Id_Fichas_Tallas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tbl_salida_ficha`
+--
+
+INSERT INTO `tbl_salida_ficha` (`Codigo`, `Id_Salida`, `Cantidad`, `Id_Fichas_Tallas`) VALUES
+(1, 1, 54, 23),
+(2, 2, 200, 23),
+(3, 3, 5, 25),
+(4, 4, 7, 28),
+(5, 5, 1200, 23),
+(6, 6, 2, 25),
+(7, 7, 1, 28);
+
 -- --------------------------------------------------------
 
 --
@@ -905,13 +973,6 @@ CREATE TABLE `tbl_solicitudes` (
   `Fecha_Registro` date NOT NULL,
   `Valor_Total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_solicitudes`
---
-
-INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '4851215151', '2016-11-25', 12000);
 
 -- --------------------------------------------------------
 
@@ -945,14 +1006,6 @@ CREATE TABLE `tbl_solicitudes_producto` (
   `Id_Fichas_Tallas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_solicitudes_producto`
---
-
-INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Cant_Cotizada`, `Id_Fichas_Tallas`) VALUES
-(1, 1, 0, 'k', 1, 6000, 1, 10),
-(2, 1, 0, 'k', 1, 6000, 1, 9);
-
 -- --------------------------------------------------------
 
 --
@@ -967,13 +1020,6 @@ CREATE TABLE `tbl_solicitudes_tipo` (
   `Fecha_Vencimiento` date DEFAULT NULL,
   `Id_Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_solicitudes_tipo`
---
-
-INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
-(1, 1, 1, NULL, '2016-12-02', 2);
 
 -- --------------------------------------------------------
 
@@ -1313,12 +1359,12 @@ ALTER TABLE `tbl_colores_insumos`
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
 ALTER TABLE `tbl_entradas`
-  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
-  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
@@ -1333,7 +1379,7 @@ ALTER TABLE `tbl_existencias_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_fichastecnicas_tallas`
-  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichas_tecnicas`
 --
@@ -1348,7 +1394,7 @@ ALTER TABLE `tbl_insumos`
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
@@ -1358,7 +1404,7 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
@@ -1373,7 +1419,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos_objetivos`
 --
 ALTER TABLE `tbl_productos_objetivos`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1393,17 +1439,17 @@ ALTER TABLE `tbl_salidas`
 -- AUTO_INCREMENT de la tabla `tbl_salidas_productos`
 --
 ALTER TABLE `tbl_salidas_productos`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salida_ficha`
 --
 ALTER TABLE `tbl_salida_ficha`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
@@ -1413,12 +1459,12 @@ ALTER TABLE `tbl_solicitudes_ordenesproduccion`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --
