@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="<?= URL; ?>css/lobibox.min.css">
   <link rel="stylesheet" href="<?= URL; ?>Parsley.js-2.4.4/src/parsley.css">
   <script src="<?= URL;?>js/jQuery-2.2.0.min.js"></script>
+  <!-- <script src="<?= URL;?>js/jquery.dataTables.min.js"></script> -->
   <!--  <script src="<?= URL;?>css/jQuery-2.2.0.min.js"></script> -->
 </head>
 
@@ -90,9 +91,9 @@
             <ul class="dropdown-menu">
               <li class="user-header">
 <!--                 <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image"> -->
-                <p>
+                <p style="color:white;">
                   <?= $_SESSION['user']['Nombre']; ?> <?= $_SESSION['user']['Apellido']; ?>
-                  <small><?= $_SESSION['user']['nombreR']; ?></small>
+                  <small style="color:white;"><?= $_SESSION['user']['nombreR']; ?></small>
                 </p>
               </li>
               <li class="user-footer">
@@ -100,7 +101,7 @@
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div> -->
                 <div class="pull-right">
-                  <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat">Cerrar sesión</a>
+                  <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat"><b>Cerrar sesión</b></a>
                 </div>
               </li>
             </ul>
@@ -187,7 +188,7 @@
         <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-              <table id="table-CrudColores" class="table table-bordered paginate-search-table">
+              <table id="table-CrudColores" class="table table-bordered cruds-barraSuperior">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -244,7 +245,7 @@
         <div class="row">
           <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-bordered datTableModals">
+            <table class="table table-bordered cruds-barraSuperior">
               <thead>
                 <tr>
                   <th>#</th>

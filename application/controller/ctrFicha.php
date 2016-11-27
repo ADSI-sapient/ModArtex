@@ -23,6 +23,7 @@
 		    	require APP . 'view/_templates/header.php';
 		        require APP . 'view/ficha/consFicha.php';
 	        	require APP . 'view/_templates/footer.php';
+
 	    	}else{
 	    		header('location: '.URL.'home/index');
 	    	}
@@ -71,6 +72,7 @@
 						$this->mdlModel->__SET("cantidad", 0);
 						$retornoTallas = $this->mdlModel->regTallasAso();
 					}
+
 					$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha registrada exitosamente!'});";
 				}else{
 
@@ -119,13 +121,10 @@
 				}
 
 				//Elimina todas las tallas asociadas a la ficha
-
 				$idTallasStr = implode(',', $_POST['idsTallas']);
 				$arrIdTallas = explode(',', $idTallasStr);
-				// var_dump($_POST['idsTallas'], $gola2);
-				// exit();
 				for ($i=0; $i < count($arrIdTallas); $i++) { 
-					$this->mdlModel->__SET("idFichaTalla", $gola2[$i]);
+					$this->mdlModel->__SET("idFichaTalla", $arrIdTallas[$i]);
 					$this->mdlModel->eliminarTallaAsoFicha();
 				}
 
@@ -135,7 +134,7 @@
 				 	$this->mdlModel->regTallasAso();
 				}
 				
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La ficha se modificó correctamente!'});";
+		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'Ficha modificada exitosamente!'});";
 		    	header("location: ".URL."ctrFicha/consFicha");
 
 		      }else{
@@ -146,7 +145,6 @@
 		    	// header("location: " .URL. 'ctrFicha/consFicha');
 		    }
 
-		    
 		    $fichas = $this->mdlModel->getFichas();
 
 		    require APP . 'view/_templates/header.php';

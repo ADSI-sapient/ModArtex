@@ -125,7 +125,7 @@
 <script>
     $(document).ready(function(){
         $('#carousel-1').carousel({
-            interval: 3000
+            interval: 5000
         });
     });
 </script>

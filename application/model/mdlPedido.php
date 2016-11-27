@@ -107,11 +107,11 @@
       		$query->bindParam(6, $this->id_ficha_talla);
       		$query->execute();
 
-      		// $sql2 = "UPDATE tbl_fichas_tecnicas SET Cantidad = ? WHERE Id_Ficha_Tecnica = ?";
-      		// $query2 = $this->db->prepare($sql2);
-      		// $query2->bindParam(1, $this->cantidadPT);
-      		// $query2->bindParam(2, $this->id_ficha);
-      		// $query2->execute();
+      		$sql2 = "UPDATE tbl_fichastecnicas_tallas SET Cantidad = ? WHERE Id_Fichas_Tallas = ?";
+      		$query2 = $this->db->prepare($sql2);
+      		$query2->bindParam(1, $this->cantidadPT);
+      		$query2->bindParam(2, $this->id_ficha_talla);
+      		$query2->execute();
 
       		return $query;
       	}

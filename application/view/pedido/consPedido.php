@@ -188,6 +188,7 @@
                         <th>Referencia</th>
                         <th>Nombre</th>
                         <th>Color</th>
+                        <th>Talla</th>
                         <th style="text-align: center;">Cantidad a Producir</th>
                         <th style="text-align: center;">Producto Terminado Tomado</th>
                         <th>Valor Producto</th>

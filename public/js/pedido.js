@@ -202,17 +202,25 @@
 
         var campos = $(fichas).parent().parent();
         $("#tablaFicha tbody tr #tblFichasVacia").remove();
-        var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td>"+nombreProducto+"</td><td>"+nomTalla+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColor+"'></i></td><td>$"+vlrprodto+"</td><td><input type='number' id='cantProducir"+idbton+"' style='border-radius:5px;' maxlength='10' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td><input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
-        +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
-        +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
-        +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
-        +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' name='idFichaTalla[]' value="+idFTalla+"><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
-    
-        $("#tablaFicha").append(tr);
 
-        boton = "#btn"+idbton;
+        var prodParaAgregar = idFTalla;
+        var prodEnTabla = $("#idFichaTalla"+idFTalla).val();
 
-        $(boton).attr('disabled', 'disabled');
+        if (prodParaAgregar !== prodEnTabla) {
+
+          var tr = "<tr id=''class='box box-solid collapsed-box trpedidos'><td>"+ref+"</td><td>"+nombreProducto+"</td><td>"+nomTalla+"</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColor+"'></i></td><td>$"+vlrprodto+"</td><td><input type='number' id='cantProducir"+idbton+"' style='border-radius:5px;' maxlength='10' name='cantProducir[]' value='' data-parsley-required='' min='0'></td><td><input name='subTotal[]' readonly='' value='0' type='text' id='capValor"+idbton+"' style='border-radius:5px;' data-parsley-required='' min='1'></td>"    
+          +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
+          +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
+          +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
+          +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFTalla+"' name='idFichaTalla[]' value="+idFTalla+"><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
+          $("#tablaFicha").append(tr);
+
+        }
+
+
+
+        // boton = "#btn"+idbton;
+        // $(boton).attr('disabled', 'disabled');
 
         $("#cantProductT"+idbton).val(cantidad);
         $("#tablaFicha tbody .trpedidos").each(function(i){
@@ -222,22 +230,19 @@
               $("#usarProductoT"+idbton).val(0);
             });
 
+          // $("#usarProductoT"+idbton+", #cantProducir"+idbton).on("keyup change", function(){
           $("#usarProductoT"+idbton).on("keyup change", function(){
-
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
-              
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
-              // animarTotal();
               $("#spanCant"+idbton).html(parseInt(cantidad) - parseInt($("#usarProductoT"+idbton).val()));
               $("#cantProductT"+idbton).val(parseInt($("#spanCant"+idbton).html()));
-            
             }else{
               $("#spanCant"+idbton).html(cantidad);
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
-              // animarTotal();
             }
+            animarTotal();
           });
         });
 

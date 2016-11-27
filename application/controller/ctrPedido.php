@@ -51,7 +51,7 @@
 
 		        	//Registro de fichas asociadas al pedido
 	            	$ultimoIdTipoSolicitud = $this->mdlModel->ultimoIdTipoSolicitud()["ult_id_soltipo"];
-		        	for ($f=0; $f < count($_POST['idFicha']); $f++) { 
+		        	for ($f=0; $f < count($_POST['idFichaTalla']); $f++) { 
 		        		
 		        		$this->mdlModel->__SET("id_solicitudes_tipo", $ultimoIdTipoSolicitud);
 		        		$this->mdlModel->__SET("cant_existencias", $_POST['cantExisUsar'][$f]);

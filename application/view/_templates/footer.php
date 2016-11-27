@@ -63,6 +63,19 @@
         });
     </script>
 <!--     <script src="<?= URL;?>js/roles.js"></script> -->
+  <script>
+    $('.cruds-barraSuperior').dataTable({
+      "ordering": false,
+      "language": {
+          "emptyTable": "No hay registros para listar.",
+          "info": "Mostrando página _PAGE_ de _PAGES_",
+          "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+          "zeroRecords": "No hay resultados que coincidan con la búsqueda.",
+      "paginate": {"previous": "Anterior","next": "Siguiente"}
+      },
+      "lengthMenu": [[3, 5, 10], [3, 5, 10]]
+    });
+  </script>
   </body>
 </html>
 

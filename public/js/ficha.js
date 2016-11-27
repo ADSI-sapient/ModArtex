@@ -495,7 +495,7 @@
         url: uri+'ctrFicha/valAsociacionTalla'
       }).done(function(resp){
           if (resp.r == 0) {
-            Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'No se puede eliminar por que está asociada a una solicitud o a un objetivo.'});
+            Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'No se puede eliminar por que está asociada a una solicitud u objetivo.'});
           }else{
             idsTallas.push(idFichaTalla);
             var e = $(elemento).parent().parent();
