@@ -63,7 +63,7 @@
         </div>
         <div class="box-footer">
           <div class="col-md-4">
-           <button class="btn btn-primary" type="button" onclick="generarExtIns();"><b>Generar Reporte</b></button>
+           <a class="btn btn-primary" role="button" onclick="generarExtIns();" target="_blank" href="<?= URL ?>/ctrBodega/reporteInsumos/"><b>Generar Reporte</b></a>
          </div> 
          <div class="col-md-8" style="text-align: right;">
            <button type="button" onclick="tableEntMay()" class="btn btn-box-tool" id="entradaMultiple" disabled=""><i style="color: green; font-size: 200%;" class="fa fa-arrow-up"></i></button>

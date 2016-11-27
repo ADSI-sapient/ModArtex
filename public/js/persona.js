@@ -1,12 +1,16 @@
 function asociarPermisos(Id_Permiso, modulos, Nombre, idbton){
 	var campos = $(permisos).parent().parent();
-    $("#permisosasig").removeAttr("hidden");
-	var tr = "<tr class='box box-solid collapsed-box'><td style='display:none;' >"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisoAsignado("+idbton+", this)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-times'></i></button></td></tr>";
-	$("#tablaPermisos").append(tr);
+  $("#permisosasig").removeAttr("hidden");
 
-    boton = "#bt"+idbton;
-    $(boton).attr('disabled', 'disabled');
+  var permisoAAgregar = Id_Permiso;
+  var permisoEnTabla = $("#Idpermiso"+Id_Permiso).val();
 
+  if (permisoAAgregar !== permisoEnTabla) {
+  	var tr = "<tr class='box box-solid collapsed-box'><td style='display:none;' >"+Id_Permiso+"<input type='hidden' id='Idpermiso"+Id_Permiso+"' value='"+Id_Permiso+"' name=Idpermiso[] /></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisoAsignado("+idbton+", this)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-times'></i></button></td></tr>";
+  	$("#tablaPermisos").append(tr);
+  }
+    // boton = "#bt"+idbton;
+    // $(boton).attr('disabled', 'disabled');
     $("#tblpermisosvacia").remove();
 }
 
@@ -62,22 +66,16 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
   
     //rol que se va a agregar
     idrolagregar = Id_Permiso;
-
     //comparar con los que ya se encuentran agregados
-    idpermisoagregado = "#idPermiso"+idbton;
-    idperm = $(idpermisoagregado).val();
+    idpermisoagregado = $("#idPermiso"+Id_Permiso).val();
 
-    if (idrolagregar == $(idpermisoagregado).val()) {
-      boton = "#btn"+idbton;
-      $(boton).attr('disabled', 'disabled');
-    }
-    else{
+    if (idrolagregar !== idpermisoagregado) {
       var tr = "<tr class='box box-solid collapsed-box'><td style='display:none;'>"+Id_Permiso+"<input type='hidden' value='"+Id_Permiso+"' name=Idpermiso[] id='idPermiso"+idbton+"'></td><td>"+modulos+"</td><td>"+Nombre+"</td><td><button type='button' onclick='quitarPermisoAsignadoMod("+idbton+", this)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td></tr>";
       $("#fila #tblpervacia").remove();
       $("#fila").append(tr);
-      boton = "#btn"+idbton;
-      $(boton).attr('disabled', 'disabled');
     }
+      // boton = "#btn"+idbton;
+      // $(boton).attr('disabled', 'disabled');
 }
 
     function editarRoles(Id_Rol, Nombre, roles, btn){

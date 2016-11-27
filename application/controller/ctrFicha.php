@@ -13,12 +13,13 @@
 	    public function consFicha()
 	    {
 	    	if($this->validarURL("ctrFicha/consFicha")){
+
 	        	$insumos = $this->mdlModel->getAsoInsumos();
 	        	$insumosHabAsociar = $this->mdlModel->consInsumosRegFicha();
 	        	$tallas = $this->mdlModel->getAsoTallas();
 	    		$fichas = $this->mdlModel->getFichas();
 	        	$colores = $this->mdlModel->consColoresFicha();
-	
+
 		    	require APP . 'view/_templates/header.php';
 		        require APP . 'view/ficha/consFicha.php';
 	        	require APP . 'view/_templates/footer.php';
@@ -119,11 +120,11 @@
 
 				//Elimina todas las tallas asociadas a la ficha
 
-				$gola = implode(',', $_POST['idsTallas']);
-				$gola2 = explode(',', $gola);
+				$idTallasStr = implode(',', $_POST['idsTallas']);
+				$arrIdTallas = explode(',', $idTallasStr);
 				// var_dump($_POST['idsTallas'], $gola2);
 				// exit();
-				for ($i=0; $i < count($gola2); $i++) { 
+				for ($i=0; $i < count($arrIdTallas); $i++) { 
 					$this->mdlModel->__SET("idFichaTalla", $gola2[$i]);
 					$this->mdlModel->eliminarTallaAsoFicha();
 				}
@@ -141,8 +142,8 @@
 		      	$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al modificar la ficha'});";
 		      	header("location: ".URL."ctrFicha/consFicha");
 		      }
-		    	$_SESSION["mensaje"] = $mensaje;
-		    	header("location: " .URL. 'ctrFicha/consFicha');
+		    	// $_SESSION["mensaje"] = $mensaje;
+		    	// header("location: " .URL. 'ctrFicha/consFicha');
 		    }
 
 		    
@@ -163,9 +164,16 @@
 		    $fichas = $this->mdlModel->cambiarEstadoFicha();
 
 		    if ($fichas) {
-		    	$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-				msg: 'El estado ha sido modificado!'});";
+		    	if ($_POST["estado"] == 1) {
+		    		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+				msg: 'La ficha ha sido habilitada'});";
+		    	}else if($_POST["estado"] == 0){
+		    		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+				msg: 'La ficha ha sido deshabilitada'});";
+		    	}
+		    	
 		    	echo json_encode(["v"=>1]);
+
 		    }else{
                 $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
 				msg: 'Error al cambiar el estado'});";

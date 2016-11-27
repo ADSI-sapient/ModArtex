@@ -79,7 +79,7 @@
                   </li>
                 </ul>
               </li> -->
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="#">Ver todo</a></li>
             </ul>
           </li>          
           <li class="dropdown user user-menu">
@@ -208,7 +208,7 @@
     </div>
     <div>
       <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-          <button class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+          <button class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div>
     </div>
   </div>
@@ -240,7 +240,7 @@
             </div> 
             </div>
           </div>
-        </form>  
+        </form> 
         <div class="row">
           <div class="col-md-12">
           <div class="table-responsive">
@@ -265,7 +265,7 @@
     </div>
     <div>
       <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-        <button class="btn btn-default pull-right" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+        <button class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
       </div>
     </div>
   </div>

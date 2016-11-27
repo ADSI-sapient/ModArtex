@@ -97,6 +97,5 @@
 			$existenciasProductoT = $_SESSION["arrayExistenciasPT"];
 			require APP.'view/productoT/reporteExistenciasProductoT.php';
 		}
-
 	}
 ?>

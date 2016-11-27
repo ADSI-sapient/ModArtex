@@ -40,19 +40,18 @@
 
 
       	public function RegistrarO(){
-      		$sql= "CALL SP_RegistrarObjetivos(?, ?, ?, ?, ?, ?)";
-		try{
+      		$sql= "CALL SP_RegistrarObjetivos(?,?,?,?,?,?)";
+
+
 			$query= $this->db->prepare($sql);
+
 			$query->bindParam(1, $this->Nombre);
 			$query->bindParam(2, $this->FechaRegistro);
 			$query->bindParam(3, $this->FechaInicio);
 			$query->bindParam(4, $this->FechaFin);
 			$query->bindParam(5, $this->Id_Estado);
 			$query->bindParam(6, $this->CantidadTotal);
-			$query->execute();
-				
-		}catch (PDOException $e){
-		}
+			return $query->execute();
       	}
 
       	public function ultimoObjetivo(){
@@ -144,8 +143,7 @@
 	        }
       	}
 
-
-          public function cancelarObjetivo(){
+        public function cancelarObjetivo(){
 	        $sql = "CALL SP_CancelarObjetivo(?, ?)";
 
 	        try{
@@ -167,5 +165,13 @@
 	    // 	$query->execute();
 	    // 	return $query->fetchAll();
 	    // }
+
+      	// public function RegistrarProdAsoObjetivo(){
+      	// 	$sql = "CALL SP_regProdAsoObjetivo(?,?)";
+      	// 	$query = $this->db->prepare($sql);
+      	// 	$query->bindParam(1, $this->Cantidad);
+      	// 	$query->bindParam(2, $this->Id_Fichas_Tallas);
+      	// 	return $query->execute();
+      	// }
 	}
 ?>

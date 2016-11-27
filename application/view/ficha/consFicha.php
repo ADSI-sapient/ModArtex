@@ -39,7 +39,7 @@
                     <td class="ref"><?= $ficha["Referencia"] ?></td>
                     <td class="nombreF"><?= $ficha["Nombre"] ?></td>
                     <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
-                    <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
+                    <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Deshabilitado" ?></td>
                     <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                     <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
@@ -182,16 +182,18 @@
                       <label for="vlr_produccion" class="">Valor Total Insumos:</label>
                       <div class="input-group">
                         <span class="input-group-addon" style="border-radius: 
-                        5px;"><i class="fa fa-money iconoDinero"></i></span>
-                        <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1">
+                        5px;"><i class="fa fa-money iconoDinero" style="color:green; font-size:150%;"></i></span>
+                        <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion" readonly="" style="border-radius:5px;" data-parsley-required="" min="1" data-parsley-errors-container='#vTotalInError'>
                       </div>
+                      <div id="vTotalInError"></div>
                     </div>
                     <div class="form-group col-sm-offset-4 col-sm-4"> 
                       <label for="vlr_producto" class="">*Valor Producto:</label>
                       <div class="input-group">
-                        <span class="input-group-addon"><b>$</b></span>
-                        <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="" maxlength="10">
+                        <span class="input-group-addon"><i class="fa fa-money" style="color:green; font-size: 150%;"></i></span>
+                        <input class="form-control" type="text" name="vlr_producto" id="vlr_producto" style="border-radius:5px;" data-parsley-required="" maxlength="10" data-parsley-errors-container='#vlProdError'>
                       </div>
+                      <div id="vlProdError"></div>
                     </div>
                   </div>
                 </div>

@@ -100,7 +100,7 @@
             <label for="vlr_total" class="">Valor Total:</label>
             <div class="input-group">
               <span class="input-group-addon" style="border-radius:5px;">
-                <i id="" class="fa fa-money iconoDinero" style="font-weight:bold;"></i>
+                <i id="" class="fa fa-money iconoDinero" style="color: green; font-size: 150%;"></i>
               </span>
               <input class="form-control" type="text" name="vlr_total" id="vlr_total" value="0" readonly="" style="border-radius:5px;">
             </div>

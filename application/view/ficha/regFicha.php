@@ -39,7 +39,7 @@
                 <div class="">
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-calendar"></i>
+                      <i class="fa fa-calendar" style="color: #FF2020; font-size: 100%"></i>
                     </div>
                     <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                   </div>
@@ -121,21 +121,23 @@
           </div>
           <div class="row col-lg-12">
             <div class="form-group col-lg-4">
-              <label for="vlr_produccion" class="">Total Insumos:</label>
+              <label for="vlr_produccion" class="">Valor Total Insumos:</label>
               <div class="">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-money iconoDinero"></i></span>
-                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1">
+                    <span class="input-group-addon"><i class="fa fa-money iconoDinero" style="color: green; font-size: 150%"></i></span>
+                    <input type="text" name="vlr_produccion" class="form-control" id="vlr_produccion"  value="0" style="border-radius:5px;" data-parsley-lt="#vlr_producto" readonly="" min="1" data-parsley-errors-container="#totalInsEr">
                   </div>
                 <!-- </div> -->
               </div>
+              <div id="totalInsEr"></div>
             </div>
             <div class="form-group col-lg-offset-3 col-lg-5">  
               <label for="vlr_producto" class="">*Valor Producto:</label>
               <div class="input-group">
-                <span class="input-group-addon"><b>$</b></span>
-                <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0" max="9999999">
+                <span class="input-group-addon"><i class="fa fa-money" style="color: green; font-size: 150%"></i></span>
+                <input type="number" name="vlr_producto" class="form-control" id="vlr_producto" value="" style="border-radius:5px;" data-parsley-required="true" data-parsley-gt="#vlr_produccion" min="0" maxlength="10" data-parsley-errors-container='#vlProdError'>
               </div>
+              <div id="vlProdError"></div>
             </div>
             <input id="subtotal" name="subtotal" type="hidden" value="0">
             <input id="total" name="total" type="hidden" value="0">

@@ -1,3 +1,13 @@
+<style>
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+</style>
 <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
@@ -18,7 +28,7 @@
                 <table class="table table-hover cell-border" id="TablaObjetivos">
                   <thead>
                     <tr class="info"> 
-                      <th></th>
+                      <th>#</th>
                       <th>Fecha de Registro</th>
                       <th>Nombre</th>
                       <th>Fecha Inicio</th>
@@ -28,7 +38,7 @@
                       <th style="display:none">Id_Estado</th>
                       <th>Editar</th>
                       <th>Estadísticas</th>
-                      <th>Referencias</th>
+                      <th>Productos Asociados</th>
                       <th>Cancelar Objetivo</th>
                     </tr>
                   </thead>
@@ -103,6 +113,7 @@
                 <th>Referencia</th>
                 <th>Nombre</th>
                 <th>Color</th>
+                <th>Talla</th>
                 <th>Cantidad</th>
               </tr>
             </thead>
@@ -128,7 +139,7 @@
               <h4 class="modal-title" id="myModalLabel">MODIFICAR OBJETIVO</h4>
             </div>
             
-              <form data-parsley-validate="" role="form" id="ModificarObj" action="<?= URL ?>ctrObjetivos/listarObjetivos" method="post" data-parsley-validate="" onsubmit="return valFormModObj();">    
+              <form data-parsley-validate="" role="form" id="ModificarObj" action="<?= URL ?>ctrObjetivos/modificarObjetivos" method="post" data-parsley-validate="" onsubmit="return valFormModObj();">    
             <div class="modal-body">
 
               <input type="hidden" name="Id_Objetivo" id="Id_Objetivo">
@@ -199,6 +210,7 @@
                 <th>Referencia</th>
                 <th>Nombre</th>
                 <th>Color</th>
+                <th>Talla</th>
                 <th>Cantidad</th>
                 <th>Retirar</th>
               </tr>
@@ -299,14 +311,14 @@
                       <th>Referencia</th>
                       <th>Nombre</th>
                       <th>Color</th>
+                      <th>Talla</th>
                       <th>Cantidad Actual</th>
-                      <th>Seleccionar</th>
+                      <th>Agregar</th>
                       <th style="display: none"></th>
                       <th style="display: none"></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tbody class="list">
+                  <tbody class="list">
                      <?php $i = 1; ?>
                   <?php foreach ($fichas as $ficha): ?>
                     <tr >
@@ -314,9 +326,10 @@
                       <td><?= $ficha["Referencia"]?></td>
                       <td><?= $ficha["Nombre"]?></td>
                       <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
+                      <td><?= $ficha["Nombre_Talla"]?></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>')"><i style="font-size:150%; color:blue;" class="fa fa-plus"></i></button>
+                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Nombre_Talla"]?>', '<?= $ficha["Id_Fichas_Tallas"]?>')"><i style="font-size:150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                       <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>
@@ -324,7 +337,6 @@
                     <?php $i++; ?>
                       <?php endforeach; ?>
                     </tbody>
-                  </tbody>
                   </table>
                 </div>
               </div>

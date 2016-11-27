@@ -138,7 +138,7 @@
           <div class="row">
             <div class="col-md-12">
             <div class="col-md-12">
-             <div class="table-responsive"> 
+             <div class="table-responsive scrolltablas"> 
               <table class="table table-bordered">
                 <thead>
                   <tr class="active">
@@ -189,7 +189,7 @@
       
       <div class="col-md-6"></div>
       <div class="modal-body">
-       <table id="tableCols" class="table table-hover cell-border datTableModals" style="margin-bottom: 3%;">
+       <table id="tableCols" class="table table-hover cell-border" style="margin-bottom: 3%;">
         <thead>
           <tr>
             <th style="display: none;"></th>

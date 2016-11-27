@@ -160,18 +160,24 @@
         // valorcm = valorPromedio / 100;
         valorPromedio = Math.round(valorPromedio);
 
-        $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
-        var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
-        "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColInsu+"'></i></td><td>"
-        +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input step='any' maxlength='10' type='number' id='cantNec"
-        +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
-        ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion(); animarTotal();' data-parsley-required='' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
-        +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
-        +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i style='font-size: 150%' class='fa fa-remove'></i></button></td><input type='hidden' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
-        $("#tablaInsumos").append(tr);
-        boton = "#btn"+idbton;
-        $(boton).attr('disabled', 'disabled');
+        var insumoNuevo = id_insumo;
+        var insumoEnTabla = "#idInsumo"+id_insumo;
 
+        if (insumoNuevo !== $(insumoEnTabla).val()) {
+
+          $("#tablaInsumos tbody tr #tblInsumosVacia").remove();
+          var tr = "<tr id='' class='box box-solid collapsed-box trfichas'><td>"+id_insumo+"</td><td>"+nombre+
+          "</td><td><i class='fa fa-square' style='color: "+color+"; font-size: 200%;' title='"+nombColInsu+"'></i></td><td>"
+          +unidadMed+"</td><td>$ "+valorPromedio+"</td><td><input step='any' maxlength='10' type='number' id='cantNec"
+          +idbton+"' name='cantNecesaria[]' value='' onkeyup='res"+idbton+".value=cantNec"+idbton+
+          ".value * "+valorPromedio+"; subt"+idbton+".value=parseFloat(res"+idbton+".value); valorProduccion(); animarTotal();' data-parsley-required='' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"
+          +idbton+"'value='0'><div class='input-group'><span class='input-group-addon' style='border:none; background-color:transparent;'>$</span><input readonly='' type='text' id='capValor"+idbton+"' name='res"
+          +idbton+"' for='cantNec"+idbton+"' style='border-radius:5px;'></div></td><td><button type='button' onclick='quitarInsumo("+idbton+", this, subt"+idbton+".value)' class='btn btn-box-tool' id='btn'><i style='font-size: 150%' class='fa fa-remove'></i></button></td><input type='hidden' id='idInsumo"+id_insumo+"' name='idInsumo[]' value="+id_insumo+"><td style='display:none'>"+id_insumo+"</td></tr>";
+          $("#tablaInsumos").append(tr);
+        }
+
+        // boton = "#btn"+idbton;
+        // $(boton).attr('disabled', 'disabled');
 
       //   $('#tablaInsumos').dataTable({
       //   "ordering": false,
@@ -489,7 +495,7 @@
         url: uri+'ctrFicha/valAsociacionTalla'
       }).done(function(resp){
           if (resp.r == 0) {
-            alert("No se puede eliminar");
+            Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'No se puede eliminar por que está asociada a una solicitud o a un objetivo.'});
           }else{
             idsTallas.push(idFichaTalla);
             var e = $(elemento).parent().parent();
@@ -560,16 +566,16 @@
 
           if (idNuevoInsumo == $(insumo).val()) 
           {
-            boton = "#btn"+id;
-            $(boton).attr('disabled', 'disabled');
+            // boton = "#btn"+id;
+            // $(boton).attr('disabled', 'disabled');
           }
           else
           {
             var tr = "<tr class='box box-solid collapsed-box trInsumosAsoModFicha'><td>"+nombre+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombre_color+"'></i></td><td>"+abrevt+"</td><td><p>"+valorProm+"</p></td><td><input type='text' min='1' id='cantNec"+id+"' name='cantNecesaria[]' value='0' onkeyup='res"+id+".value=cantNec"+id+".value * "+valorProm+"; subt"+id+".value=parseFloat(res"+id+".value); valorProduccion();' style='border-radius:5px;'></td><td><input class='subtotal' type='hidden' name='valorInsumo[]' id='subt"+id+"'value='0'><input readonly='' type='text' id='capValor"+id+"' name='res"+id+"' for='cantNec"+id+"' style='border-radius:5px;'></td><td><button type='button' class='btn btn-box-tool' onclick='quitarInsumoModFicha("+id+", this, subt"+id+".value)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='idInsu"+id+"' name='idInsumo[]' value="+id+"></tr>";
             $("#tblInsumosModFichaVacia").remove();
             $("#tbl-insumos-aso").append(tr);
-            boton = "#btn"+id;
-            $(boton).attr('disabled', 'disabled');
+            // boton = "#btn"+id;
+            // $(boton).attr('disabled', 'disabled');
           }
       }
 
@@ -589,8 +595,8 @@
           if (idNuevaTalla == $(talla).val()) {
 
             //bloquea el boton
-            botonn = "#btntallas"+idbton;
-            $(botonn).attr('disabled', 'disabled');
+            // botonn = "#btntallas"+idbton;
+            // $(botonn).attr('disabled', 'disabled');
 
           //si no existe la talla acá la agrega
           }else{
@@ -599,8 +605,8 @@
            
             $("#tblTallasVacia").remove();
             $("#tbl-tallas-aso").append(tr);
-            botonn = "#btntallas"+idbton;
-            $(botonn).attr('disabled', 'disabled');
+            // botonn = "#btntallas"+idbton;
+            // $(botonn).attr('disabled', 'disabled');
           }
       }
 

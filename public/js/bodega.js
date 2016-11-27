@@ -640,11 +640,21 @@ function generarExtIns(){
     data: {arrayExist : arrayExistencias}
   }).done(function(respuesta){
     if (respuesta.r == 1) {
-      location.href = uri+"ctrBodega/reporteInsumos";
+      // location.href = uri+"ctrBodega/reporteInsumos";
     }
   });
 }
 
+$('#tableCols').dataTable({
+  "ordering": false,
+  "language": {
+      "emptyTable": "No hay colores para listar.",
+      "info": "Mostrando página _PAGE_ de _PAGES_",
+      "infoEmpty": "Mostrando página _PAGE_ de _PAGES_",
+      "zeroRecords": "No se encontraron colores que coincidan con la búsqueda.",
+  "paginate": {"previous": "Anterior","next": "Siguiente"}
+  }
+});
 
 
 

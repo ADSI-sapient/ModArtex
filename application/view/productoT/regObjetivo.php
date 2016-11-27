@@ -1,3 +1,13 @@
+<style>
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+</style>
 <section class="content-header">
     <ol class="breadcrumb">
       <li><a href="<?= URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -93,7 +103,7 @@
                   </thead>
                   <tbody>
                  <tr id="tblVaciaObj">
-                  <td id="tblFichasObje" colspan="5" style="text-align:center;"></td>
+                  <td id="tblFichasObje" colspan="6" style="text-align:center;"></td>
                 </tr>
                   </tbody>
                 </table>
@@ -141,8 +151,8 @@
             </div>
             <div class="modal-body">
               <!-- <div class="table"> -->
-                <div class="table table-responsive scrolltablas">
-                  <table class="table table-hover table-bordered" style="margin-top: 2%;">
+                <div class="table table-responsive">
+                  <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tblProducPrAsoc">
                   <thead>
                     <tr class="active">
                       <th style="display:none;">Id</th>
@@ -156,8 +166,7 @@
                       <th style="display: none"></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tbody class="list">
+                  <tbody class="list">
                      <?php $i = 1; ?>
                   <?php foreach ($fichas as $ficha): ?>
                     <tr >
@@ -176,7 +185,6 @@
                     <?php $i++; ?>
                       <?php endforeach; ?>
                     </tbody>
-                  </tbody>
                   </table>
                 </div>
               <!-- </div> -->

@@ -209,7 +209,7 @@
           <thead>
             <tr class="info">
               <th class="col-lg-4">Módulo</th>
-              <th class="col-lg-4">Privilegio</th>
+              <th class="col-lg-4">Permiso</th>
             </tr>
           </thead>
           <tbody id="filass">
@@ -284,7 +284,7 @@
               <thead>
                 <tr class="active">
                   <th>Módulo</th>
-                  <th>Privilegio</th>
+                  <th>Permiso</th>
                   <th>Agregar</th>
                 </tr>
               </thead>
