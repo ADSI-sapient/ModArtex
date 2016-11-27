@@ -116,12 +116,14 @@
 
       //validaciones al momento de modificar un pedido
       function enviarFormPedidoModi(){
+        var fechaReg = $("#fecha_reg").val();
+        var fechaEntrega = $("#fecha_entrega").val();
         var res = true;
         if ($(".trFichasAsoPedMod").length) {
           idfichas = 0;
           cantidadaproducir = 0;
           $("#tbl-prod-aso-ped tbody tr").each(function(){
-            var idfichas = $(this).find("td").eq(8).html();
+            var idfichas = $(this).find("td").eq(10).html();
             // idbton = $(this).find("td").eq(0).html();
             cantidadaproducir = $("#cantDescInsUpdPed"+idfichas).val();
             var bol = validarExistenciasIn(idfichas, cantidadaproducir, 0);
@@ -133,6 +135,12 @@
         }
         else{
           Lobibox.notify('warning', {size: 'mini', msg: 'Debe asociar al menos un producto al pedido'});
+          return false;
+        }
+        if (fechaEntrega > fechaReg) {
+          res == true;
+        }else{
+          Lobibox.notify('warning', {size: 'mini', msg: 'La fecha de entrega debe ser superior a la fecha de registro'});
           return false;
         }
         if (res == false) {
@@ -149,7 +157,7 @@
 
         $("#tbl-prod-aso-ped").each(function(){
           if ($("#tbl-prod-aso-ped tbody .trFichasAsoPedMod").length < 2){
-            var tr = "<tr><td id='tblFichasPedModVacia' colspan='9' style='text-align:center;'></td></tr>";
+            var tr = "<tr><td id='tblFichasPedModVacia' colspan='10' style='text-align:center;'></td></tr>";
             $("#tbl-prod-aso-ped").append(tr);
             $("#tblFichasPedModVacia").html("No hay productos asociados.");
           }
@@ -230,8 +238,8 @@
               $("#usarProductoT"+idbton).val(0);
             });
 
-          // $("#usarProductoT"+idbton+", #cantProducir"+idbton).on("keyup change", function(){
-          $("#usarProductoT"+idbton).on("keyup change", function(){
+          $("#usarProductoT"+idbton+", #cantProducir"+idbton).on("keyup change", function(){
+          // $("#usarProductoT"+idbton).on("keyup change", function(){
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
@@ -247,7 +255,8 @@
         });
 
         $("#cantProducir"+idbton).on("keyup", function(){
-            //
+            animarTotal();
+            
             $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
             
             //nueva
@@ -312,39 +321,36 @@
       }
 
       //asociar productos al modificar el pedido
-      function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton, cantProdT, nombreProdut){
+      function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton, cantProdT, nombreProdut, nomTalla, idFichaTalla){
         
         //producto que se quiere agregar
-        idProducNuevo = idfichat;
+        var idProducNuevo = idFichaTalla;
 
         //comparar con los que estan agregados
-        producto = "#idProducto"+idfichat;
-        valor = $(producto).val();
-
+        var prodEnTabla = $("#idFichaTalla"+idFichaTalla).val();
         // console.log(idProducNuevo, $(producto).val());
-        if (idProducNuevo == $(producto).val()) {
-          boton = "#btn"+idfichat;
-          $(boton).attr('disabled', 'disabled');
-        }
-        else
-        {
-          tr = "<tr id='tr"+idfichat+
+        console.log(idProducNuevo, prodEnTabla);
+        if (idProducNuevo !== prodEnTabla) {
+          tr = "<tr id='tr"+idFichaTalla+
             "' class='box box-solid collapsed-box trFichasAsoPedMod'><td>"+referencia+
             "</td><td>"+nombreProdut+"</td><td><i class='fa fa-square' style='color:"+color+
-            "; font-size: 150%;'></i></td><td><input type='number' min='0' id='cantProducir"+idfichat+
-            "' name='cantProducir[]' value='0' style='border-radius:5px;' data-parsley-required=''><input type='hidden' id='cantDescInsUpdPed"+idfichat+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+idfichat+"' value='0'></td><td>"
+            "; font-size: 200%;'></i></td><td>"+nomTalla+"</td><td><input type='number' min='0' id='cantProducir"+idFichaTalla+
+            "' name='cantProducir[]' value='0' style='border-radius:5px;' data-parsley-required=''><input type='hidden' id='cantDescInsUpdPed"+idFichaTalla+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+idFichaTalla+"' value='0'></td><td>"
             +vlrproducto+"</td><td><input data-parsley-required='' min='0' readonly='' type='text' id='capValor"
-            +idfichat+"' name='subTotal[]' for='cantProducir"+idfichat+
-            "' style='border-radius:5px;' value='0'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+idfichat+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='0'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+idfichat+
-            "' class='badge bg-red'>"+cantProdT+"</span><input type='hidden' id='intSpanUpdaProdPed"+idfichat+"' name='intSpanUpdaProdPed[]' value='"+cantProdT+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idfichat+", this, capValor"+idfichat+".value)' ><i class='fa fa-remove'></i></button></td><input type='hidden' id='idFicha"+idfichat+
-            "' name='idFicha[]' value='"+idfichat+"'><td style='display: none;'>"
-            +idfichat+"</td><td><input type='hidden' id='cantProdInicial"+idfichat+"' value='0'><input type='hidden' id='cantUsadaInicial"+idfichat+"' value='0'><input type='hidden' id='cantProdTerInicial"+idfichat+"' value='"+cantProdT+"'></td></tr>";
+            +idFichaTalla+"' name='subTotal[]' for='cantProducir"+idFichaTalla+
+            "' style='border-radius:5px;' value='0'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+idFichaTalla+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='0'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+idFichaTalla+
+            "' class='badge bg-red'>"+cantProdT+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdT+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value)' ><i class='fa fa-remove' style='font-size: 150%;'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
+            "' name='idFichaTalla[]' value='"+idFichaTalla+"'><td style='display: none;'>"
+            +idFichaTalla+"</td><td style='display: none;'><input type='hidden' id='cantProdInicial"+idFichaTalla+"' value='0'><input type='hidden' id='cantUsadaInicial"+idFichaTalla+"' value='0'><input type='hidden' id='cantProdTerInicial"+idFichaTalla+"' value='"+cantProdT+"'></td></tr>";
           $("#tblFichasPedModVacia").remove();
           $("#tbl-prod-aso-ped").append(tr);
           changeValCantUpdateFichPedidos();
-          boton = "#btn"+idfichat;
-          $(boton).attr('disabled', 'disabled');
+          // boton = "#btn"+idfichat;
+          // $(boton).attr('disabled', 'disabled');
         }
+          
+          // boton = "#btn"+idFichaTalla;
+          // $(boton).attr('disabled', 'disabled');
       }
 
       function limpiarFormRegPedido(){
@@ -444,24 +450,26 @@
                 var cantProducir = arrayProductos[i]['Cantidad_Producir'];
                 var id_solic_produc = arrayProductos[i]['Id_Solicitudes_Producto'];
                 var subtotal = arrayProductos[i]['Subtotal'];
+                var nomTalla = arrayProductos[i]['Nombre_Talla'];
+                var idFichaTalla = arrayProductos[i]['Id_Fichas_Tallas'];
 
                 var cantUsar = arrayProductos[i]['Cantidad_Existencias'];
                 var cantProdTerminado = arrayProductos[i]['Cantidad'];
 
                 var tr ="";
                 if (modalPa == 1) {
-                  tr = "<tr id='tr"+id_fichat+
+                  tr = "<tr id='tr"+idFichaTalla+
                   "' class='box box-solid collapsed-box trFichasAsoPedMod'><td>"+idProducto+
                   "</td><td>"+nombreProdu+"</td><td><i class='fa fa-square' style='color:"+color+
-                  "; font-size: 200%;' title='"+nomColor+"'></i></td><td><input data-parsley-required='' type='number' min='0' id='cantProducir"+id_fichat+
-                  "' name='cantProducir[]' value='"+cantProducir+"' style='border-radius:5px;'><input type='hidden' id='cantDescInsUpdPed"+id_fichat+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+id_fichat+"' value='0'></td><td>"
+                  "; font-size: 200%;' title='"+nomColor+"'></i><td>"+nomTalla+"</td></td><td><input data-parsley-required='' type='number' min='0' id='cantProducir"+idFichaTalla+
+                  "' name='cantProducir[]' value='"+cantProducir+"' style='border-radius:5px;'><input type='hidden' id='cantDescInsUpdPed"+idFichaTalla+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+idFichaTalla+"' value='0'></td><td>"
                   +vlrProducto+"</td><td><input data-parsley-required='' min='0' readonly='' type='text' id='capValor"
-                  +id_fichat+"' name='subTotal[]' for='cantProducir"+id_fichat+
+                  +idFichaTalla+"' name='subTotal[]' for='cantProducir"+idFichaTalla+
                   "' style='border-radius:5px;' value='"+subtotal+
-                  "'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+id_fichat+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='"+cantUsar+"'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+id_fichat+
-                  "' class='badge bg-red'>"+cantProdTerminado+"</span><input type='hidden' id='intSpanUpdaProdPed"+id_fichat+"' name='intSpanUpdaProdPed[]' value='"+cantProdTerminado+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+id_fichat+", this, capValor"+id_fichat+".value)' ><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFicha"+id_fichat+
-                  "' name='idFicha[]' value='"+id_fichat+"'><td style='display: none;'>"
-                  +id_fichat+"</td><td style='display:none;'><input type='hidden' id='cantProdInicial"+id_fichat+"' value='"+cantProducir+"'><input type='hidden' id='cantUsadaInicial"+id_fichat+"' value='"+cantUsar+"'><input type='hidden' id='cantProdTerInicial"+id_fichat+"' value='"+cantProdTerminado+"'></td></tr>";
+                  "'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+idFichaTalla+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='"+cantUsar+"'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+idFichaTalla+
+                  "' class='badge bg-red'>"+cantProdTerminado+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdTerminado+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value)' ><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
+                  "' name='idFichaTalla[]' value='"+idFichaTalla+"'><td style='display: none;'>"
+                  +idFichaTalla+"</td><td style='display:none;'><input type='hidden' id='cantProdInicial"+idFichaTalla+"' value='"+cantProducir+"'><input type='hidden' id='cantUsadaInicial"+idFichaTalla+"' value='"+cantUsar+"'><input type='hidden' id='cantProdTerInicial"+idFichaTalla+"' value='"+cantProdTerminado+"'></td></tr>";
                   $('#tbl-prod-aso-ped').append(tr);
                 }
                 else if(modalPa == 2)
@@ -480,7 +488,7 @@
                 }
                 else
                 {
-                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></td><td>"+nombreProdu+"</td><td style='text-align: center;'>"+cantProducir+"</td><td style='text-align: center;'>"+cantUsar+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td></tr>";
+                  tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProdu+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nomColor+"'></td><td>"+nomTalla+"</td><td style='text-align: center;'>"+cantProducir+"</td><td style='text-align: center;'>"+cantUsar+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td></tr>";
                   $('#dll-prod-asoped').append(tr);
                   $('#dtlle-pedido-prod').append(tr);
                 }
@@ -495,8 +503,8 @@
 
 function changeValCantUpdateFichPedidos(){
   $("#tbl-prod-aso-ped tbody tr").each(function(){
-    var idFicha = $(this).find("td").eq(8).html();
-    var valorProducto = parseFloat($(this).find("td").eq(3).html());
+    var idFicha = $(this).find("td").eq(10).html();
+    var valorProducto = parseFloat($(this).find("td").eq(5).html());
 
     var cantProducirInicial = parseInt($("#cantProdInicial"+idFicha).val());
     var cantUsarIniciar = parseInt($("#cantUsadaInicial"+idFicha).val());
@@ -520,7 +528,7 @@ function changeValCantUpdateFichPedidos(){
       }
     });
 
-    $("#cantUsarProTerUpdPed"+idFicha).on("keyup change", function(){
+    $("#cantUsarProTerUpdPed"+idFicha+", #cantProducir"+idFicha).on("keyup change", function(){
       $("#capValor"+idFicha).val((valorProducto * $(this).val()) + (valorProducto * $("#cantProducir"+idFicha).val()));
       if ($(this).val() >= cantUsarIniciar) {
         if ($(this).val() <= (cantUsarIniciar + ProducTermInicial)) {
@@ -540,13 +548,14 @@ function changeValCantUpdateFichPedidos(){
         }
       }
       calcValTotUpdPed();
+      animarTotal();
     });
   });
 
   function calcValTotUpdPed(){
     var valTot = 0;
     $("#tbl-prod-aso-ped tbody tr").each(function(){
-      var idFicha = $(this).find("td").eq(8).html();
+      var idFicha = $(this).find("td").eq(10).html();
       valTot += parseFloat($("#capValor"+idFicha).val());
     });
     $("#valor_total").val(valTot);
@@ -629,15 +638,15 @@ function changeValCantUpdateFichPedidos(){
               data:{id_Pedido: idpedido}
               }).done(function(respuesta){
                 if (respuesta.r == 1) {
-                  // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                  // location.href = uri+"ctrPedido/consPedido";
+                  var ph = "<?php $_SESSION['mensaje'] = 'Lobibox.notify('error', {msg: 'Error al registrar el pedido', size: 'mini', rounded: true, delay: 6000});'?>";
+                  location.href = uri+"ctrPedido/consPedido";
                 }else{
                   alert("Error al cancelar el pedido");
                 }
               }).fail(function(){
               })  
-                swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                location.href = uri+"ctrPedido/consPedido";
+                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
+                // location.href = uri+"ctrPedido/consPedido";
               }
               else
               {

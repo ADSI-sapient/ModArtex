@@ -160,11 +160,9 @@
       	}
 
       	public function cargarProductosAsoPed(){
-      		
-      		$sql = "CALL SP_CargarProduAsoPed(?)";
-
-      		$query = $this->db->prepare($sql);
-      		$query->bindParam(1, $this->id_pedido);
+      	     $sql = "CALL SP_CargarProduAsoPed(?)";
+      	     $query = $this->db->prepare($sql);
+      	     $query->bindParam(1, $this->id_pedido);
 	           $query->execute();
 	           return $query->fetchAll();
       	}

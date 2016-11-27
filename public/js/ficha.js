@@ -84,6 +84,7 @@
       //edita la información de una ficha técnica
       function editarFicha(referencia, fichas, idColor){
         idsTallas = [];
+        $("#idsTallas").val("");
         var campos = $(fichas).parent().parent();
         $("#idFicha_Tec").val(referencia);
         $("#referencia").val(campos.find("td").eq(0).text());
@@ -503,7 +504,7 @@
             $("#idsTallas").val(idsTallas);
 
             $("#tbl-tallas-aso").each(function(){
-              if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 2){
+              if ($("#tbl-tallas-aso tbody .trTallasAsoFichaMod").length < 1){
                 var tr = "<tr><td id='tblTallasVacia' colspan='4' style='text-align:center;'></td></tr>";
                 $("#tbl-tallas-aso").append(tr);
                 $("#tblTallasVacia").html("No hay tallas asociadas");

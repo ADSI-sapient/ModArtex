@@ -129,6 +129,7 @@
                         <th>Referencia</th>
                         <th>Nombre</th>
                         <th>Color</th>
+                        <th>Talla</th>
                         <th>Cantidad a Producir</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
@@ -149,7 +150,7 @@
                   <label for="valor_total" class="">Valor Total:</label>
                   <div class="input-group">
                     <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-money"></i>
+                      <i class="fa iconoDinero fa-money" style="color: green; font-size: 150%;"></i>
                     </div>
                     <input data-parsley-required='' min='0' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
                   </div>              
@@ -225,6 +226,7 @@
                     <th>Referencia</th>
                     <th>Nombre</th>
                     <th>Color</th>
+                    <th>Talla</th>
                     <th>Valor Producción</th>
                     <th>Valor Producto</th>
                     <th>Agregar</th>
@@ -237,10 +239,11 @@
                     <td><?= $producto["Referencia"] ?></td>
                     <td><?= $producto["Nombre"] ?></td>
                     <td><i class="fa fa-square" style="color:<?= $producto["Codigo_Color"] ?>; font-size: 200%;" title="<?= $producto["Nombre_Color"] ?>"></i></td>
+                    <td><?= $producto["Nom_Talla"] ?></td>
                     <td><?= $producto["Valor_Produccion"] ?></td>
                     <td><?= $producto["Valor_Producto"] ?></td>
                     <td>
-                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Cantidad"] ?>', '<?= $producto["Nombre"] ?>')"><i class="fa fa-plus" style="font-size:150%; color:blue;"></i></button>
+                      <button id="btn<?= $producto["Id_Ficha_Tecnica"] ?>" type="button" class="btn btn-box-tool" onclick="asociarProductosModiPedido('<?= $producto["Id_Ficha_Tecnica"] ?>', '<?= $producto["Referencia"] ?>', '<?= $producto["Codigo_Color"] ?>', '<?= $producto["Valor_Producto"] ?>', this, '<?= $p; ?>', '<?= $producto["Cantidad"] ?>', '<?= $producto["Nombre"] ?>', '<?= $producto["Nom_Talla"] ?>', '<?= $producto["Id_Fichas_Tallas"] ?>')"><i class="fa fa-plus" style="font-size:150%; color:blue;"></i></button>
                     </td>
                   </tr>
                   <?php $p++; ?>

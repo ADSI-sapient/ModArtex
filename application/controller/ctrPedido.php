@@ -130,40 +130,40 @@
 	    			$this->mdlModel->eliminarAsoFichasPedido();
 
 	    			//se editan las asociaciones de productos que tiene el pedido
-	    			for ($f=0; $f < count($_POST["idFicha"]); $f++) { 
+	    			for ($f=0; $f < count($_POST["idFichaTalla"]); $f++) { 
 
-		        		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
+		        		$this->mdlModel->__SET("id_ficha_talla", $_POST['idFichaTalla'][$f]);
 
-	    				if ($_POST["cantDescInsUpdPed"][$f] > 0) {
-		        			$cantidInsumos = $this->mdlModel->validarExisteIns();
-		        			if (!empty($cantidInsumos)) {
+	    				// if ($_POST["cantDescInsUpdPed"][$f] > 0) {
+		       //  			$cantidInsumos = $this->mdlModel->validarExisteIns();
+		       //  			if (!empty($cantidInsumos)) {
 		        		
-			        			$cantProdu = $_POST['cantDescInsUpdPed'][$f];
+			      //   			$cantProdu = $_POST['cantDescInsUpdPed'][$f];
 
-			        			foreach ($cantidInsumos as $valor) {
+			      //   			foreach ($cantidInsumos as $valor) {
 
-			        				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
-				        			$this->mdlModel->__SET("cant_descontar", $cantNecPed);
-				        			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
-				        			$this->mdlModel->descExistInsumos();
-			        			}
-		        			}
-	    				}
-	    				if ($_POST["cantDevolverInsUpdPed"][$f] > 0) {
-	    					$cantidInsumos = $this->mdlModel->validarExisteIns();
-		        			if (!empty($cantidInsumos)) {
+			      //   				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
+				     //    			$this->mdlModel->__SET("cant_descontar", $cantNecPed);
+				     //    			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
+				     //    			$this->mdlModel->descExistInsumos();
+			      //   			}
+		       //  			}
+	    				// }
+	    				// if ($_POST["cantDevolverInsUpdPed"][$f] > 0) {
+	    				// 	$cantidInsumos = $this->mdlModel->validarExisteIns();
+		       //  			if (!empty($cantidInsumos)) {
 		        		
-			        			$cantProdu = $_POST['cantDevolverInsUpdPed'][$f];
+			      //   			$cantProdu = $_POST['cantDevolverInsUpdPed'][$f];
 
-			        			foreach ($cantidInsumos as $valor) {
+			      //   			foreach ($cantidInsumos as $valor) {
 
-			        				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
-				        			$this->mdlModel->__SET("cant_devolver", $cantNecPed);
-				        			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
-				        			$this->mdlModel->devolverExistInsumos();
-			        			}
-		        			}
-	    				}
+			      //   				$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
+				     //    			$this->mdlModel->__SET("cant_devolver", $cantNecPed);
+				     //    			$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
+				     //    			$this->mdlModel->devolverExistInsumos();
+			      //   			}
+		       //  			}
+	    				// }
 	    				
 	    				//registrar en tabla detalle tbl_solicitudes_producto
 	    				$this->mdlModel->__SET("cant_existencias", $_POST['cantUsarProTerUpdPed'][$f]);
