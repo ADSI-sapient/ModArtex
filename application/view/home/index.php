@@ -62,9 +62,8 @@
         <!-- ./col -->
     </div>
 
-    <div class="container-fluid">
-        <br>
-        <div class="col-md-12">
+    <div class="">
+        <div class="">
             <div id="carousel-1" class="carousel slide" data-ride="carousel">
 
                 <!-- Indicadores -->

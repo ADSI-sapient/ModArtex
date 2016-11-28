@@ -167,7 +167,7 @@
 				msg: 'La ficha ha sido habilitada'});";
 		    	}else if($_POST["estado"] == 0){
 		    		$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-				msg: 'La ficha ha sido deshabilitada'});";
+				msg: 'La ficha ha sido inhabilitada'});";
 		    	}
 		    	
 		    	echo json_encode(["v"=>1]);

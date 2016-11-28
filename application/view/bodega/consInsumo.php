@@ -131,7 +131,8 @@
                 </div>
               </div>
               <div style="margin-top: 25px;" class="col-md-4">
-                <button onclick="validateColSelec()" type="button" class="btn pull-right" data-toggle="modal"  data-target="#ModelProducto"><i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i></button>
+                <!-- <button onclick="validateColSelec()" type="button" class="btn pull-right" data-toggle="modal"  data-target="#ModelProducto"><i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i></button> -->
+                <button type="button" class="btn pull-right" data-toggle="modal"  data-target="#ModelProducto"><i style="font-size: 130%;" class="fa fa-paint-brush circleColor" aria-hidden="true"></i></button>
               </div>
             </div>
           </div>  
@@ -209,7 +210,7 @@
              <td><?= $value["Codigo_Color"]; ?></td>
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
-             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccionCol(this)" class="btn btn-box-tool"><i class="fa fa-plus" style="color: blue; font-size: 150%;"></i></button></td> 
+             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccionCol(this, '<?= $value["Id_Color"]; ?>')" class="btn btn-box-tool"><i class="fa fa-plus" style="color: blue; font-size: 150%;"></i></button></td> 
            </tr>
          <?php endforeach ?>
        </tbody>

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2016 a las 00:52:53
--- Versión del servidor: 10.1.19-MariaDB.
--- Versión de PHP: 5.5.38
+-- Tiempo de generación: 28-11-2016 a las 04:06:52
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.5.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -498,7 +498,10 @@ INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insu
 (1, 1, 1, 10, 122, 101),
 (2, 2, 1, 10, 54, 101),
 (3, 3, 1, 10, 587, 101),
-(4, 2, 2, 7, 544, 201);
+(4, 2, 2, 7, 544, 201),
+(5, 4, 2, 0, 200, 201),
+(6, 3, 2, 0, 125, 201),
+(7, 1, 2, 0, 230, 201);
 
 -- --------------------------------------------------------
 
@@ -653,7 +656,7 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 
 INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Stock_Minimo`, `Valor_Producto`, `Nombre`) VALUES
-(1, 'RF-201', 1, '2016-11-25', '1', 4200, 250, 5200, 'Cachetero'),
+(1, 'RF-201', 1, '2016-11-25', '1', 4200, 210, 5200, 'Cachetero'),
 (2, 'RF-202', 3, '2016-11-25', '1', 2588, 254, 7500, 'Tanga'),
 (3, 'RF-301', 3, '2016-11-27', '1', 1490, 200, 2000, 'Otro cuquito'),
 (4, 'RF-302', 1, '2016-11-27', '1', 2990, 200, 3000, 'Cuquito manuela');
@@ -698,14 +701,14 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 
 INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(175, 2, '1.00', 2100, 1),
-(176, 3, '1.00', 2100, 1),
 (177, 1, '4.00', 488, 2),
 (178, 2, '1.00', 2100, 2),
 (181, 4, '5.00', 2720, 4),
 (182, 2, '5.00', 270, 4),
 (187, 1, '10.00', 1220, 3),
-(188, 2, '5.00', 270, 3);
+(188, 2, '5.00', 270, 3),
+(189, 2, '1.00', 2100, 1),
+(190, 3, '1.00', 2100, 1);
 
 -- --------------------------------------------------------
 
@@ -1426,7 +1429,7 @@ ALTER TABLE `tbl_colores`
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
@@ -1466,7 +1469,7 @@ ALTER TABLE `tbl_insumos`
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --

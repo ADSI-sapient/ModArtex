@@ -192,13 +192,12 @@ function camEst(cod, est){
 
 function editInsumos(id, insumos){
   $("#tbodyColIns").empty();
-  habilitarBotonAgreCol();
-  validateColSelec();
+  // habilitarBotonAgreCol();
+  // validateColSelec();
   $("#valColIns").val("");
   $("#valColIns").attr("readonly", true);
   $("#checkValor").attr("checked", false);
 
-  
   var campos = $(insumos).parent().parent();
   $.ajax({
     dataType: 'json',
@@ -210,7 +209,7 @@ function editInsumos(id, insumos){
       var cont = 0;
       $.each(respuesta, function(i){
         var fila = '<tr class="box box-solid collapsed-box"><td style="display: none;">'
-        +respuesta[i]["Id_Color"]+'</td><td style="display: none;">'+respuesta[i]["Id_ColIns"]+
+        +respuesta[i]["Id_Color"]+'</td><input type="hidden" id="idColr'+respuesta[i]["Id_Color"]+'" value="'+respuesta[i]["Id_Color"]+'" /><td style="display: none;">'+respuesta[i]["Id_ColIns"]+
         '</td><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+
         '</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+
         '; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+
@@ -228,18 +227,32 @@ function editInsumos(id, insumos){
   $("#ModEditIns").show(); 
 }
 
-function seleccionCol(col){
+
+
+
+function seleccionCol(col, idcolor){
   var color = $(col).parent().parent();
-  tr = '<tr class="box box-solid collapsed-box"><td style="display: none;">'
-        +$(color).find("td").eq(0).html()+'</td><td style="display: none;">'+false+
-        '</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+
-        '</td><td><i class="fa fa-square" style="color: '+$(color).find("td").eq(2).html()+
-        '; font-size: 200%;"></i></td><td>'+$(color).find("td").eq(4).html()+
-        '</td><td><input id="valColIns'+$(color).find("td").eq(0).html()+'" type="number" class="form-control" min="1" required="" value="0"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, 0)"><i style="font-size: 150%;" class="fa fa-times"></i></button></td></tr>';
-  $("#tbodyColIns").append(tr);
-  habilitarBotonAgreCol();
-  validateColSelec();
+
+  var colorAgregar = idcolor;
+  var colorEnTabla = $('#idColr'+$(color).find("td").eq(0).html()).val();
+
+  if (colorAgregar !== colorEnTabla) {
+    tr = '<tr class="box box-solid collapsed-box"><td style="display: none;">'
+          +$(color).find("td").eq(0).html()+'</td><input type="hidden" id="idColr'+$(color).find("td").eq(0).html()+'" value="'+$(color).find("td").eq(0).html()+'" /><td style="display: none;">'+false+
+          '</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+
+          '</td><td><i class="fa fa-square" style="color: '+$(color).find("td").eq(2).html()+
+          '; font-size: 200%;"></i></td><td>'+$(color).find("td").eq(4).html()+
+          '</td><td><input id="valColIns'+$(color).find("td").eq(0).html()+'" type="number" class="form-control" min="1" required="" value="0"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, 0)"><i style="font-size: 150%;" class="fa fa-times"></i></button></td></tr>';
+    $("#tbodyColIns").append(tr);
+    // habilitarBotonAgreCol();
+    // validateColSelec();
+  }
 }
+
+
+
+
+
         function quitarCol(col, idColIns){
           var colorInsumo = $(col).parent().parent();
           if (idColIns == 0) {
@@ -504,23 +517,23 @@ $("#salIns").click(function(){
 });
 
 
-function validateColSelec(){
-    $("#tableCols tbody tr").each(function(){
-        var idCol = $(this).find("td").eq(0).html();
-        $("#tbodyColIns tr").each(function(){
-          if ($(this).find("td").eq(0).html() == idCol){
-              $("#btnAgreColAsoc"+idCol).attr("disabled", true);
-          }
-        });
-    });
-}
+// function validateColSelec(){
+//     $("#tableCols tbody tr").each(function(){
+//         var idCol = $(this).find("td").eq(0).html();
+//         $("#tbodyColIns tr").each(function(){
+//           if ($(this).find("td").eq(0).html() == idCol){
+//               $("#btnAgreColAsoc"+idCol).attr("disabled", true);
+//           }
+//         });
+//     });
+// }
 
-function habilitarBotonAgreCol(){
-    $("#tableCols tbody tr").each(function(){
-        var idCol = $(this).find("td").eq(0).html();
-        $("#btnAgreColAsoc"+idCol).removeAttr("disabled");
-    });
-}
+// function habilitarBotonAgreCol(){
+//     $("#tableCols tbody tr").each(function(){
+//         var idCol = $(this).find("td").eq(0).html();
+//         $("#btnAgreColAsoc"+idCol).removeAttr("disabled");
+//     });
+// }
 
 
 

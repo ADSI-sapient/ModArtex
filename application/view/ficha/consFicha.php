@@ -39,7 +39,7 @@
                     <td class="ref"><?= $ficha["Referencia"] ?></td>
                     <td class="nombreF"><?= $ficha["Nombre"] ?></td>
                     <td class="fecha_reg"><?= $ficha["Fecha_Registro"] ?></td>
-                    <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Deshabilitado" ?></td>
+                    <td class="estado"><?= $ficha["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
                     <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"] ?>; font-size: 200%;" title="<?= $ficha["Nombre_Color"] ?>"></i></td>
                     <td class="stock"><?= $ficha["Stock_Minimo"] ?></td>
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>

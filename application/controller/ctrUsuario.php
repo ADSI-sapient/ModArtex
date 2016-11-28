@@ -124,8 +124,16 @@ class CtrUsuario extends Controller{
 		$usuarios = $this->mdlModel->cambiarEstado();
 
 		if ($usuarios) {
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado!'})";
-		    echo json_encode(["v"=>1]);
+
+			if ($_POST["Estado"] == 1) {
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El usuario ha sido habilitado'})";
+			    echo json_encode(["v"=>1]);
+			}else if($_POST["Estado"] == 0){
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El usuario ha sido inhabilitado'})";
+			    echo json_encode(["v"=>1]);
+			}
+
+
 		}else{
 			$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al cambiar el estado'})";
 		    echo json_encode(["v"=>0]);

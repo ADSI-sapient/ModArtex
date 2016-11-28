@@ -152,11 +152,6 @@
     </aside>
     <div class="content-wrapper" style="min-height: 916px;">
 
-
-
-
-
-    
 <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
