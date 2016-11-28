@@ -40,6 +40,10 @@
 		private $Cantidad_Cotizada;
 		private $Id_Fichas_Tallas;
 
+		private $canDescIns;
+		private $canAgregarIns;
+		private $idExisIns;
+
 
 		public function updateSolProd(){
 			$sql = "CALL SP_UpdateSolProCot(?,?,?)";

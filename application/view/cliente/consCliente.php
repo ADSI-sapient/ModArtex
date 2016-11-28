@@ -20,7 +20,7 @@
                 <thead>
                     <tr class="">
                       <th class="col-lg">Tipo de Documento</th>
-                      <th>Documento</th>
+                      <th>Número de Documento</th>
                       <th>Nombre</th>
                       <th>Apellido</th>
                       <th>Teléfono</th>
@@ -43,16 +43,31 @@
                     <td class="Direccion"><?= $cliente["Direccion"] ?></td>
                     <td class="Email"><?= $cliente["Email"] ?></td>
                     <td class="estado"><?= $cliente["Estado"]==1?"Habilitado":"Inhabilitado" ?></td>
-                      <td>                           
+                      <td>
+                          
+                      <?php if ($cliente["Num_Documento"] == "1017223026"): ?>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                      <?php else: ?>
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#myModalC" onclick="editarClientes('<?= $cliente["Num_Documento"] ?>', this)"><i class="fa fa-pencil-square-o" style="font-size: 150%;"></i></button>
+                      <?php endif ?>
+
+
                       </td>
                       <td style="text-align: center">
-                        <?php if ($cliente["Estado"] == 1){ ?>
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
-                        <?php }else{ ?>
-                        <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
-                        <?php } ?>
-                      </td>
+                        <?php if ($cliente["Num_Documento"] == "1017223026"): ?>
+                          <?php if ($cliente["Estado"] == 1){ ?>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                            <?php }else{ ?>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                          <?php } ?>
+                          <?php else: ?>
+                            <?php if ($cliente["Estado"] == 1){ ?>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                            <?php }else{ ?>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                          <?php } ?>
+                        <?php endif ?>
+                        </td>
                     <td style="display: none;" class=""><?= $cliente["Info_Adicional"] ?></td>
                     </tr>
                     <?php endforeach; ?>

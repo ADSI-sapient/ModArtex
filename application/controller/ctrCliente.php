@@ -63,6 +63,7 @@ class CtrCliente extends Controller{
 	    	if($this->validarURL("ctrCliente/consCliente")){
 	    	$rol = $this->mdlModelU->consultarRol();
 		    	$clientes = $this->mdlModel->getCliente();
+		 
 		        require APP . 'view/_templates/header.php';
 		        require APP . 'view/cliente/consCliente.php';
 		        require APP . 'view/_templates/footer.php';

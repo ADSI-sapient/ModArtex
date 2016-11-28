@@ -267,6 +267,7 @@
           });
       }
       //función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
+      var arrayInsumos = [[]];
       function validarExistenciasIn(idfi, cantProdu, alerta){
 
         // console.log(idfi, cantProdu, alerta);
@@ -283,8 +284,10 @@
             var arrayCantInsumos = "";
             arrayCantInsumos = resp.r;
 
+
             for (var i = 0; i <= arrayCantInsumos.length -1; i++)
             {
+
               var idExInscol = arrayCantInsumos[i]['Id_Existencias_InsCol'];
               var refer = arrayCantInsumos[i]['Referencia'];
               var nombreIns = arrayCantInsumos[i]['Nombre'];
@@ -297,8 +300,24 @@
 
               var cantNecPedido = cantNecIns * cantProdu;
 
+
+              for (var i = 0; i < arrayInsumos.length; i++) {
+                console.log(arrayInsumos[i][0], idExInscol);
+                 if (arrayInsumos[i][0] == idExInscol) {
+                    if (arrayInsumos[i][1] > cantNecPedido) {
+                      console.log("2");
+                      arrayInsumos[i][1] = [arrayInsumos[i][1] - cantNecPedido]; 
+                      console.log("3");
+                    }  
+                 }else{
+                    var arrayInsumo = [idExInscol, cantExistIns - cantNecPedido];
+                    arrayInsumos.push(arrayInsumo);
+                    console.log("4");
+                 }
+              }
+
+
               if (cantNecPedido > cantExistIns) {
-                //alert("No hay suficiente "+nombreIns+" de color "+nombreColor);
                 if (alerta == 1) {
                     Lobibox.notify('warning', {size: 'mini', msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});                
                 }

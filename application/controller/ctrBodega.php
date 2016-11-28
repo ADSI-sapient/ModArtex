@@ -118,10 +118,13 @@ class ctrBodega extends Controller{
 	public function validateFichasAsoc(){
 		$this->_modelInsumo->__SET("_idColIns", $_POST["idColIns"]);
 		$fichasAsoc = $this->_modelInsumo->fichasAsociadas();
-		if ($fichasAsoc) {
-			echo json_encode(false);
-		}else{
+		$entradasAsoc = $this->_modelInsumo->entradasAsoc();
+		$salidasAsoc = $this->_modelInsumo->salidasAsoc();
+
+		if ($fichasAsoc == null && $entradasAsoc == null && $salidasAsoc == null) {
 			echo json_encode(true);
+		}else{
+			echo json_encode(false);
 		}
 	}
 

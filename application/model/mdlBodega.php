@@ -131,4 +131,20 @@
 			$stm->execute();
 			return $stm->fetchAll();
 		}
+
+		public function salidasAsoc(){
+			$sql = "CALL SP_ConsSalColIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idColIns);
+			$stm->execute();
+			return $stm->fetchAll();
+		}
+
+		public function entradasAsoc(){
+			$sql = "CALL SP_ConsEntIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_idColIns);
+			$stm->execute();
+			return $stm->fetchAll();
+		}
 	}

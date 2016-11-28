@@ -281,7 +281,7 @@ function seleccionCol(col, idcolor){
                   var idCol = $(colorInsumo).find("td").eq(0).html();
                   $("#btnAgreColAsoc"+idCol).attr("disabled", false);
                 }else{
-                  Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'Este registro esta asociado a una ficha tecnica'});
+                  Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Este color está asociado a un registro'});
                 }
               });
             }

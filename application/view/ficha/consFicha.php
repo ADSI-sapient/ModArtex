@@ -136,8 +136,8 @@
               <!-- <div class="row">
                 
               </div> -->
-                <div class="table">
-                  <div class="form-group col-sm-4 table-responsive scrolltablas">
+                <div class="col-md-4">
+                  <div class="form-group table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
                     <table class="table table-hover table-bordered" id="tbl-tallas-aso">
                       <thead>
@@ -153,8 +153,8 @@
                     </table>
                   </div>
                 </div>
-                <div class="table">
-                  <div class="form-group col-sm-8 table-responsive scrolltablas">
+                <div class="col-md-8">
+                  <div class="form-group table-responsive scrolltablas">
                     <label>*Insumos asociados:</label>
                     <table class="table table-hover table-bordered" id="tbl-insumos-aso">
                       <thead>
@@ -185,10 +185,10 @@
                       <div id="vTotalInError"></div>
                     </div>
                     <div class="col-sm-2" style="margin-top:25px;">
-                      <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#asoTallas"><b>Tallas</b></button>
+                      <button style="color: white; background-color: #53868D" type="button" class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#asoTallas"><i class="fa fa-arrows" aria-hidden="true"></i><b> Tallas</b></button>
                     </div>
                     <div class="col-sm-2" style="margin-top:25px;">
-                      <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#asoInsumos"><i class="fa fa-thumb-tack"></i> <b>Insumos</b></button>
+                      <button  style="color: white; background-color: #6BB17A" type="button" class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#asoInsumos"><i class="fa fa-thumb-tack"></i> <b>Insumos</b></button>
                     </div>
                     <div class="form-group col-sm-4"> 
                       <label for="vlr_producto" class="">*Valor Producto:</label>
