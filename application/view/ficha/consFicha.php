@@ -45,7 +45,11 @@
                     <td><?= round($ficha["Valor_Produccion"], 2) ?></td>
                     <td><?= $ficha["Valor_Producto"] ?></td>
                     <td>
-                      <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); habilitarAsociaciones();" ><i style="font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                     <?php if ($ficha["Estado"] == 1): ?>
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdEditFicha" onclick="editarFicha('<?= $ficha["Id_Ficha_Tecnica"] ?>', this, '<?= $ficha["Id_Color"] ?>'); cargarInsumos('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); cargarTallas('<?= $ficha["Id_Ficha_Tecnica"] ?>', 1); habilitarAsociaciones();" ><i style="font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <?php else: ?>
+                         <button type="button" class="btn btn-box-tool"><i style="font-size: 150%; opacity: 0.5" class="fa fa-pencil-square-o"></i></button>
+                     <?php endif ?>
                     </td>
                     <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
@@ -129,16 +133,9 @@
                   </div>
                 </div>                
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="col-sm-offset-1 col-sm-2">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoTallas"><b>TALLAS</b></button>
-                  </div>
-                  <div class="col-sm-offset-5 col-sm-3">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#asoInsumos"><b>INSUMOS</b></button>
-                  </div>
-                </div>
-              </div>
+              <!-- <div class="row">
+                
+              </div> -->
                 <div class="table">
                   <div class="form-group col-sm-4 table-responsive scrolltablas">
                     <label>*Tallas Asociadas:</label>
@@ -187,7 +184,13 @@
                       </div>
                       <div id="vTotalInError"></div>
                     </div>
-                    <div class="form-group col-sm-offset-4 col-sm-4"> 
+                    <div class="col-sm-2" style="margin-top:25px;">
+                      <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#asoTallas"><b>Tallas</b></button>
+                    </div>
+                    <div class="col-sm-2" style="margin-top:25px;">
+                      <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#asoInsumos"><i class="fa fa-thumb-tack"></i> <b>Insumos</b></button>
+                    </div>
+                    <div class="form-group col-sm-4"> 
                       <label for="vlr_producto" class="">*Valor Producto:</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-money" style="color:green; font-size: 150%;"></i></span>

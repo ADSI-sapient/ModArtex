@@ -281,7 +281,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
-      <form data-parsley-validate="" id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi()">
+      <form data-parsley-validate="" id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi();">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">

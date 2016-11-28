@@ -265,6 +265,7 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
     cant_Cotizada = arrayProductos[i]['Cant_Cotizada'];
     idFichasTallas = arrayProductos[i]['Id_Fichas_Tallas'];
     nombreTalla = arrayProductos[i]['Nombre_Talla'];
+    estadoProducto = arrayProductos[i]['Estado'];
     var tr = "";
 
     if (fichaAs == 1) {
@@ -282,7 +283,7 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
 
     tr = "<tr class='box box-solid collapsed-box'><td>"+idProducto+"</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+color+"; font-size: 200%;' title='"+nombreColor+"'></td><td>"+nombreTalla+"</td><td style='text-align: center;'>"+cant_Cotizada+"</td><td>$"+vlrProducto+"</td><td>$"+subtotal+"</td><td style='display: none;'>"+idFichaTec+
     "</td><td style='display: none;'>"+idFichasTallas+"</td><td><input type='number' style='width: 100%; border-radius:5px;' min='0' max='"+cant_Cotizada+"' id='cantProdCot"+idFichasTallas+"' name='cantProdCot[]' readonly='' value='"+cantProducir+"'></td><td><input id='usarProductoTCot"+idFichasTallas+"' style='width: 100%; border-radius:5px;' min='0' type='number' name='cantExisUsarCot[]' data-parsley-required='' value='0'></td><td style='text-align:center;'><span onchange='exisProdTerCotPed"+idFichasTallas+".value=jsjasd' id='spanCantCot"+idFichasTallas+"' class='badge bg-red'>"+cantidad+
-    "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichasTallas+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichasTallas+"' name='exisProdTerCotPed[]'></td></tr>";
+    "</span><td style='display: none;'><input type='hidden' name='idSolProducto[]' value='"+idSolProducto+"'></td><td style='display: none;'><input type='hidden' value='"+idFichasTallas+"' name='idFichaCotPed[]'><input type='hidden' id='exisProdTerCotPed"+idFichasTallas+"' name='exisProdTerCotPed[]'></td><td style='display:none;'>"+estadoProducto+"</td><td style='display:none;'>"+nombreColor+"</td></tr>";
     //tabla convertir a pedido
     $('#fichaAsoConvPedido').append(tr);
     $('#modalConvPed').show();
@@ -431,7 +432,16 @@ function ValCotPedi(){
   var idFichas = 0;
   var contador = 0;
   var cantidadProducir = 0;
+
+ $("#fichaAsoConvPedido tbody tr").each(function(i, v){
+    if ($(this).find("td").eq(14).html() == 0) {
+      Lobibox.notify('warning', {size: 'mini', msg: 'El producto '+$(this).find("td").eq(0).html()+' en color '+$(this).find("td").eq(15).html()+' está inhabilitado'});
+      return false;
+    }
+  });
+
   $("#fichaAsoConvPedido tbody tr").each(function(i, v){
+
     
     var idFicha = $(this).find("td").eq(7).html();
     var idFichasTallas = $(this).find("td").eq(8).html();
@@ -456,7 +466,8 @@ function ValCotPedi(){
     resTabla = false;
   }
   if (resExist && resFechaVen && resTabla) {
-    return true
+    return false;
+    // return true;
   }
   else
   {

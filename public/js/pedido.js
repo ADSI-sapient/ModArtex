@@ -282,6 +282,7 @@
           if (resp.r != null){
             var arrayCantInsumos = "";
             arrayCantInsumos = resp.r;
+
             for (var i = 0; i <= arrayCantInsumos.length -1; i++)
             {
               var idExInscol = arrayCantInsumos[i]['Id_Existencias_InsCol'];
@@ -291,8 +292,9 @@
               var nomColorFicha = arrayCantInsumos[i]['NombreCol_Ficha'];
               var cantNecIns = arrayCantInsumos[i]['Cant_Necesaria'];
               var cantExistIns = arrayCantInsumos[i]['Cantidad_Insumo'];
-              var idFichasTallas = arrayCantInsumos[i]['Id_Fichas_Tallas'];
-              var nombreTalla = arrayCantInsumos[i]['Nombre_Talla'];
+              // var idFichasTallas = arrayCantInsumos[i]['Id_Fichas_Tallas'];
+              // var nombreTalla = arrayCantInsumos[i]['Nombre_Talla'];
+
               var cantNecPedido = cantNecIns * cantProdu;
 
               if (cantNecPedido > cantExistIns) {
@@ -307,7 +309,7 @@
               }
             }
             if (res == false && alerta == 0) {
-              Lobibox.notify('warning', {size: 'mini', msg: 'No hay insumos suficientes para la ficha '+refer+' de color '+nomColorFicha+ ' en talla '+nombreTalla});
+              Lobibox.notify('warning', {size: 'mini', delay: '10000', msg: 'No hay insumos suficientes para la ficha '+refer+' de color '+nomColorFicha});
               return false;
             }
             else{

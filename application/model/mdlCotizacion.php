@@ -211,7 +211,7 @@
 		}
 
 		public function PedidoAsociado(){
-			$sql = "SELECT ftl.Id_Ficha_Tecnica, f.Referencia, f.Nombre, c.Codigo_Color, c.Nombre AS Nombre_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal, ftl.Cantidad, sp.Id_Solicitudes_Producto, sp.Cant_Cotizada, t.Nombre AS Nombre_Talla, ftl.Id_Fichas_Tallas FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichastecnicas_tallas ftl ON ftl.Id_Fichas_Tallas = sp.Id_Fichas_Tallas JOIN tbl_tallas t ON t.Id_Talla=ftl.Id_Talla JOIN tbl_fichas_tecnicas f ON f.Id_Ficha_Tecnica=ftl.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
+			$sql = "SELECT ftl.Id_Ficha_Tecnica, f.Referencia, f.Nombre, f.Estado, c.Codigo_Color, c.Nombre AS Nombre_Color, sp.Cantidad_Producir, f.Valor_Producto, sp.Subtotal, ftl.Cantidad, sp.Id_Solicitudes_Producto, sp.Cant_Cotizada, t.Nombre AS Nombre_Talla, ftl.Id_Fichas_Tallas FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_solicitudes_producto sp ON st.Id_Solicitudes_Tipo = sp.Id_Solicitudes_Tipo JOIN tbl_fichastecnicas_tallas ftl ON ftl.Id_Fichas_Tallas = sp.Id_Fichas_Tallas JOIN tbl_tallas t ON t.Id_Talla=ftl.Id_Talla JOIN tbl_fichas_tecnicas f ON f.Id_Ficha_Tecnica=ftl.Id_Ficha_Tecnica JOIN tbl_colores c ON f.Id_Color = c.Id_Color WHERE s.Id_Solicitud = ?";
 
             $query = $this->db->prepare($sql);
             $query->bindParam(1, $this->Id_Solicitud);
