@@ -137,7 +137,30 @@
 		}
 
 		public function converCotiAPe(){
+			$ids = 0;
+			$cant = 0;
 			if (isset($_POST["gurdarPedi"])) {
+
+				$arrIns = implode(",", $_POST["arrayInsumos"]);
+				$arrayInsumos = explode(',', $arrIns);
+
+				for ($i=0; $i < count($arrayInsumos); $i = $i + 2) { 
+					$ids .=",".$arrayInsumos[$i];
+				}
+				for ($i=1; $i < count($arrayInsumos); $i = $i + 2) { 
+					$cant .=",".$arrayInsumos[$i];
+				}
+
+				$ides = explode(',', $ids);
+				$cantidades = explode(',', $cant);
+
+				for ($i=1; $i < count($ides); $i++) { 
+					$this->modelo->__SET("idExisIns", $ides[$i]);
+					$this->modelo->__SET("canDescIns", $cantidades[$i]);
+					$this->modelo->descontarExistenciasIns();
+				}
+
+
 
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud", 2);

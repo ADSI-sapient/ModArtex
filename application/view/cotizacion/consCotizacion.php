@@ -282,6 +282,7 @@
         <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
       <form data-parsley-validate="" id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi();">
+        <input type="hidden" name="arrayInsumos[]" id="arrayInsumos">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">

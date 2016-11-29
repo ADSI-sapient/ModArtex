@@ -139,5 +139,11 @@ class CtrUsuario extends Controller{
 		    echo json_encode(["v"=>0]);
 		}
 	}
+
+	public function perfil(){
+		require APP . 'view/_templates/header.php';
+		require APP . 'view/usuario/perfil.php';
+		require APP . 'view/_templates/footer.php';
+	}
 }
 ?>

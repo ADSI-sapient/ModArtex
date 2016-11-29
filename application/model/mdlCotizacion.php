@@ -305,4 +305,12 @@
       		$query->execute();
       		return $query->fetch();
       	}
+
+      	public function descontarExistenciasIns(){
+      		$sql = "CALL SP_descExistInsum(?,?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->idExisIns);
+      		$query->bindParam(2, $this->canDescIns);
+      		return $query->execute();
+      	}
 }  	

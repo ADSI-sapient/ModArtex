@@ -1,5 +1,8 @@
 //convierte cotizacion en pedido
 function convertirPedido(codigo, cotizaciones, Id_estado, nombreCliente){
+  arrayInsumos = [[]];
+  $("#arrayInsumos").val("");
+
   var campo = $(cotizaciones).parent().parent();
   $("#Codig").val(campo.find("td").eq(0).text());
   var docuCliente = campo.find("td").eq(6).text();
@@ -248,7 +251,7 @@ function fichasAsociad(idCot, fechaTerm, fichaAs){
   if (respuesta != null) {
   $("#Asopedido > tbody tr").empty();
   $("#fichaAsociadas > tbody tr").empty();
-  $("#fichaAsoConvPedido > tbody tr").empty();
+  $("#fichaAsoConvPedido tbody").empty();
 
     arrayProductos = respuesta;
     for (var i = 0; i <= arrayProductos.length - 1; i++) {
@@ -420,6 +423,7 @@ function ValCoti(){
 }
 
 function ValCotPedi(){
+  arrayInsumos = [[]];
   var Pfecha_entrega = $("#Fechaentre").val();
   var Pfecha_registro = $("#Fecha_Registr").val();
   var idSolicitudCoti = $("#Codig").val();
@@ -441,21 +445,24 @@ function ValCotPedi(){
   });
 
   $("#fichaAsoConvPedido tbody tr").each(function(i, v){
-
     
+    var referencia = $(this).find("td").eq(0).html();
     var idFicha = $(this).find("td").eq(7).html();
     var idFichasTallas = $(this).find("td").eq(8).html();
     // var cantProducir = $("#cantProdCot"+idFichasTallas).val();
     var cantProducir = $(this).find("td").eq(4).html();
 
+
       bol = validarExistenciasIn(idFicha, cantProducir, 0);
-      if (bol == false) {
+      if (bol) {
+        $("#arrayInsumos").val(arrayInsumos);
+      }else{
+        Lobibox.notify('warning', {size: 'mini', delay: '10000', msg: 'No hay suficientes insumos para la referencia '+referencia});
         resExist = false;
       }
   });
 
-
-   if (Pfecha_entrega <= Pfecha_registro){
+  if (Pfecha_entrega <= Pfecha_registro){
       Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Debe ingresar una fecha de vencimiento superior a la fecha de registro.'});
     resFechaVen = false;
   }
@@ -466,8 +473,7 @@ function ValCotPedi(){
     resTabla = false;
   }
   if (resExist && resFechaVen && resTabla) {
-    return false;
-    // return true;
+    return true;
   }
   else
   {

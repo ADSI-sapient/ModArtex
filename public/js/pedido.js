@@ -1,3 +1,4 @@
+      var arrayInsumos = [[]];
   $('#tablaPedidos').dataTable( {
     // "lengthChange": false,
     //"searching": false,
@@ -94,12 +95,14 @@
           idfichas = 0;
           cantidadaproducir = 0;
           $("#tablaFicha tbody .trpedidos").each(function(){
-            idfichas = $(this).find("td").eq(9).html();
-            idbton = $(this).find("td").eq(9).html();
+            idfichas = $(this).find("td").eq(13).html();
+            idbton = $(this).find("td").eq(12).html();
+            referencia = $(this).find("td").eq(0).html();
             cantidadaproducir = $("#cantProducir"+idbton).val();
 
-            bol = validarExistenciasIn(idfichas, cantidadaproducir, 0);
-            if (bol == false) {
+            bole = validarExistenciasIn(idfichas, cantidadaproducir, 1);
+            if (bole == false) {
+                Lobibox.notify('warning', {size: 'mini', delay: 6000, msg: 'No hay insumos suficientes para el producto '+referencia});
                 res = false;
             }
           });
@@ -220,7 +223,7 @@
           +"<td><input id='usarProductoT"+idbton+"' min='0' max='"+cantidad+"' type='number' style='border-radius:5px;' name='cantExisUsar[]' data-parsley-required='' value='0'></td>"
           +"<td><span id='spanCant"+idbton+"' class='badge bg-red'>"+cantidad+"</span></td>"
           +"<td style='display: none;'><input type='hidden' id='cantProductT"+idbton+"' name='cantProductT[]'></td><td style='display: none;'>"+idbton+"</td>"    
-          +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFTalla+"' name='idFichaTalla[]' value="+idFTalla+"><input type='hidden' name='idFicha[]' value="+idf+"></tr>";
+          +"<td><button type='button' onclick='quitarFicha("+idbton+", this, capValor"+idbton+".value)' class='btn btn-box-tool'><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFTalla+"' name='idFichaTalla[]' value="+idFTalla+"><input type='hidden' name='idFicha[]' value="+idf+"><td style='display:none;'>"+idFTalla+"</td><td style='display:none;'>"+idf+"</td></tr>";
           $("#tablaFicha").append(tr);
 
         }
@@ -238,7 +241,26 @@
               $("#usarProductoT"+idbton).val(0);
             });
 
-          $("#usarProductoT"+idbton+", #cantProducir"+idbton).on("keyup change", function(){
+          $("#usarProductoT"+idbton).on("keyup change", function(ev){
+
+            
+            if (ev.target.id == "cantProducir"+idbton) {
+
+
+
+              var  bole = validarExistenciasIn(idf, $(this).val(), 345);
+              console.log(bole);
+              if (bole) {
+                alert("1");
+              }else{
+                alert("2");
+              }
+
+
+
+            }
+
+
           // $("#usarProductoT"+idbton).on("keyup change", function(){
             if ($("#usarProductoT"+idbton).val() != "" && parseInt($("#usarProductoT"+idbton).val()) >= 0 && parseInt($("#usarProductoT"+idbton).val()) <= cantidad) {
               $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
@@ -250,96 +272,115 @@
               $("#capValor"+idbton).val($("#cantProducir"+idbton).val() * vlrprodto);
               valorTotalPedido();
             }
+
             animarTotal();
           });
+
         });
 
         $("#cantProducir"+idbton).on("keyup", function(){
-            animarTotal();
-            
             $("#capValor"+idbton).val((vlrprodto * $("#usarProductoT"+idbton).val()) + $("#cantProducir"+idbton).val() * vlrprodto);
             
             //nueva
             var subtot = $("#cantProducir"+idbton).val() * vlrprodto;
 
             valorTotalPedido();
-            validarExistenciasIn(idf, $("#cantProducir"+idbton).val(), 1);
+            animarTotal();
           });
       }
-      //función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
-      var arrayInsumos = [[]];
-      function validarExistenciasIn(idfi, cantProdu, alerta){
+//función que permite validar cada uno de los insumos de cada una de las fichas que se van a registrar en un pedido
+    function validarExistenciasIn(idfi, cantProdu, alerta){
+      var res = true;
 
-        // console.log(idfi, cantProdu, alerta);
+      $.ajax({
+          dataType: 'json',
+          type: 'post',
+          url: uri+"ctrPedido/validaExistInsumos",
+          data: {id_fichat:idfi},
+          async: false
+      }).done(function(resp){
+        if (resp.r != null){
 
-        var res = true;
-        $.ajax({
-            dataType: 'json',
-            type: 'post',
-            url: uri+"ctrPedido/validaExistInsumos",
-            data: {id_fichat:idfi},
-            async: false
-        }).done(function(resp){
-          if (resp.r != null){
-            var arrayCantInsumos = "";
-            arrayCantInsumos = resp.r;
+          var arrayCantInsumos = [];
+          arrayCantInsumos = resp.r;
 
+          for (var i = 0; i < arrayCantInsumos.length; i++)
+          {
+            var idExInscol = arrayCantInsumos[i]['Id_Existencias_InsCol'];
+            var refer = arrayCantInsumos[i]['Referencia'];
+            var nombreIns = arrayCantInsumos[i]['Nombre'];
+            var nombreColor = arrayCantInsumos[i]['Nombre_Color'];
+            var nomColorFicha = arrayCantInsumos[i]['NombreCol_Ficha'];
+            var cantNecIns = arrayCantInsumos[i]['Cant_Necesaria'];
+            var cantExistIns = arrayCantInsumos[i]['Cantidad_Insumo'];
+            // var idFichasTallas = arrayCantInsumos[i]['Id_Fichas_Tallas'];
+            // var nombreTalla = arrayCantInsumos[i]['Nombre_Talla'];
+            var cantNecPedido = cantNecIns * cantProdu;
 
-            for (var i = 0; i <= arrayCantInsumos.length -1; i++)
-            {
+              var respd = true;
+            for (var x = 0; x < arrayInsumos.length; x++){
+               if (arrayInsumos[x][0] == idExInscol) {
 
-              var idExInscol = arrayCantInsumos[i]['Id_Existencias_InsCol'];
-              var refer = arrayCantInsumos[i]['Referencia'];
-              var nombreIns = arrayCantInsumos[i]['Nombre'];
-              var nombreColor = arrayCantInsumos[i]['Nombre_Color'];
-              var nomColorFicha = arrayCantInsumos[i]['NombreCol_Ficha'];
-              var cantNecIns = arrayCantInsumos[i]['Cant_Necesaria'];
-              var cantExistIns = arrayCantInsumos[i]['Cantidad_Insumo'];
-              // var idFichasTallas = arrayCantInsumos[i]['Id_Fichas_Tallas'];
-              // var nombreTalla = arrayCantInsumos[i]['Nombre_Talla'];
+                  if (arrayInsumos[x][1] > cantNecPedido){
 
-              var cantNecPedido = cantNecIns * cantProdu;
+                    arrayInsumos[x].splice(1, 1, arrayInsumos[x][1] - cantNecPedido);
+                    respd = false;
+                  }else{
+                    if (alerta == 1) {
+                      Lobibox.notify('warning', {size: 'mini', delay: 6000, msg: 'No hay '+nombreIns+' de color '+nombreColor+
+                        ' para la ficha ' + refer});                
+                    }
+                    res = false;
+                    return false;
+                  }
+               }
+            }
 
-
-              for (var i = 0; i < arrayInsumos.length; i++) {
-                console.log(arrayInsumos[i][0], idExInscol);
-                 if (arrayInsumos[i][0] == idExInscol) {
-                    if (arrayInsumos[i][1] > cantNecPedido) {
-                      console.log("2");
-                      arrayInsumos[i][1] = [arrayInsumos[i][1] - cantNecPedido]; 
-                      console.log("3");
-                    }  
-                 }else{
-                    var arrayInsumo = [idExInscol, cantExistIns - cantNecPedido];
-                    arrayInsumos.push(arrayInsumo);
-                    console.log("4");
-                 }
-              }
-
-
-              if (cantNecPedido > cantExistIns) {
+            if (respd) {
+              var arrayInsumo = [];
+              if (cantExistIns > cantNecPedido) {
+                arrayInsumo = [idExInscol, cantExistIns - cantNecPedido];
+                arrayInsumos.push(arrayInsumo);
+              }else{
                 if (alerta == 1) {
-                    Lobibox.notify('warning', {size: 'mini', msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});                
+                  Lobibox.notify('warning', {size: 'mini', delay: 6000, msg: 'No hay '+nombreIns+' de color '+nombreColor+
+                        ' para la ficha ' + refer});                
                 }
-                else if(alerta == 0){
-                  // Lobibox.notify('warning', {size: 'mini', msg: 'alertas varias'});
-                }
-                  res = false;
+                res = false;
+                return false;
               }
+
+              if (arrayInsumos[0].length == 0) {
+                arrayInsumos.splice(0,1);
+              }
+              // console.log("array agregado "+idExInscol);
             }
-            if (res == false && alerta == 0) {
-              Lobibox.notify('warning', {size: 'mini', delay: '10000', msg: 'No hay insumos suficientes para la ficha '+refer+' de color '+nomColorFicha});
-              return false;
-            }
-            else{
-              return true;
-            }
-            $("#cantDesc").val(cantNecPedido);
-            $("#idExistColr").val(idExInscol);
+            
+            // if (cantNecPedido > cantExistIns) {
+            //   if (alerta == 1) {
+            //       Lobibox.notify('warning', {size: 'mini', msg: 'No hay suficiente '+nombreIns+' de color '+nombreColor});                
+            //   }
+            //   else if(alerta == 0){
+            //     // Lobibox.notify('warning', {size: 'mini', msg: 'alertas varias'});
+            //   }
+            //     res = false;
+            // }
           }
-        }).fail(function(){});
-          return res;
-      }
+          // if (res == false && alerta == 0) {
+          //   Lobibox.notify('warning', {size: 'mini', delay: '10000', msg: 'No hay insumos suficientes para la ficha '+refer+' de color '+nomColorFicha});
+          //   return false;
+          // }
+          // else{
+          //   return true;
+          // }
+
+
+          // $("#cantDesc").val(cantNecPedido);
+          // $("#idExistColr").val(idExInscol);
+        }
+      }).fail(function(){});
+      return res;
+    }
 
       //asociar productos al modificar el pedido
       function asociarProductosModiPedido(idfichat, referencia, color, vlrproducto, productos, idbton, cantProdT, nombreProdut, nomTalla, idFichaTalla){
@@ -350,7 +391,6 @@
         //comparar con los que estan agregados
         var prodEnTabla = $("#idFichaTalla"+idFichaTalla).val();
         // console.log(idProducNuevo, $(producto).val());
-        console.log(idProducNuevo, prodEnTabla);
         if (idProducNuevo !== prodEnTabla) {
           tr = "<tr id='tr"+idFichaTalla+
             "' class='box box-solid collapsed-box trFichasAsoPedMod'><td>"+referencia+

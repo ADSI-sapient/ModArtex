@@ -100,6 +100,9 @@
 <!--                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div> -->
+                <div class="pull-left" style="background-color: blue;">
+                  <a href="<?= URL; ?>ctrUsuario/perfil" class="btn btn-default btn-flat"><b>Perfil</b></a>
+                </div> 
                 <div class="pull-right">
                   <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat"><b>Cerrar sesión</b></a>
                 </div>
