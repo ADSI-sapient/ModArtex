@@ -134,7 +134,7 @@
                 </select>
               </div>
               <div class="col-sm-offset-4 col-sm-4" style="margin-top: 25px;">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Productos"><b>Asociar Productos</b></button>
+                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#Productos"><b>Asociar Productos</b></button>
               </div>
             </div>
           </div>

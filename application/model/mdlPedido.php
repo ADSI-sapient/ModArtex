@@ -22,6 +22,8 @@
             private $id_ficha_talla;
 
 		private $cantidadPT;
+            private $idExisInsPed;
+            private $canDescInsPed;
 
 		function __construct($db)
 	    {
@@ -205,6 +207,14 @@
       		$query->execute();
       		return $query->fetchAll();
       	}
+
+            public function descontarExistenciasInsPed(){
+                  $sql = "CALL SP_descExistInsum(?,?)";
+                  $query = $this->db->prepare($sql);
+                  $query->bindParam(1, $this->idExisInsPed);
+                  $query->bindParam(2, $this->canDescInsPed);
+                  return $query->execute();
+            }
 	}
 
 ?>

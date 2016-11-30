@@ -24,7 +24,8 @@
           <form action="<?php echo URL; ?>ctrPedido/regPedido" method="POST" onsubmit="return enviarFormPedido();" id="frmRegPedido" data-parsley-validate="">
         <div class="box-body">
           <input type="hidden" name="cantDesc[]" value="" id="cantDesc"> 
-          <input type="hidden" name="idExistColr[]" value="" id="idExistColr"> 
+          <input type="hidden" name="idExistColr[]" value="" id="idExistColr">
+          <input type="hidden" name="arrInsums[]" value="" id="arrInsums">
           <div class="row">
           <div class="col-lg-12">
             <div class="form-group col-lg-4">
@@ -150,8 +151,8 @@
                   <thead>
                     <tr class="active">
                       <th>Referencia</th>
-                      <th>Talla</th>
                       <th>Nombre</th>
+                      <th>Talla</th>
                       <th>Estado</th>
                       <th>Color</th>
                       <th>Valor Producción</th>

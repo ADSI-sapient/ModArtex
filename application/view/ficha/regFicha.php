@@ -39,7 +39,7 @@
                 <div class="">
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
-                      <i class="fa fa-calendar" style="color: #FF2020; font-size: 100%"></i>
+                      <i class="fa fa-calendar" style="font-size: 100%"></i>
                     </div>
                     <input type="text" class="form-control pull-right" name="fecha_reg" id="" placeholder="" style="border-radius:5px;" readonly="" value="<?php echo date("Y-m-d");?>">
                   </div>

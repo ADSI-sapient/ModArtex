@@ -204,10 +204,10 @@
               <div class="modal-footer">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-3">
-                    <button type="submit" class="btn btn-warning btn-sm btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
+                    <button type="submit" class="btn btn-warning btn-md btn-block" name="btn-modificar-ficha"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
                   </div>
                   <div class="col-md-3">
-                    <button type="button" class="btn btn-default btn-sm btn-block" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" aria-label="Close" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
                   </div>
                 </div>
                 <small class="pull-left"><b>*Campo requerido</b></small>

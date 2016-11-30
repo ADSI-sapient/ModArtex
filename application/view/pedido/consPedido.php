@@ -75,6 +75,7 @@
               <form role="form" action="<?= URL ?>ctrPedido/editarPedido" method="post" id="modpedido" onsubmit=" return enviarFormPedidoModi()" data-parsley-validate="">
             <div class="modal-body" style="padding:10px;">
               <input type="hidden" name="id_pedido" id="id_pedido">
+              <input type="hidden" name="arrayInsumosPedMod[]" id="arrayInsumosPedMod">
                 <div class="row">
                   <div class="form-group col-sm-12">
                     <div class="form-group col-sm-6">
@@ -116,7 +117,7 @@
                         <input type="text" name="estado" id="estado" class="form-control" value="" readonly="" style="border-radius:5px;">
                       </div>
                       <div class="form-group col-sm-3" style="margin-top: 25px;">
-                        <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#asoProductos"><b>Asociar Productos</b></button>
+                        <button type="button" class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#asoProductos"><b>Asociar Productos</b></button>
                       </div>
                     </div>
                  </div>

@@ -48,7 +48,7 @@
               <div class="col-md-8">
                 <label class="control-label" length="80px">*Valor: </label>
                 <div class="input-group">
-                  <span class="input-group-addon" style="border-radius:2px;">
+                  <span class="input-group-addon" style="border-radius:2px; color:green; font-size:150%;">
                     <i class="fa fa-money" aria-hidden="true"></i>
                   </span>
                   <input type="number" class="form-control" min="1" name="valor" data-parsley-required="" data-parsley-errors-container="#errorValorInsumoBodega" id="valorIns" maxlength="10">
@@ -131,7 +131,7 @@
              <td><i class="fa fa-square" style="color: <?= $value['Codigo_Color']; ?>; font-size: 200%;"></i> </td>
              <td><?= $value["Nombre"]; ?></td>
              <td style="display: none;"><?= $value["Id_Color"]; ?></td>
-             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccion(this)" class="btn btn-box-tool"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button></td> 
+             <td style="text-align: center;"><button id="btnAgreColAsoc<?= $value["Id_Color"]; ?>" onclick="seleccion(this, '<?= $value["Id_Color"]; ?>')" class="btn btn-box-tool"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button></td> 
            </tr>
          <?php endforeach ?>
        </tbody>

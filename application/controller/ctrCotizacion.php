@@ -160,8 +160,6 @@
 					$this->modelo->descontarExistenciasIns();
 				}
 
-
-
 				$this->modelo->__SET("Id_Solicitud",$_POST["codisoli"]);
 				$this->modelo->__SET("Id_tipoSolicitud", 2);
 				$this->modelo->__SET("Fecha_Entrega",$_POST["Fechaentre"]);

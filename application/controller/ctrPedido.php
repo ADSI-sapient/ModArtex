@@ -60,41 +60,32 @@
 						$this->mdlModel->__SET("subtotal", $_POST['subTotal'][$f]);
 		        		$this->mdlModel->__SET("id_ficha_talla", $_POST['idFichaTalla'][$f]);
 		        		$this->mdlModel->__SET("cantidadPT", $_POST['cantProductT'][$f]);
-
-		        		$this->mdlModel->regFichasAsociadas();
-
-		        		// for ($i=0; $i < count($_POST['idExistColr']); $i++) {
-		        			
-		        		// 	$this->mdlModel->__SET("cant_descontar", $_POST['cantDesc'][$i]);
-		        		// 	$this->mdlModel->__SET("id_existcolinsu", $_POST['idExistColr'][$i]);
-		        		// 	$this->mdlModel->descExistInsumos();
-		        		// }
-
-		        		//validación de existencias de insumos
-		        		//le enviamos la(s) fichas que se asocian al pedido (idFicha)
-		       //  		$this->mdlModel->__SET("id_ficha", $_POST['idFicha'][$f]);
-
-		    			// //recibimos un array asociat con los insumos asociados a la(s) ficha(s)
-		       //  		$cantidInsumos = $this->mdlModel->validarExisteIns();
-
-		       //  		//valida que devuelva un array con los datos necesarios
-		       //  		// if ($cantidInsumos != null) {
-		       //  		if (!empty($cantidInsumos)) {
-		        		
-			      //   		//capturamos cantidad a producir (es la misma para todos los insumos de una ficha)
-			      //   		$cantProdu = $_POST['cantProducir'][$f];
-
-			      //   		//recorremos el array cantidInsumos
-			      //   		foreach ($cantidInsumos as $valor) {
-
-			      //   			$cantNecPed = $valor['Cant_Necesaria'] * $cantProdu;
-				     //    		$this->mdlModel->__SET("cant_descontar", $cantNecPed);
-				     //    		$this->mdlModel->__SET("id_existcolinsu", $valor['Id_Existencias_InsCol']);
-				     //    		$this->mdlModel->descExistInsumos();
-			      //   		}
-		       //  		}
+		        		$this->mdlModel->regFichasAsociadas(); 
 		        	}
-		        	//alerta confirmación registro
+
+
+		        	//Si se registra el pedido y los productos asociados, se realiza un descuento de existencias de insumos.
+		        	$idsPed = 0;
+					$cantPed = 0;
+	    			$arrInsPed = implode(",", $_POST["arrInsums"]);
+					$arrayInsumosPed = explode(',', $arrInsPed);
+
+					for ($i=0; $i < count($arrayInsumosPed); $i = $i + 2) { 
+						$idsPed .=",".$arrayInsumosPed[$i];
+					}
+					for ($i=1; $i < count($arrayInsumosPed); $i = $i + 2) { 
+						$cantPed .=",".$arrayInsumosPed[$i];
+					}
+
+					$idesPed = explode(',', $idsPed);
+					$cantidadesPed = explode(',', $cantPed);
+
+					for ($i=1; $i < count($idesPed); $i++) { 
+						$this->mdlModel->__SET("idExisInsPed", $idesPed[$i]);
+						$this->mdlModel->__SET("canDescInsPed", $cantidadesPed[$i]);
+						$this->mdlModel->descontarExistenciasInsPed();
+					}
+
 	            	$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', delay: 6000, msg: 'Pedido registrado exitosamente'});";
 				}else{
 
