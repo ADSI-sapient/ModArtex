@@ -89,8 +89,8 @@
                       <th>#</th>
                       <th>Referencia</th>
                       <th>Nombre</th>
-                      <th>Muestra</th>
                       <th>Color</th>
+                      <th>Talla</th>
                       <th>Cantidad a Producir</th>
                       <th>Valor Producto</th>
                       <th>Subtotal</th>
@@ -156,7 +156,7 @@
                         <td><?= $pedido["Nombre_Estado"] ?></td>
                         <td class="nomclte"><?= $pedido["Nombre"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllPedidosProd" id="" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', 0)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size:150%;"></i></button>
+                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#dllPedidosProd" id="" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', null, 0)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size:150%;"></i></button>
                         </td>
                         <td>
                           <button id="btn<?= $i; ?>" type="button" class="btn btn-box-tool" onclick="cargarProductosAsoPed('<?= $pedido["Id_Solicitud"] ?>', '<?= $pedido["Fecha_Entrega"] ?>', 2)"><i class="fa fa-plus" style="font-size:150%; color: blue;"></i></button>
@@ -177,7 +177,7 @@
       </div><!-- /.modal -->
       <!-- Fin modal asociar pedidos -->
             <div class="modal fade" id="dllPedidosProd" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -192,7 +192,9 @@
                         <th>Referencia</th>
                         <th>Nombre</th>
                         <th>Color</th>
+                        <th>Talla</th>
                         <th>Cantidad a Producir</th>
+                        <th>Usar Producto Terminado</th>
                         <th>Valor Producto</th>
                         <th>Subtotal</th>
                       </tr>
@@ -204,7 +206,7 @@
               </div>
             </div>
             <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+              <button type="button" class="btn btn-default btn-lg" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
             </div>
           </div>
         </div>

@@ -153,8 +153,9 @@
                     <div class="input-group-addon" style="border-radius:5px;">
                       <i class="fa iconoDinero fa-money" style="color: green; font-size: 150%;"></i>
                     </div>
-                    <input data-parsley-required='' min='0' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;">
-                  </div>              
+                    <input data-parsley-required='' min='1' class="form-control" type="text" name="valor_total" id="valor_total" readonly="" style="border-radius:5px;" data-parsley-errors-container="#errorVtMoP">
+                  </div>
+                  <div id="errorVtMoP"></div>            
                 </div>
               </div>
             </div>

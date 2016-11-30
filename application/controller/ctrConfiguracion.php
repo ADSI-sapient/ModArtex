@@ -14,11 +14,13 @@ class ctrConfiguracion extends Controller{
 	}
 
 	public function index(){
-		$lista = $this->_modelColor->listar();
-
-		include APP . 'view/_templates/header.php';
-		include APP . 'view/configuracion/colores.php';
-		include APP . 'view/_templates/footer.php';
+		if($this->validarURL("ctrConfiguracion/listarColores")){	
+			$lista = $this->_modelColor->listar();
+	
+			include APP . 'view/_templates/header.php';
+			include APP . 'view/configuracion/colores.php';
+			include APP . 'view/_templates/footer.php';
+		}
 	}
 
 	public function listarColores(){

@@ -49,6 +49,7 @@
               color: transparent;  
             } 
           </style>
+          <?php if($this->validarURL("ctrConfiguracion/listarMedidas")): ?>
           <li>
             <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarMedidas()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudMedidas" class="dropdown-toggle btn btn-box-tool">
@@ -56,6 +57,8 @@
             </button>  
             </a>
           </li> 
+          <?php endif; ?>
+          <?php if($this->validarURL("ctrConfiguracion/listarColores")): ?>
           <li>
             <a class="dropdown-toggle" style="padding: 9px;">
             <button onclick="listarColores()" style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCrudColores" class="dropdown-toggle btn btn-box-tool">
@@ -63,7 +66,7 @@
             </button>
             </a>
           </li>         
-
+          <?php endif; ?>
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i style="font-size: 130%;" class="fa fa-bell-o"></i>
@@ -155,6 +158,10 @@
     </aside>
     <div class="content-wrapper" style="min-height: 916px;">
 
+
+
+
+<?php if($this->validarURL("ctrConfiguracion/listarColores")): ?>
 <div class="modal fade" id="modalCrudColores" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
@@ -213,10 +220,11 @@
   </div>
 </div>
 </div>
+<?php endif; ?>
 
 
 
-
+<?php if($this->validarURL("ctrConfiguracion/listarMedidas")): ?>
 <div class="modal fade" id="modalCrudMedidas" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
     <div class="modal-content" style="border-radius: 25px;">
@@ -270,3 +278,4 @@
   </div>
 </div>
 </div>
+<?php endif; ?>

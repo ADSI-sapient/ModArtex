@@ -319,7 +319,7 @@ function selectLugarProduccion(select){
       });
       $('#tblFichasProd tbody tr').each(function(){
         var solPro = $(this).find("td").eq(0).html();
-        var cantidad = $(this).find("td").eq(5).html();
+        var cantidad = $(this).find("td").eq(6).html();
         $("#canFabri"+solPro).on('keyup change', function(){
             $("#cantSate"+solPro).val(parseInt(cantidad) - parseInt($("#canFabri"+solPro).val()));
         }); 
@@ -329,12 +329,12 @@ function selectLugarProduccion(select){
       });
     }else{
       $('#tblFichasProd thead tr').each(function(){
-        $(this).find("th").eq(8).remove();
-        $(this).find("th").eq(8).remove();
+        $(this).find("th").eq(9).remove();
+        $(this).find("th").eq(9).remove();
       });
       $('#tblFichasProd tbody tr').each(function(){
-        $(this).find("td").eq(8).remove();
-        $(this).find("td").eq(8).remove();
+        $(this).find("td").eq(9).remove();
+        $(this).find("td").eq(9).remove();
       });
     }
 }
@@ -350,8 +350,8 @@ function regOrdenProducc(){
   if ($("#selectLugarProducc").val() == "Fábrica-Satélite") {
     $('#tblFichasProd tbody tr').each(function(){
       var solPro = $(this).find("td").eq(0).html();
-      var cantidad = $(this).find("td").eq(5).html();
-
+      var cantidad = $(this).find("td").eq(6).html();
+      
       $("#canFabri"+solPro).parsley().validate();
       $("#cantSate"+solPro).parsley().validate();
         if (($("#canFabri"+solPro).val() == "") || ($("#cantSate"+solPro).val() == "") || ($("#canFabri"+solPro).val() < 0) || ($("#cantSate"+solPro).val() < 0)) {
@@ -385,16 +385,15 @@ function regOrdenProducc(){
           var CantFab = "";
           var CantSat = "";
           if($("#selectLugarProducc").val() == "Fábrica"){
-            CantFab = $(this).find("td").eq(5).html();
+            CantFab = $(this).find("td").eq(6).html();
             CantSat = 0;
           }else if($("#selectLugarProducc").val() == "Satélite"){
             CantFab = 0;
-            CantSat = $(this).find("td").eq(5).html();
+            CantSat = $(this).find("td").eq(6).html();
           }else if($("#selectLugarProducc").val() == "Fábrica-Satélite"){
             CantFab = $("#canFabri"+idSolProd).val();
             CantSat = $("#cantSate"+idSolProd).val();
           }
-          console.log(idSolProd, ultimaOrden, CantFab, CantSat);
           $.ajax({
             type: 'POST',
             dataType: 'json',

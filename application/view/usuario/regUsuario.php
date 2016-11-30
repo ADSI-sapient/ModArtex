@@ -52,11 +52,11 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label for="contraseña" class="">*Contraseña:</label>
-              <input type="password" class="form-control" id="contraseña" placeholder="" value="" name="clave" data-parsley-required="" maxlength="8" minlength="6">
+              <input type="password" class="form-control" id="contraseña" placeholder="" value="" name="clave" data-parsley-required="" maxlength="10" minlength="6">
             </div>
             <div class="form-group col-lg-4">
               <label for="confirmContraseña" class="">*Confirmar Contraseña:</label>
-              <input type="password" class="form-control" id="confirmContraseña" placeholder="" value="" name="confirmarClave" data-parsley-required="" maxlength="12" minlength="6">
+              <input type="password" class="form-control" id="confirmContraseña" placeholder="" value="" name="confirmarClave" data-parsley-required="" maxlength="10" minlength="6">
             </div>
             <div class="form-group col-lg-4">
               <label for="email" class="">*E-mail:</label>
