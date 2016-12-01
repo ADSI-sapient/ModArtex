@@ -16,6 +16,7 @@
 		private $Direccion;
 		private $Tbl_Roles_Id_Rol;
 		private $Id_Usuario;
+		private $Apellido;
 
 
 		public function __SET($atributo, $valor){
@@ -175,6 +176,18 @@
 	        }catch(PDOException $e){
 	        	
 	        }
+      	}
+
+      	public function modificarPerfil(){
+      		$sql= "CALL SP_ModificarPerfil(?,?,?,?,?,?)";
+      		$query= $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Nombre);
+      		$query->bindParam(2, $this->Apellido);
+      		$query->bindParam(3, $this->Usuario);
+      		$query->bindParam(4, $this->Email);
+      		$query->bindParam(5, $this->Clave);
+      		$query->bindParam(6, $this->Num_Documento);
+      		return $query->execute();	
       	}
 
 	}

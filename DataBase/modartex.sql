@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2016 a las 18:44:22
+-- Tiempo de generación: 01-12-2016 a las 12:33:21
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -289,6 +289,11 @@ UPDATE tbl_objetivos SET Nombre= Nombre, FechaRegistro= FechaRegistro, FechaInic
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarP` (IN `_nombre` VARCHAR(45), IN `_apellido` VARCHAR(45), IN `_email` VARCHAR(45), IN `_documento` VARCHAR(20))  NO SQL
 UPDATE tbl_persona SET Nombre= _nombre, Apellido= _apellido, Email= _email WHERE Num_Documento= _documento$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarPerfil` (IN `nombre` VARCHAR(45), IN `apellido` VARCHAR(45), IN `usuario` VARCHAR(45), IN `email` VARCHAR(45), IN `clave` VARCHAR(45), IN `numDoc` VARCHAR(45))  NO SQL
+UPDATE tbl_usuarios u JOIN tbl_persona p 
+ON u.Num_Documento = p.Num_Documento SET p.Nombre = nombre, p.Apellido = apellido, u.Usuario = usuario, p.Email = email, u.Clave = clave 
+WHERE u.Num_Documento = numDoc$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarRoles` (IN `_rol` INT(11))  NO SQL
 DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 
@@ -416,7 +421,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_UpdateSolProdCot` (IN `idSol` IN
 UPDATE tbl_solicitudes_producto SP SET SP.Cantidad_Existencias =  cantUsar, sp.Cantidad_Producir = cantProd, sp.Id_Solicitudes_Tipo = solTipo WHERE sp.Id_Solicitudes_Producto = idSol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_userLogin` (IN `_user` VARCHAR(15))  NO SQL
-SELECT p.Nombre, p.Apellido, u.Usuario, u.Clave, p.Email, p.Estado, u.Tbl_Roles_Id_Rol, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
+SELECT p.Nombre, p.Apellido, u.*, p.Email, p.Estado, p.Tipo_Documento, p.Telefono, p.Direccion, (SELECT r.Nombre FROM tbl_roles r WHERE u.Tbl_Roles_Id_Rol = r.Id_Rol) nombreR FROM tbl_persona p JOIN tbl_usuarios u ON u.Num_Documento = p.Num_Documento WHERE u.Usuario = _user$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_valAsoTalla` (IN `FichaTalla` INT)  NO SQL
 SELECT * FROM tbl_solicitudes_producto sp WHERE sp.Id_Fichas_Tallas = FichaTalla$$
@@ -848,9 +853,10 @@ CREATE TABLE `tbl_persona` (
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`, `Info_Adicional`) VALUES
 ('1017223026', 2, 'C.C', 'Crearte Collection', 'Empresa', 1, '', '', '', NULL),
-('1037590137', 1, 'C.C', 'Juan Pablo ', 'Morales', 1, NULL, NULL, 'jpmorales73@misena.edu.co', NULL),
+('1037590137', 1, 'C.C', 'Juan Pablo', 'Morales Gomez', 1, NULL, NULL, 'jpmorales73@misena.edu.co', NULL),
+('23493929', 1, 'C.C', 'johan', 'arteaga', 1, '', '', 'jaac219@gmail.com', NULL),
 ('2368115821', 1, 'C.C', 'Kevin', 'Escudero', 1, '', '', 'jp@gm.com', NULL),
-('4851215151', 2, 'C.C', 'Ernesto', 'Benavides', 1, '4545412121', 'alla', 'jd@m.com', 'Representante Empresa Restore System \r\nNIT 65-584784');
+('4851215151', 2, 'C.C', 'Ernesto', 'Benavides', 1, '4545412121', 'alla', 'er@hotmail.com', 'Representante Empresa Restore System \r\nNIT 65-584784');
 
 -- --------------------------------------------------------
 
@@ -1172,7 +1178,8 @@ CREATE TABLE `tbl_usuarios` (
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
 (1, '1037590137', 1, 'jpmorales', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-(3, '2368115821', 3, 'kevincito', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+(3, '2368115821', 3, 'kevincito', '7c4a8d09ca3762af61e59520943dc26494f8941b'),
+(4, '23493929', 2, 'jaac219', 'edc226d988c71b4d965b61fe54b90f432d25ae8a');
 
 --
 -- Índices para tablas volcadas
@@ -1534,7 +1541,7 @@ ALTER TABLE `tbl_unidades_medida`
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --

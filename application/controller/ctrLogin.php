@@ -45,9 +45,17 @@ class CtrLogin extends Controller
 
 
     public function recuperarPass(){
-                include APP. 'view/login/recuperar.php'; 
+        include APP. 'view/login/recuperar.php'; 
 
         if (isset($_POST['btnRecuperar'])) {
+
+            $file = "";
+            $fp = fopen(APP."config/remitente_correo.txt", "r");
+            for ($i=0; $i <= 2; $i++) { 
+                $file[$i] = fgets($fp);
+            }
+            fclose($fp);
+
             $sw = 0;
             $emails = $this->mdlModel->traerEmails();
 
@@ -65,33 +73,30 @@ class CtrLogin extends Controller
                     $this->mdlModel->__SET("clave", sha1($cad));
                     $this->mdlModel->cambiarClave();
 
-
-                    $para = $value["Email"];
-                    $titulo = "Recuperación de contraseña";
-                    $mensaje = "<!DOCTYPE html>
-                                <html>
-                                <head>
-                                    <title>Recuperación de contraseña</title>
-                                </head>
-                                <body>
-                                    <h3>
-                                        Su nueva contraseña es: ".$cad."
-                                    </h3>
-                                </body>
-                                </html>";
-
-
-                    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-                    $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-                    $cabeceras .= 'To: Jaac <jaac219@gmail.com>' . "\r\n";
-                    $cabeceras .= 'From: Recordatorio <cumples@example.com>' . "\r\n";
-                    $cabeceras .= 'Cc: jaac219@hotmail.com' . "\r\n";
-                    $cabeceras .= 'Bcc: johanandres219@hotmail.com' . "\r\n";
-
-                    mail($para, $titulo, $mensaje, $cabeceras);
-                    $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La nueva clave fue enviada a su correo'});";
-                    header("location:".URL."ctrLogin/login");
+                    require APP.'libs/PHPMailer/PHPMailerAutoload.php';
+ 
+                    $correo = new PHPMailer();
+                    $correo->IsSMTP();
+                    $correo->SMTPAuth = true;
+                    $correo->SMTPSecure = 'tls';
+                    $correo->Host = $file[2];
+                    $correo->Port = 587;
+                    $correo->Username   = $file[0];
+                    $correo->Password   = $file[1];
+                    $correo->setFrom($file[0], $file[0]);
+                    $correo->AddAddress($value["Email"], "");
+                    $correo->Subject = "Recuperación de contraseña ModArtex";
+                    $correo->MsgHTML("Su nueva contraseña es: <strong>".$cad."</strong>");
+                    $correo->CharSet = 'UTF-8';
+                     
+                    // $correo->AddAttachment("images/phpmailer.gif");
+                     
+                    if(!$correo->Send()) {
+                      $_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Hubo un error al enviar el correo'});";
+                    } else {
+                      $_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'La nueva clave fue enviada a su correo'});";
+                      header("location:".URL."ctrLogin/login");
+                    }
                     $sw = 1;
                 }
             }

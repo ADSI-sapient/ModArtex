@@ -145,5 +145,30 @@ class CtrUsuario extends Controller{
 		require APP . 'view/usuario/perfil.php';
 		require APP . 'view/_templates/footer.php';
 	}
+
+	public function modificarPerfil(){
+		$this->mdlModel->__SET("Nombre", $_POST["nombre"]);
+		$this->mdlModel->__SET("Apellido", $_POST["apellido"]);
+		$this->mdlModel->__SET("Usuario", $_POST["nombre_usuario"]);
+		$this->mdlModel->__SET("Email", $_POST["email"]);
+		$this->mdlModel->__SET("Clave", $_POST["clave"]);
+		$this->mdlModel->__SET("Num_Documento", $_POST["num_documento"]);
+
+		if ($this->mdlModel->modificarPerfil()) {
+			header('location: '.URL.'ctrLogin/cerrarSesion');
+		}else{
+			$_SESSION["mensaje"] = "Lobibox.notify('error', {size: 'mini', msg: 'Error al modificar su perfil'})";
+		}
+	}
+
+	public function cambiarCorreoEmpresa(){
+		$fp = fopen(APP."config/remitente_correo.txt", "w");
+		fputs($fp, $_POST["correo"].PHP_EOL);
+		fputs($fp, $_POST["clave"].PHP_EOL);
+		fputs($fp, "smtp.gmail.com");
+		fclose($fp);
+
+		header('location: '.URL.'home/index');
+	}
 }
 ?>

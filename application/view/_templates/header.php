@@ -49,6 +49,14 @@
               color: transparent;  
             } 
           </style>
+
+          <li>
+            <a class="dropdown-toggle" style="padding: 9px;">
+            <button style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCorreoEmpresa" class="dropdown-toggle btn btn-box-tool">
+              <i style="font-size: 130%; color: blue;" class="fa fa-envelope-o" aria-hidden="true"></i>
+            </button>  
+            </a>
+          </li> 
           <?php if($this->validarURL("ctrConfiguracion/listarMedidas")): ?>
           <li>
             <a class="dropdown-toggle" style="padding: 9px;">
@@ -271,11 +279,39 @@
       </div>
     </div>
     <div>
-      <div class="modal-footer" style="border-top:none; border-bottom:1px solid;">
-        <button class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-      </div>
     </div>
   </div>
 </div>
 </div>
 <?php endif; ?>
+
+
+
+
+
+<div class="modal fade" id="modalCorreoEmpresa" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+  <div class="modal-dialog" role="document";>
+    <div class="modal-content" style="border-radius: 15px;">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h3 style="font-weight: bold; text-align: center;" class="modal-title">CORREO DE LA EMPRESA</h3>
+      </div>
+      <form action="<?= URL; ?>ctrUsuario/cambiarCorreoEmpresa" method="POST">
+      <div class="modal-body">  
+        <div class="row col-md-12">
+          <label for="nombre" class="">Correo:</label>
+          <input type="text" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
+        </div>
+        <div class="row col-md-12">
+          <label for="nombre" class="">Clave del correo:</label>
+          <input type="password" class="form-control"  placeholder="" name="clave" data-parsley-required="" maxlength="45">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+        <button type="submit" class="btn btn-default btn-lg" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Actualizar</button>
+      </div>
+      </form>
+  </div>
+</div>
+</div>

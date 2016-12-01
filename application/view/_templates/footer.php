@@ -55,6 +55,7 @@
     <script src="<?= URL;?>js/persona.js"></script>
     <script src="<?= URL;?>js/productoT.js"></script>
     <script src="<?= URL;?>js/produccion.js"></script>
+    <script src="<?= URL;?>js/perfil.js"></script>
     <!-- <script src="<?= URL;?>Parsley.js-2.4.4/src/extra/validator/comparison.js"></script> -->
     <script type="text/javascript">
         $(function(){ 
