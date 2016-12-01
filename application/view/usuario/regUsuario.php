@@ -16,27 +16,17 @@
         <div class="box-body">
         <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
-              <label for="nombre" class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
-            </div>
-            <div class="form-group col-lg-4">
-              <label for="apellido" class="">*Apellido:</label>
-              <input type="text" class="form-control" id="apellido" placeholder="" value="" name="apellido" data-parsley-required="" maxlength="45">
-            </div>
-            <div class="form-group col-lg-4">
               <label for="tipo_documento" class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="" id="tipo_documento">
                 <option value="C.C" selected>C.C</option>
                 <option value="C.E">C.E</option>
               </select>
             </div>
-          </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
             <div class="form-group col-lg-4">
               <label for="documento" class="" >*Número de Documento:</label>
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" data-parsley-required="" onChange="validarSiDocumento(this.value);" maxlength="20">
             </div>
-            <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-4">
               <label for="estado" class="">Estado:</label> 
               <input type="text" class="form-control" name="estado" value="Habilitado" disabled="" id="estado">
               <!-- <select class="form-control" name="estado" required="" disabled="">
@@ -44,6 +34,18 @@
                 <option value="Inhabilitado">Inhabilitado</option>
               </select> -->
             </div>
+            
+          </div>
+          <div class="row col-lg-12" style="margin-left:0.5%">
+                        <div class="form-group col-lg-4">
+              <label for="nombre" class="">*Nombre:</label>
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
+            </div>
+             <div class="form-group col-lg-4">
+              <label for="apellido" class="">*Apellido:</label>
+              <input type="text" class="form-control" id="apellido" placeholder="" value="" name="apellido" data-parsley-required="" maxlength="45">
+            </div>
+
               <div class="form-group col-lg-4">
                 <label for="nombre_usuario" class="">*Nombre de Usuario:</label>
                 <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="" maxlength="15">

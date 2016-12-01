@@ -56,7 +56,7 @@
                       
                         <td>
                         <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
-                        <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o fa-lg"></i></button>
+                        <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o fa-lg" style="font-size: 150%;"></i></button>
                         <?php else: ?>
                           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ModificarObj"onclick="ModificarObj('<?= $objetivo["Id_Objetivo"] ?>', '<?= $objetivo["FechaRegistro"] ?>', '<?= $objetivo["FechaInicio"] ?>', '<?= $objetivo["Nombre"] ?>', '<?= $objetivo["FechaFin"] ?>', this, 1)"><i style="font-size:150%;" class="fa fa-pencil-square-o fa-lg"></i></button>
                           <?php endif ?>
@@ -64,7 +64,7 @@
                         <td>
                          <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
                            
-                           <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-signal open-modal-estadistica fa-lg"></i></button>
+                           <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-signal open-modal-estadistica fa-lg" style="font-size: 150%;"></i></button>
 
                          <?php else: ?>
 
@@ -77,7 +77,7 @@
                         </td>
                      <td>
                           <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="font-size: 150%;"></i></button>
                           <?php else: ?>
                             <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red; font-size:150%;"></i></button>
                           <?php endif ?>
@@ -113,7 +113,6 @@
                 <th>Referencia</th>
                 <th>Nombre</th>
                 <th>Color</th>
-                <th>Talla</th>
                 <th>Cantidad</th>
               </tr>
             </thead>
@@ -210,7 +209,6 @@
                 <th>Referencia</th>
                 <th>Nombre</th>
                 <th>Color</th>
-                <th>Talla</th>
                 <th>Cantidad</th>
                 <th>Retirar</th>
               </tr>
@@ -311,7 +309,6 @@
                       <th>Referencia</th>
                       <th>Nombre</th>
                       <th>Color</th>
-                      <th>Talla</th>
                       <th>Cantidad Actual</th>
                       <th>Agregar</th>
                       <th style="display: none"></th>
@@ -326,10 +323,9 @@
                       <td><?= $ficha["Referencia"]?></td>
                       <td><?= $ficha["Nombre"]?></td>
                       <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
-                      <td><?= $ficha["Nombre_Talla"]?></td>
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Nombre_Talla"]?>', '<?= $ficha["Id_Fichas_Tallas"]?>')"><i style="font-size:150%; color:blue;" class="fa fa-plus"></i></button>
+                       <button id="btnobjMod<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichasNuevas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Id_Ficha_Tecnica"]?>')"><i style="font-size:150%; color:blue;" class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                       <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>

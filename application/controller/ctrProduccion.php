@@ -58,6 +58,15 @@
 		public function editarOrdenProduccion(){
 	    	// $this->_modelProduct->__SET("_estado_prod", $_POST["estadoOp"]);
 	        // $this->_modelProduct->__SET("_fecha_term", $_POST["fecha_entregaOp"]);
+
+
+			$idSolPedNuevo = $_POST["idSolPed"];
+			if ($idSolPedNuevo != null) {
+				$this->_modelProduct->__SET("_id_solicitud", $_POST["idSolAnt"]);
+				$this->_modelProduct->regresarAPediente();
+			}
+
+
 			$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
 		    $this->_modelProduct->__SET("_lugar_prod", $_POST["lugarOp"]);
 
@@ -67,6 +76,8 @@
 
 	    function registrarSolicitudesOrdenes(){
 	    	//registrar en tbl_solicitudes_ordenesproduccion
+	    	$this->_modelProduct->__SET("_id_solicitud", $_POST["idPed"]);
+
 			$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolcProd"]);
 			$this->_modelProduct->__SET("_id_ordenProd", $_POST["numOrdenp"]);
 			$this->_modelProduct->__SET("_estadoFih", 5);
@@ -74,9 +85,13 @@
 			$this->_modelProduct->__SET("_cantSat", $_POST["cantSat"]);
 			// $this->_modelProduct->__SET("_lugarPrficha", $_POST["lugarP"]);
 
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
-					msg: 'La orden se modificó correctamente!'});";
-			echo json_encode($this->_modelProduct->regSolicitudOrdenProduccion());
+			$men = $this->_modelProduct->regSolicitudOrdenProduccion();
+			if ($men) {
+				$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini',
+					msg: 'La orden se modificó correctamente!'});";	
+			}
+			$this->_modelProduct->actualizarEstadoPed();
+			echo json_encode($men);
 	    }
 
 

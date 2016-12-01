@@ -197,4 +197,11 @@
       		$query->bindParam(2, $this->_estado);
       		return $query->execute();
       	}
+
+      	public function regresarAPediente(){
+      		$sql = "CALL SP_devolverEstadoPedido(?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_solicitud);
+      		return $query->execute();	
+      	}
 	}

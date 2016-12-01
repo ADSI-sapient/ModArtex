@@ -39,7 +39,7 @@
 			}
  		}
  		
- 		    $fichas = $this->mdlModel->getAsoFichas();
+ 		    $fichas = $this->mdlModel->getAsoFichasObj();
  		  
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/regObjetivo.php';
@@ -53,7 +53,7 @@
 		public function listarObjetivos(){
 
 			if($this->validarURL("ctrObjetivos/listarObjetivos")){
-				$fichas = $this->mdlModel->getAsoFichas();
+				$fichas = $this->mdlModel->getAsoFichasObj();
 				$objetivos = $this->mdlModel->getObjetivos();
 
 				include APP . 'view/_templates/header.php';
@@ -98,7 +98,7 @@
 				   	$_SESSION['alert'] = "Lobibox.notify('success', {size: 'mini', msg: 'Objetivo modificado exitosamente!'});";
 				   	header('location: '.URL.'ctrObjetivos/listarObjetivos');
 			   }
- 			$fichas = $this->mdlModel->getAsoFichas();
+ 			$fichas = $this->mdlModel->getAsoFichasObj();
 			$objetivos = $this->mdlModel->getObjetivos();
 			include APP . 'view/_templates/header.php';
 			include APP . 'view/productoT/consObjetivo.php';

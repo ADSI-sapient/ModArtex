@@ -96,7 +96,6 @@
                     <th>Referencia</th>
                     <th>Nombre</th>
                     <th>Color</th>
-                    <th>Talla</th>
                     <th>Cantidad Objetivo</th>
                     <th>Retirar</th>
                     </tr>
@@ -159,7 +158,6 @@
                       <th>Referencia</th>
                       <th>Nombre</th>
                       <th>Color</th>
-                      <th>Talla</th>
                       <th>Cantidad Actual</th>
                       <th>Agregar</th>
                       <th style="display: none"></th>
@@ -173,11 +171,10 @@
                       <td style="display:none;"><?= $ficha["Id_Ficha_Tecnica"]?></td>
                       <td><?= $ficha["Referencia"]?></td>
                       <td><?= $ficha["Nombre"]?></td>
-                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>
-                      <td><?= $ficha["Nombre_Talla"]?></td>
+                      <td><i class="fa fa-square" style="color: <?= $ficha["Codigo_Color"]?>; font-size: 200%;" title='<?= $ficha["Nombre_Color"]?>'></i></td>  
                       <td><?= $ficha["Cantidad"]?></td>
                       <td>
-                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Nombre_Color"]?>', '<?= $ficha["Id_Fichas_Tallas"]?>', '<?= $ficha["Nombre_Talla"]?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
+                       <button id="btnobj<?= $i; ?>" type="button" class="btn btn-box-tool btnasociarObje" onclick="asociarFichas('<?= $ficha["Id_Ficha_Tecnica"] ?>','<?= $ficha["Referencia"] ?>',  this, '<?= $i ?>', '<?= $ficha["Codigo_Color"]?>', '<?= $ficha["Nombre"]?>', '<?= $ficha["Nombre_Color"]?>', '<?= $ficha["Id_Ficha_Tecnica"]?>')"><i style="font-size: 150%; color: blue;" class="fa fa-plus"></i></button>
                       </td>
                       <td style="display: none" id="ICantidad"></td>
                       <td style="display:none;"><?= $ficha["Nombre_Color"]?></td>

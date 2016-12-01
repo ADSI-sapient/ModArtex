@@ -173,5 +173,12 @@
       	// 	$query->bindParam(2, $this->Id_Fichas_Tallas);
       	// 	return $query->execute();
       	// }
+
+      	public function getAsoFichasObj(){
+      		$sql = "CALL SP_GetAsoFichasObj()";
+      		$query = $this->db->prepare($sql);
+	    	$query->execute();
+	    	return $query->fetchAll();
+      	}
 	}
 ?>

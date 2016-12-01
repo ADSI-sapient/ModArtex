@@ -14,25 +14,7 @@
         <form data-parsley-validate="" action="<?php echo URL; ?>ctrCliente/regCliente" method="POST">
         <div class="box-body">
           <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-4">
-              <label class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
-            </div>
-            <div class="form-group col-lg-4">
-              <label class="">*Apellido:</label>
-              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="" maxlength="45">
-            </div>
-            <div class="form-group col-lg-4">
-              <label class="">Estado:</label>
-              <input type="text" name="Estado" class="form-control" value="Habilitado" disabled="">
-              <!-- <select class="form-control" name="estado" required="" disabled="">
-                <option value="Habilitado" >Habilitado</option>
-                <option value="Inhabilitado">Inhabilitado</option>
-              </select> -->
-            </div>
-          </div>
-          <div class="row col-lg-12" style="margin-left:0.5%">
-            <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-4">
               <label class="">*Tipo de Documento:</label>
               <select class="form-control" name="tipo_documento" data-parsley-required="">
                 <option value="C.C">C.C</option>
@@ -45,6 +27,26 @@
 
               <input type="text" class="form-control" id="documento" placeholder="" name="documento" onChange="validarSiDocumento(this.value);" data-parsley-required="" maxlength="20">
             </div>
+            <div class="form-group col-lg-4">
+              <label class="">Estado:</label>
+              <input type="text" name="Estado" class="form-control" value="Habilitado" disabled="">
+              <!-- <select class="form-control" name="estado" required="" disabled="">
+                <option value="Habilitado" >Habilitado</option>
+                <option value="Inhabilitado">Inhabilitado</option>
+              </select> -->
+            </div>
+          </div>
+          <div class="row col-lg-12" style="margin-left:0.5%">
+
+            <div class="form-group col-lg-4">
+              <label class="">*Nombre:</label>
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
+            </div>
+            <div class="form-group col-lg-4">
+              <label class="">*Apellido:</label>
+              <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" data-parsley-required="" maxlength="45">
+            </div>
+
             <div class="form-group col-lg-4">
               <label class="">E-mail:</label>
               <input type="email" class="form-control" id="email" placeholder="" name="email" onChange="validarEmail(this.value);" data-parsley-trigger="change" maxlength="45">

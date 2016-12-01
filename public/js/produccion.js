@@ -51,9 +51,13 @@
     //       $('.datepicker').css('z-index',zIndexModal+1);
     //     });
 
-    function editarOrdeP(idOrden, fechaRegistro, fechaEntrega, idEstado, lugarProduccion, numCliente, nombre)
+    function editarOrdeP(idOrden, fechaRegistro, fechaEntrega, idEstado, lugarProduccion, numCliente, nombre, idSolTipo)
     {
     	// var campos = $(ordenes).parent().parent();
+        $("#idSolPed").val("");
+        $("#idSolPedAnt").val(idSolTipo);
+        $("#clienteOrdn option:eq(0)").prop('selected', true).trigger("change");
+
         $("#numOrdenp").val(idOrden);
         $("#fecha_regOp").val(fechaRegistro);
         $("#fecha_entregaOp").val(fechaEntrega);
@@ -89,11 +93,14 @@
             var idFichaTec = productosAsoOrden[i]["Id_Ficha_Tecnica"];
             var idSolcProd = productosAsoOrden[i]["Id_Solicitud_Producto"];
             var lugar = productosAsoOrden[i]["LugarProduccion"];
+            var nombreProducto = productosAsoOrden[i]["Nombre_Prod"];
+            var idfichasTallas = productosAsoOrden[i]["Id_Fichas_Tallas"];
+            var nombreTalla = productosAsoOrden[i]["Nombre_Talla"];
 
             var tr ="";
 	    			var tr2 ="";
             tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
-            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"
+            "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
             +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='text' value='"
             +cantSat+"' name='cantSat[]'></td></tr>";
 
@@ -119,7 +126,7 @@
             }
 
 
-	    			// tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
+            // tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
         //     "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
         //     +cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"
         //     +cantSat+"' name='cantSat[]'></td><td><select name='lugarP[]' id='lugarP"
@@ -128,13 +135,39 @@
         //     +idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"
         //     +idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
             $('#tblFichasProducc tbody').append(tr);
-	          $('#tblSegFichOrdPro tbody').append(tr2);
+            $('#tblSegFichOrdPro tbody').append(tr2);
             var lugarPrd = "#lugarP"+idFichaTec;
-    			  var estadoFc = "#estadoF"+idFichaTec;
+            var estadoFc = "#estadoF"+idFichaTec;
             $(lugarPrd).val(lugar);
             $(estadoFc).val(codEstadoFicha);
+            if (lugar == "Fábrica" || lugar == "Satélite") {
+              $("#cantFabEdit"+idSolcProd).attr("disabled", "disabled");
+              $("#cantSatEdit"+idSolcProd).attr("disabled", "disabled");
+            }else{
+              $("#cantFabEdit"+idSolcProd).removeAttr("disabled");
+              $("#cantSatEdit"+idSolcProd).removeAttr("disabled");
+            }
           }
-    		}
+        }
+
+        $("#tblFichasProducc tbody tr").each(function(){
+          var solPro = $(this).find("td").eq(0).html();
+          var cantidad = $(this).find("td").eq(6).html();
+          $("#cantFabEdit"+solPro).on('keyup change', function(){
+            if ($("#cantFabEdit"+solPro).val() != "") {
+              $("#cantSatEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantFabEdit"+solPro).val()));
+            }else{
+              $("#cantSatEdit"+solPro).val(parseInt(cantidad));
+            }
+          });
+          $("#cantSatEdit"+solPro).on('keyup change', function(){
+            if ($("#cantSatEdit"+solPro).val() != "") {
+              $("#cantFabEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantSatEdit"+solPro).val()));
+            }else{
+              $("#cantFabEdit"+solPro).val(parseInt(cantidad));
+            }
+          });  
+        });
     	}).fail(function(){
         console.log("No trajo fichas asociadas a la orden");
       });
@@ -223,8 +256,10 @@
             $("#fecha_regOp").val(solicitudesCliente["Fecha_Registro"]);
             $("#fecha_entregaOp").val(solicitudesCliente["Fecha_Entrega"]);
             $("#estadoOp").val(solicitudesCliente["Id_Estado"]);
-            $("#clienteAsoPedProd").val(solicitudesCliente["Nombre"]);
-            //$("#lugarOp").val(lugarPrd);
+            var numDocumento = solicitudesCliente["Num_Documento"];
+            $("#clienteAsoPedProd").val(numDocumento+" - "+solicitudesCliente["Nombre"]);
+            $("#idSolPed").val(solicitudesCliente["Id_Solicitud"]);
+
             //$("#clienteOrdn").val();
             $.ajax({
               type: 'post',
@@ -242,18 +277,24 @@
                   var cantProducir = soliProduc[i]["Cantidad_Producir"];
                   var idFicha = soliProduc[i]["Id_Ficha_Tecnica"];
                   var idSolcProd = soliProduc[i]["Id_Solicitudes_Producto"];
+
+                  var nombreTalla = soliProduc[i]["Nombre_Talla"];
+                  var nomProducto = soliProduc[i]["Nombre"];
                 
                   tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
-                  "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"+nomColor+"</td><td>"
+                  "</td><td>"+nomProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+
+                  nombreTalla+"</td><td>"
                   +cantProducir+"</td><td><input id='cantFabEdit"+idSolcProd+
-                  "' disabled='' type='text' value='0' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+
+                  "' disabled='' type='text' value='"+cantProducir+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+
                   "' disabled='' type='text' value='0' name='cantSat[]'></td></tr>";
                   
                   $("#tblFichasProducc tbody").append(tr);
+
               });
             });
         }
       });
+                  $("#lugarOp option:eq(0)").prop("selected", true);
     }
 
     function devolverInsumos(){
@@ -463,15 +504,15 @@ function cambiarEstadoOrdenPro(idOrd){
 function selLugOrdSol(){
   $("#tblFichasProducc tbody tr").each(function(){
     var idSolPro = $(this).find("td").eq(0).html();
-    var cantTot = $(this).find("td").eq(4).html();
+    var cantTot = $(this).find("td").eq(6).html();
 
     if ($("#lugarOp").val() == "Fábrica"){
-      $("#cantFabEdit"+idSolPro).removeAttr("disabled");
+      $("#cantFabEdit"+idSolPro).attr("disabled", true);
       $("#cantFabEdit"+idSolPro).val(cantTot);
       $("#cantSatEdit"+idSolPro).attr("disabled", true);
       $("#cantSatEdit"+idSolPro).val(0);
     }else if($("#lugarOp").val() == "Satélite"){
-      $("#cantSatEdit"+idSolPro).removeAttr("disabled");
+      $("#cantSatEdit"+idSolPro).attr("disabled", true);
       $("#cantSatEdit"+idSolPro).val(cantTot);
       $("#cantFabEdit"+idSolPro).attr("disabled", true);
       $("#cantFabEdit"+idSolPro).val(0);
@@ -486,7 +527,7 @@ function selLugOrdSol(){
 function limpiarFormRegOrdPro(){
    $("#tblFichasProd tbody").empty();
    if ($("#tblFichasProd tbody tr").length == 0) {
-          var tr = "<tr id='tableVaciaProduccion'><td colspan='9' style='text-align: center;''>La tabla está vacía</td></tr>";
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='11' style='text-align: center;''>La tabla está vacía</td></tr>";
           $("#tblFichasProd tbody").append(tr);
     }
     $("#selectLugarProducc").attr("disabled", true);
@@ -496,12 +537,15 @@ function limpiarFormRegOrdPro(){
 function actualizarOrdenProd(){
   var numOrden = $("#numOrdenp").val();
   var lugarProduc = $("#lugarOp").val();
+  var idPed = $("#idSolPed").val();
+  var idSolPed = $("#idSolPed").val();
+  var idSolAnt = $("#idSolPedAnt").val();
 
   $.ajax({
       type: 'POST',
       dataType: 'json',
       url: uri+'ctrProduccion/editarOrdenProduccion',
-      data: {numOrdenp: numOrden, lugarOp: lugarProduc}
+      data: {idSolAnt:idSolAnt, idSolPed:idSolPed, numOrdenp: numOrden, lugarOp: lugarProduc}
     }).done(function(){
       $("#tblFichasProducc tbody tr").each(function(){
         var idSolProd = $(this).find("td").eq(0).html();
@@ -512,7 +556,7 @@ function actualizarOrdenProd(){
             type: 'POST',
             dataType: 'json',
             url: uri+'ctrProduccion/registrarSolicitudesOrdenes',
-            data: {idSolcProd: idSolProd, numOrdenp: numOrden, cantFab: cantFabr, cantSat: cantSat}
+            data: {idPed: idPed, idSolcProd: idSolProd, numOrdenp: numOrden, cantFab: cantFabr, cantSat: cantSat}
         }).done(function(resp){
             location.href = uri+'ctrProduccion/consOrden';
         });

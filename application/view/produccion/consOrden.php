@@ -124,7 +124,7 @@
 
 
                     <?php if ($ordenProduccion["Id_Estado"] == 5): ?>
-                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Id_Solicitudes_Tipo"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
                     <?php endif ?>
 
 
@@ -170,6 +170,8 @@
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR ORDEN DE PRODUCCIÓN</b></h4>
             </div>
             <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden">
+            <input type="hidden" id="idSolPed" name="idSolPed">
+            <input type="hidden" id="idSolPedAnt" name="idSolPedAnt">
             <div class="modal-body" style="padding:10px;">
               <input type="hidden" name="numOrdenp" id="numOrdenp">
               <div class="row col-sm-12">
@@ -216,6 +218,7 @@
                     <label for="clienteOrdn" class="">Pedidos:</label>
                     <br>
                     <select onchange="asoPedAOrden(this);" class="form-control" name="clienteOrdn" id="clienteOrdn" style="width: 100%;" >
+                      <option selected="selected"></option>
                       <?php foreach ($pedidosCliente as $cliente): ?>
                         <option value="<?= $cliente["Id_Solicitud"] ?>"><?= $cliente["Nombre"] ." - Pedido: ". $cliente["Id_Solicitud"]?></option>
                       <?php endforeach ?>
@@ -244,9 +247,10 @@
                     <tr class="active">
                       <th style="display: none;"></th>
                       <th>Referencia</th>
-                      <!-- <th>Nombre</th> -->
+                      <th>Nombre</th>
                       <th>Muestra</th>
                       <th>Color</th>
+                      <th>Talla</th>
                       <th>Cantidad Total</th>
                       <th>Cantidad Fábrica</th>
                       <th>Cantidad Satélite</th>

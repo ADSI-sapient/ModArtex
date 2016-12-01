@@ -486,6 +486,8 @@
       
      //carga productos asociados al pedido
       function cargarProductosAsoPed(idped, fechaTerm, modalPa){
+        $('#selectLugarProducc option:eq(0)').prop('selected', true);
+        selectLugarProduccion($('#selectLugarProducc').val());
         $.ajax({
           type: 'post',
           dataType: 'json',
