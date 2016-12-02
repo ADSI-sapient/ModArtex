@@ -223,7 +223,7 @@
     function asociarProductos(idf, ref, color, vlrprodto, fichas, idbton, cantidad, nombColor, nombreProducto, nomTalla, idFTalla){
 
         var campos = $(fichas).parent().parent();
-        $("#tablaFicha tbody tr #tblFichasVacia").remove();
+        $("#tblFichasVacia").parent().remove();
 
         var prodParaAgregar = idFTalla;
         var prodEnTabla = $("#idFichaTalla"+idFTalla).val();
@@ -423,7 +423,7 @@
         });
         $("#vlr_total").val(valor);
 
-        $("#tablaFicha tbody .trpedidos").remove();
+        $("#tblFichasVacia, .trpedidos").parent().empty();
         var tr = "<tr><td id='tblFichasVacia' colspan='10' style='text-align:center;'></td></tr>";
         $("#tablaFicha").append(tr);
         $("#tblFichasVacia").html("No hay productos asociados");

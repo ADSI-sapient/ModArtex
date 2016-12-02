@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2016 a las 20:05:29
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.5.38
+-- Tiempo de generación: 02-12-2016 a las 05:48:14
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.5.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -519,9 +519,9 @@ CREATE TABLE `tbl_colores_insumos` (
 
 INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
 (1, 1, 1, 1000, 32.67, 101),
-(2, 2, 1, 7700, 68.19, 101),
-(3, 3, 1, 7681, 36.9, 101),
-(4, 2, 2, 3861, 59.69, 201);
+(2, 2, 1, 7589, 68.19, 101),
+(3, 3, 1, 7570, 36.9, 101),
+(4, 2, 2, 3799, 59.69, 201);
 
 -- --------------------------------------------------------
 
@@ -654,7 +654,7 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`, `Cantidad`) VALUES
 (1, 1, 1, 0),
 (2, 2, 1, 0),
-(3, 1, 2, 48),
+(3, 1, 2, 19),
 (4, 2, 2, 210),
 (5, 3, 2, 15);
 
@@ -800,10 +800,9 @@ CREATE TABLE `tbl_ordenesproduccion` (
 --
 
 INSERT INTO `tbl_ordenesproduccion` (`Num_Orden`, `Id_Estado`, `Fecha_Registro`, `LugarProduccion`) VALUES
-(1, 6, '2016-11-30', 'Fábrica-Satélite'),
-(2, 5, '2016-11-30', 'Fábrica'),
-(3, 5, '2016-12-01', 'Fábrica'),
-(4, 5, '2016-12-01', 'Fábrica');
+(1, 5, '2016-12-01', 'Fábrica'),
+(2, 5, '2016-12-01', 'Fábrica-Satélite'),
+(3, 5, '2016-12-01', 'Fábrica-Satélite');
 
 -- --------------------------------------------------------
 
@@ -1025,13 +1024,10 @@ CREATE TABLE `tbl_solicitudes` (
 --
 
 INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '4851215151', '2016-11-30', 48000),
-(2, '4851215151', '2016-11-30', 345500),
-(3, '4851215151', '2016-11-30', 39000),
-(4, '1017223026', '2016-12-01', 330000),
-(5, '4851215151', '2016-12-01', 61000),
-(6, '4851215151', '2016-12-01', 120000),
-(7, '4851215151', '2016-12-01', 13000);
+(1, '4851215151', '2016-12-01', 128500),
+(2, '4851215151', '2016-12-01', 362500),
+(3, '4851215151', '2016-12-01', 24000),
+(4, '4851215151', '2016-12-01', 149500);
 
 -- --------------------------------------------------------
 
@@ -1053,8 +1049,12 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
 --
 
 INSERT INTO `tbl_solicitudes_ordenesproduccion` (`Codigo`, `Id_Solicitud_Producto`, `Num_Orden`, `Id_Estado`, `Cantidad_Fabrica`, `Cantidad_Satelite`) VALUES
-(1, 6, 1, 5, 2, 1),
-(37, 14, 4, 5, 2, 0);
+(53, 3, 1, 5, 25, 0),
+(54, 4, 1, 5, 2, 0),
+(55, 6, 1, 5, 7, 0),
+(56, 5, 1, 5, 1, 0),
+(57, 7, 1, 5, 14, 0),
+(70, 8, 3, 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1078,18 +1078,15 @@ CREATE TABLE `tbl_solicitudes_producto` (
 --
 
 INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Cant_Cotizada`, `Id_Fichas_Tallas`) VALUES
-(3, 1, 0, '0', 2, 48000, NULL, 2),
-(4, 2, 0, '0', 12, 144000, NULL, 1),
-(5, 2, 10, '0', 21, 201500, NULL, 3),
-(6, 3, 3, '0', 3, 39000, NULL, 3),
-(7, 4, 0, '0', 12, 78000, NULL, 3),
-(8, 4, 0, '0', 21, 252000, NULL, 1),
-(9, 5, 0, '0', 2, 24000, NULL, 1),
-(10, 5, 0, '0', 2, 13000, NULL, 4),
-(11, 5, 0, '0', 2, 24000, NULL, 2),
-(12, 6, 0, '0', 5, 60000, NULL, 1),
-(13, 6, 0, '0', 5, 60000, NULL, 2),
-(14, 7, 0, '0', 2, 13000, NULL, 5);
+(1, 2, 0, 'k', 5, 32500, 5, 3),
+(2, 2, 0, 'k', 8, 96000, 8, 1),
+(3, 3, 0, '0', 25, 162500, NULL, 4),
+(4, 3, 0, '0', 2, 13000, NULL, 3),
+(5, 3, 0, '0', 1, 12000, NULL, 1),
+(6, 3, 0, '0', 7, 84000, NULL, 2),
+(7, 3, 0, '0', 14, 91000, NULL, 5),
+(8, 4, 0, '0', 2, 24000, NULL, 1),
+(9, 5, 21, '0', 2, 149500, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -1111,13 +1108,11 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 --
 
 INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
-(1, 1, 2, '2016-12-02', NULL, 8),
-(2, 2, 2, '2017-02-03', NULL, 6),
-(3, 3, 2, '2016-12-02', NULL, 6),
-(4, 4, 2, '2017-01-06', NULL, 6),
-(5, 5, 2, '2017-01-06', NULL, 6),
-(6, 6, 2, '2016-12-31', NULL, 5),
-(7, 7, 2, '2016-12-31', NULL, 6);
+(1, 1, 1, NULL, '2016-12-30', 2),
+(2, 1, 2, '2016-12-22', NULL, 6),
+(3, 2, 2, '2016-12-29', NULL, 6),
+(4, 3, 2, '2016-12-25', NULL, 6),
+(5, 4, 2, '2016-12-29', NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -1507,7 +1502,7 @@ ALTER TABLE `tbl_objetivos`
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
 ALTER TABLE `tbl_ordenesproduccion`
-  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
@@ -1547,22 +1542,22 @@ ALTER TABLE `tbl_salida_ficha`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
 ALTER TABLE `tbl_solicitudes_ordenesproduccion`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --

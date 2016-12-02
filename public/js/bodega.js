@@ -134,9 +134,10 @@ $('document').ready(function(){
       var colorAAgregar = idCol;
       var colorEnTabla = $('#idColr'+$(color).find("td").eq(4).html()).val();
 
-      if (colorAAgregar !== undefined) {
+      console.log(colorAAgregar, colorEnTabla);
+      if (colorAAgregar !== colorEnTabla) {
 
-        var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+'</td><td>'+$(color).find("td").eq(3).html()+'</td><td style="display: none; ">'+$(color).find("td").eq(4).html()+'<input type="hidden" id="idColr'+$(color).find("td").eq(4).html()+'" /></td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove(); mensajeTablaVacia(); removeDisabledBtn(this);"><i class="fa fa-times" style="font-size: 150%;"></i></button></td></tr>';
+        var fila = '<tr class="box box-solid collapsed-box"><td>'+(cont+=1)+'</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+'</td><td>'+$(color).find("td").eq(3).html()+'</td><td style="display:none;">'+$(color).find("td").eq(4).html()+'<input type="hidden" id="idColr'+$(color).find("td").eq(4).html()+'" value="'+$(color).find("td").eq(4).html()+'" /></td><td><button type="button" class="btn btn-box-tool" onclick="$(this).parent().parent().remove(); mensajeTablaVacia(); removeDisabledBtn(this);"><i class="fa fa-times" style="font-size: 150%;"></i></button></td></tr>';
         $("#tbody-colAsocInsumos").append(fila);        
       }
       mensajeTablaVacia();
@@ -149,7 +150,7 @@ $('document').ready(function(){
 
   function limpiarTableColAsoc(){
       $("#tbody-colAsocInsumos tr").each(function(){
-        $("#btnAgreColAsoc"+$(this).find("td").eq(4).html()).attr("disabled", false);
+        // $("#btnAgreColAsoc"+$(this).find("td").eq(4).html()).attr("disabled", false);
       });
       $("#tbody-colAsocInsumos").empty();
       mensajeTablaVacia();

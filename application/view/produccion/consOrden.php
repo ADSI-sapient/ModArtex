@@ -96,8 +96,8 @@
             <?php endif ?>      
               <span class="info-box-icon">
                  <?php if ($ordenProduccion["LugarProduccion"] == "Fábrica"): ?>
-                    <i style="margin-top: 15%" class="fa fa-industry">
-                      <span class="info-box-text">Fábrica</span>
+                    <i style="margin-top: 10%" class="fa fa-industry">
+                      <span class="info-box-text" style="margin-top: 5%">Fábrica</span>
                     </i>
                  <?php endif ?>    
                  <?php if ($ordenProduccion["LugarProduccion"] == "Satélite"): ?>  
@@ -158,10 +158,6 @@
   <!-- Incio modal modificar orden -->
 
 
-
-
-
-
     <div class="modal fade" id="mdlEditOrdenP" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
         <div style="width: 70% !important;" class="modal-dialog" role="document">
           <div class="modal-content" style="border-radius:10px;">
@@ -169,14 +165,15 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR ORDEN DE PRODUCCIÓN</b></h4>
             </div>
-            <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden">
+            <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden" data-parsley-validate="">
             <input type="hidden" id="idSolPed" name="idSolPed">
             <input type="hidden" id="idSolPedAnt" name="idSolPedAnt">
             <div class="modal-body" style="padding:10px;">
               <input type="hidden" name="numOrdenp" id="numOrdenp">
-              <div class="row col-sm-12">
-                <div class="form-group col-sm-6">
-                <div class="col-sm-12">
+              <div class="row">
+              <div class="col-sm-12">
+                <div class="col-sm-6">
+                <div class="form-group">
                   <label class="">Fecha Registro:</label>
                   <div class="input-group date">
                     <div class="input-group-addon" style="border-radius:5px;">
@@ -186,8 +183,8 @@
                   </div>
                   </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <div class="form-group">
                     <label class="">*Fecha Terminación:</label>
                       <div class="input-group">
                         <div class="input-group-addon" style="border-radius:5px;">
@@ -196,25 +193,29 @@
                         <input readonly="" type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
                       </div>
                     </div>
-                  </div>
+                    </div>
+                    </div>
               </div>  
-              <div class="row col-sm-12">
+              <div class="row">
+              <div class="col-sm-12">
               <div class="col-sm-6">
-                <div class="form-group col-sm-12">
+                <div class="form-group">
                     <label for="estadoOp" class="">Estado:</label>
                     <input type="text" class="form-control" value="Pendiente" readonly="" style="border-radius:5px;">
                 </div>
                </div>
                 <div class="col-sm-6">
-                  <div class="form-group col-sm-12 "> 
+                  <div class="form-group "> 
                      <label for="clienteOrdn" class="">Cliente:</label>
                      <input type="text" id="clienteAsoPedProd" readonly="" name="" class="form-control">
                   </div>
                 </div>
             </div>
-            <div class="row col-sm-12">
+            </div>
+            <div class="row">
+            <div class="col-sm-12">
                <div class="col-sm-6"> 
-                   <div class="form-group col-sm-12 ">
+                   <div class="form-group">
                     <label for="clienteOrdn" class="">Pedidos:</label>
                     <br>
                     <select onchange="asoPedAOrden(this);" class="form-control" name="clienteOrdn" id="clienteOrdn" style="width: 100%;" >
@@ -226,7 +227,7 @@
                   </div>
                  </div>
                  <div class="form-group col-sm-6">
-                                    <div class="form-group col-sm-12 ">
+                    <div class="form-group">
                     <label for="lugarOp" class="">*Lugar Producción:</label>
                     <select onchange="selLugOrdSol()" class="form-control" name="lugarOp" id="lugarOp" style="border-radius:5px;" >
                       <option value="Fábrica">Fábrica</option>
@@ -235,14 +236,15 @@
                     </select>
                 </div>
                 </div>
+                </div>
             </div>    
                   <!-- <button type="button" class="btn btn-primary pull-right" style="margin-top: 4.7%; margin-right:2.6%;" data-toggle="modal" data-target="#asociarPedidMod">Asociar Pedido</button> -->
-           <div class="row">       
+           <div class="row">   
            <div class="col-sm-12">       
-           <div class="col-sm-12">       
-            <div class="table">
-              <div class="col-sm-12 table-responsive scrolltablas">
-                <table class="table table-responsive table-hover" id="tblFichasProducc">
+           <div class="col-sm-12">      
+            <div class="table scrolltablas">
+              <div class="table-responsive">
+                <table class="table table-hover" id="tblFichasProducc">
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
@@ -263,13 +265,16 @@
             </div>
             </div>
             </div>
-          </div>  
+          </div>
+
+
+
             </div>
             <div class="modal-footer" >
               <div class="row col-lg-12">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-3">
-                    <button type="button" onclick="actualizarOrdenProd()" class="btn btn-warning btn-md btn-block" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>                    
+                    <button type="button" onclick="actualizarOrdenProd();" class="btn btn-warning btn-md btn-block" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>      
                   </div>
                   <div class="col-md-3">
                     <button type="button" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>

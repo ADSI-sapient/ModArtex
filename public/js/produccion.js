@@ -101,8 +101,8 @@
 	    			var tr2 ="";
             tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
             "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
-            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='text' value='"
-            +cantSat+"' name='cantSat[]'></td></tr>";
+            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='number' value='"+cantFab+"' name='cantFab[]' data-parsley-required min='0'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='number' value='"
+            +cantSat+"' name='cantSat[]' min='0' data-parsley-required></td></tr>";
 
             tr2 = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td style='display: none;'><input id='progressEstadoSolProd"+idSolcProd+"' type='hidden' value="+codEstadoFicha+"></td><td>"+referencia+
             "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"
@@ -155,18 +155,28 @@
           var cantidad = $(this).find("td").eq(6).html();
           $("#cantFabEdit"+solPro).on('keyup change', function(){
             if ($("#cantFabEdit"+solPro).val() != "") {
-              $("#cantSatEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantFabEdit"+solPro).val()));
+                if ($("#cantFabEdit"+solPro).val() > parseInt(cantidad) || $("#cantFabEdit"+solPro).val() < 0) {
+                  $("#cantFabEdit"+solPro).val(parseInt(cantidad));
+                  $("#cantSatEdit"+solPro).val(0);
+                }else{
+                  $("#cantSatEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantFabEdit"+solPro).val()));
+                }
             }else{
               $("#cantSatEdit"+solPro).val(parseInt(cantidad));
             }
           });
           $("#cantSatEdit"+solPro).on('keyup change', function(){
             if ($("#cantSatEdit"+solPro).val() != "") {
-              $("#cantFabEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantSatEdit"+solPro).val()));
+              if ($("#cantSatEdit"+solPro).val() > parseInt(cantidad)  || $("#cantSatEdit"+solPro).val() < 0) {
+                  $("#cantSatEdit"+solPro).val(parseInt(cantidad));
+                  $("#cantFabEdit"+solPro).val(0);
+              }else{
+                $("#cantFabEdit"+solPro).val(parseInt(cantidad) - parseInt($("#cantSatEdit"+solPro).val()));
+              }
             }else{
               $("#cantFabEdit"+solPro).val(parseInt(cantidad));
             }
-          });  
+          });
         });
     	}).fail(function(){
         console.log("No trajo fichas asociadas a la orden");
@@ -285,11 +295,36 @@
                   "</td><td>"+nomProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+
                   nombreTalla+"</td><td>"
                   +cantProducir+"</td><td><input id='cantFabEdit"+idSolcProd+
-                  "' disabled='' type='text' value='"+cantProducir+"' name='cantFab[]'></td><td><input id='cantSatEdit"+idSolcProd+
-                  "' disabled='' type='text' value='0' name='cantSat[]'></td></tr>";
+                  "' disabled='' type='number' value='"+cantProducir+"' name='cantFab[]' min='0'></td><td><input id='cantSatEdit"+idSolcProd+
+                  "' disabled='' type='number' value='0' name='cantSat[]' min='0'></td></tr>";
                   
                   $("#tblFichasProducc tbody").append(tr);
 
+
+                  $("#cantFabEdit"+idSolcProd).on('keyup change', function(){
+                  if ($("#cantFabEdit"+idSolcProd).val() != "") {
+                      if ($("#cantFabEdit"+idSolcProd).val() > parseInt(cantProducir) || $("#cantFabEdit"+idSolcProd).val() < 0) {
+                        $("#cantFabEdit"+idSolcProd).val(parseInt(cantProducir));
+                        $("#cantSatEdit"+idSolcProd).val(0);
+                      }else{
+                        $("#cantSatEdit"+idSolcProd).val(parseInt(cantProducir) - parseInt($("#cantFabEdit"+idSolcProd).val()));
+                      }
+                  }else{
+                    $("#cantSatEdit"+idSolcProd).val(parseInt(cantProducir));
+                  }
+                });
+                $("#cantSatEdit"+idSolcProd).on('keyup change', function(){
+                  if ($("#cantSatEdit"+idSolcProd).val() != "") {
+                    if ($("#cantSatEdit"+idSolcProd).val() > parseInt(cantProducir)  || $("#cantSatEdit"+idSolcProd).val() < 0) {
+                        $("#cantSatEdit"+idSolcProd).val(parseInt(cantProducir));
+                        $("#cantFabEdit"+idSolcProd).val(0);
+                    }else{
+                      $("#cantFabEdit"+idSolcProd).val(parseInt(cantProducir) - parseInt($("#cantSatEdit"+idSolcProd).val()));
+                    }
+                  }else{
+                    $("#cantFabEdit"+idSolcProd).val(parseInt(cantProducir));
+                  }
+                });
               });
             });
         }
@@ -389,6 +424,7 @@ function regOrdenProducc(){
 
   var band = true;
   if ($("#selectLugarProducc").val() == "Fábrica-Satélite") {
+
     $('#tblFichasProd tbody tr').each(function(){
       var solPro = $(this).find("td").eq(0).html();
       var cantidad = $(this).find("td").eq(6).html();
@@ -457,7 +493,7 @@ function regOrdenProducc(){
 function cambiarEstadoOrdenPro(idOrd){
   swal({
         title: "¿Está seguro de iniciar la producción?",   
-        text: "No podra editar la orden",  
+        text: "No podrá editar la orden",  
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -519,6 +555,9 @@ function selLugOrdSol(){
     }else if($("#lugarOp").val() == "Fábrica-Satélite"){
       $("#cantSatEdit"+idSolPro).removeAttr("disabled");
       $("#cantFabEdit"+idSolPro).removeAttr("disabled");
+      $("#cantSatEdit"+idSolPro).parsley().validate();
+      $("#cantFabEdit"+idSolPro).parsley().validate();
+
     }
   });
 }
@@ -532,7 +571,6 @@ function limpiarFormRegOrdPro(){
     }
     $("#selectLugarProducc").attr("disabled", true);
 }
-
 
 function actualizarOrdenProd(){
   var numOrden = $("#numOrdenp").val();
@@ -551,7 +589,7 @@ function actualizarOrdenProd(){
         var idSolProd = $(this).find("td").eq(0).html();
         var cantFabr =  $("#cantFabEdit"+idSolProd).val();
         var cantSat = $("#cantSatEdit"+idSolProd).val();
-
+        
           $.ajax({
             type: 'POST',
             dataType: 'json',

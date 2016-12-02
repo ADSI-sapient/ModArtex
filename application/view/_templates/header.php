@@ -294,22 +294,32 @@
     <div class="modal-content" style="border-radius: 15px;">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">CORREO DE LA EMPRESA</h3>
+          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Correo de la Empresa</h3>
       </div>
       <form action="<?= URL; ?>ctrUsuario/cambiarCorreoEmpresa" method="POST">
       <div class="modal-body">  
-        <div class="row col-md-12">
-          <label for="nombre" class="">Correo:</label>
-          <input type="text" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="nombre" class="">Correo Electrónico:</label>
+            <input type="text" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
+          </div>
         </div>
-        <div class="row col-md-12">
-          <label for="nombre" class="">Clave del correo:</label>
-          <input type="password" class="form-control"  placeholder="" name="clave" data-parsley-required="" maxlength="45">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="nombre" class="">Contraseña:</label>
+            <input type="password" class="form-control"  placeholder="" name="clave" data-parsley-required="" maxlength="45">
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-default pull-right btn-lg" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
-        <button type="submit" class="btn btn-default btn-lg" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Actualizar</button>
+      <div class="modal-footer" style="margin-top: none;">
+        <div class="form-group col-sm-12">
+          <div class="col-md-offset-1 col-md-5">
+            <button type="submit" class="btn btn-warning btn-md btn-block"><i class="fa fa-refresh" aria-hidden="true"></i><b> Actualizar</b></button>
+          </div>
+          <div class="col-md-5">
+            <button type="button" class="btn btn-default btn-md btn-block" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle"></i> Cerrar</button>
+          </div>
+        </div>
       </div>
       </form>
   </div>

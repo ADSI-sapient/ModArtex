@@ -28,7 +28,7 @@
               <label class="">Fecha registro:</label>
               <div class="">
               <div class="input-group date">
-               <div class="input-group-addon">
+               <div class="input-group-addon" style="border-radius:5px;">
                   <i class="fa fa-calendar"></i>
                 </div>
               <input type="text" name="FechaRegistro" id="Fecha_Registro" readonly="" class="form-control" value="<?php echo date ("Y-m-d"); ?>"  >
