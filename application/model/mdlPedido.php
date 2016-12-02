@@ -198,7 +198,6 @@
       	}
 
       	public function validarExisteIns(){
-
                   // $sql = "CALL SP_validarExistenciasInsu(?)";
       		$sql = "CALL SP_ValidarExistenciasInsumos(?)";
       		$query = $this->db->prepare($sql);

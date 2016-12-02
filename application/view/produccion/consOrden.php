@@ -12,77 +12,6 @@
           <h3 class="box-title"><strong>LISTAR ÓRDENES DE PRODUCCIÓN</strong></h3>
         </div>
         <div id="ordenesP" class="box-body" style="padding-top: 20px;">
-
-          <!-- <form class="form-horizontal">
-            <div class="col-md-12">
-              <div class="table table-responsive">
-                <table class="table table-bordered paginate-search-table" id="tblOrdenes">
-                  <thead>
-                    <tr class="">
-                      <th>#</th>
-                      <th>Fecha Registro</th>
-                      <th>Fecha Terminación</th>
-                      <th style="display: none;"></th>
-                      <th>Estado</th>
-                      <th>Lugar</th>
-                      <th style="display: none;"></th>
-                      <th style="display: none;"></th>
-                      <th style="display: none;"></th>
-                      <th style="display: none;"></th>
-                      <th style="text-align: center;">Editar</th>
-                      <th style="text-align: center;">Generar O.P</th>
-                      <th style="text-align: center;">Cancelar</th>
-                      <th style="text-align: center;">Iniciar</th>
-                    </tr>
-                  </thead>
-                  <tbody class="list">
-                  <?php foreach ($ordenesProduccion as $ordenProduccion): ?>
-                    <tr>
-                      <td><?= $ordenProduccion["Num_Orden"] ?></td>
-                      <td><?= $ordenProduccion["Fecha_Registro"] ?></td>
-                      <td><?= $ordenProduccion["Fecha_Entrega"] ?></td>
-                      <td style="display:none;"><?= $ordenProduccion["Id_Estado"] ?></td>
-                      <td><?= $ordenProduccion["Nombre_Estado"] ?></td>
-                      <td><?= $ordenProduccion["LugarProduccion"] ?></td>
-                      <td style="display: none;"></td>
-                      <td style="display:none;"><?= $ordenProduccion["Num_Documento"] ?></td>
-                      <td style="display:none;"><?= $ordenProduccion["Id_Solicitud"] ?></td>
-                      <td style="display:none;"><?= $ordenProduccion["Nombre"] ?></td>
-                      <td style="text-align: center;">
-                      <?php if ($ordenProduccion["Id_Estado"] != 5): ?>
-                        <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-pencil-square-o fa-lg" style="font-size: 150%;"></i></button>
-                        <?php else: ?>
-                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', this); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i  style="font-size: 150%;" class="fa fa-pencil-square-o fa-lg" name="btncarg"></i></button>
-                      <?php endif ?>
-                      </td>
-                      <td style="text-align: center;">
-                      <?php if ($ordenProduccion["Id_Estado"] == 4): ?>
-                        <button disabled="" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
-                        <?php else: ?>
-                        <button type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" name="btncarg" style="font-size: 150%;"></i></button>
-                      <?php endif ?>
-                      </td>
-                      <td style="text-align: center;">
-                      <?php if ($ordenProduccion["Id_Estado"] == 4): ?>
-                        <button disabled="" type="button" class="btn btn-box-tool"><i class="fa fa-ban fa-lg" style="color:red; font-size: 150%;"></i></button>
-                      <?php else: ?>
-                        <button type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban fa-lg" style="color:red; font-size: 150%;"></i></button>
-                      <?php endif ?>
-                      </td>
-                      <td style="text-align: center;">
-                        <?php if ($ordenProduccion["Id_Estado"] != 5): ?>
-                          <button disabled="" type="button" class="btn btn-box-tool"><i class=" fa fa-arrow-circle-right" style="color: green; font-size: 150%;"></i></button>
-                        <?php else: ?>
-                          <button type="button" onclick="cambiarEstadoOrdenPro(<?= $ordenProduccion["Num_Orden"] ?>)" class="btn btn-box-tool"><i class="fa fa-arrow-circle-right" style="color: green; font-size: 150%;"></i></button>
-                        <?php endif ?>    
-                      </td>
-                    </tr>
-                  <?php endforeach ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </form> -->
           <?php foreach ($ordenesProduccion as $ordenProduccion): ?>
             <div class="col-md-3 col-sm-6 col-xs-12">
             <?php if ($ordenProduccion["Id_Estado"] == 5): ?>
@@ -134,7 +63,7 @@
                       <button disabled="" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
                     <?php endif ?> 
                     <?php if ($ordenProduccion["Id_Estado"] == 5 || $ordenProduccion["Id_Estado"] == 6): ?> 
-                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban" style="color:red; font-size: 150%"></i></button>
+                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Id_Solicitud"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban" style="color:red; font-size: 150%"></i></button>
                     <?php endif ?>
 
                     <?php if ($ordenProduccion["Id_Estado"] == 6): ?>
@@ -165,7 +94,7 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>MODIFICAR ORDEN DE PRODUCCIÓN</b></h4>
             </div>
-            <form role="form" action="<?= URL ?>ctrProduccion/editarOrdenProduccion" method="post" id="dtllOrden" data-parsley-validate="">
+            <form role="form" action="" method="post" id="dtllOrden" data-parsley-validate="">
             <input type="hidden" id="idSolPed" name="idSolPed">
             <input type="hidden" id="idSolPedAnt" name="idSolPedAnt">
             <div class="modal-body" style="padding:10px;">

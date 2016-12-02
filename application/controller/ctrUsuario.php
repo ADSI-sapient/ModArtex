@@ -170,5 +170,10 @@ class CtrUsuario extends Controller{
 
 		header('location: '.URL.'home/index');
 	}
+
+	public function encriptarClave(){
+		$pass = sha1($_POST["claveIn"]);
+		echo json_encode($pass);
+	}
 }
 ?>

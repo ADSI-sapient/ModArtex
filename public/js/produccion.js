@@ -101,7 +101,7 @@
 	    			var tr2 ="";
             tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
             "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
-            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' disabled='' type='number' value='"+cantFab+"' name='cantFab[]' data-parsley-required min='0'></td><td><input id='cantSatEdit"+idSolcProd+"' disabled='' type='number' value='"
+            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' readonly='' type='number' value='"+cantFab+"' name='cantFab[]' data-parsley-required min='0'></td><td><input id='cantSatEdit"+idSolcProd+"' readonly='' type='number' value='"
             +cantSat+"' name='cantSat[]' min='0' data-parsley-required></td></tr>";
 
             tr2 = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td style='display: none;'><input id='progressEstadoSolProd"+idSolcProd+"' type='hidden' value="+codEstadoFicha+"></td><td>"+referencia+
@@ -141,11 +141,11 @@
             $(lugarPrd).val(lugar);
             $(estadoFc).val(codEstadoFicha);
             if (lugar == "Fábrica" || lugar == "Satélite") {
-              $("#cantFabEdit"+idSolcProd).attr("disabled", "disabled");
-              $("#cantSatEdit"+idSolcProd).attr("disabled", "disabled");
+              $("#cantFabEdit"+idSolcProd).attr("readonly", true);
+              $("#cantSatEdit"+idSolcProd).attr("readonly", true);
             }else{
-              $("#cantFabEdit"+idSolcProd).removeAttr("disabled");
-              $("#cantSatEdit"+idSolcProd).removeAttr("disabled");
+              $("#cantFabEdit"+idSolcProd).removeAttr("readonly");
+              $("#cantSatEdit"+idSolcProd).removeAttr("readonly");
             }
           }
         }
@@ -183,7 +183,7 @@
       });
     }
 
-    function cancelarOrdenP(idOrden){
+    function cancelarOrdenP(idOrden, idSol){
 
         swal({
           title: "¿Está seguro de cancelar esta orden de producción?",   
@@ -195,7 +195,7 @@
           cancelButtonText: "No",
           closeOnConfirm: true,
           closeOnCancel: true },
-          function(isConfirm){
+          function(){
           $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -206,41 +206,96 @@
               var cont = 0;
               var band = false;
             $(resp.v).each(function(i){
-                // if(resp.v[i]["Id_Estado"] == 5){
-                //   $("#inputDescInsumos").val();
-                // }
-                if(resp.v[i]["Id_Estado"] == 6){
+              if (resp.v[0]["Estado_Orden"] == 5) {
+                devolverInsumosOrden(resp.v[i]["Id_Ficha_Tecnica"], resp.v[i]["Cantidad_Producir"]);
+              }else if(resp.v[0]["Estado_Orden"] == 6){
+                if(resp.v[i]["Id_Estado"] == 10){
+                  enviarProductoTerminado(resp.v[i]["Id_Fichas_Tallas"], resp.v[i]["Cantidad_Producir"], idOrden, idSol);
                   band = true;
-                  tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
-                  "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
-                  "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
-                  "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
+                  // tr += "<tr><td style='display: none;'>"+resp.v[i]["Id_Ficha_Tecnica"]+"</td><td>"+(cont+=1)+"</td><td>"+resp.v[i]["Referencia"]+
+                  // "</td><td><i class='fa fa-square' style='color:"+resp.v[i]["Codigo_Color"]+
+                  // "; font-size: 150%;'></td><td>"+resp.v[i]["Nombre_Color"]+"</td><td>"+resp.v[i]["Cantidad_Producir"]+
+                  // "</td><td><input id='inputInsADevolver"+resp.v[i]["Id_Ficha_Tecnica"]+"' class='form-control'></td></tr>";
+                }else if(resp.v[i]["Id_Estado"] == 5){
+                  devolverInsumosOrden(resp.v[i]["Id_Ficha_Tecnica"], resp.v[i]["Cantidad_Producir"]);
+                }else if(resp.v[i]["Id_Estado"] == 7 && (resp.v[i]["Num_Documento"] != '1017223026')){
+                  enviarProductoTerminado(resp.v[i]["Id_Fichas_Tallas"], resp.v[i]["Cantidad_Producir"], idOrden, idSol);
                 }
+              }
             });
             if (band) {
-              $("#tbodyDevolverInsumos").empty();
-              $("#tbodyDevolverInsumos").append(tr);
-              $("#devolverInsumos").modal('show');
-              $("#idOrdenHidden").val(idOrden);
+              // $("#tbodyDevolverInsumos").empty();
+              // $("#tbodyDevolverInsumos").append(tr);
+              // $("#devolverInsumos").modal('show');
+              // $("#idOrdenHidden").val(idOrden);
             }else{
-              // $.ajax({
-              //   type: 'post',
-              //   dataType: 'json',
-              //   url: uri+"ctrProduccion/cancelarOrdenProd",
-              //   data:{id_orden: idOrden}
-              //   }).done(function(respuesta){
-              //     if (respuesta.r == 1) {
-              //       location.href = uri+'ctrProduccion/consOrden';
-              //     }else{
-              //       alert("Error al cancelar la orden");
-              //     }
-              //   }).fail(function(){
-              //   }) 
+              $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: uri+"ctrProduccion/cancelarOrdenProd",
+                data:{id_orden: idOrden, idSol: idSol}
+                }).done(function(respuesta){
+                  if (respuesta.r == 1) {
+                    location.href = uri+'ctrProduccion/consOrden';
+                  }else{
+                    alert("Error al cancelar la orden");
+                  }
+                });
+            location.href = uri+"ctrProduccion/consOrden";
             }
           }).fail(function(){
           });
           });
         }
+
+function devolverInsumosOrden(idFichatec, cantProducir){
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: uri+'ctrPedido/validaExistInsumos',
+      data: {id_fichat: idFichatec}
+    }).done(function(res){
+      $.each(res.r, function(i){
+        var idExisInsCol = res.r[i]["Id_Existencias_InsCol"];
+        var cantAumentarIns = res.r[i]["Cant_Necesaria"] * cantProducir;
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: uri+'ctrProduccion/devolverInsumos',
+            data: {idExisInsCol: idExisInsCol, cantAumentarIns: cantAumentarIns}
+          }).done(function(respuesta){
+            // console.log(oBan);
+            oBan = true;
+          });  
+      });
+    });
+}
+
+
+function enviarProductoTerminado(idFichaTalla, cantDevolver, idOrden, idSol){
+     $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+"ctrProduccion/aumentarProdTerm",
+        data:{idFichaTalla: idFichaTalla, cantDevolver: cantDevolver}
+      }).done(function(resp){
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          url: uri+"ctrProduccion/cancelarOrdenProd",
+          data:{id_orden: idOrden, idSol: idSol}
+          }).done(function(respuesta){
+            if (respuesta.r == 1) {
+              location.href = uri+'ctrProduccion/consOrden';
+            }else{
+              alert("Error al cancelar la orden");
+            }
+          });
+      location.href = uri+"ctrProduccion/consOrden";
+      });
+}
+
+
 
   //permite seleccionar y asociar un cliente al pedido
     $("#clienteOrdn").select2({
@@ -295,8 +350,8 @@
                   "</td><td>"+nomProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+
                   nombreTalla+"</td><td>"
                   +cantProducir+"</td><td><input id='cantFabEdit"+idSolcProd+
-                  "' disabled='' type='number' value='"+cantProducir+"' name='cantFab[]' min='0'></td><td><input id='cantSatEdit"+idSolcProd+
-                  "' disabled='' type='number' value='0' name='cantSat[]' min='0'></td></tr>";
+                  "' readonly='' type='number' value='"+cantProducir+"' name='cantFab[]' min='0'></td><td><input id='cantSatEdit"+idSolcProd+
+                  "' readonly='' type='number' value='0' name='cantSat[]' min='0'></td></tr>";
                   
                   $("#tblFichasProducc tbody").append(tr);
 
@@ -543,18 +598,18 @@ function selLugOrdSol(){
     var cantTot = $(this).find("td").eq(6).html();
 
     if ($("#lugarOp").val() == "Fábrica"){
-      $("#cantFabEdit"+idSolPro).attr("disabled", true);
+      $("#cantFabEdit"+idSolPro).attr("readonly", true);
       $("#cantFabEdit"+idSolPro).val(cantTot);
-      $("#cantSatEdit"+idSolPro).attr("disabled", true);
+      $("#cantSatEdit"+idSolPro).attr("readonly", true);
       $("#cantSatEdit"+idSolPro).val(0);
     }else if($("#lugarOp").val() == "Satélite"){
-      $("#cantSatEdit"+idSolPro).attr("disabled", true);
+      $("#cantSatEdit"+idSolPro).attr("readonly", true);
       $("#cantSatEdit"+idSolPro).val(cantTot);
-      $("#cantFabEdit"+idSolPro).attr("disabled", true);
+      $("#cantFabEdit"+idSolPro).attr("readonly", true);
       $("#cantFabEdit"+idSolPro).val(0);
     }else if($("#lugarOp").val() == "Fábrica-Satélite"){
-      $("#cantSatEdit"+idSolPro).removeAttr("disabled");
-      $("#cantFabEdit"+idSolPro).removeAttr("disabled");
+      $("#cantSatEdit"+idSolPro).removeAttr("readonly");
+      $("#cantFabEdit"+idSolPro).removeAttr("readonly");
       $("#cantSatEdit"+idSolPro).parsley().validate();
       $("#cantFabEdit"+idSolPro).parsley().validate();
 

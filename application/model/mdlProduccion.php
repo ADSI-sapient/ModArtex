@@ -19,6 +19,9 @@
 
 		private $_id_ord_solPro;
 
+		private $_id_ficha_talla;
+		private $_cantAumentar;
+
 		function __construct($db)
 	    {
 	        try {
@@ -202,6 +205,15 @@
       		$sql = "CALL SP_devolverEstadoPedido(?)";
       		$query = $this->_db->prepare($sql);
       		$query->bindParam(1, $this->_id_solicitud);
+      		return $query->execute();	
+      	}
+
+      	public function aumentarProductoT(){
+
+      		$sql = "CALL SP_AumentarIns(?, ?)";
+      		$query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_ficha_talla);
+      		$query->bindParam(2, $this->_cantAumentar);
       		return $query->execute();	
       	}
 	}

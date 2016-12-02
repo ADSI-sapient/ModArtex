@@ -115,7 +115,10 @@
 
 	    	$this->_modelProduct->__SET("_id_ordenProd", $_POST["id_orden"]);
 
-	    	if ($this->_modelProduct->cancelOrden()) {
+	    	$this->_modelPedido->__SET("id_estado", 8);
+	    	$this->_modelPedido->__SET("id_pedido", $_POST["idSol"]);
+
+	    	if ($this->_modelProduct->cancelOrden() && $this->_modelPedido->cancelPedido()) {
 		    	echo json_encode(["r"=>1]);
 		    }else{
 		    	echo json_encode(["r"=>0]);
@@ -150,5 +153,19 @@
 	    	$this->_modelProduct->__SET("_id_solc_prod", $_POST["idSolProd"]);
 	    	$this->_modelProduct->__SET("_estado", $_POST["idEstado"]);
 	    	echo json_encode($this->_modelProduct->cambiarEstadoSolProd());
+	    }
+
+	    public function devolverInsumos(){
+	    	$this->_modelPedido->__SET("id_existcolinsu", $_POST["idExisInsCol"]);
+	    	$this->_modelPedido->__SET("cant_devolver", $_POST["cantAumentarIns"]);
+
+	    	echo json_encode($this->_modelPedido->devolverExistInsumos());
+	    }
+
+	    public function aumentarProdTerm(){
+	    	$this->_modelProduct->__SET("_id_ficha_talla", $_POST["idFichaTalla"]);
+	    	$this->_modelProduct->__SET("_cantAumentar", $_POST["cantDevolver"]);
+
+	    	echo json_encode($this->_modelProduct->aumentarProductoT());
 	    }
 	}
