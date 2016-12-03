@@ -8,7 +8,7 @@
 		public function consCotizacion(){
 			if($this->validarURL("ctrCotizacion/consCotizacion")){
 				$cotizaciones = $this->modelo->getCotizacion();
-				date_default_timezone_set("America/Bogota");
+				// date_default_timezone_set("America/Bogota");
 			foreach ($cotizaciones as $cotizacion) {
 				$fechaActual = date("Y-m-d");
 				$fechaVencito = $cotizacion["Fecha_Vencimiento"];
@@ -209,6 +209,7 @@
 		// }
 
 		public function cotizacion($cod){
+
 			$this->modelo->__SET("Id_Solicitud", $cod);
 			$cotizacion = $this->modelo->generarCotizacion();
 			

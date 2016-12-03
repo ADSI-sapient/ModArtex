@@ -56,7 +56,7 @@
                    <?php if ($cotizacion["Id_Estado"] == 3): ?>
                       <a class="btn btn-box-tool"><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a>
                    <?php else: ?>
-                      <a target="_blank" href='<?= URL ?>/ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a>
+                      <a target="_blank" href='<?= URL ?>ctrCotizacion/cotizacion/<?= $cotizacion["Id_Solicitud"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a>
                    <?php endif ?> 
                   </td>
                    <td style="text-align: center;">

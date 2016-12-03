@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2016 a las 18:42:34
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.5.38
+-- Tiempo de generación: 03-12-2016 a las 05:18:20
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.5.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -121,6 +121,9 @@ SELECT ci.Id_Existencias_InsCol Id_Insumo, um.Abreviatura, i.Estado, i.Nombre, c
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consOrdenes` ()  NO SQL
 SELECT op.Num_Orden, st.Id_Solicitudes_Tipo, st.Id_Tipo, op.Fecha_Registro, e.Nombre_Estado, op.Id_Estado, st.Fecha_Entrega, st.Id_Solicitud, s.Num_Documento, p.Nombre, op.LugarProduccion FROM tbl_ordenesproduccion op JOIN tbl_solicitudes_ordenesproduccion sop ON op.Num_Orden=sop.Num_Orden JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo=st.Id_Solicitudes_Tipo JOIN tbl_estado e ON op.Id_Estado=e.Id_Estado JOIN tbl_solicitudes s ON st.Id_Solicitud=s.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento WHERE st.Id_Tipo = 2
 GROUP BY op.Num_Orden$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consOrdenProd` (IN `_numOrden` INT)  NO SQL
+SELECT op.Num_Orden, st.Id_Solicitudes_Tipo, st.Id_Tipo, op.Fecha_Registro, e.Nombre_Estado, op.Id_Estado, st.Fecha_Entrega, st.Id_Solicitud, s.Num_Documento, p.Nombre, op.LugarProduccion FROM tbl_ordenesproduccion op JOIN tbl_solicitudes_ordenesproduccion sop ON op.Num_Orden=sop.Num_Orden JOIN tbl_solicitudes_producto sp ON sop.Id_Solicitud_Producto=sp.Id_Solicitudes_Producto JOIN tbl_solicitudes_tipo st ON sp.Id_Solicitudes_Tipo=st.Id_Solicitudes_Tipo JOIN tbl_estado e ON op.Id_Estado=e.Id_Estado JOIN tbl_solicitudes s ON st.Id_Solicitud=s.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento=p.Num_Documento WHERE st.Id_Tipo = 2 AND op.Num_Orden = _numOrden$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consPedidoCliente` (IN `id_solict` INT)  NO SQL
 SELECT s.Id_Solicitud, s.Fecha_Registro, s.Num_Documento, st.Fecha_Entrega, s.Valor_Total, e.Id_Estado , p.Nombre, e.Nombre_Estado FROM tbl_solicitudes s JOIN tbl_solicitudes_tipo st ON s.Id_Solicitud = st.Id_Solicitud JOIN tbl_persona p ON s.Num_Documento = p.Num_Documento JOIN tbl_estado e ON e.Id_Estado=st.Id_Estado WHERE s.Id_Solicitud = id_solict and st.Id_Tipo = 2 and st.Id_Estado = 5$$
@@ -309,6 +312,12 @@ DELETE FROM tbl_rol_permisos WHERE Id_Rol = _rol$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ModificarUsuario` (IN `_usuario` VARCHAR(15), IN `_id_rol` INT, IN `_documento` VARCHAR(20))  NO SQL
 UPDATE tbl_usuarios SET Usuario = _usuario, Tbl_Roles_Id_Rol = _id_rol WHERE Num_Documento = _documento$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_objetivoEnProceso` (IN `id_objetivo` INT)  NO SQL
+UPDATE tbl_objetivos obj SET obj.Id_Estado = 6 WHERE obj.Id_Objetivo = id_objetivo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_objetivoTerminado` (IN `_id_objetivo` INT)  NO SQL
+UPDATE tbl_objetivos obj SET obj.Id_Estado = 7 WHERE obj.Id_Objetivo = _id_objetivo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_obtenerIdInsumo` ()  NO SQL
 SELECT max(Id_Insumo) Id FROM tbl_insumos$$
@@ -522,9 +531,9 @@ CREATE TABLE `tbl_colores_insumos` (
 
 INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
 (1, 1, 1, 146, 175.51, 101),
-(2, 2, 1, 136, 1200, 101),
-(3, 3, 1, 136, 1200, 101),
-(4, 2, 2, 145, 1895.26, 201);
+(2, 2, 1, 111, 1200, 101),
+(3, 3, 1, 101, 1200, 101),
+(4, 2, 2, 128, 1895.26, 201);
 
 -- --------------------------------------------------------
 
@@ -815,7 +824,7 @@ CREATE TABLE `tbl_objetivos` (
 
 INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`, `CantidadTotal`) VALUES
 (1, 'navidad fria', '2016-12-01', '2016-12-05', '2016-12-30', 8, 10),
-(2, 'alegre', '2016-12-01', '2016-12-02', '2016-12-03', 5, 57);
+(2, 'alegre', '2016-12-01', '2016-12-02', '2016-12-03', 6, 57);
 
 -- --------------------------------------------------------
 
@@ -842,7 +851,9 @@ INSERT INTO `tbl_ordenesproduccion` (`Num_Orden`, `Id_Estado`, `Fecha_Registro`,
 (5, 4, '2016-12-02', 'Fábrica'),
 (6, 4, '2016-12-02', 'Fábrica'),
 (7, 4, '2016-12-02', 'Fábrica'),
-(8, 4, '2016-12-02', 'Fábrica');
+(8, 4, '2016-12-02', 'Fábrica'),
+(9, 6, '2016-12-02', 'Satélite'),
+(10, 4, '2016-12-02', 'Fábrica');
 
 -- --------------------------------------------------------
 
@@ -909,9 +920,9 @@ CREATE TABLE `tbl_persona` (
 
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`, `Info_Adicional`) VALUES
 ('1017223026', 2, 'C.C', 'Crearte Collection', 'Empresa', 1, '', '', '', NULL),
-('1037590137', 1, 'C.C', 'Juan Pablo', 'Mora', 1, NULL, NULL, 'jpmorales73@misena.edu.co', NULL),
+('1037590137', 1, 'C.C', 'Juan Pablo', 'Moraless', 1, NULL, NULL, 'jpmorales73@misena.edu.co', NULL),
 ('23493929', 1, 'C.C', 'johan', 'arteaga', 1, '', '', 'jaac219@gmail.com', NULL),
-('2368115821', 1, 'C.C', 'Kevin', 'Escudero', 1, '', '', 'jp@gm.com', NULL),
+('2368115821', 1, 'C.C', 'Kevin', 'Escudero', 1, '', '', 'pablomorales598@gmail.com', NULL),
 ('4851215151', 2, 'C.C', 'Ernesto', 'Benavides', 1, '4545412121', 'alla', 'er@hotmail.com', 'Representante Empresa Restore System \r\nNIT 65-584784');
 
 -- --------------------------------------------------------
@@ -1096,15 +1107,7 @@ CREATE TABLE `tbl_solicitudes` (
 --
 
 INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '4851215151', '2016-12-01', 128500),
-(2, '4851215151', '2016-12-01', 362500),
-(3, '4851215151', '2016-12-01', 24000),
-(4, '4851215151', '2016-12-01', 96000),
-(5, '4851215151', '2016-12-02', 37000),
-(6, '4851215151', '2016-12-02', 9900),
-(7, '4851215151', '2016-12-02', 6500),
-(8, '1017223026', '2016-12-02', 3400),
-(9, '4851215151', '2016-12-02', 34000);
+(1, '4851215151', '2016-12-02', 512500);
 
 -- --------------------------------------------------------
 
@@ -1126,20 +1129,12 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
 --
 
 INSERT INTO `tbl_solicitudes_ordenesproduccion` (`Codigo`, `Id_Solicitud_Producto`, `Num_Orden`, `Id_Estado`, `Cantidad_Fabrica`, `Cantidad_Satelite`) VALUES
-(53, 3, 1, 10, 25, 0),
-(54, 4, 1, 9, 2, 0),
-(55, 6, 1, 7, 7, 0),
-(56, 5, 1, 10, 1, 0),
-(57, 7, 1, 5, 14, 0),
-(87, 24, 3, 5, 2, 0),
-(88, 25, 3, 5, 2, 0),
-(89, 26, 4, 9, 2, 0),
-(90, 27, 4, 10, 2, 0),
-(91, 28, 5, 5, 1, 0),
-(92, 29, 5, 7, 1, 0),
-(93, 30, 6, 7, 1, 0),
-(94, 31, 7, 7, 1, 0),
-(95, 32, 8, 7, 10, 0);
+(1, 1, 10, 5, 10, 0),
+(2, 3, 10, 5, 12, 0),
+(3, 2, 10, 5, 21, 0),
+(4, 4, 10, 5, 10, 0),
+(5, 6, 10, 5, 4, 0),
+(6, 5, 10, 5, 8, 0);
 
 -- --------------------------------------------------------
 
@@ -1163,23 +1158,12 @@ CREATE TABLE `tbl_solicitudes_producto` (
 --
 
 INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Cant_Cotizada`, `Id_Fichas_Tallas`) VALUES
-(1, 2, 0, 'k', 5, 32500, 5, 3),
-(2, 2, 0, 'k', 8, 96000, 8, 1),
-(3, 3, 0, '0', 25, 162500, NULL, 4),
-(4, 3, 0, '0', 2, 13000, NULL, 3),
-(5, 3, 0, '0', 1, 12000, NULL, 1),
-(6, 3, 0, '0', 7, 84000, NULL, 2),
-(7, 3, 0, '0', 14, 91000, NULL, 5),
-(13, 4, 0, '0', 2, 24000, NULL, 1),
-(24, 5, 0, '0', 2, 48000, NULL, 1),
-(25, 5, 0, '0', 2, 48000, NULL, 2),
-(26, 6, 0, '0', 2, 13000, NULL, 3),
-(27, 6, 0, '0', 2, 24000, NULL, 1),
-(28, 7, 0, '0', 1, 3400, NULL, 6),
-(29, 7, 0, '0', 1, 6500, NULL, 3),
-(30, 8, 0, '0', 1, 6500, NULL, 3),
-(31, 9, 0, '0', 1, 3400, NULL, 6),
-(32, 10, 0, '0', 10, 34000, NULL, 6);
+(1, 2, 0, 'k', 10, 34000, 10, 6),
+(2, 2, 0, 'k', 21, 136500, 21, 3),
+(3, 2, 0, 'k', 12, 144000, 12, 1),
+(4, 2, 0, 'k', 10, 120000, 10, 2),
+(5, 2, 0, 'k', 8, 52000, 8, 5),
+(6, 2, 0, 'k', 4, 26000, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -1202,15 +1186,7 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 
 INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
 (1, 1, 1, NULL, '2016-12-30', 2),
-(2, 1, 2, '2016-12-22', NULL, 6),
-(3, 2, 2, '2016-12-29', NULL, 8),
-(4, 3, 2, '2016-12-25', NULL, 8),
-(5, 4, 2, '2016-12-29', NULL, 8),
-(6, 5, 2, '2017-01-07', NULL, 8),
-(7, 6, 2, '2016-12-30', NULL, 8),
-(8, 7, 2, '2016-12-30', NULL, 8),
-(9, 8, 2, '2016-12-23', NULL, 8),
-(10, 9, 2, '2017-01-07', NULL, 8);
+(2, 1, 2, '2016-12-29', NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -1312,7 +1288,7 @@ CREATE TABLE `tbl_usuarios` (
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
 (1, '1037590137', 1, 'jpmorales', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220'),
-(3, '2368115821', 3, 'kevincito', '7c4a8d09ca3762af61e59520943dc26494f8941b'),
+(3, '2368115821', 3, 'kevincito', '2d6ff20fa296ab4c93e27b3d13c6a2d980c2291b'),
 (4, '23493929', 2, 'jaac219', '7e2209d6c7aedcdb4d869228bb774957fb944284');
 
 --
@@ -1600,7 +1576,7 @@ ALTER TABLE `tbl_objetivos`
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
 ALTER TABLE `tbl_ordenesproduccion`
-  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
@@ -1640,22 +1616,22 @@ ALTER TABLE `tbl_salida_ficha`
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
 ALTER TABLE `tbl_solicitudes_ordenesproduccion`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --

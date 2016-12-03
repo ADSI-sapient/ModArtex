@@ -16,7 +16,7 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
                         <div class="form-group col-lg-4">
               <label class="">*Tipo de Documento:</label>
-              <select class="form-control" name="tipo_documento" data-parsley-required="">
+              <select class="form-control" name="tipo_documento" data-parsley-required=""  autofocus="">
                 <option value="C.C">C.C</option>
                 <option value="C.E">C.E</option>
                 <!-- <option value="NIT">NIT</option> -->
@@ -40,7 +40,7 @@
 
             <div class="form-group col-lg-4">
               <label class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" data-parsley-required="" maxlength="45">
             </div>
             <div class="form-group col-lg-4">
               <label class="">*Apellido:</label>

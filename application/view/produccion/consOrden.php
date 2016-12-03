@@ -56,11 +56,9 @@
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Id_Solicitudes_Tipo"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
                     <?php endif ?>
 
-
-
-
                     <?php if ($ordenProduccion["Id_Estado"] == 6 || $ordenProduccion["Id_Estado"] == 7): ?>
                       <button disabled="" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
+                      <!-- <a target="_blank" href='<?= URL ?>ctrProduccion/orden/<?= $ordenProduccion["LugarProduccion"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> -->
                     <?php endif ?> 
                     <?php if ($ordenProduccion["Id_Estado"] == 5 || $ordenProduccion["Id_Estado"] == 6): ?> 
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Id_Solicitud"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban" style="color:red; font-size: 150%"></i></button>

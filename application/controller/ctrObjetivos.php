@@ -55,7 +55,17 @@
 			if($this->validarURL("ctrObjetivos/listarObjetivos")){
 				$fichas = $this->mdlModel->getAsoFichasObj();
 				$objetivos = $this->mdlModel->getObjetivos();
-
+				foreach ($objetivos as $objetivo) {
+					if ($objetivo["Id_Estado"] != 8) {
+						if ($objetivo["FechaInicio"] == date("Y-m-d")) {
+				   			$this->mdlModel->__SET("Id_Objetivo", $objetivo["Id_Objetivo"]);
+				   			$this->mdlModel->objetivoEnProceso();
+						}else if($objetivo["FechaFin"] == date("Y-m-d")){
+							$this->mdlModel->__SET("Id_Objetivo", $objetivo["Id_Objetivo"]);
+				   			$this->mdlModel->objetivoTerminado();
+						}
+					}
+				}
 				include APP . 'view/_templates/header.php';
 				include APP . 'view/productoT/consObjetivo.php';
 				include APP . 'view/_templates/footer.php';

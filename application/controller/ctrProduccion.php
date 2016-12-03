@@ -168,4 +168,15 @@
 
 	    	echo json_encode($this->_modelProduct->aumentarProductoT());
 	    }
+
+	    public function orden($numOrd){
+			$this->modelo->__SET("_id_ordenProd", $numOrd);
+			$ordenesProduccion = $this->_modelProduct->consOrdenProd();
+			
+			if($ordenesProduccion != false){
+				require APP.'view/produccion/ordenProduccion.php';
+			}else{
+				require APP.'view/produccion/consOrden.php';	
+			}
+		}
 	}

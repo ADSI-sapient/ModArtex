@@ -180,5 +180,19 @@
 	    	$query->execute();
 	    	return $query->fetchAll();
       	}
+
+      	public function objetivoEnProceso(){
+      		$sql = "CALL SP_objetivoEnProceso(?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Objetivo);
+	    	return $query->execute();
+      	}
+
+      	public function objetivoTerminado(){
+      		$sql = "CALL SP_objetivoTerminado(?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Objetivo);
+	    	return $query->execute();
+      	}
 	}
 ?>

@@ -185,17 +185,18 @@ $(function(){
             url: uri+"ctrObjetivos/listarF",
             data: {objetivo: Id_Objetivo },
             success: function(data){
+              alert();
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
+              console.log(data);
               Codigo=data[i]["Codigo"];
-              var fila = '<tr><td style=display:none;>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Nombre"]+'</td><td><i class="fa fa-square" style="font-size:200%; color:'+data[i]["Codigo_Color"]+'" title="'+data[i]["Nombre_Color"]+'"></i></td><td style="display: none;"></td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
+              var fila = '<tr><td style=display:none;>'+data[i]["Codigo"]+'<input type="hidden" name="Codigo[]" value="'+Codigo+'"/></td><td>'+data[i]["Referencia"]+'</td><td>'+data[i]["Nombre"]+'</td><td><i class="fa fa-square" style="font-size:200%; color:'+data[i]["Codigo_Color"]+'" title="'+data[i]["Nombre_Color"]+'"></i></td><td>'+data[i]["Nombre_Color"]+'</td><td style="display: none;"></td><td>'+data[i]["Cantidad"]+'</td></tr>'; 
               $("#FichasO").append(fila);
                           } 
             }, 
             error: function(){
             }
         });
-  
     }
 
 

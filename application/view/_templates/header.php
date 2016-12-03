@@ -112,10 +112,10 @@
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div> -->
                 <div class="pull-left" style="background-color: blue;">
-                  <a href="<?= URL; ?>ctrUsuario/perfil" class="btn btn-default btn-flat"><b>Perfil</b></a>
+                  <a href="<?= URL; ?>ctrUsuario/perfil" class="btn btn-default btn-flat"><b>Mi Perfil</b></a>
                 </div> 
                 <div class="pull-right">
-                  <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat"><b>Cerrar sesión</b></a>
+                  <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat"><b>Cerrar Sesión</b></a>
                 </div>
               </li>
             </ul>
@@ -294,19 +294,19 @@
     <div class="modal-content" style="border-radius: 15px;">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Correo de la Empresa</h3>
+          <h4 class="modal-title">CORREO ELECTRÓNICO EMPRESA</h4>
       </div>
       <form action="<?= URL; ?>ctrUsuario/cambiarCorreoEmpresa" method="POST">
       <div class="modal-body">  
         <div class="row">
           <div class="form-group col-md-12">
-            <label for="nombre" class="">Correo Electrónico:</label>
+            <label for="nombre" class="">*E-mail:</label>
             <input type="text" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
           </div>
         </div>
         <div class="row">
           <div class="form-group col-md-12">
-            <label for="nombre" class="">Contraseña:</label>
+            <label for="nombre" class="">*Contraseña:</label>
             <input type="password" class="form-control"  placeholder="" name="clave" data-parsley-required="" maxlength="45">
           </div>
         </div>

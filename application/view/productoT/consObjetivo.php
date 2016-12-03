@@ -38,8 +38,8 @@
                       <th style="display:none">Id_Estado</th>
                       <th>Editar</th>
                       <th>Estadísticas</th>
+                      <th>Cancelar</th>
                       <th>Productos Asociados</th>
-                      <th>Cancelar Objetivo</th>
                     </tr>
                   </thead>
                   <tbody class="list">
@@ -72,17 +72,16 @@
 
                          <?php endif ?>
                         </td>
-                        <td>                           
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
-                        </td>
-                     <td>
+                        <td>
                           <?php if ($objetivo["Nombre_Estado"] == "Cancelado" || $objetivo["Nombre_Estado"] == "En Proceso"): ?>
                             <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-ban" style="font-size: 150%;"></i></button>
                           <?php else: ?>
                             <button type="button" class="btn btn-box-tool" onclick="cancelarobjetivo('<?= $objetivo["Id_Objetivo"] ?>')" id="btn-cancel-ped"><i class="fa fa-ban fa-lg" style="color:red; font-size:150%;"></i></button>
                           <?php endif ?>
                         </td>
-
+                        <td>                           
+                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#ListarF" onclick=" listarO('<?= $objetivo["Id_Objetivo"] ?>', this)"><i class="fa fa-eye fa-lg" style="color:#3B73FF; font-size: 150%;"></i></button>
+                        </td>
                     </tr>
                   <?php endforeach; ?>
                   </tbody>
@@ -112,6 +111,7 @@
                 <th style="display: none;"></th>
                 <th>Referencia</th>
                 <th>Nombre</th>
+                <th>Muestra</th>
                 <th>Color</th>
                 <th>Cantidad</th>
               </tr>

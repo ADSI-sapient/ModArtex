@@ -216,4 +216,13 @@
       		$query->bindParam(2, $this->_cantAumentar);
       		return $query->execute();	
       	}
+
+      	public function consOrdenProd()
+	    {
+	        $sql = "CALL SP_consOrdenProd(?)";
+	        $query = $this->_db->prepare($sql);
+      		$query->bindParam(1, $this->_id_ordenProd);
+	        $query->execute();
+	        return $query->fetchAll();
+	    }
 	}

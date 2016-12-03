@@ -24,7 +24,7 @@
             </div>
             <div class="form-group col-lg-4">
               <label for="documento" class="" >*Número de Documento:</label>
-              <input type="text" class="form-control" id="documento" placeholder="" name="documento" data-parsley-required="" onChange="validarSiDocumento(this.value);" maxlength="20">
+              <input type="text" class="form-control" id="documento" placeholder="" name="documento" data-parsley-required="" onChange="validarSiDocumento(this.value);" maxlength="20" autofocus="">
             </div>
                         <div class="form-group col-lg-4">
               <label for="estado" class="">Estado:</label> 
@@ -39,7 +39,7 @@
           <div class="row col-lg-12" style="margin-left:0.5%">
                         <div class="form-group col-lg-4">
               <label for="nombre" class="">*Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
+              <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" data-parsley-required="" maxlength="45">
             </div>
              <div class="form-group col-lg-4">
               <label for="apellido" class="">*Apellido:</label>

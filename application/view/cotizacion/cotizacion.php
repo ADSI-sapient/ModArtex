@@ -229,7 +229,7 @@ $html = '<!DOCTYPE html>
     <table style="width:100%;">
         <tr>
             <td style="width:80mm;">
-                <h1 class="heading">'.$cotizacion[0]["Nombre"].' '.$cotizacion[0]["Apellido"].'</h1>
+                <h1 class="heading">'.$cotizacion[0]["Nombre_Persona"].' '.$cotizacion[0]["Apellido"].'</h1>
                 <br>
                 <h2 class="heading">Tipo De Documento : '.$cotizacion[0]["Tipo_Documento"] .'</h2>
                 <h2 class="heading">Número de Documento : '.$cotizacion[0]["Num_Documento"] .'</h2>

@@ -68,7 +68,7 @@
                 <div id="coloresRegf"></div>
               </div>
               <div class="form-group col-lg-4">
-                <label for="selectTallas">*Tallas:</label>
+                <label for="">*Tallas:</label>
                 <select class="form-control" multiple="" style="border-radius:5px;" id="selectTallas" name="tallas[]" data-parsley-required="" style="width:75%" data-parsley-errors-container="#tallasRegf">
                   <option value="1">L</option>
                   <option value="2">M</option>

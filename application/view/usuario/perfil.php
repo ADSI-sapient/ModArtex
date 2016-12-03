@@ -1,9 +1,9 @@
 <section class="content-header">
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">General Elements</li>
-      </ol>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo URL; ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="#">Usuario</a></li>
+    <li class="active">Mi Perfil</li>
+  </ol>
 </section>
 
 <section class="content">
@@ -11,7 +11,7 @@
     <div class="col-md-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Mi Perfil</h3>
+          <h3 class="box-title"><b>MI PERFIL</b></h3>
         </div>
         <form id="frmEditPerfil" data-parsley-validate="" method="POST" action="<?= URL."ctrUsuario/modificarPerfil"; ?>">
           <div class="box-body">
@@ -33,52 +33,57 @@
           </div>
           <div class="row col-md-12" style="margin-left:0.5%">
               <div class="form-group col-md-4">
-              <label for="nombre" class="">Nombre:</label>
+              <label for="nombre" class="">*Nombre:</label>
               <input type="text" class="form-control" value="<?= $_SESSION['user']['Nombre']; ?>" id="nombreUsu" placeholder="" name="nombre" autofocus="" data-parsley-required="" maxlength="45">
             </div>
             <div class="form-group col-md-4">
-              <label for="apellido" class="">Apellido:</label>
+              <label for="apellido" class="">*Apellido:</label>
               <input type="text" class="form-control" value="<?= $_SESSION['user']['Apellido']; ?>" id="apellidoUsu" placeholder="" value="" name="apellido" data-parsley-required="" maxlength="45">
             </div>
               <div class="form-group col-md-4">
-                <label for="nombre_usuario" class="">Nombre de Usuario:</label>
+                <label for="nombre_usuario" class="">*Nombre de Usuario:</label>
                 <input type="text" class="form-control" value="<?= $_SESSION['user']['Usuario']; ?>" id="Usuario" placeholder="" name="nombre_usuario" data-parsley-required="" maxlength="15">
               </div>
           </div>
           <div class="row col-md-12" style="margin-left:0.5%">
              <div class="form-group col-md-4">
-              <label for="email" class="">E-mail:</label>
+              <label for="email" class="">*E-mail:</label>
               <input type="email" class="form-control" value="<?= $_SESSION['user']['Email']; ?>" id="emailUsu" placeholder="" name="email" onchange="validarEmail(this.value);" data-parsley-required="" data-parsley-trigger="change" maxlength="45">
             </div>
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
-              <label class="">Clave actual:</label>
-              <input id="perClaveAct" type="password" class="form-control">
+              <label class="">*Contraseña Actual:</label>
+              <input id="perClaveAct" type="password" class="form-control" maxlength="10" minlength="6">
             </div>
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
-              <label class="">Clave nueva:</label>
-              <input id="perClaveNue" type="password" class="form-control">
+              <label class="">*Contraseña Nueva:</label>
+              <input id="perClaveNue" type="password" class="form-control" maxlength="10" minlength="6">
             </div>
           </div>
             <div class="row col-md-12" style="margin-left:0.5%">
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
-              <label class="">Repetir clave nueva:</label>
-              <input id="perRepClaveNue" type="password" class="form-control" >
+              <label class="">*Confirmar Nueva Contraseña:</label>
+              <input id="perRepClaveNue" type="password" class="form-control" maxlength="10" minlength="6">
             </div>
             <div class="form-group col-md-4">
-            <div class="col-md-12">
+            <div class="col-md-12" style="padding-left:0;">
                 <label></label>
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" id="checkClavePerf"><span> Cambiar clave</span>
+                    <input type="checkbox" id="checkClavePerf" style="height:15px; width:15px; cursor: pointer;"><span> <b>Cambiar Clave</b></span>
                   </label>
               </div>
               </div>
             </div>
           </div>
           </div>
-              <div class="box-footer">
-                <button type="button" class="btn btn-primary pull-right" onclick="validEdiperfil('<?= $_SESSION['user']['Clave']; ?>');">Actualizar</button>
+            <div class="box-footer">
+            <div class="row">
+              <div class="col-lg-offset-4 col-lg-3">
+                <button type="button" class="btn btn-warning btn-md btn-block" onclick="validEdiperfil('<?= $_SESSION['user']['Clave']; ?>');"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Actualizar</b></button>
               </div>
+            </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>

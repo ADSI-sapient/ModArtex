@@ -1,6 +1,6 @@
     $(window).load(function(){
         if ($("#tblFichasProd tbody tr").length == 0) {
-          var tr = "<tr id='tableVaciaProduccion'><td colspan='8' style='text-align: center;''>La tabla está vacía</td></tr>";
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='8' style='text-align: center;''>No hay un pedido asociado.</td></tr>";
           $("#tblFichasProd tbody").append(tr);
         }
     });
@@ -502,7 +502,7 @@ function regOrdenProducc(){
   $("#fecha_terminacion").parsley().validate();
 
   if ($("#tblFichasProd tbody tr").length == 1 && $("#tableVaciaProduccion").length) {
-    Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La tabla está vacía'});
+    Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'No hay un pedido asociado.'});
   }else{
     if ($("#fecha_terminacion").val() != "" && band == true) {
       $.ajax({
@@ -621,7 +621,7 @@ function selLugOrdSol(){
 function limpiarFormRegOrdPro(){
    $("#tblFichasProd tbody").empty();
    if ($("#tblFichasProd tbody tr").length == 0) {
-          var tr = "<tr id='tableVaciaProduccion'><td colspan='11' style='text-align: center;''>La tabla está vacía</td></tr>";
+          var tr = "<tr id='tableVaciaProduccion'><td colspan='11' style='text-align: center;''>No hay un pedido asociado.</td></tr>";
           $("#tblFichasProd tbody").append(tr);
     }
     $("#selectLugarProducc").attr("disabled", true);
