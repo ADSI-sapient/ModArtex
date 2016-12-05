@@ -37,19 +37,19 @@
       }
     });
 
-    // $('#fecha_entregaOp').datepicker({
-    //       format: "yyyy-mm-dd",
-    //       language: 'es',
-    //       autoclose: true
-    //       // todayBtn: true
-    //     }).on(
-    //       'show', function() {      
-    //       // Obtener valores actuales z-index de cada elemento
-    //       var zIndexModal = $('#mdlEditOrdenP').css('z-index');
-    //       var zIndexFecha = $('.datepicker').css('z-index');
-    //       // Re asignamos el valor z-index para mostrar sobre la ventana modal
-    //       $('.datepicker').css('z-index',zIndexModal+1);
-    //     });
+    $('#fecha_entregaOp').datepicker({
+          format: "yyyy-mm-dd",
+          language: 'es',
+          autoclose: true
+          // todayBtn: true
+        }).on(
+          'show', function() {      
+          // Obtener valores actuales z-index de cada elemento
+          var zIndexModal = $('#mdlEditOrdenP').css('z-index');
+          var zIndexFecha = $('.datepicker').css('z-index');
+          // Re asignamos el valor z-index para mostrar sobre la ventana modal
+          $('.datepicker').css('z-index',zIndexModal+1);
+        });
 
     function editarOrdeP(idOrden, fechaRegistro, fechaEntrega, idEstado, lugarProduccion, numCliente, nombre, idSolTipo)
     {
@@ -60,7 +60,12 @@
 
         $("#numOrdenp").val(idOrden);
         $("#fecha_regOp").val(fechaRegistro);
-        $("#fecha_entregaOp").val(fechaEntrega);
+        var fechaEntOp = $("#fecha_entregaOp").val(fechaEntrega);
+        $("#fecha_entregaOp").on('blur', function(ev){
+          if (!$.trim(fechaEntOp.val())) {
+              fechaEntOp.val(fechaEntrega);
+            }
+        });
         $("#estadoOp").val(idEstado);
         $("#lugarOp").val(lugarProduccion);
         $("#clienteOrdn").val(numCliente);
@@ -68,8 +73,10 @@
         $("#mdlEditOrdenP").show();
     }
 
-    function FichasAsoOrd(numOrden)
+    function FichasAsoOrd(numOrden, cedCliente)
     {
+      $("#numOrdSegu").val(numOrden);
+      $("#docClienteSeg").val(cedCliente);
     	$.ajax({
     		type: 'post',
             dataType: 'json',
@@ -105,27 +112,23 @@
             +cantSat+"' name='cantSat[]' min='0' data-parsley-required></td></tr>";
 
             tr2 = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td style='display: none;'><input id='progressEstadoSolProd"+idSolcProd+"' type='hidden' value="+codEstadoFicha+"></td><td>"+referencia+
-            "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"
+            "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
             +cantTotal+"</td><td>"+lugar+"</td><td id='nomEstadoProgress"+idSolcProd+"'>"+nombreEstadoF+"</td><td id='tdProgressFicha"+idSolcProd+"'>";
             if (codEstadoFicha == 5) {
-              tr2 += "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 0%'><span class='sr-only'></span></div></div>";
+              tr2 += "<div class='progress'><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
             }else if(codEstadoFicha == 10){
-              tr2 += "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
-            }else if(codEstadoFicha == 9){
-              tr2 += "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
+              tr2 += "<div class='progress'><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
             }else if(codEstadoFicha == 7){
-              tr2 += "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
+              tr2 += "<div class='progress'><input type='hidden' id='progBarTerm"+idSolcProd+"' value='0'><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
             }
 
             tr2 += "</td><td>";
 
             if (codEstadoFicha == 7) {
-              tr2 += "<button disabled='' type='button' class='btn btn-box-tool'><i class='fa fa-chevron-right' style='color: gray; font-size: 150%;'></i></button></td></tr>";  
+              tr2 += "<button disabled='' type='button' class='btn btn-box-tool'><i class='fa fa-chevron-right' style='color: gray; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td></tr>";  
             }else{
-              tr2 += "<button type='button' class='btn btn-box-tool' onclick='progressFichaOrden("+idSolcProd+","+codEstadoFicha+")'><i class='fa fa-chevron-right' style='color: green; font-size: 150%;'></i></button></td></tr>";  
+              tr2 += "<button type='button' class='btn btn-box-tool' onclick='progressFichaOrden("+idSolcProd+","+codEstadoFicha+")'><i class='fa fa-chevron-right' style='color: green; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td></tr>";  
             }
-
-
             // tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
         //     "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
         //     +cantTotal+"</td><td><input type='text' value='"+cantFab+"' name='cantFab[]'></td><td><input type='text' value='"
@@ -661,40 +664,79 @@ function actualizarOrdenProd(){
 
 function progressFichaOrden(idSolProd, idEstado){
     if ($("#progressEstadoSolProd"+idSolProd).val() == 5){
-      var tr = "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
+      var tr = "<div class='progress'><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
       $("#tdProgressFicha"+idSolProd).empty();
       $("#tdProgressFicha"+idSolProd).append(tr);
       $("#nomEstadoProgress"+idSolProd).html("Producción");
       $("#progressEstadoSolProd"+idSolProd).val(10);
     }else if ($("#progressEstadoSolProd"+idSolProd).val() == 10) {
-      var tr = "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
-      $("#tdProgressFicha"+idSolProd).empty();
-      $("#tdProgressFicha"+idSolProd).append(tr);
-      $("#nomEstadoProgress"+idSolProd).html("Calidad");
-      $("#progressEstadoSolProd"+idSolProd).val(9);
-    }else if ($("#progressEstadoSolProd"+idSolProd).val() == 9) {
-      var tr = "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
+      var tr = "<div class='progress'><input type='hidden' id='progBarTerm"+idSolProd+"' value='1'><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span><input type='hidden' id='progBarTerm"+idSolProd+"' value='1'></div></div>";
       $("#tdProgressFicha"+idSolProd).empty();
       $("#tdProgressFicha"+idSolProd).append(tr);
       $("#nomEstadoProgress"+idSolProd).html("Terminado");
       $("#progressEstadoSolProd"+idSolProd).val(7);
     }
+    // else if ($("#progressEstadoSolProd"+idSolProd).val() == 9) {
+    //   var tr = "<div class='progress'><div class='progress-bar progress-bar-success' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-warning' style='width: 33.33333333333333%'><span class='sr-only'></span></div><div class='progress-bar progress-bar-danger' style='width: 33.33333333333333%'><span class='sr-only'></span></div></div>";
+    //   $("#tdProgressFicha"+idSolProd).empty();
+    //   $("#tdProgressFicha"+idSolProd).append(tr);
+    //   $("#nomEstadoProgress"+idSolProd).html("Terminado");
+    //   $("#progressEstadoSolProd"+idSolProd).val(7);
+    // }
 }
 
 
 function actualizarEstadoSolProducto(){
+    var bandSegProd = true;
     $("#tblSegFichOrdPro tbody tr").each(function(i){
         var idSolPro = $(this).find("td").eq(0).html();
         var idEstado = $("#progressEstadoSolProd"+idSolPro).val();
+
+        if (idEstado != 7) {
+           bandSegProd = false;
+        }
+
+        var idFichaTalla = $(this).find("td").eq(12).html();
+        var cantDevolver = $(this).find("td").eq(7).html();
         $.ajax({
           type: 'POST',
           dataType: 'json',
           url: uri+'ctrProduccion/cambiarEstadoSolProd',
           data: {idSolProd: idSolPro, idEstado: idEstado}
         }).done(function(res){
+          // console.log(idSolPro, idEstado, $("#progBarTerm"+idSolPro).val());
+          if ((idEstado == 7) && ($("#docClienteSeg").val() == "1017223026") && ($("#progBarTerm"+idSolPro).val() ==  1)) {
+              $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+"ctrProduccion/aumentarProdTerm",
+              data:{idFichaTalla: idFichaTalla, cantDevolver: cantDevolver}
+            }).done(function(){
+            });
+          }
         }).fail(function(){
         });
     });
+    if (bandSegProd) {
+      var idOrd = $("#numOrdSegu").val();
+      console.log(idOrd);
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+'ctrProduccion/cambiarEstadoOrden',
+        data: {id_orden: idOrd, id_est: 7}
+      }).done(function(res){
 
+      });
+    }
     location.href = uri+'ctrProduccion/consOrden';
+}
+
+function generarOrden(numOrden, lugar){
+  if (lugar == "Satélite" || lugar == "Fábrica-Satélite") {
+    $("#datosSatelite").modal('show');
+    $("#numGenOrd").val(numOrden);
+  }else{
+    window.open(uri+"ctrProduccion/orden/"+numOrden, '_blank');
+  }
 }

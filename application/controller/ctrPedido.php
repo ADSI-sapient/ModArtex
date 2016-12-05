@@ -215,7 +215,6 @@
 	    public function validaExistInsumos(){
 
 	    	$this->mdlModel->__SET("id_ficha", $_POST['id_fichat']);
-
 	    	$cantidInsumos = $this->mdlModel->validarExisteIns();
 
 	    	if ($cantidInsumos) {

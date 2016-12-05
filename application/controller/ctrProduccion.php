@@ -170,13 +170,27 @@
 	    }
 
 	    public function orden($numOrd){
-			$this->modelo->__SET("_id_ordenProd", $numOrd);
-			$ordenesProduccion = $this->_modelProduct->consOrdenProd();
+
+			if (isset($_POST["numGenOrd"])) {
+				$numOrd = $_POST["numGenOrd"];
+				$fechaAtual = $_POST["fechaAct"];
+				$nombreRes = $_POST["nombre"];
+				$fechaEntrega = $_POST["fechaEnt"];
+				$paisCiudad = $_POST["paisCiudad"];
+				$observaciones = $_POST["observaciones"];
+			}
 			
-			if($ordenesProduccion != false){
+			$this->_modelProduct->__SET("_id_ordenProd", $numOrd);
+			$ordenesProduccion = $this->_modelProduct->consProductosOrden();
+
+
+			if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Fábrica") {
 				require APP.'view/produccion/ordenProduccion.php';
+			}else if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Satélite"){
+				require APP.'view/produccion/ordenTrabajo.php';
 			}else{
-				require APP.'view/produccion/consOrden.php';	
+				// require APP.'view/produccion/ordenProduccion.php';
+				// require APP.'view/produccion/ordenTrabajo.php';
 			}
 		}
 	}

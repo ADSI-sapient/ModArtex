@@ -42,7 +42,14 @@
               </span>
   
                 <div >
-                  <span style="margin-left: 45%;" class="info-box-text"><?= $ordenProduccion["Nombre_Estado"] ?></span>
+                  <span style="margin-left: 45%;" class="info-box-text">
+                  <?php if ($ordenProduccion["Nombre_Estado"] == "Terminado") {
+                    echo "Terminada";
+                  }else{
+                    echo $ordenProduccion["Nombre_Estado"];
+                  }
+                  ?>
+                  </span>
                   <span style="margin-left: 45%;" class="info-box-number"><?= $ordenProduccion["Fecha_Entrega"] ?></span>
   
                   <div class="progress">
@@ -50,26 +57,27 @@
                   </div>
                     <span class="progress-description">
 
-
+<!--                         <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button> -->
 
                     <?php if ($ordenProduccion["Id_Estado"] == 5): ?>
-                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Id_Solicitudes_Tipo"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>
+                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Id_Solicitudes_Tipo"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>  
                     <?php endif ?>
 
                     <?php if ($ordenProduccion["Id_Estado"] == 6 || $ordenProduccion["Id_Estado"] == 7): ?>
-                      <button disabled="" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
-                      <!-- <a target="_blank" href='<?= URL ?>ctrProduccion/orden/<?= $ordenProduccion["LugarProduccion"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> -->
+                      <button onclick="generarOrden('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>')" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
+                      <!-- <a target="_blank" href='<?= URL ?>ctrProduccion/orden/<?= $ordenProduccion["Num_Orden"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> -->
                     <?php endif ?> 
-                    <?php if ($ordenProduccion["Id_Estado"] == 5 || $ordenProduccion["Id_Estado"] == 6): ?> 
+                    <?php if ($ordenProduccion["Id_Estado"] == 5 || $ordenProduccion["Id_Estado"] == 6): ?>
+
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Id_Solicitud"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban" style="color:red; font-size: 150%"></i></button>
                     <?php endif ?>
 
                     <?php if ($ordenProduccion["Id_Estado"] == 6): ?>
-                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>')" data-toggle="modal" data-target="#seguimientoProduccion"><i class="fa fa-tasks" style="color:white; font-size: 150%"></i></button>
+                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>')" data-toggle="modal" data-target="#seguimientoProduccion"><i class="fa fa-tasks" style="color:white; font-size: 150%"></i></button>
                     <?php endif ?> 
 
-                    <?php if ($ordenProduccion["Id_Estado"] == 5): ?>    
-                      <button style="margin: 0; padding: 0" type="button" onclick="cambiarEstadoOrdenPro(<?= $ordenProduccion["Num_Orden"] ?>)" class="btn btn-box-tool"><i class="fa fa-arrow-circle-right" style="color: green; font-size: 150%"></i></button>
+                    <?php if ($ordenProduccion["Id_Estado"] == 5): ?> 
+                      <button style="margin: 0; padding: 0" type="button" onclick="cambiarEstadoOrdenPro(<?= $ordenProduccion["Num_Orden"] ?>)" class="btn btn-box-tool"><i class="fa fa-arrow-circle-right" style="color: green; font-size: 200%"></i></button>
                     <?php endif ?>
                     <?php if ($ordenProduccion["Id_Estado"] == 4): ?>    
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool"><i class="fa fa-eye" style="color: blue; font-size: 150%"></i></button>
@@ -117,7 +125,7 @@
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input readonly="" type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
+                        <input type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
                       </div>
                     </div>
                     </div>
@@ -329,18 +337,28 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>SEGUIMIENTO PRODUCCIÓN</b></h4>
             </div>
-          <div class="modal-body">          
+          <div class="modal-body">
+          <input type="hidden" id="docClienteSeg">          
+          <input type="hidden" id="numOrdSegu">          
            <div class="row">       
             <div class="table">
-              <div class="col-sm-12 table-responsive scrolltablas">
+              <div class="col-sm-12 table-responsive" id="scrollSeguProd">
                 <table class="table table-responsive table-hover" id="tblSegFichOrdPro">
+                <style type="text/css">
+                  #scrollSeguProd{
+                    height: 300px;
+                    overflow-y: scroll;
+                  }
+                </style>
                   <thead>
                     <tr class="active">
                       <th style="display: none;"></th>
                       <th style="display: none;"></th>
                       <th>Referencia</th>
+                      <th>Nombre</th>
                       <th>Muestra</th>
                       <th>Color</th>
+                      <th>Talla</th>
                       <th>Cantidad Producir</th>
                       <th>Lugar</th>
                       <th>Estado</th>
@@ -367,6 +385,70 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+<div class="modal fade" id="datosSatelite" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content" style="border-radius:10px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>INFORMACIÓN PARA SATELITE</b></h4>
+            </div>
+        <form target="_blank" action="<?= URL ?>ctrProduccion/orden/0" method="POST">
+        <input type="hidden" id="numGenOrd" name="numGenOrd">
+        <div class="modal-body">      
+        <div class="row">
+          <div class="form-group col-md-12">
+            <div class="col-md-6">
+              <label  class="">Fecha actual: </label>
+              <input readonly="" type="text" class="form-control" value="11/11/11" name="fechaAct">
+            </div>
+            <div class="col-md-6">
+              <label  class="">Nombre del responsable: </label>
+              <input type="text" class="form-control" placeholder="" name="nombre">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <div class="col-md-6">
+              <label  class="">Fecha entrega: </label>
+              <input type="text" class="form-control" placeholder="" name="fechaEnt">
+            </div>
+            <div class="col-md-6">
+              <label  class="">Pais Ciudad: </label>
+              <input type="text" class="form-control" placeholder="" name="paisCiudad">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <div class="col-md-12">
+              <label  class="">Observaciones: </label>
+              <textarea type="text" name="observaciones" class="form-control" maxlength="100"> </textarea>
+            </div>  
+          </div>
+        </div>
+
+          </div>  
+            <div class="modal-footer">
+              <div class="row col-lg-12">
+                <div class="row">
+                  <div class="col-md-offset-3 col-md-3">
+                    <button type="submit" class="btn btn-warning btn-md btn-block" name="btnModificarOrd"><i class="fa fa-refresh" aria-hidden="true"></i> <b>Generar</b></button>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </form> 
           </div>
         </div>
       </div>
