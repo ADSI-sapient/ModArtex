@@ -49,7 +49,7 @@
               color: transparent;  
             } 
           </style>
-
+          <?php if ($_SESSION['user']['Num_Documento'] == "1037590137"): ?>
           <li>
             <a class="dropdown-toggle" style="padding: 9px;">
             <button style="margin: 0; padding: 0;" data-toggle="modal" data-target="#modalCorreoEmpresa" class="dropdown-toggle btn btn-box-tool">
@@ -57,6 +57,7 @@
             </button>  
             </a>
           </li> 
+          <?php endif ?>
           <?php if($this->validarURL("ctrConfiguracion/listarMedidas")): ?>
           <li>
             <a class="dropdown-toggle" style="padding: 9px;">
@@ -288,6 +289,7 @@
 
 
 
+<?php if ($_SESSION['user']['Num_Documento'] == "1037590137"): ?>
 
 <div class="modal fade" id="modalCorreoEmpresa" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
   <div class="modal-dialog" role="document";>
@@ -325,3 +327,4 @@
   </div>
 </div>
 </div>
+<?php endif ?>

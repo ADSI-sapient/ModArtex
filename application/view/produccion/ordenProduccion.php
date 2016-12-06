@@ -263,18 +263,20 @@ $html = '<!DOCTYPE html>
             </tr>';         
             
             foreach ($ordenesProduccion as $ordenP):
+                if($ordenP["Cantidad_Fabrica"] > 0): 
             $html .=' <tr>
 
             <td class="mono" style="width:15%;">'.$ordenP["Referencia"] .'</td>
             <td class="mono" style="width:15%;">'.$ordenP["Nombre_Prod"] .'</td>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Color"] .'</td>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Talla"] .'</td>
-            <td class="mono" style="width:15%;">'.$ordenP["Cantidad_Producir"] .'</td>
+            <td class="mono" style="width:15%;">'.$ordenP["Cantidad_Fabrica"] .'</td>
             <td style="width:15%;" class="mono">'.$ordenP["LugarProduccion"] .'</td>
             <td style="width:15%;" class="mono"></td>
             <td style="width:15%;" class="mono"></td>
             <td style="width:15%;" class="mono"></td>
             </tr>';
+                endif;
             endforeach; 
             $html .='
             </table>

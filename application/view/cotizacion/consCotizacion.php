@@ -129,7 +129,9 @@
                 <select class="form-control" style="border-radius:5px; width: 100%; height: 200%;" name="id_cliente" id="Cliente">
                 <option value=""></option>
                   <?php foreach ($clientes as $cliente): ?>
-                    <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                    <?php if ($cliente["Num_Documento"] != "1017223026"): ?>
+                      <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                    <?php endif ?>
                   <?php endforeach ?>
                 </select>
               </div>
@@ -281,7 +283,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">CONVERTIR EN PEDIDO</h4>
       </div>
-      <form data-parsley-validate="" id="myModal3" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi();">
+      <form data-parsley-validate="" id="frmConvertirCotEnPed" action="<?= URL ?>ctrCotizacion/converCotiAPe" method="post" role="form" onsubmit="return ValCotPedi();">
         <input type="hidden" name="arrayInsumos[]" id="arrayInsumos">
         <div class="modal-body">
           <div class="row">

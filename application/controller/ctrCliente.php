@@ -19,13 +19,15 @@ class CtrCliente extends Controller{
 				$this->mdlModel->__SET("Num_Documento", $_POST["documento"]);
 				$this->mdlModel->__SET("Email", $_POST["email"]);
 
+
 				$validar = $this->mdlModel->ValidarExistenciaD();
-				$validarE= $this->mdlModel->validarExistenciaE();		
+				$validarE= $this->mdlModel->validarExistenciaE();
+
 		        //Validar que no se repita el documento
 				if ($validar == null){
 
 						//Validar que no se repita el correo
-						if ($validarE == null) {
+						if ($validarE == null || $_POST["email"] == "") {
 							$this->mdlModel->__SET("Tipo_Documento", $_POST["tipo_documento"]);
 					        $this->mdlModel->__SET("Nombre", $_POST["nombre"]);
 					        $this->mdlModel->__SET("Apellido", $_POST["apellido"]);
@@ -40,11 +42,11 @@ class CtrCliente extends Controller{
 								$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el cliente'});"; 
 							}
 						}else{
-							$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
+							$mensajec = "Lobibox.notify('warning', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";
 						}
 						//Final de la validación del correo
 				 }else{
-				    $mensajec= "Lobibox.notify('error', {size: 'mini', msg: 'Ya existe un cliente con este documento'});"; 
+				    $mensajec= "Lobibox.notify('warning', {size: 'mini', msg: 'Ya existe un cliente con este documento'});"; 
 				}
 				$_SESSION["mensaje"] = $mensajec;
 			}	//Final de la validación del documento
@@ -89,7 +91,7 @@ class CtrCliente extends Controller{
 
 			header('location: '.URL.'ctrCliente/consCliente');
 		}else{
-		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', msg: ' Erros al modificar'});";
+		  	$mensajecm= "Lobibox.notify('error', {size: 'mini', msg: ' Error al modificar'});";
 		      }
 		      //header("location: ".URL."usuario/consUsuario")
 
@@ -112,7 +114,7 @@ class CtrCliente extends Controller{
 			$_SESSION["mensaje"] = "Lobibox.notify('success', {size: 'mini', msg: 'El estado ha sido modificado'})";
 		    echo json_encode(["v"=>1]);
 		}else{
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
+			$_SESSION["mensaje"] = "Lobibox.notify('warning', {msg: 'Error al cambiar el estado', rounded: true, delay: false})";
 		    echo json_encode(["v"=>0]);
 		}
 		}

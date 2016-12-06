@@ -178,19 +178,27 @@
 				$fechaEntrega = $_POST["fechaEnt"];
 				$paisCiudad = $_POST["paisCiudad"];
 				$observaciones = $_POST["observaciones"];
-			}
-			
-			$this->_modelProduct->__SET("_id_ordenProd", $numOrd);
-			$ordenesProduccion = $this->_modelProduct->consProductosOrden();
 
+				$this->_modelProduct->__SET("_id_ordenProd", $numOrd);
+				$ordenesProduccion = $this->_modelProduct->consProductosOrden();
 
-			if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Fábrica") {
-				require APP.'view/produccion/ordenProduccion.php';
-			}else if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Satélite"){
 				require APP.'view/produccion/ordenTrabajo.php';
 			}else{
-				// require APP.'view/produccion/ordenProduccion.php';
-				// require APP.'view/produccion/ordenTrabajo.php';
+				$this->_modelProduct->__SET("_id_ordenProd", $numOrd);
+				$ordenesProduccion = $this->_modelProduct->consProductosOrden();
+				require APP.'view/produccion/ordenProduccion.php';
 			}
+			
+
+
+
+			// if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Fábrica") {
+			// 	require APP.'view/produccion/ordenProduccion.php';
+			// }else if ($ordenesProduccion != false && $ordenesProduccion[0]["LugarProduccion"] == "Satélite"){
+			// 	require APP.'view/produccion/ordenTrabajo.php';
+			// }else{
+			// 	// require APP.'view/produccion/ordenProduccion.php';
+			// 	// require APP.'view/produccion/ordenTrabajo.php';
+			// }
 		}
 	}

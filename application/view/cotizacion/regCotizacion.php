@@ -53,7 +53,9 @@
               <select class="form-control" style="border-radius:5px;" name="cliente" id="clienteReg" data-parsley-required="" data-parsley-errors-container="#regCotizCl">
               <option value=""></option>
                 <?php foreach ($clientes as $cliente): ?>
-                  <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                  <?php if ($cliente["Num_Documento"] != "1017223026"): ?>
+                    <option value="<?= $cliente["Num_Documento"] ?>"><?= $cliente["Num_Documento"] ." - ".$cliente["Nombre"]?></option>
+                  <?php endif ?>
                 <?php endforeach ?>
               </select>
             <div id="regCotizCl"></div>

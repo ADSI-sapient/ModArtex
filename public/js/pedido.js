@@ -167,6 +167,7 @@
       //remueve de la tabla los productos asociados al pedido al momento de modificar
       function removerProductoAsoPedi(btn, elemento, subtotal){
 
+
         $("#tbl-prod-aso-ped").each(function(){
           if ($("#tbl-prod-aso-ped tbody .trFichasAsoPedMod").length < 2){
             var tr = "<tr><td id='tblFichasPedModVacia' colspan='10' style='text-align:center;'></td></tr>";
@@ -176,6 +177,8 @@
         });
 
         var e = $(elemento).parent().parent();
+        // $("#cantDevolverInsUpdPed"+$(e).find("td").eq(13).html()).val($("#cantProdInicial"+$(e).find("td").eq(13).html()).val());
+
         $(e).remove();
         boton = "#btn"+btn;
         $(boton).attr('disabled', false);

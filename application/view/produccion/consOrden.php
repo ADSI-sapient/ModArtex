@@ -399,30 +399,31 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>INFORMACIÓN PARA SATELITE</b></h4>
             </div>
-        <form target="_blank" action="<?= URL ?>ctrProduccion/orden/0" method="POST">
+        <form  id="frmGenerarOrden" target="_blank" action="<?= URL ?>ctrProduccion/orden/0" method="POST" data-parsley-validate="">
         <input type="hidden" id="numGenOrd" name="numGenOrd">
+        <input type="hidden" id="lugGenOrd">
         <div class="modal-body">      
         <div class="row">
           <div class="form-group col-md-12">
             <div class="col-md-6">
               <label  class="">Fecha actual: </label>
-              <input readonly="" type="text" class="form-control" value="11/11/11" name="fechaAct">
+              <input readonly="" type="text" class="form-control" value="<?php echo date("Y-m-d");?>" name="fechaAct">
             </div>
             <div class="col-md-6">
-              <label  class="">Nombre del responsable: </label>
-              <input type="text" class="form-control" placeholder="" name="nombre">
+              <label  class="">*Nombre del responsable: </label>
+              <input type="text" data-parsley-required='' class="form-control" placeholder="" name="nombre" maxlength="45">
             </div>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-md-12">
             <div class="col-md-6">
-              <label  class="">Fecha entrega: </label>
-              <input type="text" class="form-control" placeholder="" name="fechaEnt">
+              <label  class="">*Fecha entrega: </label>
+              <input type="text" id="fechaEnt" data-parsley-required='' class="form-control" placeholder="" name="fechaEnt">
             </div>
             <div class="col-md-6">
-              <label  class="">Pais Ciudad: </label>
-              <input type="text" class="form-control" placeholder="" name="paisCiudad">
+              <label  class="">*Pais Ciudad: </label>
+              <input type="text" data-parsley-required='' class="form-control" placeholder="" name="paisCiudad" maxlength="45">
             </div>
           </div>
         </div>

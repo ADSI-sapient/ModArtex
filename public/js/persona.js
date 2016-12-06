@@ -170,8 +170,10 @@ function asociarPermisosNuevos(Id_Permiso, modulos, Nombre, idbton){
     $("#apellido").val(campos.find("td").eq(4).text());
     $("#estado").val(campos.find("td").eq(5).text());
     $("#nombre_usuario").val(campos.find("td").eq(6).text());
+    $("#nomUsuIni").val(campos.find("td").eq(6).text());
      // $("#clave").val(campos.find("td").eq(7).text());
     $("#email").val(campos.find("td").eq(7).text());   
+    $("#emailUsuIni").val(campos.find("td").eq(7).text());   
     $("#rol").val(campos.find("td").eq(9).html());
     console.log(campos.find("td").eq(9).text());
     $("#myModal3").show();
@@ -376,4 +378,47 @@ function enviarFormRegUsuario(){
   }
   return false;
 }
+
+function validarDatosMod(){
+  var nomUsuIni = $("#nomUsuIni").val();
+  var emailUsuIni = $("#emailUsuIni").val();
+
+  var nombreUsuario = $("#nombre_usuario").val();
+  var correo = $("#email").val();
+
+  if (nomUsuIni != nombreUsuario) {
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: uri+'ctrUsuario/valExistUsuario',
+      data: {nombre_usuario: nombreUsuario},
+      async: false
+    }).done(function(resp){
+      if (resp != "") {
+        Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El usuario ingresado ya se encuentra registrado'}); 
+        $("#frmModUsuario").submit(function(){
+          return false;
+        });
+      }
+    });
+  }
+
+  if (emailUsuIni != correo) {
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: uri+'ctrUsuario/valExistEmail',
+      data: {email: correo},
+      async: false
+    }).done(function(resp){
+      if (resp != "") {
+        Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El correo ingresado ya se encuentra registrado'}); 
+        $("#frmModUsuario").submit(function(){
+          return false;
+        });
+      }
+    });
+  }
+}
+
 

@@ -127,7 +127,7 @@
                  <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="email" class="">Email:</label>
-                    <input type="text" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" data-parsley-required="" maxlength="45">
+                    <input type="email" class="form-control" id="Email" placeholder="" name="Email" onChange="validarEmail(this.value);" maxlength="45">
                   </div>
 
                   <div class="form-group col-sm-6">

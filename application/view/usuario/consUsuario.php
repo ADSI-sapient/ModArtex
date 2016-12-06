@@ -1,4 +1,4 @@
-
+  
 <section class="content-header">
   <ol class="breadcrumb">
     <li><a href="<?php echo URL ?>home/index"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -100,7 +100,9 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">MODIFICAR USUARIO</h4>
             </div>
-            <form role="form" id="myModal3" action="<?= URL ?>ctrUsuario/edit" method="post" data-parsley-validate="">
+            <form role="form" id="frmModUsuario" action="<?= URL ?>ctrUsuario/edit" method="post" data-parsley-validate="" onsubmit="return validarDatosMod()">
+            <input type="hidden" id="nomUsuIni">
+            <input type="hidden" id="emailUsuIni">
             <div class="modal-body">
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
@@ -125,7 +127,7 @@
                 <div class="row" style="margin-left:0.5%">
                   <div class="form-group col-sm-6">
                     <label for="nombre_Usuario" class="">*Nombre de Usuario:</label>
-                    <input type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="" maxlength="15">
+                    <input  type="text" class="form-control" id="nombre_usuario" placeholder="" name="nombre_usuario" data-parsley-required="" maxlength="15">
                   </div>
                   <div class="form-group col-sm-6">
                     <label for="rol" class="">*Rol:</label>

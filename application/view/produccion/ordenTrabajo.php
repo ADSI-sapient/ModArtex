@@ -249,25 +249,22 @@ $html = '<!DOCTYPE html>
     <div id="content">
         <div id="invoice_body">';
         foreach ($ordenesProduccion as $ordenP):
+            if($ordenP["Cantidad_Satelite"] > 0): 
+    
                 $this->_modelPedido->__SET("id_ficha", $ordenP["Id_Ficha_Tecnica"]);
                 $insumos = $this->_modelPedido->validarExisteIns();
             $html .='<table class="table">
             <tr style="background:#eee;">
-                <td style="width:15%;" colspan="3"><p>Referencia: '.$ordenP["Referencia"].' </p> <p>Nombre: '.$ordenP["Nombre_Prod"].'</p></td>
-                <td style="width:15%;" colspan="2"><b>Cantidad producir: '.$ordenP["Cantidad_Producir"].'</b></td>
-                <td style="width:15%;" colspan="2"><b>Color: '.$ordenP["Nombre_Color"].'</b></td>
-                <td style="width:15%;" colspan="2"><b>Talla: '.$ordenP["Nombre_Talla"].'</b></td>
+                <td style="width:15%;" colspan="1"><p>Referencia: '.$ordenP["Referencia"].' </p> <p>Nombre: '.$ordenP["Nombre_Prod"].'</p></td>
+                <td style="width:15%;" colspan="1"><b>Cantidad producir: '.$ordenP["Cantidad_Satelite"].'</b></td>
+                <td style="width:15%;" colspan="1"><b>Color: '.$ordenP["Nombre_Color"].'</b></td>
+                <td style="width:15%;" colspan="1"><b>Talla: '.$ordenP["Nombre_Talla"].'</b></td>
             </tr>
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Nombre</b></td>
                 <td style="width:15%;"><b>Color</b></td>
+                <td style="width:15%;"><b>Cantidad enviada</b></td>
                 <td style="width:15%;"><b>Unidad de medida</b></td>
-                <td style="width:15%;"><b>Cantidad</b></td>
-                <td style="width:15%;"><b></b></td>
-                <td style="width:15%;"><b></b></td>
-                <td style="width:15%;"><b></b></td>
-                <td style="width:15%;"><b></b></td>
-                <td style="width:15%;"><b></b></td>
             </tr>';         
             
                 foreach ($insumos as $insumo):
@@ -275,20 +272,33 @@ $html = '<!DOCTYPE html>
 
             <td class="mono" style="width:15%;">'.$insumo["Nombre"] .'</td>
             <td class="mono" style="width:15%;">'.$insumo["Nombre_Color"] .'</td>
+            <td style="width:15%;" class="mono">'.($ordenP["Cantidad_Satelite"] * $insumo["Cant_Necesaria"]).'</td>
             <td style="width:15%;" class="mono">'.$insumo["Unidad_Medida"] .'</td>
-            <td style="width:15%;" class="mono">'.($ordenP["Cantidad_Producir"] * $insumo["Cant_Necesaria"]).'</td>
-            <td class="mono" style="width:15%;"></td>
-            <td style="width:15%;" class="mono"></td>
-            <td style="width:15%;" class="mono"></td>
-            <td style="width:15%;" class="mono"></td>
-            <td style="width:15%;" class="mono"></td>
             </tr>';
                 endforeach; 
             $html .='
             </table>';
+            endif;
             endforeach; 
 
-        $html .='</div>
+        $html .='
+        <table class="table">
+            <tr style="background:#eee;">
+                <td style="width:15%;"><b>Observaciones</b></td>
+            </tr>
+            <tr style="">
+                <td style="width:15%;">'.$observaciones.'</td>
+            </tr>
+        </table>
+
+        <table class="table">
+            <tr style="">
+                <td style="width:15%;">Recibi conforme: </td>
+                <td style="width:15%;">____________________________</td>
+            </tr>
+        </table>
+
+        </div>
     </div>
 
 </div> 

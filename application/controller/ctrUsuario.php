@@ -175,5 +175,20 @@ class CtrUsuario extends Controller{
 		$pass = sha1($_POST["claveIn"]);
 		echo json_encode($pass);
 	}
+
+	public function valExistUsuario(){
+
+		$this->mdlModel->__SET("Usuario", $_POST["nombre_usuario"]);
+		$validarU = $this->mdlModel->ValidarExistenciaU();
+
+		echo json_encode($validarU);
+	}
+
+	public function valExistEmail(){
+
+		$this->mdlModel->__SET("Email", $_POST["email"]);
+		$validarE= $this->mdlModel->validarExistenciaE();
+
+		echo json_encode($validarE);
+	}
 }
-?>

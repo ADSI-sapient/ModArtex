@@ -7,7 +7,7 @@
 
 		public function consCotizacion(){
 			if($this->validarURL("ctrCotizacion/consCotizacion")){
-				$cotizaciones = $this->modelo->getCotizacion();
+				$cotizaciones = $this->modelo->getCotizacion();								
 				// date_default_timezone_set("America/Bogota");
 			foreach ($cotizaciones as $cotizacion) {
 				$fechaActual = date("Y-m-d");

@@ -51,6 +51,24 @@
           $('.datepicker').css('z-index',zIndexModal+1);
         });
 
+        $('#fechaEnt').datepicker({
+          format: "yyyy-mm-dd",
+          language: 'es',
+          autoclose: true
+          // todayBtn: true
+        }).on(
+          'show', function() {      
+          // Obtener valores actuales z-index de cada elemento
+          var zIndexModal = $('#mdlEditOrdenP').css('z-index');
+          var zIndexFecha = $('.datepicker').css('z-index');
+          // Re asignamos el valor z-index para mostrar sobre la ventana modal
+          $('.datepicker').css('z-index',zIndexModal+1);
+        });
+
+
+
+
+
     function editarOrdeP(idOrden, fechaRegistro, fechaEntrega, idEstado, lugarProduccion, numCliente, nombre, idSolTipo)
     {
     	// var campos = $(ordenes).parent().parent();
@@ -734,9 +752,22 @@ function actualizarEstadoSolProducto(){
 
 function generarOrden(numOrden, lugar){
   if (lugar == "Satélite" || lugar == "Fábrica-Satélite") {
-    $("#datosSatelite").modal('show');
     $("#numGenOrd").val(numOrden);
+    $("#lugGenOrd").val(lugar);
+    $("#datosSatelite").modal('show');
   }else{
     window.open(uri+"ctrProduccion/orden/"+numOrden, '_blank');
   }
 }
+
+function generarFabSat(){
+  // console.log($("#lugGenOrd").val(), $("#numGenOrd").val());
+  if ( $("#lugGenOrd").val() == "Fábrica-Satélite") {
+    window.open(uri+"ctrProduccion/orden2/"+$("#numGenOrd").val(), '_blank');
+    $("#frmGenerarOrden").submit(function(){
+          return true;
+    });
+  }
+}
+
+

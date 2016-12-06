@@ -34,6 +34,9 @@
                   <tbody>
                     <?php $cont = 0;?>
                     <?php foreach($listEx as $valExt): ?>
+                     <?php if ($valExt["Estado"] == 1): ?>
+                       
+
                      <tr class="repIns">
                       <td style="display: none;"><?= $valExt["Id_Existencias_InsCol"]?></td>
                       <td><input type="checkbox" style="height:15px; width:15px;" id="chkExi<?= $valExt["Id_Existencias_InsCol"]?>" class="checkboxHijo"></td>
@@ -55,6 +58,7 @@
                       <?php endif ?>
                       </td>  
                     </tr>
+                    <?php endif ?>
                   <?php endforeach ?>
                 </tbody></table>
               </div>

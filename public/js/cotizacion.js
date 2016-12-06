@@ -440,7 +440,9 @@ function ValCotPedi(){
  $("#fichaAsoConvPedido tbody tr").each(function(i, v){
     if ($(this).find("td").eq(14).html() == 0) {
       Lobibox.notify('warning', {size: 'mini', msg: 'El producto '+$(this).find("td").eq(0).html()+' en color '+$(this).find("td").eq(15).html()+' está inhabilitado'});
-      return false;
+      $("#frmConvertirCotEnPed").submit(function(){
+          return false;
+      });
     }
   });
 
