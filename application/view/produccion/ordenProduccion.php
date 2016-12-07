@@ -1,5 +1,5 @@
 <?php
-$icono = '<img src="' . RAIZ . DS . 'public' . DS .'img\check.jpg"/>';
+$icono = '<img src="' . RAIZ . DS . 'public' . DS .'img\icono.jpg"/>';
 
 $html = '<!DOCTYPE html>
 <html>
@@ -268,9 +268,9 @@ $html = '<!DOCTYPE html>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Color"] .'</td>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Talla"] .'</td>
             <td class="mono" style="width:15%;">'.$ordenP["Cantidad_Fabrica"] .'</td>
-            <td style="width:15%;" class="mono">'.$icono.'</td>
-            <td style="width:15%;" class="mono"></td>
-            <td style="width:15%;" class="mono"></td>
+            <td style="width:15%; text-align : center;" class="mono">'.$icono.'</td>
+            <td style="width:15%; text-align : center;" class="mono">'.$icono.'</td>
+            <td style="width:15%; text-align : center;" class="mono">'.$icono.'</td>
             </tr>';
                 endif;
             endforeach; 

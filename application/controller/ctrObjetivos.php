@@ -138,8 +138,7 @@
 
 
 		public function listar_GraficasOb(){
-			$this->mdlModel->__SET("FechaInicio", $_POST["FechaInicio"]);
-			$this->mdlModel->__SET("FechaFin", $_POST["FechaFin"]);
+			$this->mdlModel->__SET("Id_Objetivo", $_POST["Id_Objetivo"]);
 
 			$grafi = $this->mdlModel->GraficasFecha();
 			// $grafis = $this->mdlModel->GraficasRefencias();
@@ -150,21 +149,21 @@
 
 			foreach ($grafi as $value) {
 				$objetivo[] = $value["Referencia"];
-				$refObj[] = $value["Cantidad"];
+				$refObj[] = $value["Avance"];
+				$cant[] = $value["Cantidad"];
 				// $refPro[] = $value[__SET("Referencia")];
 
 				// mandar la referencia por set
 				// luego llamar este metodo GraficasRefencias
 				// $refPro en este array se mete lo que devuelve el metodo
 			}
-			echo json_encode(["objetivo"=>$objetivo, "refObj"=>$refObj]);
+			echo json_encode(["objetivo"=>$objetivo, "refObj"=>$refObj, "cant"=>$cant]);
 
 		}
 
 
 
 		public function listar_GraficasRefHome(){
-
 			$graficosHome = $this->mdlModel->GraficasRefHome();
 
 			$refHome = [];
@@ -177,6 +176,14 @@
 			}
 
 			echo json_encode(["cantiProd"=>$cantiProd, "refHome"=>$refHome]);
+		}
 
+		public function consObjEnProceso(){
+			$this->mdlModel->__SET("Id_Ficha_Tecnica", $_POST["idFichaTec"]);
+			$this->mdlModel->__SET("Cantidad", $_POST["cantAvance"]);
+			
+			// var_dump($this->mdlModel->consObjEnProceso());
+			// exit();
+			echo json_encode($this->mdlModel->consObjEnProceso());
 		}
  }

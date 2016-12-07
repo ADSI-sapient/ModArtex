@@ -143,9 +143,9 @@
             tr2 += "</td><td>";
 
             if (codEstadoFicha == 7) {
-              tr2 += "<button disabled='' type='button' class='btn btn-box-tool'><i class='fa fa-chevron-right' style='color: gray; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td></tr>";  
+              tr2 += "<button disabled='' type='button' class='btn btn-box-tool'><i class='fa fa-chevron-right' style='color: gray; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td><td style='display: none;' data-idFichaTec=''>"+idFichaTec+"</td></tr>";  
             }else{
-              tr2 += "<button type='button' class='btn btn-box-tool' onclick='progressFichaOrden("+idSolcProd+","+codEstadoFicha+")'><i class='fa fa-chevron-right' style='color: green; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td></tr>";  
+              tr2 += "<button type='button' class='btn btn-box-tool' onclick='progressFichaOrden("+idSolcProd+","+codEstadoFicha+")'><i class='fa fa-chevron-right' style='color: green; font-size: 150%;'></i></button></td><td style='display: none;'>"+idfichasTallas+"</td><td style='display: none;' data-idFichaTec=''>"+idFichaTec+"</td></tr>";  
             }
             // tr = "<tr class='box box-solid collapsed-box'><td>"+referencia+
         //     "</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 150%;'></td><td>"
@@ -716,13 +716,23 @@ function actualizarEstadoSolProducto(){
 
         var idFichaTalla = $(this).find("td").eq(12).html();
         var cantDevolver = $(this).find("td").eq(7).html();
+        var idFichaTec = $(this).find("td").eq(13).html();
+
         $.ajax({
           type: 'POST',
           dataType: 'json',
           url: uri+'ctrProduccion/cambiarEstadoSolProd',
           data: {idSolProd: idSolPro, idEstado: idEstado}
         }).done(function(res){
-          // console.log(idSolPro, idEstado, $("#progBarTerm"+idSolPro).val());
+          if ((idEstado == 7)  && ($("#progBarTerm"+idSolPro).val() ==  1)) {
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrObjetivos/consObjEnProceso',
+              data: {idFichaTec: idFichaTec, cantAvance: cantDevolver}  
+            }).done(function(objPend){
+            });
+          }
           if ((idEstado == 7) && ($("#docClienteSeg").val() == "1017223026") && ($("#progBarTerm"+idSolPro).val() ==  1)) {
               $.ajax({
               type: 'POST',

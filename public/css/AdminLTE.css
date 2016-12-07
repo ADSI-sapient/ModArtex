@@ -4920,8 +4920,9 @@ table.text-center th {
 }
 
 .scrolltablas {
-  height: 150px;
-  overflow-y: scroll;
+  height: 250px;
+  overflow-y: auto;
 }
+
 
 

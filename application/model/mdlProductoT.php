@@ -10,6 +10,9 @@ class mdlProductoT
 		private $Stock_Minimo;
 		private $Id_Ficha_Tallas;
 
+		private $Descripcion;
+		private $Url;
+
 
 	public function __SET($atributo, $valor){
 		$this->$atributo = $valor;
@@ -91,5 +94,40 @@ class mdlProductoT
 	    
 	    }
 
-      	
+	    public function alertProdTer(){
+	    	$sql= "CALL SP_AlertProdTer()";
+	    	$query = $this->db->prepare($sql);
+	    	$query->execute();
+	    	return $query->fetchAll();
+	    }
+
+	    public function regNotificacion(){
+	    	$sql= "CALL SP_RegNotificacion(?, ?, ?)";
+	    	$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Descripcion);
+      		$query->bindParam(2, $this->Url);
+      		$query->bindParam(3, $this->Id_Ficha_Tallas);
+      		return $query->execute();
+	    }
+
+	   	public function borrarNotificacion(){
+	    	$sql= "CALL SP_BorrarNotificaciones(?)";
+	    	$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Ficha_Tallas);
+      		return $query->execute();
+	    }
+
+	   	public function consNotificaciones(){
+	    	$sql= "CALL SP_ConsNotificaciones()";
+	    	$query = $this->db->prepare($sql);
+	    	$query->execute();
+	    	return $query->fetchAll();
+	    }
+
+	    public function estadoNotificacion(){
+	    	$sql= "CALL SP_EstadoNotificacion(?)";
+	    	$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Ficha_Tallas);
+      		return $query->execute();
+	    }
 }

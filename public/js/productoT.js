@@ -3,11 +3,11 @@
     $("#cantidadSalida").val("");
     $("#descripcionSalida").val("");
     var campos = $(productos).parent().parent();
-    $("#Referencia").val(campos.find("td").eq(0).text());
-    $("#nombreProdto").val(campos.find("td").eq(1).text());
-    $("#Color").val(campos.find("td").eq(3).text());
-    $("#idft").val(campos.find("td").eq(6).text());
-    $("#cantActual").val(campos.find("td").eq(7).text());
+    $("#Referencia").val(campos.find("td").eq(1).text());
+    $("#nombreProdto").val(campos.find("td").eq(2).text());
+    $("#Color").val(campos.find("td").eq(4).text());
+    $("#idft").val(campos.find("td").eq(7).text());
+    $("#cantActual").val(campos.find("td").eq(8).text());
     $("#ModelSalida").show();
     }
     $(document).ready(function(){
@@ -508,6 +508,7 @@ return false;
 
       
 function validarCantidadSalida(){
+  alertaStockProductoT();
   var cantiActual = $("#cantActual").val();
   var cantiSalir = $("#cantidadSalida").val();
   if (parseInt(cantiSalir) <= parseInt(cantiActual)) {
@@ -614,53 +615,13 @@ $('#tblProducPrAsoc').dataTable({
 });
 
 
-
-$(function(){
-    var html = '';
-    var html2 = '';
-  $("#tablaProducto tbody tr").each(function(){
-
-    var idFtll = $(this).find("td").eq(7).html();
-    var cantActual = $(this).find("td").eq(8).html();
-    var stockMin = $(this).find("td").eq(10).find(".badge").html();
-    var refe = $(this).find("td").eq(1).html();
-    var nombTalla = $(this).find("td").eq(4).html();
-
-    if (parseInt(cantActual) <= parseInt(stockMin)) {
-      $("#campanaNoti").css("color", 'red');
-      html += "<a href='"+uri+"ctrProductoT/existenciasProductoT'><li class='list-group-item'>Stock mínimo alcanzado: "+refe+ " - "+ nombTalla+"</li></a>";
-    }
-  });
-  $("#notificaciones").append(html);
-
-  $("#tblExistencias tbody tr").each(function(){
-
-    var cantActualIns = $(this).find("td").eq(6).html();
-    var stockMinIns = $(this).find("td").eq(8).find(".badge").html();
-    var nombreIns = $(this).find("td").eq(3).html();
-    var color = $(this).find("td").eq(4).html();
-
-    if (parseInt(cantActualIns) <= parseInt(stockMinIns)) {
-      $("#campanaNoti").css("color", 'red');
-      html2 += "<a href='"+uri+"ctrBodega/listExistencias'><li class='list-group-item'>Stock mínimo alcanzado: "+nombreIns+ " - "+ color+"</li></a>";
-    }
-  });
-  $("#notificaciones").append(html2);
-});
-
-$("#campanaNoti").parent().on('click', function(){
-  $("#campanaNoti").css("color", 'black');
-});
-
-
-
- function mostrarGrafica(fechaIni, fechaFin, idObjetivo){
+ function mostrarGrafica(idObjetivo){
       $("#barChart").remove();
       var canv = "<canvas id='barChart' style='height:230px'></canvas>";
       $("#canvCont").append(canv);
       var data = null;
       $.ajax({
-        data:{FechaInicio:fechaIni,FechaFin:fechaFin,Id_Objetivo:idObjetivo},
+        data:{Id_Objetivo:idObjetivo},
         type:"post",
         dataType:"JSON",
         url:uri+"ctrObjetivos/listar_GraficasOb",
@@ -681,18 +642,19 @@ $("#campanaNoti").parent().on('click', function(){
           pointStrokeColor: "#c1c7d4",
           pointHighlightFill: "#c1c7d4",
           pointHighlightStroke: "rgba(220,220,220,1)",
+          data: data["cant"]
+          
+        },
+        {
+          label: "Digital Goods",
+          fillColor: "rgba(60,141,188,0.9)",
+          strokeColor: "rgba(60,141,188,0.8)",
+          pointColor: "#3b8bba",
+          pointStrokeColor: "rgba(60,141,188,1)",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(60,141,188,1)",
           data: data["refObj"]
         }
-        // {
-        //   label: "Digital Goods",
-        //   fillColor: "rgba(60,141,188,0.9)",
-        //   strokeColor: "rgba(60,141,188,0.8)",
-        //   pointColor: "#3b8bba",
-        //   pointStrokeColor: "rgba(60,141,188,1)",
-        //   pointHighlightFill: "#fff",
-        //   pointHighlightStroke: "rgba(60,141,188,1)",
-        //   data: data[""]
-        // }
       ]
     };
 
@@ -742,9 +704,15 @@ $("#campanaNoti").parent().on('click', function(){
     var barChartCanvas = $("#barChart").get(0).getContext("2d");
     var barChart = new Chart(barChartCanvas);
     var barChartData = areaChartData;
-    barChartData.datasets[0].fillColor = "#00a65a";
-    barChartData.datasets[0].strokeColor = "#00a65a";
-    barChartData.datasets[0].pointColor = "#00a65a";
+    barChartData.datasets[0].fillColor = "#e2e2e2";
+    barChartData.datasets[0].strokeColor = "#e2e2e2";
+    barChartData.datasets[0].pointColor = "#e2e2e2";
+
+    barChartData.datasets[1].fillColor = "#3c8dbc";
+    barChartData.datasets[1].strokeColor = "#3c8dbc";
+    barChartData.datasets[1].pointColor = "#3c8dbc";
+
+
     var barChartOptions = {
       scaleShowLabels: true,
       //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
@@ -778,3 +746,60 @@ $("#campanaNoti").parent().on('click', function(){
     barChart.Bar(barChartData, barChartOptions);
     }
 
+
+
+    function alertaStockProductoT(){
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+'ctrProductoT/alertProdTer',
+      }).done(function(resp){
+        $.each(resp, function(i){
+          var idFichaTalla = resp[i]["Id_Fichas_Tallas"];
+          if (resp[i]["Cantidad"] <=  resp[i]["Stock_Minimo"]) {
+            var descripcion = "Stock mínimo alcanzado: "+resp[i]["Referencia"]+ " - "+resp[i]["Nombre"]+" - "+resp[i]["Nombre_Talla"];
+            var url = "ctrProductoT/existenciasProductoT";
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrProductoT/regNotificacion',
+              data: {descripcion: descripcion, url: url, idFichaTalla: idFichaTalla}
+            }).done(function(){
+            });
+          }else{
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrProductoT/borrarNotificacion',
+              data: {idFichaTalla: idFichaTalla}
+            }).done(function(){
+            });
+          }
+        });
+      });
+    }
+
+
+
+$(function(){
+  $.ajax({
+    type: 'POST',
+    dataType: 'json',
+    url: uri+'ctrProductoT/consNotificaciones',
+  }).done(function(notificaciones){
+      var band = false;
+    $.each(notificaciones, function(i){
+      var html = ""; 
+      if (notificaciones[i]["Estado"] == 0) {
+        band = true;
+        html = "<li style='background-color: #e2e2e2;'><a href='"+uri+notificaciones[i]["Url"]+"/?fichTalla="+notificaciones[i]["Ficha_Talla"]+"'>"+notificaciones[i]["Descripcion"]+"</a></li>";
+      }else{
+        html = "<li><a href='"+uri+notificaciones[i]["Url"]+"/?fichTalla="+notificaciones[i]["Ficha_Talla"]+"'>"+notificaciones[i]["Descripcion"]+"</a></li>";
+      }
+      $("#notificaciones").append(html);
+    });
+      if (band) {
+        $("#campanaNoti").css("color", "red");
+      }
+  });
+});

@@ -423,7 +423,7 @@ function validarDatosMod(){
 
  function mostrarGraficaRefHome(){
       $("#graficosRefPro").remove();
-      var canv = "<canvas id='graficosRefPro' style='height:500px'></canvas>";
+      var canv = "<canvas id='graficosRefPro' style='height:350px'></canvas>";
       $("#canvContenedor").append(canv);
       var data = null;
       $.ajax({
@@ -545,7 +545,7 @@ function validarDatosMod(){
     barChart.Bar(barChartData, barChartOptions);
     }
 
-$(function(){
-  mostrarGraficaRefHome();
-});
+
+
+
 

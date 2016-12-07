@@ -83,7 +83,7 @@
             <ul class="dropdown-menu">
               <li class="header"><b><center>Notificaciones</center></b></li>
               <li>
-                <ul class="list-group" id="notificaciones">
+                <ul class="menu" id="notificaciones">
                   
                 </ul>
               </li>

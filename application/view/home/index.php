@@ -71,7 +71,7 @@
       <div class="box-body">
         <div class="col-md-12">
           <div id="canvContenedor" class="chart row">
-              <canvas id="graficosRefPro" style="height:500px"></canvas>
+              <canvas id="graficosRefPro" style="height:350px"></canvas>
           </div>
         </div>
       </div>
@@ -83,4 +83,10 @@
 
     
 </section>
+
+<script type="text/javascript">
+  $(function(){
+    mostrarGraficaRefHome();
+  });
+</script>
 

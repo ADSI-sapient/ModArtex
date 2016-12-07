@@ -122,8 +122,8 @@
                     </div>
                  </div>
                 <div class="table">
-                <div class="form-group col-sm-12 table-responsive scrolltablas">
                 <label for="valor_total" class="">*Productos Asociados:</label>
+                <div class="form-group col-sm-12 table-responsive scrolltablas">
                   <table class="table table-hover table-bordered" style="margin-top: 2%;" id="tbl-prod-aso-ped">
                     <thead>
                       <tr class="active">

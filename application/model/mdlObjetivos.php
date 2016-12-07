@@ -104,10 +104,9 @@
 	    }
 
 	    public function GraficasFecha(){
-	    	$sql = "SELECT o.*, po.*, pd.Referencia FROM tbl_objetivos o INNER JOIN tbl_productos_objetivos po ON o.Id_Objetivo = po.Id_Objetivo INNER JOIN tbl_fichas_tecnicas pd ON pd.Id_Ficha_Tecnica = po.Id_Ficha_Tecnica WHERE o.FechaFin BETWEEN ? AND ?";
+	    	$sql = "SELECT o.*, po.*, pd.Referencia FROM tbl_objetivos o INNER JOIN tbl_productos_objetivos po ON o.Id_Objetivo = po.Id_Objetivo INNER JOIN tbl_fichas_tecnicas pd ON pd.Id_Ficha_Tecnica = po.Id_Ficha_Tecnica WHERE o.Id_Objetivo = ?";
 	    	$query = $this->db->prepare($sql);
-	    	$query->bindParam(1, $this->FechaInicio);
-	    	$query->bindParam(2, $this->FechaFin);
+	    	$query->bindParam(1, $this->Id_Objetivo);
 	    	$query->execute();
 	    	return $query->fetchAll();
 	    }
@@ -200,6 +199,14 @@
       		$query = $this->db->prepare($sql);
 	    	$query->execute();
 	    	return $query->fetchAll(2);
+      	}
+
+      	public function consObjEnProceso(){
+      		$sql = "CALL SP_ConsObjEnProceso(?, ?)";
+      		$query = $this->db->prepare($sql);
+      		$query->bindParam(1, $this->Id_Ficha_Tecnica);
+      		$query->bindParam(2, $this->Cantidad);
+	    	return $query->execute();
       	}
 	}
 ?>

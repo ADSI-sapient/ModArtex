@@ -8,6 +8,10 @@
 		}
 
 		public function existenciasProductoT(){
+			if (isset($_GET["fichTalla"])) {
+				$this->mdlModel->__SET("Id_Ficha_Tallas", $_GET["fichTalla"]);
+				$productos = $this->mdlModel->estadoNotificacion();
+			}
 
 			if($this->validarURL("ctrProductoT/existenciasProductoT")){
 
@@ -96,6 +100,27 @@
 		public function reporteProductoTerminado(){
 			$existenciasProductoT = $_SESSION["arrayExistenciasPT"];
 			require APP.'view/productoT/reporteExistenciasProductoT.php';
+		}
+
+
+
+		public function alertProdTer(){
+			echo json_encode($this->mdlModel->alertProdTer());
+		}
+
+		public function regNotificacion(){
+			$this->mdlModel->__SET("Descripcion", $_POST["descripcion"]);
+			$this->mdlModel->__SET("Url", $_POST["url"]);
+			$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST["idFichaTalla"]);
+			echo json_encode($this->mdlModel->regNotificacion());
+		}
+		public function borrarNotificacion(){
+			$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST["idFichaTalla"]);
+			echo json_encode($this->mdlModel->borrarNotificacion());
+		}
+
+		public function consNotificaciones(){
+			echo json_encode($this->mdlModel->consNotificaciones());
 		}
 	}
 ?>
