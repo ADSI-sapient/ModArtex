@@ -751,8 +751,13 @@ function actualizarEstadoSolProducto(){
 }
 
 function generarOrden(numOrden, lugar){
-  if (lugar == "Satélite" || lugar == "Fábrica-Satélite") {
+  if (lugar == "Satélite") {
     $("#numGenOrd").val(numOrden);
+    $("#lugGenOrd").val(lugar);
+    $("#datosSatelite").modal('show');
+  }else if(lugar == "Fábrica-Satélite"){
+    window.open(uri+"ctrProduccion/orden/"+numOrden, '_blank');
+        $("#numGenOrd").val(numOrden);
     $("#lugGenOrd").val(lugar);
     $("#datosSatelite").modal('show');
   }else{

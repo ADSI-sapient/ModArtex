@@ -104,8 +104,22 @@
         	}
 	    }
 
-	    public function editarPedido(){
+	    public function devIns($idFichaTecDevQuit, $cantDevProdQuit){
+	    	for ($k=0; $k < count($idFichaTecDevQuit); $k++) { 
+	    		$this->mdlModel->__SET("id_ficha", $idFichaTecDevQuit[$k]);
+	    		$insNecesarios = $this->mdlModel->validarExisteIns();
 
+			    for ($l=0; $l < count($insNecesarios); $l++) { 
+			        $canNecesario = $insNecesarios[$l]["Cant_Necesaria"];
+			        $cantDevolverIns = $canNecesario * $cantDevProdQuit[$k];
+				    $this->mdlModel->__SET("cant_devolver", $cantDevolverIns);
+				    $this->mdlModel->__SET("id_existcolinsu", $insNecesarios[$l]["Id_Existencias_InsCol"]);
+				    $this->mdlModel->devolverExistInsumos();
+			    }
+			}
+	    }
+
+	    public function editarPedido(){
 	    	if (isset($_POST["btnModificarPed"])) {
 	    		$this->mdlModel->__SET("id_cliente", $_POST["doc_cliente"]);
 	    		$this->mdlModel->__SET("id_pedido", $_POST["id_pedido"]);
@@ -143,14 +157,12 @@
 
 	    				if ($_POST["cantDescInsUpdPed"][$f] > 0) {
 
-							for ($i=1; $i < count($idesPed); $i++) { 
+							for ($i=1; $i < count($idesPed); $i++) {
 								$this->mdlModel->__SET("idExisInsPed", $idesPed[$i]);
 								$this->mdlModel->__SET("canDescInsPed", $cantidadesPed[$i]);
 								$this->mdlModel->descontarExistenciasInsPed();
 							}
 	    				}
-
-
 
 	    				if ($_POST["cantDevolverInsUpdPed"][$f] > 0) {
 
@@ -164,6 +176,10 @@
 				        			$this->mdlModel->__SET("id_existcolinsu", $insNecesarios[$i]["Id_Existencias_InsCol"]);
 				        			$this->mdlModel->devolverExistInsumos();
 			        			}
+	    				}
+
+	    				if (isset($_POST["idFichaTecDevQuit"])) {
+	    					$this->devIns($_POST["idFichaTecDevQuit"], $_POST["cantDevProdQuit"]);
 	    				}
 	    				
 	    				//registrar en tabla detalle tbl_solicitudes_producto

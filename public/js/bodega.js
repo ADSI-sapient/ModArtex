@@ -158,6 +158,22 @@ $('document').ready(function(){
 
 
   function valiTablaLlenaColIns(){
+      var nomIns = $("#nomInsReg").val();
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {nomIns: nomIns},
+        url: uri+'ctrBodega/validarNomIns',
+        async: false
+      }).done(function(resp){
+        if (resp) {
+          Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'El insumo ingresado ya existe'});
+          $("#frmRegIns").submit(function(){
+            return false;
+          });
+        }
+      });
+  
       mensajeTablaVacia();
       var valorInsumo = $("#valorIns").val();
       if (mensajeTablaVacia()) {
@@ -169,7 +185,6 @@ $('document').ready(function(){
       }
       else{
         Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'Debe asociar colores al insumo'});
-        return false;
       }
   }
 
@@ -221,7 +236,7 @@ function editInsumos(id, insumos){
         '</td><td>'+(cont+=1)+'</td><td>'+respuesta[i]["codigo"]+
         '</td><td><i class="fa fa-square" style="color: '+respuesta[i]["codigo"]+
         '; font-size: 200%;"></i> </td><td>'+respuesta[i]["nombre"]+
-        '</td><td><input id="valColIns'+respuesta[i]["Id_Color"]+'" type="number" class="form-control" min="1" required="" value="'+respuesta[i]["valor"]+
+        '</td><td><input step="any" id="valColIns'+respuesta[i]["Id_Color"]+'" type="number" class="form-control" min="1" required="" value="'+respuesta[i]["valor"]+
         '"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, '+respuesta[i]["Id_ColIns"]+')"><i style="font-size: 150%;" class="fa fa-times"></i></button></td><td style="display: none;">'+respuesta[i]["cantidad"]+'</td></tr>';
         $("#tbodyColIns").append(fila);  
       });
@@ -232,6 +247,8 @@ function editInsumos(id, insumos){
   $("#nomIns").val(campos.find("td").eq(2).text());
   $("#selMedInsCol").val(campos.find("td").eq(9).html());
   $("#stockIns").val(campos.find("td").eq(5).html());
+
+  $("#nomIniIns").val(campos.find("td").eq(2).text());
   $("#ModEditIns").show(); 
 }
 
@@ -250,7 +267,7 @@ function seleccionCol(col, idcolor){
           '</td><td>'+$(color).find("td").eq(1).html()+'</td><td>'+$(color).find("td").eq(2).html()+
           '</td><td><i class="fa fa-square" style="color: '+$(color).find("td").eq(2).html()+
           '; font-size: 200%;"></i></td><td>'+$(color).find("td").eq(4).html()+
-          '</td><td><input id="valColIns'+$(color).find("td").eq(0).html()+'" type="number" class="form-control" min="1" required="" value="0"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, 0)"><i style="font-size: 150%;" class="fa fa-times"></i></button></td></tr>';
+          '</td><td><input step="any" id="valColIns'+$(color).find("td").eq(0).html()+'" type="number" class="form-control" min="1" required="" value="0"</td><td style="text-align: center;"><button style="padding: 0 !important;" type="button" class="btn btn-box-tool" onclick="quitarCol(this, 0)"><i style="font-size: 150%;" class="fa fa-times"></i></button></td></tr>';
     $("#tbodyColIns").append(tr);
     // habilitarBotonAgreCol();
     // validateColSelec();
@@ -546,11 +563,28 @@ $("#salIns").click(function(){
 
 
 function updateColIns(){
+    var nomIns = $("#nomIns").val();
+    var nomIniIns = $("#nomIniIns").val();
+    var band = true;
+    if (nomIns != nomIniIns) {
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {nomIns: nomIns},
+        url: uri+'ctrBodega/validarNomIns',
+        async: false
+      }).done(function(resp){
+        if (resp) {
+          Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'El insumo ingresado ya existe'});
+          band = false;
+        }
+      });
+    }
+
   $("#nomIns").parsley().validate();
   $("#stockIns").parsley().validate();
   $("#selMedInsCol").parsley().validate();
 
-  var band = true;
   $("#tbodyColIns tr").each(function(){
     var IdCol = $(this).find("td").eq(0).html();
     var valIns =  $("#valColIns"+IdCol).parsley().validate();

@@ -112,4 +112,12 @@
 			$stm->bindParam(2, $this->_cant);
 			return $stm->execute();
 		}
+
+		public function validarNomInsumo(){
+			$sql = "CALL SP_ValNomIns(?)";
+			$stm = $this->_db->prepare($sql);
+			$stm->bindParam(1, $this->_nombre);
+			$stm->execute();
+			return $stm->fetch();
+		}
 	}

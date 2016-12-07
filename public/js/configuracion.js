@@ -157,7 +157,7 @@
                     console.log("fail");
                   });
               }else{
-                  Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'El color ingresado ya existe'});
+                  Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'El color ingresado ya existe'});
               }
             }).fail(function(){
               console.log("fail");
@@ -195,7 +195,7 @@
                   console.log("fail");
                 });
               }else{
-                Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'La unidad de medida ingresada ya existe'});
+                Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La unidad de medida ingresada ya existe'});
               }
             });
         }
@@ -322,7 +322,7 @@
           location.href = uri+'ctrConfiguracion/listarColores';            
         }
       }).fail(function(){
-        Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'El color no se puede eliminar dado que esta asociado a un insumo o ficha tecnica'});
+        Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'El color no se puede eliminar dado que esta asociado a un insumo o ficha tecnica'});
       });
     });
   }
@@ -359,7 +359,7 @@
           location.href = uri+'ctrConfiguracion/listarMedidas';
         }
       }).fail(function(){
-        Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'La unidad de medida no se puede eliminar dado que esta asociado a un insumo'});
+        Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La unidad de medida no se puede eliminar dado que esta asociado a un insumo'});
       });
     });
   }

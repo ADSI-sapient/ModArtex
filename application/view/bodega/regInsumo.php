@@ -6,7 +6,7 @@
   </ol>
 </section>
 
-<form onsubmit="return valiTablaLlenaColIns()" action="<?= URL.'ctrBodega/registrarInsumo'; ?>"  method="POST" data-parsley-validate="">
+<form onsubmit="return valiTablaLlenaColIns()" id="frmRegIns" action="<?= URL.'ctrBodega/registrarInsumo'; ?>"  method="POST" data-parsley-validate="">
   <section class="content">
     <div class="box box-primary">
         <div class="box-header with-border" style="text-align: center;">
@@ -18,7 +18,7 @@
               <div class="col-md-11  off-set-1">
                 <div class="form-group">
                   <label class="control-label">*Nombre:</label>
-                  <input type="text" class="form-control" required="" name="nombre" data-parsley-required="" autofocus="" maxlength="45">
+                  <input type="text" id="nomInsReg" class="form-control" required="" name="nombre" data-parsley-required="" autofocus="" maxlength="45">
                 </div>
               </div>
             </div> 

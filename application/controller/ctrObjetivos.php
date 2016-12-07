@@ -149,7 +149,7 @@
 			// $refPro = [];
 
 			foreach ($grafi as $value) {
-				$objetivo[] = $value["Nombre"]." ".$value["Referencia"];
+				$objetivo[] = $value["Referencia"];
 				$refObj[] = $value["Cantidad"];
 				// $refPro[] = $value[__SET("Referencia")];
 
@@ -159,5 +159,24 @@
 			}
 			echo json_encode(["objetivo"=>$objetivo, "refObj"=>$refObj]);
 
-		}	
+		}
+
+
+
+		public function listar_GraficasRefHome(){
+
+			$graficosHome = $this->mdlModel->GraficasRefHome();
+
+			$refHome = [];
+			$cantiProd = [];
+
+			foreach ($graficosHome as $value) {
+
+				$cantiProd[] = $value["Canti_Producida"];
+				$refHome[] = $value["Referencia"]." - ".$value["Nom_Color"];
+			}
+
+			echo json_encode(["cantiProd"=>$cantiProd, "refHome"=>$refHome]);
+
+		}
  }

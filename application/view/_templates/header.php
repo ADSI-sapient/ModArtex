@@ -78,23 +78,24 @@
           <?php endif; ?>
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i style="font-size: 130%;" class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <i style="font-size: 130%;" class="fa fa-bell-o" id="campanaNoti"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 10 notificaciones.</li>
-              <!-- <li>
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 nuevos miembros hoy
-                    </a>
-                  </li>
+              <li class="header"><b><center>Notificaciones</center></b></li>
+              <li>
+                <ul class="list-group" id="notificaciones">
+                  
                 </ul>
-              </li> -->
-              <li class="footer"><a href="#">Ver todo</a></li>
+              </li>
+              <!-- <li class="footer"><a href="#">Ver todo</a></li> -->
             </ul>
-          </li>          
+          </li>
+          <style type="text/css">
+            #notificaciones {
+              overflow-y:auto;
+              height: 200px;
+              }
+          </style>          
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs"><?= $_SESSION['user']['nombreR']; ?></span>

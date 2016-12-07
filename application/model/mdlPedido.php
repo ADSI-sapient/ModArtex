@@ -135,8 +135,7 @@
       		$query = $this->db->prepare($sql);
       		$query->bindParam(1, $this->id_existcolinsu);
       		$query->bindParam(2, $this->cant_devolver);
-      		$query->execute();
-      		return $query;
+      		return $query->execute();
       	}
 
       	public function editPedidos()

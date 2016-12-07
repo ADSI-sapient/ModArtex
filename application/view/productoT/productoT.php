@@ -39,7 +39,7 @@
               <tbody class="list">
                   <?php foreach ($productos as $producto): ?>
                     <tr class="repProdT">
-                    <th><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>" style="height:15px; width:15px;" class="checkboxHijoPT"></th>
+                      <td><input type="checkbox" id="chkSali<?= $producto["Referencia"] ?>" style="height:15px; width:15px;" class="checkboxHijoPT"></td>
                       <td class="Referencia repProdTerm"><?= $producto["Referencia"] ?></td>
                       <td class="NombreProducto repProdTerm"><?= $producto["Nombre_Producto"] ?></td>
                       <td class="repProdTerm" style="display: none"><?= $producto["Nombre"] ?></td>

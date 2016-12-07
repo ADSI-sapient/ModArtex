@@ -52,7 +52,7 @@ class ctrConfiguracion extends Controller{
 		$validate = $this->_modelColor->validar();
 		
 		if($validate != false) {
-			$_SESSION["mensaje"] = "Lobibox.notify('error', {delay: 6000, size: 'mini',
+			$_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini',
 					msg: 'El color ingresado ya existe'});";
 			header ("location: ".URL."ctrConfiguracion/listarColores");
 		}else{
@@ -115,7 +115,7 @@ class ctrConfiguracion extends Controller{
 		$this->_modelMedida->__SET("_abreviatura", $_POST["Abr"]);
 
 		if ($this->_modelMedida->validar() != false) {
-			$_SESSION["mensaje"] = "Lobibox.notify('error', {delay: 6000, size: 'mini',
+			$_SESSION["mensaje"] = "Lobibox.notify('warning', {delay: 6000, size: 'mini',
 					msg: 'La unidad de medida ingresada ya existe'});";
 			header('location: '.URL.'ctrConfiguracion/listarMedidas');
 		}else{
@@ -177,7 +177,7 @@ class ctrConfiguracion extends Controller{
 			    // alert("Error al registrar");
 			 	}
 			}else{
-				$mensajeR = "Lobibox.notify('error', {size: 'mini', delayIndicator: 6000, msg: 'Este nombre de usuario ya se encuentra en la base de datos'});"; 
+				$mensajeR = "Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'Este nombre de usuario ya se encuentra en la base de datos'});"; 
 			}
 			$_SESSION["mensaje"] = $mensajeR;
 	        }
@@ -200,7 +200,7 @@ class ctrConfiguracion extends Controller{
 					$mensajeR = "Lobibox.notify('success', {size: 'mini', delayIndicator: 6000, msg: 'Rol modificado exitosamente'});";
 				}
 	      	}else{
-	      		$mensajeR = "Lobibox.notify('error', {size: 'mini', delayIndicator: 6000, msg: 'El rol administrador no se puede modificar'});";
+	      		$mensajeR = "Lobibox.notify('warning', {size: 'mini', delayIndicator: 6000, msg: 'El rol administrador no se puede modificar'});";
 	      	}
 	      	$_SESSION["mensaje"] = $mensajeR;
 		}

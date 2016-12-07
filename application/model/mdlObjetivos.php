@@ -194,5 +194,12 @@
       		$query->bindParam(1, $this->Id_Objetivo);
 	    	return $query->execute();
       	}
+
+      	public function GraficasRefHome(){
+      		$sql = "CALL SP_ConsRefMasProd()";
+      		$query = $this->db->prepare($sql);
+	    	$query->execute();
+	    	return $query->fetchAll(2);
+      	}
 	}
 ?>

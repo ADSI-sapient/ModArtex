@@ -242,4 +242,11 @@ class ctrBodega extends Controller{
 		$existencias = $_SESSION["arrayExistencias"];
 		require APP.'view/bodega/reporteExistenciasIns.php';
 	}
+
+
+	public function validarNomIns(){
+		$this->_modelExistencias->__SET("_nombre", $_POST["nomIns"]);
+		$valIns = $this->_modelExistencias->validarNomInsumo();
+		echo json_encode($valIns);
+	}
 }

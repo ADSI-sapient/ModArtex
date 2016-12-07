@@ -165,7 +165,13 @@
       }
 
       //remueve de la tabla los productos asociados al pedido al momento de modificar
-      function removerProductoAsoPedi(btn, elemento, subtotal){
+      function removerProductoAsoPedi(btn, elemento, subtotal, idFichaTec){
+
+        if ($("#validarCargaProd"+btn).val() == 1) {
+          var cantDev = $("#cantProdInicial"+btn).val();
+          var inpDevInsQuit = "<input type='hidden' name='idFichaTecDevQuit[]' value='"+idFichaTec+"'><input type='hidden' name='cantDevProdQuit[]' value='"+cantDev+"'>";
+          $("#tbl-prod-aso-ped tbody").append(inpDevInsQuit);
+        }
 
 
         $("#tbl-prod-aso-ped").each(function(){
@@ -405,7 +411,7 @@
             +vlrproducto+"</td><td><input data-parsley-required='' min='0' readonly='' type='text' id='capValor"
             +idFichaTalla+"' name='subTotal[]' for='cantProducir"+idFichaTalla+
             "' style='border-radius:5px;' value='0'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+idFichaTalla+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='0'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+idFichaTalla+
-            "' class='badge bg-red'>"+cantProdT+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdT+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value)' ><i class='fa fa-remove' style='font-size: 150%;'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
+            "' class='badge bg-red'>"+cantProdT+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdT+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value, "+idfichat+")' ><i class='fa fa-remove' style='font-size: 150%;'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
             "' name='idFichaTalla[]' value='"+idFichaTalla+"'><input type='hidden' name='idFicha[]' value='"+idfichat+"'><td style='display: none;'>"
             +idFichaTalla+"</td><td style='display: none;'><input type='hidden' id='cantProdInicial"+idFichaTalla+"' value='0'><input type='hidden' id='cantUsadaInicial"+idFichaTalla+"' value='0'><input type='hidden' id='cantProdTerInicial"+idFichaTalla+"' value='"+cantProdT+"'></td><td style='display: none;'>"+idfichat+"</td><td style='display: none;'>"+idFichaTalla+"</td></tr>";
           $("#tblFichasPedModVacia").parent().remove();
@@ -532,7 +538,7 @@
                 var tr ="";
                 if (modalPa == 1) {
                   tr = "<tr id='tr"+idFichaTalla+
-                  "' class='box box-solid collapsed-box trFichasAsoPedMod'><td>"+idProducto+
+                  "' class='box box-solid collapsed-box trFichasAsoPedMod'><input id='validarCargaProd"+idFichaTalla+"' type='hidden' value='1'><td>"+idProducto+
                   "</td><td>"+nombreProdu+"</td><td><i class='fa fa-square' style='color:"+color+
                   "; font-size: 200%;' title='"+nomColor+"'></i><td>"+nomTalla+"</td></td><td><input data-parsley-required='' type='number' min='1' id='cantProducir"+idFichaTalla+
                   "' name='cantProducir[]' value='"+cantProducir+"' style='border-radius:5px;'><input type='hidden' id='cantDescInsUpdPed"+idFichaTalla+"' name='cantDescInsUpdPed[]' value='0'><input type='hidden' name='cantDevolverInsUpdPed[]' id='cantDevolverInsUpdPed"+idFichaTalla+"' value='0'></td><td>"
@@ -540,7 +546,7 @@
                   +idFichaTalla+"' name='subTotal[]' for='cantProducir"+idFichaTalla+
                   "' style='border-radius:5px;' value='"+subtotal+
                   "'></td><td><input data-parsley-required='' name='cantUsarProTerUpdPed[]' id='cantUsarProTerUpdPed"+idFichaTalla+"' style='border-radius:5px; width: 100%;' type='number' min='0' value='"+cantUsar+"'></td><td style='text-align: center;'><span id='spanUpdateProdPed"+idFichaTalla+
-                  "' class='badge bg-red'>"+cantProdTerminado+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdTerminado+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value)' ><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
+                  "' class='badge bg-red'>"+cantProdTerminado+"</span><input type='hidden' id='intSpanUpdaProdPed"+idFichaTalla+"' name='intSpanUpdaProdPed[]' value='"+cantProdTerminado+"'></td><td><button type='button' class='btn btn-box-tool' onclick='removerProductoAsoPedi("+idFichaTalla+", this, capValor"+idFichaTalla+".value, "+id_fichat+")' ><i style='font-size:150%;' class='fa fa-remove'></i></button></td><input type='hidden' id='idFichaTalla"+idFichaTalla+
                   "' name='idFichaTalla[]' value='"+idFichaTalla+"'><input type='hidden' name='idFicha[]' value='"+id_fichat+"'><td style='display: none;'>"
                   +idFichaTalla+"</td><td style='display:none;'><input type='hidden' id='cantProdInicial"+idFichaTalla+"' value='"+cantProducir+"'><input type='hidden' id='cantUsadaInicial"+idFichaTalla+"' value='"+cantUsar+"'><input type='hidden' id='cantProdTerInicial"+idFichaTalla+"' value='"+cantProdTerminado+"'></td><td style='display:none;'>"+id_fichat+"</td><td style='display:none;'>"+idFichaTalla+"</td></tr>";
                   $('#tbl-prod-aso-ped').append(tr);

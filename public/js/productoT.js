@@ -185,7 +185,6 @@ $(function(){
             url: uri+"ctrObjetivos/listarF",
             data: {objetivo: Id_Objetivo },
             success: function(data){
-              alert();
                // $("#Nombre").val(campos.find("td").eq(1).text());
             for (var i = 0; i < data.length; i++) {
               console.log(data);
@@ -398,7 +397,6 @@ function TotalFCN(){
                 // swal("Cancelado", "El Pedido ha sido cancelado", "success");
                 // location.href = uri+"ctrPedido/consPedido";
               }else{
-                alert("Error al cancelar el objetivo");
               }
             }).fail(function(){
             })  
@@ -614,3 +612,169 @@ $('#tblProducPrAsoc').dataTable({
   },
   "lengthMenu": [[3, 5, 10], [3, 5, 10]]
 });
+
+
+
+$(function(){
+    var html = '';
+    var html2 = '';
+  $("#tablaProducto tbody tr").each(function(){
+
+    var idFtll = $(this).find("td").eq(7).html();
+    var cantActual = $(this).find("td").eq(8).html();
+    var stockMin = $(this).find("td").eq(10).find(".badge").html();
+    var refe = $(this).find("td").eq(1).html();
+    var nombTalla = $(this).find("td").eq(4).html();
+
+    if (parseInt(cantActual) <= parseInt(stockMin)) {
+      $("#campanaNoti").css("color", 'red');
+      html += "<a href='"+uri+"ctrProductoT/existenciasProductoT'><li class='list-group-item'>Stock mínimo alcanzado: "+refe+ " - "+ nombTalla+"</li></a>";
+    }
+  });
+  $("#notificaciones").append(html);
+
+  $("#tblExistencias tbody tr").each(function(){
+
+    var cantActualIns = $(this).find("td").eq(6).html();
+    var stockMinIns = $(this).find("td").eq(8).find(".badge").html();
+    var nombreIns = $(this).find("td").eq(3).html();
+    var color = $(this).find("td").eq(4).html();
+
+    if (parseInt(cantActualIns) <= parseInt(stockMinIns)) {
+      $("#campanaNoti").css("color", 'red');
+      html2 += "<a href='"+uri+"ctrBodega/listExistencias'><li class='list-group-item'>Stock mínimo alcanzado: "+nombreIns+ " - "+ color+"</li></a>";
+    }
+  });
+  $("#notificaciones").append(html2);
+});
+
+$("#campanaNoti").parent().on('click', function(){
+  $("#campanaNoti").css("color", 'black');
+});
+
+
+
+ function mostrarGrafica(fechaIni, fechaFin, idObjetivo){
+      $("#barChart").remove();
+      var canv = "<canvas id='barChart' style='height:230px'></canvas>";
+      $("#canvCont").append(canv);
+      var data = null;
+      $.ajax({
+        data:{FechaInicio:fechaIni,FechaFin:fechaFin,Id_Objetivo:idObjetivo},
+        type:"post",
+        dataType:"JSON",
+        url:uri+"ctrObjetivos/listar_GraficasOb",
+        async:false
+      }).done(function(respuesta){
+        data = respuesta;
+        console.log(data);
+      })
+
+      var areaChartData = {
+      labels: data["objetivo"],
+      datasets: [
+        {
+          label: "Electronics",
+          fillColor: "rgba(210, 214, 222, 1)",
+          strokeColor: "rgba(210, 214, 222, 1)",
+          pointColor: "rgba(210, 214, 222, 1)",
+          pointStrokeColor: "#c1c7d4",
+          pointHighlightFill: "#c1c7d4",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: data["refObj"]
+        }
+        // {
+        //   label: "Digital Goods",
+        //   fillColor: "rgba(60,141,188,0.9)",
+        //   strokeColor: "rgba(60,141,188,0.8)",
+        //   pointColor: "#3b8bba",
+        //   pointStrokeColor: "rgba(60,141,188,1)",
+        //   pointHighlightFill: "#fff",
+        //   pointHighlightStroke: "rgba(60,141,188,1)",
+        //   data: data[""]
+        // }
+      ]
+    };
+
+    var areaChartOptions = {
+
+      //Boolean - If we should show the scale at all
+      showScale: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: false,
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - Whether the line is curved between points
+      bezierCurve: true,
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension: 0.3,
+      //Boolean - Whether to show a dot for each point
+      pointDot: false,
+      //Number - Radius of each point dot in pixels
+      pointDotRadius: 4,
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth: 1,
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius: 20,
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke: true,
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth: 2,
+      //Boolean - Whether to fill the dataset with a color
+      datasetFill: true,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive: true
+    };
+    
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    var barChart = new Chart(barChartCanvas);
+    var barChartData = areaChartData;
+    barChartData.datasets[0].fillColor = "#00a65a";
+    barChartData.datasets[0].strokeColor = "#00a65a";
+    barChartData.datasets[0].pointColor = "#00a65a";
+    var barChartOptions = {
+      scaleShowLabels: true,
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: true,
+      //String - Colour of the grid lines
+      scaleGridLineColor: "rgba(0,0,0,.05)",
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke: true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth: 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing: 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing: 1,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+      //Boolean - whether to make the chart responsive
+      responsive: true,
+      maintainAspectRatio: true
+    };
+
+    barChartOptions.datasetFill = false;
+    barChart.Bar(barChartData, barChartOptions);
+    }
+

@@ -1,4 +1,5 @@
 <?php
+$icono = '<img src="' . RAIZ . DS . 'public' . DS .'img\check.jpg"/>';
 
 $html = '<!DOCTYPE html>
 <html>
@@ -228,7 +229,7 @@ $html = '<!DOCTYPE html>
     <table style="width:100%;">
         <tr>
             <td style="width:80mm;">
-                <h1 class="heading">'.$ordenesProduccion[0]["Num_Documento"].'</h1>
+                <h1 class="heading">Número de la orden: '.$numOrd.'</h1>
                 <br>
                 <h2 class="heading">Tipo De Documento :</h2>
                 <h2 class="heading">Número de Documento :</h2>
@@ -238,9 +239,6 @@ $html = '<!DOCTYPE html>
             </td>
             <td valign="top">
                 <table class="" style="width:100%;">
-                    <tr><td>Número de Cotización : </td><td></td></tr>
-                    <tr><td>Fecha de Registro : </td><td></td></tr>
-                    <tr><td>Fecha de Vencimiento : </td><td></td></tr>
                 </table>
             </td>
         </tr>
@@ -252,11 +250,10 @@ $html = '<!DOCTYPE html>
             <table class="table">    
             <tr style="background:#eee;">
                 <td style="width:15%;"><b>Referencia</b></td>
-                <td style="width:15%;"><b>Nombre</b></td>
+                <td style="width:30%;"><b>Nombre</b></td>
                 <td style="width:15%;"><b>Color</b></td>
                 <td style="width:15%;"><b>Talla</b></td>
                 <td style="width:15%;"><b>Cantidad Producir</b></td>
-                <td style="width:15%;"><b>Lugar Producción</b></td>
                 <td style="width:15%;"><b>Pendiente</b></td>
                 <td style="width:15%;"><b>Producción</b></td>
                 <td style="width:15%;"><b>Terminado</b></td>
@@ -271,8 +268,7 @@ $html = '<!DOCTYPE html>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Color"] .'</td>
             <td style="width:15%;" class="mono">'.$ordenP["Nombre_Talla"] .'</td>
             <td class="mono" style="width:15%;">'.$ordenP["Cantidad_Fabrica"] .'</td>
-            <td style="width:15%;" class="mono">'.$ordenP["LugarProduccion"] .'</td>
-            <td style="width:15%;" class="mono"></td>
+            <td style="width:15%;" class="mono">'.$icono.'</td>
             <td style="width:15%;" class="mono"></td>
             <td style="width:15%;" class="mono"></td>
             </tr>';
