@@ -8,8 +8,8 @@
 		}
 
 		public function existenciasProductoT(){
-			if (isset($_GET["fichTalla"])) {
-				$this->mdlModel->__SET("Id_Ficha_Tallas", $_GET["fichTalla"]);
+			if (isset($_GET["Id"])) {
+				$this->mdlModel->__SET("Id_Ficha_Tallas", $_GET["Id"]);
 				$productos = $this->mdlModel->estadoNotificacion();
 			}
 
@@ -116,6 +116,7 @@
 		}
 		public function borrarNotificacion(){
 			$this->mdlModel->__SET("Id_Ficha_Tallas", $_POST["idFichaTalla"]);
+			// var_dump();
 			echo json_encode($this->mdlModel->borrarNotificacion());
 		}
 

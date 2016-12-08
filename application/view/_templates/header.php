@@ -102,19 +102,35 @@
               <i class="fa fa-angle-double-down" aria-hidden="true"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="user-header">
-<!--                 <img src="<?php echo URL ?>img/avatar5.png" class="img-circle" alt="User Image"> -->
-                <p style="color:white;">
+              <li class="user-header" style="background-color: #e2e2e2;">
+                <p style="color:black;">
                   <?= $_SESSION['user']['Nombre']; ?> <?= $_SESSION['user']['Apellido']; ?>
-                  <small style="color:white;"><?= $_SESSION['user']['nombreR']; ?></small>
+                  <small style="color:black;"><?= $_SESSION['user']['nombreR']; ?></small>
                 </p>
+                            <div >
+              <a href="#">
+                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalAcerca" class="dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+              </a>
+            
+
+              <a href="<?= URL;?>ctrCotizacion/mapa">
+                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalMapa" class="dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-sitemap" aria-hidden="true"></i>
+                </button>
+              </a>
+            
+            
+                <a href="#">
+                  <button type="button" style="font-size: 30px;" class=" dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-question" aria-hidden="true"></i>
+                  </button>
+                </a>
+            </div>
               </li>
               <li class="user-footer">
 <!--                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div> -->
-                <div class="pull-left" style="background-color: blue;">
-                  <a href="<?= URL; ?>ctrUsuario/perfil" class="btn btn-default btn-flat"><b>Mi Perfil</b></a>
+                <div class="pull-left">
+                  <a style="background-color: #3c8dbc; color: white;" href="<?= URL; ?>ctrUsuario/perfil" class="btn btn-default btn-flat"><b>Mi Perfil</b></a>
                 </div> 
                 <div class="pull-right">
                   <a href="<?= URL; ?>ctrLogin/cerrarSesion" class="btn btn-default btn-flat"><b>Cerrar Sesión</b></a>
@@ -177,7 +193,7 @@
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Colores</h3>
+          <h4 style="font-weight: bold; text-align: center;" class="modal-title">COLORES</h4>
       </div>
       <div class="modal-body">
         <form data-parsley-validate="">
@@ -240,7 +256,7 @@
     <div class="modal-content" style="border-radius: 25px;">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h3 style="font-weight: bold; text-align: center;" class="modal-title">Unidades de Medida</h3>
+          <h4 style="font-weight: bold; text-align: center;" class="modal-title">UNIDADES DE MEDIDA</h4>
       </div>
       <div class="modal-body">  
         <form data-parsley-validate="">
@@ -299,12 +315,12 @@
         <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           <h4 class="modal-title">CORREO ELECTRÓNICO EMPRESA</h4>
       </div>
-      <form action="<?= URL; ?>ctrUsuario/cambiarCorreoEmpresa" method="POST">
+      <form action="<?= URL; ?>ctrUsuario/cambiarCorreoEmpresa" method="POST" data-parsley-validate="">
       <div class="modal-body">  
         <div class="row">
           <div class="form-group col-md-12">
             <label for="nombre" class="">*E-mail:</label>
-            <input type="text" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
+            <input type="email" class="form-control" placeholder="" name="correo" autofocus="" data-parsley-required="" maxlength="45">
           </div>
         </div>
         <div class="row">
@@ -329,3 +345,42 @@
 </div>
 </div>
 <?php endif ?>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="ModalAcerca">
+  <div class="modal-dialog modal-sm" role="document" >
+    <div class="modal-content" style="border-radius: 10px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Acerca de ModArtex</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          <div  style="text-align: center;">
+            <li class="fa fa-scissors" style="font-size:75px;"></li>
+              <p style="font-size: 25px;"><b>ModArtex</b></p>
+          </div>
+
+          <div>
+            <p>&copy; 2016 SENA Reservados todos los derechos.</p>
+          </div>  
+
+        <p>Información del sistema.</p>
+          <div class="panel panel-default">
+              <p style="margin-left: 5px">Versión del software: 1.0 2016</p>
+              <p style="margin-left: 5px">Copyright © 2014-2015 Almsaeed Studio. All rights reserved.
+                Version 2.3.3</p>
+              <p style="margin-left: 5px">Desarrolladores:  Aprendices SENA</p>
+          </div>  
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <div class="col-md-5 col-md-offset-3">
+        <button type="button" class="btn btn-default btn-md btn-block" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i> <b>Cerrar</b></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

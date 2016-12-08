@@ -169,7 +169,7 @@
 	    	echo json_encode($this->_modelProduct->aumentarProductoT());
 	    }
 
-	    public function orden($numOrd){
+	    public function orden($numOrd, $fechReg, $fechaTer, $docCliente, $nomCLiente){
 
 			if (isset($_POST["numGenOrd"])) {
 				$numOrd = $_POST["numGenOrd"];

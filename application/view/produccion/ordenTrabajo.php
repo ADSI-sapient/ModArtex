@@ -230,15 +230,15 @@ $html = '<!DOCTYPE html>
             <td style="width:80mm;">
                 <h1 class="heading">Número de la orden: '.$numOrd.'</h1>
                 <br>
-                <h2 class="heading">Nombre del  ponsable :'.$nombreRes.'</h2>
-                <h2 class="heading">Fecha :'.$fechaAtual.'</h2>
-                <h2 class="heading">País Ciudad :'.$paisCiudad.'</h2>
-                <h2 class="heading">Fecha entrega :'.$fechaEntrega.'</h2>
+                <h2 class="heading">Nombre del  Responsable: '.$nombreRes.'</h2>
+                <h2 class="heading">Fecha Actual: '.$fechaAtual.'</h2>
+                <h2 class="heading">Ciudad/País: '.$paisCiudad.'</h2>
+                <h2 class="heading">Fecha Entrega: '.$fechaEntrega.'</h2>
             </td>
             <td valign="top">
                 <table class="" style="width:100%;">
                     <tr><td style="text-align: center;"><h1>ATENCIÓN</h1></td></tr>
-                    <tr><td>Por favor revisar la producción para que no hallan anomalias, informar cualquier duda antes de confeccionar no se asume reclamos sin previo aviso.</td></tr>
+                    <tr><td>Por favor revisar la producción para que no hallan anomalías, informar cualquier duda antes de confeccionar, no se asume reclamos sin previo aviso.</td></tr>
                 </table>
             </td>
         </tr>

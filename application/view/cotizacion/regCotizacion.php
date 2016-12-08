@@ -41,7 +41,7 @@
           <div class="form-group col-lg-4">
 
             <label for="estado" class="">Estado</label>
-            <input type="text" name="estado" class="form-control" id="estado" readonly="" value="Pendiente">
+            <input type="text" name="estado" class="form-control" id="estado" readonly="" value="No Entregada">
           </div>
         </div>
         </div>

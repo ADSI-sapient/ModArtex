@@ -53,23 +53,37 @@
                   <span style="margin-left: 45%;" class="info-box-number"><?= $ordenProduccion["Fecha_Entrega"] ?></span>
   
                   <div class="progress">
-                    <div class="progress-bar" style="width: 80%"></div>
+                  <?php if ($ordenProduccion["Id_Estado"] == 5): ?>
+                    <div class="progress-bar" style="width: 33%"></div>
+                  <?php endif ?>
+                  <?php if($ordenProduccion["Id_Estado"] == 6): ?>
+                    <div class="progress-bar" style="width: 66%"></div>
+                  <?php endif ?>
+                  <?php if ($ordenProduccion["Id_Estado"] == 7): ?>
+                    <div class="progress-bar" style="width: 100%"></div>
+                  <?php endif ?>
+                    <?php if ($ordenProduccion["Id_Estado"] == 4): ?>
+                      <div class="progress-bar" style="width: 1%"></div>
+                    <?php endif ?>
                   </div>
                     <span class="progress-description">
 
-<!--                         <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button> -->
+
+
+
 
                     <?php if ($ordenProduccion["Id_Estado"] == 5): ?>
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mdlEditOrdenP" id="btnAgregar<?= $b; ?>" onclick="editarOrdeP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Id_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Id_Solicitudes_Tipo"] ?>'); FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>')"><i style="color: green; font-size: 150%;" class="fa fa-pencil-square-o" name="btncarg"></i></button>  
                     <?php endif ?>
 
-                    <?php if ($ordenProduccion["Id_Estado"] == 6 || $ordenProduccion["Id_Estado"] == 7): ?>
-                      <button onclick="generarOrden('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>')" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
-                      <!-- <a target="_blank" href='<?= URL ?>ctrProduccion/orden/<?= $ordenProduccion["Num_Orden"] ?>' class="btn btn-box-tool" id="buttonID" ><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 150%;"></i></a> -->
+                    <?php if ($ordenProduccion["Id_Estado"] == 6): ?>
+                      <button onclick="generarOrden('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>', '<?= $ordenProduccion["Nombre"] ?>')" type="button" class="btn btn-box-tool" ><i class="fa fa-file-pdf-o fa-lg" style="font-size: 150%;"></i></button>
                     <?php endif ?> 
                     <?php if ($ordenProduccion["Id_Estado"] == 5 || $ordenProduccion["Id_Estado"] == 6): ?>
 
                       <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" onclick="cancelarOrdenP('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Id_Solicitud"] ?>');" id="btn-cancel-ord"><i class="fa fa-ban" style="color:red; font-size: 150%"></i></button>
+
+                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#detalleOrden" onclick="FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>'); detalleProd('<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Nombre_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>');"><i style="color: blue; font-size: 150%;" class="fa fa-eye" name="btncarg"></i></button>
                     <?php endif ?>
 
                     <?php if ($ordenProduccion["Id_Estado"] == 6): ?>
@@ -77,10 +91,10 @@
                     <?php endif ?> 
 
                     <?php if ($ordenProduccion["Id_Estado"] == 5): ?> 
-                      <button style="margin: 0; padding: 0" type="button" onclick="cambiarEstadoOrdenPro(<?= $ordenProduccion["Num_Orden"] ?>)" class="btn btn-box-tool"><i class="fa fa-arrow-circle-right" style="color: green; font-size: 200%"></i></button>
+                      <button style="margin: 0; padding: 0" type="button" onclick="cambiarEstadoOrdenPro(<?= $ordenProduccion["Num_Orden"] ?>)" class="btn btn-box-tool"><i class="fa fa-arrow-circle-right" style="color: green; font-size: 150%"></i></button>
                     <?php endif ?>
-                    <?php if ($ordenProduccion["Id_Estado"] == 4): ?>    
-                      <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool"><i class="fa fa-eye" style="color: blue; font-size: 150%"></i></button>
+                    <?php if ($ordenProduccion["Id_Estado"] == 4 || $ordenProduccion["Id_Estado"] == 7): ?>    
+                    <button style="margin: 0; padding: 0" type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#detalleOrden" onclick="FichasAsoOrd('<?= $ordenProduccion["Num_Orden"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>'); detalleProd('<?= $ordenProduccion["Fecha_Registro"] ?>', '<?= $ordenProduccion["Fecha_Entrega"] ?>', '<?= $ordenProduccion["Nombre_Estado"] ?>', '<?= $ordenProduccion["LugarProduccion"] ?>', '<?= $ordenProduccion["Nombre"] ?>', '<?= $ordenProduccion["Num_Documento"] ?>');"><i style="color: blue; font-size: 150%;" class="fa fa-eye" name="btncarg"></i></button>
                     <?php endif ?>    
                     </span>
                 </div>
@@ -125,7 +139,7 @@
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" style="border-radius:5px;">
+                        <input type="text" class="form-control" name="fecha_entregaOp" id="fecha_entregaOp" readonly="" style="border-radius:5px;">
                       </div>
                     </div>
                     </div>
@@ -399,18 +413,18 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel"><b>INFORMACIÓN PARA SATELITE</b></h4>
             </div>
-        <form  id="frmGenerarOrden" target="_blank" action="<?= URL ?>ctrProduccion/orden/0" method="POST" data-parsley-validate="">
+        <form  id="frmGenerarOrden" target="_blank" action="<?= URL ?>ctrProduccion/orden/0/0/0/0/0" method="POST" data-parsley-validate="">
         <input type="hidden" id="numGenOrd" name="numGenOrd">
         <input type="hidden" id="lugGenOrd">
         <div class="modal-body">      
         <div class="row">
           <div class="form-group col-md-12">
             <div class="col-md-6">
-              <label  class="">Fecha actual: </label>
+              <label  class="">Fecha Actual: </label>
               <input readonly="" type="text" class="form-control" value="<?php echo date("Y-m-d");?>" name="fechaAct">
             </div>
             <div class="col-md-6">
-              <label  class="">*Nombre del responsable: </label>
+              <label  class="">*Nombre del Responsable: </label>
               <input type="text" data-parsley-required='' class="form-control" placeholder="" name="nombre" maxlength="45">
             </div>
           </div>
@@ -418,11 +432,11 @@
         <div class="row">
           <div class="form-group col-md-12">
             <div class="col-md-6">
-              <label  class="">*Fecha entrega: </label>
+              <label  class="">*Fecha Entrega: </label>
               <input type="text" id="fechaEnt" data-parsley-required='' class="form-control" placeholder="" name="fechaEnt">
             </div>
             <div class="col-md-6">
-              <label  class="">*Pais Ciudad: </label>
+              <label  class="">*Ciudad/País: </label>
               <input type="text" data-parsley-required='' class="form-control" placeholder="" name="paisCiudad" maxlength="45">
             </div>
           </div>
@@ -450,6 +464,116 @@
               </div>
             </div>
            </form> 
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    <div class="modal fade" id="detalleOrden" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div style="width: 70% !important;" class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:10px;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><b>DETALLE ORDEN DE PRODUCCIÓN</b></h4>
+            </div>
+            <form role="form" action="" method="post" id="dtllOrden" data-parsley-validate="">
+            <input type="hidden" id="idSolPed" name="idSolPed">
+            <input type="hidden" id="idSolPedAnt" name="idSolPedAnt">
+            <div class="modal-body" style="padding:10px;">
+              <input type="hidden" name="numOrdenp" id="numOrdenp">
+              <div class="row">
+              <div class="col-sm-12">
+                <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="">Fecha Registro:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon" style="border-radius:5px;">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input class="form-control" readonly type="text" id="fechaRegDetalle" style="border-radius:5px;">
+                  </div>
+                  </div>
+                </div>
+                    <div class="col-sm-6">
+                    <div class="form-group">
+                    <label class="">*Fecha Terminación:</label>
+                      <div class="input-group">
+                        <div class="input-group-addon" style="border-radius:5px;">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" readonly="" class="form-control" name="fecha_entregaOp" id="fechaTerDetalle" style="border-radius:5px;">
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+              </div>  
+              <div class="row">
+              <div class="col-sm-12">
+              <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="estadoOp" class="">Estado:</label>
+                    <input id="estadoDetalle" type="text" class="form-control" value="Pendiente" readonly="" style="border-radius:5px;">
+                </div>
+               </div>
+                <div class="col-sm-6">
+                  <div class="form-group "> 
+                     <label for="clienteOrdn" class="">Cliente:</label>
+                     <input type="text" id="clienteDetalleProd" readonly="" name="" class="form-control">
+                  </div>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-sm-12">
+                 <div class="form-group col-sm-6">
+                    <div class="form-group">
+                    <label for="lugarOp" class="">*Lugar Producción:</label>
+                    <input  name="" disabled="" class="form-control" name="lugarOp" id="lugarProdDetalle">
+                </div>
+                </div>
+                </div>
+            </div>    
+           <div class="row">   
+           <div class="col-sm-12">       
+           <div class="col-sm-12">      
+            <div class="table scrolltablas">
+              <div class="table-responsive">
+                <table class="table table-hover" id="tblFichasProduccDet">
+                  <thead>
+                    <tr class="active">
+                      <th style="display: none;"></th>
+                      <th>Referencia</th>
+                      <th>Nombre</th>
+                      <th>Muestra</th>
+                      <th>Color</th>
+                      <th>Talla</th>
+                      <th>Cantidad Total</th>
+                      <th>Cantidad Fábrica</th>
+                      <th>Cantidad Satélite</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+            </div>
+            <div class="modal-footer" >
+              <div class="row col-lg-12">
+                <div class="row">
+                  <div class="col-md-offset-9 col-md-3">
+                    <button type="button" class="btn btn-default btn-md btn-block" data-dissmis="modal" data-dismiss="modal" style="margin-left: 2%;"><i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
           </div>
         </div>
       </div>

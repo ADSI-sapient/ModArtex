@@ -475,7 +475,8 @@
 
     function quitarTallaAso(btn, elemento, idFichaTalla){
 
-      if (idFichaTalla == undefined) {
+      if (idFichaTalla == 0) {
+        
         var e = $(elemento).parent().parent();
         $(e).remove();
         boton = "#btntallas"+btn;
@@ -488,15 +489,15 @@
             }
         });
       }else{
-
       $.ajax({
         dataType: 'json',
         type: 'POST',
         data: {idFichaTalla: idFichaTalla},
         url: uri+'ctrFicha/valAsociacionTalla'
       }).done(function(resp){
+
           if (resp.r == 0) {
-            Lobibox.notify('error', {delay: 6000, size: 'mini', msg: 'No se puede eliminar por que está asociada a una solicitud u objetivo.'});
+            Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'No se puede eliminar por que está asociada a una solicitud.'});
           }else{
             idsTallas.push(idFichaTalla);
             var e = $(elemento).parent().parent();
@@ -512,7 +513,6 @@
             });
           }
       }).fail(function(){
-
       });
 
       }
@@ -602,7 +602,7 @@
           //si no existe la talla acá la agrega
           }else{
 
-            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallasN[]' value="+id+"></tr>";
+            var tr = "<tr id='tr"+id+"' class='box box-solid collapsed-box trTallasAsoFichaMod'><td>"+id+"</td><td>"+nombre+"</td><td><button type='button' class='btn btn-box-tool' onclick='quitarTallaAso("+id+", this, 0)'><i style='font-size:150%' class='fa fa-remove'></i></button></td><input type='hidden' id='tallas"+id+"' name='tallasN[]' value="+id+"></tr>";
            
             $("#tblTallasVacia").remove();
             $("#tbl-tallas-aso").append(tr);

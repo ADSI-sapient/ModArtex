@@ -120,4 +120,11 @@
 			$stm->execute();
 			return $stm->fetch();
 		}
+
+		public function alertIns(){
+	    	$sql = "CALL SP_AlertIns()";
+	    	$query = $this->_db->prepare($sql);
+	    	$query->execute();
+	    	return $query->fetchAll();
+	    }
 	}

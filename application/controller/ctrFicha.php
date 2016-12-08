@@ -280,8 +280,9 @@
 		public function valAsociacionTalla(){
 			$this->mdlModel->__SET("id_fichaTalla", $_POST["idFichaTalla"]);
 			$resConsultaSolicPr = $this->mdlModel->valAsociacionTalla();
-			$resConsObj = $this->mdlModel->valAsoTallaObjt();
-			if ($resConsultaSolicPr || $resConsObj) {
+			// $resConsObj = $this->mdlModel->valAsoTallaObjt();
+
+			if ($resConsultaSolicPr) {
 		    	echo json_encode(["r"=>0]);
 		    }else{
 		    	echo json_encode(["r"=>1]);

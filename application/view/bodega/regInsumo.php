@@ -72,7 +72,7 @@
                 <th>Muestra</th>
                 <th>Nombre</th>
                 <th style="display: none; ">Id</th>
-                <th style="width: 40px">Quitar</th>
+                <th style="width: 40px">Retirar</th>
               </tr>
             </thead>
             <tbody id="tbody-colAsocInsumos">

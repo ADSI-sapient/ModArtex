@@ -302,5 +302,5 @@ $dompdf->loadHtml($html);
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream("Cotización ".$cotizacion[0]["Id_Solicitud"].", ".date("d-m-Y (H:i:s)", $time), ["Attachment"=>0]);
+$dompdf->stream("Cotización ".$cotizacion[0]["Id_Solicitud"], ["Attachment"=>0]);
 ?>

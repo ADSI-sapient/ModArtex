@@ -29,7 +29,7 @@
                       <th>Editar</th>
                       <th>Estadísticas</th>
                       <th>Referencias</th>
-                      <th>Cancelar Objetivo</th>
+                      <th>Cancelar</th>
                     </tr>
                   </thead>
                   <tbody class="list">

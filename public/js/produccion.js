@@ -37,19 +37,19 @@
       }
     });
 
-    $('#fecha_entregaOp').datepicker({
-          format: "yyyy-mm-dd",
-          language: 'es',
-          autoclose: true
-          // todayBtn: true
-        }).on(
-          'show', function() {      
-          // Obtener valores actuales z-index de cada elemento
-          var zIndexModal = $('#mdlEditOrdenP').css('z-index');
-          var zIndexFecha = $('.datepicker').css('z-index');
-          // Re asignamos el valor z-index para mostrar sobre la ventana modal
-          $('.datepicker').css('z-index',zIndexModal+1);
-        });
+    // $('#fecha_entregaOp').datepicker({
+    //       format: "yyyy-mm-dd",
+    //       language: 'es',
+    //       autoclose: true
+    //       // todayBtn: true
+    //     }).on(
+    //       'show', function() {      
+    //       // Obtener valores actuales z-index de cada elemento
+    //       var zIndexModal = $('#mdlEditOrdenP').css('z-index');
+    //       var zIndexFecha = $('.datepicker').css('z-index');
+    //       // Re asignamos el valor z-index para mostrar sobre la ventana modal
+    //       $('.datepicker').css('z-index',zIndexModal+1);
+    //     });
 
         $('#fechaEnt').datepicker({
           format: "yyyy-mm-dd",
@@ -103,6 +103,7 @@
     	}).done(function(resp){
         $('#tblFichasProducc > tbody tr').empty();
         $('#tblSegFichOrdPro tbody').empty();
+        $('#tblFichasProduccDet tbody').empty();
     		var productosAsoOrden =resp.v;
         if (productosAsoOrden != null) 
         {
@@ -124,7 +125,13 @@
 
             var tr ="";
 	    			var tr2 ="";
+            var trDetalle ="";
             tr = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
+            "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
+            +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' readonly='' type='number' value='"+cantFab+"' name='cantFab[]' data-parsley-required min='0'></td><td><input id='cantSatEdit"+idSolcProd+"' readonly='' type='number' value='"
+            +cantSat+"' name='cantSat[]' min='0' data-parsley-required></td></tr>";
+
+            trDetalle = "<tr class='box box-solid collapsed-box'><td style='display: none;'>"+idSolcProd+"</td><td>"+referencia+
             "</td><td>"+nombreProducto+"</td><td><i class='fa fa-square' style='color:"+codColor+"; font-size: 200%;'></td><td>"+nomColor+"</td><td>"+nombreTalla+"</td><td>"
             +cantTotal+"</td><td><input id='cantFabEdit"+idSolcProd+"' readonly='' type='number' value='"+cantFab+"' name='cantFab[]' data-parsley-required min='0'></td><td><input id='cantSatEdit"+idSolcProd+"' readonly='' type='number' value='"
             +cantSat+"' name='cantSat[]' min='0' data-parsley-required></td></tr>";
@@ -156,6 +163,7 @@
         //     +idFichaTec+"' name='id_fichaTec[]'><input type='hidden' value='"
         //     +idSolcProd+"' name='idSolcProd[]'><input type='hidden' value='"+codEstadoFicha+"' name='codEstadoFicha[]'></tr>";
             $('#tblFichasProducc tbody').append(tr);
+            $('#tblFichasProduccDet tbody').append(trDetalle);
             $('#tblSegFichOrdPro tbody').append(tr2);
             var lugarPrd = "#lugarP"+idFichaTec;
             var estadoFc = "#estadoF"+idFichaTec;
@@ -460,7 +468,7 @@ function enviarProductoTerminado(idFichaTalla, cantDevolver, idOrden, idSol){
 function selectLugarProduccion(select){
     if ($(select).val() == "Fábrica-Satélite") {
       $('#tblFichasProd thead tr').each(function(){
-        var th = "<th>Fabrica</th><th>Satelite</th>"
+        var th = "<th>Fábrica</th><th>Satélite</th>"
         $(this).append(th);
       });
       $('#tblFichasProd tbody tr').each(function(){
@@ -511,7 +519,7 @@ function regOrdenProducc(){
           band = false;
         }else{
           if (((parseInt($("#canFabri"+solPro).val())) + (parseInt($("#cantSate"+solPro).val()))) != parseInt(cantidad)){
-             Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La cantidad fabrica y satelite deben ser igual a la cantidad producir'});
+             Lobibox.notify('warning', {delay: 6000, size: 'mini', msg: 'La cantidad fábrica y satélite deben ser igual a la cantidad producir'});
              $("#canFabri"+solPro).focus();
              band = false;
           }
@@ -760,18 +768,18 @@ function actualizarEstadoSolProducto(){
     location.href = uri+'ctrProduccion/consOrden';
 }
 
-function generarOrden(numOrden, lugar){
+function generarOrden(numOrden, lugar, fechaReg, fechEnt, numDoc, nombre){
   if (lugar == "Satélite") {
     $("#numGenOrd").val(numOrden);
     $("#lugGenOrd").val(lugar);
     $("#datosSatelite").modal('show');
   }else if(lugar == "Fábrica-Satélite"){
-    window.open(uri+"ctrProduccion/orden/"+numOrden, '_blank');
+    window.open(uri+"ctrProduccion/orden/"+numOrden+"/"+fechaReg+"/"+fechaReg+"/"+numDoc+"/"+nombre, '_blank');
         $("#numGenOrd").val(numOrden);
     $("#lugGenOrd").val(lugar);
     $("#datosSatelite").modal('show');
   }else{
-    window.open(uri+"ctrProduccion/orden/"+numOrden, '_blank');
+    window.open(uri+"ctrProduccion/orden/"+numOrden+"/"+fechaReg+"/"+fechaReg+"/"+numDoc+"/"+nombre, '_blank');
   }
 }
 
@@ -785,4 +793,12 @@ function generarFabSat(){
   }
 }
 
+function detalleProd(fechaReg, fechaEnt, estado, lugar, nombre, numDoc){
+  console.log(fechaReg, fechaEnt, estado, lugar);
 
+  $("#fechaRegDetalle").val(fechaReg);
+  $("#fechaTerDetalle").val(fechaEnt);
+  $("#estadoDetalle").val(estado);
+  $("#lugarProdDetalle").val(lugar);
+  $("#clienteDetalleProd").val(nombre+' - '+numDoc);
+}

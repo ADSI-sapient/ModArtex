@@ -69,7 +69,7 @@
         </div>
         <div class="box-footer">
           <div class="col-md-4">
-             <a class="btn btn-primary" role="button" onclick="genRepExtProductoT();" target="_blank" href="<?= URL ?>ctrProductoT/reporteProductoTerminado/"><b>Generar Reporte</b></a>
+             <a class="btn btn-primary" role="button" id="btnExistProdT" onclick="genRepExtProductoT();" target="_blank" href="<?= URL ?>ctrProductoT/reporteProductoTerminado/"><b>Generar Reporte</b></a>
            </div>
            <div class="col-md-8" style="text-align: right;">
               <button type="button" class="btn btn-box-tool" data-toggle="modal" onclick="Salida('<?= $producto["Referencia"] ?>',this);" disabled="true" id="salidaMultiplePT"><i style="color:red; font-size: 200%;" class="fa fa-arrow-down"></i></button> 

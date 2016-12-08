@@ -11,6 +11,7 @@ class ctrBodega extends Controller{
 		$this->_modelColor = $this->loadModel('mdlColores');
 		$this->_modelMedida = $this->loadModel('mdlMedidas');
 		$this->_modelExistencias = $this->loadModel('mdlExistencias');
+		$this->_modelProdT = $this->loadModel('mdlProductoT');
 	}
 
 	public function registrarInsumo(){	
@@ -134,6 +135,10 @@ class ctrBodega extends Controller{
 	}
 
 	public function listExistencias(){
+		if (isset($_GET["Id"])) {
+			$this->_modelProdT->__SET("Id_Ficha_Tallas", $_GET["Id"]);
+			$productos = $this->_modelProdT->estadoNotificacion();
+		}
 		if($this->validarURL("ctrBodega/listExistencias")){
 			$listEx = $this->_modelExistencias->listarExistencias();
 			include APP . 'view/_templates/header.php';
@@ -248,5 +253,9 @@ class ctrBodega extends Controller{
 		$this->_modelExistencias->__SET("_nombre", $_POST["nomIns"]);
 		$valIns = $this->_modelExistencias->validarNomInsumo();
 		echo json_encode($valIns);
+	}
+
+	public function alertIns(){
+			echo json_encode($this->_modelExistencias->alertIns());
 	}
 }

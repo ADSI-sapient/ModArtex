@@ -32,6 +32,8 @@
 
 
     function Salida(){
+      alertaStockProductoT();
+      alertaStockInsumos();
       $("#descripcionSalidas").val("");
           $("#tbodySal").empty();
           var band = false;
@@ -375,38 +377,25 @@ function TotalFCN(){
       function cancelarobjetivo(Id_Objetivo){
 
         swal({
-          title: "¿Está seguro?",   
-          text: "El objetivo quedará en estado cancelado!",  
+          title: "¿Está seguro de cancelar este objetivo?",   
+          text: "El objetivo quedará cancelado!",  
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Sí, cancelar objetivo",
-          cancelButtonText: "No, terminar",
-          closeOnConfirm: false,
-          closeOnCancel: false },
-          function(isConfirm){
-            if (isConfirm)
-            { 
-              $.ajax({
+          cancelButtonText: "No",
+          closeOnConfirm: true,
+          closeOnCancel: true },
+          function(){ 
+          $.ajax({
             type: 'post',
             dataType: 'json',
             url: uri+"ctrObjetivos/cancelarobjetivo",
             data:{Id_Objetivo: Id_Objetivo}
             }).done(function(respuesta){
-              if (respuesta.r == 1) {
-                // swal("Cancelado", "El Pedido ha sido cancelado", "success");
-                // location.href = uri+"ctrPedido/consPedido";
-              }else{
-              }
+                location.href = uri+"ctrObjetivos/listarObjetivos";
             }).fail(function(){
-            })  
-              swal("Cancelado", "El objetivo ha sido cancelado", "success");
-              location.href = uri+"ctrObjetivos/listarObjetivos";
-            }
-            else
-            {
-              swal("Acción interrumpida", "No se completo la acción.", "error");
-            }
+            });
           });
         }
 
@@ -546,21 +535,26 @@ function validarCantidadSalida(){
 // }
 
 function genRepExtProductoT(){
+  alertaStockProductoT();
+  alertaStockInsumos();
   var existenciasProductoT = [];
   $(".repProdT .repProdTerm, .badge").each(function(i,v){
     existenciasProductoT.push(v.outerText);
   });
-
-  $.ajax({
-    dataType : 'json',
-    type : 'POST',
-    url : uri+"ctrProductoT/reporteExistenciasProdT",
-    data: {arrayExistPT : existenciasProductoT}
-  }).done(function(respuesta){
-    if (respuesta.r == 1) {
-      // location.href = uri+"ctrProductoT/reporteProductoTerminado";
-    }
-  });
+  if (existenciasProductoT.length > 0) {
+      $.ajax({
+      dataType : 'json',
+      type : 'POST',
+      url : uri+"ctrProductoT/reporteExistenciasProdT",
+      data: {arrayExistPT : existenciasProductoT}
+    }).done(function(respuesta){
+      if (respuesta.r == 1) {
+        // location.href = uri+"ctrProductoT/reporteProductoTerminado";
+      }
+    });
+  }else{
+    $("#btnExistProdT").removeAttr("href");
+  }
 }
 
 $('document').ready(function(){
@@ -755,10 +749,10 @@ $('#tblProducPrAsoc').dataTable({
         url: uri+'ctrProductoT/alertProdTer',
       }).done(function(resp){
         $.each(resp, function(i){
-          var idFichaTalla = resp[i]["Id_Fichas_Tallas"];
-          if (resp[i]["Cantidad"] <=  resp[i]["Stock_Minimo"]) {
+          var idFichaTalla = "1"+resp[i]["Id_Fichas_Tallas"];
+          if (parseInt(resp[i]["Cantidad"]) <=  parseInt(resp[i]["Stock_Minimo"])) {
             var descripcion = "Stock mínimo alcanzado: "+resp[i]["Referencia"]+ " - "+resp[i]["Nombre"]+" - "+resp[i]["Nombre_Talla"];
-            var url = "ctrProductoT/existenciasProductoT";
+            var url = "ctrProductoT/existenciasProductoT/?Id="+idFichaTalla+"";
             $.ajax({
               type: 'POST',
               dataType: 'json',
@@ -792,7 +786,7 @@ $(function(){
       var html = ""; 
       if (notificaciones[i]["Estado"] == 0) {
         band = true;
-        html = "<li style='background-color: #e2e2e2;'><a href='"+uri+notificaciones[i]["Url"]+"/?fichTalla="+notificaciones[i]["Ficha_Talla"]+"'>"+notificaciones[i]["Descripcion"]+"</a></li>";
+        html = "<li style='background-color: #e2e2e2;'><a href='"+uri+notificaciones[i]["Url"]+"'>"+notificaciones[i]["Descripcion"]+"</a></li>";
       }else{
         html = "<li><a href='"+uri+notificaciones[i]["Url"]+"/?fichTalla="+notificaciones[i]["Ficha_Talla"]+"'>"+notificaciones[i]["Descripcion"]+"</a></li>";
       }

@@ -64,7 +64,7 @@
 
     <div class="box">
       <div class="box-header with-border">
-        <h4 class="box-title"><b>Referencia Más Producida</b></h4>
+        <h4 class="box-title"><b>REFERENCIAS MÁS PRODUCIDAS</b></h4>
       </div>
 
 

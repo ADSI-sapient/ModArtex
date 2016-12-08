@@ -73,6 +73,11 @@
                   <option value="1">L</option>
                   <option value="2">M</option>
                   <option value="3">S</option>
+                  <option value="4">2-4</option>
+                  <option value="5">6-8</option>
+                  <option value="6">10-12</option>
+                  <option value="7">14-16</option>
+                  <option value="8">UNICA</option>
                 </select>
                 <div id="tallasRegf"></div>
               </div>

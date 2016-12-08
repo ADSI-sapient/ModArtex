@@ -319,6 +319,9 @@ function seleccionCol(col, idcolor){
 
 
         function existen(id, ins){
+
+          alertaStockProductoT();
+          alertaStockInsumos();
           $("#cant").val("");
           $("#valUnit").val("");
           $("#valTot").val("");
@@ -379,6 +382,8 @@ function seleccionCol(col, idcolor){
         }
 
         function tableEntMay(){
+          alertaStockProductoT();
+          alertaStockInsumos();
           $("#tbodyEnt").empty();
           $("#valEnt").val("");
           var band = false;
@@ -471,6 +476,8 @@ function seleccionCol(col, idcolor){
 
 
 function salidaUno(ins){
+    alertaStockProductoT();
+    alertaStockInsumos();
     $("#descripcionSal").val("");
     var tabla = $(ins).parent().parent();
     $("#idExiSal").val(tabla.find("td").eq(0).text()) ;
@@ -504,6 +511,8 @@ function validateMuchasSalidas(){
 }
 
 function salidaIns(){
+          alertaStockProductoT();
+          alertaStockInsumos();
           $("#tbodySalIns").empty();
           $("#descripcion").val("");
 
@@ -688,16 +697,21 @@ function generarExtIns(){
     arrayExistencias.push(v.outerText);
   });
 
-  $.ajax({
-    dataType : 'json',
-    type : 'POST',
-    url : uri+"ctrBodega/reporteExistencias",
-    data: {arrayExist : arrayExistencias}
-  }).done(function(respuesta){
-    if (respuesta.r == 1) {
-      // location.href = uri+"ctrBodega/reporteInsumos";
-    }
-  });
+  if (arrayExistencias.length > 0) {
+      $.ajax({
+      dataType : 'json',
+      type : 'POST',
+      url : uri+"ctrBodega/reporteExistencias",
+      data: {arrayExist : arrayExistencias}
+      }).done(function(respuesta){
+        if (respuesta.r == 1) {
+          // location.href = uri+"ctrBodega/reporteInsumos";
+        }
+      });
+  }else{
+    $("#btnGenerarExistIns").removeAttr("href");
+  }
+
 }
 
 $('#tableCols').dataTable({
@@ -710,6 +724,43 @@ $('#tableCols').dataTable({
   "paginate": {"previous": "Anterior","next": "Siguiente"}
   }
 });
+
+
+    function alertaStockInsumos(){
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: uri+'ctrBodega/alertIns',
+      }).done(function(resp){
+        console.log(resp);
+        $.each(resp, function(i){
+          var idColIns = "2"+resp[i]["Id_Existencias_InsCol"];
+          console.log(resp[i]["Cantidad_Insumo"], resp[i]["Stock_Minimo"])
+          if (parseInt(resp[i]["Cantidad_Insumo"]) <=  parseInt(resp[i]["Stock_Minimo"])) {
+            var descripcion = "Stock mínimo alcanzado: "+resp[i]["Nom_Insumo"]+ " - "+resp[i]["Nom_Color"];
+            var url = "ctrBodega/listExistencias/?Id="+idColIns+"";
+            console.log(descripcion, url, idColIns);
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrProductoT/regNotificacion',
+              data: {descripcion: descripcion, url: url, idFichaTalla: idColIns}
+            }).done(function(r){
+
+            });
+          }else{
+            console.log("Entro else");
+            $.ajax({
+              type: 'POST',
+              dataType: 'json',
+              url: uri+'ctrProductoT/borrarNotificacion',
+              data: {idFichaTalla: idColIns}
+            }).done(function(){
+            });
+          }
+        });
+      });
+    }
 
 
 

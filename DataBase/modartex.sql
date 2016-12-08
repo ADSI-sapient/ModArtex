@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2016 a las 17:51:15
+-- Tiempo de generación: 08-12-2016 a las 21:13:02
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -35,6 +35,10 @@ UPDATE tbl_solicitudes_tipo st SET st.Id_Estado = 6 WHERE st.Id_Solicitud = _idS
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ActualizarExis` (IN `id` INT(11), IN `cant` INT(11), IN `prom` DOUBLE)  NO SQL
 UPDATE tbl_colores_insumos SET Cantidad_Insumo = cant, Valor_Promedio = prom WHERE Id_Existencias_InsCol = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AlertIns` ()  NO SQL
+SELECT c.Nombre AS Nom_Color, ci.Id_Existencias_InsCol, i.Nombre AS Nom_Insumo, ci.Cantidad_Insumo, ci.Stock_Minimo FROM tbl_colores c JOIN tbl_colores_insumos ci ON
+c.Id_Color = ci.Id_Color JOIN tbl_insumos i ON CI.Id_Insumo = i.Id_Insumo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_AlertProdTer` ()  NO SQL
 SELECT ftl.Id_Fichas_Tallas, t.Nombre AS Nombre_Talla, ft.Referencia, c.Nombre, ftl.Cantidad, ft.Stock_Minimo FROM tbl_fichastecnicas_tallas ftl JOIN tbl_fichas_tecnicas ft ON ftl.Id_Ficha_Tecnica = ft.Id_Ficha_Tecnica JOIN tbl_colores c ON
@@ -531,10 +535,8 @@ CREATE TABLE `tbl_colores` (
 --
 
 INSERT INTO `tbl_colores` (`Id_Color`, `Nombre`, `Codigo_Color`) VALUES
-(1, 'rosa', '#ed93b9'),
-(2, 'amarelo', '#e8f598'),
-(3, 'violeta', '#b1b7f2'),
-(4, 'lila', '#d9c5c5');
+(1, 'rosado', '#ea71bb'),
+(2, 'azul', '#6e22ed');
 
 -- --------------------------------------------------------
 
@@ -556,17 +558,8 @@ CREATE TABLE `tbl_colores_insumos` (
 --
 
 INSERT INTO `tbl_colores_insumos` (`Id_Existencias_InsCol`, `Id_Color`, `Id_Insumo`, `Cantidad_Insumo`, `Valor_Promedio`, `Stock_Minimo`) VALUES
-(1, 1, 1, 140, 321.67, 101),
-(2, 2, 1, 28, 1200, 101),
-(3, 3, 1, 3, 1200, 101),
-(4, 2, 2, 74, 1895.26, 201),
-(5, 3, 3, 0, 2100, 200),
-(6, 2, 4, 0, 2200, 201),
-(7, 3, 5, 0, 102, 200),
-(8, 3, 6, 0, 102, 200),
-(9, 3, 7, 0, 102, 200),
-(10, 3, 8, 0, 102, 200),
-(11, 3, 9, 0, 102, 200);
+(1, 1, 1, 1845, 9.23, 5000),
+(2, 2, 1, 2505, 9.23, 5000);
 
 -- --------------------------------------------------------
 
@@ -585,18 +578,10 @@ CREATE TABLE `tbl_entradas` (
 --
 
 INSERT INTO `tbl_entradas` (`Id_Entrada`, `FechaReg`, `ValorEnt`) VALUES
-(1, '2016-11-29', 54000),
-(2, '2016-11-29', 21000),
-(3, '2016-11-29', 5000),
-(4, '2016-11-29', 557),
-(5, '2016-11-29', 1470),
-(6, '2016-11-29', 146000),
-(7, '2016-11-30', 2106),
-(8, '2016-12-02', 68000),
-(9, '2016-12-02', 4624),
-(10, '2016-12-02', 1260),
-(11, '2016-12-06', 33000),
-(12, '2016-12-06', 6600);
+(1, '2016-12-08', 1400),
+(2, '2016-12-08', 14000),
+(3, '2016-12-08', 14000),
+(4, '2016-12-08', 28000);
 
 -- --------------------------------------------------------
 
@@ -618,30 +603,14 @@ CREATE TABLE `tbl_entradas_exitencias` (
 --
 
 INSERT INTO `tbl_entradas_exitencias` (`Id_Entrada_Existencia`, `Id_Entrada`, `Id_Existencias`, `Cantidad`, `Valor_Unitario`, `Valor_Total`) VALUES
-(1, 1, 2, 10, 2100, 21000),
-(2, 1, 3, 10, 1200, 12000),
-(3, 1, 4, 10, 2100, 21000),
-(4, 2, 1, 10, 2100, 21000),
-(5, 3, 2, 20, 250, 5000),
-(6, 4, 2, 3, 125, 375),
-(7, 4, 3, 3, 42, 126),
-(8, 4, 4, 1, 56, 56),
-(9, 5, 3, 10, 147, 1470),
-(10, 6, 1, 1000, 12, 12000),
-(11, 6, 2, 1000, 54, 54000),
-(12, 6, 3, 1000, 35, 35000),
-(13, 6, 4, 1000, 45, 45000),
-(14, 7, 3, 9, 234, 2106),
-(15, 8, 1, 10, 2100, 21000),
-(16, 8, 2, 10, 1200, 12000),
-(17, 8, 3, 10, 1200, 12000),
-(18, 8, 4, 10, 2300, 23000),
-(19, 9, 1, 136, 34, 4624),
-(20, 10, 4, 28, 45, 1260),
-(21, 11, 1, 10, 2100, 21000),
-(22, 11, 2, 10, 1200, 12000),
-(23, 12, 1, 2, 2100, 4200),
-(24, 12, 2, 2, 1200, 2400);
+(1, 1, 1, 10, 70, 700),
+(2, 1, 2, 10, 70, 700),
+(3, 2, 1, 100, 70, 7000),
+(4, 2, 2, 100, 70, 7000),
+(5, 3, 1, 1000, 7, 7000),
+(6, 3, 2, 1000, 7, 7000),
+(7, 4, 1, 2000, 7, 14000),
+(8, 4, 2, 2000, 7, 14000);
 
 -- --------------------------------------------------------
 
@@ -684,37 +653,6 @@ CREATE TABLE `tbl_existencias_salidas` (
   `Cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_existencias_salidas`
---
-
-INSERT INTO `tbl_existencias_salidas` (`Codigo`, `Id_Salida`, `Id_Existencia`, `Cantidad`) VALUES
-(1, 1, 3, 9),
-(2, 2, 1, 10),
-(3, 2, 2, 10),
-(4, 2, 4, 4),
-(5, 3, 1, 1000),
-(6, 3, 2, 1000),
-(7, 3, 3, 1000),
-(8, 3, 4, 1000),
-(9, 4, 2, 6550),
-(10, 4, 3, 6550),
-(11, 5, 4, 2793),
-(12, 6, 2, 27),
-(13, 7, 3, 8),
-(14, 8, 2, 136),
-(15, 9, 3, 138),
-(16, 10, 4, 82),
-(17, 11, 2, 72),
-(18, 12, 3, 68),
-(19, 13, 4, 40),
-(20, 14, 4, 40),
-(21, 15, 2, 2),
-(22, 15, 3, 2),
-(23, 16, 4, 10),
-(24, 17, 1, 1),
-(25, 17, 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -733,20 +671,9 @@ CREATE TABLE `tbl_fichastecnicas_tallas` (
 --
 
 INSERT INTO `tbl_fichastecnicas_tallas` (`Id_Fichas_Tallas`, `Id_Talla`, `Id_Ficha_Tecnica`, `Cantidad`) VALUES
-(1, 1, 1, 400),
-(2, 2, 1, 400),
-(3, 1, 2, 400),
-(4, 2, 2, 400),
-(5, 3, 2, 400),
-(6, 2, 3, 400),
-(7, 1, 4, 400),
-(8, 2, 4, 400),
-(9, 2, 5, 400),
-(10, 3, 5, 400),
-(11, 1, 6, 400),
-(12, 3, 6, 400),
-(13, 1, 7, 400),
-(14, 3, 7, 400);
+(1, 4, 1, 0),
+(3, 6, 1, 0),
+(4, 8, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -771,13 +698,7 @@ CREATE TABLE `tbl_fichas_tecnicas` (
 --
 
 INSERT INTO `tbl_fichas_tecnicas` (`Id_Ficha_Tecnica`, `Referencia`, `Id_Color`, `Fecha_Registro`, `Estado`, `Valor_Produccion`, `Stock_Minimo`, `Valor_Producto`, `Nombre`) VALUES
-(1, 'RF-201', 1, '2016-11-29', '1', 4180, 340, 12000, 'cuquito alison'),
-(2, 'RF-202', 3, '2016-11-29', '1', 2400, 500, 6500, 'cachetero para johan'),
-(3, 'RF-4456', 2, '2016-12-02', '0', 1200, 456, 3400, 'nose'),
-(4, 'RF-204', 2, '2016-12-06', '0', 2400, 120, 3000, 'cuco 1'),
-(5, 'RF-205', 3, '2016-12-06', '0', 408, 130, 500, 'Cuquito 2'),
-(6, 'RF-207', 2, '2016-12-06', '0', 4800, 201, 5000, 'cuquito 7'),
-(7, 'RF-209', 1, '2016-12-06', '0', 3600, 120, 4000, 'cuquito 8');
+(1, '201', 1, '2016-12-08', '1', 2380, 250, 4000, 'Cachetero Simple');
 
 -- --------------------------------------------------------
 
@@ -797,15 +718,7 @@ CREATE TABLE `tbl_insumos` (
 --
 
 INSERT INTO `tbl_insumos` (`Id_Insumo`, `Id_Medida`, `Estado`, `Nombre`) VALUES
-(1, 3, 1, 'Tela'),
-(2, 3, 1, 'Hilo'),
-(3, 3, 1, 'blonda'),
-(4, 3, 1, 'algodon'),
-(5, 4, 1, 'Tela fria'),
-(6, 4, 1, 'Tela gruesa'),
-(7, 4, 1, 'Sesgo'),
-(8, 4, 1, 'Boton'),
-(9, 4, 1, 'Aguja');
+(1, 1, 1, 'Tela');
 
 -- --------------------------------------------------------
 
@@ -826,19 +739,8 @@ CREATE TABLE `tbl_insumos_fichastecnicas` (
 --
 
 INSERT INTO `tbl_insumos_fichastecnicas` (`id_Insumos_Fichas`, `Id_Existencias_InsCol`, `Cant_Necesaria`, `Valor_Insumo`, `Id_Ficha_Tecnica`) VALUES
-(1, 2, '1.00', 2180, 1),
-(2, 3, '1.00', 2000, 1),
-(14, 3, '1.00', 1200, 3),
-(15, 2, '1.00', 1200, 4),
-(16, 3, '1.00', 1200, 4),
-(17, 11, '2.00', 204, 5),
-(18, 10, '2.00', 204, 5),
-(19, 2, '2.00', 2400, 6),
-(20, 3, '2.00', 2400, 6),
-(21, 2, '2.00', 2400, 7),
-(22, 3, '1.00', 1200, 7),
-(25, 2, '1.00', 1200, 2),
-(26, 3, '1.00', 1200, 2);
+(3, 1, '23.00', 1610, 1),
+(4, 2, '11.00', 770, 1);
 
 -- --------------------------------------------------------
 
@@ -887,10 +789,11 @@ CREATE TABLE `tbl_notificaciones` (
 --
 
 INSERT INTO `tbl_notificaciones` (`Id_Notificacion`, `Descripcion`, `Url`, `Estado`, `Ficha_Talla`) VALUES
-(2, 'Stock mínimo alcanzado: RF-202 - violeta - L', 'ctrProductoT/existenciasProductoT', 1, 3),
-(8, 'Stock mínimo alcanzado: RF-4456 - amarelo - M', 'ctrProductoT/existenciasProductoT', 1, 6),
-(11, 'Stock mínimo alcanzado: RF-202 - violeta - S', 'ctrProductoT/existenciasProductoT', 1, 5),
-(35, 'Stock mínimo alcanzado: RF-202 - violeta - M', 'ctrProductoT/existenciasProductoT', 1, 4);
+(1, 'Stock mínimo alcanzado: Tela - rosado', 'ctrBodega/listExistencias/?Id=21', 0, 21),
+(2, 'Stock mínimo alcanzado: Tela - azul', 'ctrBodega/listExistencias/?Id=22', 0, 22),
+(3, 'Stock mínimo alcanzado: 201 - rosado - 2-4', 'ctrProductoT/existenciasProductoT/?Id=11', 0, 11),
+(4, 'Stock mínimo alcanzado: 201 - rosado - 10-12', 'ctrProductoT/existenciasProductoT/?Id=13', 0, 13),
+(5, 'Stock mínimo alcanzado: 201 - rosado - UNICA', 'ctrProductoT/existenciasProductoT/?Id=14', 0, 14);
 
 -- --------------------------------------------------------
 
@@ -913,10 +816,8 @@ CREATE TABLE `tbl_objetivos` (
 --
 
 INSERT INTO `tbl_objetivos` (`Id_Objetivo`, `Nombre`, `FechaRegistro`, `FechaInicio`, `FechaFin`, `Id_Estado`, `CantidadTotal`) VALUES
-(1, 'navidad fria', '2016-12-01', '2016-12-05', '2016-12-30', 8, 10),
-(2, 'alegre', '2016-12-01', '2016-12-02', '2016-12-03', 7, 57),
-(3, 'pablis', '2016-12-06', '2016-12-13', '2016-12-29', 5, 20),
-(4, 'Juanpis', '2016-12-06', '2016-12-27', '2016-12-29', 6, 20);
+(1, 'Navidad', '2016-12-08', '2016-12-09', '2016-12-25', 8, 50),
+(2, 'Incio de año', '2016-12-08', '2016-12-08', '2017-01-20', 6, 50);
 
 -- --------------------------------------------------------
 
@@ -936,25 +837,8 @@ CREATE TABLE `tbl_ordenesproduccion` (
 --
 
 INSERT INTO `tbl_ordenesproduccion` (`Num_Orden`, `Id_Estado`, `Fecha_Registro`, `LugarProduccion`) VALUES
-(1, 4, '2016-12-01', 'Fábrica'),
-(2, 4, '2016-12-01', 'Fábrica-Satélite'),
-(3, 4, '2016-12-01', 'Fábrica'),
-(4, 4, '2016-12-02', 'Fábrica'),
-(5, 4, '2016-12-02', 'Fábrica'),
-(6, 4, '2016-12-02', 'Fábrica'),
-(7, 4, '2016-12-02', 'Fábrica'),
-(8, 4, '2016-12-02', 'Fábrica'),
-(9, 6, '2016-12-02', 'Satélite'),
-(10, 4, '2016-12-02', 'Fábrica'),
-(11, 7, '2016-12-03', 'Fábrica'),
-(12, 6, '2016-12-03', 'Fábrica'),
-(13, 6, '2016-12-03', 'Fábrica'),
-(14, 6, '2016-12-03', 'Fábrica'),
-(15, 7, '2016-12-03', 'Fábrica'),
-(16, 6, '2016-12-03', 'Fábrica'),
-(17, 6, '2016-12-03', 'Fábrica'),
-(18, 6, '2016-12-03', 'Satélite'),
-(19, 7, '2016-12-04', 'Fábrica-Satélite');
+(1, 7, '2016-12-08', 'Satélite'),
+(2, 7, '2016-12-08', 'Fábrica-Satélite');
 
 -- --------------------------------------------------------
 
@@ -989,7 +873,7 @@ INSERT INTO `tbl_permisos` (`Id_Permiso`, `id_Modulo`, `Nombre`, `Url`) VALUES
 (13, 6, 'Listar Pedidos', 'ctrPedido/consPedido'),
 (14, 7, 'Registrar Orden', 'ctrProduccion/regOrden'),
 (15, 7, 'Listar Órdenes', 'ctrProduccion/consOrden'),
-(16, 8, 'Existencias Producto Terminado', 'ctrProductoT/existenciasProductoT'),
+(16, 8, 'Existencias', 'ctrProductoT/existenciasProductoT'),
 (17, 10, 'Registrar Objetivos', 'ctrObjetivos/registrarObjetivo'),
 (18, 10, 'Listar Objetivos', 'ctrObjetivos/listarObjetivos'),
 (19, 9, 'Medidas', 'ctrConfiguracion/listarMedidas'),
@@ -1022,10 +906,7 @@ CREATE TABLE `tbl_persona` (
 INSERT INTO `tbl_persona` (`Num_Documento`, `Id_Tipo`, `Tipo_Documento`, `Nombre`, `Apellido`, `Estado`, `Telefono`, `Direccion`, `Email`, `Info_Adicional`) VALUES
 ('1017223026', 2, 'C.C', 'Crearte Collection', 'Empresa', 1, '', '', '', NULL),
 ('1037590137', 1, 'C.C', 'Juan Pablo', 'Moraless', 1, NULL, NULL, 'jpmorales73@misena.edu.co', NULL),
-('12345687', 2, 'C.C', 'dsafhj', 'sdfhk', 1, '', '', '', ''),
-('23493929', 1, 'C.C', 'afsda', 'arteaga', 1, '', '', 'jaac219@gmail.com', NULL),
-('2368115821', 1, 'C.C', 'Kevin', 'Escudero', 1, '', '', 'kdescudero01@gmail.com', NULL),
-('4851215151', 2, 'C.C', 'Ernesto', 'Benavides', 1, '4545412121', 'alla', 'er@hotmail.com', 'Representante Empresa Restore System \r\nNIT 65-584784');
+('43600424', 2, 'C.C', 'Gerardo', 'Mendoza', 1, '2921796', 'Calle 71 C N 30 215', 'gerardmdz1214@gmail.com', 'Cliente Cali.');
 
 -- --------------------------------------------------------
 
@@ -1046,18 +927,8 @@ CREATE TABLE `tbl_productos_objetivos` (
 --
 
 INSERT INTO `tbl_productos_objetivos` (`Codigo`, `Id_Objetivo`, `Cantidad`, `Id_Ficha_Tecnica`, `Avance`) VALUES
-(8, 1, 10, 2, 0),
-(9, 2, 12, 1, 0),
-(10, 2, 45, 2, 0),
-(11, 3, 10, 2, 0),
-(12, 3, 10, 3, 0),
-(13, 4, 1, 1, 2),
-(14, 4, 1, 2, 0),
-(15, 4, 4, 3, 2),
-(16, 4, 5, 4, 0),
-(17, 4, 2, 5, 0),
-(18, 4, 5, 6, 0),
-(19, 4, 2, 7, 0);
+(1, 1, 50, 1, 0),
+(2, 2, 50, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1136,29 +1007,6 @@ CREATE TABLE `tbl_salidas` (
   `Descripcion` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `tbl_salidas`
---
-
-INSERT INTO `tbl_salidas` (`Id_Salida`, `FechaSal`, `Descripcion`) VALUES
-(1, '2016-11-29', ''),
-(2, '2016-11-30', ''),
-(3, '2016-12-02', ''),
-(4, '2016-12-02', ''),
-(5, '2016-12-02', ''),
-(6, '2016-12-02', ''),
-(7, '2016-12-02', ''),
-(8, '2016-12-02', ''),
-(9, '2016-12-02', ''),
-(10, '2016-12-02', ''),
-(11, '2016-12-02', ''),
-(12, '2016-12-02', ''),
-(13, '2016-12-02', ''),
-(14, '2016-12-02', ''),
-(15, '2016-12-02', ''),
-(16, '2016-12-02', ''),
-(17, '2016-12-06', '');
-
 -- --------------------------------------------------------
 
 --
@@ -1170,15 +1018,6 @@ CREATE TABLE `tbl_salidas_productos` (
   `Descripcion` varchar(200) DEFAULT NULL,
   `Fecha_Salida` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_salidas_productos`
---
-
-INSERT INTO `tbl_salidas_productos` (`Id_Salida`, `Descripcion`, `Fecha_Salida`) VALUES
-(1, '', '2016-12-02'),
-(2, '', '2016-12-02'),
-(3, '', '2016-12-02');
 
 -- --------------------------------------------------------
 
@@ -1192,15 +1031,6 @@ CREATE TABLE `tbl_salida_ficha` (
   `Cantidad` int(11) NOT NULL,
   `Id_Fichas_Tallas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_salida_ficha`
---
-
-INSERT INTO `tbl_salida_ficha` (`Codigo`, `Id_Salida`, `Cantidad`, `Id_Fichas_Tallas`) VALUES
-(1, 1, 19, 3),
-(2, 2, 208, 4),
-(3, 3, 15, 5);
 
 -- --------------------------------------------------------
 
@@ -1220,26 +1050,8 @@ CREATE TABLE `tbl_solicitudes` (
 --
 
 INSERT INTO `tbl_solicitudes` (`Id_Solicitud`, `Num_Documento`, `Fecha_Registro`, `Valor_Total`) VALUES
-(1, '4851215151', '2016-12-02', 512500),
-(2, '4851215151', '2016-12-03', 105800),
-(3, '1017223026', '2016-12-03', 185000),
-(4, '1017223026', '2016-12-03', 32500),
-(5, '1017223026', '2016-12-03', 18500),
-(6, '1017223026', '2016-12-03', 28400),
-(7, '1017223026', '2016-12-03', 24000),
-(8, '1017223026', '2016-12-03', 37000),
-(9, '4851215151', '2016-12-03', 9900),
-(10, '1017223026', '2016-12-04', 30800),
-(11, '4851215151', '2016-12-05', 34000),
-(12, '4851215151', '2016-12-05', 36000),
-(13, '1017223026', '2016-12-05', 3400),
-(14, '1017223026', '2016-12-05', 6800),
-(15, '12345687', '2016-12-05', 18500),
-(16, '4851215151', '2016-12-06', 13000),
-(17, '12345687', '2016-12-06', 26000),
-(18, '12345687', '2016-12-06', 26000),
-(19, '12345687', '2016-12-06', 61000),
-(20, '12345687', '2016-12-07', 24000);
+(1, '43600424', '2016-12-08', 200000),
+(2, '1017223026', '2016-12-08', 40000);
 
 -- --------------------------------------------------------
 
@@ -1261,34 +1073,8 @@ CREATE TABLE `tbl_solicitudes_ordenesproduccion` (
 --
 
 INSERT INTO `tbl_solicitudes_ordenesproduccion` (`Codigo`, `Id_Solicitud_Producto`, `Num_Orden`, `Id_Estado`, `Cantidad_Fabrica`, `Cantidad_Satelite`) VALUES
-(1, 1, 10, 5, 10, 0),
-(2, 3, 10, 5, 12, 0),
-(3, 2, 10, 5, 21, 0),
-(4, 4, 10, 5, 10, 0),
-(5, 6, 10, 5, 4, 0),
-(6, 5, 10, 5, 8, 0),
-(7, 8, 11, 7, 10, 0),
-(8, 7, 11, 7, 12, 0),
-(9, 10, 12, 7, 10, 0),
-(10, 9, 12, 7, 10, 0),
-(11, 11, 13, 10, 2, 0),
-(12, 12, 13, 7, 3, 0),
-(13, 13, 14, 7, 1, 0),
-(14, 14, 14, 7, 1, 0),
-(15, 17, 15, 7, 1, 0),
-(16, 16, 15, 7, 1, 0),
-(17, 18, 15, 7, 1, 0),
-(18, 15, 15, 7, 1, 0),
-(19, 19, 16, 7, 1, 0),
-(20, 20, 16, 7, 1, 0),
-(21, 21, 17, 7, 1, 0),
-(22, 23, 17, 7, 1, 0),
-(23, 22, 17, 7, 1, 0),
-(24, 24, 17, 7, 1, 0),
-(27, 26, 18, 5, 0, 1),
-(28, 25, 18, 5, 0, 1),
-(29, 27, 19, 7, 2, 0),
-(30, 28, 19, 7, 0, 2);
+(2, 5, 1, 7, 0, 5),
+(4, 2, 2, 7, 34, 16);
 
 -- --------------------------------------------------------
 
@@ -1312,44 +1098,8 @@ CREATE TABLE `tbl_solicitudes_producto` (
 --
 
 INSERT INTO `tbl_solicitudes_producto` (`Id_Solicitudes_Producto`, `Id_Solicitudes_Tipo`, `Cantidad_Existencias`, `Estado`, `Cantidad_Producir`, `Subtotal`, `Cant_Cotizada`, `Id_Fichas_Tallas`) VALUES
-(1, 2, 0, 'k', 10, 34000, 10, 6),
-(2, 2, 0, 'k', 21, 136500, 21, 3),
-(3, 2, 0, 'k', 12, 144000, 12, 1),
-(4, 2, 0, 'k', 10, 120000, 10, 2),
-(5, 2, 0, 'k', 8, 52000, 8, 5),
-(6, 2, 0, 'k', 4, 26000, 4, 4),
-(7, 3, 0, '0', 12, 40800, NULL, 6),
-(8, 3, 0, '0', 10, 65000, NULL, 4),
-(9, 4, 0, '0', 10, 65000, NULL, 4),
-(10, 4, 0, '0', 10, 120000, NULL, 2),
-(11, 5, 0, '0', 2, 13000, NULL, 5),
-(12, 5, 0, '0', 3, 19500, NULL, 3),
-(13, 6, 0, '0', 1, 12000, NULL, 2),
-(14, 6, 0, '0', 1, 6500, NULL, 5),
-(15, 7, 0, '0', 1, 3400, NULL, 6),
-(16, 7, 0, '0', 1, 6500, NULL, 4),
-(17, 7, 0, '0', 1, 12000, NULL, 2),
-(18, 7, 0, '0', 1, 6500, NULL, 5),
-(19, 8, 0, '0', 1, 12000, NULL, 1),
-(20, 8, 0, '0', 1, 12000, NULL, 2),
-(21, 9, 0, '0', 1, 12000, NULL, 1),
-(22, 9, 0, '0', 1, 6500, NULL, 4),
-(23, 9, 0, '0', 1, 12000, NULL, 2),
-(24, 9, 0, '0', 1, 6500, NULL, 5),
-(25, 10, 0, '0', 1, 3400, NULL, 6),
-(26, 10, 0, '0', 1, 6500, NULL, 4),
-(27, 11, 0, '0', 2, 6800, NULL, 6),
-(28, 11, 0, '0', 2, 24000, NULL, 1),
-(29, 13, 0, 'k', 10, 34000, 10, 6),
-(32, 15, 0, 'k', 1, 12000, 1, 1),
-(33, 15, 0, 'k', 2, 24000, 2, 2),
-(37, 18, 0, 'k', 1, 12000, 1, 1),
-(38, 18, 0, 'k', 1, 6500, 1, 3),
-(41, 17, 0, '0', 1, 6800, NULL, 6),
-(62, 16, 0, '0', 1, 3400, NULL, 6),
-(75, 22, 0, '0', 2, 13000, NULL, 5),
-(76, 22, 0, '0', 2, 48000, NULL, 2),
-(79, 23, 0, '0', 1, 24000, NULL, 1);
+(2, 2, 0, 'k', 50, 200000, 50, 1),
+(5, 3, 0, '0', 5, 40000, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -1371,29 +1121,9 @@ CREATE TABLE `tbl_solicitudes_tipo` (
 --
 
 INSERT INTO `tbl_solicitudes_tipo` (`Id_Solicitudes_Tipo`, `Id_Solicitud`, `Id_Tipo`, `Fecha_Entrega`, `Fecha_Vencimiento`, `Id_Estado`) VALUES
-(1, 1, 1, NULL, '2016-12-30', 2),
-(2, 1, 2, '2016-12-29', NULL, 8),
-(3, 2, 2, '2016-12-29', NULL, 6),
-(4, 3, 2, '2016-12-31', NULL, 6),
-(5, 4, 2, '2016-12-31', NULL, 6),
-(6, 5, 2, '2016-12-31', NULL, 6),
-(7, 6, 2, '2016-12-30', NULL, 6),
-(8, 7, 2, '2016-12-31', NULL, 6),
-(9, 8, 2, '2016-12-30', NULL, 6),
-(10, 9, 2, '2017-01-06', NULL, 6),
-(11, 10, 2, '2017-01-06', NULL, 6),
-(12, 11, 1, NULL, '2017-01-06', 2),
-(13, 11, 2, '2017-01-06', NULL, 5),
-(14, 12, 1, NULL, '2016-12-30', 2),
-(15, 12, 2, '2016-12-30', NULL, 5),
-(16, 13, 2, '2016-12-22', NULL, 5),
-(17, 14, 2, '2016-12-23', NULL, 5),
-(18, 15, 1, NULL, '2016-12-30', 2),
-(19, 16, 2, '2017-01-05', NULL, 8),
-(20, 17, 2, '2017-01-06', NULL, 8),
-(21, 18, 2, '2017-04-27', NULL, 8),
-(22, 19, 2, '2016-12-23', NULL, 5),
-(23, 20, 2, '2016-12-31', NULL, 5);
+(1, 1, 1, NULL, '2016-12-30', 1),
+(2, 1, 2, '2016-12-29', NULL, 6),
+(3, 2, 2, '2016-12-31', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -1413,7 +1143,12 @@ CREATE TABLE `tbl_tallas` (
 INSERT INTO `tbl_tallas` (`Id_Talla`, `Nombre`) VALUES
 (1, 'L'),
 (2, 'M'),
-(3, 'S');
+(3, 'S'),
+(4, '2-4'),
+(5, '6-8'),
+(6, '10-12'),
+(7, '14-16'),
+(8, 'UNICA');
 
 -- --------------------------------------------------------
 
@@ -1470,10 +1205,8 @@ CREATE TABLE `tbl_unidades_medida` (
 --
 
 INSERT INTO `tbl_unidades_medida` (`Id_Medida`, `Abreviatura`, `Nombre`) VALUES
-(1, 'Mt', 'Metros'),
-(2, 'Ud', 'Unidades'),
-(3, 'Cm', 'Centimetros'),
-(4, 'crr', 'Carrete');
+(1, 'cm', 'Centimetro'),
+(2, 'mt', 'Metros');
 
 -- --------------------------------------------------------
 
@@ -1494,9 +1227,7 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`Id_Usuario`, `Num_Documento`, `Tbl_Roles_Id_Rol`, `Usuario`, `Clave`) VALUES
-(1, '1037590137', 1, 'jpmorales', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220'),
-(3, '2368115821', 3, 'kevincito', '8d48ec0a17d8c4cec8d1ef940c88c26694fb5a13'),
-(4, '23493929', 2, 'jaac219', '21a47b702e696840f59d72df8c7ff128a0a20a54');
+(1, '1037590137', 1, 'jpmorales', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220');
 
 --
 -- Índices para tablas volcadas
@@ -1730,22 +1461,22 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_colores`
 --
 ALTER TABLE `tbl_colores`
-  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Color` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_colores_insumos`
 --
 ALTER TABLE `tbl_colores_insumos`
-  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_Existencias_InsCol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas`
 --
 ALTER TABLE `tbl_entradas`
-  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id_Entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_entradas_exitencias`
 --
 ALTER TABLE `tbl_entradas_exitencias`
-  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id_Entrada_Existencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tbl_estado`
 --
@@ -1755,27 +1486,27 @@ ALTER TABLE `tbl_estado`
 -- AUTO_INCREMENT de la tabla `tbl_existencias_salidas`
 --
 ALTER TABLE `tbl_existencias_salidas`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichastecnicas_tallas`
 --
 ALTER TABLE `tbl_fichastecnicas_tallas`
-  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_Fichas_Tallas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_fichas_tecnicas`
 --
 ALTER TABLE `tbl_fichas_tecnicas`
-  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Ficha_Tecnica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos`
 --
 ALTER TABLE `tbl_insumos`
-  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_Insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `tbl_insumos_fichastecnicas`
 --
 ALTER TABLE `tbl_insumos_fichastecnicas`
-  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_Insumos_Fichas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
@@ -1785,17 +1516,17 @@ ALTER TABLE `tbl_modulos`
 -- AUTO_INCREMENT de la tabla `tbl_notificaciones`
 --
 ALTER TABLE `tbl_notificaciones`
-  MODIFY `Id_Notificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `Id_Notificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT de la tabla `tbl_objetivos`
 --
 ALTER TABLE `tbl_objetivos`
-  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Objetivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_ordenesproduccion`
 --
 ALTER TABLE `tbl_ordenesproduccion`
-  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Num_Orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
@@ -1805,7 +1536,7 @@ ALTER TABLE `tbl_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_productos_objetivos`
 --
 ALTER TABLE `tbl_productos_objetivos`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
@@ -1820,42 +1551,42 @@ ALTER TABLE `tbl_rol_permisos`
 -- AUTO_INCREMENT de la tabla `tbl_salidas`
 --
 ALTER TABLE `tbl_salidas`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salidas_productos`
 --
 ALTER TABLE `tbl_salidas_productos`
-  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Salida` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_salida_ficha`
 --
 ALTER TABLE `tbl_salida_ficha`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes`
 --
 ALTER TABLE `tbl_solicitudes`
-  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Id_Solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_ordenesproduccion`
 --
 ALTER TABLE `tbl_solicitudes_ordenesproduccion`
-  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_producto`
 --
 ALTER TABLE `tbl_solicitudes_producto`
-  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `Id_Solicitudes_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `tbl_solicitudes_tipo`
 --
 ALTER TABLE `tbl_solicitudes_tipo`
-  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `Id_Solicitudes_Tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tallas`
 --
 ALTER TABLE `tbl_tallas`
-  MODIFY `Id_Talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipopersona`
 --
@@ -1865,7 +1596,7 @@ ALTER TABLE `tbl_tipopersona`
 -- AUTO_INCREMENT de la tabla `tbl_unidades_medida`
 --
 ALTER TABLE `tbl_unidades_medida`
-  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --

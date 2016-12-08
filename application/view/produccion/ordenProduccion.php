@@ -231,11 +231,10 @@ $html = '<!DOCTYPE html>
             <td style="width:80mm;">
                 <h1 class="heading">Número de la orden: '.$numOrd.'</h1>
                 <br>
-                <h2 class="heading">Tipo De Documento :</h2>
-                <h2 class="heading">Número de Documento :</h2>
-                <h2 class="heading">Teléfono :</h2>
-                <h2 class="heading">Dirección :</h2>
-                <h2 class="heading">E-mail :</h2>
+                <h2 class="heading">Fecha registro: '.$fechReg.'</h2>
+                <h2 class="heading">Fecha terminación: '.$fechaTer.'</h2>
+                <h2 class="heading">Nombre cliente: '.$nomCLiente.'</h2>
+                <h2 class="heading">Documento cliente: '.$docCliente.'</h2>
             </td>
             <td valign="top">
                 <table class="" style="width:100%;">
