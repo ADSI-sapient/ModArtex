@@ -56,15 +56,15 @@
                       <td style="text-align: center">
                         <?php if ($cliente["Num_Documento"] == "1017223026"): ?>
                           <?php if ($cliente["Estado"] == 1){ ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                             <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                            <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                           <?php } ?>
                           <?php else: ?>
                             <?php if ($cliente["Estado"] == 1){ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 0)"><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                             <?php }else{ ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoC(<?= $cliente['Num_Documento'] ?>, 1)"><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                           <?php } ?>
                         <?php endif ?>
                         </td>

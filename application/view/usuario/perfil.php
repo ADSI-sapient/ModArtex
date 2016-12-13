@@ -52,17 +52,17 @@
             </div>
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
               <label class="">*Contraseña Actual:</label>
-              <input id="perClaveAct" type="password" class="form-control" maxlength="10" minlength="6">
+              <input id="perClaveAct" type="password" class="form-control" maxlength="12" minlength="6">
             </div>
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
               <label class="">*Contraseña Nueva:</label>
-              <input id="perClaveNue" type="password" class="form-control" maxlength="10" minlength="6">
+              <input id="perClaveNue" type="password" class="form-control" maxlength="12" minlength="6">
             </div>
           </div>
             <div class="row col-md-12" style="margin-left:0.5%">
             <div style="display: none;" class="form-group col-md-4 clavePerfil">
               <label class="">*Confirmar Nueva Contraseña:</label>
-              <input id="perRepClaveNue" type="password" class="form-control" maxlength="10" minlength="6">
+              <input id="perRepClaveNue" type="password" class="form-control" maxlength="12" minlength="6">
             </div>
             <div class="form-group col-md-4">
             <div class="col-md-12" style="padding-left:0;">

@@ -76,7 +76,7 @@
 			        
 			     	header(URL . '/ctrCotizacion/regCotizacion');    
 			    }else{
-			    	$mensajeCo = "swal('Cotizacion No Registrada','','success')";
+			    	$mensajeCo = "swal('Cotización no registrada','','success')";
 			    }
 	        }
 
@@ -123,7 +123,7 @@
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 
 				}else {
-					$_SESSION['alert'] = "sweetAlert('Erro Al Modificar Cotizacion','','error')";
+					$_SESSION['alert'] = "sweetAlert('Error al modificar la cotización','','error')";
 				  header ("location: ".URL."ctrCotizacion/consCotizacion");
 				}
 
@@ -180,7 +180,7 @@
 						 	$this->modelo->__SET("Cantidad_existencias", $_POST["exisProdTerCotPed"][$i]);
 
 						 	if ($this->modelo->updateProductTerminado()) {
-						 		$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización Enviada A Pedido exitosamente!'});";
+						 		$_SESSION['alert'] =  "Lobibox.notify('success', {size: 'mini', msg: 'Cotización enviada a pedido exitosamente!'});";
 						 	}
 						}
 					}

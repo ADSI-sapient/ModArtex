@@ -148,7 +148,7 @@
 			// $refPro = [];
 
 			foreach ($grafi as $value) {
-				$objetivo[] = $value["Referencia"];
+				$objetivo[] = $value["Referencia"]." - ".$value["FechaInicio"]." - ".$value["FechaFin"];
 				$refObj[] = $value["Avance"];
 				$cant[] = $value["Cantidad"];
 				// $refPro[] = $value[__SET("Referencia")];

@@ -328,7 +328,7 @@ function validarEmail(email) {
 
 function validarTelefono(telefono){
     if (!/^([0-9])*$+/.test(telefono))
-      Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El numero de telefono ingresado contiene caracteres incorrectos'}); 
+      Lobibox.notify('warning', {size: 'mini', delayIndicator: false, msg: 'El número de teléfono ingresado contiene caracteres incorrectos'}); 
   }
 
 

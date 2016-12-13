@@ -37,9 +37,9 @@ class CtrCliente extends Controller{
 					       
 					    	//Registrar usuario
 							if($this->mdlModel->regCliente()){
-								$mensajec = "Lobibox.notify('success', {size: 'mini', msg: 'Cliente registrado exitosamente!'});"; 
+								$mensajec = "Lobibox.notify('success', {size: 'mini', msg: 'Cliente registradó exitosamente!'});"; 
 							}else{
-								$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'No se puedo registrar el cliente'});"; 
+								$mensajec = "Lobibox.notify('error', {size: 'mini', msg: 'No se pudo registrar el cliente'});"; 
 							}
 						}else{
 							$mensajec = "Lobibox.notify('warning', {size: 'mini', msg: 'El correo ingresado ya se encuentra en la base de datos'});";

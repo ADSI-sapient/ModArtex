@@ -53,9 +53,9 @@
                     </td>
                     <td>
                       <?php if ($ficha["Estado"] == 1){ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 0)"><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                       <?php }else{ ?>
-                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i style="font-size: 150%;" class="fa fa-check"></i></button>
+                      <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoFicha(<?= $ficha["Id_Ficha_Tecnica"] ?>, 1)"><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                       <?php } ?>
                     </td>
                     <td>

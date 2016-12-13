@@ -34,7 +34,7 @@
                         <tr class="active">
                           <th>Módulo</th>
                           <th>Permiso</th>
-                          <th>Quitar</th>
+                          <th>Retirar</th>
                         </tr>
                       </thead>
                       <tbody id="tblPas">
@@ -105,15 +105,15 @@
                     <?php if ($rol["Id_Rol"] == 1): ?>
 
                         <?php if ($rol["Estado"] == 1): ?>
-                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-minus-circle" style="font-size: 150%;"></i></button>
+                        <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled=""><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                         <?php endif ?>
                   <?php else: ?>
                     <?php if ($rol["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-minus-circle" style="font-size: 150%;"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 0)"><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                         <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-check" style="font-size: 150%;"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstadoRol(<?= $rol['Id_Rol'] ?>, 1)"><i class="fa fa-repeat" style="font-size: 150%; color: green;"></i></button>
                           <?php endif ?>
 
                       <?php endif ?>

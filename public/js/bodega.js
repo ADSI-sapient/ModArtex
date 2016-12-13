@@ -320,6 +320,7 @@ function seleccionCol(col, idcolor){
 
         function existen(id, ins){
 
+
           alertaStockProductoT();
           alertaStockInsumos();
           $("#cant").val("");

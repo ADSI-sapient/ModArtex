@@ -24,7 +24,7 @@
                     <th>Estado</th>
                     <th>Stock Mínimo</th>
                     <th style="width: 7%">Editar</th>
-                    <th style="width: 7%">Estado</th>
+                    <th style="width: 10%">Cambiar Estado</th>
                     <th style="width: 7%">Detalle</th>
                     <th style="display: none;"></th>
                   </tr>
@@ -53,10 +53,10 @@
                     </td>
                     <td style="text-align: center;">
                       <?php if ($valor["Estado"] == 1): ?>
-                           <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button> 
+                           <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 0)" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button> 
                       <?php endif ?>
                       <?php if ($valor["Estado"] == 0): ?>
-                           <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i style="font-size: 150%;" class="fa fa-check"></i></button> 
+                           <button type="button" onclick="camEst(<?= $valor["Id_Insumo"]?>, 1)" class="btn btn-box-tool"><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button> 
                       <?php endif ?>
                     </td> 
                     <td style="text-align: center;">

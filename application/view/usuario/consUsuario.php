@@ -62,18 +62,18 @@
                        <?php if ($usuario["idRol"] == 1): ?>
 
                           <?php if ($usuario["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                           <?php else: ?>
-                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%;" class="fa fa-check"></i></button>
+                          <button type="button" class="btn btn-box-tool" disabled><i style="font-size: 150%; color: green;" class="fa fa-repeat"></i></button>
                           <?php endif ?>
 
 
                        <?php else: ?>
 
                          <?php if ($usuario["Estado"] == 1): ?>
-                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-minus-circle"></i></button>
+                          <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 0)"><i style="font-size: 150%;" class="fa fa-repeat"></i></button>
                           <?php else: ?>
-                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i style="font-size: 150%;" class="fa fa-check"></i></button>
+                            <button type="button" class="btn btn-box-tool" onclick="cambiarEstado(<?= $usuario['Num_Documento'] ?>, 1)"><i style="font-size: 150%;" class="fa fa-repeat"></i></button>
                           <?php endif ?>
 
                           <?php endif ?>

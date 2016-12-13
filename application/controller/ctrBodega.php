@@ -34,7 +34,7 @@ class ctrBodega extends Controller{
 				$this->_modelInsumo->regColorInsumo();
 			}
 
-			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El insumo se registro correctamente!'});";
+			$_SESSION["mensaje"] = "Lobibox.notify('success', {delay: 6000, size: 'mini', msg: 'El insumo se registró correctamente!'});";
 		}
 
 		$lista = $this->_modelColor->listar();
