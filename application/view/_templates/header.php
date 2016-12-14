@@ -6,6 +6,7 @@
   <title>ModArtex</title>
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="<?= URL; ?>css/ayuda.css">
   <link rel="stylesheet" href="<?= URL; ?>css/bootstrap.css">
   <link rel="stylesheet" href="<?= URL; ?>css/font-awesome-4.6.1/css/font-awesome.css">
   <link rel="stylesheet" href="<?= URL; ?>css/daterangepicker-bs3.css">
@@ -109,20 +110,20 @@
                 </p>
                             <div >
               <a href="#">
-                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalAcerca" class="dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalAcerca" class="dropdown-toggle btn btn-box-tool col-md-6 pull-left"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
               </a>
             
 
               <a href="<?= URL;?>ctrCotizacion/mapa">
-                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalMapa" class="dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-sitemap" aria-hidden="true"></i>
+                <button type="button" style="font-size: 30px;" data-toggle="modal" data-target="#ModalMapa" class="dropdown-toggle btn btn-box-tool col-md-6 pull-right"><i class="fa fa-sitemap" aria-hidden="true"></i>
                 </button>
               </a>
             
             
-                <a href="#">
+<!--                 <a target="_blank" href="<?= URL; ?>home/ayuda">
                   <button type="button" style="font-size: 30px;" class=" dropdown-toggle btn btn-box-tool col-md-4 pull-left"><i class="fa fa-question" aria-hidden="true"></i>
                   </button>
-                </a>
+                </a> -->
             </div>
               </li>
               <li class="user-footer">

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2016 a las 13:24:00
+-- Tiempo de generación: 14-12-2016 a las 14:19:47
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -765,7 +765,7 @@ INSERT INTO `tbl_modulos` (`id_Modulo`, `Nombre`, `Icon`) VALUES
 (4, 'Cliente', 'fa fa-users'),
 (5, 'Cotización', 'fa fa-calculator'),
 (6, 'Pedido', 'fa fa-calendar'),
-(7, 'Producción', 'fa fa-calendar'),
+(7, 'Producción', 'fa fa-calendar-check-o'),
 (8, 'Producto Terminado', 'fa fa-dropbox'),
 (9, 'Configuración', 'fa fa-cogs'),
 (10, 'Objetivos', 'fa fa-signal');
